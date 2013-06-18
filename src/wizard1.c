@@ -28,36 +28,12 @@ static FILE *fff = NULL;
  */
 static cptr attr_to_text(monster_race *r_ptr)
 {
-#ifdef JP000
-	if (r_ptr->flags1 & RF1_ATTR_CLEAR)    return "Æ©ÌÀ¤Ê";
-	if (r_ptr->flags1 & RF1_ATTR_MULTI)    return "Ëü¿§¤Î";
-	if (r_ptr->flags1 & RF1_ATTR_SEMIRAND) return "½à¥é¥ó¥À¥à¤Ê";
-#else
 	if (r_ptr->flags1 & RF1_ATTR_CLEAR)    return "Clear";
 	if (r_ptr->flags1 & RF1_ATTR_MULTI)    return "Multi";
 	if (r_ptr->flags1 & RF1_ATTR_SEMIRAND) return "S.Rand";
-#endif
 
 	switch (r_ptr->d_attr)
 	{
-#ifdef JP000
-	case TERM_DARK:    return "XXX¤¤";
-	case TERM_WHITE:   return "Çò¤¤";
-	case TERM_SLATE:   return "ÀÄ³¥¿§¤Î";
-	case TERM_ORANGE:  return "¥ª¥ì¥ó¥¸¤Î";
-	case TERM_RED:     return "ÀÖ¤¤";
-	case TERM_GREEN:   return "ÎÐ¤Î";
-	case TERM_BLUE:    return "ÀÄ¤¤";
-	case TERM_UMBER:   return "àèàá¿§¤Î";
-	case TERM_L_DARK:  return "³¥¿§¤Î";
-	case TERM_L_WHITE: return "ÌÀÀÄ³¥¿§¤Î";
-	case TERM_VIOLET:  return "»ç¤Î";
-	case TERM_YELLOW:  return "²«¿§¤¤";
-	case TERM_L_RED:   return "ÌÀ¤¤ÀÖ¤Î";
-	case TERM_L_GREEN: return "ÌÀ¤¤ÎÐ¤Î";
-	case TERM_L_BLUE:  return "ÌÀ¤¤ÀÄ¤Î";
-	case TERM_L_UMBER: return "ÌÀ¤¤àèàá¿§¤Î";
-#else
 	case TERM_DARK:    return "xxx";
 	case TERM_WHITE:   return "White";
 	case TERM_SLATE:   return "Slate";
@@ -74,15 +50,10 @@ static cptr attr_to_text(monster_race *r_ptr)
 	case TERM_L_GREEN: return "L.Green";
 	case TERM_L_BLUE:  return "L.Blue";
 	case TERM_L_UMBER: return "L.Umber";
-#endif
 	}
 
 	/* Oops */
-#ifdef JP000
-	return "ÊÑ¤Ê";
-#else
 	return "Icky";
-#endif
 }
 
 
@@ -108,45 +79,25 @@ typedef struct
  */
 static grouper group_item[] =
 {
-#ifdef JP
-	{ TV_SHOT,          "¼Í·âÊª" },
-#else
 	{ TV_SHOT,          "Ammo" },
-#endif
 
 	{ TV_ARROW,         NULL },
 	{ TV_BOLT,          NULL },
 
-#ifdef JP
-	{ TV_BOW,           "µÝ" },
-#else
 	{ TV_BOW,           "Bows" },
-#endif
 
-#ifdef JP
-	{ TV_DIGGING,       "Éð´ï" },
-#else
 	{ TV_DIGGING,       "Weapons" },
-#endif
 
 	{ TV_POLEARM,       NULL },
 	{ TV_HAFTED,        NULL },
 	{ TV_SWORD,         NULL },
 
-#ifdef JP
-	{ TV_SOFT_ARMOR,    "ËÉ¶ñ (ÂÎ)" },
-#else
 	{ TV_SOFT_ARMOR,    "Armour (Body)" },
-#endif
 
 	{ TV_HARD_ARMOR,    NULL },
 	{ TV_DRAG_ARMOR,    NULL },
 
-#ifdef JP
-	{ TV_BOOTS,         "ËÉ¶ñ (¤½¤ÎÂ¾)" },
-#else
 	{ TV_BOOTS,         "Armour (Misc)" },
-#endif
 
 	{ TV_GLOVES,        NULL },
 	{ TV_HELM,          NULL },
@@ -154,53 +105,18 @@ static grouper group_item[] =
 	{ TV_SHIELD,        NULL },
 	{ TV_CLOAK,         NULL },
 
-#ifdef JP
-	{ TV_LITE,          "¸÷¸»" },
-	{ TV_AMULET,        "¥¢¥ß¥å¥ì¥Ã¥È" },
-	{ TV_RING,          "»ØÎØ" },
-#else
 	{ TV_LITE,          "Light Sources" },
 	{ TV_AMULET,        "Amulets" },
 	{ TV_RING,          "Rings" },
-#endif
 
-#ifdef JP
-	{ TV_STAFF,         "¾ó" },
-	{ TV_WAND,          "ËâË¡ËÀ" },
-	{ TV_ROD,           "¥í¥Ã¥É" },
-#else
 	{ TV_STAFF,         "Staffs" },
 	{ TV_WAND,          "Wands" },
 	{ TV_ROD,           "Rods" },
-#endif
 
-#ifdef JP
-	{ TV_SCROLL,        "´¬Êª" },
-	{ TV_POTION,        "Ìô" },
-	{ TV_FOOD,          "¿©ÎÁ" },
-#else
 	{ TV_SCROLL,        "Scrolls" },
 	{ TV_POTION,        "Potions" },
 	{ TV_FOOD,          "Food" },
-#endif
 
-#ifdef JP
-	{ TV_LIFE_BOOK,     "ËâË¡½ñ (À¸Ì¿)" },
-	{ TV_SORCERY_BOOK,  "ËâË¡½ñ (Àç½Ñ)" },
-	{ TV_NATURE_BOOK,   "ËâË¡½ñ (¼«Á³)" },
-	{ TV_CHAOS_BOOK,    "ËâË¡½ñ (¥«¥ª¥¹)" },
-	{ TV_DEATH_BOOK,    "ËâË¡½ñ (°Å¹õ)" },
-	{ TV_TRUMP_BOOK,    "ËâË¡½ñ (¥È¥é¥ó¥×)" },
-	{ TV_ARCANE_BOOK,   "ËâË¡½ñ (Èë½Ñ)" },
-	{ TV_CRAFT_BOOK,    "ËâË¡½ñ (¾¢)" },
-	{ TV_DAEMON_BOOK,   "ËâË¡½ñ (°­Ëâ)" },
-	{ TV_CRUSADE_BOOK,  "ËâË¡½ñ (ÇË¼Ù)" },
-	{ TV_NECROMANCY_BOOK, "Books (Necromancy)" },
-	{ TV_MUSIC_BOOK,    "²Î½¸" },
-	{ TV_HISSATSU_BOOK, "Éð·Ý¤Î½ñ" },
-	{ TV_HEX_BOOK,      "ËâË¡½ñ (¼ö½Ñ)" },
-	{ TV_RAGE_BOOK,      "Books (Rage)" },
-#else
 	{ TV_LIFE_BOOK,     "Books (Life)" },
 	{ TV_SORCERY_BOOK,  "Books (Sorcery)" },
 	{ TV_NATURE_BOOK,   "Books (Nature)" },
@@ -217,39 +133,18 @@ static grouper group_item[] =
 	{ TV_HISSATSU_BOOK, "Books (Kendo)" },
 	{ TV_HEX_BOOK,      "Books (Hex)" },
 	{ TV_RAGE_BOOK,      "Books (Rage)" },
-#endif
 
-#ifdef JP
-	{ TV_WHISTLE,       "Å«" },
-	{ TV_CAPTURE,       "¥­¥ã¥×¥Á¥ã¡¼¡¦¥Ü¡¼¥ë" },
-	{ TV_CARD,          "¥¨¥¯¥¹¥×¥ì¥¹¥«¡¼¥É" },
-#else
 	{ TV_WHISTLE,       "Whistle" },
 	{ TV_CAPTURE,       "Capture Ball" },
 	{ TV_CARD,          "Express Card" },
-#endif
 
-#ifdef JP
-	{ TV_CHEST,         "È¢" },
-#else
 	{ TV_CHEST,         "Chests" },
-#endif
 
-#ifdef JP
-	{ TV_FIGURINE,      "¿Í·Á" },
-	{ TV_STATUE,        "Áü" },
-	{ TV_CORPSE,        "»àÂÎ" },
-#else
 	{ TV_FIGURINE,      "Magical Figurines" },
 	{ TV_STATUE,        "Statues" },
 	{ TV_CORPSE,        "Corpses" },
-#endif
 
-#ifdef JP
-	{ TV_SKELETON,      "¤½¤ÎÂ¾" },
-#else
 	{ TV_SKELETON,      "Misc" },
-#endif
 
 	{ TV_BOTTLE,        NULL },
 	{ TV_JUNK,          NULL },
@@ -521,30 +416,6 @@ static void spoil_obj_desc(cptr fname)
  */
 static grouper group_artifact[] =
 {
-#ifdef JP
-	{ TV_SWORD,             "Åá·õ" },
-	{ TV_POLEARM,           "Áä/Éà" },
-	{ TV_HAFTED,            "Æß´ï" },
-	{ TV_DIGGING,           "¥·¥ã¥Ù¥ë/¤Ä¤ë¤Ï¤·" },
-	{ TV_BOW,               "Èô¤ÓÆ»¶ñ" },
-	{ TV_ARROW,             "Ìð" },
-
-	{ TV_SOFT_ARMOR,        "³»" },
-	{ TV_HARD_ARMOR,        NULL },
-	{ TV_DRAG_ARMOR,        NULL },
-
-	{ TV_CLOAK,             "¥¯¥í¡¼¥¯" },
-	{ TV_SHIELD,            "½â" },
-	{ TV_CARD,              NULL },
-	{ TV_HELM,              "³õ/´§" },
-	{ TV_CROWN,             NULL },
-	{ TV_GLOVES,            "äÆ¼ê" },
-	{ TV_BOOTS,             "·¤" },
-
-	{ TV_LITE,              "¸÷¸»" },
-	{ TV_AMULET,            "¥¢¥ß¥å¥ì¥Ã¥È" },
-	{ TV_RING,              "»ØÎØ" },
-#else
 	{ TV_SWORD,             "Edged Weapons" },
 	{ TV_POLEARM,           "Polearms" },
 	{ TV_HAFTED,            "Hafted Weapons" },
@@ -567,7 +438,6 @@ static grouper group_artifact[] =
 	{ TV_LITE,              "Light Sources" },
 	{ TV_AMULET,            "Amulets" },
 	{ TV_RING,              "Rings" },
-#endif
 
 	{ 0, NULL }
 };
@@ -603,21 +473,12 @@ struct flag_desc
 
 static flag_desc stat_flags_desc[] =
 {
-#ifdef JP
-	{ TR_STR,        "ÏÓÎÏ" },
-	{ TR_INT,        "ÃÎÇ½" },
-	{ TR_WIS,        "¸­¤µ" },
-	{ TR_DEX,        "´ïÍÑ¤µ" },
-	{ TR_CON,        "ÂÑµ×ÎÏ" },
-	{ TR_CHR,        "Ì¥ÎÏ" }
-#else
 	{ TR_STR,        "STR" },
 	{ TR_INT,        "INT" },
 	{ TR_WIS,        "WIS" },
 	{ TR_DEX,        "DEX" },
 	{ TR_CON,        "CON" },
 	{ TR_CHR,        "CHR" }
-#endif
 };
 
 /*
@@ -627,22 +488,12 @@ static flag_desc stat_flags_desc[] =
 
 static flag_desc pval_flags1_desc[] =
 {
-#ifdef JP
-	{ TR_MAGIC_MASTERY,    "ËâË¡Æ»¶ñ»ÈÍÑÇ½ÎÏ" },
-	{ TR_STEALTH,    "±£Ì©" },
-	{ TR_SEARCH,     "Ãµº÷" },
-	{ TR_INFRA,      "ÀÖ³°Àþ»ëÎÏ" },
-	{ TR_TUNNEL,     "ºÎ·¡" },
-	{ TR_BLOWS,      "¹¶·â²ó¿ô" },
-	{ TR_SPEED,      "¥¹¥Ô¡¼¥É" }
-#else
 	{ TR_STEALTH,    "Stealth" },
 	{ TR_SEARCH,     "Searching" },
 	{ TR_INFRA,      "Infravision" },
 	{ TR_TUNNEL,     "Tunneling" },
 	{ TR_BLOWS,      "Attacks" },
 	{ TR_SPEED,      "Speed" }
-#endif
 };
 
 /*
@@ -651,26 +502,6 @@ static flag_desc pval_flags1_desc[] =
 
 static flag_desc slay_flags_desc[] =
 {
-#ifdef JP
-	{ TR_SLAY_ANIMAL,        "Æ°Êª" },
-	{ TR_KILL_ANIMAL,        "*Æ°Êª*" },
-	{ TR_SLAY_EVIL,          "¼Ù°­" },
-	{ TR_KILL_EVIL,          "*¼Ù°­*" },
-	{ TR_SLAY_HUMAN,         "¿Í´Ö" },
-	{ TR_KILL_HUMAN,         "*¿Í´Ö*" },
-	{ TR_SLAY_UNDEAD,        "¥¢¥ó¥Ç¥Ã¥É" },
-	{ TR_KILL_UNDEAD,        "*¥¢¥ó¥Ç¥Ã¥É*" },
-	{ TR_SLAY_DEMON,         "°­Ëâ" },
-	{ TR_KILL_DEMON,         "*°­Ëâ*" },
-	{ TR_SLAY_ORC,           "¥ª¡¼¥¯" },
-	{ TR_KILL_ORC,           "*¥ª¡¼¥¯*" },
-	{ TR_SLAY_TROLL,         "¥È¥í¥ë" },
-	{ TR_KILL_TROLL,         "*¥È¥í¥ë*" },
-	{ TR_SLAY_GIANT,         "µð¿Í" },
-	{ TR_KILL_GIANT,         "*µð¿Í*" },
-	{ TR_SLAY_DRAGON,        "¥É¥é¥´¥ó" },
-	{ TR_KILL_DRAGON,        "*¥É¥é¥´¥ó*" },
-#else
 	{ TR_SLAY_ANIMAL,        "Animal" },
 	{ TR_KILL_ANIMAL,        "XAnimal" },
 	{ TR_SLAY_EVIL,          "Evil" },
@@ -689,7 +520,6 @@ static flag_desc slay_flags_desc[] =
 	{ TR_KILL_GIANT,         "Xgiant" },
 	{ TR_SLAY_DRAGON,        "Dragon" },
 	{ TR_KILL_DRAGON,        "Xdragon" }
-#endif
 };
 
 /*
@@ -702,19 +532,6 @@ static flag_desc slay_flags_desc[] =
  */
 static flag_desc brand_flags_desc[] =
 {
-#ifdef JP
-	{ TR_BRAND_ACID,         "ÍÏ²ò" },
-	{ TR_BRAND_ELEC,         "ÅÅ·â" },
-	{ TR_BRAND_FIRE,         "¾Æ´þ" },
-	{ TR_BRAND_COLD,         "Åà·ë" },
-	{ TR_BRAND_POIS,         "ÆÇ»¦" },
-
-	{ TR_FORCE_WEAPON,       "ÍýÎÏ" },
-	{ TR_CHAOTIC,            "º®ÆÙ" },
-	{ TR_VAMPIRIC,           "µÛ·ì" },
-	{ TR_IMPACT,             "ÃÏ¿Ì" },
-	{ TR_VORPAL,             "ÀÚ¤ìÌ£" },
-#else
 	{ TR_BRAND_ACID,         "Acid Brand" },
 	{ TR_BRAND_ELEC,         "Lightning Brand" },
 	{ TR_BRAND_FIRE,         "Flame Tongue" },
@@ -726,7 +543,6 @@ static flag_desc brand_flags_desc[] =
 	{ TR_VAMPIRIC,           "Vampiric" },
 	{ TR_IMPACT,             "Earthquake impact on hit" },
 	{ TR_VORPAL,             "Very sharp" },
-#endif
 };
 
 
@@ -735,24 +551,6 @@ static flag_desc brand_flags_desc[] =
  */
 static const flag_desc resist_flags_desc[] =
 {
-#ifdef JP
-	{ TR_RES_ACID,   "»À" },
-	{ TR_RES_ELEC,   "ÅÅ·â" },
-	{ TR_RES_FIRE,   "²Ð±ê" },
-	{ TR_RES_COLD,   "Îäµ¤" },
-	{ TR_RES_POIS,   "ÆÇ" },
-	{ TR_RES_FEAR,   "¶²ÉÝ"},
-	{ TR_RES_LITE,   "Á®¸÷" },
-	{ TR_RES_DARK,   "°Å¹õ" },
-	{ TR_RES_BLIND,  "ÌÕÌÜ" },
-	{ TR_RES_CONF,   "º®Íð" },
-	{ TR_RES_SOUND,  "¹ì²»" },
-	{ TR_RES_SHARDS, "ÇËÊÒ" },
-	{ TR_RES_NETHER, "ÃÏ¹ö" },
-	{ TR_RES_NEXUS,  "°ø²Ìº®Íð" },
-	{ TR_RES_CHAOS,  "¥«¥ª¥¹" },
-	{ TR_RES_DISEN,  "Îô²½" },
-#else
 	{ TR_RES_ACID,   "Acid" },
 	{ TR_RES_ELEC,   "Lightning" },
 	{ TR_RES_FIRE,   "Fire" },
@@ -770,7 +568,6 @@ static const flag_desc resist_flags_desc[] =
 	{ TR_RES_CHAOS,  "Chaos" },
 	{ TR_RES_DISEN,  "Disenchantment" },
 	{ TR_RES_TIME,   "Time" },
-#endif
 };
 
 /*
@@ -779,17 +576,10 @@ static const flag_desc resist_flags_desc[] =
 
 static const flag_desc immune_flags_desc[] =
 {
-#ifdef JP
-	{ TR_IM_ACID,    "»À" },
-	{ TR_IM_ELEC,    "ÅÅ·â" },
-	{ TR_IM_FIRE,    "²Ð±ê" },
-	{ TR_IM_COLD,    "Îäµ¤" },
-#else
 	{ TR_IM_ACID,    "Acid" },
 	{ TR_IM_ELEC,    "Lightning" },
 	{ TR_IM_FIRE,    "Fire" },
 	{ TR_IM_COLD,    "Cold" },
-#endif
 };
 
 /*
@@ -798,21 +588,12 @@ static const flag_desc immune_flags_desc[] =
  */
 static const flag_desc sustain_flags_desc[] =
 {
-#ifdef JP
-	{ TR_SUST_STR,   "ÏÓÎÏ" },
-	{ TR_SUST_INT,   "ÃÎÇ½" },
-	{ TR_SUST_WIS,   "¸­¤µ" },
-	{ TR_SUST_DEX,   "´ïÍÑ¤µ" },
-	{ TR_SUST_CON,   "ÂÑµ×ÎÏ" },
-	{ TR_SUST_CHR,   "Ì¥ÎÏ" },
-#else
 	{ TR_SUST_STR,   "STR" },
 	{ TR_SUST_INT,   "INT" },
 	{ TR_SUST_WIS,   "WIS" },
 	{ TR_SUST_DEX,   "DEX" },
 	{ TR_SUST_CON,   "CON" },
 	{ TR_SUST_CHR,   "CHR" },
-#endif
 };
 
 /*
@@ -821,17 +602,10 @@ static const flag_desc sustain_flags_desc[] =
 
 static const flag_desc misc_flags2_desc[] =
 {
-#ifdef JP
-	{ TR_THROW,      "ÅêÚ³" },
-	{ TR_REFLECT,    "È¿¼Í" },
-	{ TR_FREE_ACT,   "ËãáãÃÎ¤é¤º" },
-	{ TR_HOLD_LIFE,  "À¸Ì¿ÎÏ°Ý»ý" },
-#else
 	{ TR_THROW,      "Throwing" },
 	{ TR_REFLECT,    "Reflection" },
 	{ TR_FREE_ACT,   "Free Action" },
 	{ TR_HOLD_LIFE,  "Hold Life" },
-#endif
 };
 
 /*
@@ -843,37 +617,6 @@ static const flag_desc misc_flags2_desc[] =
 
 static const flag_desc misc_flags3_desc[] =
 {
-#ifdef JP
-	{ TR_SH_FIRE,            "²Ð±ê¥ª¡¼¥é" },
-	{ TR_SH_ELEC,            "ÅÅ·â¥ª¡¼¥é" },
-	{ TR_SH_COLD,            "Îäµ¤¥ª¡¼¥é" },
-	{ TR_NO_TELE,            "È¿¥Æ¥ì¥Ý¡¼¥È" },
-	{ TR_NO_MAGIC,           "È¿ËâË¡" },
-	{ TR_LEVITATION,            "ÉâÍ·" },
-	{ TR_SEE_INVIS,          "²Ä»ëÆ©ÌÀ" },
-	{ TR_TELEPATHY,          "¥Æ¥ì¥Ñ¥·¡¼" },
-	{ TR_ESP_ANIMAL,             "Æ°Êª´¶ÃÎ" },
-	{ TR_ESP_UNDEAD,             "ÉÔ»à´¶ÃÎ" },
-	{ TR_ESP_DEMON,              "°­Ëâ´¶ÃÎ" },
-	{ TR_ESP_ORC,                "¥ª¡¼¥¯´¶ÃÎ" },
-	{ TR_ESP_TROLL,              "¥È¥í¥ë´¶ÃÎ" },
-	{ TR_ESP_GIANT,              "µð¿Í´¶ÃÎ" },
-	{ TR_ESP_DRAGON,             "¥É¥é¥´¥ó´¶ÃÎ" },
-	{ TR_ESP_HUMAN,              "¿Í´Ö´¶ÃÎ" },
-	{ TR_ESP_EVIL,               "¼Ù°­´¶ÃÎ" },
-	{ TR_ESP_GOOD,               "Á±ÎÉ´¶ÃÎ" },
-	{ TR_ESP_NONLIVING,          "ÌµÀ¸Êª´¶ÃÎ" },
-	{ TR_ESP_UNIQUE,             "¥æ¥Ë¡¼¥¯´¶ÃÎ" },
-	{ TR_SLOW_DIGEST,        "ÃÙ¾Ã²½" },
-	{ TR_REGEN,              "µÞÂ®²óÉü" },
-	{ TR_WARNING,            "·Ù¹ð" },
-/*	{ TR_XTRA_MIGHT,         "¶¯ÎÏ¼Í·â" }, */
-	{ TR_XTRA_SHOTS,         "ÄÉ²Ã¼Í·â" },        /* always +1? */
-	{ TR_DRAIN_EXP,          "·Ð¸³ÃÍµÛ¼ý" },
-	{ TR_AGGRAVATE,          "È¿´¶" },
-	{ TR_BLESSED,            "½ËÊ¡" },
-	{ TR_DEC_MANA,           "¾ÃÈñËâÎÏ¸º¾¯" },
-#else
 	{ TR_SH_FIRE,            "Fiery Aura" },
 	{ TR_SH_ELEC,            "Electric Aura" },
 	{ TR_SH_COLD,            "Coldly Aura" },
@@ -891,7 +634,6 @@ static const flag_desc misc_flags3_desc[] =
 	{ TR_AGGRAVATE,          "Aggravates" },
 	{ TR_BLESSED,            "Blessed Blade" },
 	{ TR_DEC_MANA,           "Decrease Mana Consumption Rate" },
-#endif
 };
 
 
@@ -1073,11 +815,7 @@ static void analyze_pval(object_type *o_ptr, pval_info_type *p_ptr)
 	    have_flag(flgs, TR_WIS) && have_flag(flgs, TR_DEX) &&
 	    have_flag(flgs, TR_CON) && have_flag(flgs, TR_CHR))
 	{
-#ifdef JP
-		*affects_list++ = "Á´Ç½ÎÏ";
-#else
 		*affects_list++ = "All stats";
-#endif
 	}
 
 	/* Are any stats affected? */
@@ -1171,11 +909,7 @@ static void analyze_sustains(object_type *o_ptr, cptr *sustain_list)
 	    have_flag(flgs, TR_SUST_WIS) && have_flag(flgs, TR_SUST_DEX) &&
 	    have_flag(flgs, TR_SUST_CON) && have_flag(flgs, TR_SUST_CHR))
 	{
-#ifdef JP
-		*sustain_list++ = "Á´Ç½ÎÏ";
-#else
 		*sustain_list++ = "All stats";
-#endif
 	}
 
 	/* Should we bother? */
@@ -1214,11 +948,7 @@ static void analyze_misc_magic(object_type *o_ptr, cptr *misc_list)
 	 */
 	if ((o_ptr->tval == TV_LITE) && object_is_fixed_artifact(o_ptr))
 	{
-#ifdef JP
-		*misc_list++ = "±Êµ×¸÷¸»(È¾·Â3)";
-#else
 		*misc_list++ = "Permanent Light(3)";
-#endif
 	}
 
 	/*
@@ -1226,11 +956,7 @@ static void analyze_misc_magic(object_type *o_ptr, cptr *misc_list)
 	 */
 	if (have_flag(flgs, TR_LITE))
 	{
-#ifdef JP
-		*misc_list++ = "±Êµ×¸÷¸»(È¾·Â1)";
-#else
 		*misc_list++ = "Permanent Light(1)";
-#endif
 	}
 
 	/*
@@ -1243,36 +969,20 @@ static void analyze_misc_magic(object_type *o_ptr, cptr *misc_list)
 	{
 		if (have_flag(flgs, TR_TY_CURSE))
 		{
-#ifdef JP
-			*misc_list++ = "ÂÀ¸Å¤Î±åÇ°";
-#else
 			*misc_list++ = "Ancient Curse";
-#endif
 		}
 		if (o_ptr->curse_flags & TRC_PERMA_CURSE)
 		{
-#ifdef JP
-			*misc_list++ = "±Ê±ó¤Î¼ö¤¤";
-#else
 			*misc_list++ = "Permanently Cursed";
-#endif
 		}
 		else if (o_ptr->curse_flags & TRC_HEAVY_CURSE)
 		{
-#ifdef JP
-			*misc_list++ = "¶¯ÎÏ¤Ê¼ö¤¤";
-#else
 			*misc_list++ = "Heavily Cursed";
-#endif
 		}
 /*		else */
 		else if (o_ptr->curse_flags & TRC_CURSED)
 		{
-#ifdef JP
-			*misc_list++ = "¼ö¤¤";
-#else
 			*misc_list++ = "Cursed";
-#endif
 		}
 	}
 
@@ -1291,20 +1001,6 @@ static void analyze_addition(object_type *o_ptr, char *addition)
 	/* Init */
 	strcpy(addition, "");
 
-#ifdef JP
-	if ((a_ptr->gen_flags & TRG_XTRA_POWER) && (a_ptr->gen_flags & TRG_XTRA_H_RES)) strcat(addition, "Ç½ÎÏandÂÑÀ­");
-	else if (a_ptr->gen_flags & TRG_XTRA_POWER)
-	{
-		strcat(addition, "Ç½ÎÏ");
-		if (a_ptr->gen_flags & TRG_XTRA_RES_OR_POWER) strcat(addition, "(1/2¤ÇandÂÑÀ­)");
-	}
-	else if (a_ptr->gen_flags & TRG_XTRA_H_RES)
-	{
-		strcat(addition, "ÂÑÀ­");
-		if (a_ptr->gen_flags & TRG_XTRA_RES_OR_POWER) strcat(addition, "(1/2¤ÇandÇ½ÎÏ)");
-	}
-	else if (a_ptr->gen_flags & TRG_XTRA_RES_OR_POWER) strcat(addition, "Ç½ÎÏorÂÑÀ­");
-#else
 	if ((a_ptr->gen_flags & TRG_XTRA_POWER) && (a_ptr->gen_flags & TRG_XTRA_H_RES)) strcat(addition, "Ability and Resistance");
 	else if (a_ptr->gen_flags & TRG_XTRA_POWER)
 	{
@@ -1317,7 +1013,6 @@ static void analyze_addition(object_type *o_ptr, char *addition)
 		if (a_ptr->gen_flags & TRG_XTRA_RES_OR_POWER) strcat(addition, "(plus Ability about 1/2)");
 	}
 	else if (a_ptr->gen_flags & TRG_XTRA_RES_OR_POWER) strcat(addition, "Ability or Resistance");
-#endif
 }
 
 
@@ -1398,11 +1093,7 @@ static void print_header(void)
 
 
 /* LIST_SEP separates lists */
-#ifdef JP
-#define LIST_SEP ','
-#else
 #define LIST_SEP ';'
-#endif
 
 static void spoiler_outlist(cptr header, cptr *list, char separator)
 {
@@ -1511,48 +1202,28 @@ static void spoiler_print_art(obj_desc_list *art_ptr)
 	if (pval_ptr->pval_desc[0])
 	{
 		/* Mention the effects of pval */
-#ifdef JP
-		sprintf(buf, "%s¤Î½¤Àµ:", pval_ptr->pval_desc);
-#else
 		sprintf(buf, "%s to", pval_ptr->pval_desc);
-#endif
 		spoiler_outlist(buf, pval_ptr->pval_affects, ITEM_SEP);
 	}
 
 	/* Now deal with the description lists */
 
-#ifdef JP
-	spoiler_outlist("ÂÐ:", art_ptr->slays, ITEM_SEP);
-	spoiler_outlist("Éð´ïÂ°À­:", art_ptr->brands, LIST_SEP);
-	spoiler_outlist("ÌÈ±Ö:", art_ptr->immunities, ITEM_SEP);
-	spoiler_outlist("ÂÑÀ­:", art_ptr->resistances, ITEM_SEP);
-	spoiler_outlist("°Ý»ý:", art_ptr->sustains, ITEM_SEP);
-#else
 	spoiler_outlist("Slay", art_ptr->slays, ITEM_SEP);
 	spoiler_outlist("", art_ptr->brands, LIST_SEP);
 	spoiler_outlist("Immunity to", art_ptr->immunities, ITEM_SEP);
 	spoiler_outlist("Resist", art_ptr->resistances, ITEM_SEP);
 	spoiler_outlist("Sustain", art_ptr->sustains, ITEM_SEP);
-#endif
 	spoiler_outlist("", art_ptr->misc_magic, LIST_SEP);
 
 	if (art_ptr->addition[0])
 	{
-#ifdef JP
-		fprintf(fff, "%sÄÉ²Ã: %s\n", INDENT1, art_ptr->addition);
-#else
 		fprintf(fff, "%sAdditional %s\n", INDENT1, art_ptr->addition);
-#endif
 	}
 
 	/* Write out the possible activation at the primary indention level */
 	if (art_ptr->activation)
 	{
-#ifdef JP
-		fprintf(fff, "%sÈ¯Æ°: %s\n", INDENT1, art_ptr->activation);
-#else
 		fprintf(fff, "%sActivates for %s\n", INDENT1, art_ptr->activation);
-#endif
 	}
 
 	/* End with the miscellaneous facts */
@@ -1773,11 +1444,7 @@ static void spoil_mon_desc(cptr fname)
 		}
 		else
 		{
-#ifdef JP
-			sprintf(nam, "    %s", name);
-#else
 			sprintf(nam, "The %s", name);
-#endif
 		}
 
 
@@ -1865,9 +1532,6 @@ static void spoil_out(cptr str)
 	/* Delay buffer */
 	static char roff_waiting_buf[256];
 
-#ifdef JP
-	bool iskanji_flag = FALSE;
-#endif
 	/* Current pointer into line roff_buf */
 	static char *roff_p = roff_buf;
 
@@ -1905,19 +1569,10 @@ static void spoil_out(cptr str)
 	/* Scan the given string, character at a time */
 	for (; *str; str++)
 	{
-#ifdef JP
-		char cbak;
-		bool k_flag = iskanji((unsigned char)(*str));
-#endif
 		char ch = *str;
 		bool wrap = (ch == '\n');
 
-#ifdef JP
-		if (!isprint(ch) && !k_flag && !iskanji_flag) ch = ' ';
-		iskanji_flag = k_flag && !iskanji_flag;
-#else
 		if (!isprint(ch)) ch = ' ';
-#endif
 
 		if (waiting_output)
 		{
@@ -1928,35 +1583,18 @@ static void spoil_out(cptr str)
 
 		if (!wrap)
 		{
-#ifdef JP
-			if (roff_p >= roff_buf + (k_flag ? 74 : 75)) wrap = TRUE;
-			else if ((ch == ' ') && (roff_p >= roff_buf + (k_flag ? 72 : 73))) wrap = TRUE;
-#else
 			if (roff_p >= roff_buf + 75) wrap = TRUE;
 			else if ((ch == ' ') && (roff_p >= roff_buf + 73)) wrap = TRUE;
-#endif
 
 			if (wrap)
 			{
-#ifdef JP
-				bool k_flag_local;
-				bool iskanji_flag_local = FALSE;
-				cptr tail = str + (k_flag ? 2 : 1);
-#else
 				cptr tail = str + 1;
-#endif
 
 				for (; *tail; tail++)
 				{
 					if (*tail == ' ') continue;
 
-#ifdef JP
-					k_flag_local = iskanji((unsigned char)(*tail));
-					if (isprint(*tail) || k_flag_local || iskanji_flag_local) break;
-					iskanji_flag_local = k_flag_local && !iskanji_flag_local;
-#else
 					if (isprint(*tail)) break;
-#endif
 				}
 
 				if (!*tail) waiting_output = TRUE;
@@ -1968,14 +1606,8 @@ static void spoil_out(cptr str)
 		{
 			*roff_p = '\0';
 			r = roff_p;
-#ifdef JP
-			cbak = ' ';
-#endif
 			if (roff_s && (ch != ' '))
 			{
-#ifdef JP
-				cbak = *roff_s;
-#endif
 				*roff_s = '\0';
 				r = roff_s + 1;
 			}
@@ -1983,31 +1615,13 @@ static void spoil_out(cptr str)
 			else strcpy(roff_waiting_buf, roff_buf);
 			roff_s = NULL;
 			roff_p = roff_buf;
-#ifdef JP
-			if (cbak != ' ') *roff_p++ = cbak;
-#endif
 			while (*r) *roff_p++ = *r++;
 		}
 
 		/* Save the char */
 		if ((roff_p > roff_buf) || (ch != ' '))
 		{
-#ifdef JP
-			if (!k_flag)
-			{
-				if ((ch == ' ') || (ch == '(')) roff_s = roff_p;
-			}
-			else
-			{
-				if (iskanji_flag &&
-				    strncmp(str, "¡£", 2) != 0 &&
-				    strncmp(str, "¡¢", 2) != 0 &&
-				    strncmp(str, "¥£", 2) != 0 &&
-				    strncmp(str, "¡¼", 2) != 0) roff_s = roff_p;
-			}
-#else
 			if (ch == ' ') roff_s = roff_p;
-#endif
 
 			*roff_p++ = ch;
 		}
@@ -2108,17 +1722,11 @@ static void spoil_mon_info(cptr fname)
 		}
 		else
 		{
-#ifndef JP
 			spoil_out("The ");
-#endif
 		}
 
 		/* Name */
-#ifdef JP
-		sprintf(buf, "%s/%s  (", (r_name + r_ptr->name),(r_name+r_ptr->E_name));  /* ---)--- */
-#else
 		sprintf(buf, "%s  (", (r_name + r_ptr->name));  /* ---)--- */
-#endif
 
 		spoil_out(buf);
 
@@ -2392,25 +2000,15 @@ static void spoil_mon_evol(cptr fname)
 
 		/* Trace the evolution tree */
 		r_ptr = &r_info[r_idx];
-#ifdef JP
-		fprintf(fff, "[%d]: %s (¥ì¥Ù¥ë%d, '%c')\n", r_idx,
-			r_name + r_ptr->name, r_ptr->level, r_ptr->d_char);
-#else
 		fprintf(fff, "[%d]: %s (Level %d, '%c')\n", r_idx,
 			r_name + r_ptr->name, r_ptr->level, r_ptr->d_char);
-#endif
 		for (n = 1; r_ptr->next_exp; n++)
 		{
 			fprintf(fff, "%*s-(%d)-> ", n * 2, "", r_ptr->next_exp);
 			fprintf(fff, "[%d]: ", r_ptr->next_r_idx);
 			r_ptr = &r_info[r_ptr->next_r_idx];
-#ifdef JP
-			fprintf(fff, "%s (¥ì¥Ù¥ë%d, '%c')\n",
-				r_name + r_ptr->name, r_ptr->level, r_ptr->d_char);
-#else
 			fprintf(fff, "%s (Level %d, '%c')\n",
 				r_name + r_ptr->name, r_ptr->level, r_ptr->d_char);
-#endif
 		}
 
 		/* End of evolution tree */
@@ -2464,11 +2062,7 @@ void do_cmd_spoilers(void)
 		prt("(5) Monster Evolution Info (mon-evol.spo)", 9, 5);
 
 		/* Prompt */
-#ifdef JP
-		prt("¥³¥Þ¥ó¥É:", 18, 0);
-#else
 		prt("Command: ", 12, 0);
-#endif
 
 		/* Get a choice */
 		switch (inkey())
@@ -2529,13 +2123,8 @@ static void random_artifact_analyze(object_type *o_ptr, obj_desc_list *desc_ptr)
 	analyze_sustains(o_ptr, desc_ptr->sustains);
 	analyze_misc_magic(o_ptr, desc_ptr->misc_magic);
 	desc_ptr->activation = item_activation(o_ptr);
-#ifdef JP
-	sprintf(desc_ptr->misc_desc, "½Å¤µ %d.%d kg",
-		lbtokg1(o_ptr->weight), lbtokg2(o_ptr->weight));
-#else
 	sprintf(desc_ptr->misc_desc, "Weight %d.%d lbs",
 		o_ptr->weight / 10, o_ptr->weight % 10);
-#endif
 }
 
 /* Create a spoiler file entry for an artifact */
@@ -2552,50 +2141,30 @@ static void spoiler_print_randart(object_type *o_ptr, obj_desc_list *art_ptr)
 	/* unidentified */
 	if (!(o_ptr->ident & (IDENT_MENTAL)))
 	{
-#ifdef JP
-		fprintf(fff, "%sÉÔÌÀ\n",INDENT1);
-#else
 		fprintf(fff, "%sUnknown\n",INDENT1);
-#endif
 	}
 	else {
 		/* An "empty" pval description indicates that the pval affects nothing */
 		if (pval_ptr->pval_desc[0])
 		{
 			/* Mention the effects of pval */
-#ifdef JP
-			sprintf(buf, "%s¤Î½¤Àµ:", pval_ptr->pval_desc);
-#else
 			sprintf(buf, "%s to", pval_ptr->pval_desc);
-#endif
 			spoiler_outlist(buf, pval_ptr->pval_affects, ITEM_SEP);
 		}
 
 		/* Now deal with the description lists */
 
-#ifdef JP
-		spoiler_outlist("ÂÐ:", art_ptr->slays, ITEM_SEP);
-		spoiler_outlist("Éð´ïÂ°À­:", art_ptr->brands, LIST_SEP);
-		spoiler_outlist("ÌÈ±Ö:", art_ptr->immunities, ITEM_SEP);
-		spoiler_outlist("ÂÑÀ­:", art_ptr->resistances, ITEM_SEP);
-		spoiler_outlist("°Ý»ý:", art_ptr->sustains, ITEM_SEP);
-#else
 		spoiler_outlist("Slay", art_ptr->slays, ITEM_SEP);
 		spoiler_outlist("", art_ptr->brands, LIST_SEP);
 		spoiler_outlist("Immunity to", art_ptr->immunities, ITEM_SEP);
 		spoiler_outlist("Resist", art_ptr->resistances, ITEM_SEP);
 		spoiler_outlist("Sustain", art_ptr->sustains, ITEM_SEP);
-#endif
 		spoiler_outlist("", art_ptr->misc_magic, LIST_SEP);
 
 		/* Write out the possible activation at the primary indention level */
 		if (art_ptr->activation)
 		{
-#ifdef JP
-			fprintf(fff, "%sÈ¯Æ°: %s\n", INDENT1, art_ptr->activation);
-#else
 			fprintf(fff, "%sActivates for %s\n", INDENT1, art_ptr->activation);
-#endif
 		}
 	}
 	/* End with the miscellaneous facts */

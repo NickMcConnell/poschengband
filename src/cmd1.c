@@ -201,11 +201,7 @@ static void death_scythe_miss(object_type *o_ptr, int hand, int mode)
 	sound(SOUND_HIT);
 
 	/* Message */
-#ifdef JP
-	msg_print("振り回した大鎌が自分自身に返ってきた！");
-#else
 	msg_print("Your scythe returns to you!");
-#endif
 
 	/* Extract the flags */
 	object_flags(o_ptr, flgs);
@@ -295,11 +291,7 @@ static void death_scythe_miss(object_type *o_ptr, int hand, int mode)
 	if (one_in_(6))
 	{
 		int mult = 2;
-#ifdef JP
-		msg_format("グッサリ切り裂かれた！");
-#else
 		msg_format("Your weapon cuts deep into yourself!");
-#endif
 		/* Try to increase the damage */
 		while (one_in_(4))
 		{
@@ -312,11 +304,7 @@ static void death_scythe_miss(object_type *o_ptr, int hand, int mode)
 
 	if (k < 0) k = 0;
 
-#ifdef JP
-	take_hit(DAMAGE_FORCE, k, "死の大鎌", -1);
-#else
 	take_hit(DAMAGE_FORCE, k, "Death scythe", -1);
-#endif
 
 	redraw_stuff();
 }
@@ -1306,11 +1294,7 @@ void search(void)
 					disclose_grid(y, x);
 
 					/* Message */
-#ifdef JP
-					msg_print("トラップを発見した。");
-#else
 					msg_print("You have found a trap.");
-#endif
 
 					/* Disturb */
 					disturb(0, 0);
@@ -1320,11 +1304,7 @@ void search(void)
 				if (is_hidden_door(c_ptr))
 				{
 					/* Message */
-#ifdef JP
-					msg_print("隠しドアを発見した。");
-#else
 					msg_print("You have found a secret door.");
-#endif
 
 					/* Disclose */
 					disclose_grid(y, x);
@@ -1354,11 +1334,7 @@ void search(void)
 					if (!object_is_known(o_ptr))
 					{
 						/* Message */
-#ifdef JP
-						msg_print("箱に仕掛けられたトラップを発見した！");
-#else
 						msg_print("You have discovered a trap on the chest!");
-#endif
 
 						/* Know the trap */
 						object_known(o_ptr);
@@ -1384,32 +1360,12 @@ void py_pickup_aux(int o_idx)
 {
 	int slot, i;
 
-#ifdef JP
-/*
- * アイテムを拾った際に「２つのケーキを持っている」
- * "You have two cakes." とアイテムを拾った後の合計のみの表示がオリジナル
- * だが、違和感が
- * あるという指摘をうけたので、「〜を拾った、〜を持っている」という表示
- * にかえてある。そのための配列。
- */
 	char o_name[MAX_NLEN];
-	char old_name[MAX_NLEN];
-	char kazu_str[80];
-	int hirottakazu;
-#else
-	char o_name[MAX_NLEN];
-#endif
 
 	object_type *o_ptr;
 
 	o_ptr = &o_list[o_idx];
 
-#ifdef JP
-	/* Describe the object */
-	object_desc(old_name, o_ptr, OD_NAME_ONLY);
-	object_desc_kosuu(kazu_str, o_ptr);
-	hirottakazu = o_ptr->number;
-#endif
 	/* Carry the object */
 	slot = inven_carry(o_ptr);
 
@@ -1475,11 +1431,7 @@ void py_pickup_aux(int o_idx)
 		{
 			quest[i].status = QUEST_STATUS_COMPLETED;
 			quest[i].complev = (byte)p_ptr->lev;
-#ifdef JP
-			msg_print("クエストを達成した！");
-#else
 			msg_print("You completed your quest!");
-#endif
 
 			msg_print(NULL);
 		}
@@ -1595,22 +1547,14 @@ void carry(bool pickup)
 			/* Describe the object */
 			else if (!pickup)
 			{
-#ifdef JP
-				msg_format("%sがある。", o_name);
-#else
 				msg_format("You see %s.", o_name);
-#endif
 
 			}
 
 			/* Note that the pack is too full */
 			else if (!inven_carry_okay(o_ptr))
 			{
-#ifdef JP
-				msg_format("ザックには%sを入れる隙間がない。", o_name);
-#else
 				msg_format("You have no room for %s.", o_name);
-#endif
 
 			}
 
@@ -1623,11 +1567,7 @@ void carry(bool pickup)
 				if (carry_query_flag)
 				{
 					char out_val[MAX_NLEN+20];
-#ifdef JP
-					sprintf(out_val, "%sを拾いますか? ", o_name);
-#else
 					sprintf(out_val, "Pick up %s? ", o_name);
-#endif
 
 					okay = get_check(out_val);
 				}
@@ -1690,11 +1630,7 @@ static void hit_trap(bool break_trap)
 	feature_type *f_ptr = &f_info[c_ptr->feat];
 	int trap_feat_type = have_flag(f_ptr->flags, FF_TRAP) ? f_ptr->subtype : NOT_TRAP;
 
-#ifdef JP
-	cptr name = "トラップ";
-#else
 	cptr name = "a trap";
-#endif
 
 	/* Disturb the player */
 	disturb(0, 0);
@@ -1708,11 +1644,7 @@ static void hit_trap(bool break_trap)
 		{
 			if (p_ptr->levitation)
 			{
-#ifdef JP
-				msg_print("落とし戸を飛び越えた。");
-#else
 				msg_print("You fly over a trap door.");
-#endif
 
 			}
 			else
@@ -1720,11 +1652,7 @@ static void hit_trap(bool break_trap)
 				msg_print("You have fallen through a trap door!");
 				sound(SOUND_FALL);
 				dam = damroll(2, 8);
-#ifdef JP
-				name = "落とし戸";
-#else
 				name = "a trap door";
-#endif
 
 				take_hit(DAMAGE_NOESCAPE, dam, name, -1);
 
@@ -1744,27 +1672,15 @@ static void hit_trap(bool break_trap)
 		{
 			if (p_ptr->levitation)
 			{
-#ifdef JP
-				msg_print("落とし穴を飛び越えた。");
-#else
 				msg_print("You fly over a pit trap.");
-#endif
 
 			}
 			else
 			{
-#ifdef JP
-				msg_print("落とし穴に落ちてしまった！");
-#else
 				msg_print("You have fallen into a pit!");
-#endif
 
 				dam = damroll(2, 6);
-#ifdef JP
-				name = "落とし穴";
-#else
 				name = "a pit trap";
-#endif
 
 				take_hit(DAMAGE_NOESCAPE, dam, name, -1);
 			}
@@ -1775,46 +1691,26 @@ static void hit_trap(bool break_trap)
 		{
 			if (p_ptr->levitation)
 			{
-#ifdef JP
-				msg_print("トゲのある落とし穴を飛び越えた。");
-#else
 				msg_print("You fly over a spiked pit.");
-#endif
 
 			}
 			else
 			{
-#ifdef JP
-				msg_print("スパイクが敷かれた落とし穴に落ちてしまった！");
-#else
 				msg_print("You fall into a spiked pit!");
-#endif
 
 
 				/* Base damage */
-#ifdef JP
-				name = "落とし穴";
-#else
 				name = "a pit trap";
-#endif
 
 				dam = damroll(2, 6);
 
 				/* Extra spike damage */
 				if (randint0(100) < 50)
 				{
-#ifdef JP
-					msg_print("スパイクが刺さった！");
-#else
 					msg_print("You are impaled!");
-#endif
 
 
-#ifdef JP
-					name = "トゲのある落とし穴";
-#else
 					name = "a spiked pit";
-#endif
 
 					dam = dam * 2;
 					(void)set_cut(p_ptr->cut + randint1(dam), FALSE);
@@ -1830,47 +1726,27 @@ static void hit_trap(bool break_trap)
 		{
 			if (p_ptr->levitation)
 			{
-#ifdef JP
-				msg_print("トゲのある落とし穴を飛び越えた。");
-#else
 				msg_print("You fly over a spiked pit.");
-#endif
 
 			}
 			else
 			{
-#ifdef JP
-			msg_print("スパイクが敷かれた落とし穴に落ちてしまった！");
-#else
 				msg_print("You fall into a spiked pit!");
-#endif
 
 
 				/* Base damage */
 				dam = damroll(2, 6);
 
-#ifdef JP
-				name = "落とし穴";
-#else
 				name = "a pit trap";
-#endif
 
 
 				/* Extra spike damage */
 				if (randint0(100) < 50)
 				{
-#ifdef JP
-					msg_print("毒を塗られたスパイクが刺さった！");
-#else
 					msg_print("You are impaled on poisonous spikes!");
-#endif
 
 
-#ifdef JP
-					name = "トゲのある落とし穴";
-#else
 					name = "a spiked pit";
-#endif
 
 
 					dam = dam * 2;
@@ -1894,11 +1770,7 @@ static void hit_trap(bool break_trap)
 
 		case TRAP_TY_CURSE:
 		{
-#ifdef JP
-			msg_print("何かがピカッと光った！");
-#else
 			msg_print("There is a flash of shimmering light!");
-#endif
 
 			num = 2 + randint1(3);
 			for (i = 0; i < num; i++)
@@ -1922,11 +1794,7 @@ static void hit_trap(bool break_trap)
 
 		case TRAP_TELEPORT:
 		{
-#ifdef JP
-			msg_print("テレポート・トラップにひっかかった！");
-#else
 			msg_print("You hit a teleport trap!");
-#endif
 
 			teleport_player(100, TELEPORT_PASSIVE);
 			break;
@@ -1934,36 +1802,20 @@ static void hit_trap(bool break_trap)
 
 		case TRAP_FIRE:
 		{
-#ifdef JP
-			msg_print("炎に包まれた！");
-#else
 			msg_print("You are enveloped in flames!");
-#endif
 
 			dam = damroll(4, 6);
-#ifdef JP
-			(void)fire_dam(dam, "炎のトラップ", -1);
-#else
 			(void)fire_dam(dam, "a fire trap", -1);
-#endif
 
 			break;
 		}
 
 		case TRAP_ACID:
 		{
-#ifdef JP
-			msg_print("酸が吹きかけられた！");
-#else
 			msg_print("You are splashed with acid!");
-#endif
 
 			dam = damroll(4, 6);
-#ifdef JP
-			(void)acid_dam(dam, "酸のトラップ", -1);
-#else
 			(void)acid_dam(dam, "an acid trap", -1);
-#endif
 
 			break;
 		}
@@ -1972,28 +1824,16 @@ static void hit_trap(bool break_trap)
 		{
 			if (_check_hit(125))
 			{
-#ifdef JP
-				msg_print("小さなダーツが飛んできて刺さった！");
-#else
 				msg_print("A small dart hits you!");
-#endif
 
 				dam = damroll(1, 4);
-#ifdef JP
-				take_hit(DAMAGE_ATTACK, dam, "ダーツの罠", -1);
-#else
 				take_hit(DAMAGE_ATTACK, dam, "a dart trap", -1);
-#endif
 
 				if (!CHECK_MULTISHADOW()) (void)set_slow(p_ptr->slow + randint0(20) + 20, FALSE);
 			}
 			else
 			{
-#ifdef JP
-				msg_print("小さなダーツが飛んできた！が、運良く当たらなかった。");
-#else
 				msg_print("A small dart barely misses you.");
-#endif
 
 			}
 			break;
@@ -2003,28 +1843,16 @@ static void hit_trap(bool break_trap)
 		{
 			if (_check_hit(125))
 			{
-#ifdef JP
-				msg_print("小さなダーツが飛んできて刺さった！");
-#else
 				msg_print("A small dart hits you!");
-#endif
 
 				dam = damroll(1, 4);
-#ifdef JP
-				take_hit(DAMAGE_ATTACK, dam, "ダーツの罠", -1);
-#else
 				take_hit(DAMAGE_ATTACK, dam, "a dart trap", -1);
-#endif
 
 				if (!CHECK_MULTISHADOW()) (void)do_dec_stat(A_STR);
 			}
 			else
 			{
-#ifdef JP
-				msg_print("小さなダーツが飛んできた！が、運良く当たらなかった。");
-#else
 				msg_print("A small dart barely misses you.");
-#endif
 
 			}
 			break;
@@ -2034,28 +1862,16 @@ static void hit_trap(bool break_trap)
 		{
 			if (_check_hit(125))
 			{
-#ifdef JP
-				msg_print("小さなダーツが飛んできて刺さった！");
-#else
 				msg_print("A small dart hits you!");
-#endif
 
 				dam = damroll(1, 4);
-#ifdef JP
-				take_hit(DAMAGE_ATTACK, dam, "ダーツの罠", -1);
-#else
 				take_hit(DAMAGE_ATTACK, dam, "a dart trap", -1);
-#endif
 
 				if (!CHECK_MULTISHADOW()) (void)do_dec_stat(A_DEX);
 			}
 			else
 			{
-#ifdef JP
-				msg_print("小さなダーツが飛んできた！が、運良く当たらなかった。");
-#else
 				msg_print("A small dart barely misses you.");
-#endif
 
 			}
 			break;
@@ -2065,28 +1881,16 @@ static void hit_trap(bool break_trap)
 		{
 			if (_check_hit(125))
 			{
-#ifdef JP
-				msg_print("小さなダーツが飛んできて刺さった！");
-#else
 				msg_print("A small dart hits you!");
-#endif
 
 				dam = damroll(1, 4);
-#ifdef JP
-				take_hit(DAMAGE_ATTACK, dam, "ダーツの罠", -1);
-#else
 				take_hit(DAMAGE_ATTACK, dam, "a dart trap", -1);
-#endif
 
 				if (!CHECK_MULTISHADOW()) (void)do_dec_stat(A_CON);
 			}
 			else
 			{
-#ifdef JP
-				msg_print("小さなダーツが飛んできた！が、運良く当たらなかった。");
-#else
 				msg_print("A small dart barely misses you.");
-#endif
 
 			}
 			break;
@@ -2118,28 +1922,16 @@ static void hit_trap(bool break_trap)
 
 		case TRAP_SLEEP:
 		{
-#ifdef JP
-			msg_print("奇妙な白い霧に包まれた！");
-#else
 			msg_print("A strange white mist surrounds you!");
-#endif
 
 			if (!p_ptr->free_act)
 			{
-#ifdef JP
-msg_print("あなたは眠りに就いた。");
-#else
 				msg_print("You fall asleep.");
-#endif
 
 
 				if (ironman_nightmare)
 				{
-#ifdef JP
-msg_print("身の毛もよだつ光景が頭に浮かんだ。");
-#else
 					msg_print("A horrible vision enters your mind.");
-#endif
 
 
 					/* Pick a nightmare */
@@ -2158,11 +1950,7 @@ msg_print("身の毛もよだつ光景が頭に浮かんだ。");
 
 		case TRAP_TRAPS:
 		{
-#ifdef JP
-msg_print("まばゆい閃光が走った！");
-#else
 			msg_print("There is a bright flash of light!");
-#endif
 
 			/* Make some new traps */
 			project(0, 1, y, x, 0, GF_MAKE_TRAP, PROJECT_HIDE | PROJECT_JUMP | PROJECT_GRID, -1);
@@ -2172,11 +1960,7 @@ msg_print("まばゆい閃光が走った！");
 
 		case TRAP_ALARM:
 		{
-#ifdef JP
-			msg_print("けたたましい音が鳴り響いた！");
-#else
 			msg_print("An alarm sounds!");
-#endif
 
 			aggravate_monsters(0);
 
@@ -2185,11 +1969,7 @@ msg_print("まばゆい閃光が走った！");
 
 		case TRAP_OPEN:
 		{
-#ifdef JP
-			msg_print("大音響と共にまわりの壁が崩れた！");
-#else
 			msg_print("Suddenly, surrounding walls are opened!");
-#endif
 			(void)project(0, 3, y, x, 0, GF_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
 			(void)project(0, 3, y, x - 4, 0, GF_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
 			(void)project(0, 3, y, x + 4, 0, GF_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
@@ -2204,11 +1984,7 @@ msg_print("まばゆい閃光が走った！");
 			int evil_idx = 0, good_idx = 0;
 
 			int lev;
-#ifdef JP
-			msg_print("突然天界の戦争に巻き込まれた！");
-#else
 			msg_print("Suddenly, you are surrounded by immotal beings!");
-#endif
 
 			/* Summon Demons and Angels */
 			for (lev = dun_level; lev >= 20; lev -= 1 + lev/16)
@@ -2250,11 +2026,7 @@ msg_print("まばゆい閃光が走った！");
 
 		case TRAP_PIRANHA:
 		{
-#ifdef JP
-			msg_print("突然壁から水が溢れ出した！ピラニアがいる！");
-#else
 			msg_print("Suddenly, the room is filled with water with piranhas!");
-#endif
 
 			/* Water fills room */
 			fire_ball_hide(GF_WATER_FLOW, 0, 1, 10);
@@ -2272,11 +2044,7 @@ msg_print("まばゆい閃光が走った！");
 	if (break_trap && is_trap(c_ptr->feat))
 	{
 		cave_alter_feat(y, x, FF_DISARM);
-#ifdef JP
-		msg_print("トラップを粉砕した。");
-#else
 		msg_print("You destroyed the trap.");
-#endif
 	}
 }
 
@@ -4476,11 +4244,7 @@ bool pattern_seq(int c_y, int c_x, int n_y, int n_x)
 	{
 		if (!is_pattern_tile_cur && !p_ptr->confused && !p_ptr->stun && !p_ptr->image)
 		{
-#ifdef JP
-			if (get_check("パターンの上を歩き始めると、全てを歩かなければなりません。いいですか？"))
-#else
 			if (get_check("If you start walking the Pattern, you must walk the whole way. Ok? "))
-#endif
 				return TRUE;
 			else
 				return FALSE;
@@ -4498,11 +4262,7 @@ bool pattern_seq(int c_y, int c_x, int n_y, int n_x)
 		}
 		else
 		{
-#ifdef JP
-			msg_print("パターンの上を歩くにはスタート地点から歩き始めなくてはなりません。");
-#else
 			msg_print("You must start walking the Pattern from the startpoint.");
-#endif
 
 			return FALSE;
 		}
@@ -4518,11 +4278,7 @@ bool pattern_seq(int c_y, int c_x, int n_y, int n_x)
 			return TRUE;
 		else
 		{
-#ifdef JP
-			msg_print("パターンの上は正しい順序で歩かねばなりません。");
-#else
 			msg_print("You must walk the Pattern in correct order.");
-#endif
 
 			return FALSE;
 		}
@@ -4533,11 +4289,7 @@ bool pattern_seq(int c_y, int c_x, int n_y, int n_x)
 	{
 		if (!is_pattern_tile_new)
 		{
-#ifdef JP
-			msg_print("パターンを踏み外してはいけません。");
-#else
 			msg_print("You may not step off from the Pattern.");
-#endif
 
 			return FALSE;
 		}
@@ -4550,11 +4302,7 @@ bool pattern_seq(int c_y, int c_x, int n_y, int n_x)
 	{
 		if (!is_pattern_tile_cur)
 		{
-#ifdef JP
-			msg_print("パターンの上を歩くにはスタート地点から歩き始めなくてはなりません。");
-#else
 			msg_print("You must start walking the Pattern from the startpoint.");
-#endif
 
 			return FALSE;
 		}
@@ -4577,11 +4325,7 @@ bool pattern_seq(int c_y, int c_x, int n_y, int n_x)
 					break;
 				default:
 					if (p_ptr->wizard)
-#ifdef JP
-						msg_format("おかしなパターン歩行、%d。", pattern_type_cur);
-#else
 						msg_format("Funny Pattern walking, %d.", pattern_type_cur);
-#endif
 
 					return TRUE; /* Goof-up */
 			}
@@ -4592,17 +4336,9 @@ bool pattern_seq(int c_y, int c_x, int n_y, int n_x)
 			else
 			{
 				if (!is_pattern_tile_new)
-#ifdef JP
-					msg_print("パターンを踏み外してはいけません。");
-#else
 					msg_print("You may not step off from the Pattern.");
-#endif
 				else
-#ifdef JP
-					msg_print("パターンの上は正しい順序で歩かねばなりません。");
-#else
 					msg_print("You must walk the Pattern in correct order.");
-#endif
 
 				return FALSE;
 			}
@@ -4735,11 +4471,7 @@ bool move_player_effect(int ny, int nx, u32b mpe_mode)
 		    (!have_flag(f_ptr->flags, FF_PROJECT) ||
 		     (!p_ptr->levitation && have_flag(f_ptr->flags, FF_DEEP))))
 		{
-#ifdef JP
-			msg_print("ここでは素早く動けない。");
-#else
 			msg_print("You cannot run in here.");
-#endif
 			set_action(ACTION_NONE);
 
 			if (weaponmaster_get_toggle() == TOGGLE_SHADOW_STANCE)
@@ -4842,11 +4574,7 @@ bool move_player_effect(int ny, int nx, u32b mpe_mode)
 		if (c_ptr->mimic || have_flag(f_ptr->flags, FF_SECRET))
 		{
 			/* Message */
-#ifdef JP
-			msg_print("トラップだ！");
-#else
 			msg_print("You found a trap!");
-#endif
 
 			/* Pick a trap */
 			disclose_grid(py, px);
@@ -4870,11 +4598,7 @@ bool move_player_effect(int ny, int nx, u32b mpe_mode)
 		{
 			if (alert_trap_detect)
 			{
-#ifdef JP
-				msg_print("* 注意:この先はトラップの感知範囲外です！ *");
-#else
 				msg_print("*Leaving trap detect region!*");
-#endif
 			}
 
 			if (disturb_trap_detect) disturb(0, 0);
@@ -5107,11 +4831,7 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 			}
 			else
 			{
-#ifdef JP
-				msg_format("%^sが邪魔だ！", m_name);
-#else
 				msg_format("%^s is in your way!", m_name);
-#endif
 
 				energy_use = 0;
 				oktomove = FALSE;
@@ -5133,11 +4853,7 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 	{
 		if (riding_r_ptr->flags1 & RF1_NEVER_MOVE)
 		{
-#ifdef JP
-			msg_print("動けない！");
-#else
 			msg_print("Can't move!");
-#endif
 			energy_use = 0;
 			oktomove = FALSE;
 			disturb(0, 0);
@@ -5150,11 +4866,7 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 			monster_desc(m_name, riding_m_ptr, 0);
 
 			/* Dump a message */
-#ifdef JP
-			msg_format("%sが恐怖していて制御できない。", m_name);
-#else
 			msg_format("%^s is too scared to control.", m_name);
-#endif
 			oktomove = FALSE;
 			disturb(0, 0);
 		}
@@ -5175,33 +4887,21 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 			!(riding_r_ptr->flags7 & RF7_AQUATIC) &&
 			(have_flag(f_ptr->flags, FF_DEEP) || (riding_r_ptr->flags2 & RF2_AURA_FIRE)))
 		{
-#ifdef JP
-			msg_format("%sの上に行けない。", f_name + f_info[get_feat_mimic(c_ptr)].name);
-#else
 			msg_print("Can't swim.");
-#endif
 			energy_use = 0;
 			oktomove = FALSE;
 			disturb(0, 0);
 		}
 		else if (!have_flag(f_ptr->flags, FF_WATER) && (riding_r_ptr->flags7 & RF7_AQUATIC))
 		{
-#ifdef JP
-			msg_format("%sから上がれない。", f_name + f_info[get_feat_mimic(&cave[py][px])].name);
-#else
 			msg_print("Can't land.");
-#endif
 			energy_use = 0;
 			oktomove = FALSE;
 			disturb(0, 0);
 		}
 		else if (have_flag(f_ptr->flags, FF_LAVA) && !(riding_r_ptr->flagsr & RFR_EFF_IM_FIRE_MASK))
 		{
-#ifdef JP
-			msg_format("%sの上に行けない。", f_name + f_info[get_feat_mimic(c_ptr)].name);
-#else
 			msg_print("Too hot to go through.");
-#endif
 			energy_use = 0;
 			oktomove = FALSE;
 			disturb(0, 0);
@@ -5211,11 +4911,7 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 		{
 			char m_name[80];
 			monster_desc(m_name, riding_m_ptr, 0);
-#ifdef JP
-			msg_format("%sが朦朧としていてうまく動けない！",m_name);
-#else
 			msg_format("You cannot control stunned %s!",m_name);
-#endif
 			oktomove = FALSE;
 			disturb(0, 0);
 		}
@@ -5227,11 +4923,7 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 
 	else if (!have_flag(f_ptr->flags, FF_MOVE) && have_flag(f_ptr->flags, FF_CAN_FLY) && !p_ptr->levitation)
 	{
-#ifdef JP
-		msg_format("空を飛ばないと%sの上には行けない。", f_name + f_info[get_feat_mimic(c_ptr)].name);
-#else
 		msg_format("You need to fly to go through the %s.", f_name + f_info[get_feat_mimic(c_ptr)].name);
-#endif
 
 		if (!shadow_strike)
 			energy_use = 0;
@@ -5290,22 +4982,14 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 			/* Boundary floor mimic */
 			if (boundary_floor(c_ptr, f_ptr, mimic_f_ptr))
 			{
-#ifdef JP
-				msg_print("それ以上先には進めないようだ。");
-#else
 				msg_print("You feel you cannot go any more.");
-#endif
 			}
 
 			/* Wall (or secret door) */
 			else
 			{
-#ifdef JP
-				msg_format("%sが行く手をはばんでいるようだ。", name);
-#else
 				msg_format("You feel %s %s blocking your way.",
 					is_a_vowel(name[0]) ? "an" : "a", name);
-#endif
 
 				c_ptr->info |= (CAVE_MARK);
 				lite_spot(y, x);
@@ -5318,11 +5002,7 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 			/* Boundary floor mimic */
 			if (boundary_floor(c_ptr, f_ptr, mimic_f_ptr))
 			{
-#ifdef JP
-				msg_print("それ以上先には進めない。");
-#else
 				msg_print("You cannot go any more.");
-#endif
 
 				if (!(p_ptr->confused || p_ptr->stun || p_ptr->image))
 				{
@@ -5367,12 +5047,8 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 				}
 #endif /* ALLOW_EASY_OPEN */
 
-#ifdef JP
-				msg_format("%sが行く手をはばんでいる。", name);
-#else
 				msg_format("There is %s %s blocking your way.",
 					is_a_vowel(name[0]) ? "an" : "a", name);
-#endif
 
 				/*
 				 * Well, it makes sense that you lose time bumping into
@@ -5423,11 +5099,7 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 
 		if (do_past)
 		{
-#ifdef JP
-			msg_format("%sを押し退けた。", m_name);
-#else
 			msg_format("You push past %s.", m_name);
-#endif
 		}
 
 		/* Change oldpx and oldpy to place the player well when going back to big mode */
@@ -5846,11 +5518,7 @@ static bool run_test(void)
 		{
 			if (alert_trap_detect)
 			{
-#ifdef JP
-				msg_print("* 注意:この先はトラップの感知範囲外です！ *");
-#else
 				msg_print("*Leaving trap detect region!*");
-#endif
 			}
 
 			if (disturb_trap_detect)
@@ -6167,11 +5835,7 @@ void run_step(int dir)
 		if (see_wall(dir, py, px))
 		{
 			/* Message */
-#ifdef JP
-			msg_print("その方向には走れません。");
-#else
 			msg_print("You cannot run in that direction.");
-#endif
 
 			/* Disturb */
 			disturb(0, 0);
@@ -6261,11 +5925,7 @@ static bool travel_test(void)
 		{
 			if (alert_trap_detect)
 			{
-#ifdef JP
-				msg_print("* 注意:この先はトラップの感知範囲外です！ *");
-#else
 				msg_print("*Leaving trap detect region!*");
-#endif
 			}
 
 			if (disturb_trap_detect)
@@ -6279,11 +5939,7 @@ static bool travel_test(void)
 	/* Cannot travel when blind */
 	if (p_ptr->blind || no_lite())
 	{
-#ifdef JP
-		msg_print("目が見えない！");
-#else
 		msg_print("You cannot see!");
-#endif
 		return (TRUE);
 	}
 

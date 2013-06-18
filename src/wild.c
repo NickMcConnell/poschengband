@@ -725,17 +725,10 @@ errr parse_line_wilderness(char *buf, int ymin, int xmin, int ymax, int xmax, in
 	switch (buf[2])
 	{
 		/* Process "W:F:<letter>:<terrain>:<town>:<road>:<name> */
-#ifdef JP
-	case 'E':
-		return 0;
-	case 'F':
-	case 'J':
-#else
 	case 'J':
 		return 0;
 	case 'F':
 	case 'E':
-#endif
 	{
 		if ((num = tokenize(buf+4, 6, zz, 0)) > 1)
 		{
@@ -1035,11 +1028,7 @@ bool change_wild_mode(void)
 
 	if (lite_town || vanilla_town)
 	{
-#ifdef JP
-		msg_print("荒野なんてない。");
-#else
 		msg_print("No global map.");
-#endif
 		return FALSE;
 	}
 
@@ -1072,22 +1061,14 @@ bool change_wild_mode(void)
 		if (m_ptr->cdis > MAX_SIGHT) continue;
 		if (!is_hostile(m_ptr)) continue;
 		if (r_info[m_ptr->r_idx].level < p_ptr->lev - 10) continue;
-#ifdef JP
-		msg_print("敵がすぐ近くにいるときは広域マップに入れない！");
-#else
 		msg_print("You cannot enter global map, since there is some monsters nearby!");
-#endif
 		energy_use = 0;
 		return FALSE;
 	}
 
 	if (have_pet)
 	{
-#ifdef JP
-		cptr msg = "ペットを置いて広域マップに入りますか？";
-#else
 		cptr msg = "Do you leave your pets behind? ";
-#endif
 
 		if (!get_check_strict(msg, CHECK_OKAY_CANCEL))
 		{

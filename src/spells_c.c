@@ -1061,11 +1061,7 @@ void draconian_breath_spell(int cmd, variant *res)
 		int plev = p_ptr->lev;
 		int dir = 0;
 		int  Type = (one_in_(3) ? GF_COLD : GF_FIRE);
-#ifdef JP
-		cptr Type_desc = ((Type == GF_COLD) ? "Îäµ¤" : "±ê");
-#else
 		cptr Type_desc = ((Type == GF_COLD) ? "cold" : "fire");
-#endif
 
 		var_set_bool(res, FALSE);
 		if (!get_aim_dir(&dir)) return;
@@ -1085,20 +1081,12 @@ void draconian_breath_spell(int cmd, variant *res)
 					if (one_in_(3))
 					{
 						Type = GF_MISSILE;
-#ifdef JP
-						Type_desc = "¥¨¥ì¥á¥ó¥È";
-#else
 						Type_desc = "the elements";
-#endif
 					}
 					else
 					{
 						Type = GF_SHARDS;
-#ifdef JP
-						Type_desc = "ÇËÊÒ";
-#else
 						Type_desc = "shards";
-#endif
 					}
 					break;
 				case CLASS_MAGE:
@@ -1115,40 +1103,24 @@ void draconian_breath_spell(int cmd, variant *res)
 					if (one_in_(3))
 					{
 						Type = GF_MANA;
-#ifdef JP
-						Type_desc = "ËâÎÏ";
-#else
 						Type_desc = "mana";
-#endif
 					}
 					else
 					{
 						Type = GF_DISENCHANT;
-#ifdef JP
-						Type_desc = "Îô²½";
-#else
 						Type_desc = "disenchantment";
-#endif
 					}
 					break;
 				case CLASS_CHAOS_WARRIOR:
 					if (!one_in_(3))
 					{
 						Type = GF_CONFUSION;
-#ifdef JP
-						Type_desc = "º®Íð";
-#else
 						Type_desc = "confusion";
-#endif
 					}
 					else
 					{
 						Type = GF_CHAOS;
-#ifdef JP
-						Type_desc = "¥«¥ª¥¹";
-#else
 						Type_desc = "chaos";
-#endif
 					}
 					break;
 				case CLASS_MONK:
@@ -1158,20 +1130,12 @@ void draconian_breath_spell(int cmd, variant *res)
 					if (!one_in_(3))
 					{
 						Type = GF_CONFUSION;
-#ifdef JP
-						Type_desc = "º®Íð";
-#else
 						Type_desc = "confusion";
-#endif
 					}
 					else
 					{
 						Type = GF_SOUND;
-#ifdef JP
-						Type_desc = "¹ì²»";
-#else
 						Type_desc = "sound";
-#endif
 					}
 					break;
 				case CLASS_MINDCRAFTER:
@@ -1179,20 +1143,12 @@ void draconian_breath_spell(int cmd, variant *res)
 					if (!one_in_(3))
 					{
 						Type = GF_CONFUSION;
-#ifdef JP
-						Type_desc = "º®Íð";
-#else
 						Type_desc = "confusion";
-#endif
 					}
 					else
 					{
 						Type = GF_PSI;
-#ifdef JP
-						Type_desc = "Àº¿À¥¨¥Í¥ë¥®¡¼";
-#else
 						Type_desc = "mental energy";
-#endif
 					}
 					break;
 				case CLASS_PRIEST:
@@ -1200,20 +1156,12 @@ void draconian_breath_spell(int cmd, variant *res)
 					if (one_in_(3))
 					{
 						Type = GF_HELL_FIRE;
-#ifdef JP
-						Type_desc = "ÃÏ¹ö¤Î¹å²Ð";
-#else
 						Type_desc = "hellfire";
-#endif
 					}
 					else
 					{
 						Type = GF_HOLY_FIRE;
-#ifdef JP
-						Type_desc = "À»¤Ê¤ë±ê";
-#else
 						Type_desc = "holy fire";
-#endif
 					}
 					break;
 				case CLASS_ROGUE:
@@ -1222,40 +1170,24 @@ void draconian_breath_spell(int cmd, variant *res)
 					if (one_in_(3))
 					{
 						Type = GF_DARK;
-#ifdef JP
-						Type_desc = "°Å¹õ";
-#else
 						Type_desc = "darkness";
-#endif
 					}
 					else
 					{
 						Type = GF_POIS;
-#ifdef JP
-						Type_desc = "ÆÇ";
-#else
 						Type_desc = "poison";
-#endif
 					}
 					break;
 				case CLASS_BARD:
 					if (!one_in_(3))
 					{
 						Type = GF_SOUND;
-#ifdef JP
-						Type_desc = "¹ì²»";
-#else
 						Type_desc = "sound";
-#endif
 					}
 					else
 					{
 						Type = GF_CONFUSION;
-#ifdef JP
-						Type_desc = "º®Íð";
-#else
 						Type_desc = "confusion";
-#endif
 					}
 					break;
 			}
@@ -1263,11 +1195,7 @@ void draconian_breath_spell(int cmd, variant *res)
 
 		stop_mouth();
 
-#ifdef JP
-		msg_format("¤¢¤Ê¤¿¤Ï%s¤Î¥Ö¥ì¥¹¤òÅÇ¤¤¤¿¡£", Type_desc);
-#else
 		msg_format("You breathe %s.", Type_desc);
-#endif
 
 		fire_ball(Type, dir, spell_power(plev * 2),
 			-(plev / 15) - 1);

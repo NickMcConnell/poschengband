@@ -407,11 +407,7 @@ cptr item_activation(object_type *o_ptr)
 	object_flags(o_ptr, flgs);
 
 	/* Require activation ability */
-#ifdef JP
-if (!(have_flag(flgs, TR_ACTIVATE))) return ("なし");
-#else
 	if (!(have_flag(flgs, TR_ACTIVATE))) return ("nothing");
-#endif
 
 
 
@@ -431,533 +427,297 @@ if (!(have_flag(flgs, TR_ACTIVATE))) return ("なし");
 		{
 			case ACT_SUNLIGHT:
 			{
-#ifdef JP
-return "太陽光線 : 10 ターン毎";
-#else
 				return "beam of sunlight every 10 turns";
-#endif
 
 			}
 			case ACT_BO_MISS_1:
 			{
-#ifdef JP
-return "マジック・ミサイル(2d6) : 2 ターン毎";
-#else
 				return "magic missile (2d6) every 2 turns";
-#endif
 
 			}
 			case ACT_BA_POIS_1:
 			{
-#ifdef JP
-return "悪臭雲 (12), 半径 3 , 4+d4 ターン毎";
-#else
 				return "stinking cloud (12), rad. 3, every 4+d4 turns";
-#endif
 
 			}
 			case ACT_BO_ELEC_1:
 			{
-#ifdef JP
-return "サンダー・ボルト(4d8) : 5+d5 ターン毎";
-#else
 				return "lightning bolt (4d8) every 5+d5 turns";
-#endif
 
 			}
 			case ACT_BO_ACID_1:
 			{
-#ifdef JP
-return "アシッド・ボルト(5d8) : 6+d6 ターン毎";
-#else
 				return "acid bolt (5d8) every 6+d6 turns";
-#endif
 
 			}
 			case ACT_BO_COLD_1:
 			{
-#ifdef JP
-return "アイス・ボルト(6d8) : 7+d7 ターン毎";
-#else
 				return "frost bolt (6d8) every 7+d7 turns";
-#endif
 
 			}
 			case ACT_BO_FIRE_1:
 			{
-#ifdef JP
-return "ファイア・ボルト(9d8) : 8+d8 ターン毎";
-#else
 				return "fire bolt (9d8) every 8+d8 turns";
-#endif
 
 			}
 			case ACT_BA_COLD_1:
 			{
-#ifdef JP
-return "アイス・ボール (48) : 400 ターン毎";
-#else
 				return "ball of cold (48) every 400 turns";
-#endif
 
 			}
 			case ACT_BA_FIRE_1:
 			{
-#ifdef JP
-return "ファイア・ボール (72) : 400 ターン毎";
-#else
 				return "ball of fire (72) every 400 turns";
-#endif
 
 			}
 			case ACT_DRAIN_1:
 			{
-#ifdef JP
-return "生命力吸収 (100) : 100+d100 ターン毎";
-#else
 				return "drain life (100) every 100+d100 turns";
-#endif
 
 			}
 			case ACT_BA_COLD_2:
 			{
-#ifdef JP
-return "アイス・ボール (100) : 300 ターン毎";
-#else
 				return "ball of cold (100) every 300 turns";
-#endif
 
 			}
 			case ACT_BA_ELEC_2:
 			{
-#ifdef JP
-return "サンダー・ボール (100) : 500 ターン毎";
-#else
 				return "ball of lightning (100) every 500 turns";
-#endif
 
 			}
 			case ACT_DRAIN_2:
 			{
-#ifdef JP
-return "生命力吸収(120) : 400 ターン毎";
-#else
 				return "drain life (120) every 400 turns";
-#endif
 
 			}
 			case ACT_VAMPIRE_1:
 			{
-#ifdef JP
-return "吸血ドレイン (3*50) : 400 ターン毎";
-#else
 				return "vampiric drain (3*50) every 400 turns";
-#endif
 
 			}
 			case ACT_BO_MISS_2:
 			{
-#ifdef JP
-return "矢 (150) : 90+d90 ターン毎";
-#else
 				return "arrows (150) every 90+d90 turns";
-#endif
 
 			}
 			case ACT_BA_FIRE_2:
 			{
-#ifdef JP
-return "ファイア・ボール (120) : 225+d225 ターン毎";
-#else
 				return "fire ball (120) every 225+d225 turns";
-#endif
 
 			}
 			case ACT_BA_COLD_3:
 			{
-#ifdef JP
-return "アイス・ボール (200) : 325+d325 ターン毎";
-#else
 				return "ball of cold (200) every 325+d325 turns";
-#endif
 
 			}
 			case ACT_BA_ELEC_3:
 			{
-#ifdef JP
-return "サンダー・ボール (250) : 425+d425 ターン毎";
-#else
 				return "ball of lightning (250) every 425+d425 turns";
-#endif
 
 			}
 			case ACT_WHIRLWIND:
 			{
-#ifdef JP
-return "カマイタチ : 250 ターン毎";
-#else
 				return "whirlwind attack every 250 turns";
-#endif
 
 			}
 			case ACT_VAMPIRE_2:
 			{
-#ifdef JP
-return "吸血ドレイン (3*100) : 400 ターン毎";
-#else
 				return "vampiric drain (3*100) every 400 turns";
-#endif
 
 			}
 			case ACT_CALL_CHAOS:
 			{
-#ifdef JP
-return "混沌召来 : 350 ターン毎"; /*nuke me*/
-#else
 				return "call chaos every 350 turns";
-#endif
 
 			}
 			case ACT_ROCKET:
 			{
-#ifdef JP
-return "ロケット (120+level) : 400 ターン毎";
-#else
 				return "launch rocket (120+level) every 400 turns";
-#endif
 
 			}
 			case ACT_DISP_EVIL:
 			{
-#ifdef JP
-return "邪悪退散 (level*5) : 300+d300 ターン毎";
-#else
 				return "dispel evil (level*5) every 300+d300 turns";
-#endif
 
 			}
 			case ACT_BA_MISS_3:
 			{
-#ifdef JP
-return "エレメントのブレス (300) : 500 ターン毎";
-#else
 				return "elemental breath (300) every 500 turns";
-#endif
 
 			}
 			case ACT_DISP_GOOD:
 			{
-#ifdef JP
-return "善良退散 (level*5) : 300+d300 ターン毎";
-#else
 				return "dispel good (level*5) every 300+d300 turns";
-#endif
 
 			}
 			case ACT_CONFUSE:
 			{
-#ifdef JP
-return "パニック・モンスター : 15 ターン毎";
-#else
 				return "confuse monster every 15 turns";
-#endif
 
 			}
 			case ACT_SLEEP:
 			{
-#ifdef JP
-return "周囲のモンスターを眠らせる : 55 ターン毎";
-#else
 				return "sleep nearby monsters every 55 turns";
-#endif
 
 			}
 			case ACT_QUAKE:
 			{
-#ifdef JP
-return "地震 (半径 10) : 50 ターン毎";
-#else
 				return "earthquake (rad 10) every 50 turns";
-#endif
 
 			}
 			case ACT_TERROR:
 			{
-#ifdef JP
-return "恐慌 : 3 * (level+10) ターン毎";
-#else
 				return "terror every 3 * (level+10) turns";
-#endif
 
 			}
 			case ACT_TELE_AWAY:
 			{
-#ifdef JP
-return "テレポート・アウェイ : 150 ターン毎";
-#else
 				return "teleport away every 200 turns";
-#endif
 
 			}
 			case ACT_BANISH_EVIL:
 			{
-#ifdef JP
-return "邪悪消滅 : 250+d250 ターン毎";
-#else
 				return "banish evil every 250+d250 turns";
-#endif
 
 			}
 			case ACT_GENOCIDE:
 			{
-#ifdef JP
-return "抹殺 : 500 ターン毎";
-#else
 				return "genocide every 500 turns";
-#endif
 
 			}
 			case ACT_MASS_GENO:
 			{
-#ifdef JP
-return "周辺抹殺 : 1000 ターン毎";
-#else
 				return "mass genocide every 1000 turns";
-#endif
 
 			}
 			case ACT_CHARM_ANIMAL:
 			{
-#ifdef JP
-return "動物魅了 : 300 ターン毎";
-#else
 				return "charm animal every 300 turns";
-#endif
 
 			}
 			case ACT_CHARM_UNDEAD:
 			{
-#ifdef JP
-return "アンデッド従属 : 333 ターン毎";
-#else
 				return "enslave undead every 333 turns";
-#endif
 
 			}
 			case ACT_CHARM_OTHER:
 			{
-#ifdef JP
-return "モンスター魅了 : 400 ターン毎";
-#else
 				return "charm monster every 400 turns";
-#endif
 
 			}
 			case ACT_CHARM_ANIMALS:
 			{
-#ifdef JP
-return "動物友和 : 500 ターン毎";
-#else
 				return "animal friendship every 500 turns";
-#endif
 
 			}
 			case ACT_CHARM_OTHERS:
 			{
-#ifdef JP
-return "周辺魅了 : 750 ターン毎";
-#else
 				return "mass charm every 750 turns";
-#endif
 
 			}
 			case ACT_SUMMON_ANIMAL:
 			{
-#ifdef JP
-return "動物召喚 : 200+d300 ターン毎";
-#else
 				return "summon animal every 200+d300 turns";
-#endif
 
 			}
 			case ACT_SUMMON_PHANTOM:
 			{
-#ifdef JP
-return "幻霊召喚 : 200+d200 ターン毎";
-#else
 				return "summon phantasmal servant every 200+d200 turns";
-#endif
 
 			}
 			case ACT_SUMMON_ELEMENTAL:
 			{
-#ifdef JP
-return "エレメンタル召喚 : 750 ターン毎";
-#else
 				return "summon elemental every 750 turns";
-#endif
 
 			}
 			case ACT_SUMMON_DEMON:
 			{
-#ifdef JP
-return "悪魔召喚 : 666+d333 ターン毎";
-#else
 				return "summon demon every 666+d333 turns";
-#endif
 
 			}
 			case ACT_SUMMON_UNDEAD:
 			{
-#ifdef JP
-return "アンデッド召喚 : 666+d333 ターン毎";
-#else
 				return "summon undead every 666+d333 turns";
-#endif
 
 			}
 			case ACT_CURE_LW:
 			{
-#ifdef JP
-return "恐怖除去 & 30 hp 回復 : 10 ターン毎";
-#else
 				return "heal 30 hp every 10 turns";
-#endif
 
 			}
 			case ACT_CURE_MW:
 			{
-#ifdef JP
-return "4d8 hp & 傷回復 : 3+d3 ターン毎";
-#else
 				return "heal 4d8 & wounds every 3+d3 turns";
-#endif
 
 			}
 			case ACT_CURE_POISON:
 			{
-#ifdef JP
-return "恐怖除去/毒消し : 5 ターン毎";
-#else
 				return "cure poison every 5 turns";
-#endif
 
 			}
 			case ACT_REST_LIFE:
 			{
-#ifdef JP
-return "経験値復活 : 450 ターン毎";
-#else
 				return "restore life levels every 450 turns";
-#endif
 
 			}
 			case ACT_REST_ALL:
 			{
-#ifdef JP
-return "全ステータスと経験値復活 : 750 ターン毎";
-#else
 				return "restore stats and life levels every 750 turns";
-#endif
 
 			}
 			case ACT_CURE_700:
 			{
-#ifdef JP
-return "700 hp 回復 : 250 ターン毎";
-#else
 				return "heal 700 hit points every 250 turns";
-#endif
 
 			}
 			case ACT_CURE_1000:
 			{
-#ifdef JP
-return "1000 hp 回復 : 888 ターン毎";
-#else
 				return "heal 1000 hit points every 888 turns";
-#endif
 
 			}
 			case ACT_ESP:
 			{
-#ifdef JP
-return "テレパシー (期間 25+d30) : 200 ターン毎";
-#else
 				return "telepathy (dur 25+d30) every 200 turns";
-#endif
 
 			}
 			case ACT_BERSERK:
 			{
-#ifdef JP
-return "士気高揚と祝福 (期間 50+d50) : 100+d100 ターン毎";
-#else
 				return "heroism and blessed (dur 50+d50) every 100+d100 turns";
-#endif
 
 			}
 			case ACT_PROT_EVIL:
 			{
-#ifdef JP
-return "対邪悪結界 (期間 level*3 + d25) : 225+d225 ターン毎";
-#else
 				return "protect evil (dur level*3 + d25) every 225+d225 turns";
-#endif
 
 			}
 			case ACT_RESIST_ALL:
 			{
-#ifdef JP
-return "全耐性 (期間 40+d40) : 200 ターン毎";
-#else
 				return "resist elements (dur 40+d40) every 200 turns";
-#endif
 
 			}
 			case ACT_SPEED:
 			{
-#ifdef JP
-return "加速 (期間 20+d20) : 250 ターン毎";
-#else
 				return "speed (dur 20+d20) every 250 turns";
-#endif
 
 			}
 			case ACT_XTRA_SPEED:
 			{
-#ifdef JP
-return "加速 (期間 75+d75) : 200+d200 ターン毎";
-#else
 				return "speed (dur 75+d75) every 200+d200 turns";
-#endif
 
 			}
 			case ACT_WRAITH:
 			{
-#ifdef JP
-return "幽体化 (期間 level/2 + d(level/2)) : 1000 ターン毎";
-#else
 				return "wraith form (dur level/2 + d(level/2)) every 1000 turns";
-#endif
 
 			}
 			case ACT_INVULN:
 			{
-#ifdef JP
-return "無敵化 (期間 8+d8) : 1000 ターン毎";
-#else
 				return "invulnerability (dur 8+d8) every 1000 turns";
-#endif
 
 			}
 			case ACT_LIGHT:
 			{
-#ifdef JP
-return "周辺照明 (ダメージ 2d15) : 10+d10 ターン毎";
-#else
 				return "light area (dam 2d15) every 10+d10 turns";
-#endif
 
 			}
 			case ACT_WIZ_LITE:
@@ -966,146 +726,82 @@ return "周辺照明 (ダメージ 2d15) : 10+d10 ターン毎";
 			}
 			case ACT_MAP_LIGHT:
 			{
-#ifdef JP
-return "周辺照明 (ダメージ 2d15) & 周辺マップ : 50+d50 ターン毎";
-#else
 				return "light (dam 2d15) & map area every 50+d50 turns";
-#endif
 
 			}
 			case ACT_DETECT_ALL:
 			{
-#ifdef JP
-return "全感知 : 55+d55 ターン毎";
-#else
 				return "detection every 55+d55 turns";
-#endif
 
 			}
 			case ACT_DETECT_XTRA:
 			{
-#ifdef JP
-return "全感知、探索、*鑑定* : 1000 ターン毎";
-#else
 				return "detection, probing and identify true every 1000 turns";
-#endif
 
 			}
 			case ACT_ID_FULL:
 			{
-#ifdef JP
-return "*鑑定* : 750 ターン毎";
-#else
 				return "identify true every 750 turns";
-#endif
 
 			}
 			case ACT_ID_PLAIN:
 			{
-#ifdef JP
-return "鑑定 : 10 ターン毎";
-#else
 				return "identify spell every 10 turns";
-#endif
 
 			}
 			case ACT_RUNE_EXPLO:
 			{
-#ifdef JP
-return "爆発のルーン : 200 ターン毎";
-#else
 				return "explosive rune every 200 turns";
-#endif
 
 			}
 			case ACT_RUNE_PROT:
 			{
-#ifdef JP
-return "守りのルーン : 400 ターン毎";
-#else
 				return "rune of protection every 400 turns";
-#endif
 
 			}
 			case ACT_SATIATE:
 			{
-#ifdef JP
-return "空腹充足 : 200 ターン毎";
-#else
 				return "satisfy hunger every 200 turns";
-#endif
 
 			}
 			case ACT_DEST_DOOR:
 			{
-#ifdef JP
-return "ドア破壊 : 10 ターン毎";
-#else
 				return "destroy doors every 10 turns";
-#endif
 
 			}
 			case ACT_STONE_MUD:
 			{
-#ifdef JP
-return "岩石溶解 : 5 ターン毎";
-#else
 				return "stone to mud every 5 turns";
-#endif
 
 			}
 			case ACT_RECHARGE:
 			{
-#ifdef JP
-return "魔力充填 : 70 ターン毎";
-#else
 				return "recharging every 70 turns";
-#endif
 
 			}
 			case ACT_ALCHEMY:
 			{
-#ifdef JP
-return "錬金術 : 500 ターン毎";
-#else
 				return "alchemy every 500 turns";
-#endif
 
 			}
 			case ACT_DIM_DOOR:
 			{
-#ifdef JP
-return "次元の扉 : 100 ターン毎";
-#else
 				return "dimension door every 100 turns";
-#endif
 
 			}
 			case ACT_TELEPORT:
 			{
-#ifdef JP
-return "テレポート (range 100) : 45 ターン毎";
-#else
 				return "teleport (range 100) every 45 turns";
-#endif
 
 			}
 			case ACT_RECALL:
 			{
-#ifdef JP
-return "帰還の詔 : 200 ターン毎";
-#else
 				return "word of recall every 200 turns";
-#endif
 
 			}
 			default:
 			{
-#ifdef JP
-return "未定義";
-#else
 				return "something undefined";
-#endif
 
 			}
 		}
@@ -1143,11 +839,7 @@ return "未定義";
 
 		case ART_NARTHANC:
 		{
-#ifdef JP
-return "ファイア・ボルト(9d8) : 8+d8 ターン毎";
-#else
 			return "fire bolt (9d8) every 8+d8 turns";
-#endif
 
 		}
 		case ART_GONG:
@@ -1188,83 +880,47 @@ return "ファイア・ボルト(9d8) : 8+d8 ターン毎";
 			return "heal 700hp every 300 turns";
 		case ART_NIMTHANC:
 		{
-#ifdef JP
-return "アイス・ボルト(6d8) : 7+d7 ターン毎";
-#else
 			return "frost bolt (6d8) every 7+d7 turns";
-#endif
 
 		}
 		case ART_DETHANC:
 		{
-#ifdef JP
-return "サンダー・ボルト(4d8) : 5+d5 ターン毎";
-#else
 			return "lightning bolt (4d8) every 6+d6 turns";
-#endif
 
 		}
 		case ART_RILIA:
 		{
-#ifdef JP
-return "悪臭雲(12) : 4+d4 ターン毎";
-#else
 			return "stinking cloud (12) every 4+d4 turns";
-#endif
 
 		}
 		case ART_FIONA:
 		{
-#ifdef JP
-return "アイス・ボール(48) : 5+d5 ターン毎";
-#else
 			return "frost ball (48) every 5+d5 turns";
-#endif
 
 		}
 		case ART_FLORA:
 		{
-#ifdef JP
-return "恐怖除去/毒消し : 5 ターン毎";
-#else
 			return "remove fear and cure poison every 5 turns";
-#endif
 
 		}
 		case ART_RINGIL:
 		{
-#ifdef JP
-return "アイス・ボール(100) : 200 ターン毎";
-#else
 			return "frost ball (100) every 200 turns";
-#endif
 
 		}
 		case ART_DAWN:
 		{
-#ifdef JP
-return "暁の師団召喚 : 500+d500 ターン毎";
-#else
 			return "summon the Legion of the Dawn every 500+d500 turns";
-#endif
 
 		}
 		case ART_ANDURIL:
 		{
-#ifdef JP
-return "ファイア・ボール(72) : 400 ターン毎";
-#else
 			return "fire ball (72) every 400 turns";
-#endif
 
 		}
 		case ART_FIRESTAR:
 		{
-#ifdef JP
-return "巨大ファイア・ボール(72) : 100 ターン毎";
-#else
 			return "large fire ball (72) every 100 turns";
-#endif
 
 		}
 		case ART_AEGIR:
@@ -1283,187 +939,107 @@ return "巨大ファイア・ボール(72) : 100 ターン毎";
 			return "light speed every 888 turns";
 		case ART_GOTHMOG:
 		{
-#ifdef JP
-return "巨大ファイア・ボール(120) : 15 ターン毎";
-#else
 			return "large fire ball (120) every 15 turns";
-#endif
 
 		}
 		case ART_FEANOR:
 		{
-#ifdef JP
-return "スピード(20+d20ターン) : 200 ターン毎";
-#else
 			return "haste self (20+d20 turns) every 200 turns";
-#endif
 
 		}
 		case ART_THEODEN:
 		{
-#ifdef JP
-return "生命力吸収(120) : 400 ターン毎";
-#else
 			return "drain life (120) every 400 turns";
-#endif
 
 		}
 		case ART_TURMIL:
 		{
-#ifdef JP
-return "生命力吸収(90) : 70 ターン毎";
-#else
 			return "drain life (90) every 70 turns";
-#endif
 
 		}
 		case ART_CASPANION:
 		{
-#ifdef JP
-return "ドア/トラップ粉砕 : 10 ターン毎";
-#else
 			return "door and trap destruction every 10 turns";
-#endif
 
 		}
 		case ART_AVAVIR:
 		case ART_MAGATAMA:
 		case ART_HEAVENLY_MAIDEN:
 		{
-#ifdef JP
-return "帰還の詔 : 200 ターン毎";
-#else
 			return "word of recall every 200 turns";
-#endif
 
 		}
 		case ART_TARATOL:
 		{
-#ifdef JP
-return "スピード(20+d20ターン) : 100+d100 ターン毎";
-#else
 			return "haste self (20+d20 turns) every 100+d100 turns";
-#endif
 
 		}
 		case ART_ERIRIL:
 		{
-#ifdef JP
-return "鑑定 : 10 ターン毎";
-#else
 			return "identify every 10 turns";
-#endif
 
 		}
 		case ART_GANDALF:
 		{
-#ifdef JP
-return "調査、全感知、全鑑定 : 100 ターン毎";
-#else
 			return "probing, detection and full id every 100 turns";
-#endif
 
 		}
 		case ART_EONWE:
 		{
-#ifdef JP
-return "周辺抹殺 : 1000 ターン毎";
-#else
 			return "mass genocide every 1000 turns";
-#endif
 
 		}
 		case ART_LOTHARANG:
 		{
-#ifdef JP
-return "傷の治癒(4d8) : 3+d3 ターン毎";
-#else
 			return "cure wounds (4d8) every 3+d3 turns";
-#endif
 
 		}
 		case ART_CRIMSON:
 		{
-#ifdef JP
-return "ファイア！ : 15 ターン毎";
-#else
 			return "fire! every 15 turns";
-#endif
 
 		}
 		case ART_KUSANAGI:
 		case ART_WEREWINDLE:
 		{
-#ifdef JP
-return "逃走 : 35 ターン毎";
-#else
 			return "a getaway every 35 turns";
-#endif
 
 		}
 		case ART_KAMUI:
 		{
-#ifdef JP
-return "テレポート : 25 ターン毎";
-#else
 			return "a teleport every 25 turns";
-#endif
 
 		}
 		case ART_RUNESPEAR:
 		{
-#ifdef JP
-return "サンダー・ボール (100) : 200 ターン毎";
-#else
 			return "lightning ball (100) every 200 turns";
-#endif
 
 		}
 		case ART_AEGLOS:
 		{
-#ifdef JP
-return "アイス・ボール (100) : 200 ターン毎";
-#else
 			return "frost ball (100) every 200 turns";
-#endif
 
 		}
 		case ART_DESTINY:
 		{
-#ifdef JP
-return "岩石溶解 : 5 ターン毎";
-#else
 			return "stone to mud every 5 turns";
-#endif
 
 		}
 		case ART_NAIN:
 		{
-#ifdef JP
-return "岩石溶解 : 2 ターン毎";
-#else
 			return "stone to mud every 2 turns";
-#endif
 
 		}
 		case ART_SOULKEEPER:
 		{
-#ifdef JP
-return "体力回復(1000) : 888 ターン毎";
-#else
 			return "heal (1000) every 888 turns";
-#endif
 
 		}
 		case ART_DUELIST: return "Strafing every 3 turns";
 		case ART_LOHENGRIN:
 		case ART_DAERON:
 		{
-#ifdef JP
-return ("回復 (777)、癒し、士気高揚 : 300 ターン毎");
-#else
 			return ("heal (777), curing and heroism every 300 turns");
-#endif
 
 		}
 		case ART_MAGLOR:
@@ -1472,40 +1048,24 @@ return ("回復 (777)、癒し、士気高揚 : 300 ターン毎");
 		}
 		case ART_JULIAN:
 		{
-#ifdef JP
-return "抹殺 : 500 ターン毎";
-#else
 			return "genocide every 500 turns";
-#endif
 
 		}
 		case ART_LUTHIEN:
 		{
-#ifdef JP
-return "経験値復活 : 450 ターン毎";
-#else
 			return "restore life levels every 450 turns";
-#endif
 
 		}
 		case ART_ULMO:
 		{
-#ifdef JP
-return "テレポート・アウェイ : 150 ターン毎";
-#else
 			return "teleport away every 150 turns";
-#endif
 
 		}
 		case ART_COLLUIN:
 		case ART_SARUMAN:
 		case ART_SEIRYU:
 		{
-#ifdef JP
-return "全耐性(20+d20ターン) : 111 ターン毎";
-#else
 			return "resistance (20+d20 turns) every 111 turns";
-#endif
 
 		}
 		case ART_BLOODRIP:
@@ -1514,469 +1074,261 @@ return "全耐性(20+d20ターン) : 111 ターン毎";
 		}
 		case ART_HOLCOLLETH:
 		{
-#ifdef JP
-return "スリープ(II) : 55 ターン毎";
-#else
 			return "sleep monsters every 55 turns";
-#endif
 
 		}
 		case ART_THINGOL:
 		{
-#ifdef JP
-return "魔力充填 : 70 ターン毎";
-#else
 			return "recharge item every 70 turns";
-#endif
 
 		}
 		case ART_COLANNON:
 		{
-#ifdef JP
-return "テレポート : 45 ターン毎";
-#else
 			return "teleport every 45 turns";
-#endif
 
 		}
 		case ART_TOTILA:
 		{
-#ifdef JP
-return "パニック・モンスター : 15 ターン毎";
-#else
 			return "confuse monster every 15 turns";
-#endif
 
 		}
 		case ART_CAMMITHRIM:
 		{
-#ifdef JP
-return "マジック・ミサイル(2d6) : 2 ターン毎";
-#else
 			return "magic missile (2d6) every 2 turns";
-#endif
 
 		}
 		case ART_FINGOLFIN:
 		{
-#ifdef JP
-return "魔法の矢(150) : 90+d90 ターン毎";
-#else
 			return "a magical arrow (150) every 90+d90 turns";
-#endif
 
 		}
 		case ART_HOLHENNETH:
 		{
-#ifdef JP
-return "全感知 : 55+d55 ターン毎";
-#else
 			return "detection every 55+d55 turns";
-#endif
 
 		}
 		case ART_AMBER:
 		{
-#ifdef JP
-return "体力回復(700) : 250 ターン毎";
-#else
 			return "heal (700) every 250 turns";
-#endif
 
 		}
 		case ART_RAZORBACK:
 		{
-#ifdef JP
-return "スター・ボール(150) : 1000 ターン毎";
-#else
 			return "star ball (150) every 1000 turns";
-#endif
 
 		}
 		case ART_BLADETURNER:
 		{
-#ifdef JP
-return "エレメントのブレス (300), 士気高揚、祝福、耐性";
-#else
 			return "breathe elements (300), hero, bless, and resistance";
-#endif
 
 		}
 		case ART_GALADRIEL:
 		{
-#ifdef JP
-return "イルミネーション : 10+d10 ターン毎";
-#else
 			return "illumination every 10+d10 turns";
-#endif
 
 		}
 		case ART_ELENDIL:
 		{
-#ifdef JP
-return "魔法の地図と光 : 50+d50 ターン毎";
-#else
 			return "magic mapping and light every 50+d50 turns";
-#endif
 
 		}
 		case ART_EYE_OF_VECNA:
 			return "the Vision of Vecna, every 20+d20 turns";
 		case ART_JUDGE:
 		{
-#ifdef JP
-return "体力と引き替えに千里眼と帰還 : 20+d20 ターン毎";
-#else
 			return "clairvoyance and recall, draining you every 20+d20 turns";
-#endif
 
 		}
 		case ART_INGWE:
 		case ART_YATA:
 		{
-#ifdef JP
-return "邪悪退散(x5) : 200+d200 ターン毎";
-#else
 			return "dispel evil (x5) every 200+d200 turns";
-#endif
 
 		}
 		case ART_FUNDIN:
 		{
-#ifdef JP
-return "邪悪退散(x5) : 100+d100 ターン毎";
-#else
 			return "dispel evil (x5) every 100+d100 turns";
-#endif
 
 		}
 		case ART_CARLAMMAS:
 		case ART_HERMIT:
 		{
-#ifdef JP
-return "対邪悪結界 : 225+d225 ターン毎";
-#else
 			return "protection from evil every 225+d225 turns";
-#endif
 
 		}
 		case ART_FRAKIR:
 		{
-#ifdef JP
-return "窒息攻撃(100) : 100+d100 ターン毎";
-#else
 			return "a strangling attack (100) every 100+d100 turns";
-#endif
 
 		}
 		case ART_TULKAS:
 		{
-#ifdef JP
-return "スピード(75+d75ターン) : 100+d100 ターン毎";
-#else
 			return "haste self (75+d75 turns) every 150+d150 turns";
-#endif
 
 		}
 		case ART_NARYA:
 		{
-#ifdef JP
-return "巨大ファイア・ボール(300) : 225+d225 ターン毎";
-#else
 			return "large fire ball (300) every 225+d225 turns";
-#endif
 
 		}
 		case ART_NENYA:
 		{
-#ifdef JP
-return "巨大アイス・ボール(400) : 325+d325 ターン毎";
-#else
 			return "large frost ball (400) every 325+d325 turns";
-#endif
 
 		}
 		case ART_VILYA:
 		case ART_GOURYU:
 		{
-#ifdef JP
-return "巨大サンダー・ボール(500) : 425+d425 ターン毎";
-#else
 			return "large lightning ball (500) every 425+d425 turns";
-#endif
 
 		}
 		case ART_POWER:
 		case ART_AHO:
 		{
-#ifdef JP
-return "信じ難いこと : 450+d450 ターン毎";
-#else
 			return "bizarre things every 450+d450 turns";
-#endif
 
 		}
 		case ART_DOR: case ART_TERROR: case ART_STONEMASK:
 		{
-#ifdef JP
-			return "全方向への恐怖の光線 : 3*(レベル+10) ターン毎";
-#else
 			return "rays of fear in every direction every 3*(level+10) turns";
-#endif
 
 		}
 		case ART_PALANTIR:
 		{
-#ifdef JP
-return "この階にいるユニークモンスターを表示 : 200ターン毎";
-#else
 			return "list of the uniques on the level every 200 turns";
-#endif
 		}
 		case ART_FARAMIR:
 		{
-#ifdef JP
-return "害虫の駆除 : 55+d55ターン毎";
-#else
 			return "dispel small life every 55+d55 turns";
-#endif
 		}
 		case ART_BOROMIR:
 		{
-#ifdef JP
-return "モンスター恐慌 : 40+d40ターン毎";
-#else
 			return "frighten monsters every 40+d40 turns";
-#endif
 		}
 		case ART_HIMRING:
 		{
-#ifdef JP
-return "対邪悪結界 : 200+d200 ターン毎";
-#else
 			return "protection from evil every 200 + d200 turns";
-#endif
 		}
 		case ART_ICANUS:
 		{
-#ifdef JP
-return "魔力の矢(120) : 120+d120 ターン毎";
-#else
 			return "a mana bolt (120) every 120+d120 turns";
-#endif
 		}
 		case ART_HURIN:
 		{
-#ifdef JP
-return "士気高揚, スピード(50+d50ターン) : 100+d200 ターン毎";
-#else
 			return "hero and +10 to speed (50) every 100+200d turns";
-#endif
 		}
 		case ART_GIL_GALAD:
 		{
-#ifdef JP
-return "眩しい光 : 250 ターン毎";
-#else
 			return "blinding light every 250 turns";
-#endif
 		}
 		case ART_YENDOR:
 		{
-#ifdef JP
-return "魔力充填 : 200 ターン毎";
-#else
 			return "recharge item every 200 turns";
-#endif
 		}
 		case ART_MURAMASA:
 		{
-#ifdef JP
-return "腕力の上昇 : 確率50%で壊れる";
-#else
 			return "increase STR (destroyed 50%)";
-#endif
 		}
 		case ART_FLY_STONE:
 		{
-#ifdef JP
-return "魔力の嵐(400) : 250+d250ターン毎";
-#else
 			return "a mana storm every 250+d250 turns";
-#endif
 		}
 		case ART_JONES:
 		{
-#ifdef JP
-return "物体を引き寄せる(重量25kgまで) : 25+d25ターン毎";
-#else
 			return "a telekinesis (500 lb) every 25+d25 turns";
-#endif
 		}
 		case ART_ARRYU:
 		{
-#ifdef JP
-return "ハウンド召喚 : 300+d150ターン毎";
-#else
 			return "summon hound every 300+d150 turns";
-#endif
 		}
 		case ART_GAEBOLG:
 		{
-#ifdef JP
-return "巨大スター・ボール(200) : 200+d200 ターン毎";
-#else
 			return "large star ball (200) every 200+d200 turns";
-#endif
 
 		}
 		case ART_INROU:
 		{
-#ifdef JP
-return "例のアレ : 150+d150 ターン毎";
-#else
 			return "reveal your identity every 150+d150 turns";
-#endif
 
 		}
 		case ART_HYOUSIGI:
 		{
-#ifdef JP
-return "拍子木を打ちならす : いつでも";
-#else
 			return "beat wooden clappers every turn";
-#endif
 
 		}
 		case ART_MATOI:
 		case ART_AEGISFANG:
 		{
-#ifdef JP
-return "士気高揚 : 30+d30ターン毎";
-#else
 			return "heroism every 30+d30 turns";
-#endif
 
 		}
 
 		case ART_EARENDIL:
 		{
-#ifdef JP
-return "癒し : 100ターン毎";
-#else
 			return "curing every 100 turns";
-#endif
 
 		}
 
 		case ART_BOLISHOI:
 		{
-#ifdef JP
-return "動物魅了 : 200ターン毎";
-#else
 			return "charm animal every 200 turns";
-#endif
 
 		}
 		case ART_ARUNRUTH:
 		{
-#ifdef JP
-return "アイス・ボルト(12d8) : 50 ターン毎";
-#else
 			return "frost bolt (12d8) every 50 turns";
-#endif
 
 		}
 		case ART_BLOOD:
 		{
-#ifdef JP
-return "属性変更 : 3333 ターン毎";
-#else
 			return "change zokusei every 3333 turns";
-#endif
 
 		}
 		case ART_NUMAHOKO:
 		{
-#ifdef JP
-return "ウォーター・ボール(200) : 250 ターン毎";
-#else
 			return "water ball (200) every 250 turns";
-#endif
 
 		}
 		case ART_KESHO:
 		{
-#ifdef JP
-return "四股踏み : 100+d100ターン毎";
-#else
 			return "shiko every 100+d100 turns";
-#endif
 
 		}
 		case ART_MOOK:
 		{
-#ifdef JP
-return "冷気の耐性 : 40+d40ターン毎";
-#else
 			return "resist cold every 40+d40 turns";
-#endif
 
 		}
 		case ART_JIZO:
 		{
-#ifdef JP
-return "蛸の大群召喚 : 300+d150ターン毎";
-#else
 			return "summon octopus every 300+d150 turns";
-#endif
 		}
 		case ART_NIGHT:
 		case ART_HELL:
 		{
-#ifdef JP
-return "暗黒の嵐(250) : 150+d150 ターン毎";
-#else
 			return "darkness storm (250) every 150+d150 turns";
-#endif
 
 		}
 		case ART_SACRED_KNIGHTS:
 		{
-#ifdef JP
-return "*解呪*と調査: いつでも";
-#else
 			return "dispel curse and probing every turn";
-#endif
 
 		}
 		case ART_CHARMED:
 		{
-#ifdef JP
-return "魔力復活: 777 ターン毎";
-#else
 			return "restore mana every 777 turns";
-#endif
 
 		}
 		case ART_AESCULAPIUS:
 		{
-#ifdef JP
-			return "全ステータスと経験値復活 : 750 ターン毎";
-#else
 			return "restore stats and life levels every 750 turns";
-#endif
 		}
 	}
 
 
 	if ((o_ptr->tval == TV_POLEARM) && (o_ptr->sval == SV_TSURIZAO))
 	{
-#ifdef JP
-return "釣りをする : いつでも";
-#else
 		return "fishing : every time";
-#endif
 
 	}
 
@@ -1985,78 +1337,42 @@ return "釣りをする : いつでも";
 		switch (o_ptr->xtra3 - 1)
 		{
 		case ESSENCE_TMP_RES_ACID:
-#ifdef JP
-			return "酸への耐性 : 50+d50ターン毎";
-#else
 			return "resist acid every 50+d50 turns";
-#endif
 
 		case ESSENCE_TMP_RES_ELEC:
-#ifdef JP
-			return "電撃への耐性 : 50+d50ターン毎";
-#else
 			return "resist elec every 50+d50 turns";
-#endif
 
 		case ESSENCE_TMP_RES_FIRE:
-#ifdef JP
-			return "火への耐性 : 50+d50ターン毎";
-#else
 			return "resist fire every 50+d50 turns";
-#endif
 
 		case ESSENCE_TMP_RES_COLD:
-#ifdef JP
-			return "冷気への耐性 : 50+d50ターン毎";
-#else
 			return "resist cold every 50+d50 turns";
-#endif
 
 		case TR_IMPACT:
-#ifdef JP
-			return "地震 : 100+d100 ターン毎";
-#else
 			return "earthquake every 100+d100 turns";
-#endif
 		}
 	}
 
 	if (o_ptr->name2 == EGO_TRUMP)
 	{
-#ifdef JP
-return "テレポート : 50+d50 ターン毎";
-#else
 		return "teleport every 50+d50 turns";
-#endif
 
 	}
 
 	if (o_ptr->name2 == EGO_LITE_ILLUMINATION)
 	{
-#ifdef JP
-return "イルミネーション : 10+d10 ターン毎";
-#else
 			return "illumination every 10+d10 turns";
-#endif
 	}
 
 	else if (o_ptr->name2 == EGO_EARTHQUAKES)
 	{
-#ifdef JP
-return "地震 : 100+d100 ターン毎";
-#else
 		return "earthquake every 100+d100 turns";
-#endif
 
 	}
 
 	else if (o_ptr->name2 == EGO_JUMP)
 	{
-#ifdef JP
-return "ショート・テレポート : 10+d10 ターン毎";
-#else
 		return "blink every 10+d10 turns";
-#endif
 
 	}
 
@@ -2072,164 +1388,64 @@ return "ショート・テレポート : 10+d10 ターン毎";
 			switch (o_ptr->name2)
 			{
 			case EGO_RING_HERO:
-#ifdef JP
-return "士気高揚 : 100+d100ターン毎";
-#else
 				return "heroism every 100+d100 turns";
-#endif
 			case EGO_RING_MAGIC_MIS:
-#ifdef JP
-return "マジック・ミサイル(2d6) : 2 ターン毎";
-#else
 			return "magic missile (2d6) every 2 turns";
-#endif
 			case EGO_RING_FIRE_BOLT:
-#ifdef JP
-return "ファイア・ボルト(9d8) : 8+d8 ターン毎";
-#else
 			return "fire bolt (9d8) every 8+d8 turns";
-#endif
 			case EGO_RING_COLD_BOLT:
-#ifdef JP
-return "アイス・ボルト(6d8) : 7+d7 ターン毎";
-#else
 				return "frost bolt (6d8) every 7+d7 turns";
-#endif
 			case EGO_RING_ELEC_BOLT:
-#ifdef JP
-return "サンダー・ボルト(4d8) : 5+d5 ターン毎";
-#else
 				return "lightning bolt (4d8) every 5+d5 turns";
-#endif
 			case EGO_RING_ACID_BOLT:
-#ifdef JP
-return "アシッド・ボルト(5d8) : 6+d6 ターン毎";
-#else
 				return "acid bolt (5d8) every 6+d6 turns";
-#endif
 			case EGO_RING_MANA_BOLT:
-#ifdef JP
-return "魔力の矢(120) : 120+d120 ターン毎";
-#else
 			return "a mana bolt (120) every 120+d120 turns";
-#endif
 			case EGO_RING_FIRE_BALL:
-#ifdef JP
-return "ファイア・ボール (100) : 80+d80 ターン毎";
-#else
 				return "fire ball (100) every 80+d80 turns";
-#endif
 			case EGO_RING_COLD_BALL:
-#ifdef JP
-return "アイス・ボール (100) : 80+d80 ターン毎";
-#else
 				return "cold ball (100) every 80+d80 turns";
-#endif
 			case EGO_RING_ELEC_BALL:
-#ifdef JP
-return "サンダー・ボール (100) : 80+d80 ターン毎";
-#else
 				return "elec ball (100) every 80+d80 turns";
-#endif
 			case EGO_RING_ACID_BALL:
-#ifdef JP
-return "アシッド・ボール (100) : 80+d80 ターン毎";
-#else
 				return "acid ball (100) every 80+d80 turns";
-#endif
 			case EGO_RING_MANA_BALL:
-#ifdef JP
-return "魔力の嵐 (250) : 300 ターン毎";
-#else
 				return "mana storm (250) every 300 turns";
-#endif
 			case EGO_RING_DRAGON_F:
 				if (o_ptr->sval == SV_RING_FLAMES)
-#ifdef JP
-return "火炎のブレス (200) と火への耐性 : 200 ターン毎";
-#else
 					return "breath of fire (200) and resist fire every 200 turns";
-#endif
 				else
-#ifdef JP
-return "火炎のブレス (200) : 250 ターン毎";
-#else
 					return "fire breath (200) every 250 turns";
-#endif
 			case EGO_RING_DRAGON_C:
 				if (o_ptr->sval == SV_RING_ICE)
-#ifdef JP
-return "冷気のブレス (200) と冷気への耐性 : 200 ターン毎";
-#else
 					return "breath of cold (200) and resist cold every 200 turns";
-#endif
 				else
-#ifdef JP
-return "冷気のブレス (200) : 250 ターン毎";
-#else
 					return "cold breath (200) every 250 turns";
-#endif
 			case EGO_RING_M_DETECT:
-#ifdef JP
-return "全モンスター感知 : 150 ターン毎";
-#else
 				return "detect all monsters every 150 turns";
-#endif
 			case EGO_RING_D_SPEED:
-#ifdef JP
-return "スピード(15+d30ターン) : 100 ターン毎";
-#else
 				return "haste self (15+d30 turns) every 100 turns";
-#endif
 			case EGO_RING_BERSERKER:
-#ifdef JP
-return "狂戦士化(25+d25ターン) : 75+d75 ターン毎";
-#else
 				return "berserk (25+d25 turns) every 75+d75 turns";
-#endif
 			case EGO_RING_TELE_AWAY:
-#ifdef JP
-return "テレポート・アウェイ : 150 ターン毎";
-#else
 			return "teleport away every 150 turns";
-#endif
 			case EGO_RING_TRUE:
-#ifdef JP
-return "士気高揚、祝福、究極の耐性 : 777 ターン毎";
-#else
 			return "hero, bless, and ultimate resistance every 777 turns";
-#endif
 			}
 		}
 		switch (o_ptr->sval)
 		{
 			case SV_RING_FLAMES:
-#ifdef JP
-return "ファイア・ボール (100) と火への耐性 : 50+d50 ターン毎";
-#else
 				return "ball of fire (100) and resist fire every 50+d50 turns";
-#endif
 
 			case SV_RING_ICE:
-#ifdef JP
-return "アイス・ボール (100) と冷気への耐性 : 50+d50 ターン毎";
-#else
 				return "ball of cold (100) and resist cold every 50+d50 turns";
-#endif
 
 			case SV_RING_ACID:
-#ifdef JP
-return "アシッド・ボール (100) と酸への耐性 : 50+d50 ターン毎";
-#else
 				return "ball of acid (100) and resist acid every 50+d50 turns";
-#endif
 
 			case SV_RING_ELEC:
-#ifdef JP
-return "サンダー・ボール (100) と電撃への耐性 : 50+d50 ターン毎";
-#else
 				return "ball of elec (100) and resist elec every 50+d50 turns";
-#endif
 
 			default:
 				return NULL;
@@ -2243,96 +1459,44 @@ return "サンダー・ボール (100) と電撃への耐性 : 50+d50 ターン毎";
 			switch (o_ptr->name2)
 			{
 			case EGO_AMU_IDENT:
-#ifdef JP
-				return "鑑定 : 10 ターン毎";
-#else
 				return "identify every 10 turns";
-#endif
 			case EGO_AMU_CHARM:
-#ifdef JP
-				return "モンスター魅了 : 200 ターン毎";
-#else
 				return "charm monster every 200 turns";
-#endif
 			case EGO_AMU_JUMP:
-#ifdef JP
-				return "ショート・テレポート : 10+d10 ターン毎";
-#else
 				return "blink every 10+d10 turns";
-#endif
 			case EGO_AMU_RESISTANCE:
 				return "resist elements every 75+d75 turns";
 
 			case EGO_AMU_TELEPORT:
-#ifdef JP
-				return "テレポート : 50+d50 ターン毎";
-#else
 				return "teleport every 50+d50 turns";
-#endif
 			case EGO_AMU_D_DOOR:
-#ifdef JP
-				return "次元の扉 : 200 ターン毎";
-#else
 				return "dimension door every 200 turns";
-#endif
 			case EGO_AMU_RES_FIRE_:
-#ifdef JP
-				return "火炎への耐性 : 50+d50ターン毎";
-#else
 				return "resist fire every 50+d50 turns";
-#endif
 			case EGO_AMU_RES_COLD_:
-#ifdef JP
-				return "冷気への耐性 : 50+d50ターン毎";
-#else
 				return "resist cold every 50+d50 turns";
-#endif
 			case EGO_AMU_RES_ELEC_:
-#ifdef JP
-				return "電撃への耐性 : 50+d50ターン毎";
-#else
 				return "resist elec every 50+d50 turns";
-#endif
 			case EGO_AMU_RES_ACID_:
-#ifdef JP
-				return "酸への耐性 : 50+d50ターン毎";
-#else
 				return "resist acid every 50+d50 turns";
-#endif
 			case EGO_AMU_DETECTION:
-#ifdef JP
-				return "全感知 : 55+d55ターン毎";
-#else
 				return "detect all floor every 55+d55 turns";
-#endif
 			}
 		}
 	}
 
 	if (o_ptr->tval == TV_WHISTLE)
 	{
-#ifdef JP
-return "ペット呼び寄せ : 100+d100ターン毎";
-#else
 		return "call pet every 100+d100 turns";
-#endif
 	}
 
 	if (o_ptr->tval == TV_CAPTURE)
 	{
-#ifdef JP
-return "モンスターを捕える、又は解放する。";
-#else
 		return "captures or releases a monster.";
-#endif
 	}
 
 	/* Require dragon scale mail */
-#ifdef JP
-if (o_ptr->tval != TV_DRAG_ARMOR) return ("奇妙な光");
-#else
 	if (o_ptr->tval != TV_DRAG_ARMOR) return ("a strange glow");
-#endif
 
 
 	/* Branch on the sub-type */
@@ -2340,129 +1504,73 @@ if (o_ptr->tval != TV_DRAG_ARMOR) return ("奇妙な光");
 	{
 		case SV_DRAGON_BLUE:
 		{
-#ifdef JP
-return "稲妻のブレス(100) : 150+d150 ターン毎";
-#else
 			return "breathe lightning (100) every 15+d15 turns";
-#endif
 
 		}
 		case SV_DRAGON_WHITE:
 		{
-#ifdef JP
-return "冷気のブレス(110) : 150+d150 ターン毎";
-#else
 			return "breathe frost (110) every 15+d15 turns";
-#endif
 
 		}
 		case SV_DRAGON_BLACK:
 		{
-#ifdef JP
-return "酸のブレス(130) : 150+d150 ターン毎";
-#else
 			return "breathe acid (130) every 15+d15 turns";
-#endif
 
 		}
 		case SV_DRAGON_GREEN:
 		{
-#ifdef JP
-return "毒のガスのブレス(150) : 180+d180 ターン毎";
-#else
 			return "breathe poison gas (150) every 18+d18 turns";
-#endif
 
 		}
 		case SV_DRAGON_RED:
 		{
-#ifdef JP
-return "火炎のブレス(200) : 200+d200 ターン毎";
-#else
 			return "breathe fire (200) every 20+d20 turns";
-#endif
 
 		}
 		case SV_DRAGON_MULTIHUED:
 		{
-#ifdef JP
-return "万色のブレス(250) : 200+d200 ターン毎";
-#else
 			return "breathe multi-hued (250) every 20+d20 turns";
-#endif
 
 		}
 		case SV_DRAGON_BRONZE:
 		{
-#ifdef JP
-return "混乱のブレス(120) : 180+d180 ターン毎";
-#else
 			return "breathe confusion (120) every 18+d18 turns";
-#endif
 
 		}
 		case SV_DRAGON_GOLD:
 		{
-#ifdef JP
-return "轟音のブレス(130) : 180+d180 ターン毎";
-#else
 			return "breathe sound (130) every 18+d18 turns";
-#endif
 
 		}
 		case SV_DRAGON_CHAOS:
 		{
-#ifdef JP
-return "カオス/劣化のブレス(220) : 200+d200 ターン毎";
-#else
 			return "breathe chaos/disenchant (220) every 20+d20 turns";
-#endif
 
 		}
 		case SV_DRAGON_LAW:
 		{
-#ifdef JP
-return "轟音/破片のブレス(230) : 200+d200 ターン毎";
-#else
 			return "breathe sound/shards (230) every 20+d20 turns";
-#endif
 
 		}
 		case SV_DRAGON_BALANCE:
 		{
-#ifdef JP
-return "バランスのブレス (250) 200+d200 ターン毎";
-#else
 			return "breathe balance (250) every 20+d20 turns";
-#endif
 
 		}
 		case SV_DRAGON_SHINING:
 		{
-#ifdef JP
-return "閃光/暗黒のブレス(200) : 200+d200 ターン毎";
-#else
 			return "breathe light/darkness (200) every 20+d20 turns";
-#endif
 
 		}
 		case SV_DRAGON_POWER:
 		{
-#ifdef JP
-return "エレメントのブレス(300) : 200+d200 ターン毎";
-#else
 			return "breathe the elements (300) every 20+d20 turns";
-#endif
 
 		}
 	}
 
 	/* Oops */
-#ifdef JP
-return "空気の息";
-#else
 	return "breathe air";
-#endif
 
 }
 
@@ -2529,29 +1637,17 @@ bool screen_object(object_type *o_ptr, u32b mode)
 	/* Mega-Hack -- describe activation */
 	if (have_flag(flgs, TR_ACTIVATE))
 	{
-#ifdef JP
-info[i++] = "始動したときの効果...";
-#else
 		info[i++] = "It can be activated for...";
-#endif
 
 		info[i++] = item_activation(o_ptr);
-#ifdef JP
-info[i++] = "...ただし装備していなければならない。";
-#else
 		info[i++] = "...if it is being worn.";
-#endif
 
 	}
 
 	/* Figurines, a hack */
 	if (o_ptr->tval == TV_FIGURINE)
 	{
-#ifdef JP
-info[i++] = "それは投げた時ペットに変化する。";
-#else
 		info[i++] = "It will transform into a pet when thrown.";
-#endif
 
 	}
 
@@ -2578,37 +1674,21 @@ info[i++] = "それは投げた時ペットに変化する。";
 
 	if (o_ptr->name1 == ART_STONEMASK)
 	{
-#ifdef JP
-info[i++] = "それを装備した者は吸血鬼になる。";
-#else
 		info[i++] = "It makes you turn into a vampire permanently.";
-#endif
 
 	}
 
 	if ((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DOKUBARI))
 	{
-#ifdef JP
-info[i++] = "それは相手を一撃で倒すことがある。";
-#else
 		info[i++] = "It will attempt to kill a monster instantly.";
-#endif
 
 	}
 
 	if ((o_ptr->tval == TV_POLEARM) && (o_ptr->sval == SV_DEATH_SCYTHE))
 	{
-#ifdef JP
-info[i++] = "それは自分自身に攻撃が返ってくることがある。";
-#else
 		info[i++] = "It causes you to strike yourself sometimes.";
-#endif
 
-#ifdef JP
-info[i++] = "それは無敵のバリアを切り裂く。";
-#else
 		info[i++] = "It always penetrates invulnerability barriers.";
-#endif
 	}
 
 	if (o_ptr->name2 == EGO_GENJI || o_ptr->name1 == ART_MASTER_TONBERRY || o_ptr->name1 == ART_MEPHISTOPHELES)
@@ -2622,38 +1702,22 @@ info[i++] = "それは無敵のバリアを切り裂く。";
 
 	if (have_flag(flgs, TR_EASY_SPELL))
 	{
-#ifdef JP
-info[i++] = "それは魔法の難易度を下げる。";
-#else
 		info[i++] = "It affects your ability to cast spells.";
-#endif
 	}
 
 	if (o_ptr->name2 == EGO_AMU_FOOL)
 	{
-#ifdef JP
-info[i++] = "それは魔法の難易度を上げる。";
-#else
 		info[i++] = "It interferes with casting spells.";
-#endif
 	}
 
 	if (o_ptr->name2 == EGO_RING_THROW)
 	{
-#ifdef JP
-info[i++] = "それは物を強く投げることを可能にする。";
-#else
 		info[i++] = "It provides great strength when you throw an item.";
-#endif
 	}
 
 	if (o_ptr->name2 == EGO_AMU_NAIVETY)
 	{
-#ifdef JP
-info[i++] = "それは魔法抵抗力を下げる。";
-#else
 		info[i++] = "It decreases your magic resistance.";
-#endif
 	}
 
 	if (o_ptr->tval == TV_STATUE)
@@ -2661,23 +1725,11 @@ info[i++] = "それは魔法抵抗力を下げる。";
 		monster_race *r_ptr = &r_info[o_ptr->pval];
 
 		if (o_ptr->pval == MON_BULLGATES)
-#ifdef JP
-			info[i++] = "それは部屋に飾ると恥ずかしい。";
-#else
 			info[i++] = "It is shameful.";
-#endif
 		else if ( r_ptr->flags2 & (RF2_ELDRITCH_HORROR))
-#ifdef JP
-			info[i++] = "それは部屋に飾ると恐い。";
-#else
 		info[i++] = "It is fearful.";
-#endif
 		else
-#ifdef JP
-			info[i++] = "それは部屋に飾ると楽しい。";
-#else
 		info[i++] = "It is cheerful.";
-#endif
 	}
 	
 	/* Hack -- describe lite's */
@@ -2685,35 +1737,19 @@ info[i++] = "それは魔法抵抗力を下げる。";
 	{
 		if (o_ptr->name2 == EGO_LITE_DARKNESS || have_flag(o_ptr->art_flags, TR_DARKNESS))
 		{
-#ifdef JP
-			info[i++] = "それは全く光らない。";
-#else
 			info[i++] = "It provides no light.";
-#endif
 
 			if (o_ptr->sval == SV_LITE_LANTERN)
 			{
-#ifdef JP
-				info[i++] = "それは明かりの半径を狭める(半径に-2)。";
-#else
 				info[i++] = "It decreases radius of light source by 2.";
-#endif
 			}
 			else if (o_ptr->sval == SV_LITE_TORCH)
 			{
-#ifdef JP
-				info[i++] = "それは明かりの半径を狭める(半径に-1)。";
-#else
 				info[i++] = "It decreases radius of light source by 1.";
-#endif
 			}
 			else
 			{
-#ifdef JP
-				info[i++] = "それは明かりの半径を狭める(半径に-3)。";
-#else
 				info[i++] = "It decreases radius of light source by 3.";
-#endif
 			}
 		}
 		else if (o_ptr->name1 || o_ptr->art_name)
@@ -2724,40 +1760,24 @@ info[i++] = "それは魔法抵抗力を下げる。";
 			}
 			else
 			{
-#ifdef JP
-info[i++] = "それは永遠なる明かり(半径 3)を授ける。";
-#else
 				info[i++] = "It provides light (radius 3) forever.";
-#endif	
 			}
 		}
 		else if (o_ptr->name2 == EGO_LITE_SHINE)
 		{
 			if (o_ptr->sval == SV_LITE_FEANOR)
 			{
-#ifdef JP
-info[i++] = "それは永遠なる明かり(半径 3)を授ける。";
-#else
 				info[i++] = "It provides light (radius 3) forever.";
-#endif
 
 			}
 			else if (o_ptr->sval == SV_LITE_LANTERN)
 			{
-#ifdef JP
-info[i++] = "それは燃料補給によって明かり(半径 3)を授ける。";
-#else
 				info[i++] = "It provides light (radius 3) when fueled.";
-#endif
 
 			}
 			else
 			{
-#ifdef JP
-info[i++] = "それは燃料補給によって明かり(半径 2)を授ける。";
-#else
 				info[i++] = "It provides light (radius 2) when fueled.";
-#endif
 
 			}
 		}
@@ -2765,39 +1785,23 @@ info[i++] = "それは燃料補給によって明かり(半径 2)を授ける。";
 		{
 			if (o_ptr->sval == SV_LITE_FEANOR)
 			{
-#ifdef JP
-info[i++] = "それは永遠なる明かり(半径 2)を授ける。";
-#else
 				info[i++] = "It provides light (radius 2) forever.";
-#endif
 
 			}
 			else if (o_ptr->sval == SV_LITE_LANTERN)
 			{
-#ifdef JP
-info[i++] = "それは燃料補給によって明かり(半径 2)を授ける。";
-#else
 				info[i++] = "It provides light (radius 2) when fueled.";
-#endif
 
 			}
 			else
 			{
-#ifdef JP
-info[i++] = "それは燃料補給によって明かり(半径 1)を授ける。";
-#else
 				info[i++] = "It provides light (radius 1) when fueled.";
-#endif
 
 			}
 		}
 		if (o_ptr->name2 == EGO_LITE_LONG)
 		{
-#ifdef JP
-info[i++] = "それは長いターン明かりを授ける。";
-#else
 			info[i++] = "It provides light for much longer time.";
-#endif
 		}
 	}
 
@@ -2807,225 +1811,129 @@ info[i++] = "それは長いターン明かりを授ける。";
 	if (have_flag(flgs, TR_RIDING))
 	{
 		if ((o_ptr->tval == TV_POLEARM) && ((o_ptr->sval == SV_LANCE) || (o_ptr->sval == SV_HEAVY_LANCE)))
-#ifdef JP
-info[i++] = "それは乗馬中は非常に使いやすい。";
-#else
 			info[i++] = "It is made for use while riding.";
-#endif
 		else
 		{
-#ifdef JP
-			info[i++] = "それは乗馬中でも使いやすい。";
-#else
 			info[i++] = "It is suitable for use while riding.";
-#endif
 			/* This information is not important enough */
 			trivial_info++;
 		}
 	}
 	if (have_flag(flgs, TR_STR))
 	{
-#ifdef JP
-info[i++] = "それは腕力に影響を及ぼす。";
-#else
 		info[i++] = "It affects your strength.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_INT))
 	{
-#ifdef JP
-info[i++] = "それは知能に影響を及ぼす。";
-#else
 		info[i++] = "It affects your intelligence.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_WIS))
 	{
-#ifdef JP
-info[i++] = "それは賢さに影響を及ぼす。";
-#else
 		info[i++] = "It affects your wisdom.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_DEX))
 	{
-#ifdef JP
-info[i++] = "それは器用さに影響を及ぼす。";
-#else
 		info[i++] = "It affects your dexterity.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_CON))
 	{
-#ifdef JP
-info[i++] = "それは耐久力に影響を及ぼす。";
-#else
 		info[i++] = "It affects your constitution.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_CHR))
 	{
-#ifdef JP
-info[i++] = "それは魅力に影響を及ぼす。";
-#else
 		info[i++] = "It affects your charisma.";
-#endif
 
 	}
 
 	if (have_flag(flgs, TR_MAGIC_MASTERY))
 	{
-#ifdef JP
-info[i++] = "それは魔法道具使用能力に影響を及ぼす。";
-#else
 		info[i++] = "It affects your ability to use magic devices.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_STEALTH))
 	{
-#ifdef JP
-info[i++] = "それは隠密行動能力に影響を及ぼす。";
-#else
 		info[i++] = "It affects your stealth.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_SEARCH))
 	{
-#ifdef JP
-info[i++] = "それは探索能力に影響を及ぼす。";
-#else
 		info[i++] = "It affects your searching.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_INFRA))
 	{
-#ifdef JP
-info[i++] = "それは赤外線視力に影響を及ぼす。";
-#else
 		info[i++] = "It affects your infravision.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_TUNNEL))
 	{
-#ifdef JP
-info[i++] = "それは採掘能力に影響を及ぼす。";
-#else
 		info[i++] = "It affects your ability to tunnel.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_SPEED))
 	{
-#ifdef JP
-info[i++] = "それはスピードに影響を及ぼす。";
-#else
 		info[i++] = "It affects your speed.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_BLOWS))
 	{
-#ifdef JP
-info[i++] = "それは打撃回数に影響を及ぼす。";
-#else
 		info[i++] = "It affects your attack speed.";
-#endif
 
 	}
 
 	if (have_flag(flgs, TR_BRAND_ACID))
 	{
-#ifdef JP
-info[i++] = "それは酸によって大きなダメージを与える。";
-#else
 		info[i++] = "It does extra damage from acid.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_BRAND_ELEC))
 	{
-#ifdef JP
-info[i++] = "それは電撃によって大きなダメージを与える。";
-#else
 		info[i++] = "It does extra damage from electricity.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_BRAND_FIRE))
 	{
-#ifdef JP
-info[i++] = "それは火炎によって大きなダメージを与える。";
-#else
 		info[i++] = "It does extra damage from fire.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_BRAND_COLD))
 	{
-#ifdef JP
-info[i++] = "それは冷気によって大きなダメージを与える。";
-#else
 		info[i++] = "It does extra damage from frost.";
-#endif
 
 	}
 
 	if (have_flag(flgs, TR_BRAND_POIS))
 	{
-#ifdef JP
-info[i++] = "それは敵を毒する。";
-#else
 		info[i++] = "It poisons your foes.";
-#endif
 
 	}
 
 	if (have_flag(flgs, TR_CHAOTIC))
 	{
-#ifdef JP
-info[i++] = "それはカオス的な効果を及ぼす。";
-#else
 		info[i++] = "It produces chaotic effects.";
-#endif
 
 	}
 
 	if (have_flag(flgs, TR_VAMPIRIC))
 	{
-#ifdef JP
-info[i++] = "それは敵からヒットポイントを吸収する。";
-#else
 		info[i++] = "It drains life from your foes.";
-#endif
 
 	}
 
 	if (have_flag(flgs, TR_IMPACT))
 	{
-#ifdef JP
-info[i++] = "それは地震を起こすことができる。";
-#else
 		info[i++] = "It can cause earthquakes.";
-#endif
 
 	}
 
 	if (have_flag(flgs, TR_VORPAL))
 	{
-#ifdef JP
-info[i++] = "それは非常に切れ味が鋭く敵を切断することができる。";
-#else
 		info[i++] = "It is very sharp and can cut your foes.";
-#endif
 
 	}
 
@@ -3037,190 +1945,110 @@ info[i++] = "それは非常に切れ味が鋭く敵を切断することができる。";
 
 	if (have_flag(flgs, TR_KILL_DRAGON))
 	{
-#ifdef JP
-info[i++] = "それはドラゴンにとっての天敵である。";
-#else
 		info[i++] = "It is a great bane of dragons.";
-#endif
 
 	}
 	else if (have_flag(flgs, TR_SLAY_DRAGON))
 	{
-#ifdef JP
-info[i++] = "それはドラゴンに対して特に恐るべき力を発揮する。";
-#else
 		info[i++] = "It is especially deadly against dragons.";
-#endif
 
 	}
 
 	if (have_flag(flgs, TR_KILL_ORC))
 	{
-#ifdef JP
-info[i++] = "それはオークにとっての天敵である。";
-#else
 		info[i++] = "It is a great bane of orcs.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_SLAY_ORC))
 	{
-#ifdef JP
-info[i++] = "それはオークに対して特に恐るべき力を発揮する。";
-#else
 		info[i++] = "It is especially deadly against orcs.";
-#endif
 
 	}
 
 	if (have_flag(flgs, TR_KILL_TROLL))
 	{
-#ifdef JP
-info[i++] = "それはトロルにとっての天敵である。";
-#else
 		info[i++] = "It is a great bane of trolls.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_SLAY_TROLL))
 	{
-#ifdef JP
-info[i++] = "それはトロルに対して特に恐るべき力を発揮する。";
-#else
 		info[i++] = "It is especially deadly against trolls.";
-#endif
 
 	}
 
 	if (have_flag(flgs, TR_KILL_GIANT))
 	{
-#ifdef JP
-info[i++] = "それは巨人にとっての天敵である。";
-#else
 		info[i++] = "It is a great bane of giants.";
-#endif
 	}
 	else if (have_flag(flgs, TR_SLAY_GIANT))
 	{
-#ifdef JP
-info[i++] = "それはジャイアントに対して特に恐るべき力を発揮する。";
-#else
 		info[i++] = "It is especially deadly against giants.";
-#endif
 
 	}
 
 	if (have_flag(flgs, TR_KILL_DEMON))
 	{
-#ifdef JP
-info[i++] = "それはデーモンにとっての天敵である。";
-#else
 		info[i++] = "It is a great bane of demons.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_SLAY_DEMON))
 	{
-#ifdef JP
-info[i++] = "それはデーモンに対して聖なる力を発揮する。";
-#else
 		info[i++] = "It strikes at demons with holy wrath.";
-#endif
 
 	}
 
 	if (have_flag(flgs, TR_KILL_UNDEAD))
 	{
-#ifdef JP
-info[i++] = "それはアンデッドにとっての天敵である。";
-#else
 		info[i++] = "It is a great bane of undead.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_SLAY_UNDEAD))
 	{
-#ifdef JP
-info[i++] = "それはアンデッドに対して聖なる力を発揮する。";
-#else
 		info[i++] = "It strikes at undead with holy wrath.";
-#endif
 
 	}
 
 	if (have_flag(flgs, TR_KILL_EVIL))
 	{
-#ifdef JP
-info[i++] = "それは邪悪なる存在にとっての天敵である。";
-#else
 		info[i++] = "It is a great bane of evil monsters.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_SLAY_EVIL))
 	{
-#ifdef JP
-info[i++] = "それは邪悪なる存在に対して聖なる力で攻撃する。";
-#else
 		info[i++] = "It fights against evil with holy fury.";
-#endif
 
 	}
 
 	if (have_flag(flgs, TR_KILL_ANIMAL))
 	{
-#ifdef JP
-info[i++] = "それは自然界の動物にとっての天敵である。";
-#else
 		info[i++] = "It is a great bane of natural creatures.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_SLAY_ANIMAL))
 	{
-#ifdef JP
-info[i++] = "それは自然界の動物に対して特に恐るべき力を発揮する。";
-#else
 		info[i++] = "It is especially deadly against natural creatures.";
-#endif
 
 	}
 
 	if (have_flag(flgs, TR_KILL_HUMAN))
 	{
-#ifdef JP
-info[i++] = "それは人間にとっての天敵である。";
-#else
 		info[i++] = "It is a great bane of humans.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_SLAY_HUMAN))
 	{
-#ifdef JP
-info[i++] = "それは人間に対して特に恐るべき力を発揮する。";
-#else
 		info[i++] = "It is especially deadly against humans.";
-#endif
 
 	}
 
 	if (have_flag(flgs, TR_FORCE_WEAPON))
 	{
-#ifdef JP
-info[i++] = "それは使用者の魔力を使って攻撃する。";
-#else
 		info[i++] = "It powerfully strikes at a monster using your mana.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_DEC_MANA))
 	{
-#ifdef JP
-info[i++] = "それは魔力の消費を押さえる。";
-#else
 		info[i++] = "It decreases your mana consumption.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_SPELL_POWER))
@@ -3235,465 +2063,261 @@ info[i++] = "それは魔力の消費を押さえる。";
 		info[i++] = "It affects your hitpoints.";
 	if (have_flag(flgs, TR_SUST_STR))
 	{
-#ifdef JP
-info[i++] = "それはあなたの腕力を維持する。";
-#else
 		info[i++] = "It sustains your strength.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_SUST_INT))
 	{
-#ifdef JP
-info[i++] = "それはあなたの知能を維持する。";
-#else
 		info[i++] = "It sustains your intelligence.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_SUST_WIS))
 	{
-#ifdef JP
-info[i++] = "それはあなたの賢さを維持する。";
-#else
 		info[i++] = "It sustains your wisdom.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_SUST_DEX))
 	{
-#ifdef JP
-info[i++] = "それはあなたの器用さを維持する。";
-#else
 		info[i++] = "It sustains your dexterity.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_SUST_CON))
 	{
-#ifdef JP
-info[i++] = "それはあなたの耐久力を維持する。";
-#else
 		info[i++] = "It sustains your constitution.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_SUST_CHR))
 	{
-#ifdef JP
-info[i++] = "それはあなたの魅力を維持する。";
-#else
 		info[i++] = "It sustains your charisma.";
-#endif
 
 	}
 
 	if (have_flag(flgs, TR_IM_ACID))
 	{
-#ifdef JP
-info[i++] = "それは酸に対する完全な免疫を授ける。";
-#else
 		info[i++] = "It provides immunity to acid.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_IM_ELEC))
 	{
-#ifdef JP
-info[i++] = "それは電撃に対する完全な免疫を授ける。";
-#else
 		info[i++] = "It provides immunity to electricity.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_IM_FIRE))
 	{
-#ifdef JP
-info[i++] = "それは火に対する完全な免疫を授ける。";
-#else
 		info[i++] = "It provides immunity to fire.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_IM_COLD))
 	{
-#ifdef JP
-info[i++] = "それは寒さに対する完全な免疫を授ける。";
-#else
 		info[i++] = "It provides immunity to cold.";
-#endif
 
 	}
 
 	if (have_flag(flgs, TR_THROW))
 	{
-#ifdef JP
-info[i++] = "それは敵に投げて大きなダメージを与えることができる。";
-#else
 		info[i++] = "It is perfectly balanced for throwing.";
-#endif
 	}
 
 	if (have_flag(flgs, TR_FREE_ACT))
 	{
-#ifdef JP
-info[i++] = "それは麻痺に対する完全な免疫を授ける。";
-#else
 		info[i++] = "It provides immunity to paralysis.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_HOLD_LIFE))
 	{
-#ifdef JP
-info[i++] = "それは生命力吸収に対する耐性を授ける。";
-#else
 		info[i++] = "It provides resistance to life draining.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_RES_FEAR))
 	{
-#ifdef JP
-info[i++] = "それは恐怖への完全な耐性を授ける。";
-#else
 		info[i++] = "It provides resistance to fear.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_RES_ACID))
 	{
-#ifdef JP
-info[i++] = "それは酸への耐性を授ける。";
-#else
 		info[i++] = "It provides resistance to acid.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_RES_ELEC))
 	{
-#ifdef JP
-info[i++] = "それは電撃への耐性を授ける。";
-#else
 		info[i++] = "It provides resistance to electricity.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_RES_FIRE))
 	{
-#ifdef JP
-info[i++] = "それは火への耐性を授ける。";
-#else
 		info[i++] = "It provides resistance to fire.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_RES_COLD))
 	{
-#ifdef JP
-info[i++] = "それは寒さへの耐性を授ける。";
-#else
 		info[i++] = "It provides resistance to cold.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_RES_POIS))
 	{
-#ifdef JP
-info[i++] = "それは毒への耐性を授ける。";
-#else
 		info[i++] = "It provides resistance to poison.";
-#endif
 
 	}
 
 	if (have_flag(flgs, TR_RES_LITE))
 	{
-#ifdef JP
-info[i++] = "それは閃光への耐性を授ける。";
-#else
 		info[i++] = "It provides resistance to light.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_RES_DARK))
 	{
-#ifdef JP
-info[i++] = "それは暗黒への耐性を授ける。";
-#else
 		info[i++] = "It provides resistance to dark.";
-#endif
 
 	}
 
 	if (have_flag(flgs, TR_RES_BLIND))
 	{
-#ifdef JP
-info[i++] = "それは盲目への耐性を授ける。";
-#else
 		info[i++] = "It provides resistance to blindness.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_RES_CONF))
 	{
-#ifdef JP
-info[i++] = "それは混乱への耐性を授ける。";
-#else
 		info[i++] = "It provides resistance to confusion.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_RES_SOUND))
 	{
-#ifdef JP
-info[i++] = "それは轟音への耐性を授ける。";
-#else
 		info[i++] = "It provides resistance to sound.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_RES_SHARDS))
 	{
-#ifdef JP
-info[i++] = "それは破片への耐性を授ける。";
-#else
 		info[i++] = "It provides resistance to shards.";
-#endif
 
 	}
 
 	if (have_flag(flgs, TR_RES_NETHER))
 	{
-#ifdef JP
-info[i++] = "それは地獄への耐性を授ける。";
-#else
 		info[i++] = "It provides resistance to nether.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_RES_TIME))
 	{
-#ifdef JP
-		info[i++] = "TRANSLATE";
-#else
 		info[i++] = "It provides resistance to time.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_RES_NEXUS))
 	{
-#ifdef JP
-info[i++] = "それは因果混乱への耐性を授ける。";
-#else
 		info[i++] = "It provides resistance to nexus.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_RES_CHAOS))
 	{
-#ifdef JP
-info[i++] = "それはカオスへの耐性を授ける。";
-#else
 		info[i++] = "It provides resistance to chaos.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_RES_DISEN))
 	{
-#ifdef JP
-info[i++] = "それは劣化への耐性を授ける。";
-#else
 		info[i++] = "It provides resistance to disenchantment.";
-#endif
 
 	}
 
 	if (have_flag(flgs, TR_LEVITATION))
 	{
-#ifdef JP
-info[i++] = "それは宙に浮くことを可能にする。";
-#else
 		info[i++] = "It allows you to levitate.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_LITE))
 	{
 		if ((o_ptr->name2 == EGO_DARK) || (o_ptr->name1 == ART_NIGHT))
-#ifdef JP
-info[i++] = "それは明かりの半径を狭める(半径に-1)。";
-#else
 			info[i++] = "It decreases radius of your light source by 1.";
-#endif
 		else
-#ifdef JP
-info[i++] = "それは永遠の明かりを授ける(半径に+1)。";
-#else
 			info[i++] = "It provides permanent light. (radius +1)";
-#endif
 
 	}
 	if (have_flag(flgs, TR_SEE_INVIS))
 	{
-#ifdef JP
-info[i++] = "それは透明なモンスターを見ることを可能にする。";
-#else
 		info[i++] = "It allows you to see invisible monsters.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_TELEPATHY))
 	{
-#ifdef JP
-info[i++] = "それはテレパシー能力を授ける。";
-#else
 		info[i++] = "It gives telepathic powers.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_ESP_ANIMAL))
 	{
-#ifdef JP
-info[i++] = "それは自然界の生物を感知する。";
-#else
 		info[i++] = "It senses natural creatures.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_ESP_UNDEAD))
 	{
-#ifdef JP
-info[i++] = "それはアンデッドを感知する。";
-#else
 		info[i++] = "It senses undead.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_ESP_DEMON))
 	{
-#ifdef JP
-info[i++] = "それは悪魔を感知する。";
-#else
 		info[i++] = "It senses demons.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_ESP_ORC))
 	{
-#ifdef JP
-info[i++] = "それはオークを感知する。";
-#else
 		info[i++] = "It senses orcs.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_ESP_TROLL))
 	{
-#ifdef JP
-info[i++] = "それはトロルを感知する。";
-#else
 		info[i++] = "It senses trolls.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_ESP_GIANT))
 	{
-#ifdef JP
-info[i++] = "それは巨人を感知する。";
-#else
 		info[i++] = "It senses giants.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_ESP_DRAGON))
 	{
-#ifdef JP
-info[i++] = "それはドラゴンを感知する。";
-#else
 		info[i++] = "It senses dragons.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_ESP_HUMAN))
 	{
-#ifdef JP
-info[i++] = "それは人間を感知する。";
-#else
 		info[i++] = "It senses humans.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_ESP_EVIL))
 	{
-#ifdef JP
-info[i++] = "それは邪悪な存在を感知する。";
-#else
 		info[i++] = "It senses evil creatures.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_ESP_GOOD))
 	{
-#ifdef JP
-info[i++] = "それは善良な存在を感知する。";
-#else
 		info[i++] = "It senses good creatures.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_ESP_NONLIVING))
 	{
-#ifdef JP
-info[i++] = "それは活動する無生物体を感知する。";
-#else
 		info[i++] = "It senses non-living creatures.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_ESP_UNIQUE))
 	{
-#ifdef JP
-info[i++] = "それは特別な強敵を感知する。";
-#else
 		info[i++] = "It senses unique monsters.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_SLOW_DIGEST))
 	{
-#ifdef JP
-info[i++] = "それはあなたの新陳代謝を遅くする。";
-#else
 		info[i++] = "It slows your metabolism.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_REGEN))
 	{
-#ifdef JP
-info[i++] = "それは体力回復力を強化する。";
-#else
 		info[i++] = "It speeds your regenerative powers.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_WARNING))
 	{
-#ifdef JP
-info[i++] = "それは危険に対して警告を発する。";
-#else
 		info[i++] = "It warns you of danger";
-#endif
 
 	}
 	if (have_flag(flgs, TR_REFLECT))
 	{
-#ifdef JP
-info[i++] = "それは矢やボルトを反射する。";
-#else
 		info[i++] = "It reflects bolts and arrows.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_SH_FIRE))
@@ -3707,68 +2331,40 @@ info[i++] = "それは矢やボルトを反射する。";
 
 	if (have_flag(flgs, TR_SH_ELEC))
 	{
-#ifdef JP
-info[i++] = "それは電気のバリアを張る。";
-#else
 		info[i++] = "It produces an electric sheath.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_SH_COLD))
 	{
-#ifdef JP
-info[i++] = "それは冷気のバリアを張る。";
-#else
 		info[i++] = "It produces a sheath of coldness.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_NO_MAGIC))
 	{
-#ifdef JP
-info[i++] = "それは反魔法バリアを張る。";
-#else
 		info[i++] = "It produces an anti-magic shell.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_NO_SUMMON))
 		info[i++] = "It disrupts summoning spells.";
 	if (have_flag(flgs, TR_NO_TELE))
 	{
-#ifdef JP
-info[i++] = "それはテレポートを邪魔する。";
-#else
 		info[i++] = "It prevents teleportation.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_XTRA_MIGHT))
 	{
-#ifdef JP
-info[i++] = "それは矢／ボルト／弾をより強力に発射することができる。";
-#else
 		info[i++] = "It fires missiles with extra might.";
-#endif
 
 	}
 	if (have_flag(flgs, TR_XTRA_SHOTS))
 	{
-#ifdef JP
-info[i++] = "それは矢／ボルト／弾を非常に早く発射することができる。";
-#else
 		info[i++] = "It fires missiles excessively fast.";
-#endif
 
 	}
 
 	if (have_flag(flgs, TR_BLESSED))
 	{
-#ifdef JP
-info[i++] = "それは神に祝福されている。";
-#else
 		info[i++] = "It has been blessed by the gods.";
-#endif
 
 	}
 
@@ -3776,29 +2372,17 @@ info[i++] = "それは神に祝福されている。";
 	{
 		if (o_ptr->curse_flags & TRC_PERMA_CURSE)
 		{
-#ifdef JP
-info[i++] = "それは永遠の呪いがかけられている。";
-#else
 			info[i++] = "It is permanently cursed.";
-#endif
 
 		}
 		else if (o_ptr->curse_flags & TRC_HEAVY_CURSE)
 		{
-#ifdef JP
-info[i++] = "それは強力な呪いがかけられている。";
-#else
 			info[i++] = "It is heavily cursed.";
-#endif
 
 		}
 		else
 		{
-#ifdef JP
-info[i++] = "それは呪われている。";
-#else
 			info[i++] = "It is cursed.";
-#endif
 
 			/*
 			 * It's a trivial infomation since there is
@@ -3810,155 +2394,87 @@ info[i++] = "それは呪われている。";
 
 	if ((have_flag(flgs, TR_TY_CURSE)) || (o_ptr->curse_flags & TRC_TY_CURSE))
 	{
-#ifdef JP
-info[i++] = "それは太古の禍々しい怨念が宿っている。";
-#else
 		info[i++] = "It carries an ancient foul curse.";
-#endif
 
 	}
 	if ((have_flag(flgs, TR_AGGRAVATE)) || (o_ptr->curse_flags & TRC_AGGRAVATE))
 	{
-#ifdef JP
-info[i++] = "それは付近のモンスターを怒らせる。";
-#else
 		info[i++] = "It aggravates nearby creatures.";
-#endif
 
 	}
 	if ((have_flag(flgs, TR_DRAIN_EXP)) || (o_ptr->curse_flags & TRC_DRAIN_EXP))
 	{
-#ifdef JP
-info[i++] = "それは経験値を吸い取る。";
-#else
 		info[i++] = "It drains experience.";
-#endif
 
 	}
 	if (o_ptr->curse_flags & TRC_SLOW_REGEN)
 	{
-#ifdef JP
-info[i++] = "それは回復力を弱める。";
-#else
 		info[i++] = "It slows your regenerative powers.";
-#endif
 
 	}
 	if (o_ptr->curse_flags & TRC_ADD_L_CURSE)
 	{
-#ifdef JP
-info[i++] = "それは弱い呪いを増やす。";
-#else
 		info[i++] = "It adds weak curses.";
-#endif
 
 	}
 	if (o_ptr->curse_flags & TRC_ADD_H_CURSE)
 	{
-#ifdef JP
-info[i++] = "それは強力な呪いを増やす。";
-#else
 		info[i++] = "It adds heavy curses.";
-#endif
 
 	}
 	if (o_ptr->curse_flags & TRC_CALL_ANIMAL)
 	{
-#ifdef JP
-info[i++] = "それは動物を呼び寄せる。";
-#else
 		info[i++] = "It attracts animals.";
-#endif
 
 	}
 	if (o_ptr->curse_flags & TRC_CALL_DEMON)
 	{
-#ifdef JP
-info[i++] = "それは悪魔を呼び寄せる。";
-#else
 		info[i++] = "It attracts demons.";
-#endif
 
 	}
 	if (o_ptr->curse_flags & TRC_CALL_DRAGON)
 	{
-#ifdef JP
-info[i++] = "それはドラゴンを呼び寄せる。";
-#else
 		info[i++] = "It attracts dragons.";
-#endif
 
 	}
 	if (o_ptr->curse_flags & TRC_COWARDICE)
 	{
-#ifdef JP
-info[i++] = "それは恐怖感を引き起こす。";
-#else
 		info[i++] = "It makes you subject to cowardice.";
-#endif
 
 	}
 	if ((have_flag(flgs, TR_TELEPORT)) || (o_ptr->curse_flags & TRC_TELEPORT))
 	{
-#ifdef JP
-info[i++] = "それはランダムなテレポートを引き起こす。";
-#else
 		info[i++] = "It induces random teleportation.";
-#endif
 
 	}
 	if (o_ptr->curse_flags & TRC_LOW_MELEE)
 	{
-#ifdef JP
-info[i++] = "それは攻撃を外しやすい。";
-#else
 		info[i++] = "It causes you to miss blows.";
-#endif
 
 	}
 	if (o_ptr->curse_flags & TRC_LOW_AC)
 	{
-#ifdef JP
-info[i++] = "それは攻撃を受けやすい。";
-#else
 		info[i++] = "It helps your enemies' blows.";
-#endif
 
 	}
 	if (o_ptr->curse_flags & TRC_LOW_MAGIC)
 	{
-#ifdef JP
-info[i++] = "それは魔法を唱えにくくする。";
-#else
 		info[i++] = "It encumbers you while spellcasting.";
-#endif
 
 	}
 	if (o_ptr->curse_flags & TRC_FAST_DIGEST)
 	{
-#ifdef JP
-info[i++] = "それはあなたの新陳代謝を速くする。";
-#else
 		info[i++] = "It speeds your metabolism.";
-#endif
 
 	}
 	if (o_ptr->curse_flags & TRC_DRAIN_HP)
 	{
-#ifdef JP
-info[i++] = "それはあなたの体力を吸い取る。";
-#else
 		info[i++] = "It drains you.";
-#endif
 
 	}
 	if (o_ptr->curse_flags & TRC_DRAIN_MANA)
 	{
-#ifdef JP
-info[i++] = "それはあなたの魔力を吸い取る。";
-#else
 		info[i++] = "It drains your mana.";
-#endif
 
 	}
 
@@ -3971,18 +2487,10 @@ info[i++] = "それはあなたの魔力を吸い取る。";
 			switch (o_ptr->sval)
 			{
 			case SV_RING_LORDLY:
-#ifdef JP
-				info[i++] = "それは幾つかのランダムな耐性を授ける。";
-#else
 				info[i++] = "It provides some random resistances.";
-#endif
 				break;
 			case SV_RING_WARNING:
-#ifdef JP
-				info[i++] = "それはひとつの低級なESPを授ける事がある。";
-#else
 				info[i++] = "It may provide a low rank ESP.";
-#endif
 				break;
 			}
 			break;
@@ -3991,23 +2499,11 @@ info[i++] = "それはあなたの魔力を吸い取る。";
 			switch (o_ptr->sval)
 			{
 			case SV_AMULET_RESISTANCE:
-#ifdef JP
-				info[i++] = "それは毒への耐性を授ける事がある。";
-#else
 				info[i++] = "It may provides resistance to poison.";
-#endif
-#ifdef JP
-				info[i++] = "それはランダムな耐性を授ける事がある。";
-#else
 				info[i++] = "It may provide a random resistances.";
-#endif
 				break;
 			case SV_AMULET_THE_MAGI:
-#ifdef JP
-				info[i++] = "それは最大で３つまでの低級なESPを授ける。";
-#else
 				info[i++] = "It provides up to three low rank ESPs.";
-#endif
 				break;
 			}
 			break;
@@ -4019,45 +2515,25 @@ info[i++] = "それはあなたの魔力を吸い取る。";
 	    have_flag(flgs, TR_IGNORE_FIRE) &&
 	    have_flag(flgs, TR_IGNORE_COLD))
 	{
-#ifdef JP
-		info[i++] = "それは酸・電撃・火炎・冷気では傷つかない。";
-#else
 		info[i++] = "It cannot be harmed by the elements.";
-#endif
 	}
 	else
 	{
 		if (have_flag(flgs, TR_IGNORE_ACID))
 		{
-#ifdef JP
-			info[i++] = "それは酸では傷つかない。";
-#else
 			info[i++] = "It cannot be harmed by acid.";
-#endif
 		}
 		if (have_flag(flgs, TR_IGNORE_ELEC))
 		{
-#ifdef JP
-			info[i++] = "それは電撃では傷つかない。";
-#else
 			info[i++] = "It cannot be harmed by electricity.";
-#endif
 		}
 		if (have_flag(flgs, TR_IGNORE_FIRE))
 		{
-#ifdef JP
-			info[i++] = "それは火炎では傷つかない。";
-#else
 			info[i++] = "It cannot be harmed by fire.";
-#endif
 		}
 		if (have_flag(flgs, TR_IGNORE_COLD))
 		{
-#ifdef JP
-			info[i++] = "それは冷気では傷つかない。";
-#else
 			info[i++] = "It cannot be harmed by cold.";
-#endif
 		}
 	}
 
@@ -4105,11 +2581,7 @@ info[i++] = "それはあなたの魔力を吸い取る。";
 		prt("'", 1, (use_bigtile ? 20 : 19) + namelen);
 	}
 	else
-#ifdef JP
-prt("     アイテムの能力:", 1, 15);
-#else
 	prt("     Item Attributes:", 1, 15);
-#endif
 
 	/* We will print on top of the map (column 13) */
 	for (k = 2, j = 0; j < i; j++)
@@ -4120,22 +2592,14 @@ prt("     アイテムの能力:", 1, 15);
 		/* Every 20 entries (lines 2 to 21), start over */
 		if ((k == hgt - 2) && (j+1 < i))
 		{
-#ifdef JP
-prt("-- 続く --", k, 15);
-#else
 			prt("-- more --", k, 15);
-#endif
 			inkey();
 			for (; k > 2; k--) prt("", k, 15);
 		}
 	}
 
 	/* Wait for it */
-#ifdef JP
-prt("[何かキーを押すとゲームに戻ります]", k, 15);
-#else
 	prt("[Press any key to continue]", k, 15);
-#endif
 
 	inkey();
 
@@ -4346,11 +2810,7 @@ void display_inven(void)
 		if (show_weights)
 		{
 			int wgt = o_ptr->weight * o_ptr->number;
-#ifdef JP
-			sprintf(tmp_val, "%3d.%1d kg", lbtokg1(wgt),lbtokg2(wgt) );
-#else
 			sprintf(tmp_val, "%3d.%1d lb", wgt / 10, wgt % 10);
-#endif
 
 			prt(tmp_val, i, wid - 9);
 		}
@@ -4826,11 +3286,7 @@ int show_inven(int target_item, int mode)
 		{
 			if (j == (target_item-1))
 			{
-#ifdef JP
-				strcpy(tmp_val, "》");
-#else
 				strcpy(tmp_val, "> ");
-#endif
 				target_item_label = i;
 			}
 			else strcpy(tmp_val, "  ");
@@ -5108,11 +3564,7 @@ static bool verify(cptr prompt, int item)
 	object_desc(o_name, o_ptr, 0);
 
 	/* Prompt */
-#ifdef JP
-(void)sprintf(out_val, "%s%sですか? ", prompt, o_name);
-#else
 	(void)sprintf(out_val, "%s %s? ", prompt, o_name);
-#endif
 
 
 	/* Query */
@@ -5158,11 +3610,7 @@ static bool get_item_allow(int item)
 		if ((s[1] == command_cmd) || (s[1] == '*'))
 		{
 			/* Verify the choice */
-#ifdef JP
-if (!verify("本当に", item)) return (FALSE);
-#else
 			if (!verify("Really try", item)) return (FALSE);
-#endif
 
 		}
 
@@ -5587,21 +4035,13 @@ bool get_item(int *cp, cptr pmt, cptr str, int mode)
 		if (!command_wrk)
 		{
 			/* Begin the prompt */
-#ifdef JP
-			sprintf(out_val, "持ち物:");
-#else
 			sprintf(out_val, "Inven:");
-#endif
 
 			/* Some legal items */
 			if ((i1 <= i2) && !use_menu)
 			{
 				/* Build the prompt */
-#ifdef JP
-				sprintf(tmp_val, "%c-%c,'(',')',",
-#else
 				sprintf(tmp_val, " %c-%c,'(',')',",
-#endif
 					index_to_label(i1), index_to_label(i2));
 
 				/* Append */
@@ -5609,39 +4049,23 @@ bool get_item(int *cp, cptr pmt, cptr str, int mode)
 			}
 
 			/* Indicate ability to "view" */
-#ifdef JP
-			if (!command_see && !use_menu) strcat(out_val, " '*'一覧,");
-#else
 			if (!command_see && !use_menu) strcat(out_val, " * to see,");
-#endif
 
 			/* Append */
-#ifdef JP
-			if (equip) strcat(out_val, format(" %s 装備品,", use_menu ? "'4'or'6'" : "'/'"));
-#else
 			if (equip) strcat(out_val, format(" %s for Equip,", use_menu ? "4 or 6" : "/"));
-#endif
 		}
 
 		/* Viewing equipment */
 		else
 		{
 			/* Begin the prompt */
-#ifdef JP
-			sprintf(out_val, "装備品:");
-#else
 			sprintf(out_val, "Equip:");
-#endif
 
 			/* Some legal items */
 			if ((e1 <= e2) && !use_menu)
 			{
 				/* Build the prompt */
-#ifdef JP
-				sprintf(tmp_val, "%c-%c,'(',')',",
-#else
 				sprintf(tmp_val, " %c-%c,'(',')',",
-#endif
 					index_to_label(e1), index_to_label(e2));
 
 				/* Append */
@@ -5649,29 +4073,16 @@ bool get_item(int *cp, cptr pmt, cptr str, int mode)
 			}
 
 			/* Indicate ability to "view" */
-#ifdef JP
-			if (!command_see && !use_menu) strcat(out_val, " '*'一覧,");
-#else
 			if (!command_see) strcat(out_val, " * to see,");
-#endif
 
 			/* Append */
-#ifdef JP
-			if (inven) strcat(out_val, format(" %s 持ち物,", use_menu ? "'4'or'6'" : "'/'"));
-#else
 			if (inven) strcat(out_val, format(" %s for Inven,", use_menu ? "4 or 6" : "'/'"));
-#endif
 		}
 
 		/* Indicate legality of the "floor" item */
-#ifdef JP
-		if (allow_floor) strcat(out_val, " '-'床上,");
-		if (select_the_force) strcat(out_val, " 'w'練気術,");
-#else
 		if (allow_floor) strcat(out_val, " - for floor,");
 		if (select_the_force) strcat(out_val, " w for the Force,");
 		if (quiver && p_ptr->unlimited_quiver) strcat(out_val, " z for unlimited quiver,");
-#endif
 
 		/* Finish the prompt */
 		strcat(out_val, " ESC");
@@ -5886,11 +4297,7 @@ bool get_item(int *cp, cptr pmt, cptr str, int mode)
 						k = 0 - this_o_idx;
 
 						/* Verify the item (if required) */
-#ifdef JP
-if (other_query_flag && !verify("本当に", k)) continue;
-#else
 						if (other_query_flag && !verify("Try", k)) continue;
-#endif
 
 
 						/* Allow player to "refuse" certain actions */
@@ -6076,11 +4483,7 @@ if (other_query_flag && !verify("本当に", k)) continue;
 				}
 
 				/* Verify the item */
-#ifdef JP
-if (ver && !verify("本当に", k))
-#else
 				if (ver && !verify("Try", k))
-#endif
 
 				{
 					done = TRUE;
@@ -6304,11 +4707,7 @@ int show_floor(int target_item, int y, int x, int *min_width)
 		{
 			if (j == (target_item-1))
 			{
-#ifdef JP
-				strcpy(tmp_val, "》");
-#else
 				strcpy(tmp_val, "> ");
-#endif
 				target_item_label = i;
 			}
 			else strcpy(tmp_val, "   ");
@@ -6329,11 +4728,7 @@ int show_floor(int target_item, int y, int x, int *min_width)
 		if (show_weights && (o_ptr->tval != TV_GOLD))
 		{
 			int wgt = o_ptr->weight * o_ptr->number;
-#ifdef JP
-			sprintf(tmp_val, "%3d.%1d kg", lbtokg1(wgt) , lbtokg2(wgt) );
-#else
 			sprintf(tmp_val, "%3d.%1d lb", wgt / 10, wgt % 10);
-#endif
 
 			prt(tmp_val, j + 1, wid - 9);
 		}
@@ -6682,20 +5077,12 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 		if (command_wrk == (USE_INVEN))
 		{
 			/* Begin the prompt */
-#ifdef JP
-			sprintf(out_val, "持ち物:");
-#else
 			sprintf(out_val, "Inven:");
-#endif
 
 			if (!use_menu)
 			{
 				/* Build the prompt */
-#ifdef JP
-				sprintf(tmp_val, "%c-%c,'(',')',",
-#else
 				sprintf(tmp_val, " %c-%c,'(',')',",
-#endif
 					index_to_label(i1), index_to_label(i2));
 
 				/* Append */
@@ -6703,50 +5090,28 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 			}
 
 			/* Indicate ability to "view" */
-#ifdef JP
-			if (!command_see && !use_menu) strcat(out_val, " '*'一覧,");
-#else
 			if (!command_see && !use_menu) strcat(out_val, " * to see,");
-#endif
 
 			/* Append */
 			if (allow_equip)
 			{
-#ifdef JP
-				if (!use_menu)
-					strcat(out_val, " '/' 装備品,");
-				else if (allow_floor)
-					strcat(out_val, " '6' 装備品,");
-				else
-					strcat(out_val, " '4'or'6' 装備品,");
-#else
 				if (!use_menu)
 					strcat(out_val, " / for Equip,");
 				else if (allow_floor)
 					strcat(out_val, " 6 for Equip,");
 				else
 					strcat(out_val, " 4 or 6 for Equip,");
-#endif
 			}
 
 			/* Append */
 			if (allow_floor)
 			{
-#ifdef JP
-				if (!use_menu)
-					strcat(out_val, " '-'床上,");
-				else if (allow_equip)
-					strcat(out_val, " '4' 床上,");
-				else
-					strcat(out_val, " '4'or'6' 床上,");
-#else
 				if (!use_menu)
 					strcat(out_val, " - for floor,");
 				else if (allow_equip)
 					strcat(out_val, " 4 for floor,");
 				else
 					strcat(out_val, " 4 or 6 for floor,");
-#endif
 			}
 		}
 
@@ -6754,20 +5119,12 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 		else if (command_wrk == (USE_EQUIP))
 		{
 			/* Begin the prompt */
-#ifdef JP
-			sprintf(out_val, "装備品:");
-#else
 			sprintf(out_val, "Equip:");
-#endif
 
 			if (!use_menu)
 			{
 				/* Build the prompt */
-#ifdef JP
-				sprintf(tmp_val, "%c-%c,'(',')',",
-#else
 				sprintf(tmp_val, " %c-%c,'(',')',",
-#endif
 					index_to_label(e1), index_to_label(e2));
 
 				/* Append */
@@ -6775,50 +5132,28 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 			}
 
 			/* Indicate ability to "view" */
-#ifdef JP
-			if (!command_see && !use_menu) strcat(out_val, " '*'一覧,");
-#else
 			if (!command_see && !use_menu) strcat(out_val, " * to see,");
-#endif
 
 			/* Append */
 			if (allow_inven)
 			{
-#ifdef JP
-				if (!use_menu)
-					strcat(out_val, " '/' 持ち物,");
-				else if (allow_floor)
-					strcat(out_val, " '4' 持ち物,");
-				else
-					strcat(out_val, " '4'or'6' 持ち物,");
-#else
 				if (!use_menu)
 					strcat(out_val, " / for Inven,");
 				else if (allow_floor)
 					strcat(out_val, " 4 for Inven,");
 				else
 					strcat(out_val, " 4 or 6 for Inven,");
-#endif
 			}
 
 			/* Append */
 			if (allow_floor)
 			{
-#ifdef JP
-				if (!use_menu)
-					strcat(out_val, " '-'床上,");
-				else if (allow_inven)
-					strcat(out_val, " '6' 床上,");
-				else
-					strcat(out_val, " '4'or'6' 床上,");
-#else
 				if (!use_menu)
 					strcat(out_val, " - for floor,");
 				else if (allow_inven)
 					strcat(out_val, " 6 for floor,");
 				else
 					strcat(out_val, " 4 or 6 for floor,");
-#endif
 			}
 		}
 
@@ -6826,94 +5161,54 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 		else if (command_wrk == (USE_FLOOR))
 		{
 			/* Begin the prompt */
-#ifdef JP
-			sprintf(out_val, "床上:");
-#else
 			sprintf(out_val, "Floor:");
-#endif
 
 			if (!use_menu)
 			{
 				/* Build the prompt */
-#ifdef JP
-				sprintf(tmp_val, "%c-%c,'(',')',", n1, n2);
-#else
 				sprintf(tmp_val, " %c-%c,'(',')',", n1, n2);
-#endif
 
 				/* Append */
 				strcat(out_val, tmp_val);
 			}
 
 			/* Indicate ability to "view" */
-#ifdef JP
-			if (!command_see && !use_menu) strcat(out_val, " '*'一覧,");
-#else
 			if (!command_see && !use_menu) strcat(out_val, " * to see,");
-#endif
 
 			if (use_menu)
 			{
 				if (allow_inven && allow_equip)
 				{
-#ifdef JP
-					strcat(out_val, " '4' 装備品, '6' 持ち物,");
-#else
 					strcat(out_val, " 4 for Equip, 6 for Inven,");
-#endif
 				}
 				else if (allow_inven)
 				{
-#ifdef JP
-					strcat(out_val, " '4'or'6' 持ち物,");
-#else
 					strcat(out_val, " 4 or 6 for Inven,");
-#endif
 				}
 				else if (allow_equip)
 				{
-#ifdef JP
-					strcat(out_val, " '4'or'6' 装備品,");
-#else
 					strcat(out_val, " 4 or 6 for Equip,");
-#endif
 				}
 			}
 			/* Append */
 			else if (allow_inven)
 			{
-#ifdef JP
-				strcat(out_val, " '/' 持ち物,");
-#else
 				strcat(out_val, " / for Inven,");
-#endif
 			}
 			else if (allow_equip)
 			{
-#ifdef JP
-				strcat(out_val, " '/'装備品,");
-#else
 				strcat(out_val, " / for Equip,");
-#endif
 			}
 
 			/* Append */
 			if (command_see && !use_menu)
 			{
-#ifdef JP
-				strcat(out_val, " Enter 次,");
-#else
 				strcat(out_val, " Enter for scroll down,");
-#endif
 			}
 		}
 
 		/* Append */
-#ifdef JP
-		if (select_the_force) strcat(out_val, " 'w'練気術,");
-#else
 		if (select_the_force) strcat(out_val, " w for the Force,");
-#endif
 
 		/* Finish the prompt */
 		strcat(out_val, " ESC");
@@ -7545,11 +5840,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 				}
 
 				/* Verify the item */
-#ifdef JP
-if (ver && !verify("本当に", k))
-#else
 				if (ver && !verify("Try", k))
-#endif
 
 				{
 					done = TRUE;
@@ -7635,13 +5926,8 @@ static bool py_pickup_floor_aux(void)
 	item_tester_hook = inven_carry_okay;
 
 	/* Get an object */
-#ifdef JP
-	q = "どれを拾いますか？";
-	s = "もうザックには床にあるどのアイテムも入らない。";
-#else
 	q = "Get which item? ";
 	s = "You no longer have any room for the objects on the floor.";
-#endif
 
 	if (get_item(&item, q, s, (USE_FLOOR)))
 	{
@@ -7772,11 +6058,7 @@ void py_pickup_floor(bool pickup)
 			object_desc(o_name, o_ptr, 0);
 
 			/* Message */
-#ifdef JP
-				msg_format("%sがある。", o_name);
-#else
 			msg_format("You see %s.", o_name);
-#endif
 
 		}
 
@@ -7784,11 +6066,7 @@ void py_pickup_floor(bool pickup)
 		else
 		{
 			/* Message */
-#ifdef JP
-			msg_format("%d 個のアイテムの山がある。", floor_num);
-#else
 			msg_format("You see a pile of %d items.", floor_num);
-#endif
 
 		}
 
@@ -7820,11 +6098,7 @@ void py_pickup_floor(bool pickup)
 			object_desc(o_name, o_ptr, 0);
 
 			/* Message */
-#ifdef JP
-				msg_format("ザックには%sを入れる隙間がない。", o_name);
-#else
 			msg_format("You have no room for %s.", o_name);
-#endif
 
 		}
 
@@ -7832,11 +6106,7 @@ void py_pickup_floor(bool pickup)
 		else
 		{
 			/* Message */
-#ifdef JP
-			msg_format("ザックには床にあるどのアイテムも入らない。", o_name);
-#else
 			msg_print("You have no room for any of the objects on the floor.");
-#endif
 
 		}
 
@@ -7870,11 +6140,7 @@ void py_pickup_floor(bool pickup)
 			object_desc(o_name, o_ptr, 0);
 
 			/* Build a prompt */
-#ifdef JP
-			(void) sprintf(out_val, "%sを拾いますか? ", o_name);
-#else
 			(void) sprintf(out_val, "Pick up %s? ", o_name);
-#endif
 
 
 			/* Ask the user to confirm */

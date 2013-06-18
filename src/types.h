@@ -296,9 +296,6 @@ typedef struct monster_race monster_race;
 struct monster_race
 {
 	u32b name;				/* Name (offset) */
-#ifdef JP
-	u32b E_name;                    /* ±Ñ¸ìÌ¾ (offset) */
-#endif
 	u32b text;				/* Text (offset) */
 
 	byte hdice;				/* Creatures hit dice count */

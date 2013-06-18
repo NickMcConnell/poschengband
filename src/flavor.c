@@ -74,13 +74,6 @@ static bool object_easy_know(int i)
  */
 void get_table_name_aux(char *out_string)
 {
-#ifdef JP
-	char Syllable[80];
-	get_rnd_line("aname_j.txt", 1, Syllable);
-	strcpy(out_string, Syllable);
-	get_rnd_line("aname_j.txt", 2, Syllable);
-	strcat(out_string, Syllable);
-#else
 #define MAX_SYLLABLES 164       /* Used with scrolls (see below) */
 
 	static cptr syllables[MAX_SYLLABLES] = {
@@ -130,7 +123,6 @@ void get_table_name_aux(char *out_string)
 	out_string[0] = toupper(out_string[1]);
 
 	out_string[16] = '\0';
-#endif
 }
 
 
@@ -142,11 +134,7 @@ void get_table_name(char *out_string)
 	char buff[80];
 	get_table_name_aux(buff);
 
-#ifdef JP
-	sprintf(out_string, "¡Ø%s¡Ù", buff);
-#else
 	sprintf(out_string, "'%s'", buff);
-#endif
 }
 
 
@@ -156,24 +144,12 @@ void get_table_name(char *out_string)
 void get_table_sindarin_aux(char *out_string)
 {
 	char Syllable[80];
-#ifdef JP
-	char tmp[80];
-#endif
 
 	get_rnd_line("sname.txt", 1, Syllable);
-#ifdef JP
-	strcpy(tmp, Syllable);
-#else
 	strcpy(out_string, Syllable);
-#endif
 
 	get_rnd_line("sname.txt", 2, Syllable);
-#ifdef JP
-	strcat(tmp, Syllable);
-	sindarin_to_kana(out_string, tmp);
-#else
 	strcat(out_string, Syllable);
-#endif
 }
 
 
@@ -185,11 +161,7 @@ void get_table_sindarin(char *out_string)
 	char buff[80];
 	get_table_sindarin_aux(buff);
 
-#ifdef JP
-	sprintf(out_string, "¡Ø%s¡Ù", buff);
-#else
 	sprintf(out_string, "'%s'", buff);
-#endif
 }
 
 
@@ -413,110 +385,6 @@ static char *object_desc_num(char *t, uint n)
 
 
 
-#ifdef JP
-/*
- * ÆüËÜ¸ì¤Î¸Ä¿ôÉ½¼¨¥ë¡¼¥Á¥ó
- *¡Êcmd1.c ¤ÇÎ®ÍÑ¤¹¤ë¤¿¤á¤Ë object_desc_japanese ¤«¤é°ÜÆ°¤·¤¿¡£¡Ë
- */
-
-char *object_desc_kosuu(char *t, object_type *o_ptr)
-{
-    t = object_desc_num(t, o_ptr->number);
-
-    switch (o_ptr->tval)
-    {
-      case TV_BOLT:
-      case TV_ARROW:
-      case TV_POLEARM:
-      case TV_STAFF:
-      case TV_WAND:
-      case TV_ROD:
-      case TV_DIGGING:
-      {
-	  t = object_desc_str(t, "ËÜ");
-	  break;
-      }
-      case TV_SCROLL:
-      {
-	  t = object_desc_str(t, "´¬");
-	  break;
-      }
-      case TV_POTION:
-      {
-	  t = object_desc_str(t, "Éþ");
-	  break;
-      }
-      case  TV_LIFE_BOOK:
-      case  TV_SORCERY_BOOK:
-      case  TV_NATURE_BOOK:
-      case  TV_CHAOS_BOOK:
-      case  TV_DEATH_BOOK:
-      case  TV_TRUMP_BOOK:
-      case  TV_ARCANE_BOOK:
-      case  TV_CRAFT_BOOK:
-      case  TV_DAEMON_BOOK:
-      case  TV_CRUSADE_BOOK:
-	  case TV_NECROMANCY_BOOK:
-	  case TV_ARMAGEDDON_BOOK:
-      case  TV_MUSIC_BOOK:
-      case  TV_HISSATSU_BOOK:
-	  case TV_HEX_BOOK:
-	  case TV_RAGE_BOOK:
-	  case TV_BURGLARY_BOOK:
-      {
-	  t = object_desc_str(t, "ºý");
-	  break;
-      }
-      case TV_SOFT_ARMOR:
-      case TV_HARD_ARMOR:
-      case TV_DRAG_ARMOR:
-      case TV_CLOAK:
-      {
-	  t = object_desc_str(t, "Ãå");
-	  break;
-      }
-      case TV_SWORD:
-      case TV_HAFTED:
-      case TV_BOW:
-      {
-	  t = object_desc_str(t, "¿¶");
-	  break;
-      }
-      case TV_BOOTS:
-      {
-	  t = object_desc_str(t, "Â­");
-	  break;
-      }
-      case TV_CARD:
-      {
-	  t = object_desc_str(t, "Ëç");
-	  break;
-      }
-	    /* ¿©¤Ù¤â¤Î by ita */
-      case TV_FOOD:
-      {
-	  if(o_ptr->sval == SV_FOOD_JERKY)
-	  {
-	      t = object_desc_str(t, "ÀÚ¤ì");
-	      break;
-	  }
-      }
-      default:
-      {
-	  if (o_ptr->number < 10)
-	  {
-	      t = object_desc_str(t, "¤Ä");
-	  }
-	  else
-	  {
-	      t = object_desc_str(t, "¸Ä");
-	  }
-	  break;
-      }
-  }
-  return (t);		       
-}
-#endif
 
 /*
  * Print an signed number "v" into a string "t", as if by
@@ -577,174 +445,11 @@ static char *object_desc_int(char *t, sint v)
 
 typedef struct flag_insc_table
 {
-#ifdef JP
-	cptr japanese;
-#endif
 	cptr english;
 	int flag;
 	int except_flag;
 } flag_insc_table;
 
-#ifdef JP
-static flag_insc_table flag_insc_plus[] =
-{
-	{ "¹¶", "At", TR_BLOWS, -1 },
-	{ "Â®", "Sp", TR_SPEED, -1 },
-	{ "ÏÓ", "St", TR_STR, -1 },
-	{ "ÃÎ", "In", TR_INT, -1 },
-	{ "¸­", "Wi", TR_WIS, -1 },
-	{ "´ï", "Dx", TR_DEX, -1 },
-	{ "ÂÑ", "Cn", TR_CON, -1 },
-	{ "Ì¥", "Ch", TR_CHR, -1 },
-	{ "Æ»", "Md", TR_MAGIC_MASTERY, -1 },
-	{ "±£", "Sl", TR_STEALTH, -1 },
-	{ "Ãµ", "Sr", TR_SEARCH, -1 },
-	{ "ÀÖ", "If", TR_INFRA, -1 },
-	{ "·¡", "Dg", TR_TUNNEL, -1 },
-	{ NULL, NULL, 0, -1 }
-};
-
-static flag_insc_table flag_insc_immune[] =
-{
-	{ "»À", "Ac", TR_IM_ACID, -1 },
-	{ "ÅÅ", "El", TR_IM_ELEC, -1 },
-	{ "²Ð", "Fi", TR_IM_FIRE, -1 },
-	{ "Îä", "Co", TR_IM_COLD, -1 },
-	{ NULL, NULL, 0, -1 }
-};
-
-static flag_insc_table flag_insc_resistance[] =
-{
-	{ "»À", "Ac", TR_RES_ACID, TR_IM_ACID },
-	{ "ÅÅ", "El", TR_RES_ELEC, TR_IM_ELEC },
-	{ "²Ð", "Fi", TR_RES_FIRE, TR_IM_FIRE },
-	{ "Îä", "Co", TR_RES_COLD, TR_IM_COLD },
-	{ "ÆÇ", "Po", TR_RES_POIS, -1 },
-	{ "Á®", "Li", TR_RES_LITE, -1 },
-	{ "°Å", "Dk", TR_RES_DARK, -1 },
-	{ "ÇË", "Sh", TR_RES_SHARDS, -1 },
-	{ "ÌÕ", "Bl", TR_RES_BLIND, -1 },
-	{ "Íð", "Cf", TR_RES_CONF, -1 },
-	{ "¹ì", "So", TR_RES_SOUND, -1 },
-	{ "¹ö", "Nt", TR_RES_NETHER, -1 },
-	{ "°ø", "Nx", TR_RES_NEXUS, -1 },
-	{ "ÆÙ", "Ca", TR_RES_CHAOS, -1 },
-	{ "Îô", "Di", TR_RES_DISEN, -1 },
-	{ "¶²", "Fe", TR_RES_FEAR, -1 },
-	{ NULL, NULL, 0, -1 }
-};
-
-static flag_insc_table flag_insc_misc[] =
-{
-	{ "°×", "Es", TR_EASY_SPELL, -1 },
-	{ "¸º", "Dm", TR_DEC_MANA, -1 },
-	{ "Åê", "Th", TR_THROW, -1 },
-	{ "È¿", "Rf", TR_REFLECT, -1 },
-	{ "Ëã", "Fa", TR_FREE_ACT, -1 },
-	{ "»ë", "Si", TR_SEE_INVIS, -1 },
-	{ "·Ð", "Hl", TR_HOLD_LIFE, -1 },
-	{ "ÃÙ", "Sd", TR_SLOW_DIGEST, -1 },
-	{ "³è", "Rg", TR_REGEN, -1 },
-	{ "Éâ", "Lv", TR_LEVITATION, -1 },
-	{ "ÌÀ", "Lu", TR_LITE, -1 },
-	{ "·Ù", "Wr", TR_WARNING, -1 },
-	{ "ÇÜ", "Xm", TR_XTRA_MIGHT, -1 },
-	{ "¼Í", "Xs", TR_XTRA_SHOTS, -1 },
-	{ "½Ö", "Te", TR_TELEPORT, -1 },
-	{ "ÅÜ", "Ag", TR_AGGRAVATE, -1 },
-	{ "½Ë", "Bs", TR_BLESSED, -1 },
-	{ "´÷", "Ty", TR_TY_CURSE, -1 },
-	{ NULL, NULL, 0, -1 }
-};
-
-static flag_insc_table flag_insc_aura[] =
-{
-	{ "±ê", "F", TR_SH_FIRE, -1 },
-	{ "ÅÅ", "E", TR_SH_ELEC, -1 },
-	{ "Îä", "C", TR_SH_COLD, -1 },
-	{ "Ëâ", "M", TR_NO_MAGIC, -1 },
-	{ "½Ö", "T", TR_NO_TELE, -1 },
-	{ NULL, NULL, 0, -1 }
-};
-
-static flag_insc_table flag_insc_brand[] =
-{
-	{ "»À", "A", TR_BRAND_ACID, -1 },
-	{ "ÅÅ", "E", TR_BRAND_ELEC, -1 },
-	{ "¾Æ", "F", TR_BRAND_FIRE, -1 },
-	{ "Åà", "Co", TR_BRAND_COLD, -1 },
-	{ "ÆÇ", "P", TR_BRAND_POIS, -1 },
-	{ "ÆÙ", "Ca", TR_CHAOTIC, -1 },
-	{ "µÛ", "V", TR_VAMPIRIC, -1 },
-	{ "¿Ì", "Q", TR_IMPACT, -1 },
-	{ "ÀÚ", "S", TR_VORPAL, -1 },
-	{ "Íý", "M", TR_FORCE_WEAPON, -1 },
-	{ NULL, NULL, 0, -1 }
-};
-
-static flag_insc_table flag_insc_kill[] =
-{
-	{ "¼Ù", "*", TR_KILL_EVIL, -1 },
-	{ "¿Í", "p", TR_KILL_HUMAN, -1 },
-	{ "Î¶", "D", TR_KILL_DRAGON, -1 },
-	{ "¥ª", "o", TR_KILL_ORC, -1 },
-	{ "¥È", "T", TR_KILL_TROLL, -1 },
-	{ "µð", "P", TR_KILL_GIANT, -1 },
-	{ "¥Ç", "U", TR_KILL_DEMON, -1 },
-	{ "»à", "L", TR_KILL_UNDEAD, -1 },
-	{ "Æ°", "Z", TR_KILL_ANIMAL, -1 },
-	{ NULL, NULL, 0, -1 }
-};
-
-static flag_insc_table flag_insc_slay[] =
-{
-	{ "¼Ù", "*", TR_SLAY_EVIL, TR_KILL_EVIL },
-	{ "¿Í", "p", TR_SLAY_HUMAN, TR_KILL_HUMAN },
-	{ "Îµ", "D", TR_SLAY_DRAGON, TR_KILL_DRAGON },
-	{ "¥ª", "o", TR_SLAY_ORC, TR_KILL_ORC },
-	{ "¥È", "T", TR_SLAY_TROLL, TR_KILL_TROLL },
-	{ "µð", "P", TR_SLAY_GIANT, TR_KILL_GIANT },
-	{ "¥Ç", "U", TR_SLAY_DEMON, TR_KILL_DEMON },
-	{ "»à", "L", TR_SLAY_UNDEAD, TR_KILL_UNDEAD },
-	{ "Æ°", "Z", TR_SLAY_ANIMAL, TR_KILL_ANIMAL },
-	{ NULL, NULL, 0, -1 }
-};
-
-static flag_insc_table flag_insc_esp1[] =
-{
-	{ "´¶", "Tele", TR_TELEPATHY, -1 },
-	{ "¼Ù", "Evil", TR_ESP_EVIL, -1 },
-	{ "Á±", "Good", TR_ESP_GOOD, -1 },
-	{ "Ìµ", "Nolv", TR_ESP_NONLIVING, -1 },
-	{ "¸Ä", "Uniq", TR_ESP_UNIQUE, -1 },
-	{ NULL, NULL, 0, -1 }
-};
-
-static flag_insc_table flag_insc_esp2[] =
-{
-	{ "¿Í", "p", TR_ESP_HUMAN, -1 },
-	{ "Îµ", "D", TR_ESP_DRAGON, -1 },
-	{ "¥ª", "o", TR_ESP_ORC, -1 },
-	{ "¥È", "T", TR_ESP_TROLL, -1 },
-	{ "µð", "P", TR_ESP_GIANT, -1 },
-	{ "¥Ç", "U", TR_ESP_DEMON, -1 },
-	{ "»à", "L", TR_ESP_UNDEAD, -1 },
-	{ "Æ°", "Z", TR_ESP_ANIMAL, -1 },
-	{ NULL, NULL, 0, -1 }
-};
-
-static flag_insc_table flag_insc_sust[] =
-{
-	{ "ÏÓ", "St", TR_SUST_STR, -1 },
-	{ "ÃÎ", "In", TR_SUST_INT, -1 },
-	{ "¸­", "Wi", TR_SUST_WIS, -1 },
-	{ "´ï", "Dx", TR_SUST_DEX, -1 },
-	{ "ÂÑ", "Cn", TR_SUST_CON, -1 },
-	{ "Ì¥", "Ch", TR_SUST_CHR, -1 },
-	{ NULL, NULL, 0, -1 }
-};
-
-#else
 static flag_insc_table flag_insc_plus[] =
 {
 	{ "At", TR_BLOWS, -1 },
@@ -907,7 +612,6 @@ static flag_insc_table flag_insc_sust[] =
 	{ "Ch", TR_SUST_CHR, -1 },
 	{ NULL, 0, -1 }
 };
-#endif
 
 /* Simple macro for get_inscription() */
 #define ADD_INSC(STR) (void)(ptr = object_desc_str(ptr, (STR)))
@@ -917,19 +621,13 @@ static flag_insc_table flag_insc_sust[] =
  */
 static char *inscribe_flags_aux(flag_insc_table *fi_ptr, u32b flgs[TR_FLAG_SIZE], bool kanji, char *ptr)
 {
-#ifndef JP
 	(void)kanji;
-#endif
 
 	while (fi_ptr->english)
 	{
 		if (have_flag(flgs, fi_ptr->flag) &&
 		    (fi_ptr->except_flag == -1 || !have_flag(flgs, fi_ptr->except_flag)))
-#ifdef JP
-			ADD_INSC(kanji ? fi_ptr->japanese : fi_ptr->english);
-#else
 			ADD_INSC(fi_ptr->english);
-#endif
 		fi_ptr++;
 	}
 
@@ -1103,9 +801,6 @@ static void get_inscription(char *buff, object_type *o_ptr)
 		while (*insc)
 		{
 			if (*insc == '#') break;
-#ifdef JP
-			if (iskanji(*insc)) *buff++ = *insc++;
-#endif
 			*buff++ = *insc++;
 		}
 
@@ -1129,17 +824,6 @@ static void get_inscription(char *buff, object_type *o_ptr)
 			/* check for too long inscription */
 			if (ptr >= buff + MAX_NLEN) continue;
 
-#ifdef JP
-			if ('%' == insc[1])
-			{
-				insc++;
-				kanji = FALSE;
-			}
-			else
-			{
-				kanji = TRUE;
-			}
-#endif
 			if ('a' == insc[1] && 'l' == insc[2] && 'l' == insc[3])
 			{
 				all = TRUE;
@@ -1948,11 +1632,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		/* May be "empty" */
 		else if (!o_ptr->pval)
 		{
-#ifdef JP
-			t = object_desc_str(t, "(¶õ)");
-#else
 			t = object_desc_str(t, " (empty)");
-#endif
 		}
 
 		/* May be "disarmed" */
@@ -1960,19 +1640,11 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		{
 			if (chest_traps[0 - o_ptr->pval])
 			{
-#ifdef JP
-				t = object_desc_str(t, "(²ò½üºÑ)");
-#else
 				t = object_desc_str(t, " (disarmed)");
-#endif
 			}
 			else
 			{
-#ifdef JP
-				t = object_desc_str(t, "(Èó»Ü¾û)");
-#else
 				t = object_desc_str(t, " (unlocked)");
-#endif
 			}
 		}
 
@@ -1984,56 +1656,32 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 			{
 				case 0:
 				{
-#ifdef JP
-					t = object_desc_str(t, "(»Ü¾û)");
-#else
 					t = object_desc_str(t, " (Locked)");
-#endif
 					break;
 				}
 				case CHEST_LOSE_STR:
 				{
-#ifdef JP
-					t = object_desc_str(t, "(ÆÇ¿Ë)");
-#else
 					t = object_desc_str(t, " (Poison Needle)");
-#endif
 					break;
 				}
 				case CHEST_LOSE_CON:
 				{
-#ifdef JP
-					t = object_desc_str(t, "(ÆÇ¿Ë)");
-#else
 					t = object_desc_str(t, " (Poison Needle)");
-#endif
 					break;
 				}
 				case CHEST_POISON:
 				{
-#ifdef JP
-					t = object_desc_str(t, "(¥¬¥¹¡¦¥È¥é¥Ã¥×)");
-#else
 					t = object_desc_str(t, " (Gas Trap)");
-#endif
 					break;
 				}
 				case CHEST_PARALYZE:
 				{
-#ifdef JP
-					t = object_desc_str(t, "(¥¬¥¹¡¦¥È¥é¥Ã¥×)");
-#else
 					t = object_desc_str(t, " (Gas Trap)");
-#endif
 					break;
 				}
 				case CHEST_EXPLODE:
 				{
-#ifdef JP
-					t = object_desc_str(t, "(ÇúÈ¯ÁõÃÖ)");
-#else
 					t = object_desc_str(t, " (Explosion Device)");
-#endif
 					break;
 				}
 				case CHEST_SUMMON:
@@ -2041,38 +1689,22 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 				case CHEST_E_SUMMON:
 				case CHEST_H_SUMMON:
 				{
-#ifdef JP
-					t = object_desc_str(t, "(¾¤´­¤Î¥ë¡¼¥ó)");
-#else
 					t = object_desc_str(t, " (Summoning Runes)");
-#endif
 					break;
 				}
 				case CHEST_RUNES_OF_EVIL:
 				{
-#ifdef JP
-					t = object_desc_str(t, "(¼Ù°­¤Ê¥ë¡¼¥ó)");
-#else
 					t = object_desc_str(t, " (Gleaming Black Runes)");
-#endif
 					break;
 				}
 				case CHEST_ALARM:
 				{
-#ifdef JP
-					t = object_desc_str(t, "(·ÙÊóÁõÃÖ)");
-#else
 					t = object_desc_str(t, " (Alarm)");
-#endif
 					break;
 				}
 				default:
 				{
-#ifdef JP
-					t = object_desc_str(t, "(¥Þ¥ë¥Á¡¦¥È¥é¥Ã¥×)");
-#else
 					t = object_desc_str(t, " (Multiple Traps)");
-#endif
 					break;
 				}
 			}
@@ -2345,12 +1977,8 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 				t = object_desc_str(t, "x ");
 			}
 			t = object_desc_num(t, o_ptr->pval);
-#ifdef JP
-			t = object_desc_str(t, "²óÊ¬");
-#else
 			t = object_desc_str(t, " charge");
 			if (o_ptr->pval != 1) t = object_desc_chr(t, 's');
-#endif
 
 			t = object_desc_chr(t, p2);
 		}
@@ -2418,58 +2046,38 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 			else if (have_flag(flgs, TR_SPEED))
 			{
 				/* Dump " to speed" */
-#ifdef JP
-				t = object_desc_str(t, "²ÃÂ®");
-#else
 				t = object_desc_str(t, " to speed");
-#endif
 			}
 
 			/* Attack speed */
 			else if (have_flag(flgs, TR_BLOWS))
 			{
 				/* Add " attack" */
-#ifdef JP
-				t = object_desc_str(t, "¹¶·â");
-#else
 				t = object_desc_str(t, " attack");
 
 				/* Add "attacks" */
 				if (ABS(o_ptr->pval) != 1) t = object_desc_chr(t, 's');
-#endif
 			}
 
 			/* Stealth */
 			else if (have_flag(flgs, TR_STEALTH))
 			{
 				/* Dump " to stealth" */
-#ifdef JP
-				t = object_desc_str(t, "±£Ì©");
-#else
 				t = object_desc_str(t, " to stealth");
-#endif
 			}
 
 			/* Search */
 			else if (have_flag(flgs, TR_SEARCH))
 			{
 				/* Dump " to searching" */
-#ifdef JP
-				t = object_desc_str(t, "Ãµº÷");
-#else
 				t = object_desc_str(t, " to searching");
-#endif
 			}
 
 			/* Infravision */
 			else if (have_flag(flgs, TR_INFRA))
 			{
 				/* Dump " to infravision" */
-#ifdef JP
-				t = object_desc_str(t, "ÀÖ³°Àþ»ëÎÏ");
-#else
 				t = object_desc_str(t, " to infravision");
-#endif
 			}
 
 			/* Finish the display */
@@ -2504,19 +2112,11 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		if ((o_ptr->tval == TV_LITE) && (!(o_ptr->name1 || o_ptr->art_name || (o_ptr->sval == SV_LITE_FEANOR))))
 		{
 			/* Hack -- Turns of light for normal lites */
-#ifdef JP
-			t = object_desc_chr(t, '(');
-#else
 			t = object_desc_str(t, " (with ");
-#endif
 
 			if (o_ptr->name2 == EGO_LITE_LONG) t = object_desc_num(t, o_ptr->xtra4 * 2);
 			else t = object_desc_num(t, o_ptr->xtra4);
-#ifdef JP
-			t = object_desc_str(t, "¥¿¡¼¥ó¤Î¼÷Ì¿)");
-#else
 			t = object_desc_str(t, " turns of light)");
-#endif
 		}
 
 		/* Indicate charging objects, but not rods. */
@@ -2576,11 +2176,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 	/* Note "cursed" if the item is known to be cursed */
 	else if (object_is_cursed(o_ptr) && (known || (o_ptr->ident & IDENT_SENSE)))
 	{
-#ifdef JP
-		strcpy(fake_insc_buf, "¼ö¤ï¤ì¤Æ¤¤¤ë");
-#else
 		strcpy(fake_insc_buf, "cursed");
-#endif
 	}
 
 	/* Note "unidentified" if the item is unidentified */
@@ -2589,31 +2185,19 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		 && aware && !known
 		 && !(o_ptr->ident & IDENT_SENSE))
 	{
-#ifdef JP
-		strcpy(fake_insc_buf, "Ì¤´ÕÄê");
-#else
 		strcpy(fake_insc_buf, "unidentified");
-#endif
 	}
 
 	/* Mega-Hack -- note empty wands/staffs */
 	else if (!known && (o_ptr->ident & IDENT_EMPTY))
 	{
-#ifdef JP
-		strcpy(fake_insc_buf, "¶õ");
-#else
 		strcpy(fake_insc_buf, "empty");
-#endif
 	}
 
 	/* Note "tried" if the object has been tested unsuccessfully */
 	else if (!aware && object_is_tried(o_ptr))
 	{
-#ifdef JP
-		strcpy(fake_insc_buf, "Ì¤È½ÌÀ");
-#else
 		strcpy(fake_insc_buf, "tried");
-#endif
 	}
 
 	/* Note the discount, if any */
@@ -2628,11 +2212,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 
 			(void)object_desc_num(discount_num_buf, o_ptr->discount);
 			strcat(fake_insc_buf, discount_num_buf);
-#ifdef JP
-			strcat(fake_insc_buf, "%°ú¤­");
-#else
 			strcat(fake_insc_buf, "% off");
-#endif
 		}
 	}
 

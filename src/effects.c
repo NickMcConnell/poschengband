@@ -475,18 +475,10 @@ bool disenchant_player(void)
 		case 33:
 			if (music_singing_any() || hex_spelling_any())
 			{
-		#ifdef JP
-				cptr str = (music_singing_any()) ? "歌" : "呪文";
-		#else
 				cptr str = (music_singing_any()) ? "singing" : "spelling";
-		#endif
 				p_ptr->magic_num1[1] = p_ptr->magic_num1[0];
 				p_ptr->magic_num1[0] = 0;
-		#ifdef JP
-				msg_format("%sが途切れた。", str);
-		#else
 				msg_format("Your %s is interrupted.", str);
-		#endif
 				p_ptr->action = ACTION_NONE;
 
 				/* Recalculate bonuses */
@@ -620,27 +612,15 @@ void dispel_player(void)
 	if (p_ptr->special_attack & ATTACK_CONFUSE)
 	{
 		p_ptr->special_attack &= ~(ATTACK_CONFUSE);
-#ifdef JP
-		msg_print("手の輝きがなくなった。");
-#else
 		msg_print("Your hands stop glowing.");
-#endif
 	}
 
 	if (music_singing_any() || hex_spelling_any())
 	{
-#ifdef JP
-		cptr str = (music_singing_any()) ? "歌" : "呪文";
-#else
 		cptr str = (music_singing_any()) ? "singing" : "spelling";
-#endif
 		p_ptr->magic_num1[1] = p_ptr->magic_num1[0];
 		p_ptr->magic_num1[0] = 0;
-#ifdef JP
-		msg_format("%sが途切れた。", str);
-#else
 		msg_format("Your %s is interrupted.", str);
-#endif
 		p_ptr->action = ACTION_NONE;
 
 		/* Recalculate bonuses */
@@ -749,19 +729,11 @@ bool set_blind(int v, bool do_dec)
 		{
 			if (p_ptr->prace == RACE_ANDROID)
 			{
-#ifdef JP
-msg_print("センサーをやられた！");
-#else
 				msg_print("You are blind!");
-#endif
 			}
 			else
 			{
-#ifdef JP
-msg_print("目が見えなくなってしまった！");
-#else
 				msg_print("You are blind!");
-#endif
 			}
 
 			notice = TRUE;
@@ -776,19 +748,11 @@ msg_print("目が見えなくなってしまった！");
 		{
 			if (p_ptr->prace == RACE_ANDROID)
 			{
-#ifdef JP
-msg_print("センサーが復旧した。");
-#else
 				msg_print("You can see again.");
-#endif
 			}
 			else
 			{
-#ifdef JP
-msg_print("やっと目が見えるようになった。");
-#else
 				msg_print("You can see again.");
-#endif
 			}
 
 			notice = TRUE;
@@ -843,19 +807,11 @@ bool set_confused(int v, bool do_dec)
 	{
 		if (!p_ptr->confused)
 		{
-#ifdef JP
-msg_print("あなたは混乱した！");
-#else
 			msg_print("You are confused!");
-#endif
 
 			if (p_ptr->action == ACTION_LEARN)
 			{
-#ifdef JP
-				msg_print("学習が続けられない！");
-#else
 				msg_print("You cannot continue Learning!");
-#endif
 				new_mane = FALSE;
 
 				p_ptr->redraw |= (PR_STATE);
@@ -863,11 +819,7 @@ msg_print("あなたは混乱した！");
 			}
 			if (p_ptr->action == ACTION_KAMAE)
 			{
-#ifdef JP
-				msg_print("構えがとけた。");
-#else
 				msg_print("Your posture gets loose.");
-#endif
 				p_ptr->special_defense &= ~(KAMAE_MASK);
 				p_ptr->update |= (PU_BONUS);
 				p_ptr->redraw |= (PR_STATE);
@@ -875,11 +827,7 @@ msg_print("あなたは混乱した！");
 			}
 			else if (p_ptr->action == ACTION_KATA)
 			{
-#ifdef JP
-				msg_print("型が崩れた。");
-#else
 				msg_print("Your posture gets loose.");
-#endif
 				p_ptr->special_defense &= ~(KATA_MASK);
 				p_ptr->update |= (PU_BONUS);
 				p_ptr->update |= (PU_MONSTERS);
@@ -905,11 +853,7 @@ msg_print("あなたは混乱した！");
 	{
 		if (p_ptr->confused)
 		{
-#ifdef JP
-msg_print("やっと混乱がおさまった。");
-#else
 			msg_print("You feel less confused now.");
-#endif
 
 			p_ptr->special_attack &= ~(ATTACK_SUIKEN);
 			notice = TRUE;
@@ -953,11 +897,7 @@ bool set_poisoned(int v, bool do_dec)
 	{
 		if (!p_ptr->poisoned)
 		{
-#ifdef JP
-msg_print("毒に侵されてしまった！");
-#else
 			msg_print("You are poisoned!");
-#endif
 
 			notice = TRUE;
 		}
@@ -968,11 +908,7 @@ msg_print("毒に侵されてしまった！");
 	{
 		if (p_ptr->poisoned)
 		{
-#ifdef JP
-msg_print("やっと毒の痛みがなくなった。");
-#else
 			msg_print("You are no longer poisoned.");
-#endif
 
 			notice = TRUE;
 		}
@@ -1014,14 +950,10 @@ bool set_paralyzed(int v, bool do_dec)
 	{
 		if (!p_ptr->paralyzed)
 		{
-#ifdef JP
-msg_print("体が麻痺してしまった！");
-#else
 			if (repose_of_the_dead)
 				msg_print("You enter a deep sleep!");
 			else
 				msg_print("You are paralyzed!");
-#endif
 
 			/* Sniper */
 			if (p_ptr->concent) reset_concentration(TRUE);
@@ -1039,9 +971,6 @@ msg_print("体が麻痺してしまった！");
 	{
 		if (p_ptr->paralyzed)
 		{
-#ifdef JP
-msg_print("やっと動けるようになった。");
-#else
 			if (repose_of_the_dead)
 			{
 				msg_print("You awake refreshed!");
@@ -1075,7 +1004,6 @@ msg_print("やっと動けるようになった。");
 			}
 			else
 				msg_print("You can move again.");
-#endif
 
 			notice = TRUE;
 		}
@@ -1130,11 +1058,7 @@ bool set_image(int v, bool do_dec)
 		set_tsuyoshi(0, TRUE);
 		if (!p_ptr->image)
 		{
-#ifdef JP
-msg_print("ワーオ！何もかも虹色に見える！");
-#else
 			msg_print("Oh, wow! Everything looks so cosmic now!");
-#endif
 
 			/* Sniper */
 			if (p_ptr->concent) reset_concentration(TRUE);
@@ -1149,11 +1073,7 @@ msg_print("ワーオ！何もかも虹色に見える！");
 	{
 		if (p_ptr->image)
 		{
-#ifdef JP
-msg_print("やっとはっきりと物が見えるようになった。");
-#else
 			msg_print("You can see clearly again.");
-#endif
 
 			notice = TRUE;
 		}
@@ -2251,11 +2171,7 @@ bool set_fast(int v, bool do_dec)
 		}
 		else if (!IS_FAST() && !IS_LIGHT_SPEED())
 		{
-#ifdef JP
-msg_print("素早く動けるようになった！");
-#else
 			msg_print("You feel yourself moving much faster!");
-#endif
 
 			notice = TRUE;
 			virtue_add(VIRTUE_PATIENCE, -1);
@@ -2268,11 +2184,7 @@ msg_print("素早く動けるようになった！");
 	{
 		if (p_ptr->fast && !IS_LIGHT_SPEED() && !music_singing(MUSIC_SPEED) && !music_singing(MUSIC_SHERO))
 		{
-#ifdef JP
-msg_print("動きの素早さがなくなったようだ。");
-#else
 			msg_print("You feel yourself slow down.");
-#endif
 
 			notice = TRUE;
 		}
@@ -2321,11 +2233,7 @@ bool set_lightspeed(int v, bool do_dec)
 		}
 		else if (!p_ptr->lightspeed)
 		{
-#ifdef JP
-msg_print("非常に素早く動けるようになった！");
-#else
 			msg_print("You feel yourself moving extremely faster!");
-#endif
 
 			notice = TRUE;
 			virtue_add(VIRTUE_PATIENCE, -1);
@@ -2338,11 +2246,7 @@ msg_print("非常に素早く動けるようになった！");
 	{
 		if (p_ptr->lightspeed)
 		{
-#ifdef JP
-msg_print("動きの素早さがなくなったようだ。");
-#else
 			msg_print("You feel yourself slow down.");
-#endif
 
 			notice = TRUE;
 		}
@@ -2391,11 +2295,7 @@ bool set_slow(int v, bool do_dec)
 		}
 		else if (!p_ptr->slow)
 		{
-#ifdef JP
-msg_print("体の動きが遅くなってしまった！");
-#else
 			msg_print("You feel yourself moving slower!");
-#endif
 
 			notice = TRUE;
 		}
@@ -2406,11 +2306,7 @@ msg_print("体の動きが遅くなってしまった！");
 	{
 		if (p_ptr->slow)
 		{
-#ifdef JP
-msg_print("動きの遅さがなくなったようだ。");
-#else
 			msg_print("You feel yourself speed up.");
-#endif
 
 			notice = TRUE;
 		}
@@ -2457,11 +2353,7 @@ bool set_shield(int v, bool do_dec)
 		}
 		else if (!p_ptr->shield)
 		{
-#ifdef JP
-msg_print("肌が石になった。");
-#else
 			msg_print("Your skin turns to stone.");
-#endif
 
 			notice = TRUE;
 		}
@@ -2472,11 +2364,7 @@ msg_print("肌が石になった。");
 	{
 		if (p_ptr->shield)
 		{
-#ifdef JP
-msg_print("肌が元に戻った。");
-#else
 			msg_print("Your skin returns to normal.");
-#endif
 
 			notice = TRUE;
 		}
@@ -2527,11 +2415,7 @@ bool set_tsubureru(int v, bool do_dec)
 		}
 		else if (!p_ptr->tsubureru)
 		{
-#ifdef JP
-msg_print("横に伸びた。");
-#else
 			msg_print("Your body expands horizontally.");
-#endif
 
 			notice = TRUE;
 		}
@@ -2542,11 +2426,7 @@ msg_print("横に伸びた。");
 	{
 		if (p_ptr->tsubureru)
 		{
-#ifdef JP
-msg_print("もう横に伸びていない。");
-#else
 			msg_print("Your body returns to normal.");
-#endif
 
 			notice = TRUE;
 		}
@@ -2597,11 +2477,7 @@ bool set_magicdef(int v, bool do_dec)
 		}
 		else if (!p_ptr->magicdef)
 		{
-#ifdef JP
-			msg_print("魔法の防御力が増したような気がする。");
-#else
 			msg_print("You feel more resistant to magic.");
-#endif
 
 			notice = TRUE;
 		}
@@ -2612,11 +2488,7 @@ bool set_magicdef(int v, bool do_dec)
 	{
 		if (p_ptr->magicdef)
 		{
-#ifdef JP
-			msg_print("魔法の防御力が元に戻った。");
-#else
 			msg_print("You feel less resistant to magic.");
-#endif
 
 			notice = TRUE;
 		}
@@ -2667,11 +2539,7 @@ bool set_blessed(int v, bool do_dec)
 		}
 		else if (!IS_BLESSED())
 		{
-#ifdef JP
-msg_print("高潔な気分になった！");
-#else
 			msg_print("You feel righteous!");
-#endif
 
 			notice = TRUE;
 		}
@@ -2682,11 +2550,7 @@ msg_print("高潔な気分になった！");
 	{
 		if (p_ptr->blessed && !music_singing(MUSIC_BLESS))
 		{
-#ifdef JP
-msg_print("高潔な気分が消え失せた。");
-#else
 			msg_print("The prayer has expired.");
-#endif
 
 			notice = TRUE;
 		}
@@ -2736,11 +2600,7 @@ bool set_hero(int v, bool do_dec)
 		}
 		else if (!IS_HERO())
 		{
-#ifdef JP
-msg_print("ヒーローになった気がする！");
-#else
 			msg_print("You feel like a hero!");
-#endif
 
 			notice = TRUE;
 		}
@@ -2751,11 +2611,7 @@ msg_print("ヒーローになった気がする！");
 	{
 		if (p_ptr->hero && !music_singing(MUSIC_HERO) && !music_singing(MUSIC_SHERO))
 		{
-#ifdef JP
-msg_print("ヒーローの気分が消え失せた。");
-#else
 			msg_print("The heroism wears off.");
-#endif
 
 			notice = TRUE;
 		}
@@ -2809,11 +2665,7 @@ bool set_shero(int v, bool do_dec)
 		}
 		else if (!p_ptr->shero)
 		{
-#ifdef JP
-msg_print("殺戮マシーンになった気がする！");
-#else
 			msg_print("You feel like a killing machine!");
-#endif
 
 			notice = TRUE;
 		}
@@ -2824,11 +2676,7 @@ msg_print("殺戮マシーンになった気がする！");
 	{
 		if (p_ptr->shero)
 		{
-#ifdef JP
-msg_print("野蛮な気持ちが消え失せた。");
-#else
 			msg_print("You feel less Berserk.");
-#endif
 
 			notice = TRUE;
 		}
@@ -2881,11 +2729,7 @@ bool set_protevil(int v, bool do_dec)
 		}
 		else if (!p_ptr->protevil)
 		{
-#ifdef JP
-msg_print("邪悪なる存在から守られているような感じがする！");
-#else
 			msg_print("You feel safe from evil!");
-#endif
 
 			notice = TRUE;
 		}
@@ -2896,11 +2740,7 @@ msg_print("邪悪なる存在から守られているような感じがする！");
 	{
 		if (p_ptr->protevil)
 		{
-#ifdef JP
-msg_print("邪悪なる存在から守られている感じがなくなった。");
-#else
 			msg_print("You no longer feel safe from evil.");
-#endif
 
 			notice = TRUE;
 		}
@@ -2946,11 +2786,7 @@ bool set_wraith_form(int v, bool do_dec)
 		}
 		else if (!p_ptr->wraith_form)
 		{
-#ifdef JP
-msg_print("物質界を離れて幽鬼のような存在になった！");
-#else
 			msg_print("You leave the physical world and turn into a wraith-being!");
-#endif
 
 			notice = TRUE;
 
@@ -2975,11 +2811,7 @@ msg_print("物質界を離れて幽鬼のような存在になった！");
 	{
 		if (p_ptr->wraith_form)
 		{
-#ifdef JP
-msg_print("不透明になった感じがする。");
-#else
 			msg_print("You feel opaque.");
-#endif
 
 			notice = TRUE;
 
@@ -3039,11 +2871,7 @@ bool set_invuln(int v, bool do_dec)
 		}
 		else if (!IS_INVULN())
 		{
-#ifdef JP
-msg_print("無敵だ！");
-#else
 			msg_print("Invulnerability!");
-#endif
 
 			notice = TRUE;
 
@@ -3068,11 +2896,7 @@ msg_print("無敵だ！");
 	{
 		if (p_ptr->invuln && !music_singing(MUSIC_INVULN))
 		{
-#ifdef JP
-msg_print("無敵ではなくなった。");
-#else
 			msg_print("The invulnerability wears off.");
-#endif
 
 			notice = TRUE;
 
@@ -3133,11 +2957,7 @@ bool set_tim_esp(int v, bool do_dec)
 		}
 		else if (!IS_TIM_ESP())
 		{
-#ifdef JP
-msg_print("意識が広がった気がする！");
-#else
 			msg_print("You feel your consciousness expand!");
-#endif
 
 			notice = TRUE;
 		}
@@ -3148,11 +2968,7 @@ msg_print("意識が広がった気がする！");
 	{
 		if (p_ptr->tim_esp && !music_singing(MUSIC_MIND))
 		{
-#ifdef JP
-msg_print("意識は元に戻った。");
-#else
 			msg_print("Your consciousness contracts again.");
-#endif
 
 			notice = TRUE;
 		}
@@ -3263,11 +3079,7 @@ bool set_tim_invis(int v, bool do_dec)
 		}
 		else if (!p_ptr->tim_invis)
 		{
-#ifdef JP
-msg_print("目が非常に敏感になった気がする！");
-#else
 			msg_print("Your eyes feel very sensitive!");
-#endif
 
 			notice = TRUE;
 		}
@@ -3278,11 +3090,7 @@ msg_print("目が非常に敏感になった気がする！");
 	{
 		if (p_ptr->tim_invis)
 		{
-#ifdef JP
-msg_print("目の敏感さがなくなったようだ。");
-#else
 			msg_print("Your eyes feel less sensitive.");
-#endif
 
 			notice = TRUE;
 		}
@@ -3335,11 +3143,7 @@ bool set_tim_infra(int v, bool do_dec)
 		}
 		else if (!IS_TIM_INFRA())
 		{
-#ifdef JP
-msg_print("目がランランと輝き始めた！");
-#else
 			msg_print("Your eyes begin to tingle!");
-#endif
 
 			notice = TRUE;
 		}
@@ -3350,11 +3154,7 @@ msg_print("目がランランと輝き始めた！");
 	{
 		if (p_ptr->tim_infra && !wild_has_power(WILD_INFRAVISION))
 		{
-#ifdef JP
-msg_print("目の輝きがなくなった。");
-#else
 			msg_print("Your eyes stop tingling.");
-#endif
 
 			notice = TRUE;
 		}
@@ -3407,11 +3207,7 @@ bool set_tim_regen(int v, bool do_dec)
 		}
 		else if (!p_ptr->tim_regen)
 		{
-#ifdef JP
-msg_print("回復力が上がった！");
-#else
 			msg_print("You feel yourself regenerating quickly!");
-#endif
 
 			notice = TRUE;
 		}
@@ -3422,11 +3218,7 @@ msg_print("回復力が上がった！");
 	{
 		if (p_ptr->tim_regen)
 		{
-#ifdef JP
-msg_print("素早く回復する感じがなくなった。");
-#else
 			msg_print("You feel yourself regenerating slowly.");
-#endif
 
 			notice = TRUE;
 		}
@@ -3476,11 +3268,7 @@ bool set_tim_stealth(int v, bool do_dec)
 		}
 		else if (!IS_TIM_STEALTH())
 		{
-#ifdef JP
-msg_print("足音が小さくなった！");
-#else
 			msg_print("You begin to walk silently!");
-#endif
 
 			notice = TRUE;
 		}
@@ -3491,11 +3279,7 @@ msg_print("足音が小さくなった！");
 	{
 		if (p_ptr->tim_stealth && !music_singing(MUSIC_STEALTH))
 		{
-#ifdef JP
-msg_print("足音が大きくなった。");
-#else
 			msg_print("You no longer walk silently.");
-#endif
 
 			notice = TRUE;
 		}
@@ -3567,20 +3351,12 @@ bool set_superstealth(bool set)
 		{
 			if (cave[py][px].info & CAVE_MNLT)
 			{
-#ifdef JP
-				msg_print("敵の目から薄い影の中に覆い隠された。");
-#else
 				msg_print("You are mantled in weak shadow from ordinary eyes.");
-#endif
 				p_ptr->monlite = p_ptr->old_monlite = TRUE;
 			}
 			else
 			{
-#ifdef JP
-				msg_print("敵の目から影の中に覆い隠された！");
-#else
 				msg_print("You are mantled in shadow from ordinary eyes!");
-#endif
 				p_ptr->monlite = p_ptr->old_monlite = FALSE;
 			}
 
@@ -3596,11 +3372,7 @@ bool set_superstealth(bool set)
 	{
 		if (p_ptr->special_defense & NINJA_S_STEALTH)
 		{
-#ifdef JP
-			msg_print("再び敵の目にさらされるようになった。");
-#else
 			msg_print("You are exposed to common sight once more.");
-#endif
 
 			notice = TRUE;
 
@@ -3644,11 +3416,7 @@ bool set_tim_levitation(int v, bool do_dec)
 		}
 		else if (!p_ptr->tim_levitation)
 		{
-#ifdef JP
-msg_print("体が宙に浮き始めた。");
-#else
 			msg_print("You begin to fly!");
-#endif
 
 			notice = TRUE;
 		}
@@ -3659,11 +3427,7 @@ msg_print("体が宙に浮き始めた。");
 	{
 		if (p_ptr->tim_levitation)
 		{
-#ifdef JP
-msg_print("もう宙に浮かべなくなった。");
-#else
 			msg_print("You stop flying.");
-#endif
 
 			notice = TRUE;
 		}
@@ -3713,11 +3477,7 @@ bool set_tim_sh_touki(int v, bool do_dec)
 		}
 		else if (!p_ptr->tim_sh_touki)
 		{
-#ifdef JP
-msg_print("体が闘気のオーラで覆われた。");
-#else
 			msg_print("You have enveloped by the aura of the Force!");
-#endif
 
 			notice = TRUE;
 		}
@@ -3728,11 +3488,7 @@ msg_print("体が闘気のオーラで覆われた。");
 	{
 		if (p_ptr->tim_sh_touki)
 		{
-#ifdef JP
-msg_print("闘気が消えた。");
-#else
 			msg_print("Aura of the Force disappeared.");
-#endif
 
 			notice = TRUE;
 		}
@@ -3779,11 +3535,7 @@ bool set_tim_sh_fire(int v, bool do_dec)
 		}
 		else if (!p_ptr->tim_sh_fire)
 		{
-#ifdef JP
-msg_print("体が炎のオーラで覆われた。");
-#else
 			msg_print("You have enveloped by fiery aura!");
-#endif
 
 			notice = TRUE;
 		}
@@ -3794,11 +3546,7 @@ msg_print("体が炎のオーラで覆われた。");
 	{
 		if (p_ptr->tim_sh_fire)
 		{
-#ifdef JP
-msg_print("炎のオーラが消えた。");
-#else
 			msg_print("Fiery aura disappeared.");
-#endif
 
 			notice = TRUE;
 		}
@@ -3848,11 +3596,7 @@ bool set_tim_sh_holy(int v, bool do_dec)
 		}
 		else if (!p_ptr->tim_sh_holy)
 		{
-#ifdef JP
-msg_print("体が聖なるオーラで覆われた。");
-#else
 			msg_print("You have enveloped by holy aura!");
-#endif
 
 			notice = TRUE;
 		}
@@ -3863,11 +3607,7 @@ msg_print("体が聖なるオーラで覆われた。");
 	{
 		if (p_ptr->tim_sh_holy)
 		{
-#ifdef JP
-msg_print("聖なるオーラが消えた。");
-#else
 			msg_print("Holy aura disappeared.");
-#endif
 
 			notice = TRUE;
 		}
@@ -3918,14 +3658,10 @@ bool set_tim_eyeeye(int v, bool do_dec)
 		}
 		else if (!p_ptr->tim_eyeeye)
 		{
-#ifdef JP
-msg_print("法の守り手になった気がした！");
-#else
 			if (p_ptr->pclass == CLASS_BLOOD_KNIGHT)
 				msg_print("You feel like bloody revenge!");
 			else 
 				msg_print("You feel like a keeper of commandments!");
-#endif
 
 			notice = TRUE;
 		}
@@ -3936,14 +3672,10 @@ msg_print("法の守り手になった気がした！");
 	{
 		if (p_ptr->tim_eyeeye)
 		{
-#ifdef JP
-msg_print("懲罰を執行することができなくなった。");
-#else
 			if (p_ptr->pclass == CLASS_BLOOD_KNIGHT)
 				msg_print("You no longer feel like bloody revenge.");
 			else 
 				msg_print("You no longer feel like a keeper.");
-#endif
 
 			notice = TRUE;
 		}
@@ -3994,11 +3726,7 @@ bool set_resist_magic(int v, bool do_dec)
 		}
 		else if (!p_ptr->resist_magic)
 		{
-#ifdef JP
-msg_print("魔法への耐性がついた。");
-#else
 			msg_print("You have been protected from magic!");
-#endif
 
 			notice = TRUE;
 		}
@@ -4009,11 +3737,7 @@ msg_print("魔法への耐性がついた。");
 	{
 		if (p_ptr->resist_magic)
 		{
-#ifdef JP
-msg_print("魔法に弱くなった。");
-#else
 msg_print("You are no longer protected from magic.");
-#endif
 
 			notice = TRUE;
 		}
@@ -4063,11 +3787,7 @@ bool set_tim_reflect(int v, bool do_dec)
 		}
 		else if (!p_ptr->tim_reflect)
 		{
-#ifdef JP
-msg_print("体の表面が滑かになった気がする。");
-#else
 			msg_print("Your body becames smooth.");
-#endif
 
 			notice = TRUE;
 		}
@@ -4078,11 +3798,7 @@ msg_print("体の表面が滑かになった気がする。");
 	{
 		if (p_ptr->tim_reflect)
 		{
-#ifdef JP
-msg_print("体の表面が滑かでなくなった。");
-#else
 			msg_print("Your body is no longer smooth.");
-#endif
 
 			notice = TRUE;
 		}
@@ -4132,11 +3848,7 @@ bool set_multishadow(int v, bool do_dec)
 		}
 		else if (!p_ptr->multishadow)
 		{
-#ifdef JP
-msg_print("あなたの周りに幻影が生まれた。");
-#else
 			msg_print("Your Shadow enveloped you.");
-#endif
 
 			notice = TRUE;
 		}
@@ -4147,11 +3859,7 @@ msg_print("あなたの周りに幻影が生まれた。");
 	{
 		if (p_ptr->multishadow)
 		{
-#ifdef JP
-msg_print("幻影が消えた。");
-#else
 			msg_print("Your Shadow disappears.");
-#endif
 
 			notice = TRUE;
 		}
@@ -4201,11 +3909,7 @@ bool set_dustrobe(int v, bool do_dec)
 		}
 		else if (!p_ptr->dustrobe)
 		{
-#ifdef JP
-msg_print("体が鏡のオーラで覆われた。");
-#else
 			msg_print("You were enveloped by mirror shards.");
-#endif
 
 			notice = TRUE;
 		}
@@ -4216,11 +3920,7 @@ msg_print("体が鏡のオーラで覆われた。");
 	{
 		if (p_ptr->dustrobe)
 		{
-#ifdef JP
-msg_print("鏡のオーラが消えた。");
-#else
 			msg_print("The mirror shards disappear.");
-#endif
 
 			notice = TRUE;
 		}
@@ -4270,11 +3970,7 @@ bool set_kabenuke(int v, bool do_dec)
 		}
 		else if (!p_ptr->kabenuke)
 		{
-#ifdef JP
-msg_print("体が半物質の状態になった。");
-#else
 			msg_print("You became ethereal form.");
-#endif
 
 			notice = TRUE;
 		}
@@ -4285,11 +3981,7 @@ msg_print("体が半物質の状態になった。");
 	{
 		if (p_ptr->kabenuke)
 		{
-#ifdef JP
-msg_print("体が物質化した。");
-#else
 			msg_print("You are no longer in an ethereal form.");
-#endif
 
 			notice = TRUE;
 		}
@@ -4336,11 +4028,7 @@ bool set_tsuyoshi(int v, bool do_dec)
 		}
 		else if (!p_ptr->tsuyoshi)
 		{
-#ifdef JP
-msg_print("「オクレ兄さん！」");
-#else
 			msg_print("Brother OKURE!");
-#endif
 
 			notice = TRUE;
 			virtue_add(VIRTUE_VITALITY, 2);
@@ -4352,11 +4040,7 @@ msg_print("「オクレ兄さん！」");
 	{
 		if (p_ptr->tsuyoshi)
 		{
-#ifdef JP
-msg_print("肉体が急速にしぼんでいった。");
-#else
 			msg_print("Your body had quickly shriveled.");
-#endif
 
 			(void)dec_stat(A_CON, 20, TRUE);
 			(void)dec_stat(A_STR, 20, TRUE);
@@ -4405,47 +4089,27 @@ bool set_ele_attack(u32b attack_type, int v)
 	if ((p_ptr->special_attack & (ATTACK_ACID)) && (attack_type != ATTACK_ACID))
 	{
 		p_ptr->special_attack &= ~(ATTACK_ACID);
-#ifdef JP
-		msg_print("酸で攻撃できなくなった。");
-#else
 		msg_print("Your temporary acidic brand fades away.");
-#endif
 	}
 	if ((p_ptr->special_attack & (ATTACK_ELEC)) && (attack_type != ATTACK_ELEC))
 	{
 		p_ptr->special_attack &= ~(ATTACK_ELEC);
-#ifdef JP
-		msg_print("電撃で攻撃できなくなった。");
-#else
 		msg_print("Your temporary electrical brand fades away.");
-#endif
 	}
 	if ((p_ptr->special_attack & (ATTACK_FIRE)) && (attack_type != ATTACK_FIRE))
 	{
 		p_ptr->special_attack &= ~(ATTACK_FIRE);
-#ifdef JP
-		msg_print("火炎で攻撃できなくなった。");
-#else
 		msg_print("Your temporary fiery brand fades away.");
-#endif
 	}
 	if ((p_ptr->special_attack & (ATTACK_COLD)) && (attack_type != ATTACK_COLD))
 	{
 		p_ptr->special_attack &= ~(ATTACK_COLD);
-#ifdef JP
-		msg_print("冷気で攻撃できなくなった。");
-#else
 		msg_print("Your temporary frost brand fades away.");
-#endif
 	}
 	if ((p_ptr->special_attack & (ATTACK_POIS)) && (attack_type != ATTACK_POIS))
 	{
 		p_ptr->special_attack &= ~(ATTACK_POIS);
-#ifdef JP
-		msg_print("毒で攻撃できなくなった。");
-#else
 		msg_print("Your temporary poison brand fades away.");
-#endif
 	}
 
 	if ((v) && (attack_type))
@@ -4457,15 +4121,6 @@ bool set_ele_attack(u32b attack_type, int v)
 		p_ptr->ele_attack = v;
 
 		/* Message. */
-#ifdef JP
-		msg_format("%sで攻撃できるようになった！",
-			     ((attack_type == ATTACK_ACID) ? "酸" :
-			      ((attack_type == ATTACK_ELEC) ? "電撃" :
-			       ((attack_type == ATTACK_FIRE) ? "火炎" : 
-				((attack_type == ATTACK_COLD) ? "冷気" : 
-				 ((attack_type == ATTACK_POIS) ? "毒" : 
-					"(なし)"))))));
-#else
 		msg_format("For a while, the blows you deal will %s",
 			     ((attack_type == ATTACK_ACID) ? "melt with acid!" :
 			      ((attack_type == ATTACK_ELEC) ? "shock your foes!" :
@@ -4473,7 +4128,6 @@ bool set_ele_attack(u32b attack_type, int v)
 				((attack_type == ATTACK_COLD) ? "chill to the bone!" : 
 				 ((attack_type == ATTACK_POIS) ? "poison your enemies!" : 
 					"do nothing special."))))));
-#endif
 	}
 
 	/* Disturb */
@@ -4504,47 +4158,27 @@ bool set_ele_immune(u32b immune_type, int v)
 	if ((p_ptr->special_defense & (DEFENSE_ACID)) && (immune_type != DEFENSE_ACID))
 	{
 		p_ptr->special_defense &= ~(DEFENSE_ACID);
-#ifdef JP
-		msg_print("酸の攻撃で傷つけられるようになった。。");
-#else
 		msg_print("You are no longer immune to acid.");
-#endif
 	}
 	if ((p_ptr->special_defense & (DEFENSE_ELEC)) && (immune_type != DEFENSE_ELEC))
 	{
 		p_ptr->special_defense &= ~(DEFENSE_ELEC);
-#ifdef JP
-		msg_print("電撃の攻撃で傷つけられるようになった。。");
-#else
 		msg_print("You are no longer immune to electricity.");
-#endif
 	}
 	if ((p_ptr->special_defense & (DEFENSE_FIRE)) && (immune_type != DEFENSE_FIRE))
 	{
 		p_ptr->special_defense &= ~(DEFENSE_FIRE);
-#ifdef JP
-		msg_print("火炎の攻撃で傷つけられるようになった。。");
-#else
 		msg_print("You are no longer immune to fire.");
-#endif
 	}
 	if ((p_ptr->special_defense & (DEFENSE_COLD)) && (immune_type != DEFENSE_COLD))
 	{
 		p_ptr->special_defense &= ~(DEFENSE_COLD);
-#ifdef JP
-		msg_print("冷気の攻撃で傷つけられるようになった。。");
-#else
 		msg_print("You are no longer immune to cold.");
-#endif
 	}
 	if ((p_ptr->special_defense & (DEFENSE_POIS)) && (immune_type != DEFENSE_POIS))
 	{
 		p_ptr->special_defense &= ~(DEFENSE_POIS);
-#ifdef JP
-		msg_print("毒の攻撃で傷つけられるようになった。。");
-#else
 		msg_print("You are no longer immune to poison.");
-#endif
 	}
 
 	if ((v) && (immune_type))
@@ -4556,15 +4190,6 @@ bool set_ele_immune(u32b immune_type, int v)
 		p_ptr->ele_immune = v;
 
 		/* Message. */
-#ifdef JP
-		msg_format("%sの攻撃を受けつけなくなった！",
-			     ((immune_type == DEFENSE_ACID) ? "酸" :
-			      ((immune_type == DEFENSE_ELEC) ? "電撃" :
-			       ((immune_type == DEFENSE_FIRE) ? "火炎" : 
-				((immune_type == DEFENSE_COLD) ? "冷気" : 
-				 ((immune_type == DEFENSE_POIS) ? "毒" : 
-					"(なし)"))))));
-#else
 		msg_format("For a while, You are immune to %s",
 			     ((immune_type == DEFENSE_ACID) ? "acid!" :
 			      ((immune_type == DEFENSE_ELEC) ? "electricity!" :
@@ -4572,7 +4197,6 @@ bool set_ele_immune(u32b immune_type, int v)
 				((immune_type == DEFENSE_COLD) ? "cold!" : 
 				 ((immune_type == DEFENSE_POIS) ? "poison!" : 
 					"do nothing special."))))));
-#endif
 	}
 
 	/* Disturb */
@@ -4611,11 +4235,7 @@ bool set_oppose_acid(int v, bool do_dec)
 		}
 		else if (!IS_OPPOSE_ACID())
 		{
-#ifdef JP
-msg_print("酸への耐性がついた気がする！");
-#else
 			msg_print("You feel resistant to acid!");
-#endif
 
 			notice = TRUE;
 		}
@@ -4626,11 +4246,7 @@ msg_print("酸への耐性がついた気がする！");
 	{
 		if (p_ptr->oppose_acid && !music_singing(MUSIC_RESIST) && !(p_ptr->special_defense & KATA_MUSOU))
 		{
-#ifdef JP
-msg_print("酸への耐性が薄れた気がする。");
-#else
 			msg_print("You feel less resistant to acid.");
-#endif
 
 			notice = TRUE;
 		}
@@ -4678,11 +4294,7 @@ bool set_oppose_elec(int v, bool do_dec)
 		}
 		else if (!IS_OPPOSE_ELEC())
 		{
-#ifdef JP
-msg_print("電撃への耐性がついた気がする！");
-#else
 			msg_print("You feel resistant to electricity!");
-#endif
 
 			notice = TRUE;
 		}
@@ -4693,11 +4305,7 @@ msg_print("電撃への耐性がついた気がする！");
 	{
 		if (p_ptr->oppose_elec && !music_singing(MUSIC_RESIST) && !(p_ptr->special_defense & KATA_MUSOU))
 		{
-#ifdef JP
-msg_print("電撃への耐性が薄れた気がする。");
-#else
 			msg_print("You feel less resistant to electricity.");
-#endif
 
 			notice = TRUE;
 		}
@@ -4746,11 +4354,7 @@ bool set_oppose_fire(int v, bool do_dec)
 		}
 		else if (!IS_OPPOSE_FIRE())
 		{
-#ifdef JP
-msg_print("火への耐性がついた気がする！");
-#else
 			msg_print("You feel resistant to fire!");
-#endif
 
 			notice = TRUE;
 		}
@@ -4761,11 +4365,7 @@ msg_print("火への耐性がついた気がする！");
 	{
 		if (p_ptr->oppose_fire && !music_singing(MUSIC_RESIST) && !(p_ptr->special_defense & KATA_MUSOU))
 		{
-#ifdef JP
-msg_print("火への耐性が薄れた気がする。");
-#else
 			msg_print("You feel less resistant to fire.");
-#endif
 
 			notice = TRUE;
 		}
@@ -4813,11 +4413,7 @@ bool set_oppose_cold(int v, bool do_dec)
 		}
 		else if (!IS_OPPOSE_COLD())
 		{
-#ifdef JP
-msg_print("冷気への耐性がついた気がする！");
-#else
 			msg_print("You feel resistant to cold!");
-#endif
 
 			notice = TRUE;
 		}
@@ -4828,11 +4424,7 @@ msg_print("冷気への耐性がついた気がする！");
 	{
 		if (p_ptr->oppose_cold && !music_singing(MUSIC_RESIST) && !(p_ptr->special_defense & KATA_MUSOU))
 		{
-#ifdef JP
-msg_print("冷気への耐性が薄れた気がする。");
-#else
 			msg_print("You feel less resistant to cold.");
-#endif
 
 			notice = TRUE;
 		}
@@ -4881,11 +4473,7 @@ bool set_oppose_pois(int v, bool do_dec)
 		}
 		else if (!IS_OPPOSE_POIS())
 		{
-#ifdef JP
-msg_print("毒への耐性がついた気がする！");
-#else
 			msg_print("You feel resistant to poison!");
-#endif
 
 			notice = TRUE;
 		}
@@ -4896,11 +4484,7 @@ msg_print("毒への耐性がついた気がする！");
 	{
 		if (p_ptr->oppose_pois && !music_singing(MUSIC_RESIST) && !(p_ptr->special_defense & KATA_MUSOU))
 		{
-#ifdef JP
-msg_print("毒への耐性が薄れた気がする。");
-#else
 			msg_print("You feel less resistant to poison.");
-#endif
 
 			notice = TRUE;
 		}
@@ -5003,42 +4587,26 @@ bool set_stun(int v, bool do_dec)
 		{
 			/* Stun */
 			case 1:
-#ifdef JP
-msg_print("意識がもうろうとしてきた。");
-#else
 			msg_print("You have been stunned.");
-#endif
 
 			break;
 
 			/* Heavy stun */
 			case 2:
-#ifdef JP
-msg_print("意識がひどくもうろうとしてきた。");
-#else
 			msg_print("You have been heavily stunned.");
-#endif
 
 			break;
 
 			/* Knocked out */
 			case 3:
-#ifdef JP
-msg_print("頭がクラクラして意識が遠のいてきた。");
-#else
 			msg_print("You have been knocked out.");
-#endif
 
 			break;
 		}
 
 		if (randint1(1000) < v || one_in_(16))
 		{
-#ifdef JP
-msg_print("割れるような頭痛がする。");
-#else
 			msg_print("A vicious blow hits your head.");
-#endif
 
 			if (one_in_(3))
 			{
@@ -5056,11 +4624,7 @@ msg_print("割れるような頭痛がする。");
 		}
 		if (p_ptr->special_defense & KATA_MASK)
 		{
-#ifdef JP
-			msg_print("型が崩れた。");
-#else
 			msg_print("Your posture gets loose.");
-#endif
 			p_ptr->special_defense &= ~(KATA_MASK);
 			p_ptr->update |= (PU_BONUS);
 			p_ptr->update |= (PU_MONSTERS);
@@ -5087,11 +4651,7 @@ msg_print("割れるような頭痛がする。");
 		{
 			/* None */
 			case 0:
-#ifdef JP
-msg_print("やっと朦朧状態から回復した。");
-#else
 			msg_print("You are no longer stunned.");
-#endif
 
 			if (disturb_state) disturb(0, 0);
 			break;
@@ -5249,71 +4809,43 @@ bool set_cut(int v, bool do_dec)
 		{
 			/* Graze */
 			case 1:
-#ifdef JP
-msg_print("かすり傷を負ってしまった。");
-#else
 			msg_print("You have been given a graze.");
-#endif
 
 			break;
 
 			/* Light cut */
 			case 2:
-#ifdef JP
-msg_print("軽い傷を負ってしまった。");
-#else
 			msg_print("You have been given a light cut.");
-#endif
 
 			break;
 
 			/* Bad cut */
 			case 3:
-#ifdef JP
-msg_print("ひどい傷を負ってしまった。");
-#else
 			msg_print("You have been given a bad cut.");
-#endif
 
 			break;
 
 			/* Nasty cut */
 			case 4:
-#ifdef JP
-msg_print("大変な傷を負ってしまった。");
-#else
 			msg_print("You have been given a nasty cut.");
-#endif
 
 			break;
 
 			/* Severe cut */
 			case 5:
-#ifdef JP
-msg_print("重大な傷を負ってしまった。");
-#else
 			msg_print("You have been given a severe cut.");
-#endif
 
 			break;
 
 			/* Deep gash */
 			case 6:
-#ifdef JP
-msg_print("ひどい深手を負ってしまった。");
-#else
 			msg_print("You have been given a deep gash.");
-#endif
 
 			break;
 
 			/* Mortal wound */
 			case 7:
-#ifdef JP
-msg_print("致命的な傷を負ってしまった。");
-#else
 			msg_print("You have been given a mortal wound.");
-#endif
 
 			break;
 		}
@@ -5330,11 +4862,7 @@ msg_print("致命的な傷を負ってしまった。");
 		{
 			/* None */
 			case 0:
-#ifdef JP
-msg_format("やっと%s。", p_ptr->prace == RACE_ANDROID ? "怪我が直った" : "出血が止まった");
-#else
 			msg_print("You are no longer bleeding.");
-#endif
 
 			if (disturb_state) disturb(0, 0);
 			break;
@@ -5487,51 +5015,31 @@ bool set_food(int v)
 		{
 			/* Weak */
 			case 1:
-#ifdef JP
-msg_print("まだ空腹で倒れそうだ。");
-#else
 			msg_print("You are still weak.");
-#endif
 
 			break;
 
 			/* Hungry */
 			case 2:
-#ifdef JP
-msg_print("まだ空腹だ。");
-#else
 			msg_print("You are still hungry.");
-#endif
 
 			break;
 
 			/* Normal */
 			case 3:
-#ifdef JP
-msg_print("空腹感がおさまった。");
-#else
 			msg_print("You are no longer hungry.");
-#endif
 
 			break;
 
 			/* Full */
 			case 4:
-#ifdef JP
-msg_print("満腹だ！");
-#else
 			msg_print("You are full!");
-#endif
 
 			break;
 
 			/* Bloated */
 			case 5:
-#ifdef JP
-msg_print("食べ過ぎだ！");
-#else
 			msg_print("You have gorged yourself!");
-#endif
 			virtue_add(VIRTUE_HARMONY, -1);
 			virtue_add(VIRTUE_PATIENCE, -1);
 			virtue_add(VIRTUE_TEMPERANCE, -2);
@@ -5551,51 +5059,31 @@ msg_print("食べ過ぎだ！");
 		{
 			/* Fainting / Starving */
 			case 0:
-#ifdef JP
-msg_print("あまりにも空腹で気を失ってしまった！");
-#else
 			msg_print("You are getting faint from hunger!");
-#endif
 
 			break;
 
 			/* Weak */
 			case 1:
-#ifdef JP
-msg_print("お腹が空いて倒れそうだ。");
-#else
 			msg_print("You are getting weak from hunger!");
-#endif
 
 			break;
 
 			/* Hungry */
 			case 2:
-#ifdef JP
-msg_print("お腹が空いてきた。");
-#else
 			msg_print("You are getting hungry.");
-#endif
 
 			break;
 
 			/* Normal */
 			case 3:
-#ifdef JP
-msg_print("満腹感がなくなった。");
-#else
 			msg_print("You are no longer full.");
-#endif
 
 			break;
 
 			/* Full */
 			case 4:
-#ifdef JP
-msg_print("やっとお腹がきつくなくなった。");
-#else
 			msg_print("You are no longer gorged.");
-#endif
 
 			break;
 		}
@@ -5905,44 +5393,28 @@ bool hp_player_aux(int num)
 		/* Heal 0-4 */
 		if (num < 5)
 		{
-#ifdef JP
-msg_print("少し気分が良くなった。");
-#else
 			msg_print("You feel a little better.");
-#endif
 
 		}
 
 		/* Heal 5-14 */
 		else if (num < 15)
 		{
-#ifdef JP
-msg_print("気分が良くなった。");
-#else
 			msg_print("You feel better.");
-#endif
 
 		}
 
 		/* Heal 15-34 */
 		else if (num < 35)
 		{
-#ifdef JP
-msg_print("とても気分が良くなった。");
-#else
 			msg_print("You feel much better.");
-#endif
 
 		}
 
 		/* Heal 35+ */
 		else
 		{
-#ifdef JP
-msg_print("ひじょうに気分が良くなった。");
-#else
 			msg_print("You feel very good.");
-#endif
 
 		}
 
@@ -5985,41 +5457,17 @@ bool sp_player(int num)
  */
 static cptr desc_stat_pos[] =
 {
-#ifdef JP
-"強く",
-#else
 	"strong",
-#endif
 
-#ifdef JP
-"知的に",
-#else
 	"smart",
-#endif
 
-#ifdef JP
-"賢く",
-#else
 	"wise",
-#endif
 
-#ifdef JP
-"器用に",
-#else
 	"dextrous",
-#endif
 
-#ifdef JP
-"健康に",
-#else
 	"healthy",
-#endif
 
-#ifdef JP
-"美しく"
-#else
 	"self-confident"
-#endif
 
 };
 
@@ -6029,21 +5477,12 @@ static cptr desc_stat_pos[] =
  */
 static cptr desc_stat_neg[] =
 {
-#ifdef JP
-"弱く",
-"無知に",
-"愚かに",
-"不器用に",
-"不健康に",
-"醜く"
-#else
 	"weak",
 	"stupid",
 	"naive",
 	"clumsy",
 	"sickly",
 	"insecure"
-#endif
 
 };
 
@@ -6070,11 +5509,7 @@ bool do_dec_stat(int stat)
 	if (sust && (!ironman_nightmare || randint0(13)))
 	{
 		/* Message */
-#ifdef JP
-msg_format("%sなった気がしたが、すぐに元に戻った。",
-#else
 		msg_format("You feel %s for a moment, but the feeling passes.",
-#endif
 
 				desc_stat_neg[stat]);
 
@@ -6086,11 +5521,7 @@ msg_format("%sなった気がしたが、すぐに元に戻った。",
 	if (dec_stat(stat, 10, (ironman_nightmare && !randint0(13))))
 	{
 		/* Message */
-#ifdef JP
-msg_format("ひどく%sなった気がする。", desc_stat_neg[stat]);
-#else
 		msg_format("You feel very %s.", desc_stat_neg[stat]);
-#endif
 
 
 		/* Notice effect */
@@ -6111,11 +5542,7 @@ bool do_res_stat(int stat)
 	if (res_stat(stat))
 	{
 		/* Message */
-#ifdef JP
-msg_format("元通りに%sなった気がする。", desc_stat_pos[stat]);
-#else
 		msg_format("You feel less %s.", desc_stat_neg[stat]);
-#endif
 
 
 		/* Notice */
@@ -6154,11 +5581,7 @@ bool do_inc_stat(int stat)
 			virtue_add(VIRTUE_VITALITY, 1);
 
 		/* Message */
-#ifdef JP
-msg_format("ワーオ！とても%sなった！", desc_stat_pos[stat]);
-#else
 		msg_format("Wow!  You feel very %s!", desc_stat_pos[stat]);
-#endif
 
 
 		/* Notice */
@@ -6169,11 +5592,7 @@ msg_format("ワーオ！とても%sなった！", desc_stat_pos[stat]);
 	if (res)
 	{
 		/* Message */
-#ifdef JP
-msg_format("元通りに%sなった気がする。", desc_stat_pos[stat]);
-#else
 		msg_format("You feel less %s.", desc_stat_neg[stat]);
-#endif
 
 
 		/* Notice */
@@ -6194,11 +5613,7 @@ bool restore_level(void)
 	if (p_ptr->exp < p_ptr->max_exp)
 	{
 		/* Message */
-#ifdef JP
-msg_print("生命力が戻ってきた気がする。");
-#else
 		msg_print("You feel your life energies returning.");
-#endif
 
 
 		/* Restore the experience */
@@ -6277,22 +5692,13 @@ void do_poly_wounds(void)
 
 	if (!(wounds || hit_p || Nasty_effect)) return;
 
-#ifdef JP
-msg_print("傷がより軽いものに変化した。");
-#else
 	msg_print("Your wounds are polymorphed into less serious ones.");
-#endif
 
 	hp_player(change);
 	if (Nasty_effect)
 	{
-#ifdef JP
-msg_print("新たな傷ができた！");
-take_hit(DAMAGE_LOSELIFE, change / 2, "変化した傷", -1);
-#else
 		msg_print("A new wound was created!");
 		take_hit(DAMAGE_LOSELIFE, change / 2, "a polymorphed wound", -1);
-#endif
 
 		set_cut(change, FALSE);
 	}
@@ -6333,11 +5739,7 @@ void change_race(int new_race, cptr effect_msg)
 		p_ptr->psubrace = 0;
 	}
 
-#ifdef JP
-	msg_format("あなたは%s%sに変化した！", effect_msg, title);
-#else
 	msg_format("You turn into %s %s%s!", (!effect_msg[0] && is_a_vowel(title[0]) ? "an" : "a"), effect_msg, title);
-#endif
 
 	virtue_add(VIRTUE_CHANCE, 2);
 
@@ -6385,11 +5787,7 @@ void do_poly_self(void)
 {
 	int power = p_ptr->lev;
 
-#ifdef JP
-msg_print("あなたは変化の訪れを感じた...");
-#else
 	msg_print("You feel a change coming over you...");
-#endif
 
 	virtue_add(VIRTUE_CHANCE, 1);
 
@@ -6410,22 +5808,14 @@ msg_print("あなたは変化の訪れを感じた...");
 			{
 				p_ptr->psex = SEX_FEMALE;
 				sp_ptr = &sex_info[p_ptr->psex];
-#ifdef JP
-sprintf(effect_msg, "女性の");
-#else
 				sprintf(effect_msg, "female ");
-#endif
 
 			}
 			else
 			{
 				p_ptr->psex = SEX_MALE;
 				sp_ptr = &sex_info[p_ptr->psex];
-#ifdef JP
-sprintf(effect_msg, "男性の");
-#else
 				sprintf(effect_msg, "male ");
-#endif
 
 			}
 		}
@@ -6453,22 +5843,13 @@ sprintf(effect_msg, "男性の");
 			if (effect_msg[0])
 			{
 				char tmp_msg[10];
-#ifdef JP
-				sprintf(tmp_msg,"%s",effect_msg);
-				sprintf(effect_msg,"奇形の%s",tmp_msg);
-#else
 				sprintf(tmp_msg,"%s ",effect_msg);
 				sprintf(effect_msg,"deformed %s ",tmp_msg);
-#endif
 
 			}
 			else
 			{
-#ifdef JP
-				sprintf(effect_msg,"奇形の");
-#else
 				sprintf(effect_msg,"deformed ");
-#endif
 
 			}
 		}
@@ -6479,11 +5860,7 @@ sprintf(effect_msg, "男性の");
 			power -= 10;
 
 			if (!mut_lose_random(NULL))
-#ifdef JP
-msg_print("奇妙なくらい普通になった気がする。");
-#else
 				msg_print("You feel oddly normal.");
-#endif
 
 		}
 
@@ -6513,11 +5890,7 @@ msg_print("奇妙なくらい普通になった気がする。");
 		/* Abomination! */
 		power -= 20;
 
-#ifdef JP
-msg_format("%sの構成が変化した！", p_ptr->prace == RACE_ANDROID ? "機械" : "内臓");
-#else
 		msg_print("Your internal organs are rearranged!");
-#endif
 
 		while (tmp < 6)
 		{
@@ -6526,13 +5899,8 @@ msg_format("%sの構成が変化した！", p_ptr->prace == RACE_ANDROID ? "機械" : "内臓
 		}
 		if (one_in_(6))
 		{
-#ifdef JP
-			msg_print("現在の姿で生きていくのは困難なようだ！");
-			take_hit(DAMAGE_LOSELIFE, damroll(randint1(10), p_ptr->lev), "致命的な突然変異", -1);
-#else
 			msg_print("You find living difficult in your present form!");
 			take_hit(DAMAGE_LOSELIFE, damroll(randint1(10), p_ptr->lev), "a lethal mutation", -1);
-#endif
 
 			power -= 10;
 		}
@@ -6611,19 +5979,11 @@ int take_hit(int damage_type, int damage, cptr hit_from, int monspell)
 		{
 			if (damage_type == DAMAGE_FORCE)
 			{
-#ifdef JP
-				msg_print("バリアが切り裂かれた！");
-#else
 				msg_print("The attack cuts your shield of invulnerability open!");
-#endif
 			}
 			else if (one_in_(PENETRATE_INVULNERABILITY))
 			{
-#ifdef JP
-				msg_print("無敵のバリアを破って攻撃された！");
-#else
 				msg_print("The attack penetrates your shield of invulnerability!");
-#endif
 			}
 			else
 			{
@@ -6635,19 +5995,11 @@ int take_hit(int damage_type, int damage, cptr hit_from, int monspell)
 		{
 			if (damage_type == DAMAGE_FORCE)
 			{
-#ifdef JP
-				msg_print("幻影もろとも体が切り裂かれた！");
-#else
 				msg_print("The attack hits Shadow together with you!");
-#endif
 			}
 			else if (damage_type == DAMAGE_ATTACK)
 			{
-#ifdef JP
-				msg_print("攻撃は幻影に命中し、あなたには届かなかった。");
-#else
 				msg_print("The attack hits Shadow, you are unharmed!");
-#endif
 				return 0;
 			}
 		}
@@ -6656,11 +6008,7 @@ int take_hit(int damage_type, int damage, cptr hit_from, int monspell)
 		{
 			if (damage_type == DAMAGE_FORCE)
 			{
-#ifdef JP
-				msg_print("半物質の体が切り裂かれた！");
-#else
 				msg_print("The attack cuts through your ethereal body!");
-#endif
 			}
 			else
 			{
@@ -6749,10 +6097,6 @@ int take_hit(int damage_type, int damage, cptr hit_from, int monspell)
 	{
 		bool android = (p_ptr->prace == RACE_ANDROID ? TRUE : FALSE);
 
-#ifdef JP       /* 死んだ時に強制終了して死を回避できなくしてみた by Habu */
-		if (!cheat_save)
-			if(!save_player()) msg_print("セーブ失敗！");
-#endif
 
 		/* Sound */
 		sound(SOUND_DEATH);
@@ -7044,31 +6388,19 @@ bool drain_exp(s32b drain, s32b slip, int hold_life_prob)
 	if (p_ptr->hold_life && (randint0(100) < hold_life_prob))
 	{
 		/* Hold experience */
-#ifdef JP
-		msg_print("しかし自己の生命力を守りきった！");
-#else
 		msg_print("You keep hold of your life force!");
-#endif
 		return FALSE;
 	}
 
 	/* Hold experience failed */
 	if (p_ptr->hold_life)
 	{
-#ifdef JP
-		msg_print("生命力を少し吸い取られた気がする！");
-#else
 		msg_print("You feel your life slipping away!");
-#endif
 		lose_exp(slip);
 	}
 	else
 	{
-#ifdef JP
-		msg_print("生命力が体から吸い取られた気がする！");
-#else
 		msg_print("You feel your life draining away!");
-#endif
 		lose_exp(drain);
 	}
 
@@ -7094,11 +6426,7 @@ bool set_ultimate_res(int v, bool do_dec)
 		}
 		else if (!p_ptr->ult_res)
 		{
-#ifdef JP
-msg_print("あらゆることに対して耐性がついた気がする！");
-#else
 			msg_print("You feel resistant!");
-#endif
 
 			notice = TRUE;
 		}
@@ -7109,11 +6437,7 @@ msg_print("あらゆることに対して耐性がついた気がする！");
 	{
 		if (p_ptr->ult_res)
 		{
-#ifdef JP
-msg_print("あらゆることに対する耐性が薄れた気がする。");
-#else
 			msg_print("You feel less resistant");
-#endif
 
 			notice = TRUE;
 		}
@@ -7159,11 +6483,7 @@ bool set_tim_res_nether(int v, bool do_dec)
 		}
 		else if (!p_ptr->tim_res_nether)
 		{
-#ifdef JP
-msg_print("地獄の力に対して耐性がついた気がする！");
-#else
 			msg_print("You feel nether resistant!");
-#endif
 
 			notice = TRUE;
 		}
@@ -7174,11 +6494,7 @@ msg_print("地獄の力に対して耐性がついた気がする！");
 	{
 		if (p_ptr->tim_res_nether)
 		{
-#ifdef JP
-msg_print("地獄の力に対する耐性が薄れた気がする。");
-#else
 			msg_print("You feel less nether resistant");
-#endif
 
 			notice = TRUE;
 		}
@@ -7224,11 +6540,7 @@ bool set_tim_res_time(int v, bool do_dec)
 		}
 		else if (!p_ptr->tim_res_time)
 		{
-#ifdef JP
-msg_print("時間逆転の力に対して耐性がついた気がする！");
-#else
 			msg_print("You feel time resistant!");
-#endif
 
 			notice = TRUE;
 		}
@@ -7239,11 +6551,7 @@ msg_print("時間逆転の力に対して耐性がついた気がする！");
 	{
 		if (p_ptr->tim_res_time)
 		{
-#ifdef JP
-msg_print("時間逆転の力に対する耐性が薄れた気がする。");
-#else
 			msg_print("You feel less time resistant");
-#endif
 
 			notice = TRUE;
 		}
@@ -7327,38 +6635,18 @@ bool choose_ele_attack(void)
 
 	num = (p_ptr->lev - 20) / 5;
 
-#ifdef JP
-		      c_prt(TERM_RED,    "        a) 焼棄", 2, 14);
-#else
 		      c_prt(TERM_RED,    "        a) Fire Brand", 2, 14);
-#endif
 
-#ifdef JP
-	if (num >= 2) c_prt(TERM_L_WHITE,"        b) 凍結", 3, 14);
-#else
 	if (num >= 2) c_prt(TERM_L_WHITE,"        b) Cold Brand", 3, 14);
-#endif
 	else prt("", 3, 14);
 
-#ifdef JP
-	if (num >= 3) c_prt(TERM_GREEN,  "        c) 毒殺", 4, 14);
-#else
 	if (num >= 3) c_prt(TERM_GREEN,  "        c) Poison Brand", 4, 14);
-#endif
 	else prt("", 4, 14);
 
-#ifdef JP
-	if (num >= 4) c_prt(TERM_L_DARK, "        d) 溶解", 5, 14);
-#else
 	if (num >= 4) c_prt(TERM_L_DARK, "        d) Acid Brand", 5, 14);
-#endif
 	else prt("", 5, 14);
 
-#ifdef JP
-	if (num >= 5) c_prt(TERM_BLUE,   "        e) 電撃", 6, 14);
-#else
 	if (num >= 5) c_prt(TERM_BLUE,   "        e) Elec Brand", 6, 14);
-#endif
 	else prt("", 6, 14);
 
 	prt("", 7, 14);
@@ -7366,11 +6654,7 @@ bool choose_ele_attack(void)
 	prt("", 9, 14);
 
 	prt("", 1, 0);
-#ifdef JP
-	prt("        どの元素攻撃をしますか？", 1, 14);
-#else
 	prt("        Choose a temporary elemental brand ", 1, 14);
-#endif
 
 	choice = inkey();
 
@@ -7386,11 +6670,7 @@ bool choose_ele_attack(void)
 		set_ele_attack(ATTACK_ELEC, p_ptr->lev/2 + randint1(p_ptr->lev/2));
 	else
 	{
-#ifdef JP
-		msg_print("魔法剣を使うのをやめた。");
-#else
 		msg_print("You cancel the temporary branding.");
-#endif
 		screen_load();
 		return FALSE;
 	}
@@ -7410,29 +6690,13 @@ bool choose_ele_immune(int turn)
 	/* Save screen */
 	screen_save();
 
-#ifdef JP
-	c_prt(TERM_RED,    "        a) 火炎", 2, 14);
-#else
 	c_prt(TERM_RED,    "        a) Immune Fire", 2, 14);
-#endif
 
-#ifdef JP
-	c_prt(TERM_L_WHITE,"        b) 冷気", 3, 14);
-#else
 	c_prt(TERM_L_WHITE,"        b) Immune Cold", 3, 14);
-#endif
 
-#ifdef JP
-	c_prt(TERM_L_DARK, "        c) 酸", 4, 14);
-#else
 	c_prt(TERM_L_DARK, "        c) Immune Acid", 4, 14);
-#endif
 
-#ifdef JP
-	c_prt(TERM_BLUE,   "        d) 電撃", 5, 14);
-#else
 	c_prt(TERM_BLUE,   "        d) Immune Elec", 5, 14);
-#endif
 
 
 	prt("", 6, 14);
@@ -7441,11 +6705,7 @@ bool choose_ele_immune(int turn)
 	prt("", 9, 14);
 
 	prt("", 1, 0);
-#ifdef JP
-	prt("        どの元素の免疫をつけますか？", 1, 14);
-#else
 	prt("        Choose a temporary elemental immune ", 1, 14);
-#endif
 
 	choice = inkey();
 
@@ -7459,11 +6719,7 @@ bool choose_ele_immune(int turn)
 		set_ele_immune(DEFENSE_ELEC, turn);
 	else
 	{
-#ifdef JP
-		msg_print("免疫を付けるのをやめた。");
-#else
 		msg_print("You cancel the temporary immune.");
-#endif
 		screen_load();
 		return FALSE;
 	}

@@ -152,11 +152,7 @@
 # define MA_SLOW 2
 
 /* Hallucination stuff */
-#ifdef JP
-#define MAX_SILLY_ATTACK 41
-#else
 #define MAX_SILLY_ATTACK 29
-#endif
 
 #define MAX_SPELLS			50
 
@@ -4853,11 +4849,6 @@ extern int PlayerUID;
 #define NAME_HUMAN  5
 #define NAME_ORC    6
 
-#ifdef JP
-#define JVERB_AND 1
-#define JVERB_TO  2
-#define JVERB_OR  3
-#endif
 
 /*
  * Modes for the tokenizer
@@ -5950,11 +5941,7 @@ extern int PlayerUID;
  * for now, but obviously supporting multiple languages is not
  * something that Angband does well.
  */
-#if defined JP
-#define T(E, J) (J)
-#else
 #define T(E, J) (E)
-#endif
 
 /* object_type.rune */
 #define RUNE_ABSORPTION           1

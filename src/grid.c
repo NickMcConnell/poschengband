@@ -338,11 +338,7 @@ void vault_objects(int y, int x, int num)
 			{
 				if (cheat_room)
 				{
-#ifdef JP
-msg_print("警告！地下室のアイテムを配置できません！");
-#else
 					msg_print("Warning! Could not place vault object!");
-#endif
 
 				}
 			}
@@ -398,11 +394,7 @@ void vault_trap_aux(int y, int x, int yd, int xd)
 		{
 			if (cheat_room)
 			{
-#ifdef JP
-msg_print("警告！地下室のトラップを配置できません！");
-#else
 				msg_print("Warning! Could not place vault trap!");
-#endif
 
 			}
 		}

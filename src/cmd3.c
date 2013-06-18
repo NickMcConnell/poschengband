@@ -192,13 +192,8 @@ void do_cmd_drop(void)
 
 	item_tester_no_ryoute = TRUE;
 	/* Get an item */
-#ifdef JP
-	q = "どのアイテムを落としますか? ";
-	s = "落とせるアイテムを持っていない。";
-#else
 	q = "Drop which item? ";
 	s = "You have nothing to drop.";
-#endif
 
 	if (!get_item(&item, q, s, (USE_EQUIP | USE_INVEN))) return;
 
@@ -323,13 +318,8 @@ void do_cmd_destroy(void)
 
 
 	/* Get an item */
-#ifdef JP
-	q = "どのアイテムを壊しますか? ";
-	s = "壊せるアイテムを持っていない。";
-#else
 	q = "Destroy which item? ";
 	s = "You have nothing to destroy.";
-#endif
 
 	if (!get_item(&item, q, s, mode)) return;
 
@@ -362,11 +352,7 @@ void do_cmd_destroy(void)
 
 		/* Make a verification */
 		sprintf(out_val, 
-#ifdef JP
-			"本当に%sを壊しますか? [y/n/Auto]",
-#else
 			"Really destroy %s? [y/n/Auto]",
-#endif
 			o_name);
 
 		msg_print(NULL);
@@ -442,11 +428,7 @@ void do_cmd_destroy(void)
 		energy_use = 0;
 
 		/* Message */
-#ifdef JP
-		msg_format("%sは破壊不可能だ。", o_name);
-#else
 		msg_format("You cannot destroy %s.", o_name);
-#endif
 
 		/* Done */
 		return;
@@ -667,13 +649,8 @@ void do_cmd_uninscribe(void)
 
 	item_tester_no_ryoute = TRUE;
 	/* Get an item */
-#ifdef JP
-	q = "どのアイテムの銘を消しますか? ";
-	s = "銘を消せるアイテムがない。";
-#else
 	q = "Un-inscribe which item? ";
 	s = "You have nothing to un-inscribe.";
-#endif
 
 	if (!get_item(&item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return;
 
@@ -692,21 +669,13 @@ void do_cmd_uninscribe(void)
 	/* Nothing to remove */
 	if (!o_ptr->inscription)
 	{
-#ifdef JP
-		msg_print("このアイテムには消すべき銘がない。");
-#else
 		msg_print("That item had no inscription to remove.");
-#endif
 
 		return;
 	}
 
 	/* Message */
-#ifdef JP
-	msg_print("銘を消した。");
-#else
 	msg_print("Inscription removed.");
-#endif
 
 
 	/* Remove the incription */
@@ -741,13 +710,8 @@ void do_cmd_inscribe(void)
 
 	item_tester_no_ryoute = TRUE;
 	/* Get an item */
-#ifdef JP
-	q = "どのアイテムに銘を刻みますか? ";
-	s = "銘を刻めるアイテムがない。";
-#else
 	q = "Inscribe which item? ";
 	s = "You have nothing to inscribe.";
-#endif
 
 	if (!get_item(&item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return;
 
@@ -767,11 +731,7 @@ void do_cmd_inscribe(void)
 	object_desc(o_name, o_ptr, OD_OMIT_INSCRIPTION);
 
 	/* Message */
-#ifdef JP
-	msg_format("%sに銘を刻む。", o_name);
-#else
 	msg_format("Inscribing %s.", o_name);
-#endif
 
 	msg_print(NULL);
 
@@ -786,11 +746,7 @@ void do_cmd_inscribe(void)
 	}
 
 	/* Get a new inscription (possibly empty) */
-#ifdef JP
-	if (get_string("銘: ", out_val, 80))
-#else
 	if (get_string("Inscription: ", out_val, 80))
-#endif
 	{
 		/* Save the inscription */
 		o_ptr->inscription = quark_add(out_val);
@@ -977,22 +933,14 @@ void do_cmd_target(void)
 	/* Target set */
 	if (target_set(TARGET_KILL))
 	{
-#ifdef JP
-		msg_print("ターゲット決定。");
-#else
 		msg_print("Target Selected.");
-#endif
 
 	}
 
 	/* Target aborted */
 	else
 	{
-#ifdef JP
-		msg_print("ターゲット解除。");
-#else
 		msg_print("Target Aborted.");
-#endif
 
 	}
 }
@@ -1007,11 +955,7 @@ void do_cmd_look(void)
 	/* Look around */
 	if (target_set(TARGET_LOOK))
 	{
-#ifdef JP
-		msg_print("ターゲット決定。");
-#else
 		msg_print("Target Selected.");
-#endif
 
 	}
 }
@@ -1045,34 +989,20 @@ void do_cmd_locate(void)
 		/* Describe the location */
 		if ((y2 == y1) && (x2 == x1))
 		{
-#ifdef JP
-			strcpy(tmp_val, "真上");
-#else
 			tmp_val[0] = '\0';
-#endif
 
 		}
 		else
 		{
-#ifdef JP
-			sprintf(tmp_val, "%s%s",
-				((y2 < y1) ? "北" : (y2 > y1) ? "南" : ""),
-				((x2 < x1) ? "西" : (x2 > x1) ? "東" : ""));
-#else
 			sprintf(tmp_val, "%s%s of",
 				((y2 < y1) ? " North" : (y2 > y1) ? " South" : ""),
 				((x2 < x1) ? " West" : (x2 > x1) ? " East" : ""));
-#endif
 
 		}
 
 		/* Prepare to ask which way to look */
 		sprintf(out_val,
-#ifdef JP
-			"マップ位置 [%d(%02d),%d(%02d)] (プレイヤーの%s)  方向?",
-#else
 			"Map sector [%d(%02d),%d(%02d)], which is%s your sector.  Direction?",
-#endif
 
 			y2 / (hgt / 2), y2 % (hgt / 2),
 			x2 / (wid / 2), x2 % (wid / 2), tmp_val);
@@ -1253,11 +1183,7 @@ void do_cmd_query_symbol(void)
 	u16b	*who;
 
 	/* Get a character, or abort */
-#ifdef JP
-	if (!get_com("知りたい文字を入力して下さい(記号 or ^A全,^Uユ,^N非ユ,^R乗馬,^M名前): ", &sym, FALSE)) return;
-#else
 	if (!get_com("Enter character to be identified(^A:All,^U:Uniqs,^N:Non uniqs,^M:Name): ", &sym, FALSE)) return;
-#endif
 
 	/* Find that character info, and describe it */
 	for (i = 0; ident_info[i]; ++i)
@@ -1269,57 +1195,33 @@ void do_cmd_query_symbol(void)
 	if (sym == KTRL('A'))
 	{
 		all = TRUE;
-#ifdef JP
-		strcpy(buf, "全モンスターのリスト");
-#else
 		strcpy(buf, "Full monster list.");
-#endif
 	}
 	else if (sym == KTRL('U'))
 	{
 		all = uniq = TRUE;
-#ifdef JP
-		strcpy(buf, "ユニーク・モンスターのリスト");
-#else
 		strcpy(buf, "Unique monster list.");
-#endif
 	}
 	else if (sym == KTRL('N'))
 	{
 		all = norm = TRUE;
-#ifdef JP
-		strcpy(buf, "ユニーク外モンスターのリスト");
-#else
 		strcpy(buf, "Non-unique monster list.");
-#endif
 	}
 	else if (sym == KTRL('R'))
 	{
 		all = ride = TRUE;
-#ifdef JP
-		strcpy(buf, "乗馬可能モンスターのリスト");
-#else
 		strcpy(buf, "Ridable monster list.");
-#endif
 	}
 	/* XTRA HACK WHATSEARCH */
 	else if (sym == KTRL('M'))
 	{
 		all = TRUE;
-#ifdef JP
-		if (!get_string("名前(英語の場合小文字で可)",temp, 70))
-#else
 		if (!get_string("Enter name:",temp, 70))
-#endif
 		{
 			temp[0]=0;
 			return;
 		}
-#ifdef JP
-		sprintf(buf, "名前:%sにマッチ",temp);
-#else
 		sprintf(buf, "Monsters with a name \"%s\"",temp);
-#endif
 	}
 	else if (ident_info[i])
 	{
@@ -1327,11 +1229,7 @@ void do_cmd_query_symbol(void)
 	}
 	else
 	{
-#ifdef JP
-		sprintf(buf, "%c - %s", sym, "無効な文字");
-#else
 		sprintf(buf, "%c - %s.", sym, "Unknown Symbol");
-#endif
 	}
 
 	/* Display the result */
@@ -1365,25 +1263,14 @@ void do_cmd_query_symbol(void)
   
 		  for (xx=0; temp[xx] && xx<80; xx++)
 		  {
-#ifdef JP
-		    if (iskanji( temp[xx])) { xx++; continue; }
-#endif
 		    if (isupper(temp[xx])) temp[xx]=tolower(temp[xx]);
 		  }
   
-#ifdef JP
-		  strcpy(temp2, r_name+r_ptr->E_name);
-#else
 		  strcpy(temp2, r_name+r_ptr->name);
-#endif
 		  for (xx=0; temp2[xx] && xx<80; xx++)
 		    if (isupper(temp2[xx])) temp2[xx]=tolower(temp2[xx]);
   
-#ifdef JP
-		  if (my_strstr(temp2, temp) || my_strstr(r_name + r_ptr->name, temp) )
-#else
 		  if (my_strstr(temp2, temp))
-#endif
 			  who[n++]=i;
 		}
 
@@ -1402,11 +1289,7 @@ void do_cmd_query_symbol(void)
 
 
 	/* Prompt XXX XXX XXX */
-#ifdef JP
-	put_str("思い出を見ますか? (k:殺害順/y/n): ", 0, 36);
-#else
 	put_str("Recall details? (k/y/n): ", 0, 40);
-#endif
 
 
 	/* Query */
@@ -1484,11 +1367,7 @@ void do_cmd_query_symbol(void)
 			roff_top(r_idx);
 
 			/* Hack -- Complete the prompt */
-#ifdef JP
-			Term_addstr(-1, TERM_WHITE, " ['r'思い出, ESC]");
-#else
 			Term_addstr(-1, TERM_WHITE, " [(r)ecall, ESC]");
-#endif
 
 			/* Command */
 			query = inkey();

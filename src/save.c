@@ -1322,11 +1322,7 @@ bool load_player(void)
 	if (access(savefile, 0) < 0)
 	{
 		/* Give a message */
-#ifdef JP
-		msg_print("セーブファイルがありません。");
-#else
 		msg_print("Savefile does not exist.");
-#endif
 
 		msg_print(NULL);
 
@@ -1360,11 +1356,7 @@ bool load_player(void)
 			my_fclose(fkk);
 
 			/* Message */
-#ifdef JP
-			msg_print("セーブファイルは現在使用中です。");
-#else
 			msg_print("Savefile is currently in use.");
-#endif
 
 			msg_print(NULL);
 
@@ -1395,11 +1387,7 @@ bool load_player(void)
 		if (fd < 0) err = -1;
 
 		/* Message (below) */
-#ifdef JP
-		if (err) what = "セーブファイルを開けません。";
-#else
 		if (err) what = "Cannot open savefile";
-#endif
 
 	}
 
@@ -1416,11 +1404,7 @@ bool load_player(void)
 		if (fd_read(fd, (char*)(vvv), 4)) err = -1;
 
 		/* What */
-#ifdef JP
-		if (err) what = "セーブファイルを読めません。";
-#else
 		if (err) what = "Cannot read savefile";
-#endif
 
 
 		/* Close the file */
@@ -1445,11 +1429,7 @@ bool load_player(void)
 		err = rd_savefile_new();
 
 		/* Message (below) */
-#ifdef JP
-		if (err) what = "セーブファイルを解析出来ません。";
-#else
 		if (err) what = "Cannot parse savefile";
-#endif
 
 	}
 
@@ -1460,11 +1440,7 @@ bool load_player(void)
 		if (!turn) err = -1;
 
 		/* Message (below) */
-#ifdef JP
-		if (err) what = "セーブファイルが壊れています";
-#else
 		if (err) what = "Broken savefile";
-#endif
 
 	}
 
@@ -1477,11 +1453,7 @@ bool load_player(void)
 		    sf_when < (statbuf.st_ctime - 100))
 		{
 			/* Message */
-#ifdef JP
-			what = "無効なタイム・スタンプです";
-#else
 			what = "Invalid timestamp";
-#endif
 
 
 			/* Oops */
@@ -1563,13 +1535,8 @@ bool load_player(void)
 
 
 	/* Message */
-#ifdef JP
-	msg_format("エラー(%s)がバージョン%d.%d.%d 用セーブファイル読み込中に発生。",
-		   what, (z_major>9) ? z_major - 10 : z_major, z_minor, z_patch);
-#else
 	msg_format("Error (%s) reading %d.%d.%d savefile.",
 		   what, (z_major>9) ? z_major - 10 : z_major, z_minor, z_patch);
-#endif
 	msg_print(NULL);
 
 	/* Oops */

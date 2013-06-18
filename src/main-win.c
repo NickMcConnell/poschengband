@@ -776,11 +776,7 @@ static void validate_dir(cptr s, bool vital)
 		/* This directory contains needed data */
 		if (vital)
 		{
-#ifdef JP
-		quit_fmt("必要なディレクトリ[%s]が見あたりません。", s);
-#else
 			quit_fmt("Cannot find required directory:\n%s", s);
-#endif
 
 		}
 		/* Attempt to create this directory */
@@ -890,11 +886,7 @@ static void save_prefs_aux(int i)
 	}
 
 	/* Font */
-#ifdef JP
-	strcpy(buf, td->lf.lfFaceName[0]!='\0' ? td->lf.lfFaceName : "ＭＳ ゴシック");
-#else
 	strcpy(buf, td->lf.lfFaceName[0]!='\0' ? td->lf.lfFaceName : "Courier");
-#endif
 
 	WritePrivateProfileString(sec_name, "Font", buf, ini_file);
 
@@ -1016,11 +1008,7 @@ static void load_prefs_aux(int i)
 	}
 
 	/* Desired font, with default */
-#ifdef JP
-	GetPrivateProfileString(sec_name, "Font", "ＭＳ ゴシック", tmp, 127, ini_file);
-#else
 	GetPrivateProfileString(sec_name, "Font", "Courier", tmp, 127, ini_file);
-#endif
 
 
 	/* Bizarre */
@@ -1218,11 +1206,7 @@ static int new_palette(void)
 		if ((nEntries == 0) || (nEntries > 220))
 		{
 			/* Warn the user */
-#ifdef JP
-			plog("画面を16ビットか24ビットカラーモードにして下さい。");
-#else
 			plog("Please switch to high- or true-color mode.");
-#endif
 
 
 			/* Cleanup */
@@ -1275,11 +1259,7 @@ static int new_palette(void)
 
 	/* Create a new palette, or fail */
 	hNewPal = CreatePalette(pLogPal);
-#ifdef JP
-	if (!hNewPal) quit("パレットを作成できません！");
-#else
 	if (!hNewPal) quit("Cannot create palette!");
-#endif
 
 
 	/* Free the palette */
@@ -1293,11 +1273,7 @@ static int new_palette(void)
 	SelectPalette(hdc, hNewPal, 0);
 	i = RealizePalette(hdc);
 	ReleaseDC(td->w, hdc);
-#ifdef JP
-	if (i == 0) quit("パレットをシステムエントリにマップできません！");
-#else
 	if (i == 0) quit("Cannot realize palette!");
-#endif
 
 
 	/* Sub-windows */
@@ -1358,11 +1334,7 @@ static bool init_graphics(void)
 		/* Load the bitmap or quit */
 		if (!ReadDIB(data[0].w, buf, &_graphics.tiles))
 		{
-#ifdef JP
-			plog_fmt("ビットマップ '%s' を読み込めません。", name);
-#else
 			plog_fmt("Cannot read bitmap file '%s'", name);
-#endif
 
 			return (FALSE);
 		}
@@ -1396,11 +1368,7 @@ static bool init_graphics(void)
 			/* Free bitmap XXX XXX XXX */
 
 			/* Oops */
-#ifdef JP
-			plog("パレットを実現できません！");
-#else
 			plog("Cannot activate palette!");
-#endif
 
 			return (FALSE);
 		}
@@ -1677,11 +1645,7 @@ static errr Term_xtra_win_react(void)
 		if (arg_sound && !init_sound())
 		{
 			/* Warning */
-#ifdef JP
-			plog("サウンドを初期化できません！");
-#else
 			plog("Cannot initialize sound!");
-#endif
 
 
 			/* Cannot enable */
@@ -1704,11 +1668,7 @@ static errr Term_xtra_win_react(void)
 		if (arg_graphics && !init_graphics())
 		{
 			/* Warning */
-#ifdef JP
-			plog("グラフィックスを初期化できません!");
-#else
 			plog("Cannot initialize graphics!");
-#endif
 
 
 			/* Cannot enable */
@@ -2243,61 +2203,6 @@ static errr Term_text_win(int x, int y, int n, byte a, const char *s)
 		/* Dump each character */
 		for (i = 0; i < n; i++)
 		{
-#ifdef JP
-			if (use_bigtile && *(s+i)=="■"[0] && *(s+i+1)=="■"[1])
-			{
-				rc.right += td->font_wid;
-
-				oldBrush = SelectObject(hdc, myBrush);
-				oldPen = SelectObject(hdc, GetStockObject(NULL_PEN) );
-
-				/* Dump the wall */
-				Rectangle(hdc, rc.left, rc.top, rc.right+1, rc.bottom+1);
-
-				SelectObject(hdc, oldBrush);
-				SelectObject(hdc, oldPen);
-				rc.right -= td->font_wid;
-
-				/* Advance */
-				i++;
-				rc.left += 2 * td->tile_wid;
-				rc.right += 2 * td->tile_wid;
-			}
-			else if ( iskanji(*(s+i)) )  /*  ２バイト文字  */
-			{
-				rc.right += td->font_wid;
-				/* Dump the text */
-				ExtTextOut(hdc, rc.left, rc.top, ETO_CLIPPED, &rc,
-				       s+i, 2, NULL);
-				rc.right -= td->font_wid;
-
-				/* Advance */
-				i++;
-				rc.left += 2 * td->tile_wid;
-				rc.right += 2 * td->tile_wid;
-			} else if (*(s+i)==127){
-				oldBrush = SelectObject(hdc, myBrush);
-				oldPen = SelectObject(hdc, GetStockObject(NULL_PEN) );
-
-				/* Dump the wall */
-				Rectangle(hdc, rc.left, rc.top, rc.right+1, rc.bottom+1);
-
-				SelectObject(hdc, oldBrush);
-				SelectObject(hdc, oldPen);
-
-				/* Advance */
-				rc.left += td->tile_wid;
-				rc.right += td->tile_wid;
-			} else {
-				/* Dump the text */
-				ExtTextOut(hdc, rc.left, rc.top, ETO_CLIPPED, &rc,
-				       s+i, 1, NULL);
-
-				/* Advance */
-				rc.left += td->tile_wid;
-				rc.right += td->tile_wid;
-			}
-#else
 			if (*(s+i)==127){
 				oldBrush = SelectObject(hdc, myBrush);
 				oldPen = SelectObject(hdc, GetStockObject(NULL_PEN) );
@@ -2321,7 +2226,6 @@ static errr Term_text_win(int x, int y, int n, byte a, const char *s)
 				rc.left += td->tile_wid;
 				rc.right += td->tile_wid;
 			}
-#endif
 
 		}
 	}
@@ -2603,11 +2507,7 @@ static void init_windows(void)
 	/* Main window */
 	td = &data[0];
 	WIPE(td, term_data);
-#ifdef JP
-	td->s = "変愚蛮怒";
-#else
 	td->s = angband_term_name[0];
-#endif
 
 	td->keys = 1024;
 	td->rows = 24;
@@ -2697,11 +2597,7 @@ static void init_windows(void)
 				       td->size_wid, td->size_hgt,
 				       HWND_DESKTOP, NULL, hInstance, NULL);
 		my_td = NULL;
-#ifdef JP
-		if (!td->w) quit("サブウィンドウに作成に失敗しました");
-#else
 		if (!td->w) quit("Failed to create sub-window");
-#endif
 		term_init_double_buffer(td);
 
 		if (td->visible)
@@ -2742,11 +2638,7 @@ static void init_windows(void)
 			       td->size_wid, td->size_hgt,
 			       HWND_DESKTOP, NULL, hInstance, NULL);
 	my_td = NULL;
-#ifdef JP
-	if (!td->w) quit("メインウィンドウの作成に失敗しました");
-#else
 	if (!td->w) quit("Failed to create Angband window");
-#endif
 
 	term_data_link(td);
 	angband_term[0] = &td->t;
@@ -2951,10 +2843,8 @@ static void setup_menus(void)
 		       MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
 	EnableMenuItem(hm, IDM_OPTIONS_SOUND,
 		       MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-#ifndef JP
 	EnableMenuItem(hm, IDM_OPTIONS_SAVER,
 		       MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-#endif
 
 	/* Menu "Options", Item "Map" */
 	if (use_graphics != GRAPHICS_NONE)
@@ -2974,10 +2864,8 @@ static void setup_menus(void)
 		      (arg_bigtile ? MF_CHECKED : MF_UNCHECKED));
 	CheckMenuItem(hm, IDM_OPTIONS_SOUND,
 		      (arg_sound ? MF_CHECKED : MF_UNCHECKED));
-#ifndef JP
 	CheckMenuItem(hm, IDM_OPTIONS_SAVER,
 		      (hwndSaver ? MF_CHECKED : MF_UNCHECKED));
-#endif
 
 #ifdef USE_GRAPHICS
 	/* Menu "Options", Item "Graphics" */
@@ -3056,20 +2944,12 @@ static void process_menus(WORD wCmd)
 		{
 			if (!initialized)
 			{
-#ifdef JP
-				plog("まだ初期化中です...");
-#else
 				plog("You cannot do that yet...");
-#endif
 
 			}
 			else if (game_in_progress)
 			{
-#ifdef JP
-				plog("プレイ中は新しいゲームを始めることができません！");
-#else
 				plog("You can't start a new game while you're still playing!");
-#endif
 
 			}
 			else
@@ -3087,20 +2967,12 @@ static void process_menus(WORD wCmd)
 		{
 			if (!initialized)
 			{
-#ifdef JP
-				plog("まだ初期化中です...");
-#else
 				plog("You cannot do that yet...");
-#endif
 
 			}
 			else if (game_in_progress)
 			{
-#ifdef JP
-				plog("プレイ中はゲームをロードすることができません！");
-#else
 				plog("You can't open a new game while you're still playing!");
-#endif
 
 			}
 			else
@@ -3136,11 +3008,7 @@ static void process_menus(WORD wCmd)
 				/* Paranoia */
 				if (!can_save)
 				{
-#ifdef JP
-					plog("今はセーブすることは出来ません。");
-#else
 					plog("You may not do that right now.");
-#endif
 
 					break;
 				}
@@ -3153,11 +3021,7 @@ static void process_menus(WORD wCmd)
 			}
 			else
 			{
-#ifdef JP
-				plog("今、セーブすることは出来ません。");
-#else
 				plog("You may not do that right now.");
-#endif
 
 			}
 			break;
@@ -3171,11 +3035,7 @@ static void process_menus(WORD wCmd)
 				/* Paranoia */
 				if (!can_save)
 				{
-#ifdef JP
-					plog("今は終了できません。");
-#else
 					plog("You may not do that right now.");
-#endif
 
 					break;
 				}
@@ -3239,11 +3099,7 @@ static void process_menus(WORD wCmd)
 
 		case IDM_WINDOW_VIS_0:
 		{
-#ifdef JP
-			plog("メインウィンドウは非表示にできません！");
-#else
 			plog("You are not allowed to do that!");
-#endif
 
 
 			break;
@@ -3586,11 +3442,7 @@ static void process_menus(WORD wCmd)
 			ofn.nMaxFile = 1023;
 			ofn.lpstrDefExt = "html";
 			ofn.lpstrInitialDir = NULL;
-#ifdef JP
-			ofn.lpstrTitle = "HTMLでスクリーンダンプを保存";
-#else
 			ofn.lpstrTitle = "Save screen dump as HTML.";
-#endif
 			ofn.Flags = OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT;
 
 			if (GetSaveFileName(&ofn))
@@ -3626,11 +3478,7 @@ static void process_menus(WORD wCmd)
 				}
 				else
 				{
-#ifdef JP
-					plog("ウィンドウを作成出来ません");
-#else
 					plog("Failed to create saver window");
-#endif
 
 				}
 			}
@@ -3656,13 +3504,8 @@ static void process_menus(WORD wCmd)
 			}
 			else
 			{
-#ifdef JP
-				plog_fmt("ヘルプファイル[%s]が見付かりません。", tmp);
-				plog("代わりにオンラインヘルプを使用してください。");
-#else
 				plog_fmt("Cannot find help file: %s", tmp);
 				plog("Use the online help files instead.");
-#endif
 
 			}
 			break;
@@ -3677,13 +3520,8 @@ static void process_menus(WORD wCmd)
 			}
 			else
 			{
-#ifdef JP
-				plog_fmt("ヘルプファイル[%s]が見付かりません。", tmp);
-				plog("代わりにオンラインヘルプを使用してください。");
-#else
 				plog_fmt("Cannot find help file: %s", tmp);
 				plog("Use the online help files instead.");
-#endif
 
 			}
 			break;
@@ -3706,13 +3544,8 @@ static bool process_keydown(WPARAM wParam, LPARAM lParam)
 	if (GetKeyState(VK_MENU)    & 0x8000) ma = TRUE;
 
 	/* Handle "special" keys */
-#if defined JP
-	Term_no_press = (ma) ? TRUE : FALSE;
-	if (special_key[(byte)(wParam)] || (ma && !ignore_key[(byte)(wParam)]) )
-#else
 	Term_no_press = FALSE;
 	if (special_key[(byte)(wParam)])
-#endif
 	{
 		bool ext_key = (lParam & 0x1000000L) ? TRUE : FALSE;
 		bool numpad = FALSE;
@@ -3894,45 +3727,17 @@ LRESULT FAR PASCAL AngbandWndProc(HWND hWnd, UINT uMsg,
 			mouse_down = FALSE;
 			paint_rect = FALSE;
 
-#ifdef JP
-			sz = (dx + 3) * dy;
-#else
 			sz = (dx + 2) * dy;
-#endif
 			hGlobal = GlobalAlloc(GHND, sz + 1);
 			if (hGlobal == NULL) return 0;
 			lpStr = (LPSTR)GlobalLock(hGlobal);
 
 			for (i = 0; i < dy; i++)
 			{
-#ifdef JP
-				char *s;
-				char **scr = data[0].t.scr->c;
-
-				C_MAKE(s, (dx + 1), char);
-				strncpy(s, &scr[oy + i][ox], dx);
-
-				if (ox > 0)
-				{
-					if (iskanji(scr[oy + i][ox - 1])) s[0] = ' ';
-				}
-
-				if (ox + dx < data[0].cols)
-				{
-					if (iskanji(scr[oy + i][ox + dx - 1])) s[dx - 1] = ' ';
-				}
-
-				for (j = 0; j < dx; j++)
-				{
-					if (s[j] == 127) s[j] = '#';
-					*lpStr++ = s[j];
-				}
-#else
 				for (j = 0; j < dx; j++)
 				{
 					*lpStr++ = data[0].t.scr->c[oy + i][ox + j];
 				}
-#endif
 				if (dy > 1)
 				{
 					*lpStr++ = '\r';
@@ -4001,11 +3806,7 @@ LRESULT FAR PASCAL AngbandWndProc(HWND hWnd, UINT uMsg,
 			{
 				if (!can_save)
 				{
-#ifdef JP
-					plog("今は終了できません。");
-#else
 					plog("You may not do that right now.");
-#endif
 					return 0;
 				}
 
@@ -4492,13 +4293,8 @@ static void hack_plog(cptr str)
 	/* Give a warning */
 	if (str)
 	{
-#ifdef JP
-		MessageBox(NULL, str, "警告！",
-			   MB_ICONEXCLAMATION | MB_OK);
-#else
 		MessageBox(NULL, str, "Warning",
 			   MB_ICONEXCLAMATION | MB_OK);
-#endif
 
 	}
 }
@@ -4512,13 +4308,8 @@ static void hack_quit(cptr str)
 	/* Give a warning */
 	if (str)
 	{
-#ifdef JP
-		MessageBox(NULL, str, "エラー！",
-			   MB_ICONEXCLAMATION | MB_OK | MB_ICONSTOP);
-#else
 		MessageBox(NULL, str, "Error",
 			   MB_ICONEXCLAMATION | MB_OK | MB_ICONSTOP);
-#endif
 
 	}
 
@@ -4545,13 +4336,8 @@ static void hook_plog(cptr str)
 	/* Warning */
 	if (str)
 	{
-#ifdef JP
-		MessageBox(data[0].w, str, "警告！",
-			   MB_ICONEXCLAMATION | MB_OK);
-#else
 		MessageBox(data[0].w, str, "Warning",
 			   MB_ICONEXCLAMATION | MB_OK);
-#endif
 
 	}
 }
@@ -4568,13 +4354,8 @@ static void hook_quit(cptr str)
 	/* Give a warning */
 	if (str)
 	{
-#ifdef JP
-		MessageBox(data[0].w, str, "エラー！",
-			   MB_ICONEXCLAMATION | MB_OK | MB_ICONSTOP);
-#else
 		MessageBox(data[0].w, str, "Error",
 			   MB_ICONEXCLAMATION | MB_OK | MB_ICONSTOP);
-#endif
 
 	}
 
@@ -4698,11 +4479,7 @@ static void init_stuff(void)
 	validate_dir(ANGBAND_DIR_XTRA, TRUE);
 
 	/* Build the filename */
-#ifdef JP
-	path_build(path, sizeof(path), ANGBAND_DIR_FILE, "news_j.txt");
-#else
 	path_build(path, sizeof(path), ANGBAND_DIR_FILE, "news.txt");
-#endif
 
 
 	/* Hack -- Validate the "news.txt" file */

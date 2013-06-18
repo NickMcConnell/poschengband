@@ -70,59 +70,6 @@
 #define FLG_NOUN_BEGIN      FLG_ITEMS
 #define FLG_NOUN_END        FLG_BOOTS
 
-#ifdef JP
-
-static char KEY_ALL[] = "すべての";
-static char KEY_UNAWARE[] = "未判明の";
-static char KEY_UNIDENTIFIED[] = "未鑑定の";
-static char KEY_IDENTIFIED[] = "鑑定済みの";
-static char KEY_STAR_IDENTIFIED[] = "*鑑定*済みの";
-static char KEY_COLLECTING[] = "収集中の";
-static char KEY_ARTIFACT[] = "アーティファクト";
-static char KEY_EGO[] = "エゴ";
-static char KEY_GOOD[] = "上質の";
-static char KEY_NAMELESS[] = "無銘の";
-static char KEY_AVERAGE[] = "並の";
-static char KEY_WORTHLESS[] = "無価値の";
-static char KEY_RARE[] = "レアな";
-static char KEY_COMMON[] = "ありふれた";
-static char KEY_BOOSTED[] = "ダイス目の違う";
-static char KEY_MORE_THAN[] =  "ダイス目";
-static char KEY_DICE[] =  "以上の";
-static char KEY_MORE_BONUS[] =  "修正値";
-static char KEY_MORE_BONUS2[] =  "以上の";
-static char KEY_WANTED[] = "賞金首の";
-static char KEY_UNIQUE[] = "ユニーク・モンスターの";
-static char KEY_HUMAN[] = "人間の";
-static char KEY_UNREADABLE[] = "読めない";
-static char KEY_REALM1[] = "第一領域の";
-static char KEY_REALM2[] = "第二領域の";
-static char KEY_FIRST[] = "1冊目の";
-static char KEY_SECOND[] = "2冊目の";
-static char KEY_THIRD[] = "3冊目の";
-static char KEY_FOURTH[] = "4冊目の";
-static char KEY_ITEMS[] = "アイテム";
-static char KEY_WEAPONS[] = "武器";
-static char KEY_FAVORITE_WEAPONS[] = "得意武器";
-static char KEY_ARMORS[] = "防具";
-static char KEY_MISSILES[] = "矢";
-static char KEY_DEVICES[] = "魔法アイテム";
-static char KEY_LIGHTS[] = "光源";
-static char KEY_JUNKS[] = "がらくた";
-static char KEY_CORPSES[] = "死体や骨";
-static char KEY_SPELLBOOKS[] = "魔法書";
-static char KEY_HAFTED[] = "鈍器";
-static char KEY_SHIELDS[] = "盾";
-static char KEY_BOWS[] = "弓";
-static char KEY_RINGS[] = "指輪";
-static char KEY_AMULETS[] = "アミュレット";
-static char KEY_SUITS[] = "鎧";
-static char KEY_CLOAKS[] = "クローク";
-static char KEY_HELMS[] = "兜";
-static char KEY_GLOVES[] = "籠手";
-static char KEY_BOOTS[] = "靴";
-
-#else 
 
 static char KEY_ALL[] = "all";
 static char KEY_UNAWARE[] = "unaware";
@@ -174,18 +121,13 @@ static char KEY_HELMS[] = "helms";
 static char KEY_GLOVES[] = "gloves";
 static char KEY_BOOTS[] = "boots";
 
-#endif /* JP */
 
 #define MATCH_KEY(KEY) (!strncmp(ptr, KEY, sizeof(KEY)-1)\
      ? (ptr += sizeof(KEY)-1, (' '==*ptr) ? ptr++ : 0, TRUE) : FALSE)
 #define MATCH_KEY2(KEY) (!strncmp(ptr, KEY, sizeof(KEY)-1)\
      ? (prev_ptr = ptr, ptr += sizeof(KEY)-1, (' '==*ptr) ? ptr++ : 0, TRUE) : FALSE)
 
-#ifdef JP
-#define ADD_KEY(KEY) strcat(ptr, KEY)
-#else
 #define ADD_KEY(KEY) (strcat(ptr, KEY), strcat(ptr, " "))
-#endif
 #define ADD_KEY2(KEY) strcat(ptr, KEY)
 
 #define ADD_FLG(FLG) (entry->flag[FLG / 32] |= (1L << (FLG % 32)))
@@ -193,9 +135,6 @@ static char KEY_BOOTS[] = "boots";
 #define ADD_FLG_NOUN(FLG) (ADD_FLG(FLG), prev_flg = FLG)
 #define IS_FLG(FLG) (entry->flag[FLG / 32] & (1L << (FLG % 32)))
 
-#ifdef JP
-	static char kanji_colon[] = "：";
-#endif
 
 
 /*
@@ -256,14 +195,6 @@ static bool autopick_new_entry(autopick_type *entry, cptr str, bool allow_defaul
 	for (i = 0; *str; i++)
 	{
 		char c = *str++;
-#ifdef JP
-		if (iskanji(c))
-		{
-			buf[i++] = c;
-			buf[i] = *str++;
-			continue;
-		}
-#endif
 		/* Auto-inscription? */
 		if (c == '#')
 		{
@@ -345,11 +276,7 @@ static bool autopick_new_entry(autopick_type *entry, cptr str, bool allow_defaul
 
 			if (k > 0 && k <= 2)
 			{
-#ifdef JP
-				(void)MATCH_KEY(KEY_MORE_BONUS2);
-#else
 				if (' ' == *ptr) ptr++;
-#endif
 				ADD_FLG(FLG_MORE_BONUS);
 			}
 			else
@@ -404,10 +331,6 @@ static bool autopick_new_entry(autopick_type *entry, cptr str, bool allow_defaul
 	/* Last 'keyword' must be at the correct location */
 	if (*ptr == ':')
 		ptr++;
-#ifdef JP
-	else if (ptr[0] == kanji_colon[0] && ptr[1] == kanji_colon[1])
-		ptr += 2;
-#endif
 	else if (*ptr == '\0')
 	{
 		/* There was no noun */
@@ -444,13 +367,8 @@ static void autopick_entry_from_object(autopick_type *entry, object_type *o_ptr)
 	/* Assume that object name is to be added */
 	bool name = TRUE;
 
-#ifdef JP
-	/* エゴ銘が邪魔かもしれないので、デフォルトで「^」は付けない */
-	bool bol_mark = FALSE;
-#else
 	/* We can always use the ^ mark in English */
 	bool bol_mark = TRUE;
-#endif
 
 	char name_str[MAX_NLEN];
 
@@ -541,13 +459,8 @@ static void autopick_entry_from_object(autopick_type *entry, object_type *o_ptr)
 				 * Register the ego type only.
 				 */
 				ego_item_type *e_ptr = &e_info[o_ptr->name2];
-#ifdef JP
-				/* エゴ銘には「^」マークが使える */
-				sprintf(name_str, "^%s", e_name + e_ptr->name);
-#else
 				/* We ommit the basename and cannot use the ^ mark */
 				strcpy(name_str, e_name + e_ptr->name);
-#endif
 
 				/* Don't use the object description */
 				name = FALSE;
@@ -743,11 +656,7 @@ static void init_autopick(void)
  */
 static cptr pickpref_filename(int filename_mode)
 {
-#ifdef JP
-	static const char namebase[] = "picktype";
-#else
 	static const char namebase[] = "pickpref";
-#endif
 
 	switch (filename_mode)
 	{
@@ -783,11 +692,7 @@ void autopick_load_pref(bool disp_mes)
 	if (err == 0 && disp_mes)
 	{
 		/* Success */
-#ifdef JP
-		msg_format("%sを読み込みました。", buf);
-#else
 		msg_format("Loaded '%s'.", buf);
-#endif
 	}
 
 	/* No file found */
@@ -802,22 +707,14 @@ void autopick_load_pref(bool disp_mes)
 		if (err == 0 && disp_mes)
 		{
 			/* Success */
-#ifdef JP
-			msg_format("%sを読み込みました。", buf);
-#else
 			msg_format("Loaded '%s'.", buf);
-#endif
 		}
 	}
 
 	if (err && disp_mes)
 	{
 		/* Failed */
-#ifdef JP
-		msg_print("自動拾い設定ファイルの読み込みに失敗しました。");
-#else
 		msg_print("Failed to reload autopick preference.");
-#endif
 	}
 }
 
@@ -864,13 +761,6 @@ errr process_autopick_file_command(char *buf)
 	/* Nuke illegal char */
 	for(i = 0; buf[i]; i++)
 	{
-#ifdef JP
-		if (iskanji(buf[i]))
-		{
-			i++;
-			continue;
-		}
-#endif
 		if (isspace(buf[i]) && buf[i] != ' ')
 			break;
 	}
@@ -989,10 +879,6 @@ cptr autopick_line_from_entry(autopick_type *entry)
 		i = strlen(buf);
 		while (entry->name[j] && i < MAX_LINELEN - 2 - 1)
 		{
-#ifdef JP
-			if (iskanji(entry->name[j]))
-				buf[i++] = entry->name[j++];
-#endif
 			buf[i++] = entry->name[j++];
 		}
 		buf[i] = '\0';
@@ -1006,10 +892,6 @@ cptr autopick_line_from_entry(autopick_type *entry)
 
 		while (entry->insc[j] && i < MAX_LINELEN - 2)
 		{
-#ifdef JP
-			if (iskanji(entry->insc[j]))
-				buf[i++] = entry->insc[j++];
-#endif
 			buf[i++] = entry->insc[j++];
 		}
 		buf[i] = '\0';
@@ -1637,11 +1519,7 @@ static void auto_destroy_item(object_type *o_ptr, int autopick_idx)
 		object_desc(o_name, o_ptr, 0);
 
 		/* Message */
-#ifdef JP
-		msg_format("%sは破壊不能だ。", o_name);
-#else
 		msg_format("You cannot auto-destroy %s.", o_name);
-#endif
 
 		/* Done */
 		return;
@@ -1861,11 +1739,7 @@ void autopick_pickup_items(cave_type *c_ptr)
 				object_desc(o_name, o_ptr, 0);
 
 				/* Message */
-#ifdef JP
-				msg_format("ザックには%sを入れる隙間がない。", o_name);
-#else
 				msg_format("You have no room for %s.", o_name);
-#endif
 				/* Hack - remember that the item has given a message here. */
 				o_ptr->marked |= OM_NOMSG;
 
@@ -1885,11 +1759,7 @@ void autopick_pickup_items(cave_type *c_ptr)
 				/* Describe the object */
 				object_desc(o_name, o_ptr, 0);
 
-#ifdef JP
-				sprintf(out_val, "%sを拾いますか? ", o_name);
-#else
 				sprintf(out_val, "Pick up %s? ", o_name);
-#endif
 
 				if (!get_check(out_val))
 				{
@@ -1955,11 +1825,7 @@ static bool clear_auto_register(void)
 		/* Close the preference file */
 		fclose(pref_fff);
 
-#ifdef JP
-		msg_format("一時ファイル %s を作成できませんでした。", tmp_file);
-#else
 		msg_format("Failed to create temporary file %s.", tmp_file);
-#endif
 		msg_print(NULL);
 		return FALSE;
 	}
@@ -2001,13 +1867,8 @@ static bool clear_auto_register(void)
 
 	if (num)
 	{
-#ifdef JP
-		msg_format("以前のキャラクター用の自動設定(%d行)が残っています。", num);
-		strcpy(buf, "古い設定行は削除します。よろしいですか？");
-#else
 		msg_format("Auto registered lines (%d lines) for previous character are remaining.", num);
 		strcpy(buf, "These lines will be deleted.  Are you sure? ");
-#endif
 
 		/* You can cancel it */
 		if (!get_check(buf))
@@ -2015,11 +1876,7 @@ static bool clear_auto_register(void)
 			okay = FALSE;
 			autoregister = FALSE;
 
-#ifdef JP
-			msg_print("エディタのカット&ペースト等を使って必要な行を避難してください。");
-#else
 			msg_print("Use cut & paste of auto picker editor (_) to keep old prefs.");
-#endif
 		}
 	}
 
@@ -2064,21 +1921,12 @@ bool autopick_autoregister(object_type *o_ptr)
 		cptr what;
 		byte act = autopick_list[match_autopick].action;
 
-#ifdef JP
-		if (act & DO_AUTOPICK) what = "自動で拾う";
-		else if (act & DO_AUTODESTROY) what = "自動破壊する";
-		else if (act & DONT_AUTOPICK) what = "放置する";
-		else /* if (act & DO_QUERY_AUTOPICK) */ what = "確認して拾う";
-
-		msg_format("そのアイテムは既に%sように設定されています。", what);
-#else
 		if (act & DO_AUTOPICK) what = "auto-pickup";
 		else if (act & DO_AUTODESTROY) what = "auto-destroy";
 		else if (act & DONT_AUTOPICK) what = "leave on floor";
 		else /* if (act & DO_QUERY_AUTOPICK) */ what = "query auto-pickup";
 
 		msg_format("The object is already registered to %s.", what);
-#endif
 		
 		return FALSE;
 	}
@@ -2094,11 +1942,7 @@ bool autopick_autoregister(object_type *o_ptr)
 		object_desc(o_name, o_ptr, 0);
 
 		/* Message */
-#ifdef JP
-		msg_format("%sは破壊不能だ。", o_name);
-#else
 		msg_format("You cannot auto-destroy %s.", o_name);
-#endif
 
 		/* Done */
 		return FALSE;
@@ -2152,11 +1996,7 @@ bool autopick_autoregister(object_type *o_ptr)
 
 	/* Failure */
 	if (!pref_fff) {
-#ifdef JP
-		msg_format("%s を開くことができませんでした。", pref_file);
-#else
 		msg_format("Failed to open %s.", pref_file);
-#endif
 		msg_print(NULL);
 
 		/* Failed */
@@ -2168,13 +2008,8 @@ bool autopick_autoregister(object_type *o_ptr)
 		/* Add the header */
 		fprintf(pref_fff, "%s\n", autoregister_header);
 
-#ifdef JP
-		fprintf(pref_fff, "%s\n", "# *警告!!* 以降の行は自動登録されたものです。");
-		fprintf(pref_fff, "%s\n", "# 後で自動的に削除されますので、必要な行は上の方へ移動しておいてください。");
-#else
 		fprintf(pref_fff, "%s\n", "# *Waring!* The lines below will be deleated later.");
 		fprintf(pref_fff, "%s\n", "# Keep it by cut & paste if you need these lines for future characters.");
-#endif
 
 		/* Now auto register is in-use */
 		p_ptr->autopick_autoregister = TRUE;
@@ -2280,292 +2115,6 @@ static void describe_autopick(char *buff, autopick_type *entry)
 
 	bool top = FALSE;
 
-#ifdef JP
-	cptr before_str[100], body_str;
-	int before_n = 0;
-
-	body_str = "アイテム";
-
-	/*** Collecting items ***/
-	/*** Which can be absorbed into a slot as a bundle ***/
-	if (IS_FLG(FLG_COLLECTING))
-		before_str[before_n++] = "収集中で既に持っているスロットにまとめられる";
-	
-	/*** Unaware items ***/
-	if (IS_FLG(FLG_UNAWARE))
-		before_str[before_n++] = "未鑑定でその効果も判明していない";
-
-	/*** Unidentified ***/
-	if (IS_FLG(FLG_UNIDENTIFIED))
-		before_str[before_n++] = "未鑑定の";
-
-	/*** Identified ***/
-	if (IS_FLG(FLG_IDENTIFIED))
-		before_str[before_n++] = "鑑定済みの";
-
-	/*** *Identified* ***/
-	if (IS_FLG(FLG_STAR_IDENTIFIED))
-		before_str[before_n++] = "完全に鑑定済みの";
-
-	/*** Dice boosted (weapon of slaying) ***/
-	if (IS_FLG(FLG_BOOSTED))
-	{
-		before_str[before_n++] = "ダメージダイスが通常より大きい";
-		body_str = "武器";
-	}
-
-	/*** Weapons whose dd*ds is more than nn ***/
-	if (IS_FLG(FLG_MORE_DICE))
-	{
-		static char more_than_desc_str[] = "___";
-		before_str[before_n++] = "ダメージダイスの最大値が";
-		body_str = "武器";
-			
-		sprintf(more_than_desc_str,"%d", entry->dice);
-		before_str[before_n++] = more_than_desc_str;
-		before_str[before_n++] = "以上の";
-	}
-
-	/*** Items whose magical bonus is more than nn ***/
-	if (IS_FLG(FLG_MORE_BONUS))
-	{
-		static char more_bonus_desc_str[] = "___";
-		before_str[before_n++] = "修正値が(+";
-			
-		sprintf(more_bonus_desc_str,"%d", entry->bonus);
-		before_str[before_n++] = more_bonus_desc_str;
-		before_str[before_n++] = ")以上の";
-	}
-
-	/*** Worthless items ***/
-	if (IS_FLG(FLG_WORTHLESS))
-		before_str[before_n++] = "店で無価値と判定される";
-
-	/*** Artifact ***/
-	if (IS_FLG(FLG_ARTIFACT))
-	{
-		before_str[before_n++] = "アーティファクトの";
-		body_str = "装備";
-	}
-
-	/*** Ego ***/
-	if (IS_FLG(FLG_EGO))
-	{
-		before_str[before_n++] = "エゴアイテムの";
-		body_str = "装備";
-	}
-
-	/*** Good ***/
-	if (IS_FLG(FLG_GOOD))
-	{
-		before_str[before_n++] = "上質の";
-		body_str = "装備";
-	}
-
-	/*** Nameless ***/
-	if (IS_FLG(FLG_NAMELESS))
-	{
-		before_str[before_n++] = "エゴでもアーティファクトでもない";
-		body_str = "装備";
-	}
-
-	/*** Average ***/
-	if (IS_FLG(FLG_AVERAGE))
-	{
-		before_str[before_n++] = "並の";
-		body_str = "装備";
-	}
-
-	/*** Rare equipments ***/
-	if (IS_FLG(FLG_RARE))
-	{
-		before_str[before_n++] = "ドラゴン装備やカオス・ブレード等を含む珍しい";
-		body_str = "装備";
-	}
-
-	/*** Common equipments ***/
-	if (IS_FLG(FLG_COMMON))
-	{
-		before_str[before_n++] = "ありふれた(ドラゴン装備やカオス・ブレード等の珍しい物ではない)";
-		body_str = "装備";
-	}
-
-	/*** Wanted monster's corpse/skeletons ***/
-	if (IS_FLG(FLG_WANTED))
-	{
-		before_str[before_n++] = "ハンター事務所で賞金首とされている";
-		body_str = "死体や骨";
-	}
-
-	/*** Human corpse/skeletons (for Daemon magic) ***/
-	if (IS_FLG(FLG_HUMAN))
-	{
-		before_str[before_n++] = "悪魔魔法で使うための人間やヒューマノイドの";
-		body_str = "死体や骨";
-	}
-
-	/*** Unique monster's corpse/skeletons/statues ***/
-	if (IS_FLG(FLG_UNIQUE))
-	{
-		before_str[before_n++] = "ユニークモンスターの";
-		body_str = "死体や骨";
-	}
-
-	/*** Unreadable spellbooks ***/
-	if (IS_FLG(FLG_UNREADABLE))
-	{
-		before_str[before_n++] = "あなたが読めない領域の";
-		body_str = "魔法書";
-	}
-
-	/*** First realm spellbooks ***/
-	if (IS_FLG(FLG_REALM1))
-	{
-		before_str[before_n++] = "第一領域の";
-		body_str = "魔法書";
-	}
-
-	/*** Second realm spellbooks ***/
-	if (IS_FLG(FLG_REALM2))
-	{
-		before_str[before_n++] = "第二領域の";
-		body_str = "魔法書";
-	}
-
-	/*** First rank spellbooks ***/
-	if (IS_FLG(FLG_FIRST))
-	{
-		before_str[before_n++] = "全4冊の内の1冊目の";
-		body_str = "魔法書";
-	}
-
-	/*** Second rank spellbooks ***/
-	if (IS_FLG(FLG_SECOND))
-	{
-		before_str[before_n++] = "全4冊の内の2冊目の";
-		body_str = "魔法書";
-	}
-
-	/*** Third rank spellbooks ***/
-	if (IS_FLG(FLG_THIRD))
-	{
-		before_str[before_n++] = "全4冊の内の3冊目の";
-		body_str = "魔法書";
-	}
-
-	/*** Fourth rank spellbooks ***/
-	if (IS_FLG(FLG_FOURTH))
-	{
-		before_str[before_n++] = "全4冊の内の4冊目の";
-		body_str = "魔法書";
-	}
-
-	/*** Items ***/
-	if (IS_FLG(FLG_ITEMS))
-		; /* Nothing to do */
-	else if (IS_FLG(FLG_WEAPONS))
-		body_str = "武器";
-	else if (IS_FLG(FLG_FAVORITE_WEAPONS))
-		body_str = "得意武器";
-	else if (IS_FLG(FLG_ARMORS))
-		body_str = "防具";
-	else if (IS_FLG(FLG_MISSILES))
-		body_str = "弾や矢やクロスボウの矢";
-	else if (IS_FLG(FLG_DEVICES))
-		body_str = "巻物や魔法棒や杖やロッド";
-	else if (IS_FLG(FLG_LIGHTS))
-		body_str = "光源用のアイテム";
-	else if (IS_FLG(FLG_JUNKS))
-		body_str = "折れた棒等のガラクタ";
-	else if (IS_FLG(FLG_CORPSES))
-		body_str = "死体や骨";
-	else if (IS_FLG(FLG_SPELLBOOKS))
-		body_str = "魔法書";
-	else if (IS_FLG(FLG_HAFTED))
-		body_str = "鈍器";
-	else if (IS_FLG(FLG_SHIELDS))
-		body_str = "盾";
-	else if (IS_FLG(FLG_BOWS))
-		body_str = "スリングや弓やクロスボウ";
-	else if (IS_FLG(FLG_RINGS))
-		body_str = "指輪";
-	else if (IS_FLG(FLG_AMULETS))
-		body_str = "アミュレット";
-	else if (IS_FLG(FLG_SUITS))
-		body_str = "鎧";
-	else if (IS_FLG(FLG_CLOAKS))
-		body_str = "クローク";
-	else if (IS_FLG(FLG_HELMS))
-		body_str = "ヘルメットや冠";
-	else if (IS_FLG(FLG_GLOVES))
-		body_str = "籠手";
-	else if (IS_FLG(FLG_BOOTS))
-		body_str = "ブーツ";
-
-	*buff = '\0';
-	if (!before_n) 
-		strcat(buff, "全ての");
-	else for (i = 0; i < before_n && before_str[i]; i++)
-		strcat(buff, before_str[i]);
-
-	strcat(buff, body_str);
-
-	if (*str)
-	{
-		if (*str == '^')
-		{
-			str++;
-			top = TRUE;
-		}
-
-		strcat(buff, "で、名前が「");
-		strncat(buff, str, 80);
-		if (top)
-			strcat(buff, "」で始まるもの");
-		else
-			strcat(buff, "」を含むもの");
-	}
-
-	if (insc)
-	{
-		strncat(buff, format("に「%s」", insc), 80);
-
-		if (my_strstr(insc, "%%all"))
-			strcat(buff, "(%%allは全能力を表す英字の記号で置換)");
-		else if (my_strstr(insc, "%all"))
-			strcat(buff, "(%allは全能力を表す記号で置換)");
-		else if (my_strstr(insc, "%%"))
-			strcat(buff, "(%%は追加能力を表す英字の記号で置換)");
-		else if (my_strstr(insc, "%"))
-			strcat(buff, "(%は追加能力を表す記号で置換)");
-
-		strcat(buff, "と刻んで");
-	}
-	else
-		strcat(buff, "を");
-
-	if (act & DONT_AUTOPICK)
-		strcat(buff, "放置する。");
-	else if (act & DO_AUTODESTROY)
-		strcat(buff, "破壊する。");
-	else if (act & DO_QUERY_AUTOPICK)
-		strcat(buff, "確認の後に拾う。");
-	else
-		strcat(buff, "拾う。");
-
-	if (act & DO_DISPLAY)
-	{
-		if (act & DONT_AUTOPICK)
-			strcat(buff, "全体マップ('M')で'N'を押したときに表示する。");
-		else if (act & DO_AUTODESTROY)
-			strcat(buff, "全体マップ('M')で'K'を押したときに表示する。");
-		else
-			strcat(buff, "全体マップ('M')で'M'を押したときに表示する。");
-	}
-	else
-		strcat(buff, "全体マップには表示しない。");
-
-#else /* JP */
 
 	cptr before_str[20], after_str[20], which_str[20], whose_str[20], body_str;
 	int before_n = 0, after_n = 0, which_n = 0, whose_n = 0;
@@ -2904,7 +2453,6 @@ static void describe_autopick(char *buff, autopick_type *entry)
 	}
 	else
 		strcat(buff, " Not displayed in the full map.");
-#endif /* JP */
 
 }
 
@@ -2953,17 +2501,10 @@ static cptr *read_text_lines(cptr filename)
 static void prepare_default_pickpref(void)
 {
 	static char *messages[] = {
-#ifdef JP
-		"あなたは「自動拾いエディタ」を初めて起動しました。",
-		"自動拾いのユーザー設定ファイルがまだ書かれていないので、",
-		"基本的な自動拾い設定ファイルをlib/pref/picktype.prfからコピーします。",
-		NULL
-#else
 		"You have activated the Auto-Picker Editor for the first time.",
 		"Since user pref file for autopick is not yet created,",
 		"the default setting is loaded from lib/pref/pickpref.prf .",
 		NULL
-#endif
 	};
 
 	char buf[1024];
@@ -3407,10 +2948,6 @@ static bool insert_return_code(text_body_type *tb)
 	/* Split current line */
 	for (i = j = 0; tb->lines_list[tb->cy][i] && i < tb->cx; i++)
 	{
-#ifdef JP
-		if (iskanji(tb->lines_list[tb->cy][i]))
-			buf[j++] = tb->lines_list[tb->cy][i++];
-#endif
 		buf[j++] = tb->lines_list[tb->cy][i];
 	}
 	buf[j] = '\0';
@@ -3454,13 +2991,8 @@ static bool entry_from_choosed_object(autopick_type *entry)
 	cptr q, s;
 
 	/* Get an item */
-#ifdef JP
-	q = "どのアイテムを登録しますか? ";
-	s = "アイテムを持っていない。";
-#else
 	q = "Enter which item? ";
 	s = "You have nothing to enter.";
-#endif
 	o_ptr = choose_object(q, s);
 	if (!o_ptr) return FALSE;
 
@@ -3479,13 +3011,8 @@ static byte get_object_for_search(object_type **o_handle, cptr *search_strp)
 	cptr q, s;
 
 	/* Get an item */
-#ifdef JP
-	q = "どのアイテムを検索しますか? ";
-	s = "アイテムを持っていない。";
-#else
 	q = "Enter which item? ";
 	s = "You have nothing to enter.";
-#endif
 	o_ptr = choose_object(q, s);
 	if (!o_ptr) return 0;
 
@@ -3532,11 +3059,7 @@ static byte get_string_for_search(object_type **o_handle, cptr *search_strp)
 	char buf[MAX_NLEN+20];
 	const int len = 80;
 
-#ifdef JP
-	char prompt[] = "検索(^I:持ち物 ^L:破壊された物): ";
-#else
 	char prompt[] = "Search key(^I:inven ^L:destroyed): ";
-#endif
 	int col = sizeof(prompt) - 1;
 
 	/* Prepare string buffer for edit */
@@ -3587,9 +3110,6 @@ static byte get_string_for_search(object_type **o_handle, cptr *search_strp)
 			{
 				int next_pos = i + 1;
 
-#ifdef JP
-				if (iskanji(buf[i])) next_pos++;
-#endif
 
 				/* Is there the cursor at next position? */ 
 				if (next_pos >= pos) break;
@@ -3612,13 +3132,7 @@ static byte get_string_for_search(object_type **o_handle, cptr *search_strp)
 			/* No move at end of line */
 			if ('\0' == buf[pos]) break;
 
-#ifdef JP
-			/* Move right */
-			if (iskanji(buf[pos])) pos += 2;
-			else pos++;
-#else
 			pos++;
-#endif
 
 			break;
 
@@ -3664,9 +3178,6 @@ static byte get_string_for_search(object_type **o_handle, cptr *search_strp)
 			{
 				int next_pos = i + 1;
 
-#ifdef JP
-				if (iskanji(buf[i])) next_pos++;
-#endif
 
 				/* Is there the cursor at next position? */ 
 				if (next_pos >= pos) break;
@@ -3696,10 +3207,6 @@ static byte get_string_for_search(object_type **o_handle, cptr *search_strp)
 			/* Position of next character */
 			src = pos + 1;
 
-#ifdef JP
-			/* Next character is one more byte away */
-			if (iskanji(buf[pos])) src++;
-#endif
 
 			dst = pos;
 
@@ -3746,40 +3253,13 @@ static byte get_string_for_search(object_type **o_handle, cptr *search_strp)
 
 			/* Save right part of string */
 			strcpy(tmp, buf + pos);
-#ifdef JP
-			if (iskanji(c))
+			if (pos < len && isprint(c))
 			{
-				char next;
-
-				/* Bypass macro processing */
-				inkey_base = TRUE;
-				next = inkey();
-
-				if (pos + 1 < len)
-				{
-					buf[pos++] = c;
-					buf[pos++] = next;
-				}
-				else
-				{
-					bell();
-				}
+				buf[pos++] = c;
 			}
 			else
-#endif
 			{
-#ifdef JP
-				if (pos < len && (isprint(c) || iskana(c)))
-#else
-				if (pos < len && isprint(c))
-#endif
-				{
-					buf[pos++] = c;
-				}
-				else
-				{
-					bell();
-				}
+				bell();
 			}
 
 			/* Terminate */
@@ -4066,78 +3546,6 @@ static void search_for_string(text_body_type *tb, cptr search_str, bool forward)
 
 
 /* Manu names */
-#ifdef JP
-
-static char MN_QUIT[] = "セーブ無しで終了";
-static char MN_SAVEQUIT[] = "セーブして終了";
-static char MN_REVERT[] = "全ての変更を破棄";
-static char MN_HELP[] = "ヘルプ";
-
-static char MN_MOVE[] = "カーソル移動";
-static char MN_LEFT[] =   "左          (←矢印キー)";
-static char MN_DOWN[] =   "下          (↓矢印キー)";
-static char MN_UP[] =     "上          (↑矢印キー)";
-static char MN_RIGHT[] =  "右          (→矢印キー)";
-static char MN_BOL[] =    "行の先頭";
-static char MN_EOL[] =    "行の終端";
-static char MN_PGUP[] =   "上のページ  (PageUpキー)";
-static char MN_PGDOWN[] = "下のページ  (PageDownキー)";
-static char MN_TOP[] =    "1行目へ移動 (Homeキー)";
-static char MN_BOTTOM[] = "最下行へ移動(Endキー)";
-
-static char MN_EDIT[] = "編集";
-static char MN_CUT[] = "カット";
-static char MN_COPY[] = "コピー";
-static char MN_PASTE[] = "ペースト";
-static char MN_BLOCK[] = "選択範囲の指定";
-static char MN_KILL_LINE[] = "行の残りを削除";
-static char MN_DELETE_CHAR[] = "1文字削除";
-static char MN_BACKSPACE[] = "バックスペース";
-static char MN_RETURN[] = "改行";
-
-static char MN_SEARCH[] = "検索";
-static char MN_SEARCH_STR[] = "文字列で検索";
-static char MN_SEARCH_FORW[] = "前方へ再検索";
-static char MN_SEARCH_BACK[] = "後方へ再検索";
-static char MN_SEARCH_OBJ[] = "アイテムを選択して検索";
-static char MN_SEARCH_DESTROYED[] = "自動破壊されたアイテムで検索";
-
-static char MN_INSERT[] = "色々挿入";
-static char MN_INSERT_OBJECT[] = "選択したアイテムの名前を挿入";
-static char MN_INSERT_DESTROYED[] = "自動破壊されたアイテムの名前を挿入";
-static char MN_INSERT_BLOCK[] = "条件分岐ブロックの例を挿入";
-static char MN_INSERT_MACRO[] = "マクロ定義を挿入";
-static char MN_INSERT_KEYMAP[] = "キーマップ定義を挿入";
-
-static char MN_COMMAND_LETTER[] = "拾い/破壊/放置の選択";
-static char MN_CL_AUTOPICK[] = "「 」 (自動拾い)";
-static char MN_CL_DESTROY[] = "「!」 (自動破壊)";
-static char MN_CL_LEAVE[] = "「~」 (放置)";
-static char MN_CL_QUERY[] = "「;」 (確認して拾う)";
-static char MN_CL_NO_DISP[] = "「(」 (マップコマンドで表示しない)";
-
-static char MN_ADJECTIVE_GEN[] = "形容詞(一般)の選択";
-static char MN_RARE[] = "レアな (装備)";
-static char MN_COMMON[] = "ありふれた (装備)";
-
-static char MN_ADJECTIVE_SPECIAL[] = "形容詞(特殊)の選択";
-static char MN_BOOSTED[] = "ダイス目の違う (武器)";
-static char MN_MORE_DICE[] = "ダイス目 # 以上の (武器)";
-static char MN_MORE_BONUS[] = "修正値 # 以上の (指輪等)";
-static char MN_WANTED[] = "賞金首の (死体)";
-static char MN_UNIQUE[] = "ユニーク・モンスターの (死体)";
-static char MN_HUMAN[] = "人間の (死体)";
-static char MN_UNREADABLE[] = "読めない (魔法書)";
-static char MN_REALM1[] = "第一領域の (魔法書)";
-static char MN_REALM2[] = "第二領域の (魔法書)";
-static char MN_FIRST[] = "1冊目の (魔法書)";
-static char MN_SECOND[] = "2冊目の (魔法書)";
-static char MN_THIRD[] = "3冊目の (魔法書)";
-static char MN_FOURTH[] = "4冊目の (魔法書)";
-
-static char MN_NOUN[] = "名詞の選択";
-
-#else
 
 static char MN_QUIT[] = "Quit without save";
 static char MN_SAVEQUIT[] = "Save & Quit";
@@ -4208,7 +3616,6 @@ static char MN_FOURTH[] = "fourth (spellbooks)";
 
 static char MN_NOUN[] = "Keywords (noun)";
 
-#endif
 
 
 typedef struct {
@@ -4419,11 +3826,7 @@ static int do_command_menu(int level, int start)
 
 				if (menu_data[i].com_id == -1)
 				{
-#ifdef JP
-					strcpy(com_key_str, "▼");
-#else
 					strcpy(com_key_str, ">");
-#endif
 				}
 				else if (menu_data[i].key != -1)
 				{
@@ -4449,11 +3852,7 @@ static int do_command_menu(int level, int start)
 			/* The menu was shown */
 			redraw = FALSE;
 		}
-#ifdef JP
-		prt(format("(a-%c) コマンド:", menu_key + 'a' - 1), 0, 0);
-#else
 		prt(format("(a-%c) Command:", menu_key + 'a' - 1), 0, 0);
-#endif
 		key = inkey();
 
 		if (key == ESCAPE) return 0;
@@ -4655,24 +4054,6 @@ static void draw_text_editor(text_body_type *tb)
 	 */
 	tb->hgt -= 2 + DESCRIPT_HGT;
 
-#ifdef JP
-	/* Don't let cursor at second byte of kanji */
-	for (i = 0; tb->lines_list[tb->cy][i]; i++)
-		if (iskanji(tb->lines_list[tb->cy][i]))
-		{
-			i++;
-			if (i == tb->cx)
-			{
-				/*
-				 * Move to a correct position in the
-				 * left or right
-				 */
-				if (i & 1) tb->cx--;
-				else tb->cx++;
-				break;
-			}
-		}
-#endif
 
 	/* Scroll if necessary */
 	if (tb->cy < tb->upper || tb->upper + tb->hgt <= tb->cy)
@@ -4788,18 +4169,6 @@ static void draw_text_editor(text_body_type *tb)
 		for (j = 0; *msg; msg++, j++)
 		{
 			if (j == tb->left) break;
-#ifdef JP
-			if (j > tb->left)
-			{
-				leftcol = 1;
-				break;
-			}
-			if (iskanji(*msg))
-			{
-				msg++;
-				j++;
-			}
-#endif
 		}
 
 		/* Erase line */
@@ -4872,76 +4241,40 @@ static void draw_text_editor(text_body_type *tb)
 		/* Display information */
 		if (tb->dirty_flags & DIRTY_NOT_FOUND)
 		{
-#ifdef JP
-			str1 = format("パターンが見つかりません: %s", tb->search_str);
-#else
 			str1 = format("Pattern not found: %s", tb->search_str);
-#endif
 		}
 		else if (tb->dirty_flags & DIRTY_SKIP_INACTIVE)
 		{
-#ifdef JP
-			str1 = format("無効状態の行をスキップしました。(%sを検索中)", tb->search_str);
-#else
 			str1 = format("Some inactive lines are skipped. (Searching %s)", tb->search_str);
-#endif
 		}
 		else if (tb->dirty_flags & DIRTY_INACTIVE)
 		{
-#ifdef JP
-			str1 = format("無効状態の行だけが見付かりました。(%sを検索中)", tb->search_str);
-#else
 			str1 = format("Found only an inactive line. (Searching %s)", tb->search_str);
-#endif
 		}
 		else if (tb->dirty_flags & DIRTY_NO_SEARCH)
 		{
-#ifdef JP
-			str1 = "検索するパターンがありません(^S で検索)。";
-#else
 			str1 = "No pattern to search. (Press ^S to search.)";
-#endif
 		}
 		else if (tb->lines_list[tb->cy][0] == '#')
 		{
-#ifdef JP
-			str1 = "この行はコメントです。";
-#else
 			str1 = "This line is a comment.";
-#endif
 		}
 		else if (tb->lines_list[tb->cy][0] && tb->lines_list[tb->cy][1] == ':')
 		{
 			switch(tb->lines_list[tb->cy][0])
 			{
 			case '?':
-#ifdef JP
-				str1 = "この行は条件分岐式です。";
-#else
 				str1 = "This line is a Conditional Expression.";
-#endif
 
 				break;
 			case 'A':
-#ifdef JP
-				str1 = "この行はマクロの実行内容を定義します。";
-#else
 				str1 = "This line defines a Macro action.";
-#endif
 				break;
 			case 'P':
-#ifdef JP
-				str1 = "この行はマクロのトリガー・キーを定義します。";
-#else
 				str1 = "This line defines a Macro trigger key.";
-#endif
 				break;
 			case 'C':
-#ifdef JP
-				str1 = "この行はキー配置を定義します。";
-#else
 				str1 = "This line defines a Keymap.";
-#endif
 				break;
 			}
 
@@ -4950,39 +4283,23 @@ static void draw_text_editor(text_body_type *tb)
 			case '?':
 				if (tb->states[tb->cy] & LSTAT_BYPASS)
 				{
-#ifdef JP
-					str2 = "現在の式の値は「偽(=0)」です。";
-#else
 					str2 = "The expression is 'False'(=0) currently.";
-#endif
 				}
 				else
 				{
-#ifdef JP
-					str2 = "現在の式の値は「真(=1)」です。";
-#else
 					str2 = "The expression is 'True'(=1) currently.";
-#endif
 				}
 				break;
 
 			default:
 				if (tb->states[tb->cy] & LSTAT_AUTOREGISTER)
 				{
-#ifdef JP
-					str2 = "この行は後で削除されます。";
-#else
 					str2 = "This line will be delete later.";
-#endif
 				}
 
 				else if (tb->states[tb->cy] & LSTAT_BYPASS)
 				{
-#ifdef JP
-					str2 = "この行は現在は無効な状態です。";
-#else
 					str2 = "This line is bypassed currently.";
-#endif
 				}
 				break;
 			}
@@ -4999,20 +4316,12 @@ static void draw_text_editor(text_body_type *tb)
 
 			if (tb->states[tb->cy] & LSTAT_AUTOREGISTER)
 			{
-#ifdef JP
-				strcat(buf, "この行は後で削除されます。");
-#else
 				strcat(buf, "  This line will be delete later.");
-#endif
 			}
 
 			if (tb->states[tb->cy] & LSTAT_BYPASS)
 			{
-#ifdef JP
-				strcat(buf, "この行は現在は無効な状態です。");
-#else
 				strcat(buf, "  This line is bypassed currently.");
-#endif
 			}
 
 			roff_to_buf(buf, 81, temp, sizeof(temp));
@@ -5247,11 +4556,7 @@ static bool do_editor_command(text_body_type *tb, int com_id)
 	case EC_QUIT:
 		if (tb->changed)
 		{
-#ifdef JP
-			if (!get_check("全ての変更を破棄してから終了します。よろしいですか？ ")) break;
-#else
 			if (!get_check("Discard all changes and quit. Are you sure? ")) break;
-#endif
 		}
 		return QUIT_WITHOUT_SAVE;
 
@@ -5260,11 +4565,7 @@ static bool do_editor_command(text_body_type *tb, int com_id)
 
 	case EC_REVERT:
 		/* Revert to original */
-#ifdef JP
-		if (!get_check("全ての変更を破棄して元の状態に戻します。よろしいですか？ ")) break;
-#else
 		if (!get_check("Discard all changes and revert to original file. Are you sure? ")) break;
-#endif
 
 		free_text_lines(tb->lines_list);
 		tb->lines_list = read_pickpref_text_lines(&tb->filename_mode);
@@ -5278,11 +4579,7 @@ static bool do_editor_command(text_body_type *tb, int com_id)
 
 	case EC_HELP:
 		/* Peruse the main help file */
-#ifdef JP
-		(void)show_file(TRUE, "jeditor.txt", NULL, 0, 0);
-#else
 		(void)show_file(TRUE, "editor.txt", NULL, 0, 0);
-#endif
 		/* Redraw all */
 		tb->dirty_flags |= DIRTY_SCREEN;
 
@@ -5313,30 +4610,11 @@ static bool do_editor_command(text_body_type *tb, int com_id)
 		if (0 < tb->cx)
 		{
 			int len;
-#ifdef JP
-			int i;
-#endif
 
 			tb->cx--;
 			len = strlen(tb->lines_list[tb->cy]);
 			if (len < tb->cx) tb->cx = len;
 
-#ifdef JP
-			/* Don't let cursor at second byte of kanji */
-			for (i = 0; tb->lines_list[tb->cy][i]; i++)
-			{
-				if (iskanji(tb->lines_list[tb->cy][i]))
-				{
-					i++;
-					if (i == tb->cx)
-					{
-						/* Move to the left */
-						tb->cx--;
-						break;
-					}
-				}
-			}
-#endif
 		}
 		else if (tb->cy > 0)
 		{
@@ -5370,9 +4648,6 @@ static bool do_editor_command(text_body_type *tb, int com_id)
 		/* Forward */
 
 		int len;
-#ifdef JP
-		if (iskanji(tb->lines_list[tb->cy][tb->cx])) tb->cx++;
-#endif
 		tb->cx++;
 		len = strlen(tb->lines_list[tb->cy]);
 		if (len < tb->cx)
@@ -5757,9 +5032,6 @@ static bool do_editor_command(text_body_type *tb, int com_id)
 			tb->dirty_flags |= DIRTY_ALL;
 		}
 
-#ifdef JP
-		if (iskanji(tb->lines_list[tb->cy][tb->cx])) tb->cx++;
-#endif
 		tb->cx++;
 
 		/* Pass through the end of line to next line */
@@ -5834,10 +5106,6 @@ static bool do_editor_command(text_body_type *tb, int com_id)
 		for (i = j = k = 0; tb->lines_list[tb->cy][i] && i < tb->cx; i++)
 		{
 			k = j;
-#ifdef JP
-			if (iskanji(tb->lines_list[tb->cy][i]))
-				buf[j++] = tb->lines_list[tb->cy][i++];
-#endif
 			buf[j++] = tb->lines_list[tb->cy][i];
 		}
 		while (j > k)
@@ -6008,11 +5276,7 @@ static bool do_editor_command(text_body_type *tb, int com_id)
 		Term_erase(0, tb->cy - tb->upper + 1, tb->wid);
 
 		/* Prompt */
-#ifdef JP
-		Term_putstr(0, tb->cy - tb->upper + 1, tb->wid - 1, TERM_YELLOW, "P:<トリガーキー>: ");
-#else
 		Term_putstr(0, tb->cy - tb->upper + 1, tb->wid - 1, TERM_YELLOW, "P:<Trigger key>: ");
-#endif
 		if (insert_macro_line(tb))
 		{
 			/* Prepare to input action */
@@ -6035,11 +5299,7 @@ static bool do_editor_command(text_body_type *tb, int com_id)
 		Term_erase(0, tb->cy - tb->upper + 1, tb->wid);
 
 		/* Prompt */
-#ifdef JP
-		Term_putstr(0, tb->cy - tb->upper + 1, tb->wid - 1, TERM_YELLOW, format("C:%d:<コマンドキー>: ", (rogue_like_commands ? KEYMAP_MODE_ROGUE : KEYMAP_MODE_ORIG)));
-#else
 		Term_putstr(0, tb->cy - tb->upper + 1, tb->wid - 1, TERM_YELLOW, format("C:%d:<Keypress>: ", (rogue_like_commands ? KEYMAP_MODE_ROGUE : KEYMAP_MODE_ORIG)));
-#endif
 
 		if (insert_keymap_line(tb))
 		{
@@ -6147,29 +5407,9 @@ static void insert_single_letter(text_body_type *tb, int key)
 		buf[j++] = tb->lines_list[tb->cy][i];
 
 	/* Add a character */
-#ifdef JP
-	if (iskanji(key))
-	{
-		int next;
-
-		inkey_base = TRUE;
-		next = inkey();
-		if (j+2 < MAX_LINELEN)
-		{
-			buf[j++] = key;
-			buf[j++] = next;
-			tb->cx += 2;
-		}
-		else
-			bell();
-	}
-	else
-#endif
-	{
-		if (j+1 < MAX_LINELEN)
-			buf[j++] = key;
-		tb->cx++;
-	}
+	if (j+1 < MAX_LINELEN)
+		buf[j++] = key;
+	tb->cx++;
 
 	/* Add following */
 	for (; tb->lines_list[tb->cy][i] && j + 1 < MAX_LINELEN; i++)
@@ -6356,11 +5596,7 @@ void do_cmd_edit_autopick(void)
 		draw_text_editor(tb);
 
 		/* Display header line */
-#ifdef JP
-		prt("(^Q:終了 ^W:セーブして終了, ESC:メニュー, その他:入力)", 0, 0);
-#else	
 		prt("(^Q:Quit, ^W:Save&Quit, ESC:Menu, Other:Input text)", 0, 0);
-#endif
 		if (!tb->mark)
 		{
 			/* Display current position */

@@ -891,14 +891,8 @@ static bool add_text(u32b *offset, header *head, cptr buf, bool normal_text)
 		 * fill up a space as a correct separator of two words.
 		 */
 		if (head->text_size > 0 &&
-#ifdef JP
-		    (*(head->text_ptr + head->text_size - 1) != ' ') &&
-		    ((head->text_size == 1) || !iskanji(*(head->text_ptr + head->text_size - 2))) && 
-		    (buf[0] != ' ') && !iskanji(buf[0])
-#else
 		    (*(head->text_ptr + head->text_size - 1) != ' ') &&
 		    (buf[0] != ' ')
-#endif
 		    )
 		{
 			/* Append a space */
@@ -1426,11 +1420,7 @@ static errr grab_one_feat_flag(feature_type *f_ptr, cptr what)
 	}
 
 	/* Oops */
-#ifdef JP
-	msg_format("未知の地形フラグ '%s'。", what);
-#else
 	msg_format("Unknown feature flag '%s'.", what);
-#endif
 
 	/* Error */
 	return PARSE_ERROR_GENERIC;
@@ -1455,11 +1445,7 @@ static errr grab_one_feat_action(feature_type *f_ptr, cptr what, int count)
 	}
 
 	/* Oops */
-#ifdef JP
-	msg_format("未知の地形アクション '%s'。", what);
-#else
 	msg_format("Unknown feature action '%s'.", what);
-#endif
 
 	/* Error */
 	return PARSE_ERROR_GENERIC;
@@ -1526,18 +1512,6 @@ errr parse_f_info(char *buf, header *head)
 	/* There better be a current f_ptr */
 	else if (!f_ptr) return (3);
 
-#ifdef JP
-	else if (buf[0] == 'J')
-	{
-		/* Store the name */
-		if (!add_name(&f_ptr->name, head, buf+2)) return (7);
-	}
-
-	else if (buf[0] == 'E')
-	{
-		/* Ignore english name */
-	}
-#else
 	else if (buf[0] == 'J')
 	{
 		/* Ignore Japanese name */
@@ -1551,7 +1525,6 @@ errr parse_f_info(char *buf, header *head)
 		/* Store the name */
 		if (!add_name(&f_ptr->name, head, s)) return (7);
 	}
-#endif
 
 
 	/* Process 'M' for "Mimic" (one line only) */
@@ -1794,11 +1767,7 @@ static void search_real_feat(s16b *feat)
 	}
 
 	/* Undefined tag */
-#ifdef JP
-	msg_format("未定義のタグ '%s'。", f_tag + (-(*feat)));
-#else
 	msg_format("%s is undefined.", f_tag + (-(*feat)));
-#endif
 }
 
 
@@ -1845,11 +1814,7 @@ static errr grab_one_kind_flag(object_kind *k_ptr, cptr what)
 		return 0;
 
 	/* Oops */
-#ifdef JP
-	msg_format("未知のアイテム・フラグ '%s'。", what);
-#else
 	msg_format("Unknown object flag '%s'.", what);
-#endif
 
 
 	/* Error */
@@ -1873,9 +1838,6 @@ errr parse_k_info(char *buf, header *head)
 	/* Process 'N' for "New/Number/Name" */
 	if (buf[0] == 'N')
 	{
-#ifdef JP
-		char *flavor;
-#endif
 
 		/* Find the colon before the name */
 		s = my_strchr(buf+2, ':');
@@ -1901,40 +1863,12 @@ errr parse_k_info(char *buf, header *head)
 		/* Point at the "info" */
 		k_ptr = &k_info[i];
 
-#ifdef JP
-		/* Paranoia -- require a name */
-		if (!*s) return (1);
-
-		/* Find the colon before the flavor */
-		flavor = my_strchr(s, ':');
-
-		/* Verify that colon */
-		if (flavor)
-		{
-			/* Nuke the colon, advance to the flavor */
-			*flavor++ = '\0';
-
-			/* Store the flavor */
-			if (!add_name(&k_ptr->flavor_name, head, flavor)) return (7);
-		}
-
-		/* Store the name */
-		if (!add_name(&k_ptr->name, head, s)) return (7);
-#endif
 	}
 
 	/* There better be a current k_ptr */
 	else if (!k_ptr) return (3);
 
 
-#ifdef JP
-	/* 英語名を読むルーチンを追加 */
-	/* 'E' から始まる行は英語名としている */
-	else if (buf[0] == 'E')
-	{
-		/* nothing to do */
-	}
-#else
 	else if (buf[0] == 'E')
 	{
 		char *flavor;
@@ -1958,22 +1892,14 @@ errr parse_k_info(char *buf, header *head)
 		/* Store the name */
 		if (!add_name(&k_ptr->name, head, s)) return (7);
 	}
-#endif
 
 	/* Process 'D' for "Description" */
 	else if (buf[0] == 'D')
 	{
-#ifdef JP
-		if (buf[2] == '$')
-			return (0);
-		/* Acquire the text */
-		s = buf+2;
-#else
 		if (buf[2] != '$')
 			return (0);
 		/* Acquire the text */
 		s = buf+3;
-#endif
 
 		/* Store the text */
 		if (!add_text(&k_ptr->text, head, s, TRUE)) return (7);
@@ -2139,11 +2065,7 @@ static errr grab_one_artifact_flag(artifact_type *a_ptr, cptr what)
 		return 0;
 
 	/* Oops */
-#ifdef JP
-	msg_format("未知の伝説のアイテム・フラグ '%s'。", what);
-#else
 	msg_format("Unknown artifact flag '%s'.", what);
-#endif
 
 
 	/* Error */
@@ -2177,10 +2099,6 @@ errr parse_a_info(char *buf, header *head)
 
 		/* Nuke the colon, advance to the name */
 		*s++ = '\0';
-#ifdef JP
-		/* Paranoia -- require a name */
-		if (!*s) return (1);
-#endif
 		/* Get the index */
 		i = atoi(buf+2);
 
@@ -2201,24 +2119,12 @@ errr parse_a_info(char *buf, header *head)
 		add_flag(a_ptr->flags, TR_IGNORE_ELEC);
 		add_flag(a_ptr->flags, TR_IGNORE_FIRE);
 		add_flag(a_ptr->flags, TR_IGNORE_COLD);
-#ifdef JP
-		/* Store the name */
-		if (!add_name(&a_ptr->name, head, s)) return (7);
-#endif
 	}
 
 	/* There better be a current a_ptr */
 	else if (!a_ptr) return (3);
 
 
-#ifdef JP
-	/* 英語名を読むルーチンを追加 */
-	/* 'E' から始まる行は英語名としている */
-	else if (buf[0] == 'E')
-	{
-		/* nothing to do */
-	}
-#else
 	else if (buf[0] == 'E')
 	{
 		/* Acquire the Text */
@@ -2227,22 +2133,14 @@ errr parse_a_info(char *buf, header *head)
 		/* Store the name */
 		if (!add_name(&a_ptr->name, head, s)) return (7);
 	}
-#endif
 
 	/* Process 'D' for "Description" */
 	else if (buf[0] == 'D')
 	{
-#ifdef JP
-		if (buf[2] == '$')
-			return (0);
-		/* Acquire the text */
-		s = buf+2;
-#else
 		if (buf[2] != '$')
 			return (0);
 		/* Acquire the text */
 		s = buf+3;
-#endif
 
 		/* Store the text */
 		if (!add_text(&a_ptr->text, head, s, TRUE)) return (7);
@@ -2353,11 +2251,7 @@ static bool grab_one_ego_item_flag(ego_item_type *e_ptr, cptr what)
 		return 0;
 
 	/* Oops */
-#ifdef JP
-	msg_format("未知の名のあるアイテム・フラグ '%s'。", what);
-#else
 	msg_format("Unknown ego-item flag '%s'.", what);
-#endif
 
 
 	/* Error */
@@ -2398,10 +2292,6 @@ errr parse_e_info(char *buf, header *head)
 
 		/* Nuke the colon, advance to the name */
 		*s++ = '\0';
-#ifdef JP
-		/* Paranoia -- require a name */
-		if (!*s) return (1);
-#endif
 		/* Get the index */
 		i = atoi(buf+2);
 
@@ -2416,24 +2306,12 @@ errr parse_e_info(char *buf, header *head)
 
 		/* Point at the "info" */
 		e_ptr = &e_info[i];
-#ifdef JP
-		/* Store the name */
-		if (!add_name(&e_ptr->name, head, s)) return (7);
-#endif
 	}
 
 	/* There better be a current e_ptr */
 	else if (!e_ptr) return (3);
 
 
-#ifdef JP
-	/* 英語名を読むルーチンを追加 */
-	/* 'E' から始まる行は英語名 */
-	else if (buf[0] == 'E')
-	{
-		/* nothing to do */
-	}
-#else
 	else if (buf[0] == 'E')
 	{
 		/* Acquire the Text */
@@ -2442,7 +2320,6 @@ errr parse_e_info(char *buf, header *head)
 		/* Store the name */
 		if (!add_name(&e_ptr->name, head, s)) return (7);
 	}
-#endif
 #if 0
 
 	/* Process 'D' for "Description" */
@@ -2562,11 +2439,7 @@ static errr grab_one_basic_flag(monster_race *r_ptr, cptr what)
 		return 0;
 
 	/* Oops */
-#ifdef JP
-	msg_format("未知のモンスター・フラグ '%s'。", what);
-#else
 	msg_format("Unknown monster flag '%s'.", what);
-#endif
 
 
 	/* Failure */
@@ -2589,11 +2462,7 @@ static errr grab_one_spell_flag(monster_race *r_ptr, cptr what)
 		return 0;
 
 	/* Oops */
-#ifdef JP
-	msg_format("未知のモンスター・フラグ '%s'。", what);
-#else
 	msg_format("Unknown monster flag '%s'.", what);
-#endif
 
 
 	/* Failure */
@@ -2627,10 +2496,6 @@ errr parse_r_info(char *buf, header *head)
 
 		/* Nuke the colon, advance to the name */
 		*s++ = '\0';
-#ifdef JP
-		/* Paranoia -- require a name */
-		if (!*s) return (1);
-#endif
 		/* Get the index */
 		i = atoi(buf+2);
 
@@ -2645,28 +2510,12 @@ errr parse_r_info(char *buf, header *head)
 
 		/* Point at the "info" */
 		r_ptr = &r_info[i];
-#ifdef JP
-		/* Store the name */
-		if (!add_name(&r_ptr->name, head, s)) return (7);
-#endif
 	}
 
 	/* There better be a current r_ptr */
 	else if (!r_ptr) return (3);
 
 
-#ifdef JP
-	/* 英語名を読むルーチンを追加 */
-	/* 'E' から始まる行は英語名 */
-	else if (buf[0] == 'E')
-	{
-		/* Acquire the Text */
-		s = buf+2;
-
-		/* Store the name */
-		if (!add_name(&r_ptr->E_name, head, s)) return (7);
-	}
-#else
 	else if (buf[0] == 'E')
 	{
 		/* Acquire the Text */
@@ -2675,21 +2524,13 @@ errr parse_r_info(char *buf, header *head)
 		/* Store the name */
 		if (!add_name(&r_ptr->name, head, s)) return (7);
 	}
-#endif
 	/* Process 'D' for "Description" */
 	else if (buf[0] == 'D')
 	{
-#ifdef JP
-		if (buf[2] == '$')
-			return (0);
-		/* Acquire the text */
-		s = buf+2;
-#else
 		if (buf[2] != '$')
 			return (0);
 		/* Acquire the text */
 		s = buf+3;
-#endif
 
 		/* Store the text */
 		if (!add_text(&r_ptr->text, head, s, TRUE)) return (7);
@@ -2910,11 +2751,7 @@ static errr grab_one_dungeon_flag(dungeon_info_type *d_ptr, cptr what)
 		return 0;
 
 	/* Oops */
-#ifdef JP
-	msg_format("未知のダンジョン・フラグ '%s'。", what);
-#else
 	msg_format("Unknown dungeon type flag '%s'.", what);
-#endif
 
 	/* Failure */
 	return (1);
@@ -2947,11 +2784,7 @@ static errr grab_one_basic_monster_flag(dungeon_info_type *d_ptr, cptr what)
 		return 0;
 
 	/* Oops */
-#ifdef JP
-	msg_format("未知のモンスター・フラグ '%s'。", what);
-#else
 	msg_format("Unknown monster flag '%s'.", what);
-#endif
 	/* Failure */
 	return (1);
 }
@@ -2972,11 +2805,7 @@ static errr grab_one_spell_monster_flag(dungeon_info_type *d_ptr, cptr what)
 		return 0;
 
 	/* Oops */
-#ifdef JP
-	msg_format("未知のモンスター・フラグ '%s'。", what);
-#else
 	msg_format("Unknown monster flag '%s'.", what);
-#endif
 
 	/* Failure */
 	return (1);
@@ -3005,10 +2834,6 @@ errr parse_d_info(char *buf, header *head)
 
 		/* Nuke the colon, advance to the name */
 		*s++ = '\0';
-#ifdef JP
-		/* Paranoia -- require a name */
-		if (!*s) return (1);
-#endif
 		/* Get the index */
 		i = atoi(buf+2);
 
@@ -3023,15 +2848,8 @@ errr parse_d_info(char *buf, header *head)
 
 		/* Point at the "info" */
 		d_ptr = &d_info[i];
-#ifdef JP
-		/* Store the name */
-		if (!add_name(&d_ptr->name, head, s)) return (7);
-#endif
 	}
 
-#ifdef JP
-	else if (buf[0] == 'E') return (0);
-#else
 	else if (buf[0] == 'E')
 	{
 		/* Acquire the Text */
@@ -3040,22 +2858,14 @@ errr parse_d_info(char *buf, header *head)
 		/* Store the name */
 		if (!add_name(&d_ptr->name, head, s)) return (7);
 	}
-#endif
 
 	/* Process 'D' for "Description */
 	else if (buf[0] == 'D')
 	{
-#ifdef JP
-		if (buf[2] == '$')
-			return (0);
-		/* Acquire the text */
-		s = buf+2;
-#else
 		if (buf[2] != '$')
 			return (0);
 		/* Acquire the text */
 		s = buf+3;
-#endif
 
 		/* Store the text */
 		if (!add_text(&d_ptr->text, head, s, TRUE)) return (7);
@@ -3481,15 +3291,9 @@ static errr parse_line_building(char *buf)
 	int index;
 	char *s;
 
-#ifdef JP
-	if (buf[2] == '$')
-		return 0;
-	s = buf + 2;
-#else
 	if (buf[2] != '$')
 		return 0;
 	s = buf + 3;
-#endif
 	/* Get the building number */
 	index = atoi(s);
 
@@ -3933,15 +3737,9 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 	{
 		int num;
 		quest_type *q_ptr;
-#ifdef JP
-		if (buf[2] == '$')
-			return 0;
-		num = tokenize(buf + 2, 33, zz, 0);
-#else
 		if (buf[2] != '$')
 			return 0;
 		num = tokenize(buf + 3, 33, zz, 0);
-#endif
 
 		/* Have we enough parameters? */
 		if (num < 3) return (PARSE_ERROR_TOO_FEW_ARGUMENTS);
@@ -4329,15 +4127,7 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 	else
 	{
 		/* Accept all printables except spaces and brackets */
-#ifdef JP
-		while (iskanji(*s) || (isprint(*s) && !my_strchr(" []", *s)))
-		{
-			if (iskanji(*s)) s++;
-			s++;
-		}
-#else
 		while (isprint(*s) && !my_strchr(" []", *s)) ++s;
-#endif
 
 		/* Extract final and Terminate */
 		if ((f = *s) != '\0') *s++ = '\0';
@@ -4379,21 +4169,13 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 			/* First realm */
 			else if (streq(b+1, "REALM1"))
 			{
-#ifdef JP
-				v = E_realm_names[p_ptr->realm1];
-#else
 				v = realm_names[p_ptr->realm1];
-#endif
 			}
 
 			/* Second realm */
 			else if (streq(b+1, "REALM2"))
 			{
-#ifdef JP
-				v = E_realm_names[p_ptr->realm2];
-#else
 				v = realm_names[p_ptr->realm2];
-#endif
 			}
 
 			/* Player name */
@@ -4403,14 +4185,6 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 				char *pn, *tpn;
 				for (pn = player_name, tpn = tmp_player_name; *pn; pn++, tpn++)
 				{
-#ifdef JP
-					if (iskanji(*pn))
-					{
-						*(tpn++) = *(pn++);
-						*tpn = *pn;
-						continue;
-					}
-#endif
 					*tpn = my_strchr(" []", *pn) ? '_' : *pn;
 				}
 				*tpn = '\0';
@@ -4597,11 +4371,7 @@ errr process_dungeon_file(cptr name, int ymin, int xmin, int ymax, int xmax)
 
 		/* Oops */
 		msg_format("Error %d (%s) at line %d of '%s'.", err, oops, num, name);
-#ifdef JP
-msg_format("'%s'を解析中。", buf);
-#else
 		msg_format("Parsing '%s'.", buf);
-#endif
 
 		msg_print(NULL);
 	}

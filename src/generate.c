@@ -342,11 +342,7 @@ static void alloc_object(int set, int typ, int num)
 		{
 			if (cheat_room)
 			{
-#ifdef JP
-msg_print("警告！アイテムを配置できません！");
-#else
 				msg_print("Warning! Could not place object!");
-#endif
 
 			}
 			return;
@@ -665,11 +661,7 @@ static void gen_caverns_and_lakes(void)
 		if (dun->laketype)
 		{
 			if (cheat_room)
-#ifdef JP
-				msg_print("湖を生成。");
-#else
 				msg_print("Lake on the level.");
-#endif
 
 			build_lake(dun->laketype);
 		}
@@ -684,11 +676,7 @@ static void gen_caverns_and_lakes(void)
 		/* make a large fractal cave in the middle of the dungeon */
 
 		if (cheat_room)
-#ifdef JP
-			msg_print("洞窟を生成。");
-#else
 			msg_print("Cavern on level.");
-#endif
 
 		build_cavern();
 	}
@@ -1045,11 +1033,7 @@ static bool cave_gen(void)
 		if (i > small_tester) i = small_tester;
 		else if (cheat_hear)
 		{
-#ifdef JP
-msg_format("モンスター数基本値を %d から %d に減らします", small_tester, i);
-#else
 			msg_format("Reduced monsters base from %d to %d", small_tester, i);
-#endif
 
 		}
 	}
