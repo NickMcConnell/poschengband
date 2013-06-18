@@ -619,10 +619,8 @@ static flag_insc_table flag_insc_sust[] =
 /*
  *  Helper function for get_inscription()
  */
-static char *inscribe_flags_aux(flag_insc_table *fi_ptr, u32b flgs[TR_FLAG_SIZE], bool kanji, char *ptr)
+static char *inscribe_flags_aux(flag_insc_table *fi_ptr, u32b flgs[TR_FLAG_SIZE], char *ptr)
 {
-	(void)kanji;
-
 	while (fi_ptr->english)
 	{
 		if (have_flag(flgs, fi_ptr->flag) &&
@@ -651,7 +649,7 @@ static bool have_flag_of(flag_insc_table *fi_ptr, u32b flgs[TR_FLAG_SIZE])
 	return (FALSE);
 }
 
-static char *get_ability_abbreviation(char *ptr, object_type *o_ptr, bool kanji, bool all)
+static char *get_ability_abbreviation(char *ptr, object_type *o_ptr, bool all)
 {
 	char *prev_ptr = ptr;
 	u32b flgs[TR_FLAG_SIZE];
@@ -689,37 +687,30 @@ static char *get_ability_abbreviation(char *ptr, object_type *o_ptr, bool kanji,
 
 
 	/* Plusses */
-	if (have_flag_of(flag_insc_plus, flgs))
-	{
-		if (kanji)
-			ADD_INSC("+");
-	}
-	ptr = inscribe_flags_aux(flag_insc_plus, flgs, kanji, ptr);
+	ptr = inscribe_flags_aux(flag_insc_plus, flgs, ptr);
 
 	/* Immunity */
 	if (have_flag_of(flag_insc_immune, flgs))
 	{
-		if (!kanji && ptr != prev_ptr)
+		if (ptr != prev_ptr)
 		{
 			ADD_INSC(";");
 			prev_ptr = ptr;
 		}
 		ADD_INSC("*");
 	}
-	ptr = inscribe_flags_aux(flag_insc_immune, flgs, kanji, ptr);
+	ptr = inscribe_flags_aux(flag_insc_immune, flgs, ptr);
 
 	/* Resistance */
 	if (have_flag_of(flag_insc_resistance, flgs))
 	{
-		if (kanji)
-			ADD_INSC("r");
-		else if (ptr != prev_ptr)
+		if (ptr != prev_ptr)
 		{
 			ADD_INSC(";");
 			prev_ptr = ptr;
 		}
 	}
-	ptr = inscribe_flags_aux(flag_insc_resistance, flgs, kanji, ptr);
+	ptr = inscribe_flags_aux(flag_insc_resistance, flgs, ptr);
 
 	/* Misc Ability */
 	if (have_flag_of(flag_insc_misc, flgs))
@@ -730,55 +721,44 @@ static char *get_ability_abbreviation(char *ptr, object_type *o_ptr, bool kanji,
 			prev_ptr = ptr;
 		}
 	}
-	ptr = inscribe_flags_aux(flag_insc_misc, flgs, kanji, ptr);
+	ptr = inscribe_flags_aux(flag_insc_misc, flgs, ptr);
 
 	/* Aura */
 	if (have_flag_of(flag_insc_aura, flgs))
 	{
 		ADD_INSC("[");
 	}
-	ptr = inscribe_flags_aux(flag_insc_aura, flgs, kanji, ptr);
+	ptr = inscribe_flags_aux(flag_insc_aura, flgs, ptr);
 
 	/* Brand Weapon */
 	if (have_flag_of(flag_insc_brand, flgs))
 		ADD_INSC("|");
-	ptr = inscribe_flags_aux(flag_insc_brand, flgs, kanji, ptr);
+	ptr = inscribe_flags_aux(flag_insc_brand, flgs, ptr);
 
 	/* Kill Weapon */
 	if (have_flag_of(flag_insc_kill, flgs))
 		ADD_INSC("/X");
-	ptr = inscribe_flags_aux(flag_insc_kill, flgs, kanji, ptr);
+	ptr = inscribe_flags_aux(flag_insc_kill, flgs, ptr);
 
 	/* Slay Weapon */
 	if (have_flag_of(flag_insc_slay, flgs))
 		ADD_INSC("/");
-	ptr = inscribe_flags_aux(flag_insc_slay, flgs, kanji, ptr);
+	ptr = inscribe_flags_aux(flag_insc_slay, flgs, ptr);
 
 	/* Esp */
-	if (kanji)
-	{
-		if (have_flag_of(flag_insc_esp1, flgs) ||
-		    have_flag_of(flag_insc_esp2, flgs))
-			ADD_INSC("~");
-		ptr = inscribe_flags_aux(flag_insc_esp1, flgs, kanji, ptr);
-		ptr = inscribe_flags_aux(flag_insc_esp2, flgs, kanji, ptr);
-	}
-	else
-	{
-		if (have_flag_of(flag_insc_esp1, flgs))
-			ADD_INSC("~");
-		ptr = inscribe_flags_aux(flag_insc_esp1, flgs, kanji, ptr);
-		if (have_flag_of(flag_insc_esp2, flgs))
-			ADD_INSC("~");
-		ptr = inscribe_flags_aux(flag_insc_esp2, flgs, kanji, ptr);
-	}
+	if (have_flag_of(flag_insc_esp1, flgs))
+		ADD_INSC("~");
+	ptr = inscribe_flags_aux(flag_insc_esp1, flgs, ptr);
+	if (have_flag_of(flag_insc_esp2, flgs))
+		ADD_INSC("~");
+	ptr = inscribe_flags_aux(flag_insc_esp2, flgs, ptr);
 
 	/* sustain */
 	if (have_flag_of(flag_insc_sust, flgs))
 	{
 		ADD_INSC("(");
 	}
-	ptr = inscribe_flags_aux(flag_insc_sust, flgs, kanji, ptr);
+	ptr = inscribe_flags_aux(flag_insc_sust, flgs, ptr);
 
 	*ptr = '\0';
 
@@ -817,7 +797,6 @@ static void get_inscription(char *buff, object_type *o_ptr)
 		/* {%} will be automatically converted */
 		else if ('%' == *insc)
 		{
-			bool kanji = FALSE;
 			bool all;
 			cptr start = ptr;
 
@@ -834,7 +813,7 @@ static void get_inscription(char *buff, object_type *o_ptr)
 				all = FALSE;
 			}
 
-			ptr = get_ability_abbreviation(ptr, o_ptr, kanji, all);
+			ptr = get_ability_abbreviation(ptr, o_ptr, all);
 
 			if (ptr == start)
 				ADD_INSC(" ");
@@ -2139,13 +2118,12 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 	{
 		if (!o_ptr->inscription || !my_strchr(quark_str(o_ptr->inscription), '%'))
 		{
-			bool kanji, all;
+			bool all;
 
-			kanji = FALSE;
 			all = abbrev_all;
 			if ((o_ptr->tval == TV_RING || o_ptr->tval == TV_AMULET) && o_ptr->art_name)
 				all = TRUE;
-			get_ability_abbreviation(tmp_val2, o_ptr, kanji, all);
+			get_ability_abbreviation(tmp_val2, o_ptr, all);
 		}
 	}
 
