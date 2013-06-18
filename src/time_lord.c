@@ -110,13 +110,13 @@ static void _change_monster_race(int m_idx, int new_r_idx)
                     hallu_race = &r_info[randint1(max_r_idx - 1)];
                 }
                 while (!hallu_race->name || (hallu_race->flags1 & RF1_UNIQUE));
-                msg_format(T("%^s changed into %s.", "%sは%sに進化した。"), m_name, r_name + hallu_race->name);
+                msg_format("%^s changed into %s.", m_name, r_name + hallu_race->name);
             }
             else
             {
                 cptr txt = (new_lvl > old_lvl) ? "evolved" : "devolved";
                 monster_desc(new_name, m_ptr, 0);
-                msg_format(T("%^s %s into %s.", "%sは%sに進化した。"), m_name, txt, new_name);
+                msg_format("%^s %s into %s.", m_name, txt, new_name);
             }
         }
         if (!p_ptr->image) r_info[old_r_idx].r_xtra1 |= MR1_SINKA;

@@ -3958,7 +3958,7 @@ static void dump_aux_race_history(FILE *fff)
     {
         int i;
 
-        fprintf(fff, T("\n\n You were born as %s.", "\n\n あなたは%sとして生まれた。"), get_race_t_aux(p_ptr->start_race, 0)->name);
+        fprintf(fff, "\n\n You were born as %s.", get_race_t_aux(p_ptr->start_race, 0)->name);
         for (i = 0; i < MAX_RACES; i++)
         {
             if (p_ptr->start_race == i) continue;
@@ -3970,7 +3970,7 @@ static void dump_aux_race_history(FILE *fff)
             {
                 if (!(p_ptr->old_race2 & 1L << (i-32))) continue;
             }
-            fprintf(fff, T("\n You were a %s before.", "\n あなたはかつて%sだった。"), get_race_t_aux(i, 0)->name);
+            fprintf(fff, "\n You were a %s before.", get_race_t_aux(i, 0)->name);
         }
 
         fputc('\n', fff);

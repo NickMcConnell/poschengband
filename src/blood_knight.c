@@ -5,13 +5,13 @@ void _blood_flow_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Blood Flow", ""));
+        var_set_string(res, "Blood Flow");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Cuts yourself.", ""));
+        var_set_string(res, "Cuts yourself.");
         break;
     case SPELL_SPOIL_DESC:
-        var_set_string(res, T("Gives player Light Cut (10) status, or increases current cut status by 20%, whichever is greater.", ""));
+        var_set_string(res, "Gives player Light Cut (10) status, or increases current cut status by 20%, whichever is greater.");
         break;
     case SPELL_CAST:
     {
@@ -35,13 +35,13 @@ void _blood_sight_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Blood Sight", ""));
+        var_set_string(res, "Blood Sight");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Detects living creatures in the vicinity.", ""));
+        var_set_string(res, "Detects living creatures in the vicinity.");
         break;
     case SPELL_SPOIL_DESC:
-        var_set_string(res, T("Detects living creatures in the vicinity. At L30, gives temporary ESP Living for 30+d30 rounds.", ""));
+        var_set_string(res, "Detects living creatures in the vicinity. At L30, gives temporary ESP Living for 30+d30 rounds.");
         break;
     case SPELL_CAST:
     {
@@ -63,13 +63,13 @@ void _blood_spray_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Blood Spray", ""));
+        var_set_string(res, "Blood Spray");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Cuts yourself, splattering nearby enemies.", ""));
+        var_set_string(res, "Cuts yourself, splattering nearby enemies.");
         break;
     case SPELL_SPOIL_DESC:
-        var_set_string(res, T("Generates a radius 3 blood ball centered on the player for 2*(3d5+L+L/5) damage. Radius is increased to 4 at L30.", ""));
+        var_set_string(res, "Generates a radius 3 blood ball centered on the player for 2*(3d5+L+L/5) damage. Radius is increased to 4 at L30.");
         break;
     case SPELL_INFO:
         var_set_string(res, info_damage(3, 5, p_ptr->lev + p_ptr->lev/4));
@@ -96,10 +96,10 @@ void _blood_bath_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Blood Bath", ""));
+        var_set_string(res, "Blood Bath");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Restores constitution and cures poison.", ""));
+        var_set_string(res, "Restores constitution and cures poison.");
         break;
     case SPELL_CAST:
     {
@@ -121,10 +121,10 @@ void _blood_shield_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Blood Shield", ""));
+        var_set_string(res, "Blood Shield");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Gives bonus to AC depending on how wounded you are.  Grants reflection if you are really hurting.", ""));
+        var_set_string(res, "Gives bonus to AC depending on how wounded you are.  Grants reflection if you are really hurting.");
         break;
 
     case SPELL_SPOIL_DESC:
@@ -147,10 +147,10 @@ void _blood_seeking_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Blood Seeking", ""));
+        var_set_string(res, "Blood Seeking");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Gives slay living to your weapon.", ""));
+        var_set_string(res, "Gives slay living to your weapon.");
         break;
     case SPELL_SPOIL_DESC:
         var_set_string(res, "For 30+d30 rounds, the player's weapon will Slay Living (x2).");
@@ -172,10 +172,10 @@ void _blood_rage_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Blood Rage", ""));
+        var_set_string(res, "Blood Rage");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Enter a blood frenzy.  Gives speed and big bonuses to hit and damage.", ""));
+        var_set_string(res, "Enter a blood frenzy.  Gives speed and big bonuses to hit and damage.");
         break;
     case SPELL_SPOIL_DESC:
         var_set_string(res, "For L/2+d(L/2) rounds, player is hasted and berserk.");
@@ -199,10 +199,10 @@ void _blood_feast_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Blood Feast", ""));
+        var_set_string(res, "Blood Feast");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("You begin to feast on your opponents blood, doing extra damage but at a cost to your own health.", ""));
+        var_set_string(res, "You begin to feast on your opponents blood, doing extra damage but at a cost to your own health.");
         break;
     case SPELL_SPOIL_DESC:
         var_set_string(res, "For 25+d25 rounds, each melee strike does +35 damage, but player takes 15 damage per strike.");
@@ -233,10 +233,10 @@ void _blood_revenge_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Blood Revenge", ""));
+        var_set_string(res, "Blood Revenge");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Gives an aura of bloody revenge.  Monsters take damaged based on your cut status.", ""));
+        var_set_string(res, "Gives an aura of bloody revenge.  Monsters take damaged based on your cut status.");
         break;
     case SPELL_SPOIL_DESC:
         var_set_string(res, "For 5+d5 rounds, any foe that does X melee damage to the player takes X*C/100 damage in revenge, where C is the player's current cut status. However, this retaliatory damage is bounded between C/10 and 50 per strike.");
@@ -274,10 +274,10 @@ void _blood_pool_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Blood Pool", ""));
+        var_set_string(res, "Blood Pool");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Creates a macabre Potion of Healing made of your own blood.", ""));
+        var_set_string(res, "Creates a macabre Potion of Healing made of your own blood.");
         break;
     case SPELL_SPOIL_DESC:
         var_set_string(res, "Create a potion of blood. Player is limited to 30 such potions, and may neither "
@@ -325,10 +325,10 @@ void _blood_explosion_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Blood Explosion", ""));
+        var_set_string(res, "Blood Explosion");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Damages all living creatures in sight at tremendous cost to your own health.", ""));
+        var_set_string(res, "Damages all living creatures in sight at tremendous cost to your own health.");
         break;
     case SPELL_SPOIL_DESC:
         var_set_string(res, "All living creatures in player's line of sight take 500 damage.");
@@ -354,10 +354,10 @@ void _cauterize_wounds_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Cauterize Wounds", ""));
+        var_set_string(res, "Cauterize Wounds");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Cures cuts", ""));
+        var_set_string(res, "Cures cuts");
         break;
     case SPELL_CAST:
         set_cut(0, TRUE);

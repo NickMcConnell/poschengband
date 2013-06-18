@@ -2872,19 +2872,19 @@ bool destroy_area(int y1, int x1, int r, int power)
                         monster_desc(m_name, m_ptr, 0);
 
                         if (see_m)
-                            msg_format(T("%^s is unaffected.", "%^sには効果がなかった。"), m_name);
+                            msg_format("%^s is unaffected.", m_name);
 
                         if (MON_CSLEEP(m_ptr))
                         {
                             set_monster_csleep(c_ptr->m_idx, 0);
                             if (m_ptr->ml)
-                                msg_format(T("%^s wakes up.", "%^sが目を覚ました。"), m_name);
+                                msg_format("%^s wakes up.", m_name);
                         }
 
                         if (is_friendly(m_ptr) && !is_pet(m_ptr))
                         {
                             if (see_m)
-                                msg_format(T("%^s gets angry!", "%sは怒った！"), m_name);
+                                msg_format("%^s gets angry!", m_name);
                             set_hostile(m_ptr);
                         }
 

@@ -1850,14 +1850,14 @@ static void get_random_name_aux(char *return_name, object_type *o_ptr, int power
             switch (power)
             {
             case 0:
-                filename = T("a_cursed.txt", "a_cursed_j.txt");
+                filename = "a_cursed.txt";
                 break;
             case 1:
             case 2:
-                filename = T("a_med.txt", "a_med_j.txt");
+                filename = "a_med.txt";
                 break;
             default:
-                filename = T("a_high.txt", "a_high_j.txt");
+                filename = "a_high.txt";
             }
         }
         else
@@ -1865,14 +1865,14 @@ static void get_random_name_aux(char *return_name, object_type *o_ptr, int power
             switch (power)
             {
             case 0:
-                filename = T("w_cursed.txt", "w_cursed_j.txt");
+                filename = "w_cursed.txt";
                 break;
             case 1:
             case 2:
-                filename = T("w_med.txt", "w_med_j.txt");
+                filename = "w_med.txt";
                 break;
             default:
-                filename = T("w_high.txt", "w_high_j.txt");
+                filename = "w_high.txt";
             }
         }
 

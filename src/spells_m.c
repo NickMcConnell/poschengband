@@ -58,10 +58,10 @@ void mana_branding_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Mana Branding", "魔法剣"));
+        var_set_string(res, "Mana Branding");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Makes current weapon some elemental branded. You must wield weapons.", "一定時間、武器に冷気、炎、電撃、酸、毒のいずれかの属性をつける。武器を持たないと使えない。"));
+        var_set_string(res, "Makes current weapon some elemental branded. You must wield weapons.");
         break;
     case SPELL_CAST:
         var_set_bool(res, choose_ele_attack());
@@ -139,10 +139,10 @@ void mana_storm_I_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Mana Storm I", ""));
+        var_set_string(res, "Mana Storm I");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Fires a large ball of pure mana.", ""));
+        var_set_string(res, "Fires a large ball of pure mana.");
         break;
     case SPELL_INFO:
         var_set_string(res, info_damage(10, spell_power(10), spell_power(p_ptr->lev * 5)));
@@ -153,7 +153,7 @@ void mana_storm_I_spell(int cmd, variant *res)
         var_set_bool(res, FALSE);
         if (!get_aim_dir(&dir)) return;
 
-        msg_print(T("You cast a mana storm.", "魔力の嵐の呪文を念じた。"));
+        msg_print("You cast a mana storm.");
         fire_ball(GF_MANA, dir, spell_power(p_ptr->lev * 5 + damroll(10, 10)), 4);
 
         var_set_bool(res, TRUE);
@@ -170,10 +170,10 @@ void mana_storm_II_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Mana Storm II", ""));
+        var_set_string(res, "Mana Storm II");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Fires a large ball of pure mana.", ""));
+        var_set_string(res, "Fires a large ball of pure mana.");
         break;
     case SPELL_INFO:
         var_set_string(res, info_damage(10, spell_power(10), spell_power(p_ptr->lev * 8 + 50)));
@@ -184,7 +184,7 @@ void mana_storm_II_spell(int cmd, variant *res)
         var_set_bool(res, FALSE);
         if (!get_aim_dir(&dir)) return;
 
-        msg_print(T("You cast a mana storm.", "魔力の嵐の呪文を念じた。"));
+        msg_print("You cast a mana storm.");
         fire_ball(GF_MANA, dir, spell_power(p_ptr->lev * 8 + 50 + damroll(10, 10)), 4);
 
         var_set_bool(res, TRUE);
@@ -201,10 +201,10 @@ void massacre_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Massacre", "皆殺し"));
+        var_set_string(res, "Massacre");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Attack all adjacent monsters in a fit of wild, uncontrollable fury.", ""));
+        var_set_string(res, "Attack all adjacent monsters in a fit of wild, uncontrollable fury.");
         break;
     case SPELL_CAST:
     {
@@ -239,7 +239,7 @@ void mind_blast_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Mind Blast", "精神攻撃"));
+        var_set_string(res, "Mind Blast");
         break;
     case SPELL_DESC:
         var_set_string(res, "Attempt to blast your opponent with psionic energy.");
@@ -248,13 +248,13 @@ void mind_blast_spell(int cmd, variant *res)
         var_set_string(res, info_damage(spell_power(dice), sides, 0));
         break;
     case SPELL_GAIN_MUT:
-        msg_print(T("You gain the power of Mind Blast.", "精神攻撃の能力を得た。"));
+        msg_print("You gain the power of Mind Blast.");
         break;
     case SPELL_LOSE_MUT:
-        msg_print(T("You lose the power of Mind Blast.", "精神攻撃の能力を失った。"));
+        msg_print("You lose the power of Mind Blast.");
         break;
     case SPELL_MUT_DESC:
-        var_set_string(res, T("You can Mind Blast your enemies.", "あなたは敵を精神攻撃できる。"));
+        var_set_string(res, "You can Mind Blast your enemies.");
         break;
     case SPELL_CAST:
     {
@@ -262,7 +262,7 @@ void mind_blast_spell(int cmd, variant *res)
         var_set_bool(res, FALSE);
         if (get_aim_dir(&dir))
         {
-            msg_print(T("You concentrate...", "集中している..."));
+            msg_print("You concentrate...");
             fire_bolt(GF_PSI, dir, spell_power(damroll(dice, sides)));
             var_set_bool(res, TRUE);
         }
@@ -347,10 +347,10 @@ void orb_of_entropy_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Orb of Entropy", "エントロピーの球"));
+        var_set_string(res, "Orb of Entropy");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Fires a ball which damages living monsters.", "生命のある者に効果のある球を放つ。"));
+        var_set_string(res, "Fires a ball which damages living monsters.");
         break;
     case SPELL_INFO:
         var_set_string(res, info_damage(3, spell_power(6), spell_power(base)));
@@ -379,19 +379,19 @@ void panic_hit_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Panic Hit", "ヒット＆アウェイ"));
+        var_set_string(res, "Panic Hit");
         break;
     case SPELL_DESC:
         var_set_string(res, "Attack an adjacent monster and attempt a getaway.");
         break;
     case SPELL_GAIN_MUT:
-        msg_print(T("You suddenly understand how thieves feel.", "突然、泥棒の気分が分かるようになった。"));
+        msg_print("You suddenly understand how thieves feel.");
         break;
     case SPELL_LOSE_MUT:
-        msg_print(T("You no longer feel jumpy.", "あちこちへ跳べる気分がなくなった。"));
+        msg_print("You no longer feel jumpy.");
         break;
     case SPELL_MUT_DESC:
-        var_set_string(res, T("You can run for your life after hitting something.", "あなたは攻撃した後身を守るため逃げることができる。"));
+        var_set_string(res, "You can run for your life after hitting something.");
         break;
     case SPELL_CAST:
     {
@@ -406,7 +406,7 @@ void panic_hit_spell(int cmd, variant *res)
         {
             py_attack(y, x, 0);
             if (randint0(p_ptr->skills.dis) < 7)
-                msg_print(T("You failed to teleport.", "うまく逃げられなかった。"));
+                msg_print("You failed to teleport.");
             else 
                 teleport_player(30, 0L);
     
@@ -414,7 +414,7 @@ void panic_hit_spell(int cmd, variant *res)
         }
         else
         {
-            msg_print(T("You don't see any monster in this direction", "その方向にはモンスターはいません。"));
+            msg_print("You don't see any monster in this direction");
             msg_print(NULL);
             /* No Charge for this Action ... */
         }
@@ -457,13 +457,13 @@ void pattern_mindwalk_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Pattern Mindwalking", "パターン・ウォーク"));
+        var_set_string(res, "Pattern Mindwalking");
         break;
     case SPELL_DESC:
         var_set_string(res, "Walk the pattern in your mind.  Restores life and stats.");
         break;
     case SPELL_CAST:
-        msg_print(T("You picture the Pattern in your mind and walk it...", "あなたは「パターン」を心に描いてその上を歩いた..."));
+        msg_print("You picture the Pattern in your mind and walk it...");
 
         set_poisoned(0, TRUE);
         set_image(0, TRUE);
@@ -492,7 +492,7 @@ void perception_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Perception", "鑑識"));
+        var_set_string(res, "Perception");
         break;
     default:
         identify_spell(cmd, res);
@@ -505,19 +505,19 @@ void phase_door_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Phase Door", "ショート・テレポート"));
+        var_set_string(res, "Phase Door");
         break;
     case SPELL_DESC:
         var_set_string(res, "A short range teleport.");
         break;
     case SPELL_GAIN_MUT:
-        msg_print(T("You gain the power of minor teleportation.", "近距離テレポートの能力を得た。"));
+        msg_print("You gain the power of minor teleportation.");
         break;
     case SPELL_LOSE_MUT:
-        msg_print(T("You lose the power of minor teleportation.", "近距離テレポートの能力を失った。"));
+        msg_print("You lose the power of minor teleportation.");
         break;
     case SPELL_MUT_DESC:
-        var_set_string(res, T("You can teleport yourself short distances.", "あなたは短い距離をテレポートできる。"));
+        var_set_string(res, "You can teleport yourself short distances.");
         break;
     case SPELL_CAST:
         teleport_player(10, 0);
@@ -603,7 +603,7 @@ void poison_dart_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Poison Dart", "毒のダーツ"));
+        var_set_string(res, "Poison Dart");
         break;
     case SPELL_DESC:
         var_set_string(res, "Fires a poison dart at a single foe.");
@@ -616,7 +616,7 @@ void poison_dart_spell(int cmd, variant *res)
         int dir = 0;
         var_set_bool(res, FALSE);
         if (!get_aim_dir(&dir)) return;
-        msg_print(T("You throw a dart of poison.", "毒のダーツを投げた。"));
+        msg_print("You throw a dart of poison.");
         fire_bolt(GF_POIS, dir, p_ptr->lev);
         var_set_bool(res, TRUE);
         break;
@@ -653,10 +653,10 @@ void polymorph_colossus_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Polymorph Colossus", ""));
+        var_set_string(res, "Polymorph Colossus");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Mimic a Colossus for a while. Loses abilities of original race and gets great abilities as a colossus.", ""));
+        var_set_string(res, "Mimic a Colossus for a while. Loses abilities of original race and gets great abilities as a colossus.");
         break;
     case SPELL_INFO:
         var_set_string(res, info_duration(spell_power(15), spell_power(15)));
@@ -679,10 +679,10 @@ void polymorph_demon_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Polymorph Demon", ""));
+        var_set_string(res, "Polymorph Demon");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Mimic a demon for a while. Loses abilities of original race and gets abilities as a demon.", ""));
+        var_set_string(res, "Mimic a demon for a while. Loses abilities of original race and gets abilities as a demon.");
         break;
     case SPELL_INFO:
         var_set_string(res, info_duration(spell_power(15), spell_power(15)));
@@ -705,10 +705,10 @@ void polymorph_demonlord_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Polymorph Demonlord", "魔王変化"));
+        var_set_string(res, "Polymorph Demonlord");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Mimic a demon lord for a while. Loses abilities of original race and gets great abilities as a demon lord. Even hard walls can't stop your walking.", "悪魔の王に変化する。変化している間は本来の種族の能力を失い、代わりに悪魔の王としての能力を得、壁を破壊しながら歩く。"));
+        var_set_string(res, "Mimic a demon lord for a while. Loses abilities of original race and gets great abilities as a demon lord. Even hard walls can't stop your walking.");
         break;
     case SPELL_INFO:
         var_set_string(res, info_duration(spell_power(15), spell_power(15)));
@@ -731,23 +731,23 @@ void polymorph_self_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Polymorph", "変身"));
+        var_set_string(res, "Polymorph");
         break;
     case SPELL_DESC:
         var_set_string(res, "Mutates yourself.  This can be dangerous!");
         break;
     case SPELL_GAIN_MUT:
-        msg_print(T("Your body seems mutable.", "体が変異しやすくなった。"));
+        msg_print("Your body seems mutable.");
         break;
     case SPELL_LOSE_MUT:
-        msg_print(T("Your body seems stable.", "あなたの体は安定したように見える。"));
+        msg_print("Your body seems stable.");
         break;
     case SPELL_MUT_DESC:
-        var_set_string(res, T("You can polymorph yourself at will.", "あなたは自分の意志で変化できる。"));
+        var_set_string(res, "You can polymorph yourself at will.");
         break;
     case SPELL_CAST:
         var_set_bool(res, FALSE);
-        if (get_check(T("You will polymorph yourself. Are you sure? ", "変身します。よろしいですか？")))
+        if (get_check("You will polymorph yourself. Are you sure? "))
         {
             do_poly_self();
             var_set_bool(res, TRUE);
@@ -765,19 +765,19 @@ void power_throw_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Throw Object", "アイテム投げ"));
+        var_set_string(res, "Throw Object");
         break;
     case SPELL_DESC:
         var_set_string(res, "Hurl an object with great force.");
         break;
     case SPELL_GAIN_MUT:
-        msg_print(T("Your throwing arm feels much stronger.", "あなたの物を投げる手はかなり強くなった気がする。"));
+        msg_print("Your throwing arm feels much stronger.");
         break;
     case SPELL_LOSE_MUT:
-        msg_print(T("Your throwing arm feels much weaker.", "物を投げる手が弱くなった気がする。"));
+        msg_print("Your throwing arm feels much weaker.");
         break;
     case SPELL_MUT_DESC:
-        var_set_string(res, T("You can hurl objects with great force.", "あなたはアイテムを力強く投げることができる。"));
+        var_set_string(res, "You can hurl objects with great force.");
         break;
     case SPELL_COST_EXTRA:
         var_set_int(res, p_ptr->lev);
@@ -797,10 +797,10 @@ void probing_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Probe Monster", "モンスター調査"));
+        var_set_string(res, "Probe Monster");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Determines the abilities, strengths and weaknesses of nearby monsters.", ""));
+        var_set_string(res, "Determines the abilities, strengths and weaknesses of nearby monsters.");
         break;
     case SPELL_CAST:
         probing();
@@ -869,7 +869,7 @@ void radiation_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Emit Radiation", "放射能"));
+        var_set_string(res, "Emit Radiation");
         break;
     case SPELL_DESC:
         var_set_string(res, "Generates a huge ball of radiation centered on you.");
@@ -878,16 +878,16 @@ void radiation_spell(int cmd, variant *res)
         var_set_string(res, info_damage(0, 0, spell_power(p_ptr->lev)));
         break;
     case SPELL_GAIN_MUT:
-        msg_print(T("You start emitting hard radiation.", "あなたは強い放射線を発生し始めた。"));
+        msg_print("You start emitting hard radiation.");
         break;
     case SPELL_LOSE_MUT:
-        msg_print(T("You stop emitting hard radiation.", "あなたは放射能を発生しなくなった。"));
+        msg_print("You stop emitting hard radiation.");
         break;
     case SPELL_MUT_DESC:
-        var_set_string(res, T("You can emit hard radiation at will.", "あなたは自分の意思で放射能を発生することができる。"));
+        var_set_string(res, "You can emit hard radiation at will.");
         break;
     case SPELL_CAST:
-        msg_print(T("Radiation flows from your body!", "体から放射能が発生した！"));
+        msg_print("Radiation flows from your body!");
         fire_ball(GF_NUKE, 0, spell_power(p_ptr->lev * 2), 3 + (p_ptr->lev / 20));
         var_set_bool(res, TRUE);
         break;
@@ -903,10 +903,10 @@ void ray_of_sunlight_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Ray of Sunlight", "太陽光線"));
+        var_set_string(res, "Ray of Sunlight");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Fires a beam of light which damages to light-sensitive monsters.", "光線を放つ。光りを嫌うモンスターに効果がある。"));
+        var_set_string(res, "Fires a beam of light which damages to light-sensitive monsters.");
         break;
     case SPELL_INFO:
         var_set_string(res, info_damage(6, 8, 0));
@@ -931,19 +931,19 @@ void recall_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Recall", "帰還"));
+        var_set_string(res, "Recall");
         break;
     case SPELL_DESC:
         var_set_string(res, "Travel back and forth between the town and the dungeon.");
         break;
     case SPELL_GAIN_MUT:
-        msg_print(T("You feel briefly homesick, but it passes.", "少しだけホームシックになったが、すぐ直った。"));
+        msg_print("You feel briefly homesick, but it passes.");
         break;
     case SPELL_LOSE_MUT:
-        msg_print(T("You feel briefly homesick.", "少しの間ホームシックになった。"));
+        msg_print("You feel briefly homesick.");
         break;
     case SPELL_MUT_DESC:
-        var_set_string(res, T("You can travel between town and the depths.", "あなたは街とダンジョンの間を行き来することができる。"));
+        var_set_string(res, "You can travel between town and the depths.");
         break;
     case SPELL_CAST:
         var_set_bool(res, FALSE);
@@ -989,7 +989,7 @@ void remove_curse_I_spell(int cmd, variant *res)
         break;
     case SPELL_CAST:
         if (remove_curse())
-            msg_print(T("You feel as if someone is watching over you.", "誰かに見守られているような気がする。"));
+            msg_print("You feel as if someone is watching over you.");
         var_set_bool(res, TRUE);
         break;
     default:
@@ -1011,7 +1011,7 @@ void remove_curse_II_spell(int cmd, variant *res)
         break;
     case SPELL_CAST:
         if (remove_all_curse())
-            msg_print(T("You feel as if someone is watching over you.", "誰かに見守られているような気がする。"));
+            msg_print("You feel as if someone is watching over you.");
         var_set_bool(res, TRUE);
         break;
     default:
@@ -1026,7 +1026,7 @@ void remove_fear_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Remove Fear", "恐怖除去"));
+        var_set_string(res, "Remove Fear");
         break;
     case SPELL_DESC:
         var_set_string(res, "");
@@ -1047,10 +1047,10 @@ void resistance_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Resistance", "全耐性"));
+        var_set_string(res, "Resistance");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Gives resistance to fire, cold, electricity, acid and poison for a while. These resistances can be added to which from equipment for more powerful resistances.", "一定時間、酸、電撃、炎、冷気、毒に対する耐性を得る。装備による耐性に累積する。"));
+        var_set_string(res, "Gives resistance to fire, cold, electricity, acid and poison for a while. These resistances can be added to which from equipment for more powerful resistances.");
         break;
     case SPELL_CAST:
     {
@@ -1076,19 +1076,19 @@ void resist_elements_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Resist Elements", "エレメント耐性"));
+        var_set_string(res, "Resist Elements");
         break;
     case SPELL_DESC:
         var_set_string(res, "Protect yourself from the ravages of the elements.");
         break;
     case SPELL_GAIN_MUT:
-        msg_print(T("You feel like you can protect yourself.", "あなたは自分自身を守れる気がする。"));
+        msg_print("You feel like you can protect yourself.");
         break;
     case SPELL_LOSE_MUT:
-        msg_print(T("You feel like you might be vulnerable.", "傷つき易くなった気がする。"));
+        msg_print("You feel like you might be vulnerable.");
         break;
     case SPELL_MUT_DESC:
-        var_set_string(res, T("You can harden yourself to the ravages of the elements.", "あなたは元素の攻撃に対して身を硬くすることができる。"));
+        var_set_string(res, "You can harden yourself to the ravages of the elements.");
         break;
     case SPELL_COST_EXTRA:
     {
@@ -1150,7 +1150,7 @@ void resist_environment_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Resist Environment", ""));
+        var_set_string(res, "Resist Environment");
         break;
     case SPELL_DESC:
         var_set_string(res, "Gives resistance to fire, cold and electricity for a while. These resistances can be added to which from equipment for more powerful resistances.");
@@ -1224,7 +1224,7 @@ void resist_poison_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Resist Poison", ""));
+        var_set_string(res, "Resist Poison");
         break;
     case SPELL_DESC:
         var_set_string(res, "Provides temporary resistance to poison.");
@@ -1291,10 +1291,10 @@ void rocket_I_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Magic Rocket I", "マジック・ロケット"));
+        var_set_string(res, "Magic Rocket I");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Fires a magic rocket.", "ロケットを発射する。"));
+        var_set_string(res, "Fires a magic rocket.");
         break;
     case SPELL_INFO:
         var_set_string(res, info_damage(0, 0, spell_power(120 + p_ptr->lev * 2)));
@@ -1308,7 +1308,7 @@ void rocket_I_spell(int cmd, variant *res)
         var_set_bool(res, FALSE);
         if (!get_aim_dir(&dir)) return;
 
-        msg_print(T("You launch a rocket!", "ロケット発射！"));
+        msg_print("You launch a rocket!");
         fire_rocket(GF_ROCKET, dir, dam, rad);
 
         var_set_bool(res, TRUE);
@@ -1325,10 +1325,10 @@ void rocket_II_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Magic Rocket II", "マジック・ロケット"));
+        var_set_string(res, "Magic Rocket II");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Fires a magic rocket of unsurpassable fire power.", "ロケットを発射する。"));
+        var_set_string(res, "Fires a magic rocket of unsurpassable fire power.");
         break;
     case SPELL_INFO:
         var_set_string(res, info_damage(0, 0, spell_power(500)));
@@ -1342,7 +1342,7 @@ void rocket_II_spell(int cmd, variant *res)
         var_set_bool(res, FALSE);
         if (!get_aim_dir(&dir)) return;
 
-        msg_print(T("You launch a rocket!", "ロケット発射！"));
+        msg_print("You launch a rocket!");
         fire_rocket(GF_ROCKET, dir, dam, rad);
 
         var_set_bool(res, TRUE);
@@ -1359,10 +1359,10 @@ void rush_attack_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Rush Attack", ""));
+        var_set_string(res, "Rush Attack");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Charge a nearby monster and attack with your weapons.", ""));
+        var_set_string(res, "Charge a nearby monster and attack with your weapons.");
         break;
     case SPELL_CAST:
         var_set_bool(res, rush_attack(NULL));

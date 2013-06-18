@@ -8123,7 +8123,7 @@ static void add_essence(int mode)
             if ( (o_ptr->tval == TV_BOW && o_ptr->sval == SV_HARP)
               || (o_ptr->tval == TV_SWORD && o_ptr->sval == SV_RUNESWORD) )
             {
-                msg_print(T("You failed to enchant.", "改良に失敗した。"));
+                msg_print("You failed to enchant.");
                 energy_use = 100;
                 return;
             }
@@ -8145,7 +8145,7 @@ static void add_essence(int mode)
             if ( o_ptr->name1 == ART_KAMIKAZE_ROBE
               || o_ptr->name2 == EGO_BERSERKER )
             {
-                msg_print(T("You failed to enchant.", "改良に失敗した。"));
+                msg_print("You failed to enchant.");
                 energy_use = 100;
                 return;
             }

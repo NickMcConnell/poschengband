@@ -547,7 +547,7 @@ void do_cmd_destroy(void)
             if (q_ptr->sval < 3) tester_exp /= 4;
             if (tester_exp<1) tester_exp = 1;
 
-            msg_print(T("You feel more experienced.", "更に経験を積んだような気がする。"));
+            msg_print("You feel more experienced.");
             gain_exp(tester_exp * amt);
         }
     }

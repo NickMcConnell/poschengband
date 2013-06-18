@@ -167,10 +167,10 @@ void create_ammo_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Create Ammo", ""));
+        var_set_string(res, "Create Ammo");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Create arrows, bolts or shots.", ""));
+        var_set_string(res, "Create arrows, bolts or shots.");
         break;
     case SPELL_CAST:
         var_set_bool(res, _create_ammo());

@@ -891,15 +891,15 @@ static void _club_toss_imp(_club_toss_info * info)
                             if (r_ptr->flags3 & RF3_NO_CONF)
                             {
                                 if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= RF3_NO_CONF;
-                                msg_format(T("%^s is unaffected.", "%^sには効果がなかった。"), m_name);
+                                msg_format("%^s is unaffected.", m_name);
                             }
                             else if (mon_save_p(m_ptr->r_idx, A_STR))
                             {
-                                msg_format(T("%^s is unaffected.", "%^sには効果がなかった。"), m_name);
+                                msg_format("%^s is unaffected.", m_name);
                             }
                             else
                             {
-                                msg_format(T("%^s appears confused.", "%^sは混乱したようだ。"), m_name);
+                                msg_format("%^s appears confused.", m_name);
                                 set_monster_confused(c_ptr->m_idx, MON_CONFUSED(m_ptr) + 10 + randint0(p_ptr->lev) / 5);
                             }
                         }
@@ -909,15 +909,15 @@ static void _club_toss_imp(_club_toss_info * info)
                             if (r_ptr->flags3 & RF3_NO_SLEEP)
                             {
                                 if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= RF3_NO_SLEEP;
-                                msg_format(T("%^s is unaffected.", "%^sには効果がなかった。"), m_name);
+                                msg_format("%^s is unaffected.", m_name);
                             }
                             else if (mon_save_p(m_ptr->r_idx, A_STR))
                             {
-                                msg_format(T("%^s is unaffected.", "%^sには効果がなかった。"), m_name);
+                                msg_format("%^s is unaffected.", m_name);
                             }
                             else
                             {
-                                msg_format(T("%^s is knocked out.", ), m_name);
+                                msg_format("%^s is knocked out.", m_name);
                                 set_monster_csleep(c_ptr->m_idx, MON_CSLEEP(m_ptr) + 500);
                             }
                         }
@@ -927,15 +927,15 @@ static void _club_toss_imp(_club_toss_info * info)
                             if (r_ptr->flags3 & RF3_NO_STUN)
                             {
                                 if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= RF3_NO_STUN;
-                                msg_format(T("%^s is unaffected.", "%^sには効果がなかった。"), m_name);
+                                msg_format("%^s is unaffected.", m_name);
                             }
                             else if (mon_save_p(m_ptr->r_idx, A_STR))
                             {
-                                msg_format(T("%^s is unaffected.", "%^sには効果がなかった。"), m_name);
+                                msg_format("%^s is unaffected.", m_name);
                             }
                             else
                             {
-                                msg_format(T("%^s is stunned.", ), m_name);
+                                msg_format("%^s is stunned.", m_name);
                                 set_monster_stunned(c_ptr->m_idx, MAX(MON_STUNNED(m_ptr), 2));
                             }
                         }

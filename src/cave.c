@@ -4936,14 +4936,14 @@ void hit_mon_trap(int y, int x, int m_idx)
             }
             else
             {
-                msg_print(T("The rune explodes!", "ルーンが爆発した！"));
+                msg_print("The rune explodes!");
                 project(0, 2, y, x, 2 * (p_ptr->lev + damroll(7, 7)), GF_MANA, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
             }
         }
     }
     else
     {
-        msg_print(T("Your trap was disarmed.", "爆発のルーンは解除された。"));
+        msg_print("Your trap was disarmed.");
     }
 
     /* Forget the trap */

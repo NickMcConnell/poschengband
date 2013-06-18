@@ -2825,8 +2825,8 @@ static bool enchant_item(int cost, int to_hit, int to_dam, int to_ac, bool is_gu
 
     /* Which Item? Client sets item_tester_hook! */
     item_tester_no_ryoute = TRUE;
-    q = T("Improve which item? ", "どのアイテムを改良しますか？");
-    s = T("You have nothing to improve.", "改良できるものがありません。");
+    q = "Improve which item? ";
+    s = "You have nothing to improve.";
     if (!get_item(&item, q, s, (USE_INVEN | USE_EQUIP))) return (FALSE);
     o_ptr = &inventory[item];
 
@@ -2918,7 +2918,7 @@ static bool enchant_item(int cost, int to_hit, int to_dam, int to_ac, bool is_gu
     if (p_ptr->au < cost)
     {
         object_desc(tmp_str, o_ptr, OD_NAME_ONLY);
-        msg_format(T("You do not have the gold to improve %s!", "%sを改良するだけのゴールドがありません！"), tmp_str);
+        msg_format("You do not have the gold to improve %s!", tmp_str);
         return FALSE;
     }
 
@@ -2955,7 +2955,7 @@ static bool enchant_item(int cost, int to_hit, int to_dam, int to_ac, bool is_gu
     if (!okay)
     {
         if (flush_failure) flush();
-        msg_print(T("The improvement failed.", "改良に失敗した。"));
+        msg_print("The improvement failed.");
         return (FALSE);
     }
     else

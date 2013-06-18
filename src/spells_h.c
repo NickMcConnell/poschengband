@@ -5,7 +5,7 @@ void heroism_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Heroism", ""));
+        var_set_string(res, "Heroism");
         break;
     case SPELL_DESC:
         var_set_string(res, "Temporarily grants increased combat prowess and great bravery.");
@@ -26,7 +26,7 @@ void hide_in_mud_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Hide in Mud", ""));
+        var_set_string(res, "Hide in Mud");
         break;
     case SPELL_DESC:
         var_set_string(res, "Gain the ability to pass into walls temporarily, as well as extra resistance to acid.");
@@ -78,7 +78,7 @@ void identify_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Identify", ""));
+        var_set_string(res, "Identify");
         break;
     case SPELL_DESC:
         var_set_string(res, "Identify a single object.");
@@ -98,7 +98,7 @@ void identify_fully_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Identify True", "真・鑑定"));
+        var_set_string(res, "Identify True");
         break;
     case SPELL_DESC:
         var_set_string(res, "");
@@ -257,10 +257,10 @@ void holy_lance_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Holy Lance", "ホーリー・ランス"));
+        var_set_string(res, "Holy Lance");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Fires a beam of pure holiness.", ""));
+        var_set_string(res, "Fires a beam of pure holiness.");
         break;
     case SPELL_INFO:
         var_set_string(res, info_damage(0, 0, dam));
@@ -288,19 +288,19 @@ void hp_to_sp_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Convert HP to SP", ""));
+        var_set_string(res, "Convert HP to SP");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Converts HP into SP", ""));
+        var_set_string(res, "Converts HP into SP");
         break;
     case SPELL_GAIN_MUT:
-        msg_print(T("You are subject to fits of painful clarity.", "痛みを伴う精神明瞭化の発作を起こすようになった。"));
+        msg_print("You are subject to fits of painful clarity.");
         break;
     case SPELL_LOSE_MUT:
-        msg_print(T("You are no longer subject to fits of painful clarity.", "痛みを伴う精神明瞭化の発作に襲われなくなった。"));
+        msg_print("You are no longer subject to fits of painful clarity.");
         break;
     case SPELL_MUT_DESC:
-        var_set_string(res, T("Your blood sometimes rushes to your head.", "あなたは時々頭に血がどっと流れる。"));
+        var_set_string(res, "Your blood sometimes rushes to your head.");
         break;
     case SPELL_PROCESS:
         if (!p_ptr->anti_magic && one_in_(4000))
@@ -317,14 +317,14 @@ void hp_to_sp_spell(int cmd, variant *res)
                 p_ptr->csp += healing;
 
                 p_ptr->redraw |= (PR_MANA);
-                take_hit(DAMAGE_LOSELIFE, healing, T("blood rushing to the head", "頭に昇った血"), -1);
+                take_hit(DAMAGE_LOSELIFE, healing, "blood rushing to the head", -1);
             }
         }
         break;
 
     case SPELL_CAST:
     {
-        int gain_sp = take_hit(DAMAGE_USELIFE, p_ptr->lev, T("thoughtless convertion from HP to SP", "ＨＰからＭＰへの無謀な変換"), -1) / 5;
+        int gain_sp = take_hit(DAMAGE_USELIFE, p_ptr->lev, "thoughtless convertion from HP to SP", -1) / 5;
         if (gain_sp && p_ptr->pclass != CLASS_RUNE_KNIGHT)
         {
             p_ptr->csp += gain_sp;
@@ -337,7 +337,7 @@ void hp_to_sp_spell(int cmd, variant *res)
             p_ptr->redraw |= PR_MANA;
         }
         else
-            msg_print(T("You failed to convert.", "変換に失敗した。"));
+            msg_print("You failed to convert.");
 
         var_set_bool(res, TRUE);
         break;
@@ -359,13 +359,13 @@ void hypnotic_gaze_spell(int cmd, variant *res)
         var_set_string(res, "Attempt to charm a monster.");
         break;
     case SPELL_GAIN_MUT:
-        msg_print(T("Your eyes look mesmerizing...", "催眠眼の能力を得た。"));
+        msg_print("Your eyes look mesmerizing...");
         break;
     case SPELL_LOSE_MUT:
-        msg_print(T("Your eyes look uninteresting.", "あなたの目はつまらない目になった。"));
+        msg_print("Your eyes look uninteresting.");
         break;
     case SPELL_MUT_DESC:
-        var_set_string(res, T("Your gaze is hypnotic.", "あなたの睨みは催眠効果をもつ。"));
+        var_set_string(res, "Your gaze is hypnotic.");
         break;
     case SPELL_CAST:
     {
@@ -373,7 +373,7 @@ void hypnotic_gaze_spell(int cmd, variant *res)
         var_set_bool(res, FALSE);
         if (get_aim_dir(&dir))
         {
-            msg_print(T("Your eyes look mesmerizing...", "あなたの目は幻惑的になった..."));
+            msg_print("Your eyes look mesmerizing...");
             charm_monster(dir, p_ptr->lev);
             var_set_bool(res, TRUE);
         }
@@ -393,18 +393,18 @@ void imp_fire_spell(int cmd, variant *res)
     {
     case SPELL_NAME:
         if (p_ptr->lev >= ball_lev)
-            var_set_string(res, T("Fire Ball", ""));
+            var_set_string(res, "Fire Ball");
         else
-            var_set_string(res, T("Fire Bolt", ""));
+            var_set_string(res, "Fire Bolt");
         break;
     case SPELL_SPOIL_NAME:
         var_set_string(res, "Fire Bolt/Ball");
         break;
     case SPELL_DESC:
         if (p_ptr->lev >= ball_lev)
-            var_set_string(res, T("Generate a Fire Ball on chosen target.", ""));
+            var_set_string(res, "Generate a Fire Ball on chosen target.");
         else
-            var_set_string(res, T("Hurls a fiery missile at chosen target.", ""));
+            var_set_string(res, "Hurls a fiery missile at chosen target.");
         break;
     case SPELL_SPOIL_DESC:
         var_set_string(res, "Fire Bolt for L damage. At L30, does a radius 2 Fire Ball for 2L damage instead.");
@@ -493,7 +493,7 @@ void laser_eye_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Laser Eye", "レーザー・アイ"));
+        var_set_string(res, "Laser Eye");
         break;
     case SPELL_DESC:
         var_set_string(res, "Fires a laser beam.");
@@ -502,13 +502,13 @@ void laser_eye_spell(int cmd, variant *res)
         var_set_string(res, info_damage(0, 0, spell_power(p_ptr->lev*2)));
         break;
     case SPELL_GAIN_MUT:
-        msg_print(T("Your eyes burn for a moment.", "あなたの目は一瞬焼け付いた。"));
+        msg_print("Your eyes burn for a moment.");
         break;
     case SPELL_LOSE_MUT:
-        msg_print(T("Your eyes burn for a moment, then feel soothed.", "眼が少しの間焼き付いて、痛みが和らいだ。"));
+        msg_print("Your eyes burn for a moment, then feel soothed.");
         break;
     case SPELL_MUT_DESC:
-        var_set_string(res, T("Your eyes can fire laser beams.", "あなたは目からレーザー光線を発射することができる。"));
+        var_set_string(res, "Your eyes can fire laser beams.");
         break;
     case SPELL_CAST:
     {
@@ -543,13 +543,13 @@ void light_area_spell(int cmd, variant *res)
         var_set_string(res, "Lights up nearby area and the inside of a room permanently.");
         break;
     case SPELL_GAIN_MUT:
-        msg_print(T("You can light up rooms with your presence.", "あなたは光り輝いて部屋を明るくするようになった。"));
+        msg_print("You can light up rooms with your presence.");
         break;
     case SPELL_LOSE_MUT:
-        msg_print(T("You can no longer light up rooms with your presence.", "部屋を明るく照らすことが出来なくなった。"));
+        msg_print("You can no longer light up rooms with your presence.");
         break;
     case SPELL_MUT_DESC:
-        var_set_string(res, T("You can emit bright light.", "あなたは明るい光を放つことができる。"));
+        var_set_string(res, "You can emit bright light.");
         break;
     case SPELL_CAST:
         lite_area(spell_power(damroll(dice, sides)), rad);
@@ -626,17 +626,17 @@ void living_trump_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Living Trump", "人間トランプ"));
+        var_set_string(res, "Living Trump");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Gives mutation which makes you teleport randomly or makes you able to teleport at will.", "ランダムにテレポートする突然変異か、自分の意思でテレポートする突然変異が身につく。"));
+        var_set_string(res, "Gives mutation which makes you teleport randomly or makes you able to teleport at will.");
         break;
     case SPELL_CAST:
     {
         int mutation = one_in_(7) ? MUT_TELEPORT : MUT_TELEPORT_RND;
 
         if (mut_gain(mutation))
-            msg_print(T("You have turned into a Living Trump.", "あなたは生きているカードに変わった。"));
+            msg_print("You have turned into a Living Trump.");
         var_set_bool(res, TRUE);
         break;
     }

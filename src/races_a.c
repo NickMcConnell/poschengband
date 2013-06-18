@@ -361,7 +361,7 @@ static void _beastman_gain_level(int new_level)
 {
     if (one_in_(5))
     {
-        msg_print(T("You feel different...", "あなたは変わった気がする..."));
+        msg_print("You feel different...");
         mut_gain_random(NULL);
     }
 }

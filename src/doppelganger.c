@@ -90,7 +90,7 @@ static void _pay_cost(int cost)
     {
         int dam = cost - p_ptr->csp;
         p_ptr->csp = 0;
-        take_hit(DAMAGE_USELIFE, dam, T("concentrating too hard", "過度の集中"), -1);
+        take_hit(DAMAGE_USELIFE, dam, "concentrating too hard", -1);
     }
     else 
         p_ptr->csp -= cost;

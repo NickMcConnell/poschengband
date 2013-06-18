@@ -5,7 +5,7 @@ void _precognition_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Precognition", "霊視"));
+        var_set_string(res, "Precognition");
         break;
     case SPELL_DESC:
     {
@@ -59,7 +59,7 @@ void _precognition_spell(int cmd, variant *res)
         if ((p_ptr->lev > 24) && (p_ptr->lev < 40))
             set_tim_esp(p_ptr->lev, FALSE);
 
-        if (!b) msg_print(T("You feel safe.", "安全な気がする。"));
+        if (!b) msg_print("You feel safe.");
 
         var_set_bool(res, TRUE);
         break;
@@ -95,10 +95,10 @@ void _neural_blast_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Neural Blast", "神経攻撃"));
+        var_set_string(res, "Neural Blast");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Fires a beam or ball which inflicts psionic damage.", "精神攻撃のビームまたは球を放つ。"));
+        var_set_string(res, "Fires a beam or ball which inflicts psionic damage.");
         break;
     case SPELL_SPOIL_DESC:
         var_set_string(res, "Fires a beam or ball (Radius 0) which inflicts (3 + (L-1)/4)d(3 + L/15) psionic damage.");
@@ -135,18 +135,18 @@ void _minor_displacement_spell(int cmd, variant *res)
     {
     case SPELL_NAME:
         if (p_ptr->lev >= 45)
-            var_set_string(res, T("Dimension Door", ""));
+            var_set_string(res, "Dimension Door");
         else
-            var_set_string(res, T("Minor Displacement", "次元の瞬き"));
+            var_set_string(res, "Minor Displacement");
         break;
     case SPELL_SPOIL_NAME:
         var_set_string(res, "Minor Displacement");
         break;
     case SPELL_DESC:
         if (p_ptr->lev >= 45)
-            var_set_string(res, T("Attempt to teleport to a specific location.", ""));
+            var_set_string(res, "Attempt to teleport to a specific location.");
         else
-            var_set_string(res, T("Teleport short distance.", "近距離のテレポートをする。"));
+            var_set_string(res, "Teleport short distance.");
         break;
     case SPELL_SPOIL_DESC:
         var_set_string(res, "Teleports the player (Range 10). At L45, gives dimension door instead (Range L/2 + 10).");
@@ -181,10 +181,10 @@ void _major_displacement_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Major Displacement", "虚空の幻影"));
+        var_set_string(res, "Major Displacement");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Teleport long distance.", "遠距離のテレポートをする。"));
+        var_set_string(res, "Teleport long distance.");
         break;
     case SPELL_SPOIL_DESC:
         var_set_string(res, "Teleports the player (Range L*5).");
@@ -206,11 +206,10 @@ void _domination_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Domination", "精神支配"));
+        var_set_string(res, "Domination");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Stuns, confuses or scares a monster. Or attempts to charm all monsters in sight at level 30.",
-                              "レベル30未満で、モンスターを朦朧か混乱か恐怖させる球を放つ。レベル30以上で視界内の全てのモンスターを魅了する。抵抗されると無効。"));
+        var_set_string(res, "Stuns, confuses or scares a monster. Or attempts to charm all monsters in sight at level 30.");
         break;
     case SPELL_SPOIL_DESC:
         var_set_string(res, "Stuns, confuses or scares a monster. Or attempts to charm all monsters in sight at L30.");
@@ -243,10 +242,10 @@ void _pulverise_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Pulverise", "念動衝撃弾"));
+        var_set_string(res, "Pulverise");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Fires a ball which hurts monsters with telekinesis.", "テレキネシスの球を放つ。"));
+        var_set_string(res, "Fires a ball which hurts monsters with telekinesis.");
         break;
     case SPELL_SPOIL_DESC:
         var_set_string(res, "Fires a ball (Radius 0 or (L-20)/8 + 1) of Telekinesis (Damage (8 + (L-5)/4)d8).");
@@ -280,12 +279,11 @@ void _character_armor_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Character Armour", "鎧化"));
+        var_set_string(res, "Character Armour");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Gives stone skin and some resistance to elements for a while. The level "
-                              "increased, the more number of resistances given.",
-                              "一定時間、ACを上昇させる。レベルが上がると、酸、炎、冷気、電撃、毒の耐性も得られる。"));
+        var_set_string(res, "Gives stone skin and some resistance to elements for a while. The level "
+                              "increased, the more number of resistances given.");
         break;
     case SPELL_SPOIL_DESC:
         var_set_string(res, "Gives Stone Skin, Resist Acid (L15), Resist Fire (L20), Resist Cold (L25), Resist Lightning (L30) and Resist Poison (L35).");
@@ -312,10 +310,10 @@ void _psychometry_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Psychometry", "サイコメトリー"));
+        var_set_string(res, "Psychometry");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Gives feeling of an item. Or identify an item at level 25.", "レベル25未満で、アイテムの雰囲気を知る。レベル25以上で、アイテムを鑑定する。"));
+        var_set_string(res, "Gives feeling of an item. Or identify an item at level 25.");
         break;
     case SPELL_SPOIL_DESC:
         var_set_string(res, "Pseudo-identifies and object. At L25, identifies an object instead.");
@@ -339,12 +337,11 @@ void _mind_wave_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Mind Wave", "精神波動"));
+        var_set_string(res, "Mind Wave");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Generate a ball centered on you which inflict monster with PSI damage. "
-                              "Or inflict all monsters with PSI damage at level 25.",
-                              "レベル25未満で、自分を中心とした精神攻撃の球を発生させる。レベル25以上で、視界内の全てのモンスターに対して精神攻撃を行う。"));
+        var_set_string(res, "Generate a ball centered on you which inflict monster with PSI damage. "
+                              "Or inflict all monsters with PSI damage at level 25.");
         break;
 
     case SPELL_SPOIL_DESC:
@@ -359,7 +356,7 @@ void _mind_wave_spell(int cmd, variant *res)
         break;
     case SPELL_CAST:
     {
-        msg_print(T("Mind-warping forces emanate from your brain!", "精神を捻じ曲げる波動を発生させた！"));
+        msg_print("Mind-warping forces emanate from your brain!");
 
         if (p_ptr->lev < 25)
         {
@@ -382,12 +379,11 @@ void _adrenaline_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Adrenaline Channeling", "アドレナリン・ドーピング"));
+        var_set_string(res, "Adrenaline Channeling");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Removes fear and stun. Gives heroism and speed. Heals HP a little unless "
-                              "you already have heroism and temporary speed boost.",
-                              "恐怖と朦朧から回復し、ヒーロー気分かつ加速状態でなければHPが少し回復する。さらに、一定時間ヒーロー気分になり、加速する。"));
+        var_set_string(res, "Removes fear and stun. Gives heroism and speed. Heals HP a little unless "
+                              "you already have heroism and temporary speed boost.");
         break;
     case SPELL_SPOIL_DESC:
         var_set_string(res, "Removes stun. Heals 10 + 1d(L*3/2). Grants heroism and haste.");
@@ -419,10 +415,10 @@ void _telekinesis_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Telekinesis", "テレキネシス"));
+        var_set_string(res, "Telekinesis");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Pulls a distant item close to you.", "アイテムを自分の足元へ移動させる。"));        
+        var_set_string(res, "Pulls a distant item close to you.");        
         break;
     case SPELL_SPOIL_DESC:
         var_set_string(res, "Fetch a nearby object (Weight <= L*15).");
@@ -448,12 +444,11 @@ void _psychic_drain_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Psychic Drain", "サイキック・ドレイン"));
+        var_set_string(res, "Psychic Drain");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Fires a ball which damages monsters and absorbs monsters' mind power. "
-                              "Absorbing takes from 0 to 1.5 more turns.",
-                              "精神攻撃の球を放つ。モンスターに命中すると、0〜1.5ターン消費する。抵抗されなければ、MPが回復する。"));
+        var_set_string(res, "Fires a ball which damages monsters and absorbs monsters' mind power. "
+                              "Absorbing takes from 0 to 1.5 more turns.");
         break;
     case SPELL_SPOIL_DESC:
         var_set_string(res, "Drain target monster (Damage (L/2)d6) to regain 5d(damage)/4 spell points. But this spell also consumes 1d150 extra energy.");
@@ -517,10 +512,10 @@ void _psycho_storm_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Psycho-Storm", ""));
+        var_set_string(res, "Psycho-Storm");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Fires a large ball of pure mental energy.", ""));
+        var_set_string(res, "Fires a large ball of pure mental energy.");
         break;
     case SPELL_INFO:
         var_set_string(res, info_damage(10, spell_power(10), spell_power(p_ptr->lev * 7)));
@@ -548,11 +543,10 @@ void _the_world_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("The World", "完全な世界"));
+        var_set_string(res, "The World");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Spend all of your spell points to stop time. You gain a number of free moves depending on the amount of spell points spent.",
-                              "時を止める。全MPを消費し、消費したMPに応じて長く時を止めていられる。"));
+        var_set_string(res, "Spend all of your spell points to stop time. You gain a number of free moves depending on the amount of spell points spent.");
         break;
     case SPELL_INFO:
         var_set_string(res, format("%d acts.", MIN((p_ptr->csp + 100-p_ptr->energy_need - 50)/100, 5)));
@@ -562,12 +556,12 @@ void _the_world_spell(int cmd, variant *res)
         var_set_bool(res, FALSE);
         if (world_player)
         {
-            msg_print(T("Time is already stopped.", "既に時は止まっている。"));
+            msg_print("Time is already stopped.");
             return;
         }
 
         world_player = TRUE;
-        msg_print(T("You yell 'Time!'", "「時よ！」"));
+        msg_print("You yell 'Time!'");
         msg_print(NULL);
 
         /* Note: We pay the casting cost up front these days.  So, add back the 150

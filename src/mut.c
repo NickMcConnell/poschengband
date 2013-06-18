@@ -276,7 +276,7 @@ void mut_do_cmd_knowledge(void)
     my_fclose(fff);
 
     /* Display the file contents */
-    show_file(TRUE, file_name, T("Mutations", "突然変異"), 0, 0);
+    show_file(TRUE, file_name, "Mutations", 0, 0);
 
     /* Remove the file */
     fd_kill(file_name);
@@ -571,7 +571,7 @@ void mut_lose_all(void)
     {
         int i;
         virtue_add(VIRTUE_CHANCE, -5);
-        msg_print(T("You are cured of all mutations.", "全ての突然変異が治った。"));
+        msg_print("You are cured of all mutations.");
 
         for (i = 0; i < MUT_FLAG_SIZE; ++i)
             p_ptr->muta[i] = p_ptr->muta_lock[i];

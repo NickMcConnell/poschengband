@@ -2924,9 +2924,9 @@ static void process_monster(int m_idx)
                     if (disturb_minor)
                     {
                         if (have_flag(f_ptr->flags, FF_GLASS))
-                            msg_print(T("You hear a glass was crashed!", "ガラスが砕ける音がした！"));
+                            msg_print("You hear a glass was crashed!");
                         else
-                            msg_print(T("You hear a door burst open!", "ドアを叩き開ける音がした！"));
+                            msg_print("You hear a door burst open!");
 
                         disturb(0, 0);
                     }

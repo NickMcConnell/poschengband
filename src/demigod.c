@@ -8,10 +8,10 @@ static void _kiss_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Kiss", ""));
+        var_set_string(res, "Kiss");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Attempt to charm an adjacent monster.", ""));
+        var_set_string(res, "Attempt to charm an adjacent monster.");
         break;
     case SPELL_COST_EXTRA:
         var_set_int(res, p_ptr->lev * 2);
@@ -82,7 +82,7 @@ static void _kiss_spell(int cmd, variant *res)
         }
         else
         {
-            msg_print(T("There is no monster.", "その方向にはモンスターはいません。"));
+            msg_print("There is no monster.");
         }
         break;
     }
@@ -97,10 +97,10 @@ static void _demeter_clw_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Cure Wounds", ""));
+        var_set_string(res, "Cure Wounds");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Heals cut and HP a little.", ""));
+        var_set_string(res, "Heals cut and HP a little.");
         break;
     case SPELL_SPOIL_DESC:
         var_set_string(res, "Decreases cut status by 10 and heals (L/12 + 1)d10 hp.");

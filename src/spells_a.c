@@ -178,10 +178,10 @@ void android_blaster_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Blaster", "¥Ö¥é¥¹¥¿¡¼"));
+        var_set_string(res, "Blaster");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("", ""));
+        var_set_string(res, "");
         break;
     case SPELL_INFO:
         var_set_string(res, info_damage(0, 0, spell_power(5 + p_ptr->lev)));
@@ -192,7 +192,7 @@ void android_blaster_spell(int cmd, variant *res)
         var_set_bool(res, FALSE);
         if (!get_aim_dir(&dir)) return;
 
-        msg_print(T("You fire your blaster.", "¥Ö¥é¥¹¥¿¡¼¤òÈ¯¼Í¤·¤¿¡£"));
+        msg_print("You fire your blaster.");
         fire_bolt(GF_MISSILE, dir, spell_power(5 + p_ptr->lev));
 
         var_set_bool(res, TRUE);
@@ -209,10 +209,10 @@ void android_bazooka_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Bazooka", "¥Ð¥º¡¼¥«"));
+        var_set_string(res, "Bazooka");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Fires your bazooka at a nearby monster.", ""));
+        var_set_string(res, "Fires your bazooka at a nearby monster.");
         break;
     case SPELL_INFO:
         var_set_string(res, info_damage(0, 0, spell_power(25 + p_ptr->lev * 2)));
@@ -223,7 +223,7 @@ void android_bazooka_spell(int cmd, variant *res)
         var_set_bool(res, FALSE);
         if (!get_aim_dir(&dir)) return;
 
-        msg_print(T("You fire your bazooka.", "¥Ð¥º¡¼¥«¤òÈ¯¼Í¤·¤¿¡£"));
+        msg_print("You fire your bazooka.");
         fire_ball(GF_MISSILE, dir, spell_power(25 + p_ptr->lev * 2), 2);
 
         var_set_bool(res, TRUE);
@@ -240,10 +240,10 @@ void android_beam_cannon_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Beam Cannon", "¥Ó¡¼¥à¥­¥ã¥Î¥ó"));
+        var_set_string(res, "Beam Cannon");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("", ""));
+        var_set_string(res, "");
         break;
     case SPELL_INFO:
         var_set_string(res, info_damage(0, 0, spell_power(25 + p_ptr->lev * 3)));
@@ -254,7 +254,7 @@ void android_beam_cannon_spell(int cmd, variant *res)
         var_set_bool(res, FALSE);
         if (!get_aim_dir(&dir)) return;
 
-        msg_print(T("You fire a beam cannon.", "¥Ó¡¼¥à¥­¥ã¥Î¥ó¤òÈ¯¼Í¤·¤¿¡£"));
+        msg_print("You fire a beam cannon.");
         fire_beam(GF_MISSILE, dir, spell_power(25 + p_ptr->lev * 3));
 
         var_set_bool(res, TRUE);
@@ -271,10 +271,10 @@ void android_rocket_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Rocket Launcher", "¥í¥±¥Ã¥È"));
+        var_set_string(res, "Rocket Launcher");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Launches a powerful rocket at your opponent.", ""));
+        var_set_string(res, "Launches a powerful rocket at your opponent.");
         break;
     case SPELL_INFO:
         var_set_string(res, info_damage(0, 0, spell_power(p_ptr->lev * 7)));
@@ -285,7 +285,7 @@ void android_rocket_spell(int cmd, variant *res)
         var_set_bool(res, FALSE);
         if (!get_aim_dir(&dir)) return;
 
-        msg_print(T("You launch a rocket.", "¥í¥±¥Ã¥È¤òÈ¯¼Í¤·¤¿¡£"));
+        msg_print("You launch a rocket.");
         fire_rocket(GF_ROCKET, dir, spell_power(p_ptr->lev * 7), 2);
 
         var_set_bool(res, TRUE);
@@ -302,10 +302,10 @@ void animate_dead_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Animate Dead", "È¿º²¤Î½Ñ"));
+        var_set_string(res, "Animate Dead");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Resurrects nearby corpse and skeletons. And makes these your pets.", "¼þ°Ï¤Î»àÂÎ¤ä¹ü¤òÀ¸¤­ÊÖ¤¹¡£"));
+        var_set_string(res, "Resurrects nearby corpse and skeletons. And makes these your pets.");
         break;
     case SPELL_CAST:
         animate_dead(0, py, px);
@@ -344,7 +344,7 @@ void awesome_blow_spell(int cmd, variant *res)
         }
         else
         {
-            msg_print(T("There is no monster.", "€œ€ÎÊýžþ€Ë€Ï¥â¥ó¥¹¥¿¡Œ€Ï€€€Þ€»€ó¡£"));
+            msg_print("There is no monster.");
             return;
         }
 
@@ -362,19 +362,19 @@ void banish_evil_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Banish Evil", "¼Ù°­¾ÃÌÇ"));
+        var_set_string(res, "Banish Evil");
         break;
     case SPELL_DESC:
         var_set_string(res, "Attempts to remove a single evil opponent.");
         break;
     case SPELL_GAIN_MUT:
-        msg_print(T("You feel a holy wrath fill you.", "¿ÀÀ»¤ÊÅÜ¤ê¤ÎÎÏ¤ËËþ¤¿¤µ¤ì¤¿¡£"));
+        msg_print("You feel a holy wrath fill you.");
         break;
     case SPELL_LOSE_MUT:
-        msg_print(T("You no longer feel a holy wrath.", "¿ÀÀ»¤ÊÅÜ¤ê¤ÎÎÏ¤ò´¶¤¸¤Ê¤¯¤Ê¤Ã¤¿¡£"));
+        msg_print("You no longer feel a holy wrath.");
         break;
     case SPELL_MUT_DESC:
-        var_set_string(res, T("You can send evil creatures directly to Hell.", "¤¢¤Ê¤¿¤Ï¼Ù°­¤Ê¥â¥ó¥¹¥¿¡¼¤òÃÏ¹ö¤ËÍî¤È¤¹¤³¤È¤¬¤Ç¤­¤ë¡£"));
+        var_set_string(res, "You can send evil creatures directly to Hell.");
         break;
     case SPELL_CAST:
     {
@@ -398,7 +398,7 @@ void banish_evil_spell(int cmd, variant *res)
 
         if (!c_ptr->m_idx)
         {
-            msg_print(T("You sense no evil there!", "¼Ù°­¤ÊÂ¸ºß¤ò´¶¤¸¤È¤ì¤Þ¤»¤ó¡ª"));
+            msg_print("You sense no evil there!");
             break;
         }
 
@@ -414,11 +414,11 @@ void banish_evil_spell(int cmd, variant *res)
         {
             /* Delete the monster, rather than killing it. */
             delete_monster_idx(c_ptr->m_idx);
-            msg_print(T("The evil creature vanishes in a puff of sulfurous smoke!", "¤½¤Î¼Ù°­¤Ê¥â¥ó¥¹¥¿¡¼¤ÏÎ²²«½­¤¤±ì¤È¤È¤â¤Ë¾Ã¤¨µî¤Ã¤¿¡ª"));
+            msg_print("The evil creature vanishes in a puff of sulfurous smoke!");
         }
         else
         {
-            msg_print(T("Your invocation is ineffectual!", "µ§¤ê¤Ï¸ú²Ì¤¬¤Ê¤«¤Ã¤¿¡ª"));
+            msg_print("Your invocation is ineffectual!");
             if (one_in_(13)) m_ptr->mflag2 |= MFLAG2_NOGENO;
         }
         break;
@@ -435,10 +435,10 @@ void battle_frenzy_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Battle Frenzy", "¶¸ÍðÀï»Î"));
+        var_set_string(res, "Battle Frenzy");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Gives another bonus to hit and HP, resistance to fear for a while. Hastes you. But decreases AC.", "¶¸Àï»Î²½¤·¡¢¶²ÉÝ¤ò½üµî¤·¡¢²ÃÂ®¤¹¤ë¡£"));
+        var_set_string(res, "Gives another bonus to hit and HP, resistance to fear for a while. Hastes you. But decreases AC.");
         break;
     case SPELL_CAST:
     {
@@ -463,19 +463,19 @@ void berserk_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Berserk", "¶¸Àï»Î²½"));
+        var_set_string(res, "Berserk");
         break;
     case SPELL_DESC:
         var_set_string(res, "Enter a berserk frenzy, gaining great combat bonuses, but losing the ability to think clearly.");
         break;
     case SPELL_GAIN_MUT:
-        msg_print(T("You feel a controlled rage.", "À©¸æ¤Ç¤­¤ë·ã¾ð¤ò´¶¤¸¤ë¡£"));
+        msg_print("You feel a controlled rage.");
         break;
     case SPELL_LOSE_MUT:
-        msg_print(T("You no longer feel a controlled rage.", "À©¸æ¤Ç¤­¤ë·ã¾ð¤ò´¶¤¸¤Ê¤¯¤Ê¤Ã¤¿¡£"));
+        msg_print("You no longer feel a controlled rage.");
         break;
     case SPELL_MUT_DESC:
-        var_set_string(res, T("You can drive yourself into a berserk frenzy.", "¤¢¤Ê¤¿¤Ï¼«Ê¬¤Î°Õ»×¤Ç¶¸ÍðÀïÆ®¾õÂÖ¤Ë¤Ê¤ë¤³¤È¤¬¤Ç¤­¤ë¡£"));
+        var_set_string(res, "You can drive yourself into a berserk frenzy.");
         break;
     case SPELL_CAST:
     {
@@ -520,10 +520,10 @@ void bless_weapon_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Bless Weapon", "Éð´ï½ËÊ¡"));
+        var_set_string(res, "Bless Weapon");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Blesses your current weapon.", ""));
+        var_set_string(res, "Blesses your current weapon.");
         break;
     case SPELL_CAST:
         var_set_bool(res, bless_weapon());
@@ -539,10 +539,10 @@ void brain_smash_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Brain Smash", ""));
+        var_set_string(res, "Brain Smash");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Gaze intently at a single foe, causing damage, confusion and stunning", ""));
+        var_set_string(res, "Gaze intently at a single foe, causing damage, confusion and stunning");
         break;
     case SPELL_INFO:
         var_set_string(res, info_damage(12, spell_power(12), 0));
@@ -567,10 +567,10 @@ void breathe_disintegration_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Breathe Disintegration", ""));
+        var_set_string(res, "Breathe Disintegration");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("A disintegration breath.  Not even the dungeon walls can withstand its power!", ""));
+        var_set_string(res, "A disintegration breath.  Not even the dungeon walls can withstand its power!");
         break;
     case SPELL_INFO:
         var_set_string(res, info_damage(0, 0, spell_power(MIN(p_ptr->chp / 6, 150))));
@@ -582,7 +582,7 @@ void breathe_disintegration_spell(int cmd, variant *res)
         if (!get_aim_dir(&dir)) return;
 
         stop_mouth();
-        msg_print(T("You breathe disintegration.", "Ê¬²ò¤Î¥Ö¥ì¥¹¤òÅÇ¤¤¤¿¡£"));
+        msg_print("You breathe disintegration.");
         fire_ball(GF_DISINTEGRATE, dir, 
             spell_power(MIN(p_ptr->chp / 6, 150)), 
             (p_ptr->lev > 40 ? -3 : -2));
@@ -601,19 +601,19 @@ void breathe_fire_I_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Breathe Fire", "±ê¤Î¥Ö¥ì¥¹"));
+        var_set_string(res, "Breathe Fire");
         break;
     case SPELL_DESC:
         var_set_string(res, "Breathes Fire at your opponent.");
         break;
     case SPELL_GAIN_MUT:
-        msg_print(T("You gain the ability to breathe fire.", "²Ð¤òÅÇ¤¯Ç½ÎÏ¤òÆÀ¤¿¡£"));
+        msg_print("You gain the ability to breathe fire.");
         break;
     case SPELL_LOSE_MUT:
-        msg_print(T("You lose the ability to breathe fire.", "±ê¤Î¥Ö¥ì¥¹¤òÅÇ¤¯Ç½ÎÏ¤ò¼º¤Ã¤¿¡£"));
+        msg_print("You lose the ability to breathe fire.");
         break;
     case SPELL_MUT_DESC:
-        var_set_string(res, T("You can breathe fire (dam lvl * 2).", "¤¢¤Ê¤¿¤Ï±ê¤Î¥Ö¥ì¥¹¤òÅÇ¤¯¤³¤È¤¬¤Ç¤­¤ë¡£(¥À¥á¡¼¥¸ ¥ì¥Ù¥ëX2)"));
+        var_set_string(res, "You can breathe fire (dam lvl * 2).");
         break;
     case SPELL_INFO:
         var_set_string(res, info_damage(0, 0, spell_power(2 * p_ptr->lev)));
@@ -628,7 +628,7 @@ void breathe_fire_I_spell(int cmd, variant *res)
         if (get_aim_dir(&dir))
         {
             stop_mouth();
-            msg_print(T("You breathe fire...", "¤¢¤Ê¤¿¤Ï²Ð±ê¤Î¥Ö¥ì¥¹¤òÅÇ¤¤¤¿..."));
+            msg_print("You breathe fire...");
             fire_ball(GF_FIRE, dir, spell_power(2 * p_ptr->lev), -1 - (p_ptr->lev / 20));
             var_set_bool(res, TRUE);
         }
@@ -646,7 +646,7 @@ void breathe_fire_II_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Breathe Fire", "±ê¤Î¥Ö¥ì¥¹"));
+        var_set_string(res, "Breathe Fire");
         break;
     case SPELL_DESC:
         var_set_string(res, "Breathes Fire at your opponent.");
@@ -664,7 +664,7 @@ void breathe_fire_II_spell(int cmd, variant *res)
         if (get_aim_dir(&dir))
         {
             stop_mouth();
-            msg_print(T("You breathe fire...", "¤¢¤Ê¤¿¤Ï²Ð±ê¤Î¥Ö¥ì¥¹¤òÅÇ¤¤¤¿..."));
+            msg_print("You breathe fire...");
             fire_ball(GF_FIRE, dir, spell_power(p_ptr->chp*2/5), -1 - (p_ptr->lev / 20));
             var_set_bool(res, TRUE);
         }
@@ -681,10 +681,10 @@ void building_up_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Building Up", ""));
+        var_set_string(res, "Building Up");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Increases your physical prowess", ""));
+        var_set_string(res, "Increases your physical prowess");
         break;
     case SPELL_CAST:
         set_tim_building_up(20 + randint1(20), FALSE);

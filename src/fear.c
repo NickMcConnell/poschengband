@@ -89,7 +89,7 @@ bool fear_set_p(int v)
             do_dec_stat(A_CHR);
         if (p_ptr->special_defense & KATA_MASK)
         {
-            msg_print(T("Your posture gets loose.", "型が崩れた。"));
+            msg_print("Your posture gets loose.");
             p_ptr->special_defense &= ~KATA_MASK;
             p_ptr->update |= PU_BONUS;
             p_ptr->update |= PU_MONSTERS;
@@ -452,7 +452,7 @@ void fear_terrify_p(monster_type *m_ptr)
     int           r_level = _r_level(r_ptr);
 
     if (fear_save_p(r_level))
-        msg_print(T("You stand your ground!", "しかし恐怖に侵されなかった！"));
+        msg_print("You stand your ground!");
     else
         fear_add_p(r_level);
 }
@@ -463,7 +463,7 @@ void fear_scare_p(monster_type *m_ptr)
     int           r_level = _r_level(r_ptr);
 
     if (fear_save_p(r_level))
-        msg_print(T("You refuse to be frightened.", "しかし恐怖に侵されなかった。"));
+        msg_print("You refuse to be frightened.");
     else
         fear_add_p(r_level);
 }

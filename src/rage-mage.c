@@ -49,10 +49,10 @@ static void _anti_magic_ray_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Antimagic Ray", ""));
+        var_set_string(res, "Antimagic Ray");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Block spells from a chosen foe.", ""));
+        var_set_string(res, "Block spells from a chosen foe.");
         break;
     case SPELL_CAST:
     {
@@ -74,10 +74,10 @@ static void _armor_of_fury_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Armor of Fury", ""));
+        var_set_string(res, "Armor of Fury");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Whenever a monster attacks you with magic, they may become slowed and stunned.", ""));
+        var_set_string(res, "Whenever a monster attacks you with magic, they may become slowed and stunned.");
         break;
     case SPELL_CAST:
         set_tim_armor_of_fury(25 + randint1(25), FALSE);
@@ -107,10 +107,10 @@ static void _barbaric_resistance_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Barbaric Resistance", ""));
+        var_set_string(res, "Barbaric Resistance");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Grants temporary protection from the elements.", ""));
+        var_set_string(res, "Grants temporary protection from the elements.");
         break;
     case SPELL_CAST:
     {
@@ -195,10 +195,10 @@ static void _detect_magic_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Detect Magic", ""));
+        var_set_string(res, "Detect Magic");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Detects nearby magic users and items.", ""));
+        var_set_string(res, "Detects nearby magic users and items.");
         break;
     case SPELL_CAST:
         detect_monsters_magical(DETECT_RAD_DEFAULT);
@@ -216,10 +216,10 @@ static void _detect_magical_foes_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Detect Magical Foes", ""));
+        var_set_string(res, "Detect Magical Foes");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Detects nearby magic users.", ""));
+        var_set_string(res, "Detects nearby magic users.");
         break;
     case SPELL_CAST:
         detect_monsters_magical(DETECT_RAD_DEFAULT);
@@ -238,7 +238,7 @@ static void _evasive_leap_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Evasive Leap", ""));
+        var_set_string(res, "Evasive Leap");
         break;
     case SPELL_ENERGY:
         if (p_ptr->shero)
@@ -257,10 +257,10 @@ static void _focus_rage_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Focus Rage", ""));
+        var_set_string(res, "Focus Rage");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Damage yourself and regain spell points.", ""));
+        var_set_string(res, "Damage yourself and regain spell points.");
         break;
     case SPELL_INFO:
         var_set_string(res, info_damage(0, 0, 10 + p_ptr->lev/2));
@@ -300,10 +300,10 @@ static void _force_brand_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Force Brand", ""));
+        var_set_string(res, "Force Brand");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Temporarily brands your weapon with force.", ""));
+        var_set_string(res, "Temporarily brands your weapon with force.");
         break;
     case SPELL_CAST:
     {
@@ -325,10 +325,10 @@ static void _greater_focus_rage_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Focus *Rage*", ""));
+        var_set_string(res, "Focus *Rage*");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Damage yourself and regain spell points.", ""));
+        var_set_string(res, "Damage yourself and regain spell points.");
         break;
     case SPELL_INFO:
         if (p_ptr->shero)
@@ -376,10 +376,10 @@ static void _greater_shout_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Greater Shout", ""));
+        var_set_string(res, "Greater Shout");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Projects a cone of sound at a chosen foe.", ""));
+        var_set_string(res, "Projects a cone of sound at a chosen foe.");
         break;
     case SPELL_INFO:
         var_set_string(res, info_damage(p_ptr->lev - 10, 8, 0));
@@ -404,10 +404,10 @@ static void _mana_clash_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Mana Clash", ""));
+        var_set_string(res, "Mana Clash");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Fires a ball at chosen target.  Only spellcasters will be damaged.", ""));
+        var_set_string(res, "Fires a ball at chosen target.  Only spellcasters will be damaged.");
         break;
     case SPELL_CAST:
     {
@@ -436,10 +436,10 @@ static void _rage_strike_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Ragestrike", ""));
+        var_set_string(res, "Ragestrike");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Fire a ball of pure rage at chosen foe, striking with everything you've got!", ""));
+        var_set_string(res, "Fire a ball of pure rage at chosen foe, striking with everything you've got!");
         break;
     case SPELL_INFO:
         var_set_string(res, info_damage(0, 0, _rage_strike_dam()));
@@ -492,10 +492,10 @@ static void _resist_curses_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Resist Curses", ""));
+        var_set_string(res, "Resist Curses");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Grants temporary magical resistance.", ""));
+        var_set_string(res, "Grants temporary magical resistance.");
         break;
     case SPELL_CAST:
         set_tim_resist_curses(20 + randint1(20), FALSE);
@@ -512,10 +512,10 @@ static void _resist_disenchantment_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Resist Disenchantment", ""));
+        var_set_string(res, "Resist Disenchantment");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Grants temporary resistance to disenchantment.", ""));
+        var_set_string(res, "Grants temporary resistance to disenchantment.");
         break;
     case SPELL_CAST:
         set_tim_res_disenchantment(10 + randint1(10), FALSE);
@@ -564,10 +564,10 @@ static void _shatter_device_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Shatter Device", ""));
+        var_set_string(res, "Shatter Device");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Destroy a magical device in your inventory for various effects.", ""));
+        var_set_string(res, "Destroy a magical device in your inventory for various effects.");
         break;
     case SPELL_CAST:
     {
@@ -635,10 +635,10 @@ static void _shout_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Shout", ""));
+        var_set_string(res, "Shout");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Projects a cone of sound at a chosen foe.", ""));
+        var_set_string(res, "Projects a cone of sound at a chosen foe.");
         break;
     case SPELL_INFO:
         var_set_string(res, info_damage(3 + (p_ptr->lev-1)/5, 4, 0));
@@ -663,10 +663,10 @@ static void _smash_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Smash", ""));
+        var_set_string(res, "Smash");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Destroys adjacent door, trap or wall.", ""));
+        var_set_string(res, "Destroys adjacent door, trap or wall.");
         break;
     case SPELL_CAST:
     {
@@ -705,10 +705,10 @@ static void _spell_reaction_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Spell Reaction", ""));
+        var_set_string(res, "Spell Reaction");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Grants temporary speed whenever you are targetted by a magical attack.", ""));
+        var_set_string(res, "Grants temporary speed whenever you are targetted by a magical attack.");
         break;
     case SPELL_CAST:
         set_tim_spell_reaction(30 + randint1(30), FALSE);
@@ -725,10 +725,10 @@ static void _spell_turning_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Spell Turning", ""));
+        var_set_string(res, "Spell Turning");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Whenever you are the target of magic there is a chance of returning the spell to the caster.", ""));
+        var_set_string(res, "Whenever you are the target of magic there is a chance of returning the spell to the caster.");
         break;
     case SPELL_CAST:
         set_tim_spell_turning(20 + randint1(20), FALSE);
@@ -745,10 +745,10 @@ static void _summon_commando_team_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Summon Commando Team", ""));
+        var_set_string(res, "Summon Commando Team");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Summons Grand Master Mystics for assistance.", ""));
+        var_set_string(res, "Summons Grand Master Mystics for assistance.");
         break;
     case SPELL_CAST:
     {
@@ -783,10 +783,10 @@ static void _summon_horde_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Summon Horde", ""));
+        var_set_string(res, "Summon Horde");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Summons Warriors of the Dawn for assistance.", ""));
+        var_set_string(res, "Summons Warriors of the Dawn for assistance.");
         break;
     case SPELL_CAST:
     {

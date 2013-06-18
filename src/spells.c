@@ -723,7 +723,7 @@ void do_cmd_power(void)
         {
             int cost = spell->cost - p_ptr->csp;
             p_ptr->csp = 0;
-            take_hit(DAMAGE_USELIFE, cost, T("concentrating too hard", "過度の集中"), -1);
+            take_hit(DAMAGE_USELIFE, cost, "concentrating too hard", -1);
         }
         else 
             p_ptr->csp -= spell->cost;

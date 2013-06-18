@@ -5,10 +5,10 @@ void detect_evil_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Detect Evil", "邪悪存在感知"));
+        var_set_string(res, "Detect Evil");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Detects all evil monsters in your vicinity.", "近くの邪悪なモンスターを感知する。"));
+        var_set_string(res, "Detects all evil monsters in your vicinity.");
         break;
     case SPELL_CAST:
         detect_monsters_evil(DETECT_RAD_DEFAULT);
@@ -47,7 +47,7 @@ void burning_strike_spell(int cmd, variant *res)
         }
         else
         {
-            msg_print(T("There is no monster.", "その方向にはモンスターはいません。"));
+            msg_print("There is no monster.");
         }
         break;
     }
@@ -62,10 +62,10 @@ void lightning_eagle_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Lightning Eagle", "雷撃鷲爪斬"));
+        var_set_string(res, "Lightning Eagle");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Attacks a monster with more damage unless it has resistance to electricity.", "電撃耐性のないモンスターに非常に大きいダメージを与える。"));
+        var_set_string(res, "Attacks a monster with more damage unless it has resistance to electricity.");
         break;
     case SPELL_CAST:
     {
@@ -84,7 +84,7 @@ void lightning_eagle_spell(int cmd, variant *res)
         }
         else
         {
-            msg_print(T("There is no monster.", "その方向にはモンスターはいません。"));
+            msg_print("There is no monster.");
         }
         break;
     }

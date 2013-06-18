@@ -7,7 +7,7 @@ void _small_force_ball_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Small Force Ball", ""));
+        var_set_string(res, "Small Force Ball");
         break;
     case SPELL_DESC:
     {        
@@ -45,10 +45,10 @@ void _flying_technique_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Flying Technique", ""));
+        var_set_string(res, "Flying Technique");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Gives levitaion a while.",""));
+        var_set_string(res, "Gives levitaion a while.");
         break;
     case SPELL_CAST:
     {
@@ -67,10 +67,10 @@ void _kamehameha_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Kamehameha", ""));
+        var_set_string(res, "Kamehameha");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Fires a short energy beam.",""));
+        var_set_string(res, "Fires a short energy beam.");
         break;
     case SPELL_INFO:
     {
@@ -104,10 +104,10 @@ void _magic_resistance_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Magic Resistance", ""));
+        var_set_string(res, "Magic Resistance");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Gives magic resistance for a while.",""));
+        var_set_string(res, "Gives magic resistance for a while.");
         break;
     case SPELL_CAST:
     {
@@ -127,21 +127,21 @@ void _improve_force_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Improve Force", ""));
+        var_set_string(res, "Improve Force");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Improves spirit energy power temporaly. Improved spirit energy will be more and more powerfull or have longer duration. Too many improving results in uncontrollable explosion of spirit energy.",""));
+        var_set_string(res, "Improves spirit energy power temporaly. Improved spirit energy will be more and more powerfull or have longer duration. Too many improving results in uncontrollable explosion of spirit energy.");
         break;
     case SPELL_CAST:
     {
-        msg_print(T("You improved the Force.", "気を練った。"));
+        msg_print("You improved the Force.");
         p_ptr->magic_num1[0] += (70 + p_ptr->lev);
         p_ptr->update |= (PU_BONUS);
         if (randint1(p_ptr->magic_num1[0]) > (p_ptr->lev * 4 + 120))
         {
-            msg_print(T("The Force exploded!", "気が暴走した！"));
+            msg_print("The Force exploded!");
             fire_ball(GF_MANA, 0, p_ptr->magic_num1[0] / 2, 10);
-            take_hit(DAMAGE_LOSELIFE, p_ptr->magic_num1[0] / 2, T("Explosion of the Force", "気の暴走"), -1);
+            take_hit(DAMAGE_LOSELIFE, p_ptr->magic_num1[0] / 2, "Explosion of the Force", -1);
             p_ptr->magic_num1[0] = 0;
             p_ptr->update |= (PU_BONUS);
             var_set_bool(res, FALSE); /* no energy consumed?? */
@@ -170,10 +170,10 @@ void _aura_of_force_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Aura of Force", ""));
+        var_set_string(res, "Aura of Force");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Gives aura which damages all monsters which attacked you for a while.",""));
+        var_set_string(res, "Gives aura which damages all monsters which attacked you for a while.");
         break;
     case SPELL_CAST:
     {
@@ -192,10 +192,10 @@ void _shock_power_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Shock Power", ""));
+        var_set_string(res, "Shock Power");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Damages an adjacent monster, and blow it away.",""));
+        var_set_string(res, "Damages an adjacent monster, and blow it away.");
         break;
     case SPELL_INFO:
     {
@@ -232,7 +232,7 @@ void _shock_power_spell(int cmd, variant *res)
 
             if (randint1(r_ptr->level * 3 / 2) > randint0(dam / 2) + dam/2)
             {
-                msg_format(T("%^s was not blown away.", "%sは飛ばされなかった。"), m_name);
+                msg_format("%^s was not blown away.", m_name);
             }
             else
             {
@@ -249,7 +249,7 @@ void _shock_power_spell(int cmd, variant *res)
                 }
                 if ((ty != oy) || (tx != ox))
                 {
-                    msg_format(T("You blow %s away!", "%sを吹き飛ばした！"), m_name);
+                    msg_format("You blow %s away!", m_name);
 
                     cave[oy][ox].m_idx = 0;
                     cave[ty][tx].m_idx = m_idx;
@@ -279,10 +279,10 @@ void _large_force_ball_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Large Force Ball", ""));
+        var_set_string(res, "Large Force Ball");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Fires a large energy ball.",""));
+        var_set_string(res, "Fires a large energy ball.");
         break;
     case SPELL_INFO:
     {
@@ -319,10 +319,10 @@ void _summon_ghost_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Summon Ghost", ""));
+        var_set_string(res, "Summon Ghost");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Summons ghosts.",""));
+        var_set_string(res, "Summons ghosts.");
         break;
     case SPELL_CAST:
     {
@@ -333,9 +333,9 @@ void _summon_ghost_spell(int cmd, variant *res)
             if (summon_specific(-1, py, px, p_ptr->lev, SUMMON_PHANTOM, PM_FORCE_PET))
                 success = TRUE;
         if (success)
-            msg_print(T("'Your wish, master?'", "御用でございますが、御主人様？"));
+            msg_print("'Your wish, master?'");
         else
-            msg_print(T("Nothing happen.", "何も現れなかった。"));
+            msg_print("Nothing happen.");
         var_set_bool(res, TRUE);
         break;
     }
@@ -350,10 +350,10 @@ void _exploding_flame_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Exploding Flame", ""));
+        var_set_string(res, "Exploding Flame");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Generates a huge ball of flame centered on you.",""));
+        var_set_string(res, "Generates a huge ball of flame centered on you.");
         break;
     case SPELL_INFO:
         var_set_string(res, info_damage(0, 0, spell_power(100 + p_ptr->lev + _force_boost())));
@@ -375,10 +375,10 @@ void _super_kamehameha_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Super Kamehameha", ""));
+        var_set_string(res, "Super Kamehameha");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Fires a long, powerful energy beam.",""));
+        var_set_string(res, "Fires a long, powerful energy beam.");
         break;
     case SPELL_INFO:
     {
@@ -411,10 +411,10 @@ void _light_speed_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Light Speed", ""));
+        var_set_string(res, "Light Speed");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Gives extremely fast speed.",""));
+        var_set_string(res, "Gives extremely fast speed.");
         break;
     case SPELL_CAST:
     {
@@ -547,7 +547,7 @@ static void _on_fail(const spell_info *spell)
     /* reset force counter for all spells *except* Improve Force */
     if (spell->fn != _improve_force_spell && p_ptr->magic_num1[0])
     {
-        msg_print(T("Your improved Force has gone away...", "気が散ってしまった．．．"));
+        msg_print("Your improved Force has gone away...");
         p_ptr->magic_num1[0] = 0;
         p_ptr->update |= (PU_BONUS);
     }

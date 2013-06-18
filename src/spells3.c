@@ -1091,10 +1091,10 @@ void apply_nexus(monster_type *m_ptr)
         {
             if (randint0(100) < p_ptr->skills.sav)
             {
-                msg_print(T("You resist the effects!", "しかし効力を跳ね返した！"));
+                msg_print("You resist the effects!");
                 break;
             }
-            msg_print(T("Your body starts to scramble...", "体がねじれ始めた..."));
+            msg_print("Your body starts to scramble...");
             if (p_ptr->pclass == CLASS_WILD_TALENT)
                 wild_talent_scramble();
             else
@@ -1593,7 +1593,7 @@ bool set_trap(int y, int x, int feature)
     if (!cave_clean_bold(y, x))
     {
         if (y == py && x == px) /* Hack: I only want the message sometimes ... */
-            msg_print(T("The object resists the spell.", "床上のアイテムが呪文を跳ね返した。"));
+            msg_print("The object resists the spell.");
         return FALSE;
     }
 

@@ -5935,14 +5935,6 @@ extern int PlayerUID;
 #define CUT_LIGHT          10
 #define CUT_GRAZE           1
 
-/* How to handle translations to different languages?
- * Personally, the constant conditional compilation approach is too
- * distracting for me.  I'm using T("In English", "In Japanese")
- * for now, but obviously supporting multiple languages is not
- * something that Angband does well.
- */
-#define T(E, J) (E)
-
 /* object_type.rune */
 #define RUNE_ABSORPTION           1
 #define RUNE_PROTECTION           2

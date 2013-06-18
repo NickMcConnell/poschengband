@@ -3387,7 +3387,7 @@ void dump_yourself(FILE *fff)
 
     roff_to_buf(race_ptr->desc, 78, temp, sizeof(temp));
     fprintf(fff, "\n\n");
-    fprintf(fff, T("Race: %s\n", "¼ïÂ²: %s\n"), race_ptr->name);
+    fprintf(fff, "Race: %s\n", race_ptr->name);
     t = temp;
     for (i = 0; i < 50; i++)
     {

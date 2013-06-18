@@ -6,10 +6,10 @@ static void _blood_rite_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Blood Rite", ""));
+        var_set_string(res, "Blood Rite");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("Temporarily increase the cost and effectiveness of your spells.", ""));
+        var_set_string(res, "Temporarily increase the cost and effectiveness of your spells.");
         break;
     case SPELL_CAST:
         var_set_bool(res, FALSE);

@@ -2382,7 +2382,7 @@ static cptr do_nature_spell(int spell, int mode)
                     success = trump_summoning(1, TRUE, py, px, 0, SUMMON_ENT, PM_ALLOW_GROUP);
             }
             if (!success)
-                msg_print(T("No help arrives.", "動物は現れなかった。"));
+                msg_print("No help arrives.");
         }
         break;
 
@@ -5107,8 +5107,8 @@ static cptr do_arcane_spell(int spell, int mode)
         break;
 
     case 28:
-        if (name) return T("Recharging", "魔力充填");
-        if (desc) return T("Recharges staves, wands or rods.", "杖/魔法棒の充填回数を増やすか、充填中のロッドの充填時間を減らす。");
+        if (name) return "Recharging";
+        if (desc) return "Recharges staves, wands or rods.";
 
         {
             int power = spell_power(plev * 3 / 2);
@@ -5411,8 +5411,8 @@ static cptr do_craft_spell(int spell, int mode)
         break;
 
     case 11:
-        if (name) return T("Berserk", "狂戦士化");
-        if (desc) return T("Gives bonus to hit and HP, immunity to fear for a while. But decreases AC.", "狂戦士化し、恐怖を除去する。");
+        if (name) return "Berserk";
+        if (desc) return "Gives bonus to hit and HP, immunity to fear for a while. But decreases AC.";
 
         {
             int base = spell_power(25);
@@ -5582,8 +5582,8 @@ static cptr do_craft_spell(int spell, int mode)
         break;
 
     case 21:
-        if (name) return T("Recharging", "魔力充填");
-        if (desc) return T("Recharges staves, wands or rods.", "杖/魔法棒の充填回数を増やすか、充填中のロッドの充填時間を減らす。");
+        if (name) return "Recharging";
+        if (desc) return "Recharges staves, wands or rods.";
 
         {
             int power = spell_power(plev * 3);
@@ -5702,7 +5702,7 @@ static cptr do_craft_spell(int spell, int mode)
                 mutation = MUT_TELEPORT_RND;
 
             if (mut_gain(mutation))
-                msg_print(T("You have turned into a Living Trump.", "あなたは生きているカードに変わった。"));
+                msg_print("You have turned into a Living Trump.");
         }
         break;
 
@@ -8725,21 +8725,21 @@ void on_p_hit_m(int m_idx)
         monster_desc(m_name, m_ptr, 0);
 
         p_ptr->special_attack &= ~(ATTACK_CONFUSE);
-        msg_print(T("Your hands stop glowing.", "手の輝きがなくなった。"));
+        msg_print("Your hands stop glowing.");
         p_ptr->redraw |= (PR_STATUS);
 
         if (r_ptr->flags3 & RF3_NO_CONF)
         {
             if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= RF3_NO_CONF;
-            msg_format(T("%^s is unaffected.", "%^sには効果がなかった。"), m_name);
+            msg_format("%^s is unaffected.", m_name);
         }
         else if (randint0(100) < r_ptr->level)
         {
-            msg_format(T("%^s is unaffected.", "%^sには効果がなかった。"), m_name);
+            msg_format("%^s is unaffected.", m_name);
         }
         else
         {
-            msg_format(T("%^s appears confused.", "%^sは混乱したようだ。"), m_name);
+            msg_format("%^s appears confused.", m_name);
             (void)set_monster_confused(m_idx, MON_CONFUSED(m_ptr) + 10 + randint0(p_ptr->lev) / 5);
         }
     }
@@ -9677,13 +9677,13 @@ static cptr do_burglary_spell(int spell, int mode)
             {
                 py_attack(y, x, 0);
                 if (randint0(p_ptr->skills.dis) < 7)
-                    msg_print(T("You failed to teleport.", "うまく逃げられなかった。"));
+                    msg_print("You failed to teleport.");
                 else 
                     teleport_player(30, 0);
             }
             else
             {
-                msg_print(T("You don't see any monster in this direction", "その方向にはモンスターはいません。"));
+                msg_print("You don't see any monster in this direction");
                 msg_print(NULL);
                 return NULL;
             }
@@ -9698,7 +9698,7 @@ static cptr do_burglary_spell(int spell, int mode)
         {
             if (!do_cmd_fire()) return NULL;
             if (randint0(p_ptr->skills.dis) < 7)
-                msg_print(T("You failed to teleport.", "うまく逃げられなかった。"));
+                msg_print("You failed to teleport.");
             else 
                 teleport_player(30, 0);
         }
@@ -9713,7 +9713,7 @@ static cptr do_burglary_spell(int spell, int mode)
             trump_summoning(damroll(2, 3), !fail, py, px, 0, SUMMON_THIEF, PM_ALLOW_GROUP);
 
             if (randint0(p_ptr->skills.dis) < 7)
-                msg_print(T("You failed to teleport.", "うまく逃げられなかった。"));
+                msg_print("You failed to teleport.");
             else 
                 teleport_player(30, 0);
         }
@@ -9737,7 +9737,7 @@ static cptr do_burglary_spell(int spell, int mode)
             }
             
             if (randint0(p_ptr->skills.dis) < 7)
-                msg_print(T("You failed to teleport.", "うまく逃げられなかった。"));
+                msg_print("You failed to teleport.");
             else 
                 teleport_player(30, 0);
         }
@@ -9930,7 +9930,7 @@ static cptr do_burglary_spell(int spell, int mode)
             }
             else
             {
-                msg_print(T("There is no monster.", "その方向にはモンスターはいません。"));
+                msg_print("There is no monster.");
                 return NULL;
             }
         }

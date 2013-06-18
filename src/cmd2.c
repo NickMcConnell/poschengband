@@ -3886,7 +3886,7 @@ void do_cmd_fire_aux2(int item, object_type *bow, int sx, int sy, int tx, int ty
                             }
                             
                             if (stick_to)
-                                msg_format(T("%^s have stuck into %s!", "%sは%sに突き刺さった！"),o_name, m_name);
+                                msg_format("%^s have stuck into %s!",o_name, m_name);
                         }
 
                         if (fear && m_ptr->ml)

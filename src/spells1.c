@@ -1920,7 +1920,7 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
                   || m_ptr->r_idx == MON_HAGURE2
                   || who == 0 )
                 {
-                    note = T(" is immune.", "には完全な耐性がある！");
+                    note = " is immune.";
                     dam = 0;
                     if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
                     break;
@@ -1936,14 +1936,14 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
 
             if (r_ptr->flagsr & RFR_RES_ALL)
             {
-                note = T(" is immune.", "には完全な耐性がある！");
+                note = " is immune.";
                 dam = 0;
                 if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
                 break;
             }
             else if (!r_ptr->freq_spell)
             {
-                note = T(" is immune.", "には完全な耐性がある！");
+                note = " is immune.";
                 dam = 0;
             }
             else
@@ -2355,7 +2355,7 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
 
             if (r_ptr->flagsr & RFR_RES_ALL)
             {
-                note = T(" is immune.", "には完全な耐性がある！");
+                note = " is immune.";
                 dam = 0;
                 if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
                 break;
@@ -3337,7 +3337,7 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
 
             if (r_ptr->flagsr & RFR_RES_ALL)
             {
-                note = T(" is immune.", "には完全な耐性がある！");
+                note = " is immune.";
                 dam = 0;
                 if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
                 break;
@@ -3351,7 +3351,7 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
                     if (r_ptr->flags3 & RF3_NONLIVING) r_ptr->r_flags3 |= (RF3_NONLIVING);
                 }
 
-                note = T(" is immune.", "には完全な耐性がある。");
+                note = " is immune.";
                 obvious = FALSE;
                 dam = 0;
             }
@@ -3359,7 +3359,7 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
                     || mon_save_p(m_ptr->r_idx, A_INT) 
                     || mon_save_p(m_ptr->r_idx, A_INT) )
             {
-                note = T(" resists!", "には耐性がある！");
+                note = " resists!";
                 obvious = FALSE;
                 dam = 0;
             }
@@ -4543,7 +4543,7 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
             /* Attempt a saving throw */
             if ((r_ptr->flags3 & RF3_NO_FEAR) || fear_save_m(m_ptr))
             {
-                note = T(" is unaffected!", "には効果がなかった！");
+                note = " is unaffected!";
                 obvious = FALSE;
                 do_fear = 0;
             }
@@ -4758,7 +4758,7 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
             if (seen) obvious = TRUE;
             if (r_ptr->flagsr & RFR_RES_ALL)
             {
-                note = T(" is immune.", "には完全な耐性がある！");
+                note = " is immune.";
                 skipped = TRUE;
                 if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
                 dam = 0;
@@ -4767,7 +4767,7 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
 
             if ((r_ptr->flags4 & ~(RF4_NOMAGIC_MASK)) || (r_ptr->flags5 & ~(RF5_NOMAGIC_MASK)) || (r_ptr->flags6 & ~(RF6_NOMAGIC_MASK)))
             {
-                /*msg_format(T("You draw psychic energy from %s.", "%sから精神エネルギーを吸いとった。"), m_name);*/
+                /*msg_format("You draw psychic energy from %s.", m_name);*/
                 p_ptr->csp += dam;
                 if (p_ptr->csp > p_ptr->msp)
                 {
@@ -4779,7 +4779,7 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
             else
             {
                 if (see_s_msg) 
-                    msg_format(T("%s is unaffected.", "%sには効果がなかった。"), m_name);
+                    msg_format("%s is unaffected.", m_name);
                 dam = 0;
             }
             break;
@@ -4842,7 +4842,7 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
             if (seen) obvious = TRUE;
             if (r_ptr->flagsr & RFR_RES_ALL)
             {
-                note = T(" is immune.", "には完全な耐性がある！");
+                note = " is immune.";
                 skipped = TRUE;
                 if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
                 break;
@@ -4869,7 +4869,7 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
             if (seen) obvious = TRUE;
             if (r_ptr->flagsr & RFR_RES_ALL)
             {
-                note = T(" is immune.", "には完全な耐性がある！");
+                note = " is immune.";
                 skipped = TRUE;
                 if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
                 break;
@@ -4889,7 +4889,7 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
             if (seen) obvious = TRUE;
             if (r_ptr->flagsr & RFR_RES_ALL)
             {
-                note = T(" is immune.", "には完全な耐性がある！");
+                note = " is immune.";
                 skipped = TRUE;
                 if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
                 break;
@@ -4897,24 +4897,24 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
             else if (r_ptr->flags2 & RF2_EMPTY_MIND)
             {
                 if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags2 |= (RF2_EMPTY_MIND);
-                note = T(" is immune!", "には完全な耐性がある！");
+                note = " is immune!";
                 dam = 0;
             }
             else if (psion_mon_save_p(m_ptr->r_idx, dam))
             {
-                note = T(" resists!", "には耐性がある！");
+                note = " resists!";
                 dam = 0;
             }
             else if (r_ptr->flags2 & RF2_WEIRD_MIND)
             {
                 if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags2 |= (RF2_WEIRD_MIND);
-                note = T(" resists somewhat.", "には耐性がある。");
+                note = " resists somewhat.";
                 dam /= 2;
                 if (dam == 0) dam = 1;
             }
             if (dam)
             {
-                note = T(" is blasted by psionic energy.", "は精神攻撃を食らった。");
+                note = " is blasted by psionic energy.";
 
                 if (r_ptr->flags3 & RF3_NO_CONF)
                 {

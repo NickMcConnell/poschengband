@@ -753,10 +753,10 @@ static void _absorb_magic_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, T("Absorb Magic", "魔力の取り込み"));
+        var_set_string(res, "Absorb Magic");
         break;
     case SPELL_DESC:
-        var_set_string(res, T("", ""));
+        var_set_string(res, "");
         break;
     case SPELL_CAST:
         var_set_bool(res, gain_magic());
