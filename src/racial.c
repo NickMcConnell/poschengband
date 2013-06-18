@@ -15,30 +15,30 @@
 
 bool can_do_cmd_cast(void)
 {
-	if (dun_level && (d_info[dungeon_type].flags1 & DF1_NO_MAGIC))
-	{
-		msg_print("The dungeon absorbs all attempted magic!");
-		msg_print(NULL);
-		return FALSE;
-	}
-	else if (p_ptr->anti_magic)
-	{
-		msg_print("An anti-magic shell disrupts your magic!");
-		return FALSE;
-	}
-	else if (IS_SHERO())
-	{
-		msg_format("You cannot think directly!");
-		return FALSE;
-	}
-	else
-		return TRUE;
+    if (dun_level && (d_info[dungeon_type].flags1 & DF1_NO_MAGIC))
+    {
+        msg_print("The dungeon absorbs all attempted magic!");
+        msg_print(NULL);
+        return FALSE;
+    }
+    else if (p_ptr->anti_magic)
+    {
+        msg_print("An anti-magic shell disrupts your magic!");
+        return FALSE;
+    }
+    else if (IS_SHERO())
+    {
+        msg_format("You cannot think directly!");
+        return FALSE;
+    }
+    else
+        return TRUE;
 }
 
 void stop_mouth(void)
 {
-	if (music_singing_any()) bard_stop_singing();
-	if (hex_spelling_any()) stop_hex_spell_all();
+    if (music_singing_any()) bard_stop_singing();
+    if (hex_spelling_any()) stop_hex_spell_all();
 }
 
 

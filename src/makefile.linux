@@ -44,46 +44,46 @@
 #
 
 SRCS = \
-	archaeologist.c archer.c artifact.c autopick.c virtue.c bard.c \
-	beastmaster.c berserker.c birth.c bldg.c blood_knight.c blood_mage.c blue_mage.c \
-	cavalry.c cave.c chaos_warrior.c classes.c cmd1.c cmd2.c cmd3.c cmd4.c cmd5.c \
-	cmd6.c combat.c demigod.c devicemaster.c devices.c do-spell.c doppelganger.c duelist.c dungeon.c \
-	effects.c equip.c fear.c files.c flavor.c floors.c force_trainer.c generate.c \
-	grid.c hex.c high_mage.c hissatsu.c imitator.c init1.c init2.c load.c mage.c \
-	magic_eater.c mauler.c melee1.c melee2.c menu.c mindcrafter.c mirror_master.c \
-	monk.c monster.c monster1.c monster2.c mspells1.c mspells2.c mspells3.c mut.c \
-	mut_a.c mystic.c necromancer.c ninja.c object1.c object2.c object3.c obj_kind.c paladin.c \
-	priest.c psion.c races.c races_a.c races_k.c races_mimic.c race_angel.c \
-	race_beholder.c race_demon.c race_dragon.c race_giant.c race_hound.c race_hydra.c race_jelly.c \
-	race_leprechaun.c race_lich.c race_spider.c race_troll.c race_xorn.c racial.c rage-mage.c ranger.c red_mage.c \
-	resist.c rogue.c rooms.c rune_knight.c samurai.c save.c savefile.c scores.c scout.c \
-	skills.c sniper.c sorcerer.c spells.c spells1.c spells2.c spells3.c spells_a.c \
-	spells_c.c spells_h.c spells_m.c spells_s.c spoilers.c store.c streams.c \
-	tables.c time_lord.c tourist.c util.c variable.c variant.c warlock.c warrior.c \
-	warrior_mage.c weaponmaster.c weaponsmith.c wild.c wild_realm.c wild_talent.c \
-	wizard1.c wizard2.c xtra1.c xtra2.c z-term.c int-map.c str-map.c z-form.c \
-	z-rand.c z-util.c z-virt.c main-gcu.c main-x11.c main.c
+    archaeologist.c archer.c artifact.c autopick.c virtue.c bard.c \
+    beastmaster.c berserker.c birth.c bldg.c blood_knight.c blood_mage.c blue_mage.c \
+    cavalry.c cave.c chaos_warrior.c classes.c cmd1.c cmd2.c cmd3.c cmd4.c cmd5.c \
+    cmd6.c combat.c demigod.c devicemaster.c devices.c do-spell.c doppelganger.c duelist.c dungeon.c \
+    effects.c equip.c fear.c files.c flavor.c floors.c force_trainer.c generate.c \
+    grid.c hex.c high_mage.c hissatsu.c imitator.c init1.c init2.c load.c mage.c \
+    magic_eater.c mauler.c melee1.c melee2.c menu.c mindcrafter.c mirror_master.c \
+    monk.c monster.c monster1.c monster2.c mspells1.c mspells2.c mspells3.c mut.c \
+    mut_a.c mystic.c necromancer.c ninja.c object1.c object2.c object3.c obj_kind.c paladin.c \
+    priest.c psion.c races.c races_a.c races_k.c races_mimic.c race_angel.c \
+    race_beholder.c race_demon.c race_dragon.c race_giant.c race_hound.c race_hydra.c race_jelly.c \
+    race_leprechaun.c race_lich.c race_spider.c race_troll.c race_xorn.c racial.c rage-mage.c ranger.c red_mage.c \
+    resist.c rogue.c rooms.c rune_knight.c samurai.c save.c savefile.c scores.c scout.c \
+    skills.c sniper.c sorcerer.c spells.c spells1.c spells2.c spells3.c spells_a.c \
+    spells_c.c spells_h.c spells_m.c spells_s.c spoilers.c store.c streams.c \
+    tables.c time_lord.c tourist.c util.c variable.c variant.c warlock.c warrior.c \
+    warrior_mage.c weaponmaster.c weaponsmith.c wild.c wild_realm.c wild_talent.c \
+    wizard1.c wizard2.c xtra1.c xtra2.c z-term.c int-map.c str-map.c z-form.c \
+    z-rand.c z-util.c z-virt.c main-gcu.c main-x11.c main.c
 
 OBJS = \
-	archaeologist.o archer.o artifact.o autopick.o virtue.o bard.o \
-	beastmaster.o berserker.o birth.o bldg.o blood_knight.o blood_mage.o blue_mage.o \
-	cavalry.o cave.o chaos_warrior.o classes.o cmd1.o cmd2.o cmd3.o cmd4.o cmd5.o \
-	cmd6.o combat.o demigod.o devicemaster.o devices.o do-spell.o doppelganger.o duelist.o dungeon.o \
-	effects.o equip.o fear.o files.o flavor.o floors.o force_trainer.o generate.o \
-	grid.o hex.o high_mage.o hissatsu.o imitator.o init1.o init2.o load.o mage.o \
-	magic_eater.o mauler.o melee1.o melee2.o menu.o mindcrafter.o mirror_master.o \
-	monk.o monster.o monster1.o monster2.o mspells1.o mspells2.o mspells3.o mut.o \
-	mut_a.o mystic.o necromancer.o ninja.o object1.o object2.o object3.o obj_kind.o paladin.o \
-	priest.o psion.o races.o races_a.o races_k.o races_mimic.o race_angel.o \
-	race_beholder.o race_demon.o race_dragon.o race_giant.o race_hound.o race_hydra.o race_jelly.o \
-	race_leprechaun.o race_lich.o race_spider.o race_troll.o race_xorn.o racial.o rage-mage.o ranger.o red_mage.o \
-	resist.o rogue.o rooms.o rune_knight.o samurai.o save.o savefile.o scores.o scout.o \
-	skills.o sniper.o sorcerer.o spells.o spells1.o spells2.o spells3.o spells_a.o \
-	spells_c.o spells_h.o spells_m.o spells_s.o spoilers.o store.o streams.o \
-	tables.o time_lord.o tourist.o util.o variable.o variant.o warlock.o warrior.o \
-	warrior_mage.o weaponmaster.o weaponsmith.o wild.o wild_realm.o wild_talent.o \
-	wizard1.o wizard2.o xtra1.o xtra2.o z-term.o int-map.o str-map.o z-form.o \
-	z-rand.o z-util.o z-virt.o main-gcu.o main-x11.o main.o
+    archaeologist.o archer.o artifact.o autopick.o virtue.o bard.o \
+    beastmaster.o berserker.o birth.o bldg.o blood_knight.o blood_mage.o blue_mage.o \
+    cavalry.o cave.o chaos_warrior.o classes.o cmd1.o cmd2.o cmd3.o cmd4.o cmd5.o \
+    cmd6.o combat.o demigod.o devicemaster.o devices.o do-spell.o doppelganger.o duelist.o dungeon.o \
+    effects.o equip.o fear.o files.o flavor.o floors.o force_trainer.o generate.o \
+    grid.o hex.o high_mage.o hissatsu.o imitator.o init1.o init2.o load.o mage.o \
+    magic_eater.o mauler.o melee1.o melee2.o menu.o mindcrafter.o mirror_master.o \
+    monk.o monster.o monster1.o monster2.o mspells1.o mspells2.o mspells3.o mut.o \
+    mut_a.o mystic.o necromancer.o ninja.o object1.o object2.o object3.o obj_kind.o paladin.o \
+    priest.o psion.o races.o races_a.o races_k.o races_mimic.o race_angel.o \
+    race_beholder.o race_demon.o race_dragon.o race_giant.o race_hound.o race_hydra.o race_jelly.o \
+    race_leprechaun.o race_lich.o race_spider.o race_troll.o race_xorn.o racial.o rage-mage.o ranger.o red_mage.o \
+    resist.o rogue.o rooms.o rune_knight.o samurai.o save.o savefile.o scores.o scout.o \
+    skills.o sniper.o sorcerer.o spells.o spells1.o spells2.o spells3.o spells_a.o \
+    spells_c.o spells_h.o spells_m.o spells_s.o spoilers.o store.o streams.o \
+    tables.o time_lord.o tourist.o util.o variable.o variant.o warlock.o warrior.o \
+    warrior_mage.o weaponmaster.o weaponsmith.o wild.o wild_realm.o wild_talent.o \
+    wizard1.o wizard2.o xtra1.o xtra2.o z-term.o int-map.o str-map.o z-form.o \
+    z-rand.o z-util.o z-virt.o main-gcu.o main-x11.o main.o
 
 ##
 ## Following are some "system" definitions
@@ -142,7 +142,7 @@ LIBS = -L/usr/X11R6/lib -lX11 -lncurses
 ##
 #CFLAGS = -Wall -O2 -m486 -pipe -g -D"USE_XAW" -D"USE_GCU"
 #LIBS = -L/usr/X11R6/lib -lXaw -lXext -lSM -lICE -lXmu -lXt \
-#	-lX11 -lcurses
+#    -lX11 -lcurses
 
 
 ##
@@ -256,8 +256,8 @@ LIBS = -L/usr/X11R6/lib -lX11 -lncurses
 #
 
 install: poschengband
-	cp poschengband ..
-#	chmod u+s ../poschengband
+    cp poschengband ..
+#    chmod u+s ../poschengband
 
 
 #
@@ -265,7 +265,7 @@ install: poschengband
 #
 
 poschengband: $(OBJS)
-	$(CC) $(CFLAGS) -o poschengband $(OBJS) $(LDFLAGS) $(LIBS)
+    $(CC) $(CFLAGS) -o poschengband $(OBJS) $(LDFLAGS) $(LIBS)
 
 
 #
@@ -273,7 +273,7 @@ poschengband: $(OBJS)
 #
 
 clean:
-	-\rm -f *.bak *.o
+    -\rm -f *.bak *.o
 
 
 #
@@ -281,7 +281,7 @@ clean:
 #
 
 depend:
-	makedepend -D__MAKEDEPEND__ $(SRCS)
+    makedepend -D__MAKEDEPEND__ $(SRCS)
 
 
 #
@@ -289,13 +289,13 @@ depend:
 #
 
 HDRS = \
-	h-basic.h \
-	h-define.h h-type.h h-system.h h-config.h
+    h-basic.h \
+    h-define.h h-type.h h-system.h h-config.h
 
 INCS = \
-	angband.h \
-	z-config.h defines.h types.h externs.h \
-	z-term.h z-rand.h z-util.h z-virt.h z-form.h $(HDRS)
+    angband.h \
+    z-config.h defines.h types.h externs.h \
+    z-term.h z-rand.h z-util.h z-virt.h z-form.h $(HDRS)
 
 archaeologist.o: archaeologist.c $(INCS)
 archer.o: archer.c $(INCS)
