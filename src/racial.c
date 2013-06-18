@@ -17,30 +17,18 @@ bool can_do_cmd_cast(void)
 {
 	if (dun_level && (d_info[dungeon_type].flags1 & DF1_NO_MAGIC))
 	{
-#ifdef JP
-		msg_print("ダンジョンが魔法を吸収した！");
-#else
 		msg_print("The dungeon absorbs all attempted magic!");
-#endif
 		msg_print(NULL);
 		return FALSE;
 	}
 	else if (p_ptr->anti_magic)
 	{
-#ifdef JP
-		msg_print("反魔法バリアが魔法を邪魔した！");
-#else
 		msg_print("An anti-magic shell disrupts your magic!");
-#endif
 		return FALSE;
 	}
 	else if (IS_SHERO())
 	{
-#ifdef JP
-		msg_format("狂戦士化していて頭が回らない！");
-#else
 		msg_format("You cannot think directly!");
-#endif
 		return FALSE;
 	}
 	else

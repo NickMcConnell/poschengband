@@ -150,11 +150,7 @@ static void show_building(building_type* bldg)
 				if (!is_member(bldg))
 				{
 					action_color = TERM_L_DARK;
-#ifdef JP
-strcpy(buff, "(閉店)");
-#else
 					strcpy(buff, "(closed)");
-#endif
 
 				}
 				else if ((is_owner(bldg) && (bldg->member_costs[i] == 0)) ||
@@ -179,11 +175,7 @@ strcpy(buff, "(閉店)");
 				if (!is_owner(bldg))
 				{
 					action_color = TERM_L_DARK;
-#ifdef JP
-strcpy(buff, "(閉店)");
-#else
 					strcpy(buff, "(closed)");
-#endif
 
 				}
 				else if (bldg->member_costs[i] != 0)
@@ -203,11 +195,7 @@ strcpy(buff, "(閉店)");
 		}
 	}
 
-#ifdef JP
-prt(" ESC) 建物を出る", 23, 0);
-#else
 	prt(" ESC) Exit building", 23, 0);
-#endif
 
 }
 
@@ -226,24 +214,14 @@ static void arena_comm(int cmd)
 			if (p_ptr->arena_number == MAX_ARENA_MONS)
 			{
 				clear_bldg(5, 19);
-#ifdef JP
-prt("アリーナの優勝者！", 5, 0);
-prt("おめでとう！あなたは全ての敵を倒しました。", 7, 0); 
-prt("賞金として $1,000,000 が与えられます。", 8, 0);
-#else
 				prt("               Arena Victor!", 5, 0);
 				prt("Congratulations!  You have defeated all before you.", 7, 0);
 				prt("For that, receive the prize: 1,000,000 gold pieces", 8, 0);
-#endif
 
 				prt("", 10, 0);
 				prt("", 11, 0);
 				p_ptr->au += 1000000L;
-#ifdef JP
-msg_print("スペースキーで続行");
-#else
 				msg_print("Press the space bar to continue");
-#endif
 
 				msg_print(NULL);
 				p_ptr->arena_number++;
@@ -252,18 +230,10 @@ msg_print("スペースキーで続行");
 			{
 				if (p_ptr->arena_number < MAX_ARENA_MONS+2)
 				{
-#ifdef JP
-msg_print("君のために最強の挑戦者を用意しておいた。");
-#else
 					msg_print("The strongest challenger is waiting for you.");
-#endif
 
 					msg_print(NULL);
-#ifdef JP
-					if (get_check("挑戦するかね？"))
-#else
 					if (get_check("Do you fight? "))
-#endif
 					{
 						p_ptr->exit_bldg = FALSE;
 						reset_tim_flags();
@@ -277,31 +247,19 @@ msg_print("君のために最強の挑戦者を用意しておいた。");
 					}
 					else
 					{
-#ifdef JP
-msg_print("残念だ。");
-#else
 						msg_print("We are disappointed.");
-#endif
 					}
 				}
 				else
 				{
-#ifdef JP
-msg_print("あなたはアリーナに入り、しばらくの間栄光にひたった。");
-#else
 					msg_print("You enter the arena briefly and bask in your glory.");
-#endif
 
 					msg_print(NULL);
 				}
 			}
 			else if (p_ptr->riding && (p_ptr->pclass != CLASS_BEASTMASTER) && (p_ptr->pclass != CLASS_CAVALRY))
 			{
-#ifdef JP
-msg_print("ペットに乗ったままではアリーナへ入れさせてもらえなかった。");
-#else
 				msg_print("You don't have permission to enter with pet.");
-#endif
 
 				msg_print(NULL);
 			}
@@ -320,29 +278,17 @@ msg_print("ペットに乗ったままではアリーナへ入れさせてもらえなかった。");
 			break;
 		case BACT_POSTER:
 			if (p_ptr->arena_number == MAX_ARENA_MONS)
-#ifdef JP
-msg_print("あなたは勝利者だ。 アリーナでのセレモニーに参加しなさい。");
-#else
 				msg_print("You are victorious. Enter the arena for the ceremony.");
-#endif
 
 			else if (p_ptr->arena_number > MAX_ARENA_MONS)
 			{
-#ifdef JP
-msg_print("あなたはすべての敵に勝利した。");
-#else
 				msg_print("You have won against all foes.");
-#endif
 			}
 			else
 			{
 				r_ptr = &r_info[arena_info[p_ptr->arena_number].r_idx];
 				name = (r_name + r_ptr->name);
-#ifdef JP
-msg_format("%s に挑戦するものはいないか？", name);
-#else
 				msg_format("Do I hear any challenges against: %s", name);
-#endif
 			}
 			break;
 		case BACT_ARENA_RULES:
@@ -351,11 +297,7 @@ msg_format("%s に挑戦するものはいないか？", name);
 			screen_save();
 
 			/* Peruse the arena help file */
-#ifdef JP
-(void)show_file(TRUE, "arena_j.txt", NULL, 0, 0);
-#else
 			(void)show_file(TRUE, "arena.txt", NULL, 0, 0);
-#endif
 
 
 			/* Load screen */
@@ -374,17 +316,6 @@ static void display_fruit(int row, int col, int fruit)
 	switch (fruit)
 	{
 		case 0: /* lemon */
-#ifdef JP
-			c_put_str(TERM_YELLOW, "   ####.", row, col);
-			c_put_str(TERM_YELLOW, "  #    #", row + 1, col);
-			c_put_str(TERM_YELLOW, " #     #", row + 2, col);
-			c_put_str(TERM_YELLOW, "#      #", row + 3, col);
-			c_put_str(TERM_YELLOW, "#      #", row + 4, col);
-			c_put_str(TERM_YELLOW, "#     # ", row + 5, col);
-			c_put_str(TERM_YELLOW, "#    #  ", row + 6, col);
-			c_put_str(TERM_YELLOW, ".####   ", row + 7, col);
-			prt(                   " レモン ", row + 8, col);
-#else
 			c_put_str(TERM_YELLOW, "   ####.", row, col);
 			c_put_str(TERM_YELLOW, "  #    #", row + 1, col);
 			c_put_str(TERM_YELLOW, " #     #", row + 2, col);
@@ -394,21 +325,9 @@ static void display_fruit(int row, int col, int fruit)
 			c_put_str(TERM_YELLOW, "#    #  ", row + 6, col);
 			c_put_str(TERM_YELLOW, ".####   ", row + 7, col);
 			prt(                   " Lemon  ", row + 8, col);
-#endif
 
 			break;
 		case 1: /* orange */
-#ifdef JP
-			c_put_str(TERM_ORANGE, "   ##   ", row, col);
-			c_put_str(TERM_ORANGE, "  #..#  ", row + 1, col);
-			c_put_str(TERM_ORANGE, " #....# ", row + 2, col);
-			c_put_str(TERM_ORANGE, "#......#", row + 3, col);
-			c_put_str(TERM_ORANGE, "#......#", row + 4, col);
-			c_put_str(TERM_ORANGE, " #....# ", row + 5, col);
-			c_put_str(TERM_ORANGE, "  #..#  ", row + 6, col);
-			c_put_str(TERM_ORANGE, "   ##   ", row + 7, col);
-			prt(                   "オレンジ", row + 8, col);
-#else
 			c_put_str(TERM_ORANGE, "   ##   ", row, col);
 			c_put_str(TERM_ORANGE, "  #..#  ", row + 1, col);
 			c_put_str(TERM_ORANGE, " #....# ", row + 2, col);
@@ -418,21 +337,9 @@ static void display_fruit(int row, int col, int fruit)
 			c_put_str(TERM_ORANGE, "  #..#  ", row + 6, col);
 			c_put_str(TERM_ORANGE, "   ##   ", row + 7, col);
 			prt(                   " Orange ", row + 8, col);
-#endif
 
 			break;
 		case 2: /* sword */
-#ifdef JP
-			c_put_str(TERM_SLATE, "   Λ   " , row, col);
-			c_put_str(TERM_SLATE, "   ||   " , row + 1, col);
-			c_put_str(TERM_SLATE, "   ||   " , row + 2, col);
-			c_put_str(TERM_SLATE, "   ||   " , row + 3, col);
-			c_put_str(TERM_SLATE, "   ||   " , row + 4, col);
-			c_put_str(TERM_SLATE, "   ||   " , row + 5, col);
-			c_put_str(TERM_UMBER, " |=亜=| " , row + 6, col);
-			c_put_str(TERM_UMBER, "   目   " , row + 7, col);
-			prt(                  "   剣   " , row + 8, col);
-#else
 			c_put_str(TERM_SLATE, "   /\\   " , row, col);
 			c_put_str(TERM_SLATE, "   ##   " , row + 1, col);
 			c_put_str(TERM_SLATE, "   ##   " , row + 2, col);
@@ -442,21 +349,9 @@ static void display_fruit(int row, int col, int fruit)
 			c_put_str(TERM_UMBER, " ###### " , row + 6, col);
 			c_put_str(TERM_UMBER, "   ##   " , row + 7, col);
 			prt(                  " Sword  " , row + 8, col);
-#endif
 
 			break;
 		case 3: /* shield */
-#ifdef JP
-			c_put_str(TERM_SLATE, " ###### ", row, col);
-			c_put_str(TERM_SLATE, "#      #", row + 1, col);
-			c_put_str(TERM_SLATE, "# ++++ #", row + 2, col);
-			c_put_str(TERM_SLATE, "# +==+ #", row + 3, col);
-			c_put_str(TERM_SLATE, "#  ++  #", row + 4, col);
-			c_put_str(TERM_SLATE, " #    # ", row + 5, col);
-			c_put_str(TERM_SLATE, "  #  #  ", row + 6, col);
-			c_put_str(TERM_SLATE, "   ##   ", row + 7, col);
-			prt(                  "   盾   ", row + 8, col);
-#else
 			c_put_str(TERM_SLATE, " ###### ", row, col);
 			c_put_str(TERM_SLATE, "#      #", row + 1, col);
 			c_put_str(TERM_SLATE, "# ++++ #", row + 2, col);
@@ -466,21 +361,9 @@ static void display_fruit(int row, int col, int fruit)
 			c_put_str(TERM_SLATE, "  #  #  ", row + 6, col);
 			c_put_str(TERM_SLATE, "   ##   ", row + 7, col);
 			prt(                  " Shield ", row + 8, col);
-#endif
 
 			break;
 		case 4: /* plum */
-#ifdef JP
-			c_put_str(TERM_VIOLET, "   ##   ", row, col);
-			c_put_str(TERM_VIOLET, " ###### ", row + 1, col);
-			c_put_str(TERM_VIOLET, "########", row + 2, col);
-			c_put_str(TERM_VIOLET, "########", row + 3, col);
-			c_put_str(TERM_VIOLET, "########", row + 4, col);
-			c_put_str(TERM_VIOLET, " ###### ", row + 5, col);
-			c_put_str(TERM_VIOLET, "  ####  ", row + 6, col);
-			c_put_str(TERM_VIOLET, "   ##   ", row + 7, col);
-			prt(                   " プラム ", row + 8, col);
-#else
 			c_put_str(TERM_VIOLET, "   ##   ", row, col);
 			c_put_str(TERM_VIOLET, " ###### ", row + 1, col);
 			c_put_str(TERM_VIOLET, "########", row + 2, col);
@@ -490,21 +373,9 @@ static void display_fruit(int row, int col, int fruit)
 			c_put_str(TERM_VIOLET, "  ####  ", row + 6, col);
 			c_put_str(TERM_VIOLET, "   ##   ", row + 7, col);
 			prt(                   "  Plum  ", row + 8, col);
-#endif
 
 			break;
 		case 5: /* cherry */
-#ifdef JP
-			c_put_str(TERM_RED, "      ##", row, col);
-			c_put_str(TERM_RED, "   ###  ", row + 1, col);
-			c_put_str(TERM_RED, "  #..#  ", row + 2, col);
-			c_put_str(TERM_RED, "  #..#  ", row + 3, col);
-			c_put_str(TERM_RED, " ###### ", row + 4, col);
-			c_put_str(TERM_RED, "#..##..#", row + 5, col);
-			c_put_str(TERM_RED, "#..##..#", row + 6, col);
-			c_put_str(TERM_RED, " ##  ## ", row + 7, col);
-			prt(                "チェリー", row + 8, col);
-#else
 			c_put_str(TERM_RED, "      ##", row, col);
 			c_put_str(TERM_RED, "   ###  ", row + 1, col);
 			c_put_str(TERM_RED, "  #..#  ", row + 2, col);
@@ -514,7 +385,6 @@ static void display_fruit(int row, int col, int fruit)
 			c_put_str(TERM_RED, "#..##..#", row + 6, col);
 			c_put_str(TERM_RED, " ##  ## ", row + 7, col);
 			prt(                " Cherry ", row + 8, col);
-#endif
 
 			break;
 	}
@@ -704,25 +574,13 @@ static int yaku_check(void)
 
 	switch(yaku_check_straight()){
 	case 3: /* RF! */
-#ifdef JP
-		c_put_str(TERM_YELLOW, "ロイヤルストレートフラッシュ",  4,  3);
-#else
 		c_put_str(TERM_YELLOW, "Royal Flush",  4,  3);
-#endif
 		return ODDS_RF;
 	case 2: /* SF! */
-#ifdef JP
-		c_put_str(TERM_YELLOW, "ストレートフラッシュ",  4,  3);
-#else
 		c_put_str(TERM_YELLOW, "Straight Flush",  4,  3);
-#endif
 		return ODDS_SF;
 	case 1:
-#ifdef JP
-		c_put_str(TERM_YELLOW, "ストレート",  4,  3);
-#else
 		c_put_str(TERM_YELLOW, "Straight",  4,  3);
-#endif
 		return ODDS_ST;
 	default:
 		/* Not straight -- fall through */
@@ -732,68 +590,36 @@ static int yaku_check(void)
 	if (yaku_check_flush())
 	{
 
-#ifdef JP
-	c_put_str(TERM_YELLOW, "フラッシュ",  4,  3);
-#else
 	c_put_str(TERM_YELLOW, "Flush",  4,  3);
-#endif
 		return ODDS_FL;
 	}
 
 	switch (yaku_check_pair())
 	{
 	case 1:
-#ifdef JP
-		c_put_str(TERM_YELLOW, "ワンペア",  4,  3);
-#else
 		c_put_str(TERM_YELLOW, "One pair",  4,  3);
-#endif
 		return 0;
 	case 2:
-#ifdef JP
-		c_put_str(TERM_YELLOW, "ツーペア",  4,  3);
-#else
 		c_put_str(TERM_YELLOW, "Two pair",  4,  3);
-#endif
 		return ODDS_2P;
 	case 3:
-#ifdef JP
-		c_put_str(TERM_YELLOW, "スリーカード",  4,  3);
-#else
 		c_put_str(TERM_YELLOW, "Three of a kind",  4,  3);
-#endif
 		return ODDS_3C;
 	case 4:
-#ifdef JP
-		c_put_str(TERM_YELLOW, "フルハウス",  4,  3);
-#else
 		c_put_str(TERM_YELLOW, "Full house",  4,  3);
-#endif
 		return ODDS_FH;
 	case 6:
-#ifdef JP
-		c_put_str(TERM_YELLOW, "フォーカード",  4,  3);
-#else
 		c_put_str(TERM_YELLOW, "Four of a kind",  4,  3);
-#endif
 		return ODDS_4C;
 	case 7:
 		if (!NUM_OF(cards[0]) || !NUM_OF(cards[1]))
 		{
-#ifdef JP
-			c_put_str(TERM_YELLOW, "ファイブエース",  4,  3);
-#else
 			c_put_str(TERM_YELLOW, "Five ace",  4,  3);
-#endif
 			return ODDS_5A;
 		}
 		else
 		{
-#ifdef JP
-			c_put_str(TERM_YELLOW, "ファイブカード",  4,  3);
-#else
 			c_put_str(TERM_YELLOW, "Five of a kind",  4,  3);
-#endif
 			return ODDS_5C;
 		}
 	default:
@@ -811,25 +637,14 @@ static void display_kaeruka(int hoge, int kaeruka[])
 		if (i == hoge) col = TERM_YELLOW;
 		else if(kaeruka[i]) col = TERM_WHITE;
 		else col = TERM_L_BLUE;
-#ifdef JP
-		if(kaeruka[i])
-			c_put_str(col, "かえる", 14,  5+i*16);
-		else
-			c_put_str(col, "のこす", 14,  5+i*16);
-#else
 		if(kaeruka[i])
 			c_put_str(col, "Change", 14,  5+i*16);
 		else
 			c_put_str(col, " Stay ", 14,  5+i*16);
-#endif
 	}
 	if (hoge > 4) col = TERM_YELLOW;
 	else col = TERM_WHITE;
-#ifdef JP
-	c_put_str(col, "決定", 16,  38);
-#else
 	c_put_str(col, "Sure", 16,  38);
-#endif
 
 	/* Hilite current option */
 	if (hoge < 5) move_cursor(14, 5+hoge*16);
@@ -841,108 +656,6 @@ static void display_cards(void)
 {
 	int i, j;
 	char suitcolor[4] = {TERM_YELLOW, TERM_L_RED, TERM_L_BLUE, TERM_L_GREEN};
-#ifdef JP
-	cptr suit[4] = {"★", "●", "¶", "†"};
-	cptr card_grph[13][7] = {{"Ａ   %s     ",
-				  "     変     ",
-				  "     愚     ",
-				  "     蛮     ",
-				  "     怒     ",
-				  "     %s     ",
-				  "          Ａ"},
-				 {"２          ",
-				  "     %s     ",
-				  "            ",
-				  "            ",
-				  "            ",
-				  "     %s     ",
-				  "          ２"},
-				 {"３          ",
-				  "     %s     ",
-				  "            ",
-				  "     %s     ",
-				  "            ",
-				  "     %s     ",
-				  "          ３"},
-				 {"４          ",
-				  "   %s  %s   ",
-				  "            ",
-				  "            ",
-				  "            ",
-				  "   %s  %s   ",
-				  "          ４"},
-				 {"５          ",
-				  "   %s  %s   ",
-				  "            ",
-				  "     %s     ",
-				  "            ",
-				  "   %s  %s   ",
-				  "          ５"},
-				 {"６          ",
-				  "   %s  %s   ",
-				  "            ",
-				  "   %s  %s   ",
-				  "            ",
-				  "   %s  %s   ",
-				  "          ６"},
-				 {"７          ",
-				  "   %s  %s   ",
-				  "     %s     ",
-				  "   %s  %s   ",
-				  "            ",
-				  "   %s  %s   ",
-				  "          ７"},
-				 {"８          ",
-				  "   %s  %s   ",
-				  "     %s     ",
-				  "   %s  %s   ",
-				  "     %s     ",
-				  "   %s  %s   ",
-				  "          ８"},
-				 {"９ %s  %s   ",
-				  "            ",
-				  "   %s  %s   ",
-				  "     %s     ",
-				  "   %s  %s   ",
-				  "            ",
-				  "   %s  %s ９"},
-				 {"10 %s  %s   ",
-				  "     %s     ",
-				  "   %s  %s   ",
-				  "            ",
-				  "   %s  %s   ",
-				  "     %s     ",
-				  "   %s  %s 10"},
-				 {"Ｊ   Λ     ",
-				  "%s   ||     ",
-				  "     ||     ",
-				  "     ||     ",
-				  "     ||     ",
-				  "   |=亜=| %s",
-				  "     目   Ｊ"},
-				 {"Ｑ ######   ",
-				  "%s#      #  ",
-				  "  # ++++ #  ",
-				  "  # +==+ #  ",
-				  "   # ++ #   ",
-				  "    #  #  %s",
-				  "     ##   Ｑ"},
-				 {"Ｋ          ",
-				  "%s ｀⌒´   ",
-				  "  γγγλ  ",
-				  "  ο ο ι  ",
-				  "   υ    ∂ ",
-				  "    σ ノ %s",
-				  "          Ｋ"}};
-	cptr joker_grph[7] = {    "            ",
-				  "     Ｊ     ",
-				  "     Ｏ     ",
-				  "     Ｋ     ",
-				  "     Ｅ     ",
-				  "     Ｒ     ",
-				  "            "};
-
-#else
 
 	cptr suit[4] = {"[]", "qp", "<>", "db"};
 	cptr card_grph[13][7] = {{"A    %s     ",
@@ -1043,44 +756,27 @@ static void display_cards(void)
 				  "     E      ",
 				  "     R      ",
 				  "            "};
-#endif
 
 	for (i = 0; i < 5; i++)
 	{
-#ifdef JP
-		prt("┏━━━━━━┓",  5,  i*16);
-#else
 		prt(" +------------+ ",  5,  i*16);
-#endif
 	}
 
 	for (i = 0; i < 5; i++)
 	{
 		for (j = 0; j < 7; j++)
 		{
-#ifdef JP
-			prt("┃",  j+6,  i*16);
-#else
 			prt(" |",  j+6,  i*16);
-#endif
 			if(IS_JOKER(cards[i]))
 				c_put_str(TERM_VIOLET, joker_grph[j],  j+6,  2+i*16);
 			else
 				c_put_str(suitcolor[SUIT_OF(cards[i])], format(card_grph[NUM_OF(cards[i])][j], suit[SUIT_OF(cards[i])], suit[SUIT_OF(cards[i])]),  j+6,  2+i*16);
-#ifdef JP
-			prt("┃",  j+6,  i*16+14);
-#else
 			prt("| ",  j+6,  i*16+14);
-#endif
 		}
 	}
 	for (i = 0; i < 5; i++)
 	{
-#ifdef JP
-		prt("┗━━━━━━┛", 13,  i*16);
-#else
 		prt(" +------------+ ", 13,  i*16);
-#endif
 	}
 }
 
@@ -1146,11 +842,7 @@ static int do_poker(void)
 #endif
 
 	/* suteruno wo kimeru */
-#ifdef JP
-	prt("残すカードを決めて下さい(方向で移動, スペースで選択)。", 0, 0);
-#else
 	prt("Stay witch? ", 0, 0);
-#endif
 
 	display_cards();
 	yaku_check();
@@ -1220,11 +912,7 @@ static bool gamble_comm(int cmd)
 	if (cmd == BACT_GAMBLE_RULES)
 	{
 		/* Peruse the gambling help file */
-#ifdef JP
-(void)show_file(TRUE, "jgambling.txt", NULL, 0, 0);
-#else
 		(void)show_file(TRUE, "gambling.txt", NULL, 0, 0);
-#endif
 
 	}
 	else
@@ -1232,11 +920,7 @@ static bool gamble_comm(int cmd)
 		/* No money */
 		if (p_ptr->au < 1)
 		{
-#ifdef JP
-			msg_print("おい！おまえ一文なしじゃないか！こっから出ていけ！");
-#else
 			msg_print("Hey! You don't have gold - get out of here!");
-#endif
 
 			msg_print(NULL);
 			screen_load();
@@ -1268,11 +952,7 @@ static bool gamble_comm(int cmd)
 
 			if (wager > p_ptr->au)
 			{
-#ifdef JP
-msg_print("おい！金が足りないじゃないか！出ていけ！");
-#else
 				msg_print("Hey! You don't have the gold - get out of here!");
-#endif
 
 				msg_print(NULL);
 				screen_load();
@@ -1285,11 +965,7 @@ msg_print("おい！金が足りないじゃないか！出ていけ！");
 			}
 			else if (wager < 1)
 			{
-#ifdef JP
-msg_print("ＯＫ、１ゴールドからはじめよう。");
-#else
 				msg_print("Ok, we'll start with 1 gold.");
-#endif
 
 
 				wager = 1;
@@ -1311,38 +987,21 @@ msg_print("ＯＫ、１ゴールドからはじめよう。");
 
 			do
 			{
-#ifdef JP /* Prevent random seed cracking of the casino */
-				clock_t clk;
-				clk = clock();
-				Rand_value *= clk;
-#endif
 				p_ptr->au -= wager;
 				switch (cmd)
 				{
 				 case BACT_IN_BETWEEN: /* Game of In-Between */
-#ifdef JP
-c_put_str(TERM_GREEN, "イン・ビトイーン",5,2);
-#else
 					c_put_str(TERM_GREEN, "In Between", 5, 2);
-#endif
 
 					odds = 4;
 					win = FALSE;
 					roll1 = randint1(10);
 					roll2 = randint1(10);
 					choice = randint1(10);
-#ifdef JP
-sprintf(tmp_str, "黒ダイス: %d        黒ダイス: %d", roll1, roll2);
-#else
 					sprintf(tmp_str, "Black die: %d       Black Die: %d", roll1, roll2);
-#endif
 
 					prt(tmp_str, 8, 3);
-#ifdef JP
-sprintf(tmp_str, "赤ダイス: %d", choice);
-#else
 					sprintf(tmp_str, "Red die: %d", choice);
-#endif
 
 					prt(tmp_str, 11, 14);
 					if (((choice > roll1) && (choice < roll2)) ||
@@ -1350,11 +1009,7 @@ sprintf(tmp_str, "赤ダイス: %d", choice);
 						win = TRUE;
 					break;
 				case BACT_CRAPS:  /* Game of Craps */
-#ifdef JP
-c_put_str(TERM_GREEN, "クラップス", 5, 2);
-#else
 					c_put_str(TERM_GREEN, "Craps", 5, 2);
-#endif
 
 					win = 3;
 					odds = 2;
@@ -1362,11 +1017,7 @@ c_put_str(TERM_GREEN, "クラップス", 5, 2);
 					roll2 = randint1(6);
 					roll3 = roll1 +  roll2;
 					choice = roll3;
-#ifdef JP
-sprintf(tmp_str, "１振りめ: %d %d      Total: %d", roll1, 
-#else
 					sprintf(tmp_str, "First roll: %d %d    Total: %d", roll1,
-#endif
 
 						 roll2, roll3);
 					prt(tmp_str, 7, 5);
@@ -1377,22 +1028,14 @@ sprintf(tmp_str, "１振りめ: %d %d      Total: %d", roll1,
 					else
 						do
 						{
-#ifdef JP
-msg_print("なにかキーを押すともう一回振ります。");
-#else
 							msg_print("Hit any key to roll again");
-#endif
 
 							msg_print(NULL);
 							roll1 = randint1(6);
 							roll2 = randint1(6);
 							roll3 = roll1 +  roll2;
 
-#ifdef JP
-sprintf(tmp_str, "出目: %d %d          合計:      %d",
-#else
 							sprintf(tmp_str, "Roll result: %d %d   Total:     %d",
-#endif
 
 								 roll1, roll2, roll3);
 							prt(tmp_str, 8, 5);
@@ -1406,50 +1049,30 @@ sprintf(tmp_str, "出目: %d %d          合計:      %d",
 				case BACT_SPIN_WHEEL:  /* Spin the Wheel Game */
 					win = FALSE;
 					odds = 9;
-#ifdef JP
-c_put_str(TERM_GREEN, "ルーレット", 5, 2);
-#else
 					c_put_str(TERM_GREEN, "Wheel", 5, 2);
-#endif
 
 					prt("0  1  2  3  4  5  6  7  8  9", 7, 5);
 					prt("--------------------------------", 8, 3);
 					strcpy(out_val, "");
-#ifdef JP
-get_string("何番？ (0-9): ", out_val, 32);
-#else
 					get_string("Pick a number (0-9): ", out_val, 32);
-#endif
 
 					for (p = out_val; isspace(*p); p++);
 					choice = atol(p);
 					if (choice < 0)
 					{
-#ifdef JP
-msg_print("0番にしとくぜ。");
-#else
 						msg_print("I'll put you down for 0.");
-#endif
 
 						choice = 0;
 					}
 					else if (choice > 9)
 					{
-#ifdef JP
-msg_print("ＯＫ、9番にしとくぜ。");
-#else
 						msg_print("Ok, I'll put you down for 9.");
-#endif
 
 						choice = 9;
 					}
 					msg_print(NULL);
 					roll1 = randint0(10);
-#ifdef JP
-sprintf(tmp_str, "ルーレットは回り、止まった。勝者は %d番だ。",
-#else
 					sprintf(tmp_str, "The wheel spins to a stop and the winner is %d",
-#endif
 
 						roll1);
 					prt(tmp_str, 13, 3);
@@ -1460,18 +1083,7 @@ sprintf(tmp_str, "ルーレットは回り、止まった。勝者は %d番だ。",
 					break;
 
 				case BACT_DICE_SLOTS: /* The Dice Slots */
-#ifdef JP
-c_put_str(TERM_GREEN, "ダイス・スロット", 5, 2);
-					c_put_str(TERM_YELLOW, "レモン   レモン            2", 6, 37);
-					c_put_str(TERM_YELLOW, "レモン   レモン   レモン   5", 7, 37);
-					c_put_str(TERM_ORANGE, "オレンジ オレンジ オレンジ 10", 8, 37);
-					c_put_str(TERM_UMBER, "剣       剣       剣       20", 9, 37);
-					c_put_str(TERM_SLATE, "盾       盾       盾       50", 10, 37);
-					c_put_str(TERM_VIOLET, "プラム   プラム   プラム   200", 11, 37);
-					c_put_str(TERM_RED, "チェリー チェリー チェリー 1000", 12, 37);
-#else
 					c_put_str(TERM_GREEN, "Dice Slots", 5, 2);
-#endif
 
 					win = FALSE;
 					roll1 = randint1(21);
@@ -1543,18 +1155,10 @@ c_put_str(TERM_GREEN, "ダイス・スロット", 5, 2);
 
 				if (win)
 				{
-#ifdef JP
-prt("あなたの勝ち", 16, 37);
-#else
 					prt("YOU WON", 16, 37);
-#endif
 
 					p_ptr->au += odds * wager;
-#ifdef JP
-sprintf(tmp_str, "倍率: %d", odds);
-#else
 					sprintf(tmp_str, "Payoff: %d", odds);
-#endif
 
 					prt(tmp_str, 17, 37);
 				}
@@ -1881,11 +1485,7 @@ static bool kakutoujou(void)
 	/* No money */
 	if (p_ptr->au < 1)
 	{
-#ifdef JP
-		msg_print("おい！おまえ一文なしじゃないか！こっから出ていけ！");
-#else
 		msg_print("Hey! You don't have gold - get out of here!");
-#endif
 
 		msg_print(NULL);
 		screen_load();
@@ -1897,11 +1497,7 @@ static bool kakutoujou(void)
 
 		clear_bldg(4, 10);
 
-#ifdef JP
-		prt("モンスター                                                     倍率", 4, 4);
-#else
 		prt("Monsters                                                       Odds", 4, 4);
-#endif
 		for (i=0;i<4;i++)
 		{
 			char buf[80];
@@ -1911,11 +1507,7 @@ static bool kakutoujou(void)
 			prt(buf, 5+i, 1);
 		}
 
-#ifdef JP
-		prt("どれに賭けますか:", 0, 0);
-#else
 		prt("Which monster: ", 0, 0);
-#endif
 		while(1)
 		{
 			i = inkey();
@@ -1961,11 +1553,7 @@ static bool kakutoujou(void)
 
 			if (wager > p_ptr->au)
 			{
-#ifdef JP
-msg_print("おい！金が足りないじゃないか！出ていけ！");
-#else
 				msg_print("Hey! You don't have the gold - get out of here!");
-#endif
 
 				msg_print(NULL);
 				screen_load();
@@ -1978,11 +1566,7 @@ msg_print("おい！金が足りないじゃないか！出ていけ！");
 			}
 			else if (wager < 1)
 			{
-#ifdef JP
-msg_print("ＯＫ、１ゴールドでいこう。");
-#else
 				msg_print("Ok, we'll start with 1 gold.");
-#endif
 
 
 				wager = 1;
@@ -2016,28 +1600,12 @@ static void today_target(void)
 	monster_race *r_ptr = &r_info[today_mon];
 
 	clear_bldg(4,18);
-#ifdef JP
-c_put_str(TERM_YELLOW, "本日の賞金首", 5, 10);
-#else
 	prt("Wanted monster that changes from day to day", 5, 10);
-#endif
-#ifdef JP
-	sprintf(buf,"ターゲット： %s",r_name + r_ptr->name);
-#else
 	sprintf(buf,"target: %s",r_name + r_ptr->name);
-#endif
 	c_put_str(TERM_YELLOW, buf, 6, 10);
-#ifdef JP
-	sprintf(buf,"死体 ---- $%d",r_ptr->level * 50 + 100);
-#else
 	sprintf(buf,"corpse   ---- $%d",r_ptr->level * 50 + 100);
-#endif
 	prt(buf, 8, 10);
-#ifdef JP
-	sprintf(buf,"骨   ---- $%d",r_ptr->level * 30 + 60);
-#else
 	sprintf(buf,"skeleton ---- $%d",r_ptr->level * 30 + 60);
-#endif
 	prt(buf, 9, 10);
 	p_ptr->today_mon = today_mon;
 }
@@ -2045,19 +1613,11 @@ c_put_str(TERM_YELLOW, "本日の賞金首", 5, 10);
 static void tsuchinoko(void)
 {
 	clear_bldg(4,18);
-#ifdef JP
-c_put_str(TERM_YELLOW, "一獲千金の大チャンス！！！", 5, 10);
-c_put_str(TERM_YELLOW, "ターゲット：幻の珍獣「ツチノコ」", 6, 10);
-c_put_str(TERM_WHITE, "生け捕り ---- $1,000,000", 8, 10);
-c_put_str(TERM_WHITE, "死体     ----   $200,000", 9, 10);
-c_put_str(TERM_WHITE, "骨       ----   $100,000", 10, 10);
-#else
 c_put_str(TERM_YELLOW, "Big chance to quick money!!!", 5, 10);
 c_put_str(TERM_YELLOW, "target: the rarest animal 'Tsuchinoko'", 6, 10);
 c_put_str(TERM_WHITE, "catch alive ---- $1,000,000", 8, 10);
 c_put_str(TERM_WHITE, "corpse      ----   $200,000", 9, 10);
 c_put_str(TERM_WHITE, "bones       ----   $100,000", 10, 10);
-#endif
 }
 
 static void shoukinkubi(void)
@@ -2067,13 +1627,8 @@ static void shoukinkubi(void)
 
 	clear_bldg(4,18);
 
-#ifdef JP
-	prt("死体を持ち帰れば報酬を差し上げます。",4 ,10);
-c_put_str(TERM_YELLOW, "現在の賞金首", 6, 10);
-#else
 	prt("Offer a prize when you bring a wanted monster's corpse",4 ,10);
 c_put_str(TERM_YELLOW, "Wanted monsters", 6, 10);
-#endif
 
 	for (i = 0; i < MAX_KUBI; i++)
 	{
@@ -2084,11 +1639,7 @@ c_put_str(TERM_YELLOW, "Wanted monsters", 6, 10);
 		if (kubi_r_idx[i] > 10000)
 		{
 			color = TERM_RED;
-#ifdef JP
-			done_mark = "(済)";
-#else
 			done_mark = "(done)";
-#endif
 		}
 		else
 		{
@@ -2101,11 +1652,7 @@ c_put_str(TERM_YELLOW, "Wanted monsters", 6, 10);
 		y = (y+1) % 10;
 		if (!y && (i < MAX_KUBI -1))
 		{
-#ifdef JP
-			prt("何かキーを押してください", 0, 0);
-#else
 			prt("Hit any key.", 0, 0);
-#endif
 			(void)inkey();
 			prt("", 0, 0);
 			clear_bldg(7,18);
@@ -2164,11 +1711,7 @@ static bool kankin(void)
 		{
 			char buf[MAX_NLEN+20];
 			object_desc(o_name, o_ptr, 0);
-#ifdef JP
-			sprintf(buf, "%s を換金しますか？",o_name);
-#else
 			sprintf(buf, "Convert %s into money? ",o_name);
-#endif
 			if (get_check(buf))
 			{
 				msg_format("You get %dgp.", 1000000 * o_ptr->number);
@@ -2191,11 +1734,7 @@ static bool kankin(void)
 		{
 			char buf[MAX_NLEN+20];
 			object_desc(o_name, o_ptr, 0);
-#ifdef JP
-			sprintf(buf, "%s を換金しますか？",o_name);
-#else
 			sprintf(buf, "Convert %s into money? ",o_name);
-#endif
 			if (get_check(buf))
 			{
 				msg_format("You get %dgp.", 200000 * o_ptr->number);
@@ -2218,11 +1757,7 @@ static bool kankin(void)
 		{
 			char buf[MAX_NLEN+20];
 			object_desc(o_name, o_ptr, 0);
-#ifdef JP
-			sprintf(buf, "%s を換金しますか？",o_name);
-#else
 			sprintf(buf, "Convert %s into money? ",o_name);
-#endif
 			if (get_check(buf))
 			{
 				msg_format("You get %dgp.", 100000 * o_ptr->number);
@@ -2243,11 +1778,7 @@ static bool kankin(void)
 		{
 			char buf[MAX_NLEN+20];
 			object_desc(o_name, o_ptr, 0);
-#ifdef JP
-			sprintf(buf, "%s を換金しますか？",o_name);
-#else
 			sprintf(buf, "Convert %s into money? ",o_name);
-#endif
 			if (get_check(buf))
 			{
 				msg_format("You get %dgp.", (int)(r_info[today_mon].level * 50 + 100) * o_ptr->number);
@@ -2269,11 +1800,7 @@ static bool kankin(void)
 		{
 			char buf[MAX_NLEN+20];
 			object_desc(o_name, o_ptr, 0);
-#ifdef JP
-			sprintf(buf, "%s を換金しますか？",o_name);
-#else
 			sprintf(buf, "Convert %s into money? ",o_name);
-#endif
 			if (get_check(buf))
 			{
 				msg_format("You get %dgp.", (int)(r_info[today_mon].level * 30 + 60) * o_ptr->number);
@@ -2300,11 +1827,7 @@ static bool kankin(void)
 				object_type forge;
 
 				object_desc(o_name, o_ptr, 0);
-#ifdef JP
-				sprintf(buf, "%sを渡しますか？",o_name);
-#else
 				sprintf(buf, "Hand %s over? ",o_name);
-#endif
 				if (!get_check(buf)) continue;
 
 				/* Hand it first */
@@ -2321,11 +1844,7 @@ static bool kankin(void)
 					if (kubi_r_idx[k] >= 10000) num++;
 				}
 
-#ifdef JP
-				msg_format("これで合計 %d ポイント獲得しました。", num);
-#else
 				msg_format("You earned %d point%s total.", num, (num > 1 ? "s" : ""));
-#endif
 
 				/* Prepare to make a prize */
 				object_prep(&forge, lookup_kind(prize_list[num-1].tval, prize_list[num-1].sval));
@@ -2344,11 +1863,7 @@ static bool kankin(void)
 
 				/* Describe the object */
 				object_desc(o_name, &forge, 0);
-#ifdef JP
-				msg_format("%s(%c)を貰った。", o_name, index_to_label(item_new));
-#else
 				msg_format("You get %s (%c). ", o_name, index_to_label(item_new));
-#endif
 
 				/* Auto-inscription */
 				autopick_alter_item(item_new, FALSE);
@@ -2363,11 +1878,7 @@ static bool kankin(void)
 
 	if (!change)
 	{
-#ifdef JP
-		msg_print("賞金を得られそうなものは持っていなかった。");
-#else
 		msg_print("You have nothing.");
-#endif
 		msg_print(NULL);
 		return FALSE;
 	}
@@ -2398,11 +1909,9 @@ void have_nightmare(int r_idx)
 	cptr desc = r_name + r_ptr->name;
 
 	/* Describe it */
-#ifndef JP
 	if (!(r_ptr->flags1 & RF1_UNIQUE))
 		sprintf(m_name, "%s %s", (is_a_vowel(desc[0]) ? "an" : "a"), desc);
 	else
-#endif
 		sprintf(m_name, "%s", desc);
 
 	if (!(r_ptr->flags1 & RF1_UNIQUE))
@@ -2413,11 +1922,7 @@ void have_nightmare(int r_idx)
 
 	if (saving_throw(p_ptr->skills.sav * 100 / power))
 	{
-#ifdef JP
-		msg_format("夢の中で%sに追いかけられた。", m_name);
-#else
 		msg_format("%^s chases you through your dreams.", m_name);
-#endif
 
 		/* Safe */
 		return;
@@ -2426,11 +1931,7 @@ void have_nightmare(int r_idx)
 	if (p_ptr->image)
 	{
 		/* Something silly happens... */
-#ifdef JP
-		msg_format("%s%sの顔を見てしまった！",
-#else
 		msg_format("You behold the %s visage of %s!",
-#endif
 
 					  funny_desc[randint0(MAX_SAN_FUNNY)], m_name);
 
@@ -2445,11 +1946,7 @@ void have_nightmare(int r_idx)
 	}
 
 	/* Something frightening happens... */
-#ifdef JP
-	msg_format("%s%sの顔を見てしまった！",
-#else
 	msg_format("You behold the %s visage of %s!",
-#endif
 
 				  horror_desc[randint0(MAX_SAN_HORROR)], desc);
 
@@ -2544,11 +2041,7 @@ void have_nightmare(int r_idx)
 	{
 		if (lose_all_info())
 		{
-#ifdef JP
-msg_print("あまりの恐怖に全てのことを忘れてしまった！");
-#else
 			msg_print("You forget everything in your utmost terror!");
-#endif
 
 		}
 		return;
@@ -2627,19 +2120,11 @@ static bool inn_comm(int cmd)
 		case BACT_FOOD: /* Buy food & drink */
 			if (p_ptr->food >= PY_FOOD_FULL)
 			{
-#ifdef JP
-				msg_print("今は満腹だ。");
-#else
 				msg_print("You are full now.");
-#endif
 				return FALSE;
 			}
 
-#ifdef JP
-msg_print("バーテンはいくらかの食べ物とビールをくれた。");
-#else
 			msg_print("The barkeep gives you some gruel and a beer.");
-#endif
 
 			(void)set_food(PY_FOOD_MAX - 1);
 			break;
@@ -2647,18 +2132,10 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 		case BACT_REST: /* Rest for the night */
 			if ((p_ptr->poisoned) || (p_ptr->cut))
 			{
-#ifdef JP
-				msg_print("あなたに必要なのは部屋ではなく、治療者です。");
-#else
 				msg_print("You need a healer, not a room.");
-#endif
 
 				msg_print(NULL);
-#ifdef JP
-				msg_print("すみません、でもうちで誰かに死なれちゃ困りますんで。");
-#else
 				msg_print("Sorry, but I don't want anyone dying in here.");
-#endif
 			}
 			else
 			{
@@ -2716,11 +2193,7 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 			{
 				char Rumor[1024];
 
-#ifdef JP
-				if (!get_rnd_line_jonly("rumors_j.txt", 0, Rumor, 10))
-#else
 				if (!get_rnd_line("rumors.txt", 0, Rumor))
-#endif
 
 					msg_format("%s", Rumor);
 				break;
@@ -2762,11 +2235,7 @@ static void get_questinfo(int questnum)
 	p_ptr->inside_quest = old_quest;
 
 	/* Print the quest info */
-#ifdef JP
-sprintf(tmp_str, "クエスト情報 (危険度: %d 階相当)", quest[questnum].level);
-#else
 	sprintf(tmp_str, "Quest Information (Danger level: %d)", quest[questnum].level);
-#endif
 
 	prt(tmp_str, 5, 0);
 
@@ -2798,11 +2267,7 @@ static void castle_quest(void)
 	/* Is there a quest available at the building? */
 	if (!q_index)
 	{
-#ifdef JP
-put_str("今のところクエストはありません。", 8, 0);
-#else
 		put_str("I don't have a quest for you at the moment.", 8, 0);
-#endif
 
 		return;
 	}
@@ -2832,23 +2297,11 @@ put_str("今のところクエストはありません。", 8, 0);
 	/* Quest is still unfinished */
 	else if (q_ptr->status == QUEST_STATUS_TAKEN)
 	{
-#ifdef JP
-put_str("あなたは現在のクエストを終了させていません！", 8, 0);
-#else
 		put_str("You have not completed your current quest yet!", 8, 0);
-#endif
 
-#ifdef JP
-put_str("CTRL-Qを使えばクエストの状態がチェックできます。", 9, 0);
-#else
 		put_str("Use CTRL-Q to check the status of your quest.", 9, 0);
-#endif
 
-#ifdef JP
-put_str("クエストを終わらせたら戻って来て下さい。", 12, 0);
-#else
 		put_str("Return when you have completed your quest.", 12, 0);
-#endif
 
 	}
 	/* No quest yet */
@@ -2889,11 +2342,7 @@ put_str("クエストを終わらせたら戻って来て下さい。", 12, 0);
 
 			q_ptr->cur_num = 0;
 			name = (r_name + r_ptr->name);
-#ifdef JP
-msg_format("クエスト: %sを %d体倒す", name,q_ptr->max_num);
-#else
 			msg_format("Your quest: kill %d %s", q_ptr->max_num, name);
-#endif
 
 		}
 		else
@@ -2913,11 +2362,7 @@ static void town_history(void)
 	screen_save();
 
 	/* Peruse the building help file */
-#ifdef JP
-(void)show_file(TRUE, "jbldg.txt", NULL, 0, 0);
-#else
 	(void)show_file(TRUE, "bldg.txt", NULL, 0, 0);
-#endif
 
 
 	/* Load screen */
@@ -3516,11 +2961,7 @@ static bool enchant_item(int cost, int to_hit, int to_dam, int to_ac, bool is_gu
 	else
 	{
 		object_desc(tmp_str, o_ptr, OD_NAME_AND_ENCHANT);
-#ifdef JP
-		msg_format("＄%dで%sに改良しました。", cost, tmp_str);
-#else
 		msg_format("Improved into %s for %d gold.", tmp_str, cost);
-#endif
 
 		p_ptr->au -= cost;
 		if (equip_is_valid_slot(item)) calc_android_exp();
@@ -3554,24 +2995,15 @@ static void building_recharge(void)
 
 	/* Display some info */
 	clear_bldg(4, 18);
-#ifdef JP
-prt("  再充填の費用はアイテムの種類によります。", 6, 0);
-#else
 	prt("  The prices of recharge depend on the type.", 6, 0);
-#endif
 
 
 	/* Only accept legal items */
 	item_tester_hook = item_tester_hook_recharge;
 
 	/* Get an item */
-#ifdef JP
-q = "どのアイテムに魔力を充填しますか? ";
-s = "魔力を充填すべきアイテムがない。";
-#else
 	q = "Recharge which item? ";
 	s = "You have nothing to recharge.";
-#endif
 
 	if (!get_item(&item, q, s, (USE_INVEN | USE_FLOOR))) return;
 
@@ -3596,20 +3028,12 @@ s = "魔力を充填すべきアイテムがない。";
 	/* The item must be "known" */
 	if (!object_is_known(o_ptr))
 	{
-#ifdef JP
-msg_format("充填する前に鑑定されている必要があります！");
-#else
 		msg_format("The item must be identified first!");
-#endif
 
 		msg_print(NULL);
 
 		if ((p_ptr->au >= 50) &&
-#ifdef JP
-get_check("＄50で鑑定しますか？ "))
-#else
 			get_check("Identify for 50 gold? "))
-#endif
 
 		{
 			/* Pay the price */
@@ -3621,11 +3045,7 @@ get_check("＄50で鑑定しますか？ "))
 			/* Description */
 			object_desc(tmp_str, o_ptr, 0);
 
-#ifdef JP
-msg_format("%s です。", tmp_str);
-#else
 			msg_format("You have: %s.", tmp_str);
-#endif
 
 			/* Auto-inscription */
 			autopick_alter_item(item, FALSE);
@@ -3654,11 +3074,7 @@ msg_format("%s です。", tmp_str);
 		{
 			/* No recharge necessary */
 			price = 0;
-#ifdef JP
-msg_format("それは再充填する必要はありません。");
-#else
 			msg_format("That doesn't need to be recharged.");
-#endif
 
 			return;
 		}
@@ -3686,19 +3102,11 @@ msg_format("それは再充填する必要はありません。");
 	{
 		if (o_ptr->number > 1)
 		{
-#ifdef JP
-msg_print("この魔法棒はもう充分に充填されています。");
-#else
 			msg_print("These wands are already fully charged.");
-#endif
 		}
 		else
 		{
-#ifdef JP
-msg_print("この魔法棒はもう充分に充填されています。");
-#else
 			msg_print("This wand is already fully charged.");
-#endif
 		}
 		return;
 	}
@@ -3706,19 +3114,11 @@ msg_print("この魔法棒はもう充分に充填されています。");
 	{
 		if (o_ptr->number > 1)
 		{
-#ifdef JP
-msg_print("この杖はもう充分に充填されています。");
-#else
 			msg_print("These staffs are already fully charged.");
-#endif
 		}
 		else
 		{
-#ifdef JP
-msg_print("この杖はもう充分に充填されています。");
-#else
 			msg_print("This staff is already fully charged.");
-#endif
 		}
 		return;
 	}
@@ -3727,24 +3127,15 @@ msg_print("この杖はもう充分に充填されています。");
 	if (p_ptr->au < price)
 	{
 		object_desc(tmp_str, o_ptr, OD_NAME_ONLY);
-#ifdef JP
-msg_format("%sを再充填するには＄%d 必要です！", tmp_str,price );
-#else
 		msg_format("You need %d gold to recharge %s!", price, tmp_str);
-#endif
 
 		return;
 	}
 
 	if (o_ptr->tval == TV_ROD)
 	{
-#ifdef JP
-if (get_check(format("そのロッドを＄%d で再充填しますか？",
- price)))
-#else
 		if (get_check(format("Recharge the %s for %d gold? ",
 			((o_ptr->number > 1) ? "rods" : "rod"), price)))
-#endif
 
 		{
 			/* Recharge fully */
@@ -3763,11 +3154,7 @@ if (get_check(format("そのロッドを＄%d で再充填しますか？",
 			max_charges = o_ptr->number * k_ptr->pval - o_ptr->pval;
 
 		/* Get the quantity for staves and wands */
-#ifdef JP
-charges = get_quantity(format("一回分＄%d で何回分充填しますか？",
-#else
 		charges = get_quantity(format("Add how many charges for %d gold? ",
-#endif
 
 			      price), MIN(p_ptr->au / price, max_charges));
 
@@ -3786,11 +3173,7 @@ charges = get_quantity(format("一回分＄%d で何回分充填しますか？",
 
 	/* Give feedback */
 	object_desc(tmp_str, o_ptr, 0);
-#ifdef JP
-msg_format("%sを＄%d で再充填しました。", tmp_str, price);
-#else
 	msg_format("%^s %s recharged for %d gold.", tmp_str, ((o_ptr->number > 1) ? "were" : "was"), price);
-#endif
 
 	/* Combine / Reorder the pack (later) */
 	p_ptr->notice |= (PN_COMBINE | PN_REORDER);
@@ -3832,11 +3215,7 @@ static void building_recharge_all(void)
 	/* Display some info */
 	msg_flag = FALSE;
 	clear_bldg(4, 18);
-#ifdef JP
-	prt("  再充填の費用はアイテムの種類によります。", 6, 0);
-#else
 	prt("  The prices of recharge depend on the type.", 6, 0);
-#endif
 
 	/* Calculate cost */
 	for ( i = 0; i < INVEN_PACK; i++)
@@ -3889,11 +3268,7 @@ static void building_recharge_all(void)
 
 	if (!total_cost)
 	{
-#ifdef JP
-		msg_print("充填する必要はありません。");
-#else
 		msg_print("No need to recharge.");
-#endif
 
 		msg_print(NULL);
 		return;
@@ -3902,21 +3277,13 @@ static void building_recharge_all(void)
 	/* Check if the player has enough money */
 	if (p_ptr->au < total_cost)
 	{
-#ifdef JP
-		msg_format("すべてのアイテムを再充填するには＄%d 必要です！", total_cost );
-#else
 		msg_format("You need %d gold to recharge all items!",total_cost);
-#endif
 
 		msg_print(NULL);
 		return;
 	}
 
-#ifdef JP
-	if (!get_check(format("すべてのアイテムを ＄%d で再充填しますか？",  total_cost))) return;
-#else
 	if (!get_check(format("Recharge all items for %d gold? ", total_cost))) return;
-#endif
 
 	for (i = 0; i < INVEN_PACK; i++)
 	{
@@ -3956,11 +3323,7 @@ static void building_recharge_all(void)
 	}
 
 	/* Give feedback */
-#ifdef JP
-	msg_format("＄%d で再充填しました。", total_cost);
-#else
 	msg_format("You pay %d gold.", total_cost);
-#endif
 
 	msg_print(NULL);
 
@@ -3988,21 +3351,13 @@ bool tele_town(void)
 
 	if (dun_level)
 	{
-#ifdef JP
-		msg_print("この魔法は地上でしか使えない！");
-#else
 		msg_print("This spell can only be used on the surface!");
-#endif
 		return FALSE;
 	}
 
 	if (p_ptr->inside_arena || p_ptr->inside_battle)
 	{
-#ifdef JP
-		msg_print("この魔法は外でしか使えない！");
-#else
 		msg_print("This spell can only be used outside!");
-#endif
 		return FALSE;
 	}
 
@@ -4025,22 +3380,14 @@ bool tele_town(void)
 
 	if (!num)
 	{
-#ifdef JP
-		msg_print("まだ行けるところがない。");
-#else
 		msg_print("You have not yet visited any town.");
-#endif
 
 		msg_print(NULL);
 		screen_load();
 		return FALSE;
 	}
 
-#ifdef JP
-	prt("どこに行きますか:", 0, 0);
-#else
 	prt("Which town you go: ", 0, 0);
-#endif
 	while(1)
 	{
 		i = inkey();
@@ -4108,11 +3455,7 @@ static bool research_mon(void)
 	screen_save();
 
 	/* Get a character, or abort */
-#ifdef JP
-if (!get_com("モンスターの文字を入力して下さい(記号 or ^A全,^Uユ,^N非ユ,^M名前):", &sym, FALSE)) 
-#else
 	if (!get_com("Enter character to be identified(^A:All,^U:Uniqs,^N:Non uniqs,^M:Name): ", &sym, FALSE))
-#endif
 
 	{
 		/* Restore */
@@ -4131,38 +3474,22 @@ if (!get_com("モンスターの文字を入力して下さい(記号 or ^A全,^Uユ,^N非ユ,^M名前):
 	if (sym == KTRL('A'))
 	{
 		all = TRUE;
-#ifdef JP
-		strcpy(buf, "全モンスターのリスト");
-#else
 		strcpy(buf, "Full monster list.");
-#endif
 	}
 	else if (sym == KTRL('U'))
 	{
 		all = uniq = TRUE;
-#ifdef JP
-		strcpy(buf, "ユニーク・モンスターのリスト");
-#else
 		strcpy(buf, "Unique monster list.");
-#endif
 	}
 	else if (sym == KTRL('N'))
 	{
 		all = norm = TRUE;
-#ifdef JP
-		strcpy(buf, "ユニーク外モンスターのリスト");
-#else
 		strcpy(buf, "Non-unique monster list.");
-#endif
 	}
 	else if (sym == KTRL('M'))
 	{
 		all = TRUE;
-#ifdef JP
-		if (!get_string("名前(英語の場合小文字で可)",temp, 70))
-#else
 		if (!get_string("Enter name:",temp, 70))
-#endif
 		{
 			temp[0]=0;
 
@@ -4171,11 +3498,7 @@ if (!get_com("モンスターの文字を入力して下さい(記号 or ^A全,^Uユ,^N非ユ,^M名前):
 
 			return FALSE;
 		}
-#ifdef JP
-		sprintf(buf, "名前:%sにマッチ",temp);
-#else
 		sprintf(buf, "Monsters with a name \"%s\"",temp);
-#endif
 	}
 	else if (ident_info[i])
 	{
@@ -4183,11 +3506,7 @@ if (!get_com("モンスターの文字を入力して下さい(記号 or ^A全,^Uユ,^N非ユ,^M名前):
 	}
 	else
 	{
-#ifdef JP
-sprintf(buf, "%c - %s", sym, "無効な文字");
-#else
 		sprintf(buf, "%c - %s.", sym, "Unknown Symbol");
-#endif
 
 	}
 
@@ -4221,29 +3540,14 @@ sprintf(buf, "%c - %s", sym, "無効な文字");
 
 			for (xx = 0; temp[xx] && xx < 80; xx++)
 			{
-#ifdef JP
-				if (iskanji(temp[xx]))
-				{
-					xx++;
-					continue;
-				}
-#endif
 				if (isupper(temp[xx])) temp[xx] = tolower(temp[xx]);
 			}
   
-#ifdef JP
-			strcpy(temp2, r_name + r_ptr->E_name);
-#else
 			strcpy(temp2, r_name + r_ptr->name);
-#endif
 			for (xx = 0; temp2[xx] && xx < 80; xx++)
 				if (isupper(temp2[xx])) temp2[xx] = tolower(temp2[xx]);
 
-#ifdef JP
-			if (my_strstr(temp2, temp) || my_strstr(r_name + r_ptr->name, temp))
-#else
 			if (my_strstr(temp2, temp))
-#endif
 				who[n++] = i;
 		}
 		else if (all || (r_ptr->d_char == sym)) who[n++] = i;
@@ -4294,11 +3598,7 @@ sprintf(buf, "%c - %s", sym, "無効な文字");
 		roff_top(r_idx);
 
 		/* Hack -- Complete the prompt */
-#ifdef JP
-Term_addstr(-1, TERM_WHITE, " ['r'思い出, ' 'で続行, ESC]");
-#else
 		Term_addstr(-1, TERM_WHITE, " [(r)ecall, ESC, space to continue]");
-#endif
 
 
 		/* Interact */
@@ -4402,11 +3702,7 @@ static void bldg_process_command(building_type *bldg, int i)
 	if (((bldg->action_restr[i] == 1) && !is_member(bldg)) ||
 	    ((bldg->action_restr[i] == 2) && !is_owner(bldg)))
 	{
-#ifdef JP
-msg_print("それを選択する権利はありません！");
-#else
 		msg_print("You have no right to choose that!");
-#endif
 		return;
 	}
 
@@ -4415,11 +3711,7 @@ msg_print("それを選択する権利はありません！");
 	    (((bldg->member_costs[i] > p_ptr->au) && is_owner(bldg)) ||
 	     ((bldg->other_costs[i] > p_ptr->au) && !is_owner(bldg))))
 	{
-#ifdef JP
-msg_print("お金が足りません！");
-#else
 		msg_print("You do not have the gold!");
-#endif
 		return;
 	}
 
@@ -4484,15 +3776,9 @@ msg_print("お金が足りません！");
 		building_recharge_all();
 		break;
 	case BACT_IDENTS: /* needs work */
-#ifdef JP
-		if (!get_check("持ち物を全て鑑定してよろしいですか？")) break;
-		identify_pack();
-		msg_print(" 持ち物全てが鑑定されました。");
-#else
 		if (!get_check("Do you pay for identify all your possession? ")) break;
 		identify_pack();
 		msg_print("Your possessions have been identified.");
-#endif
 
 		paid = TRUE;
 		break;
@@ -4537,11 +3823,7 @@ msg_print("お金が足りません！");
 		int max_depth;
 
 		clear_bldg(4, 20);
-#ifdef JP
-		select_dungeon = choose_dungeon("にテレポート", 4, 0);
-#else
 		select_dungeon = choose_dungeon("teleport", 4, 0);
-#endif
 		show_building(bldg);
 		if (!select_dungeon) return;
 
@@ -4574,11 +3856,7 @@ msg_print("お金が足りません！");
 		}
 		else
 		{
-#ifdef JP
-			msg_print("治すべき突然変異が無い。");
-#else
 			msg_print("You have no mutations that I can cure.");
-#endif
 			msg_print(NULL);
 		}
 		break;
@@ -4689,11 +3967,7 @@ void do_cmd_bldg(void)
 
 	if (!cave_have_flag_bold(py, px, FF_BLDG))
 	{
-#ifdef JP
-		msg_print("ここには建物はない。");
-#else
 		msg_print("You see no building here.");
-#endif
 
 		return;
 	}
@@ -4707,22 +3981,14 @@ void do_cmd_bldg(void)
 
 	if ((which == 2) && (p_ptr->arena_number < 0))
 	{
-#ifdef JP
-		msg_print("「敗者に用はない。」");
-#else
 		msg_print("'There's no place here for a LOSER like you!'");
-#endif
 		return;
 	}
 	else if ((which == 2) && p_ptr->inside_arena)
 	{
 		if (!p_ptr->exit_bldg)
 		{
-#ifdef JP
-			prt("ゲートは閉まっている。モンスターがあなたを待っている！", 0, 0);
-#else
 			prt("The gates are closed.  The monster awaits!", 0, 0);
-#endif
 		}
 		else
 		{
@@ -4848,35 +4114,15 @@ void do_cmd_bldg(void)
 /* Array of places to find an inscription */
 static cptr find_quest[] =
 {
-#ifdef JP
-"床にメッセージが刻まれている:",
-#else
 	"You find the following inscription in the floor",
-#endif
 
-#ifdef JP
-"壁にメッセージが刻まれている:",
-#else
 	"You see a message inscribed in the wall",
-#endif
 
-#ifdef JP
-"メッセージを見つけた:",
-#else
 	"There is a sign saying",
-#endif
 
-#ifdef JP
-"何かが階段の上に書いてある:",
-#else
 	"Something is written on the staircase",
-#endif
 
-#ifdef JP
-"巻物を見つけた。メッセージが書いてある:",
-#else
 	"You find a scroll with the following message",
-#endif
 
 };
 
@@ -4907,32 +4153,20 @@ void quest_discovery(int q_idx)
 		if ((r_ptr->flags1 & RF1_UNIQUE) &&
 		    (0 == r_ptr->max_num))
 		{
-#ifdef JP
-			msg_print("この階は以前は誰かによって守られていたようだ…。");
-#else
 			msg_print("It seems that this level was protected by someone before...");
-#endif
 			/* The unique is already dead */
 			quest[q_idx].status = QUEST_STATUS_FINISHED;
 		}
 		else
 		{
-#ifdef JP
-			msg_format("注意せよ！この階は%sによって守られている！", name);
-#else
 			msg_format("Beware, this level is protected by %s!", name);
-#endif
 		}
 	}
 	else
 	{
 		/* Normal monsters */
-#ifdef JP
-msg_format("注意しろ！この階は%d体の%sによって守られている！", q_num, name);
-#else
 		plural_aux(name);
 		msg_format("Be warned, this level is guarded by %d %s!", q_num, name);
-#endif
 
 	}
 }

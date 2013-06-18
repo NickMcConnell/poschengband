@@ -58,19 +58,11 @@ void init_saved_floors(bool force)
 		{
 			if (!force)
 			{
-#ifdef JP
-				msg_print("エラー：古いテンポラリ・ファイルが残っています。");
-				msg_print("変愚蛮怒を二重に起動していないか確認してください。");
-				msg_print("過去に変愚蛮怒がクラッシュした場合は一時ファイルを");
-				msg_print("強制的に削除して実行を続けられます。");
-				if (!get_check("強制的に削除してもよろしいですか？")) quit("実行中止");
-#else
 				msg_print("Error: There are old temporal files.");
 				msg_print("Make sure you are not running two game processes simultaneously.");
 				msg_print("If the temporal files are garbages of old crashed process, ");
 				msg_print("you can delete it safely.");
 				if (!get_check("Do you delete old temporal files? ")) quit("Aborted.");
-#endif
 				force = TRUE;
 			}
 		}
@@ -473,11 +465,7 @@ static void preserve_pet(void)
 				/* Acquire the monster name */
 				monster_desc(m_name, m_ptr, 0);
 
-#ifdef JP
-				msg_format("%sは消え去った！", m_name);
-#else
 				msg_format("%^s disappears!", m_name);
-#endif
 			}
 
 			/* Delete the monster */
@@ -1312,11 +1300,7 @@ void change_floor(void)
 			if (sf_ptr->last_visit)
 			{
 				/* Temporal file is broken? */
-#ifdef JP
-				msg_print("階段は行き止まりだった。");
-#else
 				msg_print("The staircases come to a dead end...");
-#endif
 
 				/* Create simple dead end */
 				build_dead_end();
@@ -1383,19 +1367,11 @@ void change_floor(void)
 		{
 			if (!p_ptr->blind)
 			{
-#ifdef JP
-				msg_print("突然階段が塞がれてしまった。");
-#else
 				msg_print("Suddenly the stairs is blocked!");
-#endif
 			}
 			else
 			{
-#ifdef JP
-				msg_print("ゴトゴトと何か音がした。");
-#else
 				msg_print("You hear some noises.");
-#endif
 			}
 		}
 
@@ -1465,22 +1441,14 @@ void stair_creation(bool down_only)
 	    p_ptr->inside_arena || p_ptr->inside_battle)
 	{
 		/* arena or quest */
-#ifdef JP
-		msg_print("効果がありません！");
-#else
 		msg_print("There is no effect!");
-#endif
 		return;
 	}
 
 	/* Artifacts resists */
 	if (!cave_valid_bold(py, px))
 	{
-#ifdef JP
-		msg_print("床上のアイテムが呪文を跳ね返した。");
-#else
 		msg_print("The object resists the spell.");
-#endif
 
 		return;
 	}

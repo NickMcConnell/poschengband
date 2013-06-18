@@ -989,11 +989,7 @@ static void do_cmd_wiz_change_aux(void)
 	sprintf(tmp_val, "%d", WEAPON_EXP_MASTER);
 
 	/* Query */
-#ifdef JP
-	if (!get_string("熟練度: ", tmp_val, 9)) return;
-#else
 	if (!get_string("Proficiency: ", tmp_val, 9)) return;
-#endif
 
 	/* Extract */
 	tmp_s16b = atoi(tmp_val);
@@ -2307,11 +2303,7 @@ static void do_cmd_wiz_create_feature(void)
 	sprintf(tmp_val, "%d", prev_feat);
 
 	/* Query */
-#ifdef JP
-	if (!get_string("地形: ", tmp_val, 3)) return;
-#else
 	if (!get_string("Feature: ", tmp_val, 3)) return;
-#endif
 
 	/* Extract */
 	tmp_feat = atoi(tmp_val);
@@ -2322,11 +2314,7 @@ static void do_cmd_wiz_create_feature(void)
 	sprintf(tmp_val, "%d", prev_mimic);
 
 	/* Query */
-#ifdef JP
-	if (!get_string("地形 (mimic): ", tmp_val, 3)) return;
-#else
 	if (!get_string("Feature (mimic): ", tmp_val, 3)) return;
-#endif
 
 	/* Extract */
 	tmp_mimic = atoi(tmp_val);
@@ -2383,11 +2371,7 @@ static void do_cmd_dump_options(void)
 	/* Oops */
 	if (!fff)
 	{
-#ifdef JP
-		msg_format("ファイル %s を開けませんでした。", buf);
-#else
 		msg_format("Failed to open file %s.", buf);
-#endif
 		msg_print(NULL);
 		return;
 	}
@@ -2435,11 +2419,7 @@ static void do_cmd_dump_options(void)
 	/* Close it */
 	my_fclose(fff);
 
-#ifdef JP
-	msg_format("オプションbit使用状況をファイル %s に書き出しました。", buf);
-#else
 	msg_format("Option bits usage dump saved to file %s.", buf);
-#endif
 }
 
 

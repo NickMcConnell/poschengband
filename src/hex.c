@@ -50,11 +50,7 @@ bool stop_hex_spell(void)
 
 	if (!hex_spelling_any())
 	{
-#ifdef JP
-		msg_print("呪文を詠唱していません。");
-#else
 		msg_print("You are casting no spell.");
-#endif
 		return FALSE;
 	}
 
@@ -65,13 +61,8 @@ bool stop_hex_spell(void)
 	}
 	else
 	{
-#ifdef JP
-		strnfmt(out_val, 78, "どの呪文の詠唱を中断しますか？(呪文 %c-%c, 'l'全て, ESC)",
-			I2A(0), I2A(p_ptr->magic_num2[0] - 1));
-#else
 		strnfmt(out_val, 78, "Which spell do you stop casting? (Spell %c-%c, 'l' to all, ESC)",
 			I2A(0), I2A(p_ptr->magic_num2[0] - 1));
-#endif
 
 		screen_save();
 
@@ -182,11 +173,7 @@ void check_hex(void)
 		p_ptr->redraw |= PR_MANA;
 		if (res)
 		{
-#ifdef JP
-			msg_print("詠唱を再開した。");
-#else
 			msg_print("You restart spelling.");
-#endif
 			p_ptr->action = ACTION_SPELL;
 
 			/* Recalculate bonuses */

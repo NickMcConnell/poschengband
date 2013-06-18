@@ -500,17 +500,10 @@ static bool string_is_repeat(char *str, int len)
 	int i;
 
 	if (len < 2) return (FALSE);
-#ifdef JP
-	if (iskanji(c)) return (FALSE);
-#endif
 
 	for (i = 1; i < len; i++)
 	{
-#ifdef JP
-		if(c != str[i] || iskanji(str[i])) return (FALSE);
-#else
 		if(c != str[i]) return (FALSE);
-#endif
 	}
 
 	return (TRUE);
@@ -646,20 +639,12 @@ void prepare_movie_hooks(void)
 		disable_chuukei_server();
 #endif
 		fd_close(movie_fd);
-#ifdef JP
-		msg_print("録画を終了しました。");
-#else
 		msg_print("Stopped recording.");
-#endif
 	}
 	else
 	{
 		sprintf(tmp, "%s.amv", player_base);
-#ifdef JP
-		if (get_string("ムービー記録ファイル: ", tmp, 80))
-#else
 		if (get_string("Movie file name: ", tmp, 80))
-#endif
 		{
 			int fd;
 
@@ -676,11 +661,7 @@ void prepare_movie_hooks(void)
 				(void)fd_close(fd);
 
 				/* Build query */
-#ifdef JP
-				(void)sprintf(out_val, "現存するファイルに上書きしますか? (%s)", buf);
-#else
 				(void)sprintf(out_val, "Replace existing file %s? ", buf);
-#endif
 
 				/* Ask */
 				if (!get_check(out_val)) return;
@@ -694,11 +675,7 @@ void prepare_movie_hooks(void)
 
 			if (!movie_fd)
 			{
-#ifdef JP
-				msg_print("ファイルを開けません！");
-#else
 				msg_print("Can not open file.");
-#endif
 				return;
 			}
 
@@ -880,13 +857,6 @@ static void win2unix(int col, char *buf)
 
 	while (*buf)
 	{
-#ifdef JP
-		if (iskanji(*buf))
-		{
-			buf += 2;
-			continue;
-		}
-#endif
 		if (*buf == 127) *buf = kabe;
 		else if(*buf == 31) *buf = '.';
 		buf++;

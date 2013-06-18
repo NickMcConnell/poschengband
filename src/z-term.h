@@ -289,9 +289,6 @@ extern errr Term_add_bigch(byte a, char c);
 extern errr Term_addstr(int n, byte a, cptr s);
 extern errr Term_putch(int x, int y, byte a, char c);
 extern errr Term_putstr(int x, int y, int n, byte a, cptr s);
-#ifdef JP
-extern errr Term_putstr_v(int x, int y, int n, byte a, cptr s);
-#endif
 extern errr Term_erase(int x, int y, int n);
 extern errr Term_clear(void);
 extern errr Term_redraw(void);

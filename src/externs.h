@@ -92,9 +92,6 @@ extern u32b fake_spell_flags[4];
 extern s32b realm_choices1[];
 extern s32b realm_choices2[];
 extern cptr realm_names[];
-#ifdef JP
-extern cptr E_realm_names[];
-#endif
 extern cptr spell_names[VALID_REALM][32];
 extern int chest_traps[64];
 extern cptr player_title[MAX_CLASS][PY_MAX_LEVEL/5];
@@ -112,9 +109,6 @@ extern kamae kamae_shurui[MAX_KAMAE];
 extern kamae kata_shurui[MAX_KATA];
 extern cptr exp_level_str[5];
 extern cptr silly_attacks[MAX_SILLY_ATTACK];
-#ifdef JP
-extern cptr silly_attacks2[MAX_SILLY_ATTACK];
-#endif
 extern monster_power monster_powers[MAX_MONSPELLS];
 extern cptr monster_powers_short[MAX_MONSPELLS];
 extern cptr ident_info[];
@@ -775,9 +769,7 @@ extern bool ang_sort_comp_hook(vptr u, vptr v, int a, int b);
 extern void ang_sort_swap_hook(vptr u, vptr v, int a, int b);
 
 /* cmd4.c */
-#ifndef JP
 extern cptr get_ordinal_number_suffix(int num);
-#endif
 extern void do_cmd_redraw(void);
 extern void do_cmd_change_name(void);
 extern void do_cmd_message_one(void);
@@ -910,9 +902,6 @@ extern void signals_handle_tstp(void);
 extern void signals_init(void);
 extern errr get_rnd_line(cptr file_name, int entry, char *output);
 
-#ifdef JP
-extern errr get_rnd_line_jonly(cptr file_name, int entry, char *output, int count);
-#endif
 extern errr counts_write(int where, u32b count);
 extern u32b counts_read(int where);
 

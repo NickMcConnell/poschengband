@@ -177,21 +177,13 @@ void display_scores_aux(int from, int to, int note, high_score *score)
 		Term_clear();
 
 		/* Title */
-#ifdef JP
-put_str("                変愚蛮怒: 勇者の殿堂", 0, 0);
-#else
 		put_str("                PosChengband Hall of Fame", 0, 0);
-#endif
 
 
 		/* Indicate non-top scores */
 		if (k > 0)
 		{
-#ifdef JP
-sprintf(tmp_val, "( %d 位以下 )", k + 1);
-#else
 			sprintf(tmp_val, "(from position %d)", k + 1);
-#endif
 
 			put_str(tmp_val, 0, 40);
 		}
@@ -260,54 +252,13 @@ sprintf(tmp_val, "( %d 位以下 )", k + 1);
 
 
 			/* Append a "maximum level" */
-#ifdef JP
-if (mlev > clev) strcat(out_val, format(" (最高%d)", mlev));
-#else
 			if (mlev > clev) strcat(out_val, format(" (Max %d)", mlev));
-#endif
 
 
 			/* Dump the first line */
 			c_put_str(attr, out_val, n*4 + 2, 0);
 
 			/* Another line of info */
-#ifdef JP
-			if (mdun != 0)
-				sprintf(out_val, "    最高%3d階", mdun);
-			else
-				sprintf(out_val, "             ");
-
-
-			/* 死亡原因をオリジナルより細かく表示 */
-			if (streq(the_score.how, "yet"))
-			{
-				sprintf(out_val+13, "  まだ生きている (%d%s)",
-				       cdun, "階");
-			}
-			else
-			if (streq(the_score.how, "ripe"))
-			{
-				sprintf(out_val+13, "  勝利の後に引退 (%d%s)",
-					cdun, "階");
-			}
-			else if (streq(the_score.how, "Seppuku"))
-			{
-				sprintf(out_val+13, "  勝利の後に切腹 (%d%s)",
-					cdun, "階");
-			}
-			else
-			{
-				codeconv(the_score.how);
-
-				/* Some people die outside of the dungeon */
-				if (!cdun)
-					sprintf(out_val+13, "  地上で%sに殺された", the_score.how);
-				else
-					sprintf(out_val+13, "  %d階で%sに殺された",
-						cdun, the_score.how);
-			}
-
-#else
 			/* Some people die outside of the dungeon */
 			if (!cdun)
 				sprintf(out_val, 
@@ -320,42 +271,21 @@ if (mlev > clev) strcat(out_val, format(" (最高%d)", mlev));
 
 			/* Append a "maximum level" */
 			if (mdun > cdun) strcat(out_val, format(" (Max %d)", mdun));
-#endif
 
 			/* Dump the info */
 			c_put_str(attr, out_val, n*4 + 3, 0);
 
 			/* And still another line of info */
-#ifdef JP
-			{
-				char buf[11];
-
-				/* 日付を 19yy/mm/dd の形式に変更する */
-				if (strlen(when) == 8 && when[2] == '/' && when[5] == '/') {
-					sprintf(buf, "%d%s/%.5s", 19 + (when[6] < '8'), when + 6, when);
-					when = buf;
-				}
-				sprintf(out_val,
-						"        (ユーザー:%s, 日付:%s, 所持金:%s, ターン:%s)",
-						user, when, gold, aged);
-			}
-
-#else
 			sprintf(out_val,
 				"               (User %s, Date %s, Gold %s, Turn %s).",
 				user, when, gold, aged);
-#endif
 
 			c_put_str(attr, out_val, n*4 + 4, 0);
 		}
 
 
 		/* Wait for response */
-#ifdef JP
-prt("[ ESCで中断, その他のキーで続けます ]", hgt - 1, 21);
-#else
 		prt("[Press ESC to quit, any other key to continue.]", hgt - 1, 17);
-#endif
 
 		j = inkey();
 		prt("", hgt - 1, 0);
@@ -383,11 +313,7 @@ void display_scores(int from, int to)
 	highscore_fd = fd_open(buf, O_RDONLY);
 
 	/* Paranoia -- No score file */
-#ifdef JP
-if (highscore_fd < 0) quit("スコア・ファイルが使用できません。");
-#else
 	if (highscore_fd < 0) quit("Score file unavailable.");
-#endif
 
 
 	/* Clear screen */
@@ -415,25 +341,13 @@ bool send_world_score(bool do_send)
 	{
 		if(easy_band)
 		{
-#ifdef JP
-			msg_print("初心者モードではワールドスコアに登録できません。");
-#else
 			msg_print("Since you are in the Easy Mode, you cannot send score to world score server.");
-#endif
 		}
-#ifdef JP
-		else if(get_check_strict("スコアをスコア・サーバに登録しますか? ", (CHECK_NO_ESCAPE | CHECK_NO_HISTORY)))
-#else
 		else if(get_check_strict("Do you send score to the world score sever? ", (CHECK_NO_ESCAPE | CHECK_NO_HISTORY)))
-#endif
 		{
 			errr err;
 			prt("",0,0);
-#ifdef JP
-			prt("送信中．．",0,0);
-#else
 			prt("Sending...",0,0);
-#endif
 			Term_fresh();
 			screen_save();
 			err = report_score();
@@ -442,11 +356,7 @@ bool send_world_score(bool do_send)
 			{
 				return FALSE;
 			}
-#ifdef JP
-			prt("完了。何かキーを押してください。", 0, 0);
-#else
 			prt("Completed.  Hit any key.", 0, 0);
-#endif
 			(void)inkey();
 		}
 		else return FALSE;
@@ -519,13 +429,8 @@ errr top_twenty(void)
 	/* Save the cause of death (31 chars) */
 	if (strlen(p_ptr->died_from) >= sizeof(the_score.how))
 	{
-#ifdef JP
-		my_strcpy(the_score.how, p_ptr->died_from, sizeof(the_score.how) - 2);
-		strcat(the_score.how, "…");
-#else
 		my_strcpy(the_score.how, p_ptr->died_from, sizeof(the_score.how) - 3);
 		strcat(the_score.how, "...");
-#endif
 	}
 	else
 	{
@@ -590,11 +495,7 @@ errr predict_score(void)
 	/* No score file */
 	if (highscore_fd < 0)
 	{
-#ifdef JP
-msg_print("スコア・ファイルが使用できません。");
-#else
 		msg_print("Score file unavailable.");
-#endif
 
 		msg_print(NULL);
 		return (0);
@@ -615,11 +516,7 @@ msg_print("スコア・ファイルが使用できません。");
 	sprintf(the_score.turns, "%9d", turn_real(turn));
 
 	/* Hack -- no time needed */
-#ifdef JP
-strcpy(the_score.day, "今日");
-#else
 	strcpy(the_score.day, "TODAY");
-#endif
 
 
 	/* Save the player name (15 chars) */
@@ -639,12 +536,7 @@ strcpy(the_score.day, "今日");
 	sprintf(the_score.max_dun, "%3d", max_dlv[dungeon_type]);
 
 	/* Hack -- no cause of death */
-#ifdef JP
-	/* まだ死んでいないときの識別文字 */
-	strcpy(the_score.how, "yet");
-#else
 	strcpy(the_score.how, "nobody (yet!)");
-#endif
 
 
 
@@ -693,11 +585,7 @@ void show_highclass(void)
 
 	if (highscore_fd < 0)
 	{
-#ifdef JP
-msg_print("スコア・ファイルが使用できません。");
-#else
 		msg_print("Score file unavailable.");
-#endif
 
 		msg_print(NULL);
 		return;
@@ -734,11 +622,7 @@ msg_print("スコア・ファイルが使用できません。");
 
 	(void)fd_close(highscore_fd);
 	highscore_fd = -1;
-#ifdef JP
-	prt("何かキーを押すとゲームに戻ります",0,0);
-#else
 	prt("Hit any key to continue",0,0);
-#endif
 
 	(void)inkey();
 
@@ -761,11 +645,7 @@ void race_score(int race_num)
 	lastlev = 0;
 
 	/* rr9: TODO - pluralize the race */
-#ifdef JP
-sprintf(tmp_str,"最高の%s", race_info[race_num].title);
-#else
 	sprintf(tmp_str,"The Greatest of all the %s", get_race_t_aux(race_num, 0)->name);
-#endif
 
 	prt(tmp_str, 5, 15);
 
@@ -776,11 +656,7 @@ sprintf(tmp_str,"最高の%s", race_info[race_num].title);
 
 	if (highscore_fd < 0)
 	{
-#ifdef JP
-msg_print("スコア・ファイルが使用できません。");
-#else
 		msg_print("Score file unavailable.");
-#endif
 
 		msg_print(NULL);
 		return;
@@ -841,11 +717,7 @@ void race_legends(void)
 	for (i = 0; i < MAX_RACES; i++)
 	{
 		race_score(i);
-#ifdef JP
-msg_print("何かキーを押すとゲームに戻ります");
-#else
 		msg_print("Hit any key to continue");
-#endif
 
 		msg_print(NULL);
 		for (j = 5; j < 19; j++)
@@ -868,12 +740,7 @@ void kingly(void)
 
 	/* Fake death */
 	if (!seppuku)
-#ifdef JP
-		/* 引退したときの識別文字 */
-		(void)strcpy(p_ptr->died_from, "ripe");
-#else
 		(void)strcpy(p_ptr->died_from, "Ripe Old Age");
-#endif
 
 
 	/* Restore the experience */
@@ -907,15 +774,9 @@ void kingly(void)
 	put_str("*#########*#########*", cy, cx - 11);
 
 	/* Display a message */
-#ifdef JP
-	put_str("Veni, Vidi, Vici!", cy + 3, cx - 9);
-	put_str("来た、見た、勝った！", cy + 4, cx - 10);
-	put_str(format("偉大なる%s万歳！", sp_ptr->winner), cy + 5, cx - 11);
-#else
 	put_str("Veni, Vidi, Vici!", cy + 3, cx - 9);
 	put_str("I came, I saw, I conquered!", cy + 4, cx - 14);
 	put_str(format("All Hail the Mighty %s!", sp_ptr->winner), cy + 5, cx - 13);
-#endif
 
 
 	/* Flush input */

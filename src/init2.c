@@ -258,18 +258,6 @@ int error_line;
 cptr err_str[PARSE_ERROR_MAX] =
 {
 	NULL,
-#ifdef JP
-	"文法エラー",
-	"古いファイル",
-	"記録ヘッダがない",
-	"不連続レコード",
-	"おかしなフラグ存在",
-	"未定義命令",
-	"メモリ不足",
-	"座標範囲外",
-	"引数不足",
-	"未定義地形タグ",
-#else
 	"parse error",
 	"obsolete file",
 	"missing record header",
@@ -280,7 +268,6 @@ cptr err_str[PARSE_ERROR_MAX] =
 	"coordinates out of bounds",
 	"too few arguments",
 	"undefined terrain tag",
-#endif
 
 };
 
@@ -458,11 +445,7 @@ static errr init_info(cptr filename, header *head,
 	/*** Load the binary image file ***/
 
 	/* Build the filename */
-#ifdef JP
-	path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, format("%s_j.raw", filename));
-#else
 	path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, format("%s.raw", filename));
-#endif
 
 
 	/* Attempt to open the "raw" file */
@@ -514,11 +497,7 @@ static errr init_info(cptr filename, header *head,
 		fp = my_fopen(buf, "r");
 
 		/* Parse it */
-#ifdef JP
-		if (!fp) quit(format("'%s.txt'ファイルをオープンできません。", filename));
-#else
 		if (!fp) quit(format("Cannot open '%s.txt' file.", filename));
-#endif
 
 
 		/* Parse the file */
@@ -532,19 +511,6 @@ static errr init_info(cptr filename, header *head,
 		{
 			cptr oops;
 
-#ifdef JP
-			/* Error string */
-			oops = (((err > 0) && (err < PARSE_ERROR_MAX)) ? err_str[err] : "未知の");
-
-			/* Oops */
-			msg_format("'%s.txt'ファイルの %d 行目にエラー。", filename, error_line);
-			msg_format("レコード %d は '%s' エラーがあります。", error_idx, oops);
-			msg_format("構文 '%s'。", buf);
-			msg_print(NULL);
-
-			/* Quit */
-			quit(format("'%s.txt'ファイルにエラー", filename));
-#else
 			/* Error string */
 			oops = (((err > 0) && (err < PARSE_ERROR_MAX)) ? err_str[err] : "unknown");
 
@@ -556,7 +522,6 @@ static errr init_info(cptr filename, header *head,
 
 			/* Quit */
 			quit(format("Error in '%s.txt' file.", filename));
-#endif
 
 		}
 
@@ -575,11 +540,7 @@ static errr init_info(cptr filename, header *head,
 		FILE_TYPE(FILE_TYPE_DATA);
 
 		/* Build the filename */
-#ifdef JP
-		path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, format("%s_j.raw", filename));
-#else
 		path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, format("%s.raw", filename));
-#endif
 
 
 		/* Grab permissions */
@@ -633,22 +594,14 @@ static errr init_info(cptr filename, header *head,
 		/*** Load the binary image file ***/
 
 		/* Build the filename */
-#ifdef JP
-		path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, format("%s_j.raw", filename));
-#else
 		path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, format("%s.raw", filename));
-#endif
 
 
 		/* Attempt to open the "raw" file */
 		fd = fd_open(buf, O_RDONLY);
 
 		/* Process existing "raw" file */
-#ifdef JP
-		if (fd < 0) quit(format("'%s_j.raw'ファイルをロードできません。", filename));
-#else
 		if (fd < 0) quit(format("Cannot load '%s.raw' file.", filename));
-#endif
 
 
 		/* Attempt to parse the "raw" file */
@@ -658,11 +611,7 @@ static errr init_info(cptr filename, header *head,
 		(void)fd_close(fd);
 
 		/* Error */
-#ifdef JP
-		if (err) quit(format("'%s_j.raw'ファイルを解析できません。", filename));
-#else
 		if (err) quit(format("Cannot parse '%s.raw' file.", filename));
-#endif
 
 #ifdef ALLOW_TEMPLATES
 	}
@@ -1952,11 +1901,7 @@ static errr init_object_alloc(void)
 	}
 
 	/* Paranoia */
-#ifdef JP
-if (!num[0]) quit("町のアイテムがない！");
-#else
 	if (!num[0]) quit("No town objects!");
-#endif
 
 
 
@@ -2114,11 +2059,7 @@ static errr init_alloc(void)
 	}
 
 	/* Paranoia */
-#ifdef JP
-	if (!num[0]) quit("町のモンスターがない！");
-#else
 	if (!num[0]) quit("No town monsters!");
-#endif
 
 
 
@@ -2200,19 +2141,6 @@ static void init_angband_aux(cptr why)
 	/* Why */
 	plog(why);
 
-#ifdef JP
-	/* Explain */
-	plog("'lib'ディレクトリが存在しないか壊れているようです。");
-
-	/* More details */
-	plog("ひょっとするとアーカイブが正しく解凍されていないのかもしれません。");
-
-	/* Explain */
-	plog("該当する'README'ファイルを読んで確認してみて下さい。");
-
-	/* Quit with error */
-	quit("致命的なエラー。");
-#else
 	/* Explain */
 	plog("The 'lib' directory is probably missing or broken.");
 
@@ -2224,7 +2152,6 @@ static void init_angband_aux(cptr why)
 
 	/* Quit with error */
 	quit("Fatal Error.");
-#endif
 
 }
 
@@ -2290,11 +2217,7 @@ void init_angband(void)
 	/*** Verify the "news" file ***/
 
 	/* Build the filename */
-#ifdef JP
-	path_build(buf, sizeof(buf), ANGBAND_DIR_FILE, "news_j.txt");
-#else
 	path_build(buf, sizeof(buf), ANGBAND_DIR_FILE, "news.txt");
-#endif
 
 
 	/* Attempt to open the file */
@@ -2306,11 +2229,7 @@ void init_angband(void)
 		char why[1024];
 
 		/* Message */
-#ifdef JP
-	sprintf(why, "'%s'ファイルにアクセスできません!", buf);
-#else
 		sprintf(why, "Cannot access the '%s' file!", buf);
-#endif
 
 
 		/* Crash and burn */
@@ -2327,11 +2246,7 @@ void init_angband(void)
 	Term_clear();
 
 	/* Build the filename */
-#ifdef JP
-	path_build(buf, sizeof(buf), ANGBAND_DIR_FILE, "news_j.txt");
-#else
 	path_build(buf, sizeof(buf), ANGBAND_DIR_FILE, "news.txt");
-#endif
 
 
 	/* Open the News file */
@@ -2386,11 +2301,7 @@ void init_angband(void)
 			char why[1024];
 
 			/* Message */
-#ifdef JP
-			sprintf(why, "'%s'ファイルを作成できません!", buf);
-#else
 			sprintf(why, "Cannot create the '%s' file!", buf);
-#endif
 
 
 			/* Crash and burn */
@@ -2405,79 +2316,40 @@ void init_angband(void)
 	/*** Initialize some arrays ***/
 
 	/* Initialize misc. values */
-#ifdef JP
-note("[変数を初期化しています...(その他)");
-#else
 	note("[Initializing values... (misc)]");
-#endif
 
-#ifdef JP
-if (init_misc()) quit("その他の変数を初期化できません");
-#else
 	if (init_misc()) quit("Cannot initialize misc. values");
-#endif
 
 
 	/* Initialize feature info */
-#ifdef JP
-	note("[データの初期化中... (地形)]");
-	if (init_f_info()) quit("地形初期化不能");
-	if (init_feat_variables()) quit("地形初期化不能");
-#else
 	note("[Initializing arrays... (features)]");
 	if (init_f_info()) quit("Cannot initialize features");
 	if (init_feat_variables()) quit("Cannot initialize features");
-#endif
 
 
 	/* Initialize object info */
-#ifdef JP
-	note("[データの初期化中... (アイテム)]");
-	if (init_k_info()) quit("アイテム初期化不能");
-#else
 	note("[Initializing arrays... (objects)]");
 	if (init_k_info()) quit("Cannot initialize objects");
-#endif
 
 
 	/* Initialize artifact info */
-#ifdef JP
-	note("[データの初期化中... (伝説のアイテム)]");
-	if (init_a_info()) quit("伝説のアイテム初期化不能");
-#else
 	note("[Initializing arrays... (artifacts)]");
 	if (init_a_info()) quit("Cannot initialize artifacts");
-#endif
 
 
 	/* Initialize ego-item info */
-#ifdef JP
-	note("[データの初期化中... (名のあるアイテム)]");
-	if (init_e_info()) quit("名のあるアイテム初期化不能");
-#else
 	note("[Initializing arrays... (ego-items)]");
 	if (init_e_info()) quit("Cannot initialize ego-items");
-#endif
 
 
 	/* Initialize monster info */
-#ifdef JP
-	note("[データの初期化中... (モンスター)]");
-	if (init_r_info()) quit("モンスター初期化不能");
-#else
 	note("[Initializing arrays... (monsters)]");
 	if (init_r_info()) quit("Cannot initialize monsters");
-#endif
 
 
 	/* Initialize dungeon info */
-#ifdef JP
-	note("[データの初期化中... (ダンジョン)]");
-	if (init_d_info()) quit("ダンジョン初期化不能");
-#else
 	note("[Initializing arrays... (dungeon)]");
 	if (init_d_info()) quit("Cannot initialize dungeon");
-#endif
 	{
 		int i;
 		for (i = 1; i < max_d_idx; i++)
@@ -2486,117 +2358,56 @@ if (init_misc()) quit("その他の変数を初期化できません");
 	}
 
 	/* Initialize magic info */
-#ifdef JP
-	note("[データの初期化中... (魔法)]");
-	if (init_m_info()) quit("魔法初期化不能");
-#else
 	note("[Initializing arrays... (magic)]");
 	if (init_m_info()) quit("Cannot initialize magic");
-#endif
 
 	/* Initialize weapon_exp info */
-#ifdef JP
-	note("[データの初期化中... (熟練度)]");
-	if (init_s_info()) quit("熟練度初期化不能");
-#else
 	note("[Initializing arrays... (skill)]");
 	if (init_s_info()) quit("Cannot initialize skill");
-#endif
 
 	/* Initialize wilderness array */
-#ifdef JP
-note("[配列を初期化しています... (荒野)]");
-#else
 	note("[Initializing arrays... (wilderness)]");
-#endif
 
-#ifdef JP
-if (init_wilderness()) quit("荒野を初期化できません");
-#else
 	if (init_wilderness()) quit("Cannot initialize wilderness");
-#endif
 
 
 	/* Initialize town array */
-#ifdef JP
-note("[配列を初期化しています... (街)]");
-#else
 	note("[Initializing arrays... (towns)]");
-#endif
 
-#ifdef JP
-if (init_towns()) quit("街を初期化できません");
-#else
 	if (init_towns()) quit("Cannot initialize towns");
-#endif
 
 
 	/* Initialize building array */
-#ifdef JP
-note("[配列を初期化しています... (建物)]");
-#else
 	note("[Initializing arrays... (buildings)]");
-#endif
 
-#ifdef JP
-if (init_buildings()) quit("建物を初期化できません");
-#else
 	if (init_buildings()) quit("Cannot initialize buildings");
-#endif
 
 
 	/* Initialize quest array */
-#ifdef JP
-note("[配列を初期化しています... (クエスト)]");
-#else
 	note("[Initializing arrays... (quests)]");
-#endif
 
-#ifdef JP
-if (init_quests()) quit("クエストを初期化できません");
-#else
 	if (init_quests()) quit("Cannot initialize quests");
-#endif
 
 
 	/* Initialize vault info */
-#ifdef JP
-	if (init_v_info()) quit("vault 初期化不能");
-#else
 	if (init_v_info()) quit("Cannot initialize vaults");
-#endif
 
 
 	/* Initialize some other arrays */
-#ifdef JP
-	note("[データの初期化中... (その他)]");
-	if (init_other()) quit("その他のデータ初期化不能");
-#else
 	note("[Initializing arrays... (other)]");
 	if (init_other()) quit("Cannot initialize other stuff");
-#endif
 
 
 	/* Initialize some other arrays */
-#ifdef JP
-	/* translation */
-	note("[データの初期化中... (アロケーション)]");
-	if (init_alloc()) quit("アロケーション・スタッフ初期化不能");
-#else
 	note("[Initializing arrays... (alloc)]");
 	if (init_alloc()) quit("Cannot initialize alloc stuff");
-#endif
 
 
 
 	/*** Load default user pref files ***/
 
 	/* Initialize feature info */
-#ifdef JP
-note("[ユーザー設定ファイルを初期化しています...]");
-#else
 	note("[Initializing user pref files...]");
-#endif
 
 
 	/* Access the "basic" pref file */
@@ -2612,11 +2423,7 @@ note("[ユーザー設定ファイルを初期化しています...]");
 	process_pref_file(buf);
 
 	/* Done */
-#ifdef JP
-	note("[初期化終了]");
-#else
 	note("[Initialization complete]");
-#endif
 
 }
 

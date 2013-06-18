@@ -1663,11 +1663,7 @@ static bool monst_attack_monst(int m_idx, int t_idx)
 
 			case RBM_CHARGE:
 				{
-#ifdef JP
-act = "%sに請求書をよこした。";
-#else
 					act = "charges %s.";
-#endif
 
 					touched = TRUE;
 					break;
@@ -1675,11 +1671,7 @@ act = "%sに請求書をよこした。";
 
 			case RBM_CRAWL:
 				{
-#ifdef JP
-act = "%sの体の上を這い回った。";
-#else
 					act = "crawls on %s.";
-#endif
 
 					touched = TRUE;
 					break;
@@ -1687,11 +1679,7 @@ act = "%sの体の上を這い回った。";
 
 			case RBM_DROOL:
 				{
-#ifdef JP
-act = "%sによだれをたらした。";
-#else
 					act = "drools on %s.";
-#endif
 
 					touched = FALSE;
 					break;
@@ -1699,11 +1687,7 @@ act = "%sによだれをたらした。";
 
 			case RBM_SPIT:
 				{
-#ifdef JP
-act = "%sに唾を吐いた。";
-#else
 					act = "spits on %s.";
-#endif
 
 					touched = FALSE;
 					break;
@@ -1712,11 +1696,7 @@ act = "%sに唾を吐いた。";
 			case RBM_EXPLODE:
 				{
 					if (see_either) disturb(1, 0);
-#ifdef JP
-act = "爆発した。";
-#else
 					act = "explodes.";
-#endif
 
 					explode = TRUE;
 					touched = FALSE;
@@ -1725,11 +1705,7 @@ act = "爆発した。";
 
 			case RBM_GAZE:
 				{
-#ifdef JP
-act = "%sをにらんだ。";
-#else
 					act = "gazes at %s.";
-#endif
 
 					touched = FALSE;
 					break;
@@ -1737,11 +1713,7 @@ act = "%sをにらんだ。";
 
 			case RBM_WAIL:
 				{
-#ifdef JP
-act = "%sに泣きついた。";
-#else
 					act = "wails at %s.";
-#endif
 
 					touched = FALSE;
 					break;
@@ -1749,11 +1721,7 @@ act = "%sに泣きついた。";
 
 			case RBM_SPORE:
 				{
-#ifdef JP
-act = "%sに胞子を飛ばした。";
-#else
 					act = "releases spores at %s.";
-#endif
 
 					touched = FALSE;
 					break;
@@ -1761,11 +1729,7 @@ act = "%sに胞子を飛ばした。";
 
 			case RBM_XXX4:
 				{
-#ifdef JP
-act = "%sにXXX4を飛ばした。";
-#else
 					act = "projects XXX4's at %s.";
-#endif
 
 					touched = FALSE;
 					break;
@@ -1773,11 +1737,7 @@ act = "%sにXXX4を飛ばした。";
 
 			case RBM_BEG:
 				{
-#ifdef JP
-act = "%sに金をせがんだ。";
-#else
 					act = "begs %s for money.";
-#endif
 
 					touched = FALSE;
 					break;
@@ -1785,11 +1745,7 @@ act = "%sに金をせがんだ。";
 
 			case RBM_INSULT:
 				{
-#ifdef JP
-act = "%sを侮辱した。";
-#else
 					act = "insults %s.";
-#endif
 
 					touched = FALSE;
 					break;
@@ -1797,11 +1753,7 @@ act = "%sを侮辱した。";
 
 			case RBM_MOAN:
 				{
-#ifdef JP
-act = "%sにむかってうめいた。";
-#else
 					act = "moans at %s.";
-#endif
 
 					touched = FALSE;
 					break;
@@ -1809,11 +1761,7 @@ act = "%sにむかってうめいた。";
 
 			case RBM_SHOW:
 				{
-#ifdef JP
-act = "%sにむかって歌った。";
-#else
 					act = "sings to %s.";
-#endif
 
 					touched = FALSE;
 					break;
@@ -1823,11 +1771,6 @@ act = "%sにむかって歌った。";
 			/* Message */
 			if (act && see_either)
 			{
-#ifdef JP
-				if (do_silly_attack) act = silly_attacks2[randint0(MAX_SILLY_ATTACK)];
-				strfmt(temp, act, t_name);
-				msg_format("%^sは%s", m_name, temp);
-#else
 				if (do_silly_attack)
 				{
 					act = silly_attacks[randint0(MAX_SILLY_ATTACK)];
@@ -1835,7 +1778,6 @@ act = "%sにむかって歌った。";
 				}
 				else strfmt(temp, act, t_name);
 				msg_format("%^s %s", m_name, temp);
-#endif
 			}
 
 			/* Hack -- assume all attacks are obvious */
@@ -1991,11 +1933,7 @@ act = "%sにむかって歌った。";
 						/* Special message */
 						if (see_m && did_heal)
 						{
-#ifdef JP
-							msg_format("%sは体力を回復したようだ。", m_name);
-#else
 							msg_format("%^s appears healthier.", m_name);
-#endif
 						}
 					}
 					break;
@@ -2018,11 +1956,7 @@ act = "%sにむかって歌った。";
 						{
 							if (see_either)
 							{
-#ifdef JP
-								msg_format("%^sは突然熱くなった！", m_name);
-#else
 								msg_format("%^s is suddenly very hot!", m_name);
-#endif
 							}
 							if (m_ptr->ml && is_original_ap_and_seen(t_ptr)) tr_ptr->r_flags2 |= RF2_AURA_FIRE;
 							project(t_idx, 0, m_ptr->fy, m_ptr->fx,
@@ -2043,11 +1977,7 @@ act = "%sにむかって歌った。";
 						{
 							if (see_either)
 							{
-#ifdef JP
-								msg_format("%^sは突然寒くなった！", m_name);
-#else
 								msg_format("%^s is suddenly very cold!", m_name);
-#endif
 							}
 							if (m_ptr->ml && is_original_ap_and_seen(t_ptr)) tr_ptr->r_flags3 |= RF3_AURA_COLD;
 							project(t_idx, 0, m_ptr->fy, m_ptr->fx,
@@ -2068,11 +1998,7 @@ act = "%sにむかって歌った。";
 						{
 							if (see_either)
 							{
-#ifdef JP
-								msg_format("%^sは電撃を食らった！", m_name);
-#else
 								msg_format("%^s gets zapped!", m_name);
-#endif
 							}
 							if (m_ptr->ml && is_original_ap_and_seen(t_ptr)) tr_ptr->r_flags2 |= RF2_AURA_ELEC;
 							project(t_idx, 0, m_ptr->fy, m_ptr->fx,
@@ -2115,11 +2041,7 @@ act = "%sにむかって歌った。";
 					if (see_m)
 					{
 						/* Message */
-#ifdef JP
-						msg_format("%sは%^sの攻撃をかわした。", t_name,m_name);
-#else
 						msg_format("%^s misses %s.", m_name, t_name);
-#endif
 					}
 
 					break;
@@ -2153,11 +2075,7 @@ act = "%sにむかって歌った。";
 		/* Cancel Invulnerability */
 		(void)set_monster_invulner(m_idx, 0, FALSE);
 
-#ifdef JP
-		mon_take_hit_mon(m_idx, m_ptr->hp + 1, &fear, "は爆発して粉々になった。", m_idx);
-#else
 		mon_take_hit_mon(m_idx, m_ptr->hp + 1, &fear, " explodes into tiny shreds.", m_idx);
-#endif
 
 		blinked = FALSE;
 	}
@@ -2169,11 +2087,7 @@ act = "%sにむかって歌った。";
 		{
 			if (see_m)
 			{
-#ifdef JP
-				msg_print("泥棒は笑って逃げ...ようとしたがバリアに防がれた。");
-#else
 				msg_print("The thief flees laughing...? But magic barrier obstructs it.");
-#endif
 			}
 			else if (known)
 			{
@@ -2184,11 +2098,7 @@ act = "%sにむかって歌った。";
 		{
 			if (see_m)
 			{
-#ifdef JP
-				msg_print("泥棒は笑って逃げた！");
-#else
 				msg_print("The thief flees laughing!");
-#endif
 			}
 			else if (known)
 			{
@@ -3613,11 +3523,7 @@ static void process_monster(int m_idx)
 			monster_desc(m_name, m_ptr, 0);
 
 			/* Dump a message */
-#ifdef JP
-			msg_format("%^sは戦いを決意した！", m_name);
-#else
 			msg_format("%^s turns to fight!", m_name);
-#endif
 		}
 
 		if (m_ptr->ml) virtue_add(VIRTUE_COMPASSION, -1);
@@ -4328,11 +4234,7 @@ static void process_monsters_mtimed_aux(int m_idx, int mtimed_idx)
 						monster_desc(m_name, m_ptr, 0);
 
 						/* Dump a message */
-#ifdef JP
-						msg_format("%^sが目を覚ました。", m_name);
-#else
 						msg_format("%^s wakes up.", m_name);
-#endif
 					}
 
 					if (is_original_ap_and_seen(m_ptr))
@@ -4358,11 +4260,7 @@ static void process_monsters_mtimed_aux(int m_idx, int mtimed_idx)
 				monster_desc(m_name, m_ptr, 0);
 
 				/* Dump a message */
-#ifdef JP
-				msg_format("%^sはもう加速されていない。", m_name);
-#else
 				msg_format("%^s is no longer fast.", m_name);
-#endif
 			}
 		}
 		break;
@@ -4379,11 +4277,7 @@ static void process_monsters_mtimed_aux(int m_idx, int mtimed_idx)
 				monster_desc(m_name, m_ptr, 0);
 
 				/* Dump a message */
-#ifdef JP
-				msg_format("%^sはもう減速されていない。", m_name);
-#else
 				msg_format("%^s is no longer slow.", m_name);
-#endif
 			}
 		}
 		break;
@@ -4404,11 +4298,7 @@ static void process_monsters_mtimed_aux(int m_idx, int mtimed_idx)
 				monster_desc(m_name, m_ptr, 0);
 
 				/* Dump a message */
-#ifdef JP
-				msg_format("%^sは朦朧状態から立ち直った。", m_name);
-#else
 				msg_format("%^s is no longer stunned.", m_name);
-#endif
 			}
 		}
 		break;
@@ -4427,11 +4317,7 @@ static void process_monsters_mtimed_aux(int m_idx, int mtimed_idx)
 				monster_desc(m_name, m_ptr, 0);
 
 				/* Dump a message */
-#ifdef JP
-				msg_format("%^sは混乱から立ち直った。", m_name);
-#else
 				msg_format("%^s is no longer confused.", m_name);
-#endif
 			}
 		}
 		break;
@@ -4451,11 +4337,7 @@ static void process_monsters_mtimed_aux(int m_idx, int mtimed_idx)
 				monster_desc(m_name, m_ptr, 0);
 
 				/* Dump a message */
-#ifdef JP
-				msg_format("%^sはもう無敵でない。", m_name);
-#else
 				msg_format("%^s is no longer invulnerable.", m_name);
-#endif
 			}
 		}
 		break;
@@ -4493,27 +4375,15 @@ void dispel_monster_status(int m_idx)
 	monster_desc(m_name, m_ptr, 0);
 	if (set_monster_invulner(m_idx, 0, TRUE))
 	{
-#ifdef JP
-		if (m_ptr->ml) msg_format("%sはもう無敵ではない。", m_name);
-#else
 		if (m_ptr->ml) msg_format("%^s is no longer invulnerable.", m_name);
-#endif
 	}
 	if (set_monster_fast(m_idx, 0))
 	{
-#ifdef JP
-		if (m_ptr->ml) msg_format("%sはもう加速されていない。", m_name);
-#else
 		if (m_ptr->ml) msg_format("%^s is no longer fast.", m_name);
-#endif
 	}
 	if (set_monster_slow(m_idx, 0))
 	{
-#ifdef JP
-		if (m_ptr->ml) msg_format("%sはもう減速されていない。", m_name);
-#else
 		if (m_ptr->ml) msg_format("%^s is no longer slow.", m_name);
-#endif
 	}
 }
 
@@ -4530,17 +4400,9 @@ bool process_the_world(int num, int who, bool vs_player)
 		monster_desc(m_name, m_ptr, 0);
 
 		if (who == 1)
-#ifdef JP
-			msg_print("「『ザ・ワールド』！時は止まった！」");
-#else
 			msg_format("%s yells 'The World! Time has stopped!'", m_name);
-#endif
 		else if (who == 3)
-#ifdef JP
-			msg_print("「時よ！」");
-#else
 			msg_format("%s yells 'Time!'", m_name);
-#endif
 		else msg_print("hek!");
 
 		msg_print(NULL);
@@ -4586,11 +4448,7 @@ bool process_the_world(int num, int who, bool vs_player)
 	world_monster = 0;
 	if (vs_player || (player_has_los_bold(m_ptr->fy, m_ptr->fx) && projectable(py, px, m_ptr->fy, m_ptr->fx)))
 	{
-#ifdef JP
-		msg_print("「時は動きだす…」");
-#else
 		msg_print("You feel time flowing around you once more.");
-#endif
 		msg_print(NULL);
 	}
 
@@ -4704,19 +4562,11 @@ void monster_gain_exp(int m_idx, int s_idx)
 					}
 					while (!hallu_race->name || (hallu_race->flags1 & RF1_UNIQUE));
 
-#ifdef JP
-					msg_format("%sは%sに進化した。", m_name, r_name + hallu_race->name);
-#else
 					msg_format("%^s evolved into %s.", m_name, r_name + hallu_race->name);
-#endif
 				}
 				else
 				{
-#ifdef JP
-					msg_format("%sは%sに進化した。", m_name, r_name + r_ptr->name);
-#else
 					msg_format("%^s evolved into %s.", m_name, r_name + r_ptr->name);
-#endif
 				}
 			}
 

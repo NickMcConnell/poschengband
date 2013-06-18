@@ -167,13 +167,8 @@ void prt_time(void)
 	extract_day_hour_min(&day, &hour, &min);
 
 	/* Dump the info itself */
-#ifdef JP
-	if (day < 1000) c_put_str(TERM_WHITE, format("%2d日目", day), ROW_DAY, COL_DAY);
-	else c_put_str(TERM_WHITE, "***日目", ROW_DAY, COL_DAY);
-#else
 	if (day < 1000) c_put_str(TERM_WHITE, format("Day%3d", day), ROW_DAY, COL_DAY);
 	else c_put_str(TERM_WHITE, "Day***", ROW_DAY, COL_DAY);
-#endif
 
 	c_put_str(TERM_WHITE, format("%2d:%02d", hour, min), ROW_DAY, COL_DAY+7);
 }
@@ -183,29 +178,13 @@ cptr map_name(void)
 {
 	if (p_ptr->inside_quest && is_fixed_quest_idx(p_ptr->inside_quest)
 	    && (quest[p_ptr->inside_quest].flags & QUEST_FLAG_PRESET))
-#ifdef JP
-		return "クエスト";
-#else
 		return "Quest";
-#endif
 	else if (p_ptr->wild_mode)
-#ifdef JP
-		return "地上";
-#else
 		return "Surface";
-#endif
 	else if (p_ptr->inside_arena)
-#ifdef JP
-		return "アリーナ";
-#else
 		return "Arena";
-#endif
 	else if (p_ptr->inside_battle)
-#ifdef JP
-		return "闘技場";
-#else
 		return "Monster Arena";
-#endif
 	else if (!dun_level && p_ptr->town_num)
 		return town[p_ptr->town_num].name;
 	else
@@ -262,12 +241,7 @@ static void prt_stat(int stat)
 	/* Indicate natural maximum */
 	if (p_ptr->stat_max[stat] == p_ptr->stat_max_max[stat])
 	{
-#ifdef JP
-		/* 日本語にかぶらないように表示位置を変更 */
-		put_str("!", ROW_STAT + stat, 5);
-#else
 		put_str("!", ROW_STAT + stat, 3);
-#endif
 
 	}
 }
@@ -1111,12 +1085,7 @@ static void prt_title(void)
 	/* Wizard */
 	if (p_ptr->wizard)
 	{
-#ifdef JP
-		/* 英日切り替え機能 称号 */
-		p = "[ウィザード]";
-#else
 		p = "[=-WIZARD-=]";
-#endif
 
 	}
 
@@ -1125,21 +1094,11 @@ static void prt_title(void)
 	{
 		if (p_ptr->arena_number > MAX_ARENA_MONS + 2)
 		{
-#ifdef JP
-			/* 英日切り替え機能 称号 */
-			p = "*真・勝利者*";
-#else
 			p = "*TRUEWINNER*";
-#endif
 		}
 		else
 		{
-#ifdef JP
-			/* 英日切り替え機能 称号 */
-			p = "***勝利者***";
-#else
 			p = "***WINNER***";
-#endif
 		}
 	}
 
@@ -1161,33 +1120,19 @@ static void prt_level(void)
 {
 	char tmp[32];
 
-#ifdef JP
-	sprintf(tmp, "%5d", p_ptr->lev);
-#else
 	sprintf(tmp, "%6d", p_ptr->lev);
-#endif
 
 
 	if (p_ptr->lev >= p_ptr->max_plv)
 	{
-#ifdef JP
-		put_str("レベル ", ROW_LEVEL, 0);
-		c_put_str(TERM_L_GREEN, tmp, ROW_LEVEL, COL_LEVEL + 7);
-#else
 		put_str("LEVEL ", ROW_LEVEL, 0);
 		c_put_str(TERM_L_GREEN, tmp, ROW_LEVEL, COL_LEVEL + 6);
-#endif
 
 	}
 	else
 	{
-#ifdef JP
-		put_str("xレベル", ROW_LEVEL, 0);
-		c_put_str(TERM_YELLOW, tmp, ROW_LEVEL, COL_LEVEL + 7);
-#else
 		put_str("Level ", ROW_LEVEL, 0);
 		c_put_str(TERM_YELLOW, tmp, ROW_LEVEL, COL_LEVEL + 6);
-#endif
 
 	}
 }
@@ -1236,11 +1181,7 @@ static void prt_gold(void)
 {
 	char tmp[32];
 
-#ifdef JP
-	put_str("＄ ", ROW_GOLD, COL_GOLD);
-#else
 	put_str("AU ", ROW_GOLD, COL_GOLD);
-#endif
 
 	sprintf(tmp, "%9d", p_ptr->au);
 	c_put_str(TERM_L_GREEN, tmp, ROW_GOLD, COL_GOLD + 3);
@@ -1255,16 +1196,9 @@ static void prt_ac(void)
 {
 	char tmp[32];
 
-#ifdef JP
-/* AC の表示方式を変更している */
-	put_str(" ＡＣ(     )", ROW_AC, COL_AC);
-	sprintf(tmp, "%5d", p_ptr->dis_ac + p_ptr->dis_to_a);
-	c_put_str(TERM_L_GREEN, tmp, ROW_AC, COL_AC + 6);
-#else
 	put_str("Cur AC ", ROW_AC, COL_AC);
 	sprintf(tmp, "%5d", p_ptr->dis_ac + p_ptr->dis_to_a);
 	c_put_str(TERM_L_GREEN, tmp, ROW_AC, COL_AC + 7);
-#endif
 
 }
 
@@ -1390,29 +1324,16 @@ static void prt_depth(void)
 
 	if (!dun_level)
 	{
-#ifdef JP
-		strcpy(depths, "地上");
-#else
 		strcpy(depths, "Surf.");
-#endif
 	}
 	else if (p_ptr->inside_quest && !dungeon_type)
 	{
-#ifdef JP
-		strcpy(depths, "地上");
-#else
 		strcpy(depths, "Quest");
-#endif
 	}
 	else
 	{
-#ifdef JP
-		if (depth_in_feet) (void)sprintf(depths, "%d ft", dun_level * 50);
-		else (void)sprintf(depths, "%d 階", dun_level);
-#else
 		if (depth_in_feet) (void)sprintf(depths, "%d ft", dun_level * 50);
 		else (void)sprintf(depths, "Lev %d", dun_level);
-#endif
 
 
 		/* Get color of level based on feeling  -JSV- */
@@ -1445,33 +1366,21 @@ static void prt_hunger(void)
 	/* Fainting / Starving */
 	if (p_ptr->food < PY_FOOD_FAINT)
 	{
-#ifdef JP
-		c_put_str(TERM_RED, "衰弱  ", ROW_HUNGRY, COL_HUNGRY);
-#else
 		c_put_str(TERM_RED, "Weak  ", ROW_HUNGRY, COL_HUNGRY);
-#endif
 
 	}
 
 	/* Weak */
 	else if (p_ptr->food < PY_FOOD_WEAK)
 	{
-#ifdef JP
-		c_put_str(TERM_ORANGE, "衰弱  ", ROW_HUNGRY, COL_HUNGRY);
-#else
 		c_put_str(TERM_ORANGE, "Weak  ", ROW_HUNGRY, COL_HUNGRY);
-#endif
 
 	}
 
 	/* Hungry */
 	else if (p_ptr->food < PY_FOOD_ALERT)
 	{
-#ifdef JP
-		c_put_str(TERM_YELLOW, "空腹  ", ROW_HUNGRY, COL_HUNGRY);
-#else
 		c_put_str(TERM_YELLOW, "Hungry", ROW_HUNGRY, COL_HUNGRY);
-#endif
 
 	}
 
@@ -1484,22 +1393,14 @@ static void prt_hunger(void)
 	/* Full */
 	else if (p_ptr->food < PY_FOOD_MAX)
 	{
-#ifdef JP
-		c_put_str(TERM_L_GREEN, "満腹  ", ROW_HUNGRY, COL_HUNGRY);
-#else
 		c_put_str(TERM_L_GREEN, "Full  ", ROW_HUNGRY, COL_HUNGRY);
-#endif
 
 	}
 
 	/* Gorged */
 	else
 	{
-#ifdef JP
-		c_put_str(TERM_GREEN, "食過ぎ", ROW_HUNGRY, COL_HUNGRY);
-#else
 		c_put_str(TERM_GREEN, "Gorged", ROW_HUNGRY, COL_HUNGRY);
-#endif
 
 	}
 }
@@ -1523,20 +1424,12 @@ static void prt_state(void)
 	{
 		if (command_rep > 999)
 		{
-#ifdef JP
-sprintf(text, "%2d00", command_rep / 100);
-#else
 			(void)sprintf(text, "%2d00", command_rep / 100);
-#endif
 
 		}
 		else
 		{
-#ifdef JP
-sprintf(text, "  %2d", command_rep);
-#else
 			(void)sprintf(text, "  %2d", command_rep);
-#endif
 
 		}
 	}
@@ -1556,11 +1449,7 @@ sprintf(text, "  %2d", command_rep);
 				int i;
 
 				/* Start with "Rest" */
-#ifdef JP
 				strcpy(text, "    ");
-#else
-				strcpy(text, "    ");
-#endif
 
 
 				/* Extensive (timed) rest */
@@ -1710,11 +1599,7 @@ static void prt_speed(void)
 		else if ((is_fast && !p_ptr->slow) || IS_LIGHT_SPEED()) attr = TERM_YELLOW;
 		else if (p_ptr->slow && !is_fast) attr = TERM_VIOLET;
 		else attr = TERM_L_GREEN;
-#ifdef JP
-		sprintf(buf, "%s(+%d)", (p_ptr->riding ? "乗馬" : "加速"), (i - 110));
-#else
 		sprintf(buf, "Fast(+%d)", (i - 110));
-#endif
 
 	}
 
@@ -1731,20 +1616,12 @@ static void prt_speed(void)
 		else if (is_fast && !p_ptr->slow) attr = TERM_YELLOW;
 		else if (p_ptr->slow && !is_fast) attr = TERM_VIOLET;
 		else attr = TERM_L_UMBER;
-#ifdef JP
-		sprintf(buf, "%s(-%d)", (p_ptr->riding ? "乗馬" : "減速"), (110 - i));
-#else
 		sprintf(buf, "Slow(-%d)", (110 - i));
-#endif
 	}
 	else if (p_ptr->riding)
 	{
 		attr = TERM_GREEN;
-#ifdef JP
-		strcpy(buf, "乗馬中");
-#else
 		strcpy(buf, "Riding");
-#endif
 	}
 
 	/* Display the speed */
@@ -1762,11 +1639,7 @@ static void prt_study(void)
 
 	if (p_ptr->new_spells)
 	{
-#ifdef JP
-		put_str("学習", row_study, col_study);
-#else
 		put_str("Stud", row_study, col_study);
-#endif
 
 	}
 	else
@@ -1791,11 +1664,7 @@ static void prt_imitation(void)
 			byte attr;
 			if (new_mane) attr = TERM_L_RED;
 			else attr = TERM_WHITE;
-#ifdef JP
-			c_put_str(attr, "まね", row_study, col_study);
-#else
 			c_put_str(attr, "Imit", row_study, col_study);
-#endif
 		}
 		else
 		{
@@ -1811,65 +1680,37 @@ static void prt_cut(void)
 
 	if (c > 1000)
 	{
-#ifdef JP
-		c_put_str(TERM_L_RED, "致命傷      ", ROW_CUT, COL_CUT);
-#else
 		c_put_str(TERM_L_RED, "Mortal wound", ROW_CUT, COL_CUT);
-#endif
 
 	}
 	else if (c > 200)
 	{
-#ifdef JP
-		c_put_str(TERM_RED, "ひどい深手  ", ROW_CUT, COL_CUT);
-#else
 		c_put_str(TERM_RED, "Deep gash   ", ROW_CUT, COL_CUT);
-#endif
 
 	}
 	else if (c > 100)
 	{
-#ifdef JP
-		c_put_str(TERM_RED, "重傷        ", ROW_CUT, COL_CUT);
-#else
 		c_put_str(TERM_RED, "Severe cut  ", ROW_CUT, COL_CUT);
-#endif
 
 	}
 	else if (c > 50)
 	{
-#ifdef JP
-		c_put_str(TERM_ORANGE, "大変な傷    ", ROW_CUT, COL_CUT);
-#else
 		c_put_str(TERM_ORANGE, "Nasty cut   ", ROW_CUT, COL_CUT);
-#endif
 
 	}
 	else if (c > 25)
 	{
-#ifdef JP
-		c_put_str(TERM_ORANGE, "ひどい傷    ", ROW_CUT, COL_CUT);
-#else
 		c_put_str(TERM_ORANGE, "Bad cut     ", ROW_CUT, COL_CUT);
-#endif
 
 	}
 	else if (c > 10)
 	{
-#ifdef JP
-		c_put_str(TERM_YELLOW, "軽傷        ", ROW_CUT, COL_CUT);
-#else
 		c_put_str(TERM_YELLOW, "Light cut   ", ROW_CUT, COL_CUT);
-#endif
 
 	}
 	else if (c)
 	{
-#ifdef JP
-		c_put_str(TERM_YELLOW, "かすり傷    ", ROW_CUT, COL_CUT);
-#else
 		c_put_str(TERM_YELLOW, "Graze       ", ROW_CUT, COL_CUT);
-#endif
 
 	}
 	else
@@ -1886,29 +1727,17 @@ static void prt_stun(void)
 
 	if (s > 100)
 	{
-#ifdef JP
-		c_put_str(TERM_RED, "意識不明瞭  ", ROW_STUN, COL_STUN);
-#else
 		c_put_str(TERM_RED, "Knocked out ", ROW_STUN, COL_STUN);
-#endif
 
 	}
 	else if (s > 50)
 	{
-#ifdef JP
-		c_put_str(TERM_ORANGE, "ひどく朦朧  ", ROW_STUN, COL_STUN);
-#else
 		c_put_str(TERM_ORANGE, "Heavy stun  ", ROW_STUN, COL_STUN);
-#endif
 
 	}
 	else if (s)
 	{
-#ifdef JP
-		c_put_str(TERM_ORANGE, "朦朧        ", ROW_STUN, COL_STUN);
-#else
 		c_put_str(TERM_ORANGE, "Stun        ", ROW_STUN, COL_STUN);
-#endif
 
 	}
 	else
@@ -2580,13 +2409,8 @@ static void calc_spells(void)
 			}
 
 			/* Message */
-#ifdef JP
-			msg_format("%sの%sを忘れてしまった。",
-				   do_spell(which, j%32, SPELL_NAME), p );
-#else
 			msg_format("You have forgotten the %s of %s.", p,
 			do_spell(which, j%32, SPELL_NAME));
-#endif
 
 
 			/* One more can be learned */
@@ -2642,13 +2466,8 @@ static void calc_spells(void)
 			}
 
 			/* Message */
-#ifdef JP
-			msg_format("%sの%sを忘れてしまった。",
-				   do_spell(which, j%32, SPELL_NAME), p );
-#else
 			msg_format("You have forgotten the %s of %s.", p,
 				   do_spell(which, j%32, SPELL_NAME));
-#endif
 
 
 			/* One more can be learned */
@@ -2719,13 +2538,8 @@ static void calc_spells(void)
 			}
 
 			/* Message */
-#ifdef JP
-			msg_format("%sの%sを思い出した。",
-				   do_spell(which, j%32, SPELL_NAME), p );
-#else
 			msg_format("You have remembered the %s of %s.",
 				   p, do_spell(which, j%32, SPELL_NAME));
-#endif
 
 
 			/* One less can be learned */
@@ -2774,17 +2588,9 @@ static void calc_spells(void)
 		if (p_ptr->new_spells && p_ptr->pclass != CLASS_RAGE_MAGE)
 		{
 			/* Message */
-#ifdef JP
-			if( p_ptr->new_spells < 10 ){
-				msg_format("あと %d つの%sを学べる。", p_ptr->new_spells, p);
-			}else{
-				msg_format("あと %d 個の%sを学べる。", p_ptr->new_spells, p);
-			}
-#else
 			msg_format("You can learn %d more %s%s.",
 				   p_ptr->new_spells, p,
 				   (p_ptr->new_spells != 1) ? "s" : "");
-#endif
 
 		}
 

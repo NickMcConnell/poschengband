@@ -828,13 +828,8 @@ void do_cmd_quaff_potion(void)
 	item_tester_hook = item_tester_hook_quaff;
 
 	/* Get an item */
-#ifdef JP
-	q = "どの薬を飲みますか? ";
-	s = "飲める薬がない。";
-#else
 	q = "Quaff which potion? ";
 	s = "You have no potions to quaff.";
-#endif
 
 	if (!get_item(&item, q, s, (USE_INVEN | USE_FLOOR))) return;
 
@@ -1049,31 +1044,19 @@ void do_cmd_read_scroll(void)
 	/* Check some conditions */
 	if (p_ptr->blind)
 	{
-#ifdef JP
-		msg_print("目が見えない。");
-#else
 		msg_print("You can't see anything.");
-#endif
 
 		return;
 	}
 	if (no_lite())
 	{
-#ifdef JP
-		msg_print("明かりがないので、暗くて読めない。");
-#else
 		msg_print("You have no light to read by.");
-#endif
 
 		return;
 	}
 	if (p_ptr->confused)
 	{
-#ifdef JP
-		msg_print("混乱していて読めない。");
-#else
 		msg_print("You are too confused!");
-#endif
 
 		return;
 	}
@@ -1451,13 +1434,8 @@ void do_cmd_aim_wand(void)
 	}
 
 	/* Get an item */
-#ifdef JP
-	q = "どの魔法棒で狙いますか? ";
-	s = "使える魔法棒がない。";
-#else
 	q = "Aim which wand? ";
 	s = "You have no wand to aim.";
-#endif
 
 	if (!get_item(&item, q, s, USE_INVEN | USE_FLOOR | SHOW_FAIL_RATES)) return;
 
@@ -1630,13 +1608,8 @@ void do_cmd_zap_rod(void)
 	item_tester_tval = TV_ROD;
 
 	/* Get an item */
-#ifdef JP
-	q = "どのロッドを振りますか? ";
-	s = "使えるロッドがない。";
-#else
 	q = "Zap which rod? ";
 	s = "You have no rod to zap.";
-#endif
 
 	if (!get_item(&item, q, s, USE_INVEN | USE_FLOOR | SHOW_FAIL_RATES)) return;
 
@@ -1678,11 +1651,7 @@ void ring_of_power(int dir)
 		case 2:
 		{
 			/* Message */
-#ifdef JP
-			msg_print("あなたは悪性のオーラに包み込まれた。");
-#else
 			msg_print("You are surrounded by a malignant aura.");
-#endif
 
 			sound(SOUND_EVIL);
 
@@ -1705,11 +1674,7 @@ void ring_of_power(int dir)
 		case 3:
 		{
 			/* Message */
-#ifdef JP
-			msg_print("あなたは強力なオーラに包み込まれた。");
-#else
 			msg_print("You are surrounded by a powerful aura.");
-#endif
 
 
 			/* Dispel monsters */
@@ -2203,11 +2168,7 @@ static void do_cmd_activate_aux(int item)
 			}
 			case ART_GALADRIEL:
 			{
-#ifdef JP
-				msg_print("玻璃瓶から澄んだ光があふれ出た...");
-#else
 				msg_print("The phial wells with clear light...");
-#endif
 
 				lite_area(device_power(damroll(2, 15)), 3);
 				o_ptr->timeout = randint0(10) + 10;
@@ -2216,11 +2177,7 @@ static void do_cmd_activate_aux(int item)
 
 			case ART_ELENDIL:
 			{
-#ifdef JP
-				msg_print("星が眩しく輝いた...");
-#else
 				msg_print("The star shines brightly...");
-#endif
 
 				map_area(DETECT_RAD_MAP);
 				lite_area(device_power(damroll(2, 15)), 3);
@@ -2272,11 +2229,7 @@ static void do_cmd_activate_aux(int item)
 
 			case ART_CARLAMMAS:
 			{
-#ifdef JP
-				msg_print("アミュレットから鋭い音が流れ出た...");
-#else
 				msg_print("The amulet lets out a shrill wail...");
-#endif
 
 				k = 3 * p_ptr->lev;
 				(void)set_protevil(device_power(randint1(25) + k), FALSE);
@@ -2286,11 +2239,7 @@ static void do_cmd_activate_aux(int item)
 
 			case ART_INGWE:
 			{
-#ifdef JP
-				msg_print("アミュレットは辺りを善のオーラで満たした...");
-#else
 				msg_print("The amulet floods the area with goodness...");
-#endif
 
 				dispel_evil(device_power(p_ptr->lev * 5));
 				o_ptr->timeout = randint0(200) + 200;
@@ -2299,11 +2248,7 @@ static void do_cmd_activate_aux(int item)
 
 			case ART_YATA:
 			{
-#ifdef JP
-				msg_print("鏡は辺りを善のオーラで満たした...");
-#else
 				msg_print("The mirror floods the area with goodness...");
-#endif
 
 				dispel_evil(device_power(p_ptr->lev * 5));
 				o_ptr->timeout = randint0(200) + 200;
@@ -2312,11 +2257,7 @@ static void do_cmd_activate_aux(int item)
 
 			case ART_FRAKIR:
 			{
-#ifdef JP
-msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
-#else
 				msg_print("You order Frakir to strangle your opponent.");
-#endif
 
 				if (!get_aim_dir(&dir)) return;
 				if (drain_life(dir, device_power(100)))
@@ -2326,11 +2267,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 
 			case ART_TULKAS:
 			{
-#ifdef JP
-				msg_print("指輪は明るく輝いた...");
-#else
 				msg_print("The ring glows brightly...");
-#endif
 
 				(void)set_fast(device_power(randint1(75) + 75), FALSE);
 				o_ptr->timeout = randint0(150) + 150;
@@ -2339,11 +2276,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 
 			case ART_NARYA:
 			{
-#ifdef JP
-				msg_print("指輪は深紅に輝いた...");
-#else
 				msg_print("The ring glows deep red...");
-#endif
 
 				if (!get_aim_dir(&dir)) return;
 				fire_ball(GF_FIRE, dir, device_power(300), 3);
@@ -2353,11 +2286,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 
 			case ART_NENYA:
 			{
-#ifdef JP
-				msg_print("指輪は白く明るく輝いた...");
-#else
 				msg_print("The ring glows bright white...");
-#endif
 
 				if (!get_aim_dir(&dir)) return;
 				fire_ball(GF_COLD, dir, device_power(400), 3);
@@ -2368,11 +2297,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 			case ART_VILYA:
 			case ART_GOURYU:
 			{
-#ifdef JP
-				msg_format("%sは深いブルーに輝いた...", o_ptr->name1 == ART_VILYA ? "指輪" : "ソード");
-#else
 				msg_format("The %s glows deep blue...", o_ptr->name1 == ART_VILYA ? "ring" : "sword");
-#endif
 
 				if (!get_aim_dir(&dir)) return;
 				fire_ball(GF_ELEC, dir, device_power(500), 3);
@@ -2383,11 +2308,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 			case ART_POWER:
 			case ART_AHO:
 			{
-#ifdef JP
-				msg_print("指輪は漆黒に輝いた...");
-#else
 				msg_print("The ring glows intensely black...");
-#endif
 
 				if (!get_aim_dir(&dir)) return;
 				ring_of_power(dir);
@@ -2401,11 +2322,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 				int y, x;
 				int attempts;
 
-#ifdef JP
-				msg_print("鎧が稲妻で覆われた...");
-#else
 				msg_print("Your armor is surrounded by lightning...");
-#endif
 
 
 				for (k = 0; k < num; k++)
@@ -2432,18 +2349,10 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 			case ART_BLADETURNER:
 			{
 				if (!get_aim_dir(&dir)) return;
-#ifdef JP
-				msg_print("あなたはエレメントのブレスを吐いた。");
-#else
 				msg_print("You breathe the elements.");
-#endif
 
 				fire_ball(GF_MISSILE, dir, device_power(300), 4);
-#ifdef JP
-				msg_print("鎧が様々な色に輝いた...");
-#else
 				msg_print("Your armor glows many colours...");
-#endif
 
 				(void)set_hero(device_power(randint1(50) + 50), FALSE);
 				(void)set_blessed(device_power(randint1(50) + 50), FALSE);
@@ -2458,13 +2367,8 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 
 			case ART_SOULKEEPER:
 			{
-#ifdef JP
-				msg_print("鎧が白く明るく輝いた...");
-				msg_print("ひじょうに気分がよい...");
-#else
 				msg_print("Your armor glows a bright white...");
 				msg_print("You feel much better...");
-#endif
 
 				(void)hp_player(device_power(1000));
 				(void)set_cut(0, TRUE);
@@ -2485,11 +2389,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 			{
 				if (o_ptr->name1 == ART_LOHENGRIN)
 				{
-#ifdef JP
-					msg_print("天国の歌が聞こえる...");
-#else
 					msg_print("A heavenly choir sings...");
-#endif
 				}
 				else
 					msg_print("Your harps plays a restoring melody...");
@@ -2507,11 +2407,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 
 			case ART_JULIAN:
 			{
-#ifdef JP
-				msg_print("鎧が深いブルーに輝いた...");
-#else
 				msg_print("Your armor glows deep blue...");
-#endif
 
 				(void)symbol_genocide(device_power(200), TRUE);
 				o_ptr->timeout = 500;
@@ -2520,11 +2416,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 
 			case ART_CASPANION:
 			{
-#ifdef JP
-				msg_print("鎧が赤く明るく輝いた...");
-#else
 				msg_print("Your armor glows bright red...");
-#endif
 
 				destroy_doors_touch();
 				o_ptr->timeout = 10;
@@ -2543,13 +2435,8 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 
 			case ART_HOLHENNETH:
 			{
-#ifdef JP
-				msg_print("ヘルメットが白く明るく輝いた...");
-				msg_print("心にイメージが浮かんできた...");
-#else
 				msg_print("Your helm glows bright white...");
 				msg_print("An image forms in your mind...");
-#endif
 
 				detect_all(DETECT_RAD_DEFAULT);
 				o_ptr->timeout = randint0(55) + 55;
@@ -2558,13 +2445,8 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 
 			case ART_AMBER:
 			{
-#ifdef JP
-				msg_print("王冠が深いブルーに輝いた...");
-				msg_print("体内に暖かい鼓動が感じられる...");
-#else
 				msg_print("Your crown glows deep blue...");
 				msg_print("You feel a warm tingling inside...");
-#endif
 
 				(void)hp_player(device_power(700));
 				(void)set_cut(0, TRUE);
@@ -2588,11 +2470,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 			case ART_COLLUIN:
 			case ART_SEIRYU:
 			{
-#ifdef JP
-				msg_format("%sが様々な色に輝いた...", o_ptr->name1 == ART_COLLUIN ? "クローク" : "鎧");
-#else
 				msg_format("Your %s glows many colours...", o_ptr->name1 == ART_COLLUIN ? "cloak" : "armor");
-#endif
 
 				(void)set_oppose_acid(device_power(randint1(20) + 20), FALSE);
 				(void)set_oppose_elec(device_power(randint1(20) + 20), FALSE);
@@ -2636,11 +2514,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 			}
 			case ART_HOLCOLLETH:
 			{
-#ifdef JP
-				msg_print("クロークが深いブルーに輝いた...");
-#else
 				msg_print("Your cloak glows deep blue...");
-#endif
 
 				sleep_monsters_touch();
 				o_ptr->timeout = 55;
@@ -2649,11 +2523,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 
 			case ART_THINGOL:
 			{
-#ifdef JP
-				msg_print("クロークが黄色く明るく輝いた...");
-#else
 				msg_print("Your cloak glows bright yellow...");
-#endif
 
 				recharge(device_power(130));
 				o_ptr->timeout = 70;
@@ -2662,11 +2532,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 
 			case ART_COLANNON:
 			{
-#ifdef JP
-				msg_print("クロークが辺りの空間をゆがませた...");
-#else
 				msg_print("Your cloak twists space around you...");
-#endif
 				if (mut_present(MUT_ASTRAL_GUIDE))
 					energy_use = 30;
 
@@ -2677,11 +2543,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 
 			case ART_LUTHIEN:
 			{
-#ifdef JP
-				msg_print("クロークが深紅に輝いた...");
-#else
 				msg_print("Your cloak glows a deep red...");
-#endif
 
 				restore_level();
 				o_ptr->timeout = 450;
@@ -2690,11 +2552,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 
 			case ART_HEAVENLY_MAIDEN:
 			{
-#ifdef JP
-				msg_print("クロークが柔らかく白く輝いた...");
-#else
 				msg_print("Your cloak glows soft white...");
-#endif
 				if (!word_of_recall()) return;
 				o_ptr->timeout = 200;
 				break;
@@ -2702,11 +2560,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 
 			case ART_CAMMITHRIM:
 			{
-#ifdef JP
-				msg_print("グローブが眩しいくらいに明るく輝いた...");
-#else
 				msg_print("Your gloves glow extremely brightly...");
-#endif
 
 				if (!get_aim_dir(&dir)) return;
 				fire_bolt(GF_MISSILE, dir, device_power(damroll(2, 6)));
@@ -2716,11 +2570,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 
 			case ART_FINGOLFIN:
 			{
-#ifdef JP
-				msg_print("セスタスに魔法のトゲが現れた...");
-#else
 				msg_print("Your cesti grows magical spikes...");
-#endif
 
 				if (!get_aim_dir(&dir)) return;
 				fire_bolt(GF_ARROW, dir, device_power(150));
@@ -2730,11 +2580,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 
 			case ART_FEANOR:
 			{
-#ifdef JP
-				msg_print("ブーツがグリーンに明るく輝いた...");
-#else
 				msg_print("Your boots glow bright green...");
-#endif
 
 				(void)set_fast(device_power(randint1(20) + 20), FALSE);
 				o_ptr->timeout = 200;
@@ -2743,11 +2589,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 
 			case ART_FLORA:
 			{
-#ifdef JP
-				msg_print("ブーツが深いブルーに輝いた...");
-#else
 				msg_print("Your boots glow deep blue...");
-#endif
 
 				fear_clear_p();
 				(void)set_poisoned(0, TRUE);
@@ -2757,11 +2599,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 
 			case ART_NARTHANC:
 			{
-#ifdef JP
-				msg_print("ダガーが炎に覆われた...");
-#else
 				msg_print("Your dagger is covered in fire...");
-#endif
 
 				if (!get_aim_dir(&dir)) return;
 				fire_bolt(GF_FIRE, dir, device_power(damroll(9, 8)));
@@ -2814,11 +2652,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 			}
 			case ART_NIMTHANC:
 			{
-#ifdef JP
-				msg_print("ダガーが冷気に覆われた...");
-#else
 				msg_print("Your dagger is covered in frost...");
-#endif
 
 				if (!get_aim_dir(&dir)) return;
 				fire_bolt(GF_COLD, dir, device_power(damroll(6, 8)));
@@ -2828,11 +2662,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 
 			case ART_DETHANC:
 			{
-#ifdef JP
-				msg_print("ダガーが火花に覆われた...");
-#else
 				msg_print("Your dagger is covered in sparks...");
-#endif
 
 				if (!get_aim_dir(&dir)) return;
 				fire_bolt(GF_ELEC, dir, device_power(damroll(4, 8)));
@@ -2842,11 +2672,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 
 			case ART_RILIA:
 			{
-#ifdef JP
-				msg_print("ダガーが深い緑色に鼓動している...");
-#else
 				msg_print("Your dagger throbs deep green...");
-#endif
 
 				if (!get_aim_dir(&dir)) return;
 				fire_ball(GF_POIS, dir, device_power(12), 3);
@@ -2856,11 +2682,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 
 			case ART_NUMAHOKO:
 			{
-#ifdef JP
-				msg_print("矛が深い青色に鼓動している...");
-#else
 				msg_print("Your dagger throbs deep blue...");
-#endif
 
 				if (!get_aim_dir(&dir)) return;
 				fire_ball(GF_WATER, dir, device_power(200), 3);
@@ -2870,11 +2692,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 
 			case ART_FIONA:
 			{
-#ifdef JP
-				msg_print("ダガーが冷気に覆われた...");
-#else
 				msg_print("Your dagger is covered in frost...");
-#endif
 
 				if (!get_aim_dir(&dir)) return;
 				fire_ball(GF_COLD, dir, device_power(48), 2);
@@ -2901,11 +2719,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 					(void)stair_creation(FALSE);
 					break;
 				default:
-#ifdef JP
-if (get_check("この階を去りますか？"))
-#else
 					if (get_check("Leave this level? "))
-#endif
 
 					{
 						if (autosave_l) do_cmd_save_game(TRUE);
@@ -2927,11 +2741,7 @@ if (get_check("この階を去りますか？"))
 
 			case ART_RINGIL:
 			{
-#ifdef JP
-				msg_print("ソードが青く激しく輝いた...");
-#else
 				msg_print("Your sword glows an intense blue...");
-#endif
 
 				if (!get_aim_dir(&dir)) return;
 				fire_ball(GF_COLD, dir, device_power(100), 2);
@@ -2941,11 +2751,7 @@ if (get_check("この階を去りますか？"))
 
 			case ART_DAWN:
 			{
-#ifdef JP
-msg_print("暁の師団を召喚した。");
-#else
 				msg_print("You summon the Legion of the Dawn.");
-#endif
 
 				(void)summon_specific(-1, py, px, device_power(dun_level), SUMMON_DAWN, (PM_ALLOW_GROUP | PM_FORCE_PET));
 				o_ptr->timeout = 500 + randint1(500);
@@ -2954,11 +2760,7 @@ msg_print("暁の師団を召喚した。");
 
 			case ART_ANDURIL:
 			{
-#ifdef JP
-				msg_print("ソードが赤く激しく輝いた...");
-#else
 				msg_print("Your sword glows an intense red...");
-#endif
 
 				if (!get_aim_dir(&dir)) return;
 				fire_ball(GF_FIRE, dir, device_power(72), 2);
@@ -2968,11 +2770,7 @@ msg_print("暁の師団を召喚した。");
 
 			case ART_THEODEN:
 			{
-#ifdef JP
-				 msg_print("アックスの刃が黒く輝いた...");
-#else
 				msg_print("Your axe blade glows black...");
-#endif
 
 				if (!get_aim_dir(&dir)) return;
 				if (drain_life(dir, device_power(120)))
@@ -2983,11 +2781,7 @@ msg_print("暁の師団を召喚した。");
 
 			case ART_RUNESPEAR:
 			{
-#ifdef JP
-msg_print("あなたの槍は電気でスパークしている...");
-#else
 				msg_print("Your spear crackles with electricity...");
-#endif
 
 				if (!get_aim_dir(&dir)) return;
 				fire_ball(GF_ELEC, dir, device_power(100), 3);
@@ -2997,11 +2791,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 			case ART_AEGLOS:
 			{
-#ifdef JP
-				msg_print("スピアが白く明るく輝いた...");
-#else
 				msg_print("Your spear glows a bright white...");
-#endif
 
 				if (!get_aim_dir(&dir)) return;
 				fire_ball(GF_COLD, dir, device_power(100), 3);
@@ -3011,11 +2801,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 			case ART_DESTINY:
 			{
-#ifdef JP
-				msg_print("スピアが鼓動した...");
-#else
 				msg_print("Your spear pulsates...");
-#endif
 
 				if (!get_aim_dir(&dir)) return;
 				wall_to_mud(dir);
@@ -3025,11 +2811,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 			case ART_NAIN:
 			{
-#ifdef JP
-				msg_print("つるはしが鼓動した...");
-#else
 				msg_print("Your mattock pulsates...");
-#endif
 
 				if (!get_aim_dir(&dir)) return;
 				wall_to_mud(dir);
@@ -3039,11 +2821,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 			case ART_EONWE:
 			{
-#ifdef JP
-				msg_print("アックスからひどく鋭い音が流れ出た...");
-#else
 				msg_print("Your axe lets out a long, shrill note...");
-#endif
 
 				(void)mass_genocide(device_power(200), TRUE);
 				o_ptr->timeout = 1000;
@@ -3052,11 +2830,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 			case ART_LOTHARANG:
 			{
-#ifdef JP
-				msg_print("バトル・アックスが深紫の光を放射した...");
-#else
 				msg_print("Your battle axe radiates deep purple...");
-#endif
 
 				hp_player(device_power(damroll(4, 8)));
 				(void)set_cut((p_ptr->cut / 2) - 50, TRUE);
@@ -3066,11 +2840,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 			case ART_ULMO:
 			{
-#ifdef JP
-				msg_print("トライデントが深紅に輝いた...");
-#else
 				msg_print("Your trident glows deep red...");
-#endif
 
 				if (!get_aim_dir(&dir)) return;
 				teleport_monster(dir);
@@ -3080,11 +2850,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 			case ART_AVAVIR:
 			{
-#ifdef JP
-				msg_print("大鎌が柔らかく白く輝いた...");
-#else
 				msg_print("Your scythe glows soft white...");
-#endif
 				if (!word_of_recall()) return;
 				o_ptr->timeout = 200;
 				break;
@@ -3092,11 +2858,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 			case ART_MAGATAMA:
 			{
-#ifdef JP
-				msg_print("勾玉が柔らかく白く輝いた...");
-#else
 				msg_print("Your scythe glows soft white...");
-#endif
 				if (!word_of_recall()) return;
 				o_ptr->timeout = 200;
 				break;
@@ -3104,11 +2866,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 			case ART_TOTILA:
 			{
-#ifdef JP
-				msg_print("フレイルが様々な色の火花を発した...");
-#else
 				msg_print("Your flail glows in scintillating colours...");
-#endif
 
 				if (!get_aim_dir(&dir)) return;
 				confuse_monster(dir, device_power(20));
@@ -3118,11 +2876,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 			case ART_FIRESTAR:
 			{
-#ifdef JP
-				msg_print("モーニングスターから炎が吹き出した...");
-#else
 				msg_print("Your morning star rages in fire...");
-#endif
 
 				if (!get_aim_dir(&dir)) return;
 				fire_ball(GF_FIRE, dir, device_power(72), 3);
@@ -3161,11 +2915,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 			}
 			case ART_GOTHMOG:
 			{
-#ifdef JP
-				msg_print("ムチが深い赤色に輝いた...");
-#else
 				msg_print("Your whip glows deep red...");
-#endif
 
 				if (!get_aim_dir(&dir)) return;
 				fire_ball(GF_FIRE, dir, device_power(120), 3);
@@ -3175,11 +2925,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 			case ART_TARATOL:
 			{
-#ifdef JP
-				msg_print("メイスがグリーンに明るく輝いた...");
-#else
 				msg_print("Your mace glows bright green...");
-#endif
 
 				(void)set_fast(device_power(randint1(20) + 20), FALSE);
 				o_ptr->timeout = randint0(100) + 100;
@@ -3188,11 +2934,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 			case ART_ERIRIL:
 			{
-#ifdef JP
-				msg_print("クォータースタッフが黄色く輝いた...");
-#else
 				msg_print("Your quarterstaff glows yellow...");
-#endif
 
 				if (!ident_spell(NULL)) return;
 				o_ptr->timeout = 10;
@@ -3201,11 +2943,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 			case ART_GANDALF:
 			{
-#ifdef JP
-				msg_print("杖が明るく輝いた...");
-#else
 				msg_print("Your quarterstaff glows brightly...");
-#endif
 
 				detect_all(DETECT_RAD_DEFAULT);
 				probing();
@@ -3216,11 +2954,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 			case ART_TURMIL:
 			{
-#ifdef JP
-				msg_print("ハンマーが白く輝いた...");
-#else
 				msg_print("Your hammer glows white...");
-#endif
 
 				if (!get_aim_dir(&dir)) return;
 				if (drain_life(dir, device_power(90)))
@@ -3235,11 +2969,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				int i;
 				int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
 				int tx, ty;
-#ifdef JP
-				msg_print("せっかくだから『クリムゾン』をぶっぱなすぜ！");
-#else
 				msg_print("I'll fire CRIMSON! SEKKAKUDAKARA!");
-#endif
 
 				if (!get_aim_dir(&dir)) return;
 
@@ -3277,11 +3007,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				monster_race *r_ptr;
 				int i;
 
-#ifdef JP
-				msg_print("奇妙な場所が頭の中に浮かんだ．．．");
-#else
 				msg_print("Some strange places show up in your mind. And you see ...");
-#endif
 
 				/* Process the monsters (backwards) */
 				for (i = m_max - 1; i >= 1; i--)
@@ -3296,11 +3022,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 					if(r_ptr->flags1 & RF1_UNIQUE)
 					{
-#ifdef JP
-						msg_format("%s． ",r_name + r_ptr->name);
-#else
 						msg_format("%s. ",r_name + r_ptr->name);
-#endif
 					}
 				}
 				o_ptr->timeout = 200;
@@ -3311,22 +3033,14 @@ msg_print("あなたの槍は電気でスパークしている...");
 			{
 				if (music_singing_any()) bard_stop_singing();
 				if (hex_spelling_any()) stop_hex_spell_all();
-#ifdef JP
-				msg_print("あなたは力強い突風を吹き鳴らした。周囲の敵が震え上っている!");
-#else
 				msg_print("You wind a mighty blast; your enemies tremble!");
-#endif
 				(void)turn_monsters(device_power((3 * p_ptr->lev / 2) + 10));
 				o_ptr->timeout = randint0(40) + 40;
 				break;
 			}
 			case ART_FARAMIR:
 			{
-#ifdef JP
-				msg_print("あなたは害虫を一掃した。");
-#else
 				msg_print("You exterminate small life.");
-#endif
 				(void)dispel_monsters(device_power(4));
 				o_ptr->timeout = randint0(55) + 55;
 				break;
@@ -3334,11 +3048,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 			case ART_HIMRING:
 			{
-#ifdef JP
-				msg_print("鈍い音が辺りを包みこんだ。");
-#else
 				msg_print("A shrill wailing sound surrounds you.");
-#endif
 				(void)set_protevil(device_power(randint1(25) + p_ptr->lev), FALSE);
 				o_ptr->timeout = randint0(200) + 200;
 				break;
@@ -3347,11 +3057,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 			case ART_ICANUS:
 			{
 
-#ifdef JP
-				msg_print("ローブが純粋な魔力で震えた。");
-#else
 				msg_print("The robe pulsates with raw mana...");
-#endif
 				if (!get_aim_dir(&dir)) return;
 				fire_bolt(GF_MANA, dir, device_power(120));
 				o_ptr->timeout = randint0(120) + 120;
@@ -3366,11 +3072,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 			}
 			case ART_GIL_GALAD:
 			{
-#ifdef JP
-				msg_print("シールドが眩しい光で輝いた．．．");
-#else
 				msg_print("Your shield gleams with blinding light...");
-#endif
 				fire_ball(GF_LITE, 0, device_power(300), 6);
 				confuse_monsters(device_power(3 * p_ptr->lev / 2));
 				o_ptr->timeout = 250;
@@ -3378,36 +3080,20 @@ msg_print("あなたの槍は電気でスパークしている...");
 			}
 			case ART_YENDOR:
 			{
-#ifdef JP
-				msg_print("カードが白く輝いた．．．");
-#else
 				msg_print("Your card gleams with blinding light...");
-#endif
 				if (!recharge(device_power(1000))) return;
 				o_ptr->timeout = 200;
 				break;
 			}
 			case ART_MURAMASA:
 			{
-#ifdef JP
-				if (get_check("本当に使いますか？"))
-#else
 				if (get_check("Are you sure?!"))
-#endif
 				{
-#ifdef JP
-					msg_print("村正が震えた．．．");
-#else
 					msg_print("The Muramasa pulsates...");
-#endif
 					do_inc_stat(A_STR);
 					if (one_in_(2))
 					{
-#ifdef JP
-						msg_print("村正は壊れた！");
-#else
 						msg_print("The Muramasa is destroyed!");
-#endif
 						curse_weapon(TRUE, item);
 					}
 				}
@@ -3415,11 +3101,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 			}
 			case ART_FLY_STONE:
 			{
-#ifdef JP
-				msg_print("石が青白く光った．．．");
-#else
 				msg_print("Your stone glows pale...");
-#endif
 
 				if (!get_aim_dir(&dir)) return;
 				fire_ball(GF_MANA, dir, device_power(400), 4);
@@ -3436,22 +3118,14 @@ msg_print("あなたの槍は電気でスパークしている...");
 				tsuri_dir = dir;
 				if (!cave_have_flag_bold(y, x, FF_WATER))
 				{
-#ifdef JP
-					msg_print("そこは水辺ではない。");
-#else
 					msg_print("There is no fishing place.");
-#endif
 					return;
 				}
 				else if (cave[y][x].m_idx)
 				{
 					char m_name[80];
 					monster_desc(m_name, &m_list[cave[y][x].m_idx], 0);
-#ifdef JP
-					msg_format("%sが邪魔だ！", m_name);
-#else
 					msg_format("%^s is stand in your way.", m_name);
-#endif
 					energy_use = 0;
 					return;
 				}
@@ -3462,11 +3136,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 			case ART_JONES:
 			{
 				if (!get_aim_dir(&dir)) return;
-#ifdef JP
-				msg_print("ムチを伸ばした。");
-#else
 				msg_print("You stretched your whip.");
-#endif
 
 				fetch(dir, 500, TRUE);
 				o_ptr->timeout = randint0(25) + 25;
@@ -3483,18 +3153,10 @@ msg_print("あなたの槍は電気でスパークしている...");
 				{
 
 					if (pet)
-#ifdef JP
-						msg_print("ハウンドがあなたの下僕として出現した。");
-#else
 					msg_print("A group of hounds appear as your servant.");
-#endif
 
 					else
-#ifdef JP
-						msg_print("ハウンドはあなたに牙を向けている！");
-#else
 						msg_print("A group of hounds appear as your enemy!");
-#endif
 
 				}
 
@@ -3504,11 +3166,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 			case ART_GAEBOLG:
 			{
-#ifdef JP
-				msg_print("スピアは眩しく輝いた...");
-#else
 				msg_print("Your spear grows brightly...");
-#endif
 
 				if (!get_aim_dir(&dir)) return;
 				fire_ball(GF_LITE, dir, device_power(200), 3);
@@ -3520,28 +3178,18 @@ msg_print("あなたの槍は電気でスパークしている...");
 			{
 				int count = 0, i;
 				monster_type *m_ptr;
-#ifndef JP
 				cptr kakusan = "";
-#endif
 
 				if (summon_named_creature(0, py, px, MON_SUKE, PM_FORCE_PET))
 				{
-#ifdef JP
-					msg_print("『助さん』が現れた。");
-#else
-					msg_print("Suke-san apperars.");
+					msg_print("Suke-san appears.");
 					kakusan = "Suke-san";
-#endif
 					count++;
 				}
 				if (summon_named_creature(0, py, px, MON_KAKU, PM_FORCE_PET))
 				{
-#ifdef JP
-					msg_print("『格さん』が現れた。");
-#else
 					msg_print("Kaku-san appears.");
 					kakusan = "Kaku-san";
-#endif
 					count++;
 				}
 				if (!count)
@@ -3560,11 +3208,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 				if (count)
 				{
-#ifdef JP
-					msg_print("「者ども、ひかえおろう！！！このお方をどなたとこころえる。」");
-#else
 					msg_format("%^s says 'WHO do you think this person is! Bow your head, down your knees!'", kakusan);
-#endif
 
 					sukekaku = TRUE;
 					stun_monsters(120);
@@ -3575,11 +3219,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				}
 				else
 				{
-#ifdef JP
-					msg_print("しかし、何も起きなかった。");
-#else
 					msg_print("Nothing happen.");
-#endif
 				}
 				o_ptr->timeout = randint0(150) + 150;
 				break;
@@ -3587,11 +3227,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 			case ART_HYOUSIGI:
 			{
-#ifdef JP
-				msg_print("拍子木を打った。");
-#else
 				msg_print("You beat Your wooden clappers.");
-#endif
 				aggravate_monsters(0);
 				break;
 			}
@@ -3628,11 +3264,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 			case ART_ARUNRUTH:
 			{
-#ifdef JP
-				msg_print("ソードが淡いブルーに輝いた...");
-#else
 				msg_print("Your sword glows a pale blue...");
-#endif
 				if (!get_aim_dir(&dir)) return;
 				fire_bolt(GF_COLD, dir, device_power(damroll(12, 8)));
 				o_ptr->timeout = 50;
@@ -3640,11 +3272,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 			}
 			case ART_BLOOD:
 			{
-#ifdef JP
-				msg_print("鎌が明るく輝いた...");
-#else
 				msg_print("Your scythe glows brightly!");
-#endif
 				get_bloody_moon_flags(o_ptr);
 				o_ptr->timeout = 3333;
 				if (p_ptr->prace == RACE_ANDROID) calc_android_exp();
@@ -3653,11 +3281,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 			}
 			case ART_KESHO:
 			{
-#ifdef JP
-				msg_print("力強く四股を踏んだ。");
-#else
 				msg_print("You stamp your feet (as if you are in a ring.)");
-#endif
 				(void)set_hero(device_power(randint1(20) + 20), FALSE);
 				dispel_evil(device_power(p_ptr->lev * 3));
 				o_ptr->timeout = 100 + randint1(100);
@@ -3665,22 +3289,14 @@ msg_print("あなたの槍は電気でスパークしている...");
 			}
 			case ART_MOOK:
 			{
-#ifdef JP
-				msg_print("クロークが白く輝いた...");
-#else
 				msg_print("Your cloak grows white.");
-#endif
 				(void)set_oppose_cold(device_power(randint1(20) + 20), FALSE);
 				o_ptr->timeout = 40 + randint1(40);
 				break;
 			}
 			case ART_HERMIT:
 			{
-#ifdef JP
-				msg_print("ムチから鋭い音が流れ出た...");
-#else
 				msg_print("The whip lets out a shrill wail...");
-#endif
 
 				k = 3 * p_ptr->lev;
 				(void)set_protevil(device_power(randint1(25) + k), FALSE);
@@ -3696,18 +3312,10 @@ msg_print("あなたの槍は電気でスパークしている...");
 				if (summon_named_creature(0, py, px, MON_JIZOTAKO, mode))
 				{
 					if (pet)
-#ifdef JP
-						msg_print("蛸があなたの下僕として出現した。");
-#else
 					msg_print("A group of octopuses appear as your servant.");
-#endif
 
 					else
-#ifdef JP
-						msg_print("蛸はあなたを睨んでいる！");
-#else
 						msg_print("A group of octopuses appear as your enemy!");
-#endif
 
 				}
 
@@ -3717,11 +3325,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 			case ART_FUNDIN:
 			{
-#ifdef JP
-				msg_print("鉄球は辺りを善のオーラで満たした...");
-#else
 				msg_print("The iron ball floods the area with goodness...");
-#endif
 
 				dispel_evil(device_power(p_ptr->lev * 5));
 				o_ptr->timeout = randint0(100) + 100;
@@ -3730,11 +3334,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 			case ART_AESCULAPIUS:
 			{
-#ifdef JP
-				msg_print("六尺棒は濃緑色に輝いている...");
-#else
 				msg_print("The jo staff glows a deep green...");
-#endif
 
 				(void)do_res_stat(A_STR);
 				(void)do_res_stat(A_INT);
@@ -3749,11 +3349,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 			case ART_NIGHT:
 			{
-#ifdef JP
-				msg_print("アミュレットが深い闇に覆われた...");
-#else
 				msg_print("Your amulet is coverd in pitch-darkness...");
-#endif
 				if (!get_aim_dir(&dir)) return;
 				fire_ball(GF_DARK, dir, device_power(250), 4);
 				o_ptr->timeout = randint0(150) + 150;
@@ -3761,11 +3357,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 			}
 			case ART_HELL:
 			{
-#ifdef JP
-				msg_print("首輪が深い闇に覆われた...");
-#else
 				msg_print("Your collar harness is coverd in pitch-darkness...");
-#endif
 				if (!get_aim_dir(&dir)) return;
 				fire_ball(GF_DARK, dir, device_power(250), 4);
 				o_ptr->timeout = randint0(150) + 150;
@@ -3773,18 +3365,10 @@ msg_print("あなたの槍は電気でスパークしている...");
 			}
 			case ART_SACRED_KNIGHTS:
 			{
-#ifdef JP
-				msg_print("首飾りが真実を照らし出す...");
-#else
 				msg_print("Your amulet exhibits the truth...");
-#endif
 				if (remove_all_curse())
 				{
-#ifdef JP
-					msg_print("誰かに見守られているような気がする。");
-#else
 					msg_print("You feel as if someone is watching over you.");
-#endif
 				}
 				(void)probing();
 				break;
@@ -3861,11 +3445,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 	{
 		if (!o_ptr->xtra4 && ((o_ptr->sval == SV_LITE_TORCH) || (o_ptr->sval == SV_LITE_LANTERN)))
 		{
-#ifdef JP
-			msg_print("燃料がない。");
-#else
 			msg_print("It has no fuel.");
-#endif
 			energy_use = 0;
 			return;
 		}
@@ -3929,11 +3509,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 		{
 			case SV_DRAGON_BLUE:
 			{
-#ifdef JP
-				msg_print("あなたは稲妻のブレスを吐いた。");
-#else
 				msg_print("You breathe lightning.");
-#endif
 
 				fire_ball(GF_ELEC, dir, device_power(100), -2);
 				o_ptr->timeout = randint0(15) + 15;
@@ -3942,11 +3518,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 			case SV_DRAGON_WHITE:
 			{
-#ifdef JP
-				msg_print("あなたは冷気のブレスを吐いた。");
-#else
 				msg_print("You breathe frost.");
-#endif
 
 				fire_ball(GF_COLD, dir, device_power(110), -2);
 				o_ptr->timeout = randint0(15) + 15;
@@ -3955,11 +3527,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 			case SV_DRAGON_BLACK:
 			{
-#ifdef JP
-				msg_print("あなたは酸のブレスを吐いた。");
-#else
 				msg_print("You breathe acid.");
-#endif
 
 				fire_ball(GF_ACID, dir, device_power(130), -2);
 				o_ptr->timeout = randint0(15) + 15;
@@ -3968,11 +3536,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 			case SV_DRAGON_GREEN:
 			{
-#ifdef JP
-				msg_print("あなたは毒ガスのブレスを吐いた。");
-#else
 				msg_print("You breathe poison gas.");
-#endif
 
 				fire_ball(GF_POIS, dir, device_power(150), -2);
 				o_ptr->timeout = randint0(18) + 18;
@@ -3981,11 +3545,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 			case SV_DRAGON_RED:
 			{
-#ifdef JP
-				msg_print("あなたは火炎のブレスを吐いた。");
-#else
 				msg_print("You breathe fire.");
-#endif
 
 				fire_ball(GF_FIRE, dir, device_power(200), -2);
 				o_ptr->timeout = randint0(20) + 20;
@@ -3995,19 +3555,11 @@ msg_print("あなたの槍は電気でスパークしている...");
 			case SV_DRAGON_MULTIHUED:
 			{
 				int chance = randint0(5);
-#ifdef JP
-				msg_format("あなたは%sのブレスを吐いた。",
-					   ((chance == 1) ? "稲妻" :
-					    ((chance == 2) ? "冷気" :
-					     ((chance == 3) ? "酸" :
-					      ((chance == 4) ? "毒ガス" : "火炎")))));
-#else
 				msg_format("You breathe %s.",
 					   ((chance == 1) ? "lightning" :
 					    ((chance == 2) ? "frost" :
 					     ((chance == 3) ? "acid" :
 					      ((chance == 4) ? "poison gas" : "fire")))));
-#endif
 
 				fire_ball(((chance == 1) ? GF_ELEC :
 					   ((chance == 2) ? GF_COLD :
@@ -4020,11 +3572,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 			case SV_DRAGON_BRONZE:
 			{
-#ifdef JP
-				msg_print("あなたは混乱のブレスを吐いた。");
-#else
 				msg_print("You breathe confusion.");
-#endif
 
 				fire_ball(GF_CONFUSION, dir, device_power(120), -2);
 				o_ptr->timeout = randint0(18) + 18;
@@ -4033,11 +3581,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 			case SV_DRAGON_GOLD:
 			{
-#ifdef JP
-				msg_print("あなたは轟音のブレスを吐いた。");
-#else
 				msg_print("You breathe sound.");
-#endif
 
 				fire_ball(GF_SOUND, dir, device_power(130), -2);
 				o_ptr->timeout = randint0(18) + 18;
@@ -4047,13 +3591,8 @@ msg_print("あなたの槍は電気でスパークしている...");
 			case SV_DRAGON_CHAOS:
 			{
 				int chance = randint0(2);
-#ifdef JP
-				msg_format("あなたは%sのブレスを吐いた。",
-					   ((chance == 1 ? "カオス" : "劣化")));
-#else
 				msg_format("You breathe %s.",
 					   ((chance == 1 ? "chaos" : "disenchantment")));
-#endif
 
 				fire_ball((chance == 1 ? GF_CHAOS : GF_DISENCHANT),
 					  dir, device_power(220), -2);
@@ -4064,13 +3603,8 @@ msg_print("あなたの槍は電気でスパークしている...");
 			case SV_DRAGON_LAW:
 			{
 				int chance = randint0(2);
-#ifdef JP
-				msg_format("あなたは%sのブレスを吐いた。",
-					   ((chance == 1 ? "轟音" : "破片")));
-#else
 				msg_format("You breathe %s.",
 					   ((chance == 1 ? "sound" : "shards")));
-#endif
 
 				fire_ball((chance == 1 ? GF_SOUND : GF_SHARDS),
 					  dir, device_power(230), -2);
@@ -4081,17 +3615,10 @@ msg_print("あなたの槍は電気でスパークしている...");
 			case SV_DRAGON_BALANCE:
 			{
 				int chance = randint0(4);
-#ifdef JP
-				msg_format("あなたは%sのブレスを吐いた",
-					   ((chance == 1) ? "カオス" :
-					    ((chance == 2) ? "劣化" :
-					     ((chance == 3) ? "轟音" : "破片"))));
-#else
 				msg_format("You breathe %s.",
 					   ((chance == 1) ? "chaos" :
 					    ((chance == 2) ? "disenchantment" :
 					     ((chance == 3) ? "sound" : "shards"))));
-#endif
 
 				fire_ball(((chance == 1) ? GF_CHAOS :
 					   ((chance == 2) ? GF_DISENCHANT :
@@ -4104,13 +3631,8 @@ msg_print("あなたの槍は電気でスパークしている...");
 			case SV_DRAGON_SHINING:
 			{
 				int chance = randint0(2);
-#ifdef JP
-				msg_format("あなたは%sのブレスを吐いた。",
-					   ((chance == 0 ? "閃光" : "暗黒")));
-#else
 				msg_format("You breathe %s.",
 					   ((chance == 0 ? "light" : "darkness")));
-#endif
 
 				fire_ball((chance == 0 ? GF_LITE : GF_DARK), dir, device_power(200), -2);
 				o_ptr->timeout = randint0(20) + 20;
@@ -4119,11 +3641,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 			case SV_DRAGON_POWER:
 			{
-#ifdef JP
-msg_print("あなたはエレメントのブレスを吐いた。");
-#else
 				msg_print("You breathe the elements.");
-#endif
 
 				fire_ball(GF_MISSILE, dir, device_power(300), -3);
 				o_ptr->timeout = randint0(20) + 20;
@@ -4379,11 +3897,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 #if 0
 		if (object_is_cursed(o_ptr))
 		{
-#ifdef JP
-			msg_print("カン高い音が響き渡った。");
-#else
 			msg_print("You produce a shrill whistling sound.");
-#endif
 			aggravate_monsters(0);
 		}
 		else
@@ -4453,17 +3967,10 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 					s = buf;
 					for (s = buf;*s && (*s != '#'); s++)
 					{
-#ifdef JP
-						if (iskanji(*s)) s++;
-#endif
 					}
 					*s = '#';
 					s++;
-#ifdef JP
- /*nothing*/
-#else
 					*s++ = '\'';
-#endif
 					t = quark_str(cap_nickname);
 					while (*t)
 					{
@@ -4471,11 +3978,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 						s++;
 						t++;
 					}
-#ifdef JP
- /*nothing*/
-#else
 					*s++ = '\'';
-#endif
 					*s = '\0';
 					o_ptr->inscription = quark_add(buf);
 				}
@@ -4497,42 +4000,29 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 					{
 						char buf[80];
 						cptr t;
-#ifndef JP
 						bool quote = FALSE;
-#endif
 
 						t = quark_str(o_ptr->inscription);
 						for (t = quark_str(o_ptr->inscription);*t && (*t != '#'); t++)
 						{
-#ifdef JP
-							if (iskanji(*t)) t++;
-#endif
 						}
 						if (*t)
 						{
 							char *s = buf;
 							t++;
-#ifdef JP
-							/* nothing */
-#else
 							if (*t =='\'')
 							{
 								t++;
 								quote = TRUE;
 							}
-#endif
 							while(*t)
 							{
 								*s = *t;
 								t++;
 								s++;
 							}
-#ifdef JP
-							/* nothing */
-#else
 							if (quote && *(s-1) =='\'')
 								s--;
-#endif
 							*s = '\0';
 							m_list[hack_m_idx_ii].nickname = quark_add(buf);
 							t = quark_str(o_ptr->inscription);
@@ -4555,21 +4045,13 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				}
 			}
 			if (!success)
-#ifdef JP
-				msg_print("おっと、解放に失敗した。");
-#else
 				msg_print("Oops.  You failed to release your pet.");
-#endif
 		}
 		return;
 	}
 
 	/* Mistake */
-#ifdef JP
-	msg_print("おっと、このアイテムは始動できない。");
-#else
 	msg_print("Oops.  That object cannot be activated.");
-#endif
 
 }
 

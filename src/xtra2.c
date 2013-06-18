@@ -657,11 +657,7 @@ void check_quest_completion(monster_type *m_ptr)
 		}
 
 		/* Explain the staircase */
-#ifdef JP
-msg_print("魔法の階段が現れた...");
-#else
 		msg_print("A magical staircase appears...");
-#endif
 
 
 		/* Create stairs down */
@@ -706,27 +702,15 @@ cptr extract_note_dies(monster_race *r_ptr)
 		{
 			if (r_ptr->blow[i].method == RBM_EXPLODE)
 			{
-#ifdef JP
-				return "は爆発して粉々になった。";
-#else
 				return " explodes into tiny shreds.";
-#endif
 			}
 		}
 
-#ifdef JP
-		return "を倒した。";
-#else
 		return " is destroyed.";
-#endif
 	}
 
 	/* Assume a default death */
-#ifdef JP
-	return "は死んだ。";
-#else
 	return " dies.";
-#endif
 }
 
 byte get_monster_drop_ct(monster_type *m_ptr)
@@ -909,19 +893,11 @@ void monster_death(int m_idx, bool drop_item)
 
 		if (p_ptr->arena_number > MAX_ARENA_MONS)
 		{
-#ifdef JP
-msg_print("素晴らしい！君こそ真の勝利者だ。");
-#else
 			msg_print("You are a Genuine Champion!");
-#endif
 		}
 		else
 		{
-#ifdef JP
-msg_print("勝利！チャンピオンへの道を進んでいる。");
-#else
 			msg_print("Victorious! You're on your way to becoming Champion.");
-#endif
 		}
 
 		if (arena_info[p_ptr->arena_number].tval)
@@ -940,11 +916,7 @@ msg_print("勝利！チャンピオンへの道を進んでいる。");
 	{
 		if (rakuba(-1, FALSE))
 		{
-#ifdef JP
-msg_print("地面に落とされた。");
-#else
 			msg_print("You have fallen from your riding pet.");
-#endif
 		}
 	}
 
@@ -1023,11 +995,7 @@ msg_print("地面に落とされた。");
 			}
 
 			if (notice)
-#ifdef JP
-				msg_print("ピンク・ホラーは分裂した！");
-#else
 				msg_print("The Pink horror divides!");
-#endif
 		}
 		break;
 
@@ -1115,11 +1083,7 @@ msg_print("地面に落とされた。");
 					if (summon_specific((pet ? -1 : m_idx), wy, wx, 40, SUMMON_DAWN, mode))
 					{
 						if (player_can_see_bold(wy, wx))
-#ifdef JP
-							msg_print("新たな戦士が現れた！");
-#else
 							msg_print("A new warrior steps forth!");
-#endif
 
 					}
 				}
@@ -1909,11 +1873,7 @@ int mon_damage_mod(monster_type *m_ptr, int dam, bool is_psy_spear)
 		{
 			if (!p_ptr->blind && is_seen(m_ptr))
 			{
-#ifdef JP
-				msg_print("バリアを切り裂いた！");
-#else
 				msg_print("The barrier is penetrated!");
-#endif
 			}
 		}
 		else if (!one_in_(PENETRATE_INVULNERABILITY))
@@ -1954,11 +1914,7 @@ int mon_damage_mod_mon(monster_type *m_ptr, int dam, bool is_psy_spear)
 		{
 			if (!p_ptr->blind && is_seen(m_ptr))
 			{
-#ifdef JP
-				msg_print("バリアを切り裂いた！");
-#else
 				msg_print("The barrier is penetrated!");
-#endif
 			}
 		}
 		else if (!one_in_(PENETRATE_INVULNERABILITY))
@@ -2299,11 +2255,7 @@ bool mon_take_hit(int m_idx, int dam, bool *fear, cptr note)
 			bool stop_ty = FALSE;
 			int count = 0;
 
-#ifdef JP
-msg_format("%^sは恐ろしい血の呪いをあなたにかけた！", m_name);
-#else
 			msg_format("%^s puts a terrible blood curse on you!", m_name);
-#endif
 
 			curse_equipment(100, 50);
 
@@ -2319,11 +2271,7 @@ msg_format("%^sは恐ろしい血の呪いをあなたにかけた！", m_name);
 			char line_got[1024];
 
 			/* Dump a message */
-#ifdef JP
-			if (!get_rnd_line("mondeath_j.txt", m_ptr->r_idx, line_got))
-#else
 			if (!get_rnd_line("mondeath.txt", m_ptr->r_idx, line_got))
-#endif
 
 				msg_format("%^s %s", m_name, line_got);
 
@@ -2512,11 +2460,7 @@ msg_format("%^sは恐ろしい血の呪いをあなたにかけた！", m_name);
 
 			if (summon_named_creature(0, dummy_y, dummy_x, MON_BIKETAL, mode))
 			{
-#ifdef JP
-				msg_print("「ハァッハッハッハ！！私がバイケタルだ！！」");
-#else
 				msg_print("Uwa-hahaha!  *I* am Biketal!");
-#endif
 			}
 		}
 		else
@@ -2851,51 +2795,31 @@ cptr look_mon_desc(monster_type *m_ptr, u32b mode)
 	if (m_ptr->hp >= m_ptr->maxhp)
 	{
 		/* No damage */
-#ifdef JP
-		desc = living ? "無傷" : "無ダメージ";
-#else
 		desc = living ? "unhurt" : "undamaged";
-#endif
 
 	}
 
 	else if (perc >= 60)
 	{
-#ifdef JP
-		desc = living ? "軽傷" : "小ダメージ";
-#else
 		desc = living ? "somewhat wounded" : "somewhat damaged";
-#endif
 
 	}
 
 	else if (perc >= 25)
 	{
-#ifdef JP
-		desc = living ? "負傷" : "中ダメージ";
-#else
 		desc = living ? "wounded" : "damaged";
-#endif
 
 	}
 
 	else if (perc >= 10)
 	{
-#ifdef JP
-		desc = living ? "重傷" : "大ダメージ";
-#else
 		desc = living ? "badly wounded" : "badly damaged";
-#endif
 
 	}
 
 	else 
 	{
-#ifdef JP
-		desc = living ? "半死半生" : "倒れかけ";
-#else
 		desc = living ? "almost dead" : "almost destroyed";
-#endif
 	}
 
 
@@ -2907,27 +2831,15 @@ cptr look_mon_desc(monster_type *m_ptr, u32b mode)
 	}
 	else if (is_pet(m_ptr))
 	{
-#ifdef JP
-		attitude = ", ペット";
-#else
 		attitude = ", pet";
-#endif
 	}
 	else if (is_friendly(m_ptr))
 	{
-#ifdef JP
-		attitude = ", 友好的";
-#else
 		attitude = ", friendly";
-#endif
 	}
 	else
 	{
-#ifdef JP
 		attitude = "";
-#else
-		attitude = "";
-#endif
 	}
 
 
@@ -2944,19 +2856,11 @@ cptr look_mon_desc(monster_type *m_ptr, u32b mode)
 	/* Display monster's level --- idea borrowed from ToME */
 	if (ap_r_ptr->r_tkills && !(m_ptr->mflag2 & MFLAG2_KAGE))
 	{
-#ifdef JP
-		return format("レベル%d, %s%s%s", ap_r_ptr->level, desc, attitude, clone);
-#else
 		return format("Level %d, %s%s%s", ap_r_ptr->level, desc, attitude, clone);
-#endif
 	}
 	else 
 	{
-#ifdef JP
-		return format("レベル???, %s%s%s", desc, attitude, clone);
-#else
 		return format("Level ???, %s%s%s", desc, attitude, clone);
-#endif
 	}
 }
 
@@ -3515,11 +3419,7 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 
 		if (floor_num)
 		{
-#ifdef JP
-			x_info = "x物 ";
-#else
 			x_info = "x,";
-#endif
 		}
 	}
 
@@ -3529,42 +3429,24 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 	if (player_bold(y, x))
 	{
 		/* Description */
-#ifdef JP
-		s1 = "あなたは";
-		s2 = "の上";
-		s3 = "にいる";
-#else
 		s1 = "You are ";
 
 		/* Preposition */
 		s2 = "on ";
-#endif
 	}
 	else
 	{
-#ifdef JP
-		s1 = "ターゲット:";
-#else
 		s1 = "Target:";
-#endif
 	}
 
 	/* Hack -- hallucination */
 	if (p_ptr->image)
 	{
-#ifdef JP
-		cptr name = "何か奇妙な物";
-#else
 		cptr name = "something strange";
-#endif
 
 
 		/* Display a message */
-#ifdef JP
-		sprintf(out_val, "%s%s%s%s [%s]", s1, name, s2, s3, info);
-#else
 		sprintf(out_val, "%s%s%s%s [%s]", s1, s2, s3, name, info);
-#endif
 
 		prt(out_val, 0, 0);
 		move_cursor_relative(y, x);
@@ -3616,11 +3498,7 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 				screen_roff(m_ptr->ap_r_idx, 0);
 
 				/* Hack -- Complete the prompt (again) */
-#ifdef JP
-				Term_addstr(-1, TERM_WHITE, format("  [r思 %s%s]", x_info, info));
-#else
 				Term_addstr(-1, TERM_WHITE, format("  [r,%s%s]", x_info, info));
-#endif
 
 				/* Command */
 				query = inkey();
@@ -3643,11 +3521,7 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 			/* Describe, and prompt for recall */
 			evaluate_monster_exp(acount, m_ptr);
 
-#ifdef JP
-			sprintf(out_val, "[%s]%s%s(%s)%s%s [r思 %s%s]", acount, s1, m_name, look_mon_desc(m_ptr, 0x01), s2, s3, x_info, info);
-#else
 			sprintf(out_val, "[%s]%s%s%s%s(%s) [r, %s%s]", acount, s1, s2, s3, m_name, look_mon_desc(m_ptr, 0x01), x_info, info);
-#endif
 
 			prt(out_val, 0, 0);
 
@@ -3671,34 +3545,17 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 		if ((query == ' ') && !(mode & (TARGET_LOOK))) return query;
 
 		/* Change the intro */
-#ifdef JP
-		s1 = "それは";
-#else
 		s1 = "It is ";
-#endif
 
 
 		/* Hack -- take account of gender */
-#ifdef JP
-		if (ap_r_ptr->flags1 & (RF1_FEMALE)) s1 = "彼女は";
-#else
 		if (ap_r_ptr->flags1 & (RF1_FEMALE)) s1 = "She is ";
-#endif
 
-#ifdef JP
-		else if (ap_r_ptr->flags1 & (RF1_MALE)) s1 = "彼は";
-#else
 		else if (ap_r_ptr->flags1 & (RF1_MALE)) s1 = "He is ";
-#endif
 
 
 		/* Use a preposition */
-#ifdef JP
-		s2 = "を";
-		s3 = "持っている";
-#else
 		s2 = "carrying ";
-#endif
 
 
 		/* Scan all objects being carried */
@@ -3718,11 +3575,7 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 			object_desc(o_name, o_ptr, 0);
 
 			/* Describe the object */
-#ifdef JP
-			sprintf(out_val, "%s%s%s%s[%s]", s1, o_name, s2, s3, info);
-#else
 			sprintf(out_val, "%s%s%s%s [%s]", s1, s2, s3, o_name, info);
-#endif
 
 			prt(out_val, 0, 0);
 			move_cursor_relative(y, x);
@@ -3735,20 +3588,11 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 			if ((query == ' ') && !(mode & (TARGET_LOOK))) return query;
 
 			/* Change the intro */
-#ifdef JP
-			s2 = "をまた";
-#else
 			s2 = "also carrying ";
-#endif
 		}
 
 		/* Use a preposition */
-#ifdef JP
-		s2 = "の上";
-		s3 = "にいる";
-#else
 		s2 = "on ";
-#endif
 	}
 
 
@@ -3772,13 +3616,8 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 				object_desc(o_name, o_ptr, 0);
 
 				/* Message */
-#ifdef JP
-				sprintf(out_val, "%s%s%s%s[%s]",
-					s1, o_name, s2, s3, info);
-#else
 				sprintf(out_val, "%s%s%s%s [%s]",
 					s1, s2, s3, o_name, info);
-#endif
 
 				prt(out_val, 0, 0);
 				move_cursor_relative(y, x);
@@ -3794,13 +3633,8 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 			if (boring)
 			{
 				/* Display rough information about items */
-#ifdef JP
-				sprintf(out_val, "%s %d個のアイテム%s%s ['x'で一覧, %s]",
-					s1, floor_num, s2, s3, info);
-#else
 				sprintf(out_val, "%s%s%sa pile of %d items [x,%s]",
 					s1, s2, s3, floor_num, info);
-#endif
 
 				prt(out_val, 0, 0);
 				move_cursor_relative(y, x);
@@ -3829,13 +3663,8 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 				show_gold_on_floor = FALSE;
 
 				/* Prompt */
-#ifdef JP
-				sprintf(out_val, "%s %d個のアイテム%s%s [Enterで次へ, %s]",
-					s1, floor_num, s2, s3, info);
-#else
 				sprintf(out_val, "%s%s%sa pile of %d items [Enter,%s]",
 					s1, s2, s3, floor_num, info);
-#endif
 				prt(out_val, 0, 0);
 
 
@@ -3900,11 +3729,7 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 			object_desc(o_name, o_ptr, 0);
 
 			/* Describe the object */
-#ifdef JP
-			sprintf(out_val, "%s%s%s%s[%s]", s1, o_name, s2, s3, info);
-#else
 			sprintf(out_val, "%s%s%s%s [%s]", s1, s2, s3, o_name, info);
-#endif
 
 			prt(out_val, 0, 0);
 			move_cursor_relative(y, x);
@@ -3917,28 +3742,15 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 			if ((query == ' ') && !(mode & TARGET_LOOK)) return query;
 
 			/* Change the intro */
-#ifdef JP
-			s1 = "それは";
-#else
 			s1 = "It is ";
-#endif
 
 
 			/* Plurals */
-#ifdef JP
-			if (o_ptr->number != 1) s1 = "それらは";
-#else
 			if (o_ptr->number != 1) s1 = "They are ";
-#endif
 
 
 			/* Preposition */
-#ifdef JP
-			s2 = "の上";
-			s3 = "に見える";
-#else
 			s2 = "on ";
-#endif
 
 		}
 	}
@@ -3979,11 +3791,7 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 
 			process_dungeon_file("q_info.txt", 0, 0, 0, 0);
 
-#ifdef JP
-			name = format("クエスト「%s」(%d階相当)", quest[c_ptr->special].name, quest[c_ptr->special].level);
-#else
 			name = format("the entrance to the quest '%s'(level %d)", quest[c_ptr->special].name, quest[c_ptr->special].level);
-#endif
 
 			/* Reset the old quest number */
 			p_ptr->inside_quest = old_quest;
@@ -3996,11 +3804,7 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 		}
 		else if (have_flag(f_ptr->flags, FF_ENTRANCE))
 		{
-#ifdef JP
-			name = format("%s(%d階相当)", d_text + d_info[c_ptr->special].text, d_info[c_ptr->special].mindepth);
-#else
 			name = format("%s(level %d)", d_text + d_info[c_ptr->special].text, d_info[c_ptr->special].mindepth);
-#endif
 		}
 		else if (have_flag(f_ptr->flags, FF_TOWN))
 		{
@@ -4008,11 +3812,7 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 		}
 		else if (p_ptr->wild_mode && (feat == feat_floor))
 		{
-#ifdef JP
-			name = "道";
-#else
 			name = "road";
-#endif
 		}
 		else
 		{
@@ -4026,11 +3826,7 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 		     (!have_flag(f_ptr->flags, FF_LOS) && !have_flag(f_ptr->flags, FF_TREE)) ||
 		     have_flag(f_ptr->flags, FF_TOWN)))
 		{
-#ifdef JP
-			s2 = "の中";
-#else
 			s2 = "in ";
-#endif
 		}
 
 		/* Hack -- special introduction for store & building doors -KMW- */
@@ -4039,13 +3835,8 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 		    (have_flag(f_ptr->flags, FF_BLDG) && !p_ptr->inside_arena) ||
 		    have_flag(f_ptr->flags, FF_ENTRANCE))
 		{
-#ifdef JP
-			s2 = "の入口";
-#else
 			s3 = "";
-#endif
 		}
-#ifndef JP
 		else if (have_flag(f_ptr->flags, FF_FLOOR) ||
 			 have_flag(f_ptr->flags, FF_TOWN) ||
 			 have_flag(f_ptr->flags, FF_SHALLOW) ||
@@ -4058,7 +3849,6 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 			/* Pick proper indefinite article */
 			s3 = (is_a_vowel(name[0])) ? "an " : "a ";
 		}
-#endif
 
 		/* Display a message */
 		if (p_ptr->wizard)
@@ -4066,18 +3856,10 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 			char f_idx_str[32];
 			if (c_ptr->mimic) sprintf(f_idx_str, "%d/%d", c_ptr->feat, c_ptr->mimic);
 			else sprintf(f_idx_str, "%d", c_ptr->feat);
-#ifdef JP
-			sprintf(out_val, "%s%s%s%s[%s] %x %s %d %d %d (%d,%d)", s1, name, s2, s3, info, c_ptr->info, f_idx_str, c_ptr->dist, c_ptr->cost, c_ptr->when, y, x);
-#else
 			sprintf(out_val, "%s%s%s%s [%s] %x %s %d %d %d (%d,%d)", s1, s2, s3, name, info, c_ptr->info, f_idx_str, c_ptr->dist, c_ptr->cost, c_ptr->when, y, x);
-#endif
 		}
 		else
-#ifdef JP
-			sprintf(out_val, "%s%s%s%s[%s]", s1, name, s2, s3, info);
-#else
 			sprintf(out_val, "%s%s%s%s [%s]", s1, s2, s3, name, info);
-#endif
 
 		prt(out_val, 0, 0);
 		move_cursor_relative(y, x);
@@ -4194,22 +3976,14 @@ bool target_set(int mode)
 			if ( target_able(c_ptr->m_idx) 
 			 || ((mode & (TARGET_MARK|TARGET_DISI)) && m_list[c_ptr->m_idx].ml))
 			{
-#ifdef JP
-strcpy(info, "q止 t決 p自 o現 +次 -前");
-#else
 				strcpy(info, "q,t,p,o,+,-,<dir>");
-#endif
 
 			}
 
 			/* Dis-allow target */
 			else
 			{
-#ifdef JP
-strcpy(info, "q止 p自 o現 +次 -前");
-#else
 				strcpy(info, "q,p,o,+,-,<dir>");
-#endif
 
 			}
 
@@ -4693,20 +4467,12 @@ bool get_aim_dir(int *dp)
 		/* Choose a prompt */
 		if (!target_okay())
 		{
-#ifdef JP
-p = "方向 ('*'でターゲット選択, ESCで中断)? ";
-#else
 			p = "Direction ('*' to choose a target, Escape to cancel)? ";
-#endif
 
 		}
 		else
 		{
-#ifdef JP
-p = "方向 ('5'でターゲットへ, '*'でターゲット再選択, ESCで中断)? ";
-#else
 			p = "Direction ('5' for target, '*' to re-target, Escape to cancel)? ";
-#endif
 
 		}
 
@@ -4779,11 +4545,7 @@ p = "方向 ('5'でターゲットへ, '*'でターゲット再選択, ESCで中断)? ";
 	if (command_dir != dir)
 	{
 		/* Warn the user */
-#ifdef JP
-msg_print("あなたは混乱している。");
-#else
 		msg_print("You are confused.");
-#endif
 
 	}
 
@@ -4845,11 +4607,7 @@ bool get_rep_dir(int *dp, bool under)
 		char ch;
 
 		/* Get a command (or Cancel) */
-#ifdef JP
-if (!get_com("方向 (ESCで中断)? ", &ch, TRUE)) break;
-#else
 		if (!get_com("Direction (Escape to cancel)? ", &ch, TRUE)) break;
-#endif
 
 
 		/* Look up the direction */
@@ -4917,11 +4675,7 @@ if (!get_com("方向 (ESCで中断)? ", &ch, TRUE)) break;
 		if (p_ptr->confused)
 		{
 			/* Warn the user */
-#ifdef JP
-msg_print("あなたは混乱している。");
-#else
 			msg_print("You are confused.");
-#endif
 		}
 		else if (demon_is_(DEMON_CYBERDEMON))
 			msg_print("You are moving erratically.");
@@ -4933,20 +4687,12 @@ msg_print("あなたは混乱している。");
 			monster_desc(m_name, m_ptr, 0);
 			if (MON_CONFUSED(m_ptr))
 			{
-#ifdef JP
-msg_format("%sは混乱している。", m_name);
-#else
  msg_format("%^s is confusing.", m_name);
 
-#endif
 			}
 			else
 			{
-#ifdef JP
-msg_format("%sは思い通りに動いてくれない。", m_name);
-#else
 msg_format("You cannot control %s.", m_name);
-#endif
 			}
 		}
 	}
@@ -4992,11 +4738,7 @@ bool get_rep_dir2(int *dp)
 		char ch;
 
 		/* Get a command (or Cancel) */
-#ifdef JP
-if (!get_com("方向 (ESCで中断)? ", &ch, TRUE)) break;
-#else
 		if (!get_com("Direction (Escape to cancel)? ", &ch, TRUE)) break;
-#endif
 
 
 		/* Look up the direction */
@@ -5030,11 +4772,7 @@ if (!get_com("方向 (ESCで中断)? ", &ch, TRUE)) break;
 	if (command_dir != dir)
 	{
 		/* Warn the user */
-#ifdef JP
-msg_print("あなたは混乱している。");
-#else
 		msg_print("You are confused.");
-#endif
 
 	}
 
@@ -5150,11 +4888,7 @@ bool tgt_pt(int *x_ptr, int *y_ptr, int rng)
 		n = 0;
 	}
 
-#ifdef JP
-	msg_print("場所を選んでスペースキーを押して下さい。");
-#else
 	msg_print("Select a point and press space.");
-#endif
 	msg_flag = FALSE; /* prevents "-more-" message. */
 
 	while ((ch != ESCAPE) && !success)
@@ -5360,20 +5094,12 @@ bool get_hack_dir(int *dp)
 		/* Choose a prompt */
 		if (!target_okay())
 		{
-#ifdef JP
-p = "方向 ('*'でターゲット選択, ESCで中断)? ";
-#else
 			p = "Direction ('*' to choose a target, Escape to cancel)? ";
-#endif
 
 		}
 		else
 		{
-#ifdef JP
-p = "方向 ('5'でターゲットへ, '*'でターゲット再選択, ESCで中断)? ";
-#else
 			p = "Direction ('5' for target, '*' to re-target, Escape to cancel)? ";
-#endif
 
 		}
 
@@ -5442,11 +5168,7 @@ p = "方向 ('5'でターゲットへ, '*'でターゲット再選択, ESCで中断)? ";
 	if (command_dir != dir)
 	{
 		/* Warn the user */
-#ifdef JP
-msg_print("あなたは混乱している。");
-#else
 		msg_print("You are confused.");
-#endif
 
 	}
 

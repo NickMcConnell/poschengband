@@ -222,3 +222,14 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+
+# Build output
+*.o
+/src/poschengband
+/poschengband
+
+# Temporary (cache) files built during run-time
+*.raw
+
+# Save files
+lib/save

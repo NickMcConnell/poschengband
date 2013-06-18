@@ -72,11 +72,7 @@ int usleep(huge usecs)
 
 
 	/* Paranoia -- No excessive sleeping */
-#ifdef JP
-	if (usecs > 4000000L) core("不当な usleep() 呼び出し");
-#else
 	if (usecs > 4000000L) core("Illegal usleep() call");
-#endif
 
 
 
@@ -122,9 +118,6 @@ void user_name(char *buf, int id)
 
 #ifdef CAPITALIZE_USER_NAME
 		/* Hack -- capitalize the user name */
-#ifdef JP
-		if (!iskanji(buf[0]))
-#endif
 			if (islower(buf[0]))
 				buf[0] = toupper(buf[0]);
 #endif /* CAPITALIZE_USER_NAME */
@@ -489,21 +482,6 @@ errr my_fgets(FILE *fff, char *buf, huge n)
 				while (0 != (i % 8)) buf[i++] = ' ';
 			}
 
-#ifdef JP
-			else if (iskanji(*s))
-			{
-				if (!s[1]) break;
-				buf[i++] = *s++;
-				buf[i++] = *s;
-			}
-
-			/* 半角かなに対応 */
-			else if (iskana(*s))
-			{
-				buf[i++] = *s;
-				if (i >= n) break;
-			}
-#endif
 			/* Handle printables HACK: msvcr100d will assert the character belongs to the ASCII code set*/
 			else if ((unsigned)(*s + 1) <= 256 && isprint(*s))
 			{
@@ -2380,21 +2358,10 @@ void message_add(cptr str)
 
 	/* extra step -- split the message if n>80.   (added by Mogami) */
 	if (n > 80) {
-#ifdef JP
-	  cptr t = str;
-
-	  for (n = 0; n < 80; n++, t++)
-	    if(iskanji(*t)) {
-	      t++;
-	      n++;
-	    }
-	  if (n == 81) n = 79; /* 最後の文字が漢字半分 */
-#else
 	  for (n = 80; n > 60; n--)
 		  if (str[n] == ' ') break;
 	  if (n == 60)
 		  n = 80;
-#endif
 	  splitted2 = str + n;
 	  strncpy(splitted1, str ,n);
 	  splitted1[n] = '\0';
@@ -2435,12 +2402,7 @@ void message_add(cptr str)
 		strcpy(buf, old);
 
 		/* Find multiple */
-#ifdef JP
- for (t = buf; *t && (*t != '<' || (*(t+1) != 'x' )); t++) 
-     if( iskanji(*t))t++;
-#else
 		for (t = buf; *t && (*t != '<'); t++);
-#endif
 
 		if (*t)
 		{
@@ -2660,11 +2622,7 @@ static void msg_flush(int x)
 	if (!p_ptr->playing || !nagasu)
 	{
 		/* Pause for response */
-#ifdef JP
-		Term_putstr(x, 0, -1, a, "-続く-");
-#else
 		Term_putstr(x, 0, -1, a, "-more-");
-#endif
 
 
 		/* Get an acceptable keypress */
@@ -2775,45 +2733,12 @@ void msg_print(cptr msg)
 		char oops;
 		int check, split = 72;
 
-#ifdef JP
-		bool k_flag = FALSE;
-		int wordlen = 0;
-
-		/* Find the "best" split point */
-		for (check = 0; check < 72; check++)
-		{
-			if (k_flag)
-			{
-				k_flag = FALSE;
-				continue;
-			}
-
-			/* Found a valid split point */
-			if (iskanji(t[check]))
-			{
-				k_flag = TRUE;
-				split = check;
-			}
-			else if (t[check] == ' ')
-			{
-				split = check;
-				wordlen = 0;
-			}
-			else
-			{
-				wordlen++;
-				if (wordlen > 20)
-					split = check;
-			}
-		}
-#else
 		/* Find the "best" split point */
 		for (check = 40; check < 72; check++)
 		{
 			/* Found a valid split point */
 			if (t[check] == ' ') split = check;
 		}
-#endif
 
 		/* Save the split character */
 		oops = t[split];
@@ -2855,11 +2780,7 @@ void msg_print(cptr msg)
 	msg_flag = TRUE;
 
 	/* Remember the position */
-#ifdef JP
-	p += n;
-#else
 	p += n + 1;
-#endif
 
 
 	/* Optional refresh */
@@ -3017,9 +2938,6 @@ void c_roff(byte a, cptr str)
 	{
 		char ch;
 
-#ifdef JP
-		int k_flag = iskanji(*s);
-#endif
 		/* Force wrap */
 		if (*s == '\n')
 		{
@@ -3037,19 +2955,11 @@ void c_roff(byte a, cptr str)
 		}
 
 		/* Clean up the char */
-#ifdef JP
-		ch = ((isprint(*s) || k_flag) ? *s : ' ');
-#else
 		ch = (isprint(*s) ? *s : ' ');
-#endif
 
 
 		/* Wrap words as needed */
-#ifdef JP
-		if (( x >= ( (k_flag) ? w - 2 : w - 1 ) ) && (ch != ' '))
-#else
 		if ((x >= w - 1) && (ch != ' '))
-#endif
 
 		{
 			int i, n = 0;
@@ -3059,11 +2969,6 @@ void c_roff(byte a, cptr str)
 
 			/* Wrap word */
 			if (x < w)
-#ifdef JP
-			{
-			/* 現在が半角文字の場合 */
-			if( !k_flag )
-#endif
 			{
 				/* Scan existing text */
 				for (i = w - 2; i >= 0; i--)
@@ -3076,31 +2981,9 @@ void c_roff(byte a, cptr str)
 
 					/* Track current word */
 					n = i;
-#ifdef JP
-					if (cv[i] == '(') break;
-#endif
 				}
 			}
 
-#ifdef JP
-			else
-			{
-				/* 現在が全角文字のとき */
-				/* 文頭が「。」「、」等になるときは、その１つ前の語で改行 */
-				if (strncmp(s, "。", 2) == 0 || strncmp(s, "、", 2) == 0
-#if 0                   /* 一般的には「ィ」「ー」は禁則の対象外 */
-					|| strncmp(s, "ィ", 2) == 0 || strncmp(s, "ー", 2) == 0
-#endif
-			       ){
-					Term_what(x  , y, &av[x  ], &cv[x  ]);
-					Term_what(x-1, y, &av[x-1], &cv[x-1]);
-					Term_what(x-2, y, &av[x-2], &cv[x-2]);
-					n = x - 2;
-					cv[ x ] = '\0';
-				}
-			}
-			}
-#endif
 			/* Special case */
 			if (n == 0) n = w;
 
@@ -3120,9 +3003,6 @@ void c_roff(byte a, cptr str)
 			/* Wrap the word (if any) */
 			for (i = n; i < w - 1; i++)
 			{
-#ifdef JP
-				if( cv[i] == '\0' ) break;
-#endif
 				/* Dump */
 				Term_addch(av[i], cv[i]);
 
@@ -3132,22 +3012,9 @@ void c_roff(byte a, cptr str)
 		}
 
 		/* Dump */
-#ifdef JP
-		Term_addch((byte)(a|0x10), ch);
-#else
 		Term_addch(a, ch);
-#endif
 
 
-#ifdef JP
-		if (k_flag)
-		{
-			s++;
-			x++;
-			ch = *s;
-			Term_addch((byte)(a|0x20), ch);
-		}
-#endif
 		/* Advance */
 		if (++x > w) x = w;
 	}
@@ -3261,9 +3128,6 @@ bool askfor_aux(char *buf, int len, bool numpad_cursor)
 			{
 				int next_pos = i + 1;
 
-#ifdef JP
-				if (iskanji(buf[i])) next_pos++;
-#endif
 
 				/* Is there the cursor at next position? */ 
 				if (next_pos >= pos) break;
@@ -3286,13 +3150,7 @@ bool askfor_aux(char *buf, int len, bool numpad_cursor)
 			/* No move at end of line */
 			if ('\0' == buf[pos]) break;
 
-#ifdef JP
-			/* Move right */
-			if (iskanji(buf[pos])) pos += 2;
-			else pos++;
-#else
 			pos++;
-#endif
 
 			break;
 
@@ -3321,9 +3179,6 @@ bool askfor_aux(char *buf, int len, bool numpad_cursor)
 			{
 				int next_pos = i + 1;
 
-#ifdef JP
-				if (iskanji(buf[i])) next_pos++;
-#endif
 
 				/* Is there the cursor at next position? */ 
 				if (next_pos >= pos) break;
@@ -3353,10 +3208,6 @@ bool askfor_aux(char *buf, int len, bool numpad_cursor)
 			/* Position of next character */
 			src = pos + 1;
 
-#ifdef JP
-			/* Next character is one more byte away */
-			if (iskanji(buf[pos])) src++;
-#endif
 
 			dst = pos;
 
@@ -3391,40 +3242,13 @@ bool askfor_aux(char *buf, int len, bool numpad_cursor)
 
 			/* Save right part of string */
 			strcpy(tmp, buf + pos);
-#ifdef JP
-			if (iskanji(c))
+			if (pos < len && isprint(c))
 			{
-				char next;
-
-				/* Bypass macro processing */
-				inkey_base = TRUE;
-				next = inkey();
-
-				if (pos + 1 < len)
-				{
-					buf[pos++] = c;
-					buf[pos++] = next;
-				}
-				else
-				{
-					bell();
-				}
+				buf[pos++] = c;
 			}
 			else
-#endif
 			{
-#ifdef JP
-				if (pos < len && (isprint(c) || iskana(c)))
-#else
-				if (pos < len && isprint(c))
-#endif
-				{
-					buf[pos++] = c;
-				}
-				else
-				{
-					bell();
-				}
+				bell();
 			}
 
 			/* Terminate */
@@ -3693,11 +3517,7 @@ s16b get_quantity(cptr prompt, int max)
 	if (!prompt)
 	{
 		/* Build a prompt */
-#ifdef JP
-		sprintf(tmp, "いくつですか (1-%d): ", max);
-#else
 		sprintf(tmp, "Quantity (1-%d): ", max);
-#endif
 
 
 		/* Use that prompt */
@@ -3757,11 +3577,7 @@ s16b get_quantity(cptr prompt, int max)
 void pause_line(int row)
 {
 	prt("", row, 0);
-#ifdef JP
-	put_str("[ 何かキーを押して下さい ]", row, 26);
-#else
 	put_str("[Press any key to continue]", row, 23);
-#endif
 
 	(void)inkey();
 	prt("", row, 0);
@@ -3927,23 +3743,6 @@ typedef struct
 #define MENU_CLASS 1
 #define MENU_WILD 2
 
-#ifdef JP
-special_menu_naiyou special_menu_info[] =
-{
-	{"超能力/特殊能力", 0, 0, MENU_CLASS, CLASS_MINDCRAFTER},
-	{"ものまね/特殊能力", 0, 0, MENU_CLASS, CLASS_IMITATOR},
-	{"歌/特殊能力", 0, 0, MENU_CLASS, CLASS_BARD},
-	{"必殺技/特殊能力", 0, 0, MENU_CLASS, CLASS_SAMURAI},
-	{"練気術/魔法/特殊能力", 0, 0, MENU_CLASS, CLASS_FORCETRAINER},
-	{"技/特殊能力", 0, 0, MENU_CLASS, CLASS_BERSERKER},
-	{"技術/特殊能力", 0, 0, MENU_CLASS, CLASS_WEAPONSMITH},
-	{"鏡魔法/特殊能力", 0, 0, MENU_CLASS, CLASS_MIRROR_MASTER},
-	{"忍術/特殊能力", 0, 0, MENU_CLASS, CLASS_NINJA},
-	{"広域マップ(<)", 2, 6, MENU_WILD, FALSE},
-	{"通常マップ(>)", 2, 7, MENU_WILD, TRUE},
-	{"", 0, 0, 0, 0},
-};
-#else
 special_menu_naiyou special_menu_info[] =
 {
 	{"MindCraft/Special", 0, 0, MENU_CLASS, CLASS_MINDCRAFTER},
@@ -3959,7 +3758,6 @@ special_menu_naiyou special_menu_info[] =
 	{"Enter local map(>)", 2, 7, MENU_WILD, TRUE},
 	{"", 0, 0, 0, 0},
 };
-#endif
 
 static char inkey_from_menu(void)
 {
@@ -4020,11 +3818,7 @@ static char inkey_from_menu(void)
 		}
 		max_num = i;
 		kisuu = max_num % 2;
-#ifdef JP
-		put_str("》",basey + 1 + num / 2, basex + 2 + (num % 2) * 24);
-#else
 		put_str("> ",basey + 1 + num / 2, basex + 2 + (num % 2) * 24);
-#endif
 
 		/* Place the cursor on the player */
 		move_cursor_relative(py, px);
@@ -4133,9 +3927,6 @@ void request_command(int shopping)
 
 	cptr act;
 
-#ifdef JP
-	int caretcmd = 0;
-#endif
 	/* Roguelike */
 	if (rogue_like_commands)
 	{
@@ -4208,11 +3999,7 @@ void request_command(int shopping)
 			command_arg = 0;
 
 			/* Begin the input */
-#ifdef JP
-			prt("回数: ", 0, 0);
-#else
 			prt("Count: ", 0, 0);
-#endif
 
 
 			/* Get a command count */
@@ -4228,11 +4015,7 @@ void request_command(int shopping)
 					command_arg = command_arg / 10;
 
 					/* Show current count */
-#ifdef JP
-					prt(format("回数: %d", command_arg), 0, 0);
-#else
 					prt(format("Count: %d", command_arg), 0, 0);
-#endif
 
 				}
 
@@ -4257,11 +4040,7 @@ void request_command(int shopping)
 					}
 
 					/* Show current count */
-#ifdef JP
-					prt(format("回数: %d", command_arg), 0, 0);
-#else
 					prt(format("Count: %d", command_arg), 0, 0);
-#endif
 
 				}
 
@@ -4279,11 +4058,7 @@ void request_command(int shopping)
 				command_arg = 99;
 
 				/* Show current count */
-#ifdef JP
-				prt(format("回数: %d", command_arg), 0, 0);
-#else
 				prt(format("Count: %d", command_arg), 0, 0);
-#endif
 
 			}
 
@@ -4294,11 +4069,7 @@ void request_command(int shopping)
 				command_arg = old_arg;
 
 				/* Show current count */
-#ifdef JP
-prt(format("回数: %d", command_arg), 0, 0);
-#else
 				prt(format("Count: %d", command_arg), 0, 0);
-#endif
 
 			}
 
@@ -4306,11 +4077,7 @@ prt(format("回数: %d", command_arg), 0, 0);
 			if ((cmd == ' ') || (cmd == '\n') || (cmd == '\r'))
 			{
 				/* Get a real command */
-#ifdef JP
-				if (!get_com("コマンド: ", (char *)&cmd, FALSE))
-#else
 				if (!get_com("Command: ", (char *)&cmd, FALSE))
-#endif
 
 				{
 					/* Clear count */
@@ -4327,11 +4094,7 @@ prt(format("回数: %d", command_arg), 0, 0);
 		if (cmd == '\\')
 		{
 			/* Get a real command */
-#ifdef JP
-			(void)get_com("コマンド: ", (char *)&cmd, FALSE);
-#else
 			(void)get_com("Command: ", (char *)&cmd, FALSE);
-#endif
 
 
 			/* Hack -- bypass keymaps */
@@ -4343,11 +4106,7 @@ prt(format("回数: %d", command_arg), 0, 0);
 		if (cmd == '^')
 		{
 			/* Get a new command and controlify it */
-#ifdef JP
-			if (get_com("CTRL: ", (char *)&cmd, FALSE)) cmd = KTRL(cmd);
-#else
 			if (get_com("Control: ", (char *)&cmd, FALSE)) cmd = KTRL(cmd);
-#endif
 
 		}
 
@@ -4408,22 +4167,6 @@ prt(format("回数: %d", command_arg), 0, 0);
 		}
 	}
 
-#ifdef JP
-	for (i = 0; i < 256; i++)
-	{
-		cptr s;
-		if ((s = keymap_act[mode][i]) != NULL)
-		{
-			if (*s == command_cmd && *(s+1) == 0)
-			{
-				caretcmd = i;
-				break;
-			}
-		}
-	}
-	if (!caretcmd)
-		caretcmd = command_cmd;
-#endif
 
 	/* Hack -- Scan equipment */
 	for (i = EQUIP_BEGIN; i < EQUIP_BEGIN + equip_count(); i++)
@@ -4960,35 +4703,13 @@ void roff_to_buf(cptr str, int maxlen, char *tbuf, size_t bufsize)
 
 	while (str[read_pt])
 	{
-#ifdef JP
-		bool kinsoku = FALSE;
-		bool kanji;
-#endif
 		int ch_len = 1;
 
 		/* Prepare one character */
 		ch[0] = str[read_pt];
 		ch[1] = '\0';
-#ifdef JP
-		kanji  = iskanji(ch[0]);
-
-		if (kanji)
-		{
-			ch[1] = str[read_pt+1];
-			ch_len = 2;
-
-			if (strcmp(ch, "。") == 0 ||
-			    strcmp(ch, "、") == 0 ||
-			    strcmp(ch, "ィ") == 0 ||
-			    strcmp(ch, "ー") == 0)
-				kinsoku = TRUE;
-		}
-		else if (!isprint(ch[0]))
-			ch[0] = ' ';
-#else
 		if (!isprint(ch[0]))
 			ch[0] = ' ';
-#endif
 
 		if (line_len + ch_len > maxlen - 1 || str[read_pt] == '\n')
 		{
@@ -4997,11 +4718,6 @@ void roff_to_buf(cptr str, int maxlen, char *tbuf, size_t bufsize)
 			/* return to better wrapping point. */
 			/* Space character at the end of the line need not to be printed. */
 			word_len = read_pt - word_punct;
-#ifdef JP
-			if (kanji && !kinsoku)
-				/* nothing */ ;
-			else
-#endif
 			if (ch[0] == ' ' || word_len >= line_len/2)
 				read_pt++;
 			else
@@ -5019,9 +4735,6 @@ void roff_to_buf(cptr str, int maxlen, char *tbuf, size_t bufsize)
 		}
 		if (ch[0] == ' ')
 			word_punct = read_pt;
-#ifdef JP
-		if (!kinsoku) word_punct = read_pt;
-#endif
 
 		/* Not enough buffer size */
 		if ((size_t)(write_pt + 3) >= bufsize) break;
@@ -5029,14 +4742,6 @@ void roff_to_buf(cptr str, int maxlen, char *tbuf, size_t bufsize)
 		tbuf[write_pt++] = ch[0];
 		line_len++;
 		read_pt++;
-#ifdef JP
-		if (kanji)
-		{
-			tbuf[write_pt++] = ch[1];
-			line_len++;
-			read_pt++;
-		}
-#endif
 	}
 	tbuf[write_pt] = '\0';
 	tbuf[write_pt+1] = '\0';
@@ -5057,40 +4762,6 @@ void roff_to_buf(cptr str, int maxlen, char *tbuf, size_t bufsize)
  */
 size_t my_strcpy(char *buf, const char *src, size_t bufsize)
 {
-#ifdef JP
-
-	char *d = buf;
-	const char *s = src;
-	size_t len = 0;
-
-	if (bufsize > 0) {
-		/* reserve for NUL termination */
-		bufsize--;
-
-		/* Copy as many bytes as will fit */
-		while (*s && (len < bufsize))
-		{
-			if (iskanji(*s))
-			{
-				if (len + 1 >= bufsize || !*(s+1)) break;
-				*d++ = *s++;
-				*d++ = *s++;
-				len += 2;
-			}
-			else
-			{
-				*d++ = *s++;
-				len++;
-			}
-		}
-		*d = '\0';
-	}
-
-	while(*s++) len++;
-
-	return len;
-
-#else
 
 	size_t len = strlen(src);
 	size_t ret = len;
@@ -5108,7 +4779,6 @@ size_t my_strcpy(char *buf, const char *src, size_t bufsize)
 	/* Return strlen(src) */
 	return ret;
 
-#endif
 }
 
 
@@ -5159,9 +4829,6 @@ char *my_strstr(const char *haystack, const char *needle)
 			if(!strncmp(haystack + i, needle, l2))
 				return (char *)haystack + i;
 
-#ifdef JP
-			if (iskanji(*(haystack + i))) i++;
-#endif
 		}
 	}
 
@@ -5180,9 +4847,6 @@ char *my_strchr(const char *ptr, char ch)
 	{
 		if (*ptr == ch) return (char *)ptr;
 
-#ifdef JP
-		if (iskanji(*ptr)) ptr++;
-#endif
 	}
 
 	return NULL;
@@ -5197,13 +4861,6 @@ void str_tolower(char *str)
 	/* Force to be lower case string */
 	for (; *str; str++)
 	{
-#ifdef JP
-		if (iskanji(*str))
-		{
-			str++;
-			continue;
-		}
-#endif
 		*str = tolower(*str);
 	}
 }

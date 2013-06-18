@@ -53,9 +53,6 @@ static int get_spell(int *sn, cptr prompt, int sval, bool learned, int use_realm
 	magic_type  *s_ptr;
 	char        out_val[160];
 	cptr        p;
-#ifdef JP
-	char jverb_buf[128];
-#endif
 	int menu_line = (use_menu ? 1 : 0);
 
 #ifdef ALLOW_REPEAT /* TNB */
@@ -421,11 +418,7 @@ void do_cmd_browse(void)
 	/* Warriors are illiterate */
 	if (!(p_ptr->realm1 || p_ptr->realm2) && (p_ptr->pclass != CLASS_SORCERER) && (p_ptr->pclass != CLASS_RED_MAGE))
 	{
-#ifdef JP
-		msg_print("本を読むことができない！");
-#else
 		msg_print("You cannot read books!");
-#endif
 
 		return;
 	}
@@ -450,17 +443,9 @@ void do_cmd_browse(void)
 	else item_tester_hook = item_tester_learn_spell;
 
 	/* Get an item */
-#ifdef JP
-	q = "どの本を読みますか? ";
-#else
 	q = "Browse which book? ";
-#endif
 
-#ifdef JP
-	s = "読める本がない。";
-#else
 	s = "You have no books that you can read.";
-#endif
 
 	if (!get_item(&item, q, s, (USE_INVEN | USE_FLOOR)))
 	{
@@ -521,11 +506,7 @@ void do_cmd_browse(void)
 	while(TRUE)
 	{
 		/* Ask for a spell, allow cancel */
-#ifdef JP
-		if (!get_spell(&spell, "読む", o_ptr->sval, TRUE, use_realm))
-#else
 		if (!get_spell(&spell, "browse", o_ptr->sval, TRUE, use_realm))
-#endif
 		{
 			/* If cancelled, leave immediately. */
 			if (spell == -1) break;
@@ -535,17 +516,9 @@ void do_cmd_browse(void)
 
 			/* Notify that there's nothing to see, and wait. */
 			if (use_realm == REALM_HISSATSU)
-#ifdef JP
-				prt("読める技がない。", 0, 0);
-#else
 				prt("No techniques to browse.", 0, 0);
-#endif
 			else
-#ifdef JP
-				prt("読める呪文がない。", 0, 0);
-#else
 				prt("No spells to browse.", 0, 0);
-#endif
 			(void)inkey();
 
 
@@ -626,44 +599,28 @@ void do_cmd_study(void)
 
 	if (!p_ptr->realm1)
 	{
-#ifdef JP
-msg_print("本を読むことができない！");
-#else
 		msg_print("You cannot read books!");
-#endif
 
 		return;
 	}
 
 	if (p_ptr->blind || no_lite())
 	{
-#ifdef JP
-msg_print("目が見えない！");
-#else
 		msg_print("You cannot see!");
-#endif
 
 		return;
 	}
 
 	if (p_ptr->confused)
 	{
-#ifdef JP
-msg_print("混乱していて読めない！");
-#else
 		msg_print("You are too confused!");
-#endif
 
 		return;
 	}
 
 	if (!(p_ptr->new_spells))
 	{
-#ifdef JP
-msg_format("新しい%sを覚えることはできない！", p);
-#else
 		msg_format("You cannot learn any new %ss!", p);
-#endif
 
 		return;
 	}
@@ -673,16 +630,8 @@ msg_format("新しい%sを覚えることはできない！", p);
 		set_action(ACTION_NONE);
 	}
 
-#ifdef JP
-	if( p_ptr->new_spells < 10 ){
-		msg_format("あと %d つの%sを学べる。", p_ptr->new_spells, p);
-	}else{
-		msg_format("あと %d 個の%sを学べる。", p_ptr->new_spells, p);
-	}
-#else
 	msg_format("You can learn %d new %s%s.", p_ptr->new_spells, p,
 		(p_ptr->new_spells == 1?"":"s"));
-#endif
 
 	msg_print(NULL);
 
@@ -692,17 +641,9 @@ msg_format("新しい%sを覚えることはできない！", p);
 	else item_tester_hook = item_tester_learn_spell;
 
 	/* Get an item */
-#ifdef JP
-q = "どの本から学びますか? ";
-#else
 	q = "Study which book? ";
-#endif
 
-#ifdef JP
-s = "読める本がない。";
-#else
 	s = "You have no books that you can read.";
-#endif
 
 	if (!get_item(&item, q, s, (USE_INVEN | USE_FLOOR))) return;
 
@@ -724,11 +665,7 @@ s = "読める本がない。";
 	if (o_ptr->tval == REALM2_BOOK) increment = 32;
 	else if (o_ptr->tval != REALM1_BOOK)
 	{
-#ifdef JP
-		if (!get_check("本当に魔法の領域を変更しますか？")) return;
-#else
 		if (!get_check("Really, change magic realm? ")) return;
-#endif
 		change_realm2(tval2realm(o_ptr->tval));
 		increment = 32;
 	}
@@ -743,13 +680,8 @@ s = "読める本がない。";
 	if (mp_ptr->spell_book != TV_LIFE_BOOK)
 	{
 		/* Ask for a spell, allow cancel */
-#ifdef JP
-		if (!get_spell(&spell, "学ぶ", sval, FALSE, o_ptr->tval - TV_LIFE_BOOK + 1)
-			&& (spell == -1)) return;
-#else
 		if (!get_spell(&spell, "study", sval, FALSE, o_ptr->tval - TV_LIFE_BOOK + 1)
 			&& (spell == -1)) return;
-#endif
 
 	}
 
@@ -786,11 +718,7 @@ s = "読める本がない。";
 	if (spell < 0)
 	{
 		/* Message */
-#ifdef JP
-msg_format("その本には学ぶべき%sがない。", p);
-#else
 		msg_format("You cannot learn any %ss in that book.", p);
-#endif
 
 
 		/* Abort */
@@ -821,18 +749,10 @@ msg_format("その本には学ぶべき%sがない。", p);
 
 		if (old_exp >= max_exp)
 		{
-#ifdef JP
-			msg_format("その%sは完全に使いこなせるので学ぶ必要はない。", p);
-#else
 			msg_format("You don't need to study this %s anymore.", p);
-#endif
 			return;
 		}
-#ifdef JP
-		if (!get_check(format("%sの%sをさらに学びます。よろしいですか？", name, p)))
-#else
 		if (!get_check(format("You will study a %s of %s again. Are you sure? ", p, name)))
-#endif
 		{
 			return;
 		}
@@ -857,11 +777,7 @@ msg_format("その本には学ぶべき%sがない。", p);
 			p_ptr->spell_exp[spell] = SPELL_EXP_BEGINNER + old_exp / 3;
 			new_rank = EXP_LEVEL_BEGINNER;
 		}
-#ifdef JP
-		msg_format("%sの熟練度が%sに上がった。", name, exp_level_str[new_rank]);
-#else
 		msg_format("Your proficiency of %s is now %s rank.", name, exp_level_str[new_rank]);
-#endif
 	}
 	else
 	{
@@ -876,22 +792,8 @@ msg_format("その本には学ぶべき%sがない。", p);
 		p_ptr->spell_order[i++] = spell;
 
 		/* Mention the result */
-#ifdef JP
-		/* 英日切り替え機能に対応 */
-		if (mp_ptr->spell_book == TV_MUSIC_BOOK)
-		{
-			msg_format("%sを学んだ。",
-				    do_spell(increment ? p_ptr->realm2 : p_ptr->realm1, spell % 32, SPELL_NAME));
-		}
-		else
-		{
-			msg_format("%sの%sを学んだ。",
-				    do_spell(increment ? p_ptr->realm2 : p_ptr->realm1, spell % 32, SPELL_NAME) ,p);
-		}
-#else
 		msg_format("You have learned the %s of %s.",
 			p, do_spell(increment ? p_ptr->realm2 : p_ptr->realm1, spell % 32, SPELL_NAME));
-#endif
 	}
 
 	/* Take a turn */
@@ -924,13 +826,8 @@ msg_format("その本には学ぶべき%sがない。", p);
 	if (p_ptr->new_spells)
 	{
 		/* Message */
-#ifdef JP
-		if (p_ptr->new_spells < 10) msg_format("あと %d つの%sを学べる。", p_ptr->new_spells, p);
-		else msg_format("あと %d 個の%sを学べる。", p_ptr->new_spells, p);
-#else
 		msg_format("You can learn %d more %s%s.", p_ptr->new_spells, p,
 		           (p_ptr->new_spells != 1) ? "s" : "");
-#endif
 	}
 #endif
 
@@ -1069,11 +966,7 @@ void do_cmd_cast(void)
 	/* Require spell ability */
 	if (!p_ptr->realm1 && (p_ptr->pclass != CLASS_SORCERER) && (p_ptr->pclass != CLASS_RED_MAGE))
 	{
-#ifdef JP
-		msg_print("呪文を唱えられない！");
-#else
 		msg_print("You cannot cast spells!");
-#endif
 
 		return;
 	}
@@ -1084,11 +977,7 @@ void do_cmd_cast(void)
 		if (p_ptr->pclass == CLASS_FORCETRAINER) confirm_use_force(FALSE);
 		else
 		{
-#ifdef JP
-			msg_print("目が見えない！");
-#else
 			msg_print("You cannot see!");
-#endif
 			flush();
 		}
 		return;
@@ -1097,11 +986,7 @@ void do_cmd_cast(void)
 	/* Not when confused */
 	if (p_ptr->confused)
 	{
-#ifdef JP
-		msg_print("混乱していて唱えられない！");
-#else
 		msg_print("You are too confused!");
-#endif
 		flush();
 		return;
 	}
@@ -1112,11 +997,7 @@ void do_cmd_cast(void)
 		if (hex_spell_fully())
 		{
 			bool flag = FALSE;
-#ifdef JP
-			msg_print("これ以上新しい呪文を詠唱することはできない。");
-#else
 			msg_print("Can not spell new spells more.");
-#endif
 			flush();
 			if (p_ptr->lev >= 35) flag = stop_hex_spell();
 			if (!flag) return;
@@ -1139,17 +1020,9 @@ void do_cmd_cast(void)
 	item_tester_tval = mp_ptr->spell_book;
 
 	/* Get an item */
-#ifdef JP
-	q = "どの呪文書を使いますか? ";
-#else
 	q = "Use which book? ";
-#endif
 
-#ifdef JP
-	s = "呪文書がない！";
-#else
 	s = "You have no spell books!";
-#endif
 
 	if (!get_item(&item, q, s, (USE_INVEN | USE_FLOOR)))
 	{
@@ -1194,15 +1067,6 @@ void do_cmd_cast(void)
 	else realm = p_ptr->realm1;
 
 	/* Ask for a spell */
-#ifdef JP
-	if (!get_spell(&spell,  
-				((mp_ptr->spell_book == TV_LIFE_BOOK) ? "詠唱する" : (mp_ptr->spell_book == TV_MUSIC_BOOK) ? "歌う" : "唱える"), 
-		       sval, TRUE, realm))
-	{
-		if (spell == -2) msg_format("その本には知っている%sがない。", prayer);
-		return;
-	}
-#else
 	if (!get_spell(&spell, ((mp_ptr->spell_book == TV_LIFE_BOOK) ? "recite" : "cast"),
 		sval, TRUE, realm))
 	{
@@ -1210,7 +1074,6 @@ void do_cmd_cast(void)
 			msg_format("You don't know any %ss in that book.", prayer);
 		return;
 	}
-#endif
 
 
 	use_realm = tval2realm(o_ptr->tval);
@@ -1220,11 +1083,7 @@ void do_cmd_cast(void)
 	{
 		if (hex_spelling(spell))
 		{
-#ifdef JP
-			msg_print("その呪文はすでに詠唱中だ。");
-#else
 			msg_print("You are already casting it.");
-#endif
 			return;
 		}
 	}
@@ -1256,24 +1115,15 @@ void do_cmd_cast(void)
 		if (flush_failure) flush();
 
 		/* Warning */
-#ifdef JP
-msg_format("その%sを%sのに十分なマジックポイントがない。",prayer,
- ((mp_ptr->spell_book == TV_LIFE_BOOK) ? "詠唱する" : (mp_ptr->spell_book == TV_LIFE_BOOK) ? "歌う" : "唱える"));
-#else
 		msg_format("You do not have enough mana to %s this %s.",
 			((mp_ptr->spell_book == TV_LIFE_BOOK) ? "recite" : "cast"),
 			prayer);
-#endif
 
 
 		if (!over_exert) return;
 
 		/* Verify */
-#ifdef JP
-		if (!get_check_strict("それでも挑戦しますか? ", CHECK_OKAY_CANCEL)) return;
-#else
 		if (!get_check_strict("Attempt it anyway? ", CHECK_OKAY_CANCEL)) return;
-#endif
 
 	}
 
@@ -1309,11 +1159,7 @@ msg_format("その%sを%sのに十分なマジックポイントがない。",prayer,
 	{
 		if (flush_failure) flush();
 
-#ifdef JP
-msg_format("%sをうまく唱えられなかった！", prayer);
-#else
 		msg_format("You failed to cast %s!", do_spell(increment ? p_ptr->realm2 : p_ptr->realm1, spell % 32, SPELL_NAME));
-#endif
 
 		if (take_mana && prace_is_(RACE_DEMIGOD) && p_ptr->psubrace == DEMIGOD_ATHENA) 
 			p_ptr->csp += take_mana/2;
@@ -1363,11 +1209,7 @@ msg_format("%sをうまく唱えられなかった！", prayer);
 
 		if ((o_ptr->tval == TV_CHAOS_BOOK) && (randint1(100) < spell))
 		{
-#ifdef JP
-msg_print("カオス的な効果を発生した！");
-#else
 			msg_print("You produce a chaotic effect!");
-#endif
 
 			wild_magic(spell);
 		}
@@ -1379,17 +1221,9 @@ msg_print("カオス的な効果を発生した！");
 			}
 			else
 			{
-#ifdef JP
-				msg_print("痛い！");
-#else
 				msg_print("It hurts!");
-#endif
 
-#ifdef JP
-				take_hit(DAMAGE_LOSELIFE, damroll(o_ptr->sval + 1, 6), "暗黒魔法の逆流", -1);
-#else
 				take_hit(DAMAGE_LOSELIFE, damroll(o_ptr->sval + 1, 6), "a miscast Death spell", -1);
-#endif
 
 				if ((spell > 15) && one_in_(6) && !p_ptr->hold_life)
 					lose_exp(spell * 250);
@@ -1397,11 +1231,7 @@ msg_print("カオス的な効果を発生した！");
 		}
 		else if ((o_ptr->tval == TV_MUSIC_BOOK) && (randint1(200) < spell))
 		{
-#ifdef JP
-msg_print("いやな音が響いた");
-#else
 msg_print("An infernal sound echoed.");
-#endif
 
 			aggravate_monsters(0);
 		}
@@ -1614,11 +1444,7 @@ msg_print("An infernal sound echoed.");
 			p_ptr->csp_frac = 0;
 
 			/* Message */
-	#ifdef JP
-	msg_print("精神を集中しすぎて気を失ってしまった！");
-	#else
 			msg_print("You faint from the effort!");
-	#endif
 
 
 			/* Hack -- Bypass free action */
@@ -1656,11 +1482,7 @@ msg_print("An infernal sound echoed.");
 				bool perm = (randint0(100) < 25);
 
 				/* Message */
-	#ifdef JP
-	msg_print("体を悪くしてしまった！");
-	#else
 				msg_print("You have damaged your health!");
-	#endif
 
 
 				/* Reduce constitution */
@@ -1857,11 +1679,7 @@ void do_cmd_pet_dismiss(void)
 			/* Hack -- handle stuff */
 			handle_stuff();
 
-#ifdef JP
-			sprintf(buf, "%sを放しますか？ [Yes/No/Unnamed (%d体)]", friend_name, max_pet - i);
-#else
 			sprintf(buf, "Dismiss %s? [Yes/No/Unnamed (%d remain)]", friend_name, max_pet - i);
-#endif
 			prt(buf, 0, 0);
 
 			if (m_ptr->ml)
@@ -1877,11 +1695,7 @@ void do_cmd_pet_dismiss(void)
 
 					if (kakunin)
 					{
-#ifdef JP
-						sprintf(buf, "本当によろしいですか？ (%s) ", friend_name);
-#else
 						sprintf(buf, "Are you sure? (%s) ", friend_name);
-#endif
 						if (!get_check(buf))
 							delete_this = FALSE;
 					}
@@ -1928,18 +1742,10 @@ void do_cmd_pet_dismiss(void)
 
 	C_KILL(who, max_m_idx, u16b);
 
-#ifdef JP
-	msg_format("%d 体のペットを放しました。", Dismissed);
-#else
 	msg_format("You have dismissed %d pet%s.", Dismissed,
 		   (Dismissed == 1 ? "" : "s"));
-#endif
 	if (Dismissed == 0 && all_pets)
-#ifdef JP
-		msg_print("'U'nnamed は、乗馬以外の名前のないペットだけを全て解放します。");
-#else
 		msg_print("'U'nnamed means all your pets except named pets and your mount.");
-#endif
 }
 
 static bool player_can_ride_aux(cave_type *c_ptr, bool now_riding)
@@ -2059,13 +1865,8 @@ bool rakuba(int dam, bool force)
 		if (!sn)
 		{
 			monster_desc(m_name, m_ptr, 0);
-#ifdef JP
-msg_format("%sから振り落とされそうになって、壁にぶつかった。",m_name);
-			take_hit(DAMAGE_NOESCAPE, r_ptr->level+3, "壁への衝突", -1);
-#else
 			msg_format("You have nearly fallen from %s, but bumped into wall.",m_name);
 			take_hit(DAMAGE_NOESCAPE, r_ptr->level+3, "bumping into wall", -1);
-#endif
 			return FALSE;
 		}
 
@@ -2107,19 +1908,11 @@ msg_format("%sから振り落とされそうになって、壁にぶつかった。",m_name);
 	if (p_ptr->levitation && !force)
 	{
 		monster_desc(m_name, m_ptr, 0);
-#ifdef JP
-		msg_format("%sから落ちたが、空中でうまく体勢を立て直して着地した。",m_name);
-#else
 		msg_format("You are thrown from %s, but make a good landing.",m_name);
-#endif
 	}
 	else
 	{
-#ifdef JP
-		take_hit(DAMAGE_NOESCAPE, r_ptr->level+3, "落馬", -1);
-#else
 		take_hit(DAMAGE_NOESCAPE, r_ptr->level+3, "Falling from riding", -1);
-#endif
 		fall_dam = TRUE;
 	}
 
@@ -2148,11 +1941,7 @@ bool do_riding(bool force)
 		/* Skip non-empty grids */
 		if (!player_can_ride_aux(c_ptr, FALSE))
 		{
-#ifdef JP
-			msg_print("そちらには降りられません。");
-#else
 			msg_print("You cannot go to that direction.");
-#endif
 			return FALSE;
 		}
 
@@ -2164,11 +1953,7 @@ bool do_riding(bool force)
 			energy_use = 100;
 
 			/* Message */
-#ifdef JP
-			msg_print("モンスターが立ちふさがっている！");
-#else
 			msg_print("There is a monster in the way!");
-#endif
 
 			py_attack(y, x, 0);
 			return FALSE;
@@ -2182,11 +1967,7 @@ bool do_riding(bool force)
 	{
 		if (p_ptr->confused)
 		{
-#ifdef JP
-			msg_print("混乱していて乗れない！");
-#else
 			msg_print("You are too confused!");
-#endif
 			return FALSE;
 		}
 
@@ -2194,31 +1975,19 @@ bool do_riding(bool force)
 
 		if (!c_ptr->m_idx || !m_ptr->ml)
 		{
-#ifdef JP
-			msg_print("その場所にはモンスターはいません。");
-#else
 			msg_print("Here is no monster.");
-#endif
 
 			return FALSE;
 		}
 		if (!is_pet(m_ptr) && !force)
 		{
-#ifdef JP
-			msg_print("そのモンスターはペットではありません。");
-#else
 			msg_print("That monster is not a pet.");
-#endif
 
 			return FALSE;
 		}
 		if (!(r_info[m_ptr->r_idx].flags7 & RF7_RIDING))
 		{
-#ifdef JP
-			msg_print("そのモンスターには乗れなさそうだ。");
-#else
 			msg_print("This monster doesn't seem suitable for riding.");
-#endif
 
 			return FALSE;
 		}
@@ -2229,27 +1998,16 @@ bool do_riding(bool force)
 		{
 			/* Feature code (applying "mimic" field) */
 			feature_type *f_ptr = &f_info[get_feat_mimic(c_ptr)];
-#ifdef JP
-			msg_format("そのモンスターは%sの%sにいる。", f_name + f_ptr->name,
-			           ((!have_flag(f_ptr->flags, FF_MOVE) && !have_flag(f_ptr->flags, FF_CAN_FLY)) ||
-			            (!have_flag(f_ptr->flags, FF_LOS) && !have_flag(f_ptr->flags, FF_TREE))) ?
-			           "中" : "上");
-#else
 			msg_format("This monster is %s the %s.",
 			           ((!have_flag(f_ptr->flags, FF_MOVE) && !have_flag(f_ptr->flags, FF_CAN_FLY)) ||
 			            (!have_flag(f_ptr->flags, FF_LOS) && !have_flag(f_ptr->flags, FF_TREE))) ?
 			           "in" : "on", f_name + f_ptr->name);
-#endif
 
 			return FALSE;
 		}
 		if (r_info[m_ptr->r_idx].level > randint1((p_ptr->skill_exp[GINOU_RIDING] / 50 + p_ptr->lev / 2 + 20)))
 		{
-#ifdef JP
-			msg_print("うまく乗れなかった。");
-#else
 			msg_print("You failed to ride.");
-#endif
 
 			energy_use = 100;
 
@@ -2261,11 +2019,7 @@ bool do_riding(bool force)
 			char m_name[80];
 			monster_desc(m_name, m_ptr, 0);
 			(void)set_monster_csleep(c_ptr->m_idx, 0);
-#ifdef JP
-			msg_format("%sを起こした。", m_name);
-#else
 			msg_format("You have waked %s up.", m_name);
-#endif
 		}
 
 		if (p_ptr->action == ACTION_KAMAE) set_action(ACTION_NONE);
@@ -2318,30 +2072,18 @@ static void do_name_pet(void)
 		if (!is_pet(m_ptr))
 		{
 			/* Message */
-#ifdef JP
-			msg_print("そのモンスターはペットではない。");
-#else
 			msg_format("This monster is not a pet.");
-#endif
 			return;
 		}
 		if (r_info[m_ptr->r_idx].flags1 & RF1_UNIQUE)
 		{
-#ifdef JP
-			msg_print("そのモンスターの名前は変えられない！");
-#else
 			msg_format("You cannot change name of this monster!");
-#endif
 			return;
 		}
 		monster_desc(m_name, m_ptr, 0);
 
 		/* Message */
-#ifdef JP
-		msg_format("%sに名前をつける。", m_name);
-#else
 		msg_format("Name %s.", m_name);
-#endif
 
 		msg_print(NULL);
 
@@ -2396,201 +2138,112 @@ void do_cmd_pet(void)
 
 	num = 0;
 
-#ifdef JP
-	power_desc[num] = "ペットを放す";
-#else
 	power_desc[num] = "dismiss pets";
-#endif
 
 	powers[num++] = PET_DISMISS;
 
-#ifdef JP
-	sprintf(target_buf, "ペットのターゲットを指定 (現在：%s)",
-		(pet_t_m_idx ? (p_ptr->image ? "何か奇妙な物" : (r_name + r_info[m_list[pet_t_m_idx].ap_r_idx].name)) : "指定なし"));
-#else
 	sprintf(target_buf, "specify a target of pet (now:%s)",
 		(pet_t_m_idx ? (p_ptr->image ? "something strange" : (r_name + r_info[m_list[pet_t_m_idx].ap_r_idx].name)) : "nothing"));
-#endif
 	power_desc[num] = target_buf;
 
 	powers[num++] = PET_TARGET;
 
-#ifdef JP
-	power_desc[num] = "近くにいろ";
-#else
 	power_desc[num] = "stay close";
-#endif
 
 	if (p_ptr->pet_follow_distance == PET_CLOSE_DIST) mode = num;
 	powers[num++] = PET_STAY_CLOSE;
 
-#ifdef JP
-	power_desc[num] = "ついて来い";
-#else
 	power_desc[num] = "follow me";
-#endif
 
 	if (p_ptr->pet_follow_distance == PET_FOLLOW_DIST) mode = num;
 	powers[num++] = PET_FOLLOW_ME;
 
-#ifdef JP
-	power_desc[num] = "敵を見つけて倒せ";
-#else
 	power_desc[num] = "seek and destroy";
-#endif
 
 	if (p_ptr->pet_follow_distance == PET_DESTROY_DIST) mode = num;
 	powers[num++] = PET_SEEK_AND_DESTROY;
 
-#ifdef JP
-	power_desc[num] = "少し離れていろ";
-#else
 	power_desc[num] = "give me space";
-#endif
 
 	if (p_ptr->pet_follow_distance == PET_SPACE_DIST) mode = num;
 	powers[num++] = PET_ALLOW_SPACE;
 
-#ifdef JP
-	power_desc[num] = "離れていろ";
-#else
 	power_desc[num] = "stay away";
-#endif
 
 	if (p_ptr->pet_follow_distance == PET_AWAY_DIST) mode = num;
 	powers[num++] = PET_STAY_AWAY;
 
 	if (p_ptr->pet_extra_flags & PF_OPEN_DOORS)
 	{
-#ifdef JP
-		power_desc[num] = "ドアを開ける (現在:ON)";
-#else
 		power_desc[num] = "pets open doors (now On)";
-#endif
 	}
 	else
 	{
-#ifdef JP
-		power_desc[num] = "ドアを開ける (現在:OFF)";
-#else
 		power_desc[num] = "pets open doors (now Off)";
-#endif
 	}
 	powers[num++] = PET_OPEN_DOORS;
 
 	if (p_ptr->pet_extra_flags & PF_PICKUP_ITEMS)
 	{
-#ifdef JP
-		power_desc[num] = "アイテムを拾う (現在:ON)";
-#else
 		power_desc[num] = "pets pick up items (now On)";
-#endif
 	}
 	else
 	{
-#ifdef JP
-		power_desc[num] = "アイテムを拾う (現在:OFF)";
-#else
 		power_desc[num] = "pets pick up items (now Off)";
-#endif
 	}
 	powers[num++] = PET_TAKE_ITEMS;
 
 	if (p_ptr->pet_extra_flags & PF_TELEPORT)
 	{
-#ifdef JP
-		power_desc[num] = "テレポート系魔法を使う (現在:ON)";
-#else
 		power_desc[num] = "allow teleport (now On)";
-#endif
 	}
 	else
 	{
-#ifdef JP
-		power_desc[num] = "テレポート系魔法を使う (現在:OFF)";
-#else
 		power_desc[num] = "allow teleport (now Off)";
-#endif
 	}
 	powers[num++] = PET_TELEPORT;
 
 	if (p_ptr->pet_extra_flags & PF_ATTACK_SPELL)
 	{
-#ifdef JP
-		power_desc[num] = "攻撃魔法を使う (現在:ON)";
-#else
 		power_desc[num] = "allow cast attack spell (now On)";
-#endif
 	}
 	else
 	{
-#ifdef JP
-		power_desc[num] = "攻撃魔法を使う (現在:OFF)";
-#else
 		power_desc[num] = "allow cast attack spell (now Off)";
-#endif
 	}
 	powers[num++] = PET_ATTACK_SPELL;
 
 	if (p_ptr->pet_extra_flags & PF_SUMMON_SPELL)
 	{
-#ifdef JP
-		power_desc[num] = "召喚魔法を使う (現在:ON)";
-#else
 		power_desc[num] = "allow cast summon spell (now On)";
-#endif
 	}
 	else
 	{
-#ifdef JP
-		power_desc[num] = "召喚魔法を使う (現在:OFF)";
-#else
 		power_desc[num] = "allow cast summon spell (now Off)";
-#endif
 	}
 	powers[num++] = PET_SUMMON_SPELL;
 
 	if (p_ptr->pet_extra_flags & PF_BALL_SPELL)
 	{
-#ifdef JP
-		power_desc[num] = "プレイヤーを巻き込む範囲魔法を使う (現在:ON)";
-#else
 		power_desc[num] = "allow involve player in area spell (now On)";
-#endif
 	}
 	else
 	{
-#ifdef JP
-		power_desc[num] = "プレイヤーを巻き込む範囲魔法を使う (現在:OFF)";
-#else
 		power_desc[num] = "allow involve player in area spell (now Off)";
-#endif
 	}
 	powers[num++] = PET_BALL_SPELL;
 
 	if (p_ptr->riding)
 	{
-#ifdef JP
-		power_desc[num] = "ペットから降りる";
-#else
 		power_desc[num] = "get off a pet";
-#endif
 	}
 	else
 	{
-#ifdef JP
-		power_desc[num] = "ペットに乗る";
-#else
 		power_desc[num] = "ride a pet";
-#endif
 	}
 	powers[num++] = PET_RIDING;
 
-#ifdef JP
-	power_desc[num] = "ペットに名前をつける";
-#else
 	power_desc[num] = "name pets";
-#endif
 
 	powers[num++] = PET_NAME;
 
@@ -2632,21 +2285,13 @@ void do_cmd_pet(void)
 		screen_save();
 
 		/* Build a prompt */
-#ifdef JP
-		strnfmt(out_val, 78, "(コマンド、ESC=終了) コマンドを選んでください:");
-#else
 		strnfmt(out_val, 78, "(Command, ESC=exit) Choose command from menu.");
-#endif
 	}
 	else
 	{
 		/* Build a prompt */
 		strnfmt(out_val, 78,
-#ifdef JP
-		        "(コマンド %c-%c、'*'=一覧、ESC=終了) コマンドを選んでください:",
-#else
 		        "(Command %c-%c, *=List, ESC=exit) Select a command: ",
-#endif
 		        I2A(0), I2A(num - 1));
 	}
 
@@ -2722,11 +2367,7 @@ void do_cmd_pet(void)
 				for (ctr = 0; ctr < num; ctr++)
 				{
 					/* Letter/number for power selection */
-#ifdef JP
-					if (use_menu) sprintf(buf, "%c%s ", (ctr == mode) ? '*' : ' ', (ctr == (menu_line - 1)) ? "》" : "  ");
-#else
 					if (use_menu) sprintf(buf, "%c%s ", (ctr == mode) ? '*' : ' ', (ctr == (menu_line - 1)) ? "> " : "  ");
-#endif
 					else sprintf(buf, "%c%c) ", (ctr == mode) ? '*' : ' ', I2A(ctr));
 
 					strcat(buf, power_desc[ctr]);
@@ -2774,11 +2415,7 @@ void do_cmd_pet(void)
 		if (ask)
 		{
 			/* Prompt */
-#ifdef JP
-			strnfmt(buf, 78, "%sを使いますか？ ", power_desc[i]);
-#else
 			strnfmt(buf, 78, "Use %s? ", power_desc[i]);
-#endif
 
 			/* Belay that order */
 			if (!get_check(buf)) continue;
@@ -2816,11 +2453,7 @@ void do_cmd_pet(void)
 
 			if (!pet_ctr)
 			{
-#ifdef JP
-				msg_print("ペットがいない！");
-#else
 				msg_print("You have no pets!");
-#endif
 				break;
 			}
 			do_cmd_pet_dismiss();

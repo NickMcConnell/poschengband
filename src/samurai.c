@@ -376,13 +376,8 @@ cptr do_hissatsu_spell(int spell, int mode)
 		break;
 
 	case 15:
-#ifdef JP
-		if (name) return "魔神斬り";
-		if (desc) return "会心の一撃で攻撃する。攻撃がかわされやすい。";
-#else
 		if (name) return "Majingiri";
 		if (desc) return "Attempts to attack with critical hit. But this attack is easy to evade for a monster.";
-#endif
     
 		if (cast)
 		{
@@ -398,24 +393,15 @@ cptr do_hissatsu_spell(int spell, int mode)
 				py_attack(y, x, HISSATSU_MAJIN);
 			else
 			{
-#ifdef JP
-				msg_print("その方向にはモンスターはいません。");
-#else
 				msg_print("There is no monster.");
-#endif
 				return NULL;
 			}
 		}
 		break;
 
 	case 16:
-#ifdef JP
-		if (name) return "捨て身";
-		if (desc) return "強力な攻撃を繰り出す。次のターンまでの間、食らうダメージが増える。";
-#else
 		if (name) return "Desperate Attack";
 		if (desc) return "Attacks with all of your power. But all damages you take will be doubled for one turn.";
-#endif
     
 		if (cast)
 		{
@@ -431,11 +417,7 @@ cptr do_hissatsu_spell(int spell, int mode)
 				py_attack(y, x, HISSATSU_SUTEMI);
 			else
 			{
-#ifdef JP
-				msg_print("その方向にはモンスターはいません。");
-#else
 				msg_print("There is no monster.");
-#endif
 				return NULL;
 			}
 			p_ptr->sutemi = TRUE;
@@ -443,13 +425,8 @@ cptr do_hissatsu_spell(int spell, int mode)
 		break;
 
 	case 17:
-#ifdef JP
-		if (name) return "雷撃鷲爪斬";
-		if (desc) return "電撃耐性のないモンスターに非常に大きいダメージを与える。";
-#else
 		if (name) return "Lightning Eagle";
 		if (desc) return "Attacks a monster with more damage unless it has resistance to electricity.";
-#endif
     
 		if (cast)
 		{
@@ -465,24 +442,15 @@ cptr do_hissatsu_spell(int spell, int mode)
 				py_attack(y, x, HISSATSU_ELEC);
 			else
 			{
-#ifdef JP
-				msg_print("その方向にはモンスターはいません。");
-#else
 				msg_print("There is no monster.");
-#endif
 				return NULL;
 			}
 		}
 		break;
 
 	case 18:
-#ifdef JP
-		if (name) return "入身";
-		if (desc) return "素早く相手に近寄り攻撃する。";
-#else
 		if (name) return "Rush Attack";
 		if (desc) return "Steps close to a monster and attacks at a time.";
-#endif
     
 		if (cast)
 		{
@@ -491,13 +459,8 @@ cptr do_hissatsu_spell(int spell, int mode)
 		break;
 
 	case 19:
-#ifdef JP
-		if (name) return "赤流渦";
-		if (desc) return "自分自身も傷を作りつつ、その傷が深いほど大きい威力で全方向の敵を攻撃できる。生きていないモンスターには効果がない。";
-#else
 		if (name) return "Bloody Maelstrom";
 		if (desc) return "Attacks all adjacent monsters with power corresponding to your cut status. Then increases your cut status. No effect to unliving monsters.";
-#endif
     
 		if (cast)
 		{
@@ -528,11 +491,7 @@ cptr do_hissatsu_spell(int spell, int mode)
 						char m_name[80];
 	
 						monster_desc(m_name, m_ptr, 0);
-#ifdef JP
-						msg_format("%sには効果がない！", m_name);
-#else
 						msg_format("%s is unharmed!", m_name);
-#endif
 					}
 					else py_attack(y, x, HISSATSU_SEKIRYUKA);
 				}
@@ -541,13 +500,8 @@ cptr do_hissatsu_spell(int spell, int mode)
 		break;
 
 	case 20:
-#ifdef JP
-		if (name) return "激震撃";
-		if (desc) return "地震を起こす。";
-#else
 		if (name) return "Earthquake Blow";
 		if (desc) return "Shakes dungeon structure, and results in random swapping of floors and walls.";
-#endif
     
 		if (cast)
 		{
@@ -609,34 +563,20 @@ cptr do_hissatsu_spell(int spell, int mode)
 		break;
 
 	case 22:
-#ifdef JP
-		if (name) return "気迫の雄叫び";
-		if (desc) return "視界内の全モンスターに対して轟音の攻撃を行う。さらに、近くにいるモンスターを怒らせる。";
-#else
 		if (name) return "War Cry";
 		if (desc) return "Damages all monsters in sight with sound. Aggravate nearby monsters.";
-#endif
     
 		if (cast)
 		{
-#ifdef JP
-			msg_print("雄叫びをあげた！");
-#else
 			msg_print("You roar out!");
-#endif
 			project_hack(GF_SOUND, randint1(plev * 3));
 			aggravate_monsters(0);
 		}
 		break;
 
 	case 23:
-#ifdef JP
-		if (name) return "無双三段";
-		if (desc) return "強力な3段攻撃を繰り出す。";
-#else
 		if (name) return "Musou-Sandan";
 		if (desc) return "Attacks with powerful 3 strikes.";
-#endif
     
 		if (cast)
 		{
@@ -661,11 +601,7 @@ cptr do_hissatsu_spell(int spell, int mode)
 					py_attack(y, x, HISSATSU_3DAN);
 				else
 				{
-#ifdef JP
-					msg_print("その方向にはモンスターはいません。");
-#else
 					msg_print("There is no monster.");
-#endif
 					return NULL;
 				}
 	
@@ -721,13 +657,8 @@ cptr do_hissatsu_spell(int spell, int mode)
 		break;
 
 	case 24:
-#ifdef JP
-		if (name) return "吸血鬼の牙";
-		if (desc) return "攻撃した相手の体力を吸いとり、自分の体力を回復させる。生命を持たないモンスターには通じない。";
-#else
 		if (name) return "Vampire's Fang";
 		if (desc) return "Attacks with vampiric strikes which absorbs HP from a monster and gives them to you. No effect to unliving monsters.";
-#endif
     
 		if (cast)
 		{
@@ -743,32 +674,19 @@ cptr do_hissatsu_spell(int spell, int mode)
 				py_attack(y, x, HISSATSU_DRAIN);
 			else
 			{
-#ifdef JP
-					msg_print("その方向にはモンスターはいません。");
-#else
 					msg_print("There is no monster.");
-#endif
 				return NULL;
 			}
 		}
 		break;
 
 	case 25:
-#ifdef JP
-		if (name) return "幻惑";
-		if (desc) return "視界内の起きている全モンスターに朦朧、混乱、眠りを与えようとする。";
-#else
 		if (name) return "Moon Dazzling";
 		if (desc) return "Attempts to stun, confuse and sleep all waking monsters.";
-#endif
     
 		if (cast)
 		{
-#ifdef JP
-			msg_print("武器を不規則に揺らした．．．");
-#else
 			msg_print("You irregularly wave your weapon...");
-#endif
 			project_hack(GF_ENGETSU, plev * 4);
 			project_hack(GF_ENGETSU, plev * 4);
 			project_hack(GF_ENGETSU, plev * 4);
@@ -776,13 +694,8 @@ cptr do_hissatsu_spell(int spell, int mode)
 		break;
 
 	case 26:
-#ifdef JP
-		if (name) return "百人斬り";
-		if (desc) return "連続して入身でモンスターを攻撃する。攻撃するたびにMPを消費。MPがなくなるか、モンスターを倒せなかったら百人斬りは終了する。";
-#else
 		if (name) return "Hundred Slaughter";
 		if (desc) return "Performs a series of rush attacks. The series continues while killing each monster in a time and SP remains.";
-#endif
     
 		if (cast)
 		{
@@ -818,13 +731,8 @@ cptr do_hissatsu_spell(int spell, int mode)
 		break;
 
 	case 27:
-#ifdef JP
-		if (name) return "天翔龍閃";
-		if (desc) return "視界内の場所を指定して、その場所と自分の間にいる全モンスターを攻撃し、その場所に移動する。";
-#else
 		if (name) return "Dragonic Flash";
 		if (desc) return "Runs toward given location while attacking all monsters on the path.";
-#endif
     
 		if (cast)
 		{
@@ -836,20 +744,12 @@ cptr do_hissatsu_spell(int spell, int mode)
 			    (distance(y, x, py, px) > MAX_SIGHT / 2) ||
 			    !projectable(py, px, y, x))
 			{
-#ifdef JP
-				msg_print("失敗！");
-#else
 				msg_print("You cannot move to that place!");
-#endif
 				break;
 			}
 			if (p_ptr->anti_tele)
 			{
-#ifdef JP
-				msg_print("不思議な力がテレポートを防いだ！");
-#else
 				msg_print("A mysterious force prevents you from teleporting!");
-#endif
 	
 				break;
 			}
@@ -859,13 +759,8 @@ cptr do_hissatsu_spell(int spell, int mode)
 		break;
 
 	case 28:
-#ifdef JP
-		if (name) return "二重の剣撃";
-		if (desc) return "1ターンで2度攻撃を行う。";
-#else
 		if (name) return "Twin Slash";
 		if (desc) return "double attacks at a time.";
-#endif
     
 		if (cast)
 		{
@@ -887,11 +782,7 @@ cptr do_hissatsu_spell(int spell, int mode)
 			}
 			else
 			{
-#ifdef JP
-	msg_print("その方向にはモンスターはいません。");
-#else
 				msg_print("You don't see any monster in this direction");
-#endif
 				return NULL;
 			}
 		}
@@ -952,13 +843,8 @@ cptr do_hissatsu_spell(int spell, int mode)
 		break;
 
 	case 30:
-#ifdef JP
-		if (name) return "慶雲鬼忍剣";
-		if (desc) return "自分もダメージをくらうが、相手に非常に大きなダメージを与える。アンデッドには特に効果がある。";
-#else
 		if (name) return "Keiun-Kininken";
 		if (desc) return "Attacks a monster with extremely powerful damage. But you also takes some damages. Hurts a undead monster greatly.";
-#endif
     
 		if (cast)
 		{
@@ -974,44 +860,23 @@ cptr do_hissatsu_spell(int spell, int mode)
 				py_attack(y, x, HISSATSU_UNDEAD);
 			else
 			{
-#ifdef JP
-				msg_print("その方向にはモンスターはいません。");
-#else
 				msg_print("There is no monster.");
-#endif
 				return NULL;
 			}
-#ifdef JP
-			take_hit(DAMAGE_NOESCAPE, 100 + randint1(100), "慶雲鬼忍剣を使った衝撃", -1);
-#else
 			take_hit(DAMAGE_NOESCAPE, 100 + randint1(100), "exhaustion on using Keiun-Kininken", -1);
-#endif
 		}
 		break;
 
 	case 31:
-#ifdef JP
-		if (name) return "切腹";
-		if (desc) return "「武士道とは、死ぬことと見つけたり。」";
-#else
 		if (name) return "Harakiri";
 		if (desc) return "'Busido is found in death'";
-#endif
 
 		if (cast)
 		{
 			int i;
-#ifdef JP
-	if (!get_check("本当に自殺しますか？")) return NULL;
-#else
 			if (!get_check("Do you really want to commit suicide? ")) return NULL;
-#endif
 				/* Special Verification for suicide */
-#ifdef JP
-	prt("確認のため '@' を押して下さい。", 0, 0);
-#else
 			prt("Please verify SUICIDE by typing the '@' sign: ", 0, 0);
-#endif
 	
 			flush();
 			i = inkey();
@@ -1024,11 +889,7 @@ cptr do_hissatsu_spell(int spell, int mode)
 			}
 			else
 			{
-#ifdef JP
-				msg_print("武士道とは、死ぬことと見つけたり。");
-#else
 				msg_print("Meaning of Bushi-do is found in the death.");
-#endif
 				take_hit(DAMAGE_FORCE, 9999, "Seppuku", -1);
 			}
 		}

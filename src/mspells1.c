@@ -1407,9 +1407,7 @@ bool make_attack_spell(int m_idx, bool ticked_off)
 	monster_type    *m_ptr = &m_list[m_idx];
 	monster_race    *r_ptr = &r_info[m_ptr->r_idx];
 	char            m_name[80];
-#ifndef JP
 	char            m_poss[80];
-#endif
 	bool            no_inate = FALSE;
 	bool            do_spell = DO_SPELL_NONE;
 	int             dam = 0;
@@ -1773,10 +1771,8 @@ bool make_attack_spell(int m_idx, bool ticked_off)
 	/* Get the monster name (or "it") */
 	monster_desc(m_name, m_ptr, 0x00);
 
-#ifndef JP
 	/* Get the monster possessive ("his"/"her"/"its") */
 	monster_desc(m_poss, m_ptr, MD_PRON_VISIBLE | MD_POSSESSIVE);
-#endif
 
 	switch (do_spell)
 	{
@@ -1826,11 +1822,7 @@ bool make_attack_spell(int m_idx, bool ticked_off)
 	{
 		disturb(1, 0);
 		/* Message */
-#ifdef JP
-		msg_format("%^sは呪文を唱えようとしたが失敗した。", m_name);
-#else
 		msg_format("%^s tries to cast a spell, but fails.", m_name);
-#endif
 
 		return (TRUE);
 	}
@@ -1838,11 +1830,7 @@ bool make_attack_spell(int m_idx, bool ticked_off)
 	/* Hex: Anti Magic Barrier */
 	if (!spell_is_inate(thrown_spell) && magic_barrier(m_idx))
 	{
-#ifdef JP
-		msg_format("反魔法バリアが%^sの呪文をかき消した。", m_name);
-#else
 		msg_format("Anti magic barrier cancels the spell which %^s casts.", m_name);
-#endif
 		return (TRUE);
 	}
 
@@ -2286,17 +2274,9 @@ bool make_attack_spell(int m_idx, bool ticked_off)
 		case 128+1:
 		{
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
-#else
 			else msg_format("%^s casts a lightning ball.", m_name);
-#endif
 
 			dam = (randint1(rlev * 3 / 2) + 8) * ((r_ptr->flags2 & RF2_POWERFUL) ? 2 : 1);
 			breath(y, x, m_idx, GF_ELEC, dam, 2, FALSE, MS_BALL_ELEC, learnable);
@@ -2311,31 +2291,16 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 
 			if (m_ptr->r_idx == MON_ROLENTO)
 			{
-#ifdef JP
-				if (blind)
-					msg_format("%sが何かを投げた。", m_name);
-				else 
-					msg_format("%sは手榴弾を投げた。", m_name);
-#else
 				if (blind)
 					msg_format("%^s throws something.", m_name);
 				else
 					msg_format("%^s throws a hand grenade.", m_name);
-#endif
 			}
 			else
 			{
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 				if (blind) msg_format("%^s mumbles.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sがファイア・ボールの呪文を唱えた。", m_name);
-#else
 				else msg_format("%^s casts a fire ball.", m_name);
-#endif
 			}
 
 			dam = (randint1(rlev * 7 / 2) + 10) * ((r_ptr->flags2 & RF2_POWERFUL) ? 2 : 1);
@@ -2348,17 +2313,9 @@ else msg_format("%^sがファイア・ボールの呪文を唱えた。", m_name);
 		case 128+3:
 		{
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sがアイス・ボールの呪文を唱えた。", m_name);
-#else
 			else msg_format("%^s casts a frost ball.", m_name);
-#endif
 
 			dam = (randint1(rlev * 3 / 2) + 10) * ((r_ptr->flags2 & RF2_POWERFUL) ? 2 : 1);
 			breath(y, x, m_idx, GF_COLD, dam, 2, FALSE, MS_BALL_COLD, learnable);
@@ -2370,17 +2327,9 @@ else msg_format("%^sがアイス・ボールの呪文を唱えた。", m_name);
 		case 128+4:
 		{
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sが悪臭雲の呪文を唱えた。", m_name);
-#else
 			else msg_format("%^s casts a stinking cloud.", m_name);
-#endif
 
 			dam = damroll(12, 2) * ((r_ptr->flags2 & RF2_POWERFUL) ? 2 : 1);
 			breath(y, x, m_idx, GF_POIS, dam, 2, FALSE, MS_BALL_POIS, learnable);
@@ -2392,17 +2341,9 @@ else msg_format("%^sが悪臭雲の呪文を唱えた。", m_name);
 		case 128+5:
 		{
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sが地獄球の呪文を唱えた。", m_name);
-#else
 			else msg_format("%^s casts a nether ball.", m_name);
-#endif
 
 			dam = 50 + damroll(10, 10) + (rlev * ((r_ptr->flags2 & RF2_POWERFUL) ? 2 : 1));
 			breath(y, x, m_idx, GF_NETHER, dam, 2, FALSE, MS_BALL_NETHER, learnable);
@@ -2414,23 +2355,11 @@ else msg_format("%^sが地獄球の呪文を唱えた。", m_name);
 		case 128+6:
 		{
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sが流れるような身振りをした。", m_name);
-#else
 			else msg_format("%^s gestures fluidly.", m_name);
-#endif
 
-#ifdef JP
-msg_print("あなたは渦巻きに飲み込まれた。");
-#else
 			msg_print("You are engulfed in a whirlpool.");
-#endif
 
 			dam = ((r_ptr->flags2 & RF2_POWERFUL) ? randint1(rlev * 3) : randint1(rlev * 2)) + 50;
 			breath(y, x, m_idx, GF_WATER, dam, 4, FALSE, MS_BALL_WATER, learnable);
@@ -2443,17 +2372,9 @@ msg_print("あなたは渦巻きに飲み込まれた。");
 		case 128+7:
 		{
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かを力強くつぶやいた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles powerfully.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sが魔力の嵐の呪文を念じた。", m_name);
-#else
 			else msg_format("%^s invokes a mana storm.", m_name);
-#endif
 
 			dam = (rlev * 4) + 50 + damroll(10, 10);
 			breath(y, x, m_idx, GF_MANA, dam, 4, FALSE, MS_BALL_MANA, learnable);
@@ -2464,17 +2385,9 @@ else msg_format("%^sが魔力の嵐の呪文を念じた。", m_name);
 		case 128+8:
 		{
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かを力強くつぶやいた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles powerfully.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sが暗黒の嵐の呪文を念じた。", m_name);
-#else
 			else msg_format("%^s invokes a darkness storm.", m_name);
-#endif
 
 			dam = (rlev * 4) + 50 + damroll(10, 10);
 			breath(y, x, m_idx, GF_DARK, dam, 4, FALSE, MS_BALL_DARK, learnable);
@@ -2501,20 +2414,12 @@ else msg_format("%^sが暗黒の嵐の呪文を念じた。", m_name);
 			disturb(1, 0);
 			if (!seen)
 			{
-#ifdef JP
-msg_print("何かがあなたの精神に念を放っているようだ。");
-#else
 				msg_print("You feel something focusing on your mind.");
-#endif
 
 			}
 			else
 			{
-#ifdef JP
-msg_format("%^sがあなたの瞳をじっとにらんでいる。", m_name);
-#else
 				msg_format("%^s gazes deep into your eyes.", m_name);
-#endif
 
 			}
 
@@ -2530,20 +2435,12 @@ msg_format("%^sがあなたの瞳をじっとにらんでいる。", m_name);
 			disturb(1, 0);
 			if (!seen)
 			{
-#ifdef JP
-msg_print("何かがあなたの精神に念を放っているようだ。");
-#else
 				msg_print("You feel something focusing on your mind.");
-#endif
 
 			}
 			else
 			{
-#ifdef JP
-msg_format("%^sがあなたの瞳をじっと見ている。", m_name);
-#else
 				msg_format("%^s looks deep into your eyes.", m_name);
-#endif
 
 			}
 
@@ -2557,17 +2454,9 @@ msg_format("%^sがあなたの瞳をじっと見ている。", m_name);
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sがあなたを指さして呪った。", m_name);
-#else
 			else msg_format("%^s points at you and curses.", m_name);
-#endif
 
 			dam = damroll(3, 8);
 			breath(y, x, m_idx, GF_CAUSE_1, dam, 0, FALSE, MS_CAUSE_1, learnable);
@@ -2579,17 +2468,9 @@ else msg_format("%^sがあなたを指さして呪った。", m_name);
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sがあなたを指さして恐ろしげに呪った。", m_name);
-#else
 			else msg_format("%^s points at you and curses horribly.", m_name);
-#endif
 
 			dam = damroll(8, 8);
 			breath(y, x, m_idx, GF_CAUSE_2, dam, 0, FALSE, MS_CAUSE_2, learnable);
@@ -2601,17 +2482,9 @@ else msg_format("%^sがあなたを指さして恐ろしげに呪った。", m_name);
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かを大声で叫んだ。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles loudly.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sがあなたを指さして恐ろしげに呪文を唱えた！", m_name);
-#else
 			else msg_format("%^s points at you, incanting terribly!", m_name);
-#endif
 
 			dam = damroll(10, 15);
 			breath(y, x, m_idx, GF_CAUSE_3, dam, 0, FALSE, MS_CAUSE_3, learnable);
@@ -2623,17 +2496,9 @@ else msg_format("%^sがあなたを指さして恐ろしげに呪文を唱えた！", m_name);
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが「お前は既に死んでいる」と叫んだ。", m_name);
-#else
 			if (blind) msg_format("%^s screams the word 'DIE!'", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sがあなたの秘孔を突いて「お前は既に死んでいる」と叫んだ。", m_name);
-#else
 			else msg_format("%^s points at you, screaming the word DIE!", m_name);
-#endif
 
 			dam = damroll(15, 15);
 			breath(y, x, m_idx, GF_CAUSE_4, dam, 0, FALSE, MS_CAUSE_4, learnable);
@@ -2645,17 +2510,9 @@ else msg_format("%^sがあなたの秘孔を突いて「お前は既に死んでいる」と叫んだ。", m
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sがアシッド・ボルトの呪文を唱えた。", m_name);
-#else
 			else msg_format("%^s casts a acid bolt.", m_name);
-#endif
 
 			dam = (damroll(7, 8) + (rlev / 3)) * ((r_ptr->flags2 & RF2_POWERFUL) ? 2 : 1);
 			bolt(m_idx, GF_ACID, dam, MS_BOLT_ACID, learnable);
@@ -2669,17 +2526,9 @@ else msg_format("%^sがアシッド・ボルトの呪文を唱えた。", m_name);
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sがサンダー・ボルトの呪文を唱えた。", m_name);
-#else
 			else msg_format("%^s casts a lightning bolt.", m_name);
-#endif
 
 			dam = (damroll(4, 8) + (rlev / 3)) * ((r_ptr->flags2 & RF2_POWERFUL) ? 2 : 1);
 			bolt(m_idx, GF_ELEC, dam, MS_BOLT_ELEC, learnable);
@@ -2693,17 +2542,9 @@ else msg_format("%^sがサンダー・ボルトの呪文を唱えた。", m_name);
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sがファイア・ボルトの呪文を唱えた。", m_name);
-#else
 			else msg_format("%^s casts a fire bolt.", m_name);
-#endif
 
 			dam = (damroll(9, 8) + (rlev / 3)) * ((r_ptr->flags2 & RF2_POWERFUL) ? 2 : 1);
 			bolt(m_idx, GF_FIRE, dam, MS_BOLT_FIRE, learnable);
@@ -2717,17 +2558,9 @@ else msg_format("%^sがファイア・ボルトの呪文を唱えた。", m_name);
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sがアイス・ボルトの呪文を唱えた。", m_name);
-#else
 			else msg_format("%^s casts a frost bolt.", m_name);
-#endif
 
 			dam = (damroll(6, 8) + (rlev / 3)) * ((r_ptr->flags2 & RF2_POWERFUL) ? 2 : 1);
 			bolt(m_idx, GF_COLD, dam, MS_BOLT_COLD, learnable);
@@ -2740,17 +2573,9 @@ else msg_format("%^sがアイス・ボルトの呪文を唱えた。", m_name);
 		case 128+20:
 		{
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かを力強くつぶやいた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles powerfully.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sがスターバーストの呪文を念じた。", m_name);
-#else
 			else msg_format("%^s invokes a starburst.", m_name);
-#endif
 
 			dam = (rlev * 4) + 50 + damroll(10, 10);
 			breath(y, x, m_idx, GF_LITE, dam, 4, FALSE, MS_STARBURST, learnable);
@@ -2763,17 +2588,9 @@ else msg_format("%^sがスターバーストの呪文を念じた。", m_name);
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sが地獄の矢の呪文を唱えた。", m_name);
-#else
 			else msg_format("%^s casts a nether bolt.", m_name);
-#endif
 
 			dam = 30 + damroll(5, 5) + (rlev * 4) / ((r_ptr->flags2 & RF2_POWERFUL) ? 2 : 3);
 			bolt(m_idx, GF_NETHER, dam, MS_BOLT_NETHER, learnable);
@@ -2787,17 +2604,9 @@ else msg_format("%^sが地獄の矢の呪文を唱えた。", m_name);
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sがウォーター・ボルトの呪文を唱えた。", m_name);
-#else
 			else msg_format("%^s casts a water bolt.", m_name);
-#endif
 
 			dam = damroll(10, 10) + (rlev * 3 / ((r_ptr->flags2 & RF2_POWERFUL) ? 2 : 3));
 			bolt(m_idx, GF_WATER, dam, MS_BOLT_WATER, learnable);
@@ -2810,17 +2619,9 @@ else msg_format("%^sがウォーター・ボルトの呪文を唱えた。", m_name);
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sが魔力の矢の呪文を唱えた。", m_name);
-#else
 			else msg_format("%^s casts a mana bolt.", m_name);
-#endif
 
 			dam = randint1(rlev * 7 / 2) + 50;
 			bolt(m_idx, GF_MANA, dam, MS_BOLT_MANA, learnable);
@@ -2833,17 +2634,9 @@ else msg_format("%^sが魔力の矢の呪文を唱えた。", m_name);
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sがプラズマ・ボルトの呪文を唱えた。", m_name);
-#else
 			else msg_format("%^s casts a plasma bolt.", m_name);
-#endif
 
 			dam = 10 + damroll(8, 7) + (rlev * 3 / ((r_ptr->flags2 & RF2_POWERFUL) ? 2 : 3));
 			bolt(m_idx, GF_PLASMA, dam, MS_BOLT_PLASMA, learnable);
@@ -2856,17 +2649,9 @@ else msg_format("%^sがプラズマ・ボルトの呪文を唱えた。", m_name);
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sが極寒の矢の呪文を唱えた。", m_name);
-#else
 			else msg_format("%^s casts an ice bolt.", m_name);
-#endif
 
 			dam = damroll(6, 6) + (rlev * 3 / ((r_ptr->flags2 & RF2_POWERFUL) ? 2 : 3));
 			bolt(m_idx, GF_ICE, dam, MS_BOLT_ICE, learnable);
@@ -2880,17 +2665,9 @@ else msg_format("%^sが極寒の矢の呪文を唱えた。", m_name);
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sがマジック・ミサイルの呪文を唱えた。", m_name);
-#else
 			else msg_format("%^s casts a magic missile.", m_name);
-#endif
 
 			dam = damroll(2, 6) + (rlev / 3);
 			bolt(m_idx, GF_MISSILE, dam, MS_MAGIC_MISSILE, learnable);
@@ -2903,17 +2680,9 @@ else msg_format("%^sがマジック・ミサイルの呪文を唱えた。", m_name);
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやくと、恐ろしげな音が聞こえた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles, and you hear scary noises.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sが恐ろしげな幻覚を作り出した。", m_name);
-#else
 			else msg_format("%^s casts a fearful illusion.", m_name);
-#endif
 
 			fear_scare_p(m_ptr);	
 			learn_spell(MS_SCARE);
@@ -3051,20 +2820,12 @@ else msg_format("%^sが恐ろしげな幻覚を作り出した。", m_name);
 			/* Message */
 			if (blind)
 			{
-#ifdef JP
-msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 				msg_format("%^s mumbles.", m_name);
-#endif
 
 			}
 			else
 			{
-#ifdef JP
-msg_format("%^sが自分の傷に集中した。", m_name);
-#else
 				msg_format("%^s concentrates on %s wounds.", m_name, m_poss);
-#endif
 
 			}
 
@@ -3083,20 +2844,12 @@ msg_format("%^sが自分の傷に集中した。", m_name);
 				/* Message */
 				if (seen)
 				{
-#ifdef JP
-msg_format("%^sは完全に治った！", m_name);
-#else
 					msg_format("%^s looks completely healed!", m_name);
-#endif
 
 				}
 				else
 				{
-#ifdef JP
-msg_format("%^sは完全に治ったようだ！", m_name);
-#else
 					msg_format("%^s sounds completely healed!", m_name);
-#endif
 
 				}
 			}
@@ -3107,20 +2860,12 @@ msg_format("%^sは完全に治ったようだ！", m_name);
 				/* Message */
 				if (seen)
 				{
-#ifdef JP
-msg_format("%^sは体力を回復したようだ。", m_name);
-#else
 					msg_format("%^s looks healthier.", m_name);
-#endif
 
 				}
 				else
 				{
-#ifdef JP
-msg_format("%^sは体力を回復したようだ。", m_name);
-#else
 					msg_format("%^s sounds healthier.", m_name);
-#endif
 
 				}
 			}
@@ -3136,11 +2881,7 @@ msg_format("%^sは体力を回復したようだ。", m_name);
 				(void)set_monster_monfear(m_idx, 0);
 
 				/* Message */
-#ifdef JP
-				msg_format("%^sは勇気を取り戻した。", m_name);
-#else
 				msg_format("%^s recovers %s courage.", m_name, m_poss);
-#endif
 			}
 			break;
 		}
@@ -3153,20 +2894,12 @@ msg_format("%^sは体力を回復したようだ。", m_name);
 			/* Message */
 			if (!seen)
 			{
-#ifdef JP
-msg_format("%^sが何かを力強くつぶやいた。", m_name);
-#else
 				msg_format("%^s mumbles powerfully.", m_name);
-#endif
 
 			}
 			else
 			{
-#ifdef JP
-msg_format("%sは無傷の球の呪文を唱えた。", m_name);
-#else
 				msg_format("%^s casts a Globe of Invulnerability.", m_name);
-#endif
 
 			}
 
@@ -3180,19 +2913,11 @@ msg_format("%sは無傷の球の呪文を唱えた。", m_name);
 			disturb(1, 0);
 			if (teleport_barrier(m_idx))
 			{
-#ifdef JP
-				msg_format("魔法のバリアが%^sのテレポートを邪魔した。", m_name);
-#else
 				msg_format("Magic barrier obstructs teleporting of %^s.", m_name);
-#endif
 			}
 			else
 			{
-#ifdef JP
-				msg_format("%^sが瞬時に消えた。", m_name);
-#else
 				msg_format("%^s blinks away.", m_name);
-#endif
 				teleport_away(m_idx, 10, 0L);
 				p_ptr->update |= (PU_MONSTERS);
 			}
@@ -3205,19 +2930,11 @@ msg_format("%sは無傷の球の呪文を唱えた。", m_name);
 			disturb(1, 0);
 			if (teleport_barrier(m_idx))
 			{
-#ifdef JP
-				msg_format("魔法のバリアが%^sのテレポートを邪魔した。", m_name);
-#else
 				msg_format("Magic barrier obstructs teleporting of %^s.", m_name);
-#endif
 			}
 			else
 			{
-#ifdef JP
-				msg_format("%^sがテレポートした。", m_name);
-#else
 				msg_format("%^s teleports away.", m_name);
-#endif
 				teleport_away_followable(m_idx);
 			}
 			break;
@@ -3263,11 +2980,7 @@ msg_format("%sは無傷の球の呪文を唱えた。", m_name);
 					m_list[hack_m_idx_ii].hp = dummy_hp;
 					m_list[hack_m_idx_ii].maxhp = dummy_maxhp;
 
-#ifdef JP
-					msg_print("『バーノール・ルパート』が分裂した！");
-#else
 					msg_print("Banor=Rupart splits in two person!");
-#endif
 
 					break;
 				}
@@ -3299,11 +3012,7 @@ msg_format("%sは無傷の球の呪文を唱えた。", m_name);
 					m_list[hack_m_idx_ii].hp = dummy_hp;
 					m_list[hack_m_idx_ii].maxhp = dummy_maxhp;
 
-#ifdef JP
-					msg_print("『バーノール』と『ルパート』が合体した！");
-#else
 					msg_print("Banor and Rupart combine into one!");
-#endif
 
 					break;
 				}
@@ -3471,13 +3180,8 @@ msg_format("%sは無傷の球の呪文を唱えた。", m_name);
 				break;
 			}
 			case MON_ROLENTO:
-#ifdef JP
-				if (blind) msg_format("%^sが何か大量に投げた。", m_name);
-				else msg_format("%^sは手榴弾をばらまいた。", m_name);
-#else
 				if (blind) msg_format("%^s spreads something.", m_name);
 				else msg_format("%^s throws some hand grenades.", m_name);
-#endif
 
 				{
 					int num = 1 + randint1(3);
@@ -3487,11 +3191,7 @@ msg_format("%sは無傷の球の呪文を唱えた。", m_name);
 						count += summon_named_creature(m_idx, y, x, MON_SHURYUUDAN, mode);
 					}
 				}
-#ifdef JP
-				if (blind && count) msg_print("多くのものが間近にばらまかれる音がする。");
-#else
 				if (blind && count) msg_print("You hear many things are scattered nearby.");
-#endif
 				break;
 
 			default:
@@ -3500,11 +3200,7 @@ msg_format("%sは無傷の球の呪文を唱えた。", m_name);
 					disturb(1, 0);
 					if (one_in_(3) || !direct)
 					{
-#ifdef JP
-						msg_format("%^sは突然視界から消えた!", m_name);
-#else
 						msg_format("%^s suddenly go out of your sight!", m_name);
-#endif
 						teleport_away(m_idx, 10, TELEPORT_NONMAGICAL);
 						p_ptr->update |= (PU_MONSTERS);
 					}
@@ -3513,11 +3209,7 @@ msg_format("%sは無傷の球の呪文を唱えた。", m_name);
 						int get_damage = 0;
 						bool fear; /* dummy */
 
-#ifdef JP
-						msg_format("%^sがあなたを掴んで空中から投げ落とした。", m_name);
-#else
 						msg_format("%^s holds you, and drops from the sky.", m_name);
-#endif
 						dam = damroll(4, 8);
 						teleport_player_to(m_ptr->fy, m_ptr->fx, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
 
@@ -3525,19 +3217,11 @@ msg_format("%sは無傷の球の呪文を唱えた。", m_name);
 
 						if (p_ptr->levitation)
 						{
-#ifdef JP
-							msg_print("あなたは静かに着地した。");
-#else
 							msg_print("You float gently down to the ground.");
-#endif
 						}
 						else
 						{
-#ifdef JP
-							msg_print("あなたは地面に叩きつけられた。");
-#else
 							msg_print("You crashed into the ground.");
-#endif
 							dam += damroll(6, 8);
 						}
 
@@ -3577,11 +3261,7 @@ msg_format("%sは無傷の球の呪文を唱えた。", m_name);
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
-#ifdef JP
-msg_format("%^sがあなたを引き戻した。", m_name);
-#else
 			msg_format("%^s commands you to return.", m_name);
-#endif
 
 			/* Only powerful monsters can choose this spell when the player is not in 
 			   los.  In this case, it is nasty enough to warrant a saving throw. */
@@ -3658,17 +3338,9 @@ msg_format("%^sがあなたを引き戻した。", m_name);
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sが光の剣を放った。", m_name);
-#else
 			else msg_format("%^s throw a Psycho-Spear.", m_name);
-#endif
 
 			dam = (r_ptr->flags2 & RF2_POWERFUL) ? (randint1(rlev * 2) + 150) : (randint1(rlev * 3 / 2) + 100);
 			beam(m_idx, GF_PSY_SPEAR, dam, MS_PSY_SPEAR, learnable);
@@ -3680,19 +3352,10 @@ else msg_format("%^sが光の剣を放った。", m_name);
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
-#ifdef JP
-			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles.", m_name);
-#endif
 
-#ifdef JP
-			else if (can_use_lite_area) msg_format("%^sが辺りを明るく照らした。", m_name);
-			else msg_format("%^sが暗闇の中で手を振った。", m_name);
-#else
 			else if (can_use_lite_area) msg_format("%^s cast a spell to light up.", m_name);
 			else msg_format("%^s gestures in shadow.", m_name);
-#endif
 
 			if (can_use_lite_area) (void)lite_area(0, 3);
 			else
@@ -3707,17 +3370,9 @@ else msg_format("%^sが光の剣を放った。", m_name);
 		case 160+13:
 		{
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいて邪悪に微笑んだ。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles, and then cackles evilly.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sが呪文を唱えて邪悪に微笑んだ。", m_name);
-#else
 			else msg_format("%^s casts a spell and cackles evilly.", m_name);
-#endif
 
 			learn_spell(MS_MAKE_TRAP);
 			(void)trap_creation(y, x);
@@ -3747,17 +3402,9 @@ else msg_format("%^sが呪文を唱えて邪悪に微笑んだ。", m_name);
 		case 160+15:
 		{
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sが死者復活の呪文を唱えた。", m_name);
-#else
 			else msg_format("%^s casts a spell to revive corpses.", m_name);
-#endif
 			animate_dead(m_idx, m_ptr->fy, m_ptr->fx);
 			break;
 		}
@@ -3874,29 +3521,13 @@ else msg_format("%^sが死者復活の呪文を唱えた。", m_name);
 			disturb(1, 0);
 			if (m_ptr->r_idx == MON_SERPENT || m_ptr->r_idx == MON_ZOMBI_SERPENT)
 			{
-#ifdef JP
-				if (blind)
-					msg_format("%^sが何かをつぶやいた。", m_name);
-				else
-					msg_format("%^sがダンジョンの主を召喚した。", m_name);
-#else
 				if (blind)
 					msg_format("%^s mumbles.", m_name);
 				else
 					msg_format("%^s magically summons guardians of dungeons.", m_name);
-#endif
 			}
 			else if (m_ptr->r_idx != MON_VARIANT_MAINTAINER)
 			{
-#ifdef JP
-				if (blind)
-					msg_format("%^sが何かをつぶやいた。", m_name);
-				else
-					msg_format("%^sは魔法で%sを召喚した。",
-					m_name,
-					((r_ptr->flags1) & RF1_UNIQUE ?
-					"手下" : "仲間"));
-#else
 				if (blind)
 					msg_format("%^s mumbles.", m_name);
 				else
@@ -3904,7 +3535,6 @@ else msg_format("%^sが死者復活の呪文を唱えた。", m_name);
 					m_name, m_poss,
 					((r_ptr->flags1) & RF1_UNIQUE ?
 					"minions" : "kin"));
-#endif
 			}
 
 			switch (m_ptr->r_idx)
@@ -3938,11 +3568,7 @@ else msg_format("%^sが死者復活の呪文を唱えた。", m_name);
 
 					if (r_info[MON_JORMUNGAND].cur_num < r_info[MON_JORMUNGAND].max_num && one_in_(6))
 					{
-#ifdef JP
-						msg_print("地面から水が吹き出した！");
-#else
 						msg_print("Water blew off from the ground!");
-#endif
 						fire_ball_hide(GF_WATER_FLOW, 0, 3, 8);
 					}
 
@@ -4039,11 +3665,7 @@ else msg_format("%^sが死者復活の呪文を唱えた。", m_name);
 				}
 				break;
 			}
-#ifdef JP
-			if (blind && count) msg_print("多くのものが間近に現れた音がする。");
-#else
 			if (blind && count) msg_print("You hear many things appear nearby.");
-#endif
 
 			break;
 		}
@@ -4052,23 +3674,11 @@ else msg_format("%^sが死者復活の呪文を唱えた。", m_name);
 		case 160+17:
 		{
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sがサイバーデーモンを召喚した！", m_name);
-#else
 			else msg_format("%^s magically summons Cyberdemons!", m_name);
-#endif
 
-#ifdef JP
-if (blind && count) msg_print("重厚な足音が近くで聞こえる。");
-#else
 			if (blind && count) msg_print("You hear heavy steps nearby.");
-#endif
 
 			summon_cyber(m_idx, y, x);
 			break;
@@ -4078,27 +3688,15 @@ if (blind && count) msg_print("重厚な足音が近くで聞こえる。");
 		case 160+18:
 		{
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sが魔法で仲間を召喚した！", m_name);
-#else
 			else msg_format("%^s magically summons help!", m_name);
-#endif
 
 			for (k = 0; k < 1; k++)
 			{
 				count += summon_specific(m_idx, y, x, rlev, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
 			}
-#ifdef JP
-if (blind && count) msg_print("何かが間近に現れた音がする。");
-#else
 			if (blind && count) msg_print("You hear something appear nearby.");
-#endif
 
 			break;
 		}
@@ -4107,27 +3705,15 @@ if (blind && count) msg_print("何かが間近に現れた音がする。");
 		case 160+19:
 		{
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sが魔法でモンスターを召喚した！", m_name);
-#else
 			else msg_format("%^s magically summons monsters!", m_name);
-#endif
 
 			for (k = 0; k < s_num_6; k++)
 			{
 				count += summon_specific(m_idx, y, x, rlev, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
 			}
-#ifdef JP
-if (blind && count) msg_print("多くのものが間近に現れた音がする。");
-#else
 			if (blind && count) msg_print("You hear many things appear nearby.");
-#endif
 
 			break;
 		}
@@ -4136,27 +3722,15 @@ if (blind && count) msg_print("多くのものが間近に現れた音がする。");
 		case 160+20:
 		{
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sが魔法でアリを召喚した。", m_name);
-#else
 			else msg_format("%^s magically summons ants.", m_name);
-#endif
 
 			for (k = 0; k < s_num_6; k++)
 			{
 				count += summon_specific(m_idx, y, x, rlev, SUMMON_ANT, PM_ALLOW_GROUP);
 			}
-#ifdef JP
-if (blind && count) msg_print("多くのものが間近に現れた音がする。");
-#else
 			if (blind && count) msg_print("You hear many things appear nearby.");
-#endif
 
 			break;
 		}
@@ -4165,27 +3739,15 @@ if (blind && count) msg_print("多くのものが間近に現れた音がする。");
 		case 160+21:
 		{
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sが魔法でクモを召喚した。", m_name);
-#else
 			else msg_format("%^s magically summons spiders.", m_name);
-#endif
 
 			for (k = 0; k < s_num_6; k++)
 			{
 				count += summon_specific(m_idx, y, x, rlev, SUMMON_SPIDER, PM_ALLOW_GROUP);
 			}
-#ifdef JP
-if (blind && count) msg_print("多くのものが間近に現れた音がする。");
-#else
 			if (blind && count) msg_print("You hear many things appear nearby.");
-#endif
 
 			break;
 		}
@@ -4194,27 +3756,15 @@ if (blind && count) msg_print("多くのものが間近に現れた音がする。");
 		case 160+22:
 		{
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sが魔法でハウンドを召喚した。", m_name);
-#else
 			else msg_format("%^s magically summons hounds.", m_name);
-#endif
 
 			for (k = 0; k < s_num_4; k++)
 			{
 				count += summon_specific(m_idx, y, x, rlev, SUMMON_HOUND, PM_ALLOW_GROUP);
 			}
-#ifdef JP
-if (blind && count) msg_print("多くのものが間近に現れた音がする。");
-#else
 			if (blind && count) msg_print("You hear many things appear nearby.");
-#endif
 
 			break;
 		}
@@ -4223,27 +3773,15 @@ if (blind && count) msg_print("多くのものが間近に現れた音がする。");
 		case 160+23:
 		{
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sが魔法でヒドラを召喚した。", m_name);
-#else
 			else msg_format("%^s magically summons hydras.", m_name);
-#endif
 
 			for (k = 0; k < s_num_4; k++)
 			{
 				count += summon_specific(m_idx, y, x, rlev, SUMMON_HYDRA, PM_ALLOW_GROUP);
 			}
-#ifdef JP
-if (blind && count) msg_print("多くのものが間近に現れた音がする。");
-#else
 			if (blind && count) msg_print("You hear many things appear nearby.");
-#endif
 
 			break;
 		}
@@ -4254,17 +3792,9 @@ if (blind && count) msg_print("多くのものが間近に現れた音がする。");
 			int num = 1;
 
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sが魔法で天使を召喚した！", m_name);
-#else
 			else msg_format("%^s magically summons an angel!", m_name);
-#endif
 
 			if ((r_ptr->flags1 & RF1_UNIQUE) && !easy_band)
 			{
@@ -4278,19 +3808,11 @@ else msg_format("%^sが魔法で天使を召喚した！", m_name);
 
 			if (count < 2)
 			{
-#ifdef JP
-if (blind && count) msg_print("何かが間近に現れた音がする。");
-#else
 				if (blind && count) msg_print("You hear something appear nearby.");
-#endif
 			}
 			else
 			{
-#ifdef JP
-if (blind) msg_print("多くのものが間近に現れた音がする。");
-#else
 				if (blind) msg_print("You hear many things appear nearby.");
-#endif
 			}
 
 			break;
@@ -4300,27 +3822,15 @@ if (blind) msg_print("多くのものが間近に現れた音がする。");
 		case 160+25:
 		{
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sは魔法で混沌の宮廷から悪魔を召喚した！", m_name);
-#else
 			else msg_format("%^s magically summons a demon from the Courts of Chaos!", m_name);
-#endif
 
 			for (k = 0; k < 1; k++)
 			{
 				count += summon_specific(m_idx, y, x, rlev, SUMMON_DEMON, PM_ALLOW_GROUP);
 			}
-#ifdef JP
-if (blind && count) msg_print("何かが間近に現れた音がする。");
-#else
 			if (blind && count) msg_print("You hear something appear nearby.");
-#endif
 
 			break;
 		}
@@ -4329,27 +3839,15 @@ if (blind && count) msg_print("何かが間近に現れた音がする。");
 		case 160+26:
 		{
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sが魔法でアンデッドの強敵を召喚した！", m_name);
-#else
 			else msg_format("%^s magically summons an undead adversary!", m_name);
-#endif
 
 			for (k = 0; k < 1; k++)
 			{
 				count += summon_specific(m_idx, y, x, rlev, SUMMON_UNDEAD, PM_ALLOW_GROUP);
 			}
-#ifdef JP
-if (blind && count) msg_print("何かが間近に現れた音がする。");
-#else
 			if (blind && count) msg_print("You hear something appear nearby.");
-#endif
 
 			break;
 		}
@@ -4358,27 +3856,15 @@ if (blind && count) msg_print("何かが間近に現れた音がする。");
 		case 160+27:
 		{
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sが魔法でドラゴンを召喚した！", m_name);
-#else
 			else msg_format("%^s magically summons a dragon!", m_name);
-#endif
 
 			for (k = 0; k < 1; k++)
 			{
 				count += summon_specific(m_idx, y, x, rlev, SUMMON_DRAGON, PM_ALLOW_GROUP);
 			}
-#ifdef JP
-if (blind && count) msg_print("何かが間近に現れた音がする。");
-#else
 			if (blind && count) msg_print("You hear something appear nearby.");
-#endif
 
 			break;
 		}
@@ -4393,17 +3879,9 @@ if (blind && count) msg_print("何かが間近に現れた音がする。");
 				int cy = y;
 				int cx = x;
 
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 				if (blind) msg_format("%^s mumbles.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sが魔法で幽鬼戦隊を召喚した！", m_name);
-#else
 				else msg_format("%^s magically summons rangers of Nazgul!", m_name);
-#endif
 				msg_print(NULL);
 
 				for (k = 0; k < 30; k++)
@@ -4426,40 +3904,20 @@ else msg_format("%^sが魔法で幽鬼戦隊を召喚した！", m_name);
 						x = cx;
 						count++;
 						if (count == 1)
-#ifdef JP
-msg_format("「幽鬼戦隊%d号、ナズグル・ブラック！」", count);
-#else
 							msg_format("A Nazgul says 'Nazgul-Rangers Number %d, Nazgul-Black!'",count);
-#endif
 						else
-#ifdef JP
-msg_format("「同じく%d号、ナズグル・ブラック！」", count);
-#else
 							msg_format("Another one says 'Number %d, Nazgul-Black!'",count);
-#endif
 						msg_print(NULL);
 					}
 				}
-#ifdef JP
-msg_format("「%d人そろって、リングレンジャー！」", count);
-#else
 msg_format("They say 'The %d meets! We are the Ring-Ranger!'.", count);
-#endif
 				msg_print(NULL);
 			}
 			else
 			{
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 				if (blind) msg_format("%^s mumbles.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sが魔法で強力なアンデッドを召喚した！", m_name);
-#else
 				else msg_format("%^s magically summons greater undead!", m_name);
-#endif
 
 				for (k = 0; k < s_num_6; k++)
 				{
@@ -4468,11 +3926,7 @@ else msg_format("%^sが魔法で強力なアンデッドを召喚した！", m_name);
 			}
 			if (blind && count)
 			{
-#ifdef JP
-msg_print("間近で何か多くのものが這い回る音が聞こえる。");
-#else
 				msg_print("You hear many creepy things appear nearby.");
-#endif
 
 			}
 			break;
@@ -4482,17 +3936,9 @@ msg_print("間近で何か多くのものが這い回る音が聞こえる。");
 		case 160+29:
 		{
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sが魔法で古代ドラゴンを召喚した！", m_name);
-#else
 			else msg_format("%^s magically summons ancient dragons!", m_name);
-#endif
 
 			for (k = 0; k < s_num_4; k++)
 			{
@@ -4500,11 +3946,7 @@ else msg_format("%^sが魔法で古代ドラゴンを召喚した！", m_name);
 			}
 			if (blind && count)
 			{
-#ifdef JP
-msg_print("多くの力強いものが間近に現れた音が聞こえる。");
-#else
 				msg_print("You hear many powerful things appear nearby.");
-#endif
 
 			}
 			break;
@@ -4514,17 +3956,9 @@ msg_print("多くの力強いものが間近に現れた音が聞こえる。");
 		case 160+30:
 		{
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sがアンバーの王族を召喚した！", m_name);
-#else
 			else msg_format("%^s magically summons Lords of Amber!", m_name);
-#endif
 
 
 
@@ -4534,11 +3968,7 @@ else msg_format("%^sがアンバーの王族を召喚した！", m_name);
 			}
 			if (blind && count)
 			{
-#ifdef JP
-msg_print("不死の者が近くに現れるのが聞こえた。");
-#else
 				msg_print("You hear immortal beings appear nearby.");
-#endif
 
 			}
 			break;
@@ -4555,17 +3985,9 @@ msg_print("不死の者が近くに現れるのが聞こえた。");
 				mode |= PM_ALLOW_CLONED;
 
 			disturb(1, 0);
-#ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
 			if (blind) msg_format("%^s mumbles.", m_name);
-#endif
 
-#ifdef JP
-else msg_format("%^sが魔法で特別な強敵を召喚した！", m_name);
-#else
 			else msg_format("%^s magically summons special opponents!", m_name);
-#endif
 
 			for (k = 0; k < s_num_4; k++)
 			{
@@ -4586,11 +4008,7 @@ else msg_format("%^sが魔法で特別な強敵を召喚した！", m_name);
 
 			if (blind && count)
 			{
-#ifdef JP
-				msg_format("多くの%sが間近に現れた音が聞こえる。", uniques_are_summoned ? "力強いもの" : "もの");
-#else
 				msg_format("You hear many %s appear nearby.", uniques_are_summoned ? "powerful things" : "things");
-#endif
 			}
 			break;
 		}

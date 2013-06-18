@@ -290,11 +290,7 @@ void build_streamer(int feat, int chance)
 						{
 							char o_name[MAX_NLEN];
 							object_desc(o_name, o_ptr, (OD_NAME_ONLY | OD_STORE));
-#ifdef JP
-							msg_format("伝説のアイテム (%s) はストリーマーにより削除された。", o_name);
-#else
 							msg_format("Artifact (%s) was deleted by streamer.", o_name);
-#endif
 						}
 					}
 					else if (o_ptr->name3)
@@ -306,20 +302,12 @@ void build_streamer(int feat, int chance)
 						{
 							char o_name[MAX_NLEN];
 							object_desc(o_name, o_ptr, (OD_NAME_ONLY | OD_STORE));
-#ifdef JP
-							msg_format("伝説のアイテム (%s) はストリーマーにより削除された。", o_name);
-#else
 							msg_format("Artifact (%s) was deleted by streamer.", o_name);
-#endif
 						}
 					}
 					else if (cheat_peek && o_ptr->art_name)
 					{
-#ifdef JP
-						msg_print("ランダム・アーティファクトの1つはストリーマーにより削除された。");
-#else
 						msg_print("One of the random artifacts was deleted by streamer.");
-#endif
 					}
 				}
 
@@ -354,11 +342,7 @@ void build_streamer(int feat, int chance)
 		{
 			if (cheat_room)
 			{
-#ifdef JP
-msg_print("警告！ストリーマーを配置できません！");
-#else
 				msg_print("Warning! Could not place streamer!");
-#endif
 
 			}
 			return;
@@ -438,11 +422,7 @@ void destroy_level(void)
 	int y1, x1, n;
 
 	/* Note destroyed levels */
-#ifdef JP
-	if (cheat_room) msg_print("破壊された階");
-#else
 	if (cheat_room) msg_print("Destroyed Level");
-#endif
 
 	/* Drop a few epi-centers (usually about two) */
 	for (n = 0; n < randint1(5); n++)
