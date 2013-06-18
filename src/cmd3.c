@@ -1,0 +1,1541 @@
+/* File: cmd3.c */
+
+/* Purpose: Inventory commands */
+
+/*
+ * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
+ *
+ * This software may be copied and distributed for educational, research,
+ * and not for profit purposes provided that this copyright and statement
+ * are included in all such copies.  Other copyrights may also apply.
+ */
+
+#include "angband.h"
+
+
+
+/*
+ * Display inventory
+ */
+void do_cmd_inven(void)
+{
+	char out_val[160];
+
+
+	/* Note that we are in "inventory" mode */
+	command_wrk = FALSE;
+
+#ifdef ALLOW_EASY_FLOOR
+
+	/* Note that we are in "inventory" mode */
+	if (easy_floor) command_wrk = (USE_INVEN);
+
+#endif /* ALLOW_EASY_FLOOR */
+
+	/* Save screen */
+	screen_save();
+
+	/* Hack -- show empty slots */
+	item_tester_full = TRUE;
+
+	/* Display the inventory */
+	(void)show_inven(0, 0);
+
+	/* Hack -- hide empty slots */
+	item_tester_full = FALSE;
+
+	sprintf(out_val, "Inventory: carrying %d.%d pounds (%d%% of capacity). Command: ",
+	    (int)(p_ptr->total_weight / 10), (int)(p_ptr->total_weight % 10),
+	    (p_ptr->total_weight * 100) / weight_limit());
+
+
+	/* Get a command */
+	prt(out_val, 0, 0);
+
+	/* Get a new command */
+	command_new = inkey();
+
+	/* Load screen */
+	screen_load();
+
+
+	/* Process "Escape" */
+	if (command_new == ESCAPE)
+	{
+		int wid, hgt;
+
+		/* Get size */
+		Term_get_size(&wid, &hgt);
+
+		/* Reset stuff */
+		command_new = 0;
+		command_gap = wid - 30;
+	}
+
+	/* Process normal keys */
+	else
+	{
+		/* Hack -- Use "display" mode */
+		command_see = TRUE;
+	}
+}
+
+
+/*
+ * Display equipment
+ */
+void do_cmd_equip(void)
+{
+	char out_val[160];
+
+
+	/* Note that we are in "equipment" mode */
+	command_wrk = TRUE;
+
+#ifdef ALLOW_EASY_FLOOR
+
+	/* Note that we are in "equipment" mode */
+	if (easy_floor) command_wrk = (USE_EQUIP);
+
+#endif /* ALLOW_EASY_FLOOR  */
+
+	/* Save the screen */
+	screen_save();
+
+	/* Hack -- show empty slots */
+	item_tester_full = TRUE;
+
+	/* Display the equipment */
+	(void)show_equip(0, 0);
+
+	/* Hack -- undo the hack above */
+	item_tester_full = FALSE;
+
+	/* Build a prompt */
+	sprintf(out_val, "Equipment: carrying %d.%d pounds (%d%% of capacity). Command: ",
+	    (int)(p_ptr->total_weight / 10), (int)(p_ptr->total_weight % 10),
+	    (p_ptr->total_weight * 100) / weight_limit());
+
+	/* Get a command */
+	prt(out_val, 0, 0);
+
+	/* Get a new command */
+	command_new = inkey();
+
+	/* Restore the screen */
+	screen_load();
+
+
+	/* Process "Escape" */
+	if (command_new == ESCAPE)
+	{
+		int wid, hgt;
+
+		/* Get size */
+		Term_get_size(&wid, &hgt);
+
+		/* Reset stuff */
+		command_new = 0;
+		command_gap = wid - 30;
+	}
+
+	/* Process normal keys */
+	else
+	{
+		/* Enter "display" mode */
+		command_see = TRUE;
+	}
+}
+
+
+static bool item_tester_hook_mochikae(object_type *o_ptr)
+{
+	/* Check for a usable slot */
+	if (((o_ptr->tval >= TV_DIGGING) && (o_ptr->tval <= TV_SWORD)) ||
+	    (o_ptr->tval == TV_SHIELD) || (o_ptr->tval == TV_CAPTURE) ||
+	    (o_ptr->tval == TV_CARD)) return (TRUE);
+
+	/* Assume not wearable */
+	return (FALSE);
+}
+
+
+static bool item_tester_hook_melee_weapon(object_type *o_ptr)
+{
+	/* Check for a usable slot */
+	if ((o_ptr->tval >= TV_DIGGING) && (o_ptr->tval <= TV_SWORD))return (TRUE);
+
+	/* Assume not wearable */
+	return (FALSE);
+}
+
+
+void kamaenaoshi(int item)
+{
+}
+
+/*
+ * Drop an item
+ */
+void do_cmd_drop(void)
+{
+	int item, amt = 1;
+
+	object_type *o_ptr;
+
+	cptr q, s;
+
+	if (p_ptr->special_defense & KATA_MUSOU)
+	{
+		set_action(ACTION_NONE);
+	}
+
+	item_tester_no_ryoute = TRUE;
+	/* Get an item */
+#ifdef JP
+	q = "どのアイテムを落としますか? ";
+	s = "落とせるアイテムを持っていない。";
+#else
+	q = "Drop which item? ";
+	s = "You have nothing to drop.";
+#endif
+
+	if (!get_item(&item, q, s, (USE_EQUIP | USE_INVEN))) return;
+
+	/* Get the item (in the pack) */
+	if (item >= 0)
+	{
+		o_ptr = &inventory[item];
+
+		/* Ugly hack! */
+		if ( object_is_melee_weapon(o_ptr) 
+		  && equip_is_valid_slot(item)
+		  && p_ptr->pclass == CLASS_PSION
+		  && psion_weapon_graft() )
+		{
+			msg_print("Failed!  Your weapon is currently grafted to your arm!");
+			return;
+		}
+	}
+
+	/* Get the item (on the floor) */
+	else
+	{
+		o_ptr = &o_list[0 - item];
+	}
+
+
+	/* Hack -- Cannot remove cursed items */
+	if (equip_is_valid_slot(item) && object_is_cursed(o_ptr))
+	{
+		msg_print("Hmmm, it seems to be cursed.");
+		return;
+	}
+
+	if (o_ptr->tval == TV_POTION && o_ptr->sval == SV_POTION_BLOOD)
+	{
+		msg_print("You can't do that!  Your blood will go sour!");
+		return;
+	}
+
+	/* See how many items */
+	if (o_ptr->number > 1)
+	{
+		/* Get a quantity */
+		amt = get_quantity(NULL, o_ptr->number);
+
+		/* Allow user abort */
+		if (amt <= 0) return;
+	}
+
+
+	/* Take a partial turn */
+	energy_use = 50;
+
+	/* Drop (some of) the item */
+	inven_drop(item, amt);
+
+	if (equip_is_valid_slot(item))
+		calc_android_exp();
+
+	p_ptr->redraw |= (PR_EQUIPPY);
+}
+
+
+static bool high_level_book(object_type *o_ptr)
+{
+	if ((o_ptr->tval == TV_LIFE_BOOK) ||
+	    (o_ptr->tval == TV_SORCERY_BOOK) ||
+	    (o_ptr->tval == TV_NATURE_BOOK) ||
+	    (o_ptr->tval == TV_CHAOS_BOOK) ||
+	    (o_ptr->tval == TV_DEATH_BOOK) ||
+	    (o_ptr->tval == TV_TRUMP_BOOK) ||
+	    (o_ptr->tval == TV_CRAFT_BOOK) ||
+	    (o_ptr->tval == TV_DAEMON_BOOK) ||
+	    (o_ptr->tval == TV_CRUSADE_BOOK) ||
+		(o_ptr->tval == TV_NECROMANCY_BOOK) ||
+		(o_ptr->tval == TV_ARMAGEDDON_BOOK) ||
+	    (o_ptr->tval == TV_MUSIC_BOOK) ||
+		(o_ptr->tval == TV_HEX_BOOK))
+	{
+		if (o_ptr->sval > 1)
+			return TRUE;
+		else
+			return FALSE;
+	}
+
+	return FALSE;
+}
+
+
+/*
+ * Destroy an item
+ */
+void do_cmd_destroy(void)
+{
+	int			item, amt = 1;
+	int			old_number;
+
+	bool		force = FALSE;
+
+	object_type		*o_ptr;
+	object_type             forge;
+	object_type             *q_ptr = &forge;
+	bool		is_equipped = FALSE;
+
+	char		o_name[MAX_NLEN];
+
+	char		out_val[MAX_NLEN+40];
+
+	cptr q, s;
+	int mode = USE_INVEN | USE_FLOOR;
+
+	if (p_ptr->pclass == CLASS_RUNE_KNIGHT)
+		mode |= USE_EQUIP;
+
+	if (p_ptr->special_defense & KATA_MUSOU)
+	{
+		set_action(ACTION_NONE);
+	}
+
+	/* Hack -- force destruction */
+	if (command_arg > 0) force = TRUE;
+
+
+	/* Get an item */
+#ifdef JP
+	q = "どのアイテムを壊しますか? ";
+	s = "壊せるアイテムを持っていない。";
+#else
+	q = "Destroy which item? ";
+	s = "You have nothing to destroy.";
+#endif
+
+	if (!get_item(&item, q, s, mode)) return;
+
+	/* Get the item (in the pack) */
+	if (item >= 0)
+	{
+		o_ptr = &inventory[item];
+		is_equipped = equip_is_valid_slot(item);
+	}
+
+	/* Get the item (on the floor) */
+	else
+	{
+		o_ptr = &o_list[0 - item];
+	}
+
+	/* Hack for Rune Knight: They can destroy worn equipment, but only
+	   if it has the Sacrifice rune.  get_item() is not smart enough
+	   to handle this restriction ... */
+	if (is_equipped && o_ptr->rune != RUNE_SACRIFICE)
+	{
+		msg_print("You must first remove that item before destroying it.");
+		return;
+	}
+
+	/* Verify unless quantity given beforehand */
+	if (!force && (confirm_destroy || (object_value(o_ptr) > 0)))
+	{
+		object_desc(o_name, o_ptr, OD_OMIT_PREFIX);
+
+		/* Make a verification */
+		sprintf(out_val, 
+#ifdef JP
+			"本当に%sを壊しますか? [y/n/Auto]",
+#else
+			"Really destroy %s? [y/n/Auto]",
+#endif
+			o_name);
+
+		msg_print(NULL);
+
+		/* HACK : Add the line to message buffer */
+		message_add(out_val);
+		p_ptr->window |= (PW_MESSAGE);
+		window_stuff();
+
+		/* Get an acceptable answer */
+		while (TRUE)
+		{
+			char i;
+
+			/* Prompt */
+			prt(out_val, 0, 0);
+
+			i = inkey();
+
+			/* Erase the prompt */
+			prt("", 0, 0);
+
+
+			if (i == 'y' || i == 'Y')
+			{
+				break;
+			}
+			if (i == ESCAPE || i == 'n' || i == 'N')
+			{
+				/* Cancel */
+				return;
+			}
+			if (i == 'A')
+			{
+				/* Add an auto-destroy preference line */
+				if (autopick_autoregister(o_ptr))
+				{
+					/* Auto-destroy it */
+					autopick_alter_item(item, TRUE);
+				}
+				else
+					msg_print("Initialize the auto-pick preferences first (Type '_').");
+
+				/* The object is already destroyed. */
+				return;
+			}
+		} /* while (TRUE) */
+	}
+
+	/* See how many items */
+	if (o_ptr->number > 1)
+	{
+		/* Get a quantity */
+		amt = get_quantity(NULL, o_ptr->number);
+
+		/* Allow user abort */
+		if (amt <= 0) return;
+	}
+
+
+	/* Describe the object */
+	old_number = o_ptr->number;
+	o_ptr->number = amt;
+	object_desc(o_name, o_ptr, 0);
+	o_ptr->number = old_number;
+
+	/* Take a turn */
+	energy_use = 100;
+
+	/* Artifacts cannot be destroyed */
+	if (!can_player_destroy_object(o_ptr))
+	{
+		energy_use = 0;
+
+		/* Message */
+#ifdef JP
+		msg_format("%sは破壊不可能だ。", o_name);
+#else
+		msg_format("You cannot destroy %s.", o_name);
+#endif
+
+		/* Done */
+		return;
+	}
+
+	object_copy(q_ptr, o_ptr);
+
+	if (prace_is_(RACE_MON_JELLY))
+		jelly_eat_object(o_ptr);
+	else
+		msg_format("You destroy %s.", o_name);
+
+	if (o_ptr->rune == RUNE_SACRIFICE)
+	{
+		int add_hp = is_equipped ? p_ptr->mhp : p_ptr->mhp/3;
+		int add_sp = is_equipped ? p_ptr->msp : p_ptr->msp/3;
+
+		msg_print("You feel a surge of wondrous power enter your body.");
+		
+		p_ptr->chp = MIN(p_ptr->mhp, p_ptr->chp + add_hp);
+		p_ptr->chp_frac = 0;
+		p_ptr->csp = MIN(p_ptr->msp, p_ptr->csp + add_sp);
+		p_ptr->csp_frac = 0;
+
+		p_ptr->redraw |= (PR_MANA);
+		p_ptr->window |= (PW_PLAYER);
+		p_ptr->window |= (PW_SPELL);
+		p_ptr->redraw |= (PR_HP);
+
+		if (is_equipped)
+		{
+			blast_object(o_ptr);
+			o_ptr->curse_flags = TRC_HEAVY_CURSE;
+		}
+	}
+	else if (is_equipped)
+		blast_object(o_ptr);
+
+	sound(SOUND_DESTITEM);
+
+	/* Reduce the charges of rods/wands */
+	reduce_charges(o_ptr, amt);
+
+	/* Eliminate the item (from the pack) */
+	if (item >= 0)
+	{
+		if (!is_equipped)
+		{
+			inven_item_increase(item, -amt);
+			inven_item_describe(item);
+			inven_item_optimize(item);
+		}
+	}
+
+	/* Eliminate the item (from the floor) */
+	else
+	{
+		floor_item_increase(0 - item, -amt);
+		floor_item_describe(0 - item);
+		floor_item_optimize(0 - item);
+	}
+
+	if ( p_ptr->pclass == CLASS_NECROMANCER
+	  && (q_ptr->tval == TV_LIFE_BOOK || q_ptr->tval == TV_CRUSADE_BOOK) )
+	{
+		int sp = 0;
+		int osp = p_ptr->csp;
+		switch (q_ptr->sval)
+		{
+		case 0: sp = 10; break;
+		case 1: sp = 25; break;
+		case 2: sp = 100; break;
+		case 3: sp = 666; break;
+		}
+
+		p_ptr->csp += sp;
+		if (p_ptr->csp >= p_ptr->msp)
+		{
+			p_ptr->csp = p_ptr->msp;
+			p_ptr->csp_frac = 0;
+		}
+
+		if (p_ptr->csp > osp)
+			msg_print("You feel your head clear.");
+
+		p_ptr->redraw |= (PR_MANA);
+	}
+
+	if (high_level_book(q_ptr))
+	{
+		bool gain_expr = FALSE;
+
+		if (p_ptr->prace == RACE_ANDROID)
+		{
+		}
+		else if ((p_ptr->pclass == CLASS_WARRIOR) || (p_ptr->pclass == CLASS_BERSERKER))
+		{
+			gain_expr = TRUE;
+		}
+		else if (p_ptr->pclass == CLASS_PALADIN)
+		{
+			if (is_good_realm(p_ptr->realm1))
+			{
+				if (!is_good_realm(tval2realm(q_ptr->tval))) gain_expr = TRUE;
+			}
+			else
+			{
+				if (is_good_realm(tval2realm(q_ptr->tval))) gain_expr = TRUE;
+			}
+		}
+
+		if (gain_expr && (p_ptr->exp < PY_MAX_EXP))
+		{
+			s32b tester_exp = p_ptr->max_exp / 20;
+			if (tester_exp > 10000) tester_exp = 10000;
+			if (q_ptr->sval < 3) tester_exp /= 4;
+			if (tester_exp<1) tester_exp = 1;
+
+			msg_print(T("You feel more experienced.", "更に経験を積んだような気がする。"));
+			gain_exp(tester_exp * amt);
+		}
+	}
+
+	if (high_level_book(q_ptr) && q_ptr->tval == TV_LIFE_BOOK)
+	{
+		virtue_add(VIRTUE_UNLIFE, 1);
+		virtue_add(VIRTUE_VITALITY, -1);
+	}
+	else if ( high_level_book(q_ptr) 
+	       && (q_ptr->tval == TV_DEATH_BOOK || q_ptr->tval == TV_NECROMANCY_BOOK) )
+	{
+		virtue_add(VIRTUE_UNLIFE, -1);
+		virtue_add(VIRTUE_VITALITY, 1);
+	}	
+
+	if (q_ptr->to_a || q_ptr->to_h || q_ptr->to_d)
+		virtue_add(VIRTUE_ENCHANTMENT, -1);
+	
+	if (object_value_real(q_ptr) > 30000)
+		virtue_add(VIRTUE_SACRIFICE, 2);
+	
+	else if (object_value_real(q_ptr) > 10000)
+		virtue_add(VIRTUE_SACRIFICE, 1);
+
+	if (q_ptr->to_a != 0 || q_ptr->to_d != 0 || q_ptr->to_h != 0)
+		virtue_add(VIRTUE_HARMONY, 1);
+
+	if (equip_is_valid_slot(item)) 
+		calc_android_exp();
+}
+
+
+/*
+ * Observe an item which has been *identify*-ed
+ */
+void do_cmd_observe(void)
+{
+	int			item;
+
+	object_type		*o_ptr;
+
+	char		o_name[MAX_NLEN];
+
+	cptr q, s;
+
+	item_tester_no_ryoute = TRUE;
+	/* Get an item */
+	q = "Examine which item? ";
+	s = "You have nothing to examine.";
+
+	if (!get_item(&item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return;
+
+	/* Get the item (in the pack) */
+	if (item >= 0)
+	{
+		o_ptr = &inventory[item];
+	}
+
+	/* Get the item (on the floor) */
+	else
+	{
+		o_ptr = &o_list[0 - item];
+	}
+
+
+	/* Note, descriptions for potions, scrolls, wands, staves and rods all spoil 
+	   the object's effects. Some of the light and jewelry descriptions are also TMI.
+	   Descriptions for weapons and armor should always be displayed. */
+	if (!object_is_weapon_armour_ammo(o_ptr) && !object_is_known(o_ptr))
+	{
+		msg_print("You have no special knowledge about that item.");
+		return;
+	}
+
+	/* Description */
+	object_desc(o_name, o_ptr, 0);
+
+	/* Describe */
+	msg_format("Examining %s...", o_name);
+
+	/* Describe it fully */
+	if (!screen_object(o_ptr, SCROBJ_FORCE_DETAIL)) msg_print("You see nothing special.");
+}
+
+
+
+/*
+ * Remove the inscription from an object
+ * XXX Mention item (when done)?
+ */
+void do_cmd_uninscribe(void)
+{
+	int   item;
+
+	object_type *o_ptr;
+
+	cptr q, s;
+
+	item_tester_no_ryoute = TRUE;
+	/* Get an item */
+#ifdef JP
+	q = "どのアイテムの銘を消しますか? ";
+	s = "銘を消せるアイテムがない。";
+#else
+	q = "Un-inscribe which item? ";
+	s = "You have nothing to un-inscribe.";
+#endif
+
+	if (!get_item(&item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return;
+
+	/* Get the item (in the pack) */
+	if (item >= 0)
+	{
+		o_ptr = &inventory[item];
+	}
+
+	/* Get the item (on the floor) */
+	else
+	{
+		o_ptr = &o_list[0 - item];
+	}
+
+	/* Nothing to remove */
+	if (!o_ptr->inscription)
+	{
+#ifdef JP
+		msg_print("このアイテムには消すべき銘がない。");
+#else
+		msg_print("That item had no inscription to remove.");
+#endif
+
+		return;
+	}
+
+	/* Message */
+#ifdef JP
+	msg_print("銘を消した。");
+#else
+	msg_print("Inscription removed.");
+#endif
+
+
+	/* Remove the incription */
+	o_ptr->inscription = 0;
+
+	/* Combine the pack */
+	p_ptr->notice |= (PN_COMBINE);
+
+	/* Window stuff */
+	p_ptr->window |= (PW_INVEN | PW_EQUIP);
+
+	/* .や$の関係で, 再計算が必要なはず -- henkma */
+	p_ptr->update |= (PU_BONUS);
+
+}
+
+
+/*
+ * Inscribe an object with a comment
+ */
+void do_cmd_inscribe(void)
+{
+	int			item;
+
+	object_type		*o_ptr;
+
+	char		o_name[MAX_NLEN];
+
+	char		out_val[80];
+
+	cptr q, s;
+
+	item_tester_no_ryoute = TRUE;
+	/* Get an item */
+#ifdef JP
+	q = "どのアイテムに銘を刻みますか? ";
+	s = "銘を刻めるアイテムがない。";
+#else
+	q = "Inscribe which item? ";
+	s = "You have nothing to inscribe.";
+#endif
+
+	if (!get_item(&item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return;
+
+	/* Get the item (in the pack) */
+	if (item >= 0)
+	{
+		o_ptr = &inventory[item];
+	}
+
+	/* Get the item (on the floor) */
+	else
+	{
+		o_ptr = &o_list[0 - item];
+	}
+
+	/* Describe the activity */
+	object_desc(o_name, o_ptr, OD_OMIT_INSCRIPTION);
+
+	/* Message */
+#ifdef JP
+	msg_format("%sに銘を刻む。", o_name);
+#else
+	msg_format("Inscribing %s.", o_name);
+#endif
+
+	msg_print(NULL);
+
+	/* Start with nothing */
+	strcpy(out_val, "");
+
+	/* Use old inscription */
+	if (o_ptr->inscription)
+	{
+		/* Start with the old inscription */
+		strcpy(out_val, quark_str(o_ptr->inscription));
+	}
+
+	/* Get a new inscription (possibly empty) */
+#ifdef JP
+	if (get_string("銘: ", out_val, 80))
+#else
+	if (get_string("Inscription: ", out_val, 80))
+#endif
+	{
+		/* Save the inscription */
+		o_ptr->inscription = quark_add(out_val);
+
+		/* Combine the pack */
+		p_ptr->notice |= (PN_COMBINE);
+
+		/* Window stuff */
+		p_ptr->window |= (PW_INVEN | PW_EQUIP);
+
+		/* .や$の関係で, 再計算が必要なはず -- henkma */
+		p_ptr->update |= (PU_BONUS);
+	}
+}
+
+
+
+/*
+ * An "item_tester_hook" for refilling lanterns
+ */
+static bool item_tester_refill_lantern(object_type *o_ptr)
+{
+	/* Flasks of oil are okay */
+	if (o_ptr->tval == TV_FLASK) return (TRUE);
+
+	/* Laterns are okay */
+	if ((o_ptr->tval == TV_LITE) &&
+	    (o_ptr->sval == SV_LITE_LANTERN)) return (TRUE);
+
+	/* Assume not okay */
+	return (FALSE);
+}
+
+static bool _lite_is_darkness(object_type *lite)
+{
+	if (lite->name2 == EGO_LITE_DARKNESS || have_flag(lite->art_flags, TR_DARKNESS))
+		return TRUE;
+	return FALSE;
+}
+
+/*
+ * Refill the players lamp (from the pack or floor)
+ */
+static void do_cmd_refill_lamp(object_type *lantern)
+{
+	int item;
+	object_type *o_ptr;
+
+	item_tester_hook = item_tester_refill_lantern;
+	if (!get_item(&item, "Refill with which flask? ", "You have no flasks of oil.", USE_INVEN | USE_FLOOR)) return;
+	if (item >= 0)
+		o_ptr = &inventory[item];
+	else
+		o_ptr = &o_list[0 - item];
+
+	energy_use = 50;
+	lantern->xtra4 += o_ptr->xtra4;
+	msg_print("You fuel your lamp.");
+	if ( _lite_is_darkness(o_ptr) && lantern->xtra4 > 0)
+	{
+		lantern->xtra4 = 0;
+		msg_print("Your lamp has gone out!");
+	}
+	else if (_lite_is_darkness(o_ptr) || _lite_is_darkness(lantern))
+	{
+		lantern->xtra4 = 0;
+		msg_print("Curiously, your lamp doesn't light.");
+	}
+	else if (lantern->xtra4 >= FUEL_LAMP)
+	{
+		lantern->xtra4 = FUEL_LAMP;
+		msg_print("Your lamp is full.");
+	}
+
+	if (item >= 0)
+	{
+		inven_item_increase(item, -1);
+		inven_item_describe(item);
+		inven_item_optimize(item);
+	}
+	else
+	{
+		floor_item_increase(0 - item, -1);
+		floor_item_describe(0 - item);
+		floor_item_optimize(0 - item);
+	}
+
+	p_ptr->update |= PU_TORCH;
+}
+
+
+/*
+ * Refuel the players torch (from the pack or floor)
+ */
+static bool _is_torch(object_type *o_ptr) {
+	return object_is_(o_ptr, TV_LITE, SV_LITE_TORCH);
+}
+static void do_cmd_refill_torch(object_type *torch)
+{
+	int item;
+	object_type *o_ptr;
+
+	item_tester_hook = _is_torch;
+	if (!get_item(&item, "Refuel with which torch? ", "You have no extra torches.", USE_INVEN | USE_FLOOR)) return;
+	if (item >= 0)
+		o_ptr = &inventory[item];
+	else
+		o_ptr = &o_list[0 - item];
+
+	energy_use = 50;
+	torch->xtra4 += o_ptr->xtra4 + 5;
+
+	msg_print("You combine the torches.");
+	if (_lite_is_darkness(o_ptr) && torch->xtra4 > 0)
+	{
+		torch->xtra4 = 0;
+		msg_print("Your torch has gone out!");
+	}
+	else if (_lite_is_darkness(o_ptr) || _lite_is_darkness(torch))
+	{
+		torch->xtra4 = 0;
+		msg_print("Curiously, your torch does not light.");
+	}
+	else if (torch->xtra4 >= FUEL_TORCH)
+	{
+		torch->xtra4 = FUEL_TORCH;
+		msg_print("Your torch is fully fueled.");
+	}
+	else
+		msg_print("Your torch glows more brightly.");
+
+	if (item >= 0)
+	{
+		inven_item_increase(item, -1);
+		inven_item_describe(item);
+		inven_item_optimize(item);
+	}
+	else
+	{
+		floor_item_increase(0 - item, -1);
+		floor_item_describe(0 - item);
+		floor_item_optimize(0 - item);
+	}
+
+	p_ptr->update |= PU_TORCH;
+}
+
+
+/*
+ * Refill the players lamp, or restock his torches
+ */
+void do_cmd_refill(void)
+{
+	int slot = equip_find_object(TV_LITE, SV_ANY);
+
+	if (slot)
+	{
+		object_type *o_ptr = equip_obj(slot);
+
+		if (p_ptr->special_defense & KATA_MUSOU)
+			set_action(ACTION_NONE);
+
+		switch (o_ptr->sval)
+		{
+		case SV_LITE_LANTERN:
+			do_cmd_refill_lamp(o_ptr);
+			break;
+		case SV_LITE_TORCH:
+			do_cmd_refill_torch(o_ptr);
+			break;
+		default:
+			msg_print("Your light cannot be refilled.");
+		}
+	}
+	else
+		msg_print("You are not wielding a light.");
+}
+
+/*
+ * Target command
+ */
+void do_cmd_target(void)
+{
+	/* Target set */
+	if (target_set(TARGET_KILL))
+	{
+#ifdef JP
+		msg_print("ターゲット決定。");
+#else
+		msg_print("Target Selected.");
+#endif
+
+	}
+
+	/* Target aborted */
+	else
+	{
+#ifdef JP
+		msg_print("ターゲット解除。");
+#else
+		msg_print("Target Aborted.");
+#endif
+
+	}
+}
+
+
+
+/*
+ * Look command
+ */
+void do_cmd_look(void)
+{
+	/* Look around */
+	if (target_set(TARGET_LOOK))
+	{
+#ifdef JP
+		msg_print("ターゲット決定。");
+#else
+		msg_print("Target Selected.");
+#endif
+
+	}
+}
+
+
+
+/*
+ * Allow the player to examine other sectors on the map
+ */
+void do_cmd_locate(void)
+{
+	int		dir, y1, x1, y2, x2;
+
+	char	tmp_val[80];
+
+	char	out_val[160];
+
+	int wid, hgt;
+
+	/* Get size */
+	get_screen_size(&wid, &hgt);
+
+
+	/* Start at current panel */
+	y2 = y1 = panel_row_min;
+	x2 = x1 = panel_col_min;
+
+	/* Show panels until done */
+	while (1)
+	{
+		/* Describe the location */
+		if ((y2 == y1) && (x2 == x1))
+		{
+#ifdef JP
+			strcpy(tmp_val, "真上");
+#else
+			tmp_val[0] = '\0';
+#endif
+
+		}
+		else
+		{
+#ifdef JP
+			sprintf(tmp_val, "%s%s",
+				((y2 < y1) ? "北" : (y2 > y1) ? "南" : ""),
+				((x2 < x1) ? "西" : (x2 > x1) ? "東" : ""));
+#else
+			sprintf(tmp_val, "%s%s of",
+				((y2 < y1) ? " North" : (y2 > y1) ? " South" : ""),
+				((x2 < x1) ? " West" : (x2 > x1) ? " East" : ""));
+#endif
+
+		}
+
+		/* Prepare to ask which way to look */
+		sprintf(out_val,
+#ifdef JP
+			"マップ位置 [%d(%02d),%d(%02d)] (プレイヤーの%s)  方向?",
+#else
+			"Map sector [%d(%02d),%d(%02d)], which is%s your sector.  Direction?",
+#endif
+
+			y2 / (hgt / 2), y2 % (hgt / 2),
+			x2 / (wid / 2), x2 % (wid / 2), tmp_val);
+
+		/* Assume no direction */
+		dir = 0;
+
+		/* Get a direction */
+		while (!dir)
+		{
+			char command;
+
+			/* Get a command (or Cancel) */
+			if (!get_com(out_val, &command, TRUE)) break;
+			if (command == '5') break;
+
+			/* Extract the action (if any) */
+			dir = get_keymap_dir(command);
+
+			/* Error */
+			if (!dir) bell();
+		}
+
+		/* No direction */
+		if (!dir) break;
+
+		/* Apply the motion */
+		if (change_panel(ddy[dir], ddx[dir]))
+		{
+			y2 = panel_row_min;
+			x2 = panel_col_min;
+		}
+	}
+
+
+	/* Recenter the map around the player */
+	verify_panel();
+
+	/* Update stuff */
+	p_ptr->update |= (PU_MONSTERS);
+
+	/* Redraw map */
+	p_ptr->redraw |= (PR_MAP);
+
+	/* Window stuff */
+	p_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+
+	/* Handle stuff */
+	handle_stuff();
+}
+
+
+
+/*
+ * Sorting hook -- Comp function -- see below
+ *
+ * We use "u" to point to array of monster indexes,
+ * and "v" to select the type of sorting to perform on "u".
+ */
+bool ang_sort_comp_hook(vptr u, vptr v, int a, int b)
+{
+	u16b *who = (u16b*)(u);
+
+	u16b *why = (u16b*)(v);
+
+	int w1 = who[a];
+	int w2 = who[b];
+
+	int z1, z2;
+
+	/* Sort by player kills */
+	if (*why >= 4)
+	{
+		/* Extract player kills */
+		z1 = r_info[w1].r_pkills;
+		z2 = r_info[w2].r_pkills;
+
+		/* Compare player kills */
+		if (z1 < z2) return (TRUE);
+		if (z1 > z2) return (FALSE);
+	}
+
+
+	/* Sort by total kills */
+	if (*why >= 3)
+	{
+		/* Extract total kills */
+		z1 = r_info[w1].r_tkills;
+		z2 = r_info[w2].r_tkills;
+
+		/* Compare total kills */
+		if (z1 < z2) return (TRUE);
+		if (z1 > z2) return (FALSE);
+	}
+
+
+	/* Sort by monster level */
+	if (*why >= 2)
+	{
+		/* Extract levels */
+		z1 = r_info[w1].level;
+		z2 = r_info[w2].level;
+
+		/* Compare levels */
+		if (z1 < z2) return (TRUE);
+		if (z1 > z2) return (FALSE);
+	}
+
+
+	/* Sort by monster experience */
+	if (*why >= 1)
+	{
+		/* Extract experience */
+		z1 = r_info[w1].mexp;
+		z2 = r_info[w2].mexp;
+
+		/* Compare experience */
+		if (z1 < z2) return (TRUE);
+		if (z1 > z2) return (FALSE);
+	}
+
+
+	/* Compare indexes */
+	return (w1 <= w2);
+}
+
+
+/*
+ * Sorting hook -- Swap function -- see below
+ *
+ * We use "u" to point to array of monster indexes,
+ * and "v" to select the type of sorting to perform.
+ */
+void ang_sort_swap_hook(vptr u, vptr v, int a, int b)
+{
+	u16b *who = (u16b*)(u);
+
+	u16b holder;
+
+	/* Unused */
+	(void)v;
+
+	/* Swap */
+	holder = who[a];
+	who[a] = who[b];
+	who[b] = holder;
+}
+
+
+
+/*
+ * Identify a character, allow recall of monsters
+ *
+ * Several "special" responses recall "multiple" monsters:
+ *   ^A (all monsters)
+ *   ^U (all unique monsters)
+ *   ^N (all non-unique monsters)
+ *
+ * The responses may be sorted in several ways, see below.
+ *
+ * Note that the player ghosts are ignored. XXX XXX XXX
+ */
+void do_cmd_query_symbol(void)
+{
+	int		i, n, r_idx;
+	char	sym, query;
+	char	buf[128];
+
+	bool	all = FALSE;
+	bool	uniq = FALSE;
+	bool	norm = FALSE;
+	bool	ride = FALSE;
+	char    temp[80] = "";
+
+	bool	recall = FALSE;
+
+	u16b	why = 0;
+	u16b	*who;
+
+	/* Get a character, or abort */
+#ifdef JP
+	if (!get_com("知りたい文字を入力して下さい(記号 or ^A全,^Uユ,^N非ユ,^R乗馬,^M名前): ", &sym, FALSE)) return;
+#else
+	if (!get_com("Enter character to be identified(^A:All,^U:Uniqs,^N:Non uniqs,^M:Name): ", &sym, FALSE)) return;
+#endif
+
+	/* Find that character info, and describe it */
+	for (i = 0; ident_info[i]; ++i)
+	{
+		if (sym == ident_info[i][0]) break;
+	}
+
+	/* Describe */
+	if (sym == KTRL('A'))
+	{
+		all = TRUE;
+#ifdef JP
+		strcpy(buf, "全モンスターのリスト");
+#else
+		strcpy(buf, "Full monster list.");
+#endif
+	}
+	else if (sym == KTRL('U'))
+	{
+		all = uniq = TRUE;
+#ifdef JP
+		strcpy(buf, "ユニーク・モンスターのリスト");
+#else
+		strcpy(buf, "Unique monster list.");
+#endif
+	}
+	else if (sym == KTRL('N'))
+	{
+		all = norm = TRUE;
+#ifdef JP
+		strcpy(buf, "ユニーク外モンスターのリスト");
+#else
+		strcpy(buf, "Non-unique monster list.");
+#endif
+	}
+	else if (sym == KTRL('R'))
+	{
+		all = ride = TRUE;
+#ifdef JP
+		strcpy(buf, "乗馬可能モンスターのリスト");
+#else
+		strcpy(buf, "Ridable monster list.");
+#endif
+	}
+	/* XTRA HACK WHATSEARCH */
+	else if (sym == KTRL('M'))
+	{
+		all = TRUE;
+#ifdef JP
+		if (!get_string("名前(英語の場合小文字で可)",temp, 70))
+#else
+		if (!get_string("Enter name:",temp, 70))
+#endif
+		{
+			temp[0]=0;
+			return;
+		}
+#ifdef JP
+		sprintf(buf, "名前:%sにマッチ",temp);
+#else
+		sprintf(buf, "Monsters with a name \"%s\"",temp);
+#endif
+	}
+	else if (ident_info[i])
+	{
+		sprintf(buf, "%c - %s.", sym, ident_info[i] + 2);
+	}
+	else
+	{
+#ifdef JP
+		sprintf(buf, "%c - %s", sym, "無効な文字");
+#else
+		sprintf(buf, "%c - %s.", sym, "Unknown Symbol");
+#endif
+	}
+
+	/* Display the result */
+	prt(buf, 0, 0);
+
+	/* Allocate the "who" array */
+	C_MAKE(who, max_r_idx, u16b);
+
+	/* Collect matching monsters */
+	for (n = 0, i = 1; i < max_r_idx; i++)
+	{
+		monster_race *r_ptr = &r_info[i];
+
+		/* Nothing to recall */
+		if (!(cheat_know || p_ptr->wizard) && !r_ptr->r_sights) continue;
+
+		/* Require non-unique monsters if needed */
+		if (norm && (r_ptr->flags1 & (RF1_UNIQUE))) continue;
+
+		/* Require unique monsters if needed */
+		if (uniq && !(r_ptr->flags1 & (RF1_UNIQUE))) continue;
+
+		/* Require ridable monsters if needed */
+		if (ride && !(r_ptr->flags7 & (RF7_RIDING))) continue;
+
+		/* XTRA HACK WHATSEARCH */
+		if (temp[0])
+		{
+		  int xx;
+		  char temp2[80];
+  
+		  for (xx=0; temp[xx] && xx<80; xx++)
+		  {
+#ifdef JP
+		    if (iskanji( temp[xx])) { xx++; continue; }
+#endif
+		    if (isupper(temp[xx])) temp[xx]=tolower(temp[xx]);
+		  }
+  
+#ifdef JP
+		  strcpy(temp2, r_name+r_ptr->E_name);
+#else
+		  strcpy(temp2, r_name+r_ptr->name);
+#endif
+		  for (xx=0; temp2[xx] && xx<80; xx++)
+		    if (isupper(temp2[xx])) temp2[xx]=tolower(temp2[xx]);
+  
+#ifdef JP
+		  if (my_strstr(temp2, temp) || my_strstr(r_name + r_ptr->name, temp) )
+#else
+		  if (my_strstr(temp2, temp))
+#endif
+			  who[n++]=i;
+		}
+
+		/* Collect "appropriate" monsters */
+		else if (all || (r_ptr->d_char == sym)) who[n++] = i;
+	}
+
+	/* Nothing to recall */
+	if (!n)
+	{
+		/* Free the "who" array */
+		C_KILL(who, max_r_idx, u16b);
+
+		return;
+	}
+
+
+	/* Prompt XXX XXX XXX */
+#ifdef JP
+	put_str("思い出を見ますか? (k:殺害順/y/n): ", 0, 36);
+#else
+	put_str("Recall details? (k/y/n): ", 0, 40);
+#endif
+
+
+	/* Query */
+	query = inkey();
+
+	/* Restore */
+	prt(buf, 0, 0);
+
+	why = 2;
+
+	/* Select the sort method */
+	ang_sort_comp = ang_sort_comp_hook;
+	ang_sort_swap = ang_sort_swap_hook;
+
+	/* Sort the array */
+	ang_sort(who, &why, n);
+
+	/* Sort by kills (and level) */
+	if (query == 'k')
+	{
+		why = 4;
+		query = 'y';
+	}
+
+	/* Catch "escape" */
+	if (query != 'y')
+	{
+		/* Free the "who" array */
+		C_KILL(who, max_r_idx, u16b);
+
+		return;
+	}
+
+	/* Sort if needed */
+	if (why == 4)
+	{
+		/* Select the sort method */
+		ang_sort_comp = ang_sort_comp_hook;
+		ang_sort_swap = ang_sort_swap_hook;
+
+		/* Sort the array */
+		ang_sort(who, &why, n);
+	}
+
+
+	/* Start at the end */
+	i = n - 1;
+
+	/* Scan the monster memory */
+	while (1)
+	{
+		/* Extract a race */
+		r_idx = who[i];
+
+		/* Hack -- Auto-recall */
+		monster_race_track(r_idx);
+
+		/* Hack -- Handle stuff */
+		handle_stuff();
+
+		/* Interact */
+		while (1)
+		{
+			/* Recall */
+			if (recall)
+			{
+				/* Save the screen */
+				screen_save();
+
+				/* Recall on screen */
+				screen_roff(who[i], 0);
+			}
+
+			/* Hack -- Begin the prompt */
+			roff_top(r_idx);
+
+			/* Hack -- Complete the prompt */
+#ifdef JP
+			Term_addstr(-1, TERM_WHITE, " ['r'思い出, ESC]");
+#else
+			Term_addstr(-1, TERM_WHITE, " [(r)ecall, ESC]");
+#endif
+
+			/* Command */
+			query = inkey();
+
+			/* Unrecall */
+			if (recall)
+			{
+				/* Restore */
+				screen_load();
+			}
+
+			/* Normal commands */
+			if (query != 'r') break;
+
+			/* Toggle recall */
+			recall = !recall;
+		}
+
+		/* Stop scanning */
+		if (query == ESCAPE) break;
+
+		/* Move to "prev" monster */
+		if (query == '-')
+		{
+			if (++i == n)
+			{
+				i = 0;
+				if (!expand_list) break;
+			}
+		}
+
+		/* Move to "next" monster */
+		else
+		{
+			if (i-- == 0)
+			{
+				i = n - 1;
+				if (!expand_list) break;
+			}
+		}
+	}
+
+	/* Free the "who" array */
+	C_KILL(who, max_r_idx, u16b);
+
+	/* Re-display the identity */
+	prt(buf, 0, 0);
+}
+
+
