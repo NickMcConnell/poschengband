@@ -210,3 +210,4 @@ Hengband offers two different methods of auto-pickup/destroy.
   ANGBAND_X11_ROWS_0.
 
 
+Testing ... Really, I'm just following the tutorial!
