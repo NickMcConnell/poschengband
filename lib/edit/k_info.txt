@@ -64,12 +64,10 @@
 
 V:2.8.1
 
-
 ##### Something special #####
 
 N:0:something
 G:&:w
-
 
 ##### Mushrooms #####
 
@@ -81,7 +79,6 @@ A:5/1
 F:STACK
 D:It blinds you when you eat it.
 
-
 N:2:Paranoia:Black
 G:,:D
 I:80:2:500
@@ -89,7 +86,6 @@ W:5:0:30:1:0
 A:5/1
 F:STACK
 D:It scares you when you eat it.
-
 
 N:3:Confusion:Black Spotted
 G:,:D
@@ -99,7 +95,6 @@ A:5/1
 F:STACK
 D:It confuses you when you eat it.
 
-
 N:4:Hallucination:Brown
 G:,:u
 I:80:4:500
@@ -107,7 +102,6 @@ W:10:0:30:1:0
 A:10/1
 F:STACK
 D:It makes you hallucinate when you eat it.
-
 
 N:5:Cure Poison:Dark Blue
 G:,:b
@@ -117,7 +111,6 @@ A:10/1
 F:STACK
 D:It cures poison when you eat it.
 
-
 N:6:Cure Blindness:Dark Green
 G:,:g
 I:80:13:500
@@ -125,7 +118,6 @@ W:10:0:30:1:50
 A:10/1
 F:STACK
 D:It cures blindness when you eat it.
-
 
 N:7:Cure Paranoia:Dark Red
 G:,:r
@@ -135,7 +127,6 @@ A:10/1
 F:STACK
 D:It removes fear when you eat it.
 
-
 N:8:Cure Confusion:Yellow
 G:,:y
 I:80:15:500
@@ -143,7 +134,6 @@ W:10:0:40:1:50
 A:10/1
 F:STACK
 D:It cures confusion when you eat it.
-
 
 N:9:Weakness:Furry
 G:,:W
@@ -154,7 +144,6 @@ F:STACK
 P:0:5d5:0:0:0
 D:You take 6d6 damage and it decreases your strength when you eat it.
 
-
 N:10:Unhealth:Green
 G:,:g
 I:80:10:500
@@ -164,7 +153,6 @@ P:0:10d10:0:0:0
 F:STACK
 D:You take 10d10 damage and it decreases your constitution when you eat it.
 
-
 N:11:Restore Constitution:Grey
 G:,:s
 I:80:18:500
@@ -173,14 +161,12 @@ A:20/1
 F:STACK
 D:It restores your constitution when you eat it.
 
-
 N:12:Restoring:Light Blue
 G:,:B
 I:80:19:500
 W:20:0:0:1:1000
 A:20/8:30/4:40/1
 D:It restores all your stats when you eat it.
-
 
 N:13:Stupidity:Light Green
 G:,:G
@@ -190,7 +176,6 @@ A:15/1
 F:STACK
 D:You take 8d8 damage and it decreases your intelligence when you eat it.
 
-
 N:14:Naivety:Violet
 G:,:v
 I:80:9:500
@@ -198,7 +183,6 @@ W:15:0:30:1:0
 A:15/1
 F:STACK
 D:You take 8d8 damage and it decreases your wisdom when you eat it.
-
 
 N:15:Poison:Red
 G:,:r
@@ -209,7 +193,6 @@ P:0:4d4:0:0:0
 F:STACK
 D:It poisons you when you eat it.
 
-
 N:16:Sickness:Slimy
 G:,:s
 I:80:7:500
@@ -219,7 +202,6 @@ P:0:4d4:0:0:0
 F:STACK
 D:You take 6d6 damage and it decreases your constitution when you eat it.
 
-
 N:17:Paralysis:Tan
 G:,:U
 I:80:5:500
@@ -228,7 +210,6 @@ A:20/1
 F:STACK
 D:It paralyzes you when you eat it.
 
-
 N:18:Restore Strength:White
 G:,:w
 I:80:17:500
@@ -236,7 +217,6 @@ W:20:0:0:1:350
 A:20/1
 F:STACK
 D:It restores your strength when you eat it.
-
 
 N:19:Disease:White Spotted
 G:,:w
@@ -247,7 +227,6 @@ P:0:10d10:0:0:0
 F:STACK
 D:You take 10d10 damage and it decreases your strength when you eat it.
 
-
 N:20:Cure Serious Wounds:Wrinkled
 G:,:u
 I:80:16:500
@@ -255,7 +234,6 @@ W:15:0:0:2:75
 A:15/1
 F:STACK
 D:It heals you a bit when you eat it.
-
 
 ##### Normal Food #####
 
@@ -268,7 +246,6 @@ F:STACK
 D:This nutritious but fairly bland food is 
 D:familiar to anyone contemplating long journeys.
 
-
 N:22:& Hard Biscuit~
 G:,:U
 I:80:32:500
@@ -276,8 +253,6 @@ W:0:0:30:2:1
 F:STACK
 D:Twice-cooked for good keeping qualities, this lump of bread is as hard as a 
 D:rock and about as tasty.
-
-
 
 #"鹿肉"は誤訳
 N:23:& Strip~ of Venison
@@ -287,7 +262,6 @@ W:0:0:30:2:2
 F:STACK
 D:A strip of jerked beef that seems never to spoil.
 
-
 N:24:& Slime Mold~
 G:,:g
 I:80:36:3000
@@ -295,7 +269,6 @@ W:1:0:20:5:2
 A:1/1
 F:STACK
 D:An utterly hideous fungal growth.  It is strangely appealing...
-
 
 #waybread now fully satisfies the player, instead of increasing the food count.
 N:25:& Piece~ of Elvish Waybread
@@ -307,8 +280,6 @@ F:STACK
 D:Small golden-brown wafers wrapped in silven leaves.  Made with elvish art, 
 D:it sustains life where nothing else can.
 
-
-
 N:26:& Pint~ of Fine Ale
 G:,:y
 I:80:38:500
@@ -316,15 +287,12 @@ W:0:0:30:5:1
 F:STACK
 D:Made from the barley of Eriador, and brewed to golden perfection.
 
-
 N:27:& Pint~ of Fine Wine
 G:,:r
 I:80:39:1000
 W:0:0:30:10:2
 F:STACK
 D:A heady wine, almost as good as that served at the Green Dragon at Bywater.
-
-
 
 ##### Extra digger #####
 
@@ -364,7 +332,6 @@ F:SHOW_MODS
 D:Also known as the hand-and-a-half blade.  A larger-than-normal straight-
 D:sided sword with two cutting edges.
 
-
 N:32:& Scimitar~
 G:|:W
 I:23:18:0
@@ -373,7 +340,6 @@ A:10/1
 P:0:2d5:0:0:0
 F:SHOW_MODS
 D:A single-edged slashing sword with a blade like a crescent.
-
 
 N:33:& Tulwar~
 G:|:W
@@ -392,7 +358,6 @@ P:0:2d5:0:0:0
 F:SHOW_MODS | RIDING
 D:A heavy, double-edged sword with a strong grip.
 
-
 N:35:& Short Sword~
 G:|:W
 I:23:10:0
@@ -401,7 +366,6 @@ A:5/1
 P:0:1d7:0:0:0
 F:SHOW_MODS
 D:A short thrusting sword.
-
 
 N:36:& Blade~ of Chaos
 G:|:v
@@ -413,8 +377,6 @@ F:RES_CHAOS | SHOW_MODS
 D:This inconstant weapon revels in disorder, hacking and slashing your foes 
 D:with bloodthirsty glee.
 
-
-
 N:37:& Two-Handed Sword~
 G:|:W
 I:23:25:0
@@ -423,7 +385,6 @@ A:30/1:40/1
 P:0:3d6:0:0:0
 F:SHOW_MODS
 D:A great, double-edged broadsword which few can wield in one hand.
-
 
 N:38:& Main Gauche~
 G:|:W
@@ -434,7 +395,6 @@ P:0:1d5:0:0:0
 F:SHOW_MODS
 D:A short thrusting blade with a large guard, primarily used in duels.
 
-
 N:39:& Cutlass~
 G:|:W
 I:23:12:0
@@ -443,7 +403,6 @@ A:5/1
 P:0:1d7:0:0:0
 F:SHOW_MODS
 D:A large, curved chopper with a basket hilt, well known to seamen.
-
 
 N:40:& Executioner's Sword~
 G:|:r
@@ -455,7 +414,6 @@ F:SHOW_MODS
 D:A giant, curved blade designed to cleave the head cleanly from the 
 D:body.
 
-
 N:41:& Katana~
 G:|:W
 I:23:20:0
@@ -465,7 +423,6 @@ P:0:3d4:0:0:0
 F:SHOW_MODS
 D:A slightly curved long-handled slashing sword with a single-edged 
 D:blade and a chisel tip.
-
 
 N:42:& Long Sword~
 G:|:W
@@ -477,7 +434,6 @@ F:SHOW_MODS | RIDING
 D:A long, straight, two-edged blade, with two hand guards projecting out from 
 D:the hilt to form a perfect cross.
 
-
 N:43:& Dagger~
 G:|:W
 I:23:4:0
@@ -487,7 +443,6 @@ P:0:1d4:0:0:0
 F:SHOW_MODS
 D:A two-edged knife with a sharp point.
 
-
 N:44:& Rapier~
 G:|:W
 I:23:7:0
@@ -496,7 +451,6 @@ A:5/1
 P:0:1d6:0:0:0
 F:SHOW_MODS
 D:A long, thin thrusting blade, mainly used in duels.
-
 
 N:45:& Sabre~
 G:|:W
@@ -508,7 +462,6 @@ F:SHOW_MODS | RIDING
 D:A light, somewhat curved blade that can be used to thrust or slash; familiar 
 D:to horseman and duelists alike.
 
-
 N:46:& Small Sword~
 G:|:W
 I:23:8:0
@@ -518,7 +471,6 @@ P:0:1d6:0:0:0
 F:SHOW_MODS
 D:A smaller version of the longsword, perfectly sized for Hobbits.
 
-
 N:47:& Broken Sword~
 G:|:D
 I:23:2:0
@@ -527,7 +479,6 @@ A:0/1
 P:0:1d2:-2:-4:0
 F:SHOW_MODS
 D:Above the hilt, a foot of steel rises, ending in a jagged edge.
-
 
 ##### Hafted Weapons #####
 
@@ -540,7 +491,6 @@ P:0:2d4:0:0:0
 F:SHOW_MODS | RIDING
 D:A weighty iron ball, suspended by a chain from a sturdy oaken handle.
 
-
 N:49:& Whip~
 G:\:D
 I:21:2:0
@@ -550,7 +500,6 @@ P:0:1d6:0:0:0
 F:SHOW_MODS
 D:A heavy whip, this thick coil is thrown from the shoulder and can 
 D:knock down a large man.
-
 
 N:50:& Flail~
 G:\:D
@@ -562,7 +511,6 @@ F:SHOW_MODS | RIDING
 D:Two heavy bars of wood connected by a short link of chain, capable of 
 D:delivering crushing blows.
 
-
 N:51:& Two-Handed Flail~
 G:\:y
 I:21:18:0
@@ -573,7 +521,6 @@ F:SHOW_MODS
 D:Two great bars of wood connected by a massive chain, needing two hands 
 D:to properly wield.
 
-
 N:52:& Morning Star~
 G:\:D
 I:21:12:0
@@ -583,7 +530,6 @@ P:0:2d6:0:0:0
 F:SHOW_MODS
 D:A war club with an spiked iron ball on the head.
 
-
 N:53:& Mace~
 G:\:D
 I:21:5:0
@@ -592,7 +538,6 @@ A:5/1
 P:0:2d4:0:0:0
 F:SHOW_MODS
 D:A war club with an iron head, usually flanged.
-
 
 N:54:& Quarterstaff~
 G:\:U
@@ -604,8 +549,6 @@ F:SHOW_MODS
 D:Six feet of oak which can be wielded in both hands to give a drubbing or 
 D:block one.
 
-
-
 N:55:& War Hammer~
 G:\:D
 I:21:8:0
@@ -614,7 +557,6 @@ A:5/1
 P:0:3d3:0:0:0
 F:SHOW_MODS | RIDING
 D:A mallet with a tapered head and a long handle.
-
 
 N:56:& Lead-Filled Mace~
 G:\:D
@@ -626,7 +568,6 @@ F:SHOW_MODS
 D:A heavy war club topped with a mass of lead-filled steel, capable of 
 D:landing crushing blows.
 
-
 N:57:& Mace~ of Disruption
 G:\:v
 I:21:20:0
@@ -636,7 +577,6 @@ P:0:5d8:0:0:0
 F:SLAY_UNDEAD | SHOW_MODS
 D:A giant's weapon, enchanted with shattering power that breaks bones, bodies, 
 D:and spirit.
-
 
 N:58:& Lucerne Hammer~
 G:/:B
@@ -657,7 +597,6 @@ P:0:2d6:0:0:0
 F:SHOW_MODS
 D:A narrow axe head opposed by a crow's beak, mounted on an oaken shaft.
 
-
 N:60:& Glaive~
 G:/:s
 I:22:13:0
@@ -668,8 +607,6 @@ F:SHOW_MODS | RIDING
 D:A reinforced wooden pole eight feet long, topped by a massive knife blade 
 D:that can can be used to thrust or chop.
 
-
-
 N:61:& Halberd~
 G:/:s
 I:22:15:0
@@ -679,8 +616,6 @@ P:0:3d5:0:0:0
 F:SHOW_MODS
 D:The most successful of the polearms, the halberd has a long haft mounted 
 D:with a heavy axe blade and opposing spike, and topped by a thrusting spine.
-
-
 
 N:62:& Awl-Pike~
 G:/:s
@@ -699,7 +634,6 @@ P:0:2d5:0:0:0
 F:SHOW_MODS
 D:A long, heavy spear with an iron head and reinforced shaft.
 
-
 N:64:& Spear~
 G:/:s
 I:22:2:0
@@ -710,8 +644,6 @@ F:SHOW_MODS | RIDING
 D:The basic polearm, with a double-edged knife mounted on a light shaft.  
 D:This weapon can be thrown effectively.
 
-
-
 N:65:& Trident~
 G:/:y
 I:22:5:0
@@ -721,7 +653,6 @@ P:0:1d8:0:0:0
 F:SHOW_MODS | RIDING
 D:A three-pronged spear, originally for catching fish.
 
-
 N:66:& Lance~
 G:/:s
 I:22:20:0
@@ -729,8 +660,6 @@ W:10:0:0:300:230
 A:10/1
 P:0:2d8:0:0:0
 F:SHOW_MODS | RIDING
-
-
 
 N:67:& Great Axe~
 G:/:s
@@ -742,9 +671,6 @@ F:SHOW_MODS
 D:An enormous two-handed battle axe, carried by Dwarven champions, who 
 D:compete to see who can cleave the most orc heads.
 
-
-
-
 N:68:& Battle Axe~
 G:/:s
 I:22:22:0
@@ -753,7 +679,6 @@ A:15/1
 P:0:2d8:0:0:0
 F:SHOW_MODS
 D:A double-bladed axe.  Very popular among Dwarves.
-
 
 N:69:& Lochaber Axe~
 G:/:D
@@ -772,7 +697,6 @@ P:0:2d6:0:0:0
 F:SHOW_MODS
 D:A simple, single-bladed war axe capable of chopping though limbs or armour.
 
-
 N:71:& Scythe~
 G:/:s
 I:22:17:0
@@ -782,8 +706,6 @@ P:0:5d3:0:0:0
 F:SHOW_MODS
 D:The long crescent blade stands out from the handle of this polearm, and 
 D:it is swung with two hands to harvest grain or blood.
-
-
 
 N:72:& Scythe~ of Slicing
 G:/:r
@@ -795,8 +717,6 @@ F:SHOW_MODS | RIDING
 D:A reaper's weapon, the long blade almost hums in anticipation of the 
 D:blood it will spill.
 
-
-
 ##### Bows, Crossbows, Slings #####
 
 N:73:& Short Bow~
@@ -807,7 +727,6 @@ A:30/2:40/2:60/2:80/2:90/2
 F:SHOW_MODS
 D:The traditional hunter's weapon, this light bow is easily drawn.
 
-
 N:74:& Long Bow~
 G:}:U
 I:19:13:0
@@ -817,7 +736,6 @@ F:SHOW_MODS
 D:As tall as a man, the longbow can drive an arrow through the heaviest 
 D:armour.
 
-
 N:75:& Light Crossbow~
 G:}:s
 I:19:23:0
@@ -826,8 +744,6 @@ A:30/2:40/2:60/2:80/2
 F:SHOW_MODS
 D:A mechanical bow made of wood, it is cocked to augment the strength of 
 D:its wielder.
-
-
 
 N:76:& Heavy Crossbow~
 G:}:s
@@ -839,10 +755,6 @@ F:SHOW_MODS
 #D:$The arbalest is so powerful it has to be reinforced with metal and 
 #D:$requires a crank to be cocked.
 
-
-
-
-
 N:77:& Sling~
 G:}:u
 I:19:2:0
@@ -851,9 +763,6 @@ A:1/1:10/1:20/1:30/1
 F:SHOW_MODS
 D:A loop of leather and cords able to hurl stones or shot with tremendous 
 D:velocity.
-
-
-
 
 ##### Missiles #####
 
@@ -867,7 +776,6 @@ F:SHOW_MODS
 F:STACK
 D:A standard clothyard arrow, straight and cleanly fletched.
 
-
 N:79:& Seeker Arrow~
 G:{:G
 I:17:2:0
@@ -880,8 +788,6 @@ F:STACK
 D:Carved from a rare wood, this arrow is inscribed with fell runes and 
 D:fletched with eagle feathers.
 
-
-
 N:80:& Bolt~
 G:{:s
 I:18:1:0
@@ -891,7 +797,6 @@ P:0:1d5:0:0:0
 F:SHOW_MODS
 F:STACK
 D:A short, heavy arrow shot from a crossbow.
-
 
 N:81:& Seeker Bolt~
 G:{:B
@@ -903,7 +808,6 @@ F:SHOW_MODS
 F:IGNORE_ACID | IGNORE_COLD | IGNORE_FIRE | IGNORE_ELEC
 F:STACK
 D:A mighty quarrel, bound about with battle magics.
-
 
 N:82:& Rounded Pebble~
 G:{:s
@@ -925,7 +829,6 @@ F:STACK
 #D:$A grapestone-shaped slug of lead, the right heft for hurling from a sling.
 #D:スリングで投げるのに適した重さの、葡萄の粒のような鉛の塊だ。
 
-
 ##### Shovels and Picks #####
 
 N:84:& Shovel~
@@ -937,7 +840,6 @@ P:0:1d2:0:0:0
 F:SHOW_MODS | TUNNEL
 D:A compact and sturdy spade.
 
-
 N:85:& Gnomish Shovel~
 G:\:G
 I:20:2:2
@@ -946,7 +848,6 @@ A:20/4
 P:0:1d2:0:0:0
 F:SHOW_MODS | TUNNEL
 D:A small spade forged of steel with gnomish craftmanship.
-
 
 N:86:& Dwarven Shovel~
 G:\:B
@@ -958,8 +859,6 @@ F:SHOW_MODS | TUNNEL
 D:A broad shovel, fit for the strong shoulders of a dwarf.  It bears runes 
 D:of delving and no ordinary rock can resist it.
 
-
-
 N:87:& Pick~
 G:\:s
 I:20:4:1
@@ -969,7 +868,6 @@ P:0:1d3:0:0:0
 F:SHOW_MODS | TUNNEL
 D:A heavy mining tool with a long, slightly curved head that tapers 
 D:to chisel points on both ends.
-
 
 N:88:& Orcish Pick~
 G:\:g
@@ -981,7 +879,6 @@ F:SHOW_MODS | TUNNEL
 D:A crude, ugly, but effective pickaxe.  Made in enormous quantities for 
 D:the slave-mines of Durthang.
 
-
 N:89:& Dwarven Pick~
 G:\:b
 I:20:6:3
@@ -991,7 +888,6 @@ P:0:1d4:0:0:0
 F:SHOW_MODS | TUNNEL
 D:A short but sturdy pick, like those that delved deep Moria, with runes to 
 D:break the sinews of mountains.
-
 
 ##### Armor #####
 N:90:& Elven Cloak~
@@ -1005,8 +901,6 @@ F:STEALTH | SEARCH
 D:A mantle made of curious silken material by the Galadrim that wondrously 
 D:takes on the hues and shapes of its surroundings.
 
-
-
 N:91:& Pair~ of Soft Leather Boots
 G:]:U
 I:30:2:0
@@ -1015,8 +909,6 @@ A:3/1
 P:2:1d1:0:0:0
 D:These are calf-high boots of flexible leather, laced from heel to calf.
 
-
-
 N:92:& Pair~ of Hard Leather Boots
 G:]:U
 I:30:3:0
@@ -1024,7 +916,6 @@ W:5:0:0:40:12
 A:5/1
 P:3:1d1:0:0:0
 D:A set of sturdy leather boots that will last many weary miles.
-
 
 N:93:& Pair~ of Metal Shod Boots
 G:]:s
@@ -1035,7 +926,6 @@ P:6:1d1:0:0:0
 D:A set of double-lined leather boots, with toes and heels reinforced with 
 D:iron.
 
-
 N:94:& Hard Leather Cap~
 G:]:u
 I:32:2:0
@@ -1043,7 +933,6 @@ W:3:0:0:15:12
 A:3/1
 P:2:0d0:0:0:0
 D:A padded skullcap of boiled leather.
-
 
 N:95:& Metal Cap~
 G:]:s
@@ -1053,7 +942,6 @@ A:10/1
 P:3:1d1:0:0:0
 D:A pot-helm of steel that protects the skull.
 
-
 N:96:& Iron Helm~
 G:]:s
 I:32:5:0
@@ -1061,7 +949,6 @@ W:20:0:0:75:75
 A:20/1
 P:5:1d3:0:0:0
 D:A mighty helmet of heavy iron, completely enclosing the head.
-
 
 N:97:& Steel Helm~
 G:]:W
@@ -1072,7 +959,6 @@ P:6:1d3:0:0:0
 D:This great helm covers the head and shoulders with plates of steel and a 
 D:curtain of mail.
 
-
 N:98:& Iron Crown~
 G:]:s
 I:33:10:0
@@ -1081,7 +967,6 @@ A:40/1
 P:0:1d1:0:0:0
 D:A plain band of iron, crowned with iron spikes.  It is a tyrant's 
 D:symbol.
-
 
 N:99:& Golden Crown~
 G:]:y
@@ -1093,8 +978,6 @@ F:IGNORE_ACID
 D:An elegant golden circlet, with slender spines thrusting upward. 
 D:It looks like it should be resting over the brow of a king.
 
-
-
 N:100:& Jewel Encrusted Crown~
 G:]:v
 I:33:12:0
@@ -1105,7 +988,6 @@ F:IGNORE_ACID
 D:An elaboratedly decorated crown of massive gold, studded with a rainbow 
 D:of gems and jewels; worthy of an emperor.
 
-
 N:101:& Robe~
 G:(:b
 I:36:2:0
@@ -1113,7 +995,6 @@ W:1:0:0:20:4
 A:1/1:50/1
 P:2:0d0:0:0:0
 D:A practical garment of thick wool or velvet, draping from neck to heels.
-
 
 N:102:& Filthy Rag~
 G:(:D
@@ -1124,8 +1005,6 @@ P:1:0d0:0:0:-1
 D:This tattered rag appears to once have been a robe, but has been patched 
 D:and re-patched so many times that you can't be sure.
 
-
-
 N:103:Soft Leather Armour~
 G:(:U
 I:36:4:0
@@ -1133,7 +1012,6 @@ W:3:0:0:80:18
 A:3/1
 P:4:0d0:0:0:0
 D:A cuirass of pliable leather with a thicker leather jack.
-
 
 N:104:Soft Studded Leather~
 G:(:U
@@ -1143,7 +1021,6 @@ A:3/1
 P:5:1d1:0:0:0
 D:A cuirass of pliable leather studded with metal rivets.
 
-
 N:105:Hard Leather Armour~
 G:(:U
 I:36:6:0
@@ -1151,7 +1028,6 @@ W:5:0:0:100:150
 A:5/1
 P:6:1d1:-1:0:0
 D:A boiled leather cuirass and shoulder plates.
-
 
 N:106:Hard Studded Leather~
 G:(:U
@@ -1162,7 +1038,6 @@ P:7:1d2:-1:0:0
 D:A strong leather breastplate and shoulder guards over a sleeved shirt 
 D:of cured leather covered with iron studs.
 
-
 N:107:Leather Scale Mail~
 G:(:U
 I:36:11:0
@@ -1172,7 +1047,6 @@ P:11:1d1:-1:0:0
 D:A tunic and skirt sewn with thick, overlapping scales of hardened 
 D:leather.
 
-
 N:108:Metal Scale Mail~
 G:[:s
 I:37:3:0
@@ -1181,7 +1055,6 @@ A:25/1
 P:13:1d4:-2:0:0
 D:A heavy shirt of overlapping steel scales backed by leather, with 
 D:matching skirt and sleeves.
-
 
 N:109:Chain Mail~
 G:[:s
@@ -1193,8 +1066,6 @@ D:A sleeved hauberk of interlocking steel rings, well padded with leather.
 D:Chain mail takes skill to make, but offers good protection and relatively 
 D:low weight.
 
-
-
 N:110:Rusty Chain Mail~
 G:[:r
 I:37:1:0
@@ -1203,8 +1074,6 @@ A:25/1
 P:14:1d4:-5:0:-8
 D:Each link of this suit is brittle with rust, and the corroded rings 
 D:are stiff and weakened.
-
-
 
 # "hauberk"は元の意味は(袖無しの)胴鎧を指す言葉。 よく鎖かたびらで作ら
 # れたので後に転じてhauberkと言えば鎖かたびらの胴鎧、さらには鎖かたび
@@ -1219,9 +1088,6 @@ P:16:1d4:-2:0:0
 D:A hauberk, leggings, and sleeves of interlocking steel rings, 
 D:strategically reinforced at vital locations with a second layer 
 D:of chain, all over a layer of heavy padding.
-
-
-
 
 N:112:Bar Chain Mail~
 G:[:s
@@ -1245,7 +1111,6 @@ A:45/1
 P:22:1d6:-3:0:0
 D:A steel corselet and vambraces over a skirt and leggings of chain.
 
-
 N:115:Metal Lamellar Armour~
 G:[:W
 I:37:13:0
@@ -1261,8 +1126,6 @@ A:45/1
 P:25:2d4:-3:0:0
 D:A full suit of carefully fitted plates, with hinged joints backed 
 D:by chain, and light padding underneath.
-
-
 
 N:117:Ribbed Plate Armour~
 G:[:W
@@ -1281,8 +1144,6 @@ F:IGNORE_ACID
 D:Adamantite, hard as diamonds, forms this exquisite suit; nothing else 
 D:in Middle Earth gives as much protection.
 
-
-
 N:119:Mithril Plate Mail~
 G:[:B
 I:37:25:0
@@ -1292,8 +1153,6 @@ P:35:2d4:-3:0:0
 F:IGNORE_ACID
 D:A shimmering suit of true-silver, forged long ago by dwarven smiths of 
 D:legend.  It gleams with purest white as you gaze upon it.
-
-
 
 N:120:Mithril Chain Mail~
 G:[:B
@@ -1305,15 +1164,12 @@ F:IGNORE_ACID
 D:Rare and wondrous is chain mail made of true-silver, for it offers more 
 D:protection for the weight than any other armour.
 
-
-
 N:121:Double Chain Mail~
 G:[:s
 I:37:7:0
 W:30:0:0:250:1000
 A:30/1
 P:16:1d4:-2:0:0
-
 
 # This shield does not belong here
 
@@ -1328,7 +1184,6 @@ F:IGNORE_ACID | REFLECT
 #D:$all hurt and harm from you.
 #D:傷と危険から守られるようにルーン文字が刻まれたミスリル製の純白の盾だ。
 
-
 ### The Cloaks ###
 
 N:123:& Cloak~
@@ -1339,7 +1194,6 @@ A:1/1:20/1
 P:1:0d0:0:0:0
 D:A traveller's sturdy outer garment.
 
-
 N:124:& Shadow Cloak~
 G:(:D
 I:35:6:0
@@ -1348,8 +1202,6 @@ A:75/5
 P:6:0d0:0:0:4
 F:RES_DARK | RES_LITE
 D:A midnight-hued cloak that wreathes the wearer in folds of shadow.
-
-
 
 ### The Gloves ###
 
@@ -1361,7 +1213,6 @@ A:1/1
 P:1:0d0:0:0:0
 D:Leather hand protection, with an open palm for gripping weapons.
 
-
 N:126:& Set~ of Gauntlets
 G:]:U
 I:31:2:0
@@ -1370,7 +1221,6 @@ A:10/1
 P:2:1d1:0:0:0
 D:A set of gloves that completely covers the hand and wrist in steel plating.
 
-
 N:127:& Set~ of Cesti
 G:]:W
 I:31:5:0
@@ -1378,8 +1228,6 @@ W:50:0:0:40:100
 A:50/1
 P:5:1d1:0:0:0
 D:A massive set of hand sheathings, bound with steel and thrice-cured leather.
-
-
 
 ### The shields ###
 
@@ -1391,7 +1239,6 @@ A:3/1
 P:3:1d1:0:0:0
 D:A circular shield of cured animal hide stretched over layered wooden strips.
 
-
 N:129:& Large Leather Shield~
 G:):U
 I:34:4:0
@@ -1401,7 +1248,6 @@ P:6:1d2:0:0:0
 D:A large oval shield made of layered wooden strips with a thick leather 
 D:covering.
 
-
 N:130:& Small Metal Shield~
 G:):s
 I:34:3:0
@@ -1409,7 +1255,6 @@ W:10:0:0:65:40
 A:10/1
 P:5:1d2:0:0:0
 D:A round shield of wood reinforced with metal rims and central disk.
-
 
 N:131:& Large Metal Shield~
 G:):s
@@ -1419,9 +1264,6 @@ A:30/1
 P:8:1d3:0:0:0
 D:An oval shield of wood covered by leather and rimmed with metal.  A large 
 D:iron shield boss offers excellent hand protection.
-
-
-
 
 ##### Rings #####
 
@@ -1724,7 +1566,6 @@ P:0:7d7:-5:-5:5
 F:CURSED | HEAVY_CURSE | STR | INT | WIS | DEX | CON | CHR | 
 F:TY_CURSE | NO_TELE | NO_MAGIC | REGEN | 
 F:HIDE_TYPE | RANDOM_CURSE2
-
 
 ##### Scrolls #####
 
@@ -2670,7 +2511,6 @@ A:75/4
 P:0:1d1:0:0:0
 F:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
 
-
 ##### Staffs #####
 
 N:300:Trap Location:Aspen
@@ -2883,7 +2723,6 @@ W:60:0:0:50:5000
 A:60/2
 P:0:1d2:0:0:0
 
-
 ##### Basic Books #####
 
 N:330:[Book of Common Prayer]
@@ -2997,7 +2836,6 @@ G:&:u
 I:7:0:0
 W:0:0:0:250:0
 A:75/2
-
 
 ##### Various Stuff #####
 
@@ -3345,7 +3183,6 @@ A:0/1
 P:0:1d1:0:0:0
 F:STACK
 
-
 ##### Skeletons #####
 
 N:391:& Broken Skull~
@@ -3426,7 +3263,6 @@ F:RES_ACID |
 F:ACTIVATE | IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
 D:A suit of utterly black scales, against which no metal or wood can rest.
 
-
 N:401:Blue Dragon Scale Mail~
 G:[:b
 I:38:2:0
@@ -3437,7 +3273,6 @@ F:RES_ELEC |
 F:ACTIVATE | IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
 D:A suit of scales as blue as sapphires, emitting eerie sparks and flashes as 
 D:you move about in it.
-
 
 N:402:White Dragon Scale Mail~
 G:[:w
@@ -3450,7 +3285,6 @@ F:ACTIVATE | IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
 D:A suit of scales, coldly gleaming in frosty white.  A shiver runs down 
 D:through your spine even as you look at it.
 
-
 N:403:Red Dragon Scale Mail~
 G:[:r
 I:38:4:0
@@ -3461,7 +3295,6 @@ F:RES_FIRE |
 F:ACTIVATE | IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
 D:A suit of scales, with all the reds of every fire ever lit.  The scar 
 D:tissue from an old burn aches as you put this armour on.
-
 
 N:404:Green Dragon Scale Mail~
 G:[:g
@@ -3476,7 +3309,6 @@ F:ACTIVATE | IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
 #D:病的な緑に光る鱗鎧で、それに触れたネズミは苦痛に死んで白骨化する。
 D:A suit of scales, glistening in sickly green.
 
-
 N:405:Multi-Hued Dragon Scale Mail~
 G:[:v
 I:38:6:0
@@ -3487,8 +3319,6 @@ F:RES_ACID | RES_ELEC | RES_FIRE | RES_COLD | RES_POIS
 F:ACTIVATE | IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
 D:A suit of scales that throbs with angry energies; it takes all your energy 
 D:to master the Elements fighting an endless war trapped inside.
-
-
 
 N:406:Pseudo Dragon Scale Mail~
 G:[:v
@@ -3510,8 +3340,6 @@ F:ACTIVATE | IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
 D:A suit of scales in stern blue and silver.  You feel the slightest tremor 
 D:as you touch it, like massed trumpets heard and cyclones felt from afar.
 
-
-
 N:408:Bronze Dragon Scale Mail~
 G:[:U
 I:38:14:0
@@ -3523,8 +3351,6 @@ F:ACTIVATE | IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
 D:A suit of scales, gleaming in rich engraved bronze.  The more you look at 
 D:the the maze of whorls and lines that close inspection reveal on its 
 D:surface, the less sense you are able to make of them.
-
-
 
 N:409:Gold Dragon Scale Mail~
 G:[:y
@@ -3538,8 +3364,6 @@ D:A suit of scales in mirror-like gold.  You hear nothing unusual as you
 D:wear this armour, yet your ears ache as though in the midst of a 
 D:cacophony.
 
-
-
 N:410:Chaos Dragon Scale Mail~
 G:[:v
 I:38:18:0
@@ -3550,8 +3374,6 @@ F:RES_CHAOS | RES_DISEN |
 F:ACTIVATE | IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
 D:A suit of scales.  Every shape, in every color imaginable, riot and 
 D:contend upon its surface as you stare in fascination.
-
-
 
 N:411:Balance Dragon Scale Mail~
 G:[:v
@@ -3564,8 +3386,6 @@ F:ACTIVATE | IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
 D:A suit of scales.  Featureless grey to casual inspection, yet a closer 
 D:look reveals patterns within patterns of iridescence that throb with 
 D:leashed energies bound as though by chains of adamant.
-
-
 
 N:412:Power Dragon Scale Mail~
 G:[:v
@@ -3581,8 +3401,6 @@ D:A suit with scales of every color, surrounded in a nimbus of perfectly
 D:untramelled yet inextricably intermingled and utterly mastered powers 
 D:elemental and ethereal.
 
-
-
 ## PDSM has been restored to (almost) its former glory in Zangband
 
 N:413:& Dragon Helm~
@@ -3594,7 +3412,6 @@ P:8:1d3:0:0:10
 F:IGNORE_ACID | IGNORE_FIRE | IGNORE_ELEC | IGNORE_COLD
 D:A dragon-winged great helm, glowing in all the colors of the rainbow.  
 D:It grants resistance to the elements.
-
 
 N:414:& Dragon Shield~
 G:[:G
@@ -3789,7 +3606,6 @@ F:STACK
 
 ##### Items 445 to 479 reserved (old "terrain" objects) #####
 
-
 # The old "notice_seams" option is currently unused, but much of its
 # old functionality can be obtained by clever use of 'F' commands in
 # a pref file which define "quartz" and "magma" to look like "granite".
@@ -3800,7 +3616,6 @@ F:STACK
 # special "player picture" which might yield a simple way to show the
 # player in different colors or whatever for different "states", or even
 # a different picture for various "class" or "race" choices.
-
 
 ##### And here starts the gold/gems #####
 
@@ -3894,7 +3709,6 @@ G:$:G
 I:127:18:0
 W:1:0:0:0:80
 
-
 ##### Objects 498 and 499 are the "Morgoth Artifacts" #####
 
 # These objects, like objects 500 to 511, are never created
@@ -3914,7 +3728,6 @@ I:33:50:0
 W:44:0:0:20:1000
 P:0:1d1:0:0:0
 F:INSTA_ART
-
 
 ##### Objects 500 to 511 are the "Special Artifacts" #####
 
@@ -3940,7 +3753,6 @@ F:INSTA_ART
 # different "amulet" templates is to allow each "special artifact" to
 # have a different "color" and "flavor", and also to allow the use of
 # special "base names" (such as "Necklace").
-
 
 # The Phial of Galadriel -- see artifact list
 
@@ -3969,7 +3781,6 @@ W:70:0:0:5:60000
 P:0:1d1:0:0:0
 F:INSTA_ART
 
-
 # The Amulet of Carlammas -- see artifact list
 
 N:503:& Amulet~:Pewter
@@ -3993,7 +3804,6 @@ G:":y
 I:40:12:0
 W:70:0:0:3:75000
 F:INSTA_ART
-
 
 # The Ring of Barahir -- see artifact list
 
@@ -4042,7 +3852,6 @@ G:=:y
 I:45:37:0
 W:110:0:0:2:5000000
 F:INSTA_ART | FIXED_FLAVOR
-
 
 ### Room for new objects added after 511 (Zangband 2.1.0): 512-575
 
@@ -4798,8 +4607,6 @@ F:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
 D:This unearthly, completely transparent body mantle folds and drapes in 
 D:iridescent patterns around you.  It weighs absolutely nothing.
 
-
-
 N:612:& Mirror~
 G:*:b
 I:34:50:0
@@ -4927,7 +4734,6 @@ W:85:0:0:50:7000
 A:85/4
 P:0:1d2:0:0:0
 F:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
-
 
 N:630:Reset Recall:unjah blu comp
 G:?:w

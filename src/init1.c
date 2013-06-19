@@ -2091,6 +2091,10 @@ errr parse_a_info(char *buf, header *head)
 
         /* Nuke the colon, advance to the name */
         *s++ = '\0';
+
+		/* Paranoia -- require a name */
+		if (!*s) return (1);
+
         /* Get the index */
         i = atoi(buf+2);
 
@@ -2111,28 +2115,19 @@ errr parse_a_info(char *buf, header *head)
         add_flag(a_ptr->flags, TR_IGNORE_ELEC);
         add_flag(a_ptr->flags, TR_IGNORE_FIRE);
         add_flag(a_ptr->flags, TR_IGNORE_COLD);
+
+		/* Store the name */
+		if (!add_name(&a_ptr->name, head, s)) return (7);
     }
 
     /* There better be a current a_ptr */
     else if (!a_ptr) return (3);
 
-
-    else if (buf[0] == 'E')
-    {
-        /* Acquire the Text */
-        s = buf+2;
-
-        /* Store the name */
-        if (!add_name(&a_ptr->name, head, s)) return (7);
-    }
-
     /* Process 'D' for "Description" */
     else if (buf[0] == 'D')
     {
-        if (buf[2] != '$')
-            return (0);
         /* Acquire the text */
-        s = buf+3;
+        s = buf+2;
 
         /* Store the text */
         if (!add_text(&a_ptr->text, head, s, TRUE)) return (7);
