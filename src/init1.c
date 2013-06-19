@@ -1838,6 +1838,7 @@ errr parse_k_info(char *buf, header *head)
     /* Process 'N' for "New/Number/Name" */
     if (buf[0] == 'N')
     {
+        char *flavor;
 
         /* Find the colon before the name */
         s = my_strchr(buf+2, ':');
@@ -1863,43 +1864,34 @@ errr parse_k_info(char *buf, header *head)
         /* Point at the "info" */
         k_ptr = &k_info[i];
 
+		/* Paranoia -- require a name */
+		if (!*s) return (1);
+
+		/* Find the colon before the flavor */
+		flavor = my_strchr(s, ':');
+
+		/* Verify that colon */
+		if (flavor)
+		{
+			/* Nuke the colon, advance to the flavor */
+			*flavor++ = '\0';
+
+			/* Store the flavor */
+			if (!add_name(&k_ptr->flavor_name, head, flavor)) return (7);
+		}
+
+		/* Store the name */
+		if (!add_name(&k_ptr->name, head, s)) return (7);
     }
 
     /* There better be a current k_ptr */
     else if (!k_ptr) return (3);
 
-
-    else if (buf[0] == 'E')
-    {
-        char *flavor;
-
-        /* Acquire the name */
-        s = buf+2;
-
-        /* Find the colon before the flavor */
-        flavor = my_strchr(s, ':');
-
-        /* Verify that colon */
-        if (flavor)
-        {
-            /* Nuke the colon, advance to the flavor */
-            *flavor++ = '\0';
-
-            /* Store the flavor */
-            if (!add_name(&k_ptr->flavor_name, head, flavor)) return (7);
-        }
-
-        /* Store the name */
-        if (!add_name(&k_ptr->name, head, s)) return (7);
-    }
-
     /* Process 'D' for "Description" */
     else if (buf[0] == 'D')
     {
-        if (buf[2] != '$')
-            return (0);
         /* Acquire the text */
-        s = buf+3;
+        s = buf+2;
 
         /* Store the text */
         if (!add_text(&k_ptr->text, head, s, TRUE)) return (7);
