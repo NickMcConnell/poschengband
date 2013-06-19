@@ -2821,6 +2821,10 @@ errr parse_d_info(char *buf, header *head)
 
         /* Nuke the colon, advance to the name */
         *s++ = '\0';
+
+		/* Paranoia -- require a name */
+		if (!*s) return (1);
+
         /* Get the index */
         i = atoi(buf+2);
 
@@ -2835,24 +2839,16 @@ errr parse_d_info(char *buf, header *head)
 
         /* Point at the "info" */
         d_ptr = &d_info[i];
-    }
 
-    else if (buf[0] == 'E')
-    {
-        /* Acquire the Text */
-        s = buf+2;
-
-        /* Store the name */
-        if (!add_name(&d_ptr->name, head, s)) return (7);
+		/* Store the name */
+		if (!add_name(&d_ptr->name, head, s)) return (7);
     }
 
     /* Process 'D' for "Description */
     else if (buf[0] == 'D')
     {
-        if (buf[2] != '$')
-            return (0);
         /* Acquire the text */
-        s = buf+3;
+        s = buf+2;
 
         /* Store the text */
         if (!add_text(&d_ptr->text, head, s, TRUE)) return (7);
