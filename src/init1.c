@@ -1859,24 +1859,24 @@ errr parse_k_info(char *buf, header *head)
         /* Point at the "info" */
         k_ptr = &k_info[i];
 
-		/* Paranoia -- require a name */
-		if (!*s) return (1);
+        /* Paranoia -- require a name */
+        if (!*s) return (1);
 
-		/* Find the colon before the flavor */
-		flavor = my_strchr(s, ':');
+        /* Find the colon before the flavor */
+        flavor = my_strchr(s, ':');
 
-		/* Verify that colon */
-		if (flavor)
-		{
-			/* Nuke the colon, advance to the flavor */
-			*flavor++ = '\0';
+        /* Verify that colon */
+        if (flavor)
+        {
+            /* Nuke the colon, advance to the flavor */
+            *flavor++ = '\0';
 
-			/* Store the flavor */
-			if (!add_name(&k_ptr->flavor_name, head, flavor)) return (7);
-		}
+            /* Store the flavor */
+            if (!add_name(&k_ptr->flavor_name, head, flavor)) return (7);
+        }
 
-		/* Store the name */
-		if (!add_name(&k_ptr->name, head, s)) return (7);
+        /* Store the name */
+        if (!add_name(&k_ptr->name, head, s)) return (7);
     }
 
     /* There better be a current k_ptr */
@@ -2087,8 +2087,8 @@ errr parse_a_info(char *buf, header *head)
         /* Nuke the colon, advance to the name */
         *s++ = '\0';
 
-		/* Paranoia -- require a name */
-		if (!*s) return (1);
+        /* Paranoia -- require a name */
+        if (!*s) return (1);
 
         /* Get the index */
         i = atoi(buf+2);
@@ -2111,8 +2111,8 @@ errr parse_a_info(char *buf, header *head)
         add_flag(a_ptr->flags, TR_IGNORE_FIRE);
         add_flag(a_ptr->flags, TR_IGNORE_COLD);
 
-		/* Store the name */
-		if (!add_name(&a_ptr->name, head, s)) return (7);
+        /* Store the name */
+        if (!add_name(&a_ptr->name, head, s)) return (7);
     }
 
     /* There better be a current a_ptr */
@@ -2275,8 +2275,8 @@ errr parse_e_info(char *buf, header *head)
         /* Nuke the colon, advance to the name */
         *s++ = '\0';
 
-		/* Paranoia -- require a name */
-		if (!*s) return (1);
+        /* Paranoia -- require a name */
+        if (!*s) return (1);
 
         /* Get the index */
         i = atoi(buf+2);
@@ -2293,8 +2293,8 @@ errr parse_e_info(char *buf, header *head)
         /* Point at the "info" */
         e_ptr = &e_info[i];
 
-		/* Store the name */
-		if (!add_name(&e_ptr->name, head, s)) return (7);
+        /* Store the name */
+        if (!add_name(&e_ptr->name, head, s)) return (7);
     }
 
     /* There better be a current e_ptr */
@@ -2463,8 +2463,8 @@ errr parse_r_info(char *buf, header *head)
         /* Nuke the colon, advance to the name */
         *s++ = '\0';
 
-		/* Paranoia -- require a name */
-		if (!*s) return (1);
+        /* Paranoia -- require a name */
+        if (!*s) return (1);
 
         /* Get the index */
         i = atoi(buf+2);
@@ -2481,8 +2481,8 @@ errr parse_r_info(char *buf, header *head)
         /* Point at the "info" */
         r_ptr = &r_info[i];
 
-		/* Store the name */
-		if (!add_name(&r_ptr->name, head, s)) return (7);
+        /* Store the name */
+        if (!add_name(&r_ptr->name, head, s)) return (7);
     }
 
     /* There better be a current r_ptr */
@@ -2797,8 +2797,8 @@ errr parse_d_info(char *buf, header *head)
         /* Nuke the colon, advance to the name */
         *s++ = '\0';
 
-		/* Paranoia -- require a name */
-		if (!*s) return (1);
+        /* Paranoia -- require a name */
+        if (!*s) return (1);
 
         /* Get the index */
         i = atoi(buf+2);
@@ -2815,8 +2815,8 @@ errr parse_d_info(char *buf, header *head)
         /* Point at the "info" */
         d_ptr = &d_info[i];
 
-		/* Store the name */
-		if (!add_name(&d_ptr->name, head, s)) return (7);
+        /* Store the name */
+        if (!add_name(&d_ptr->name, head, s)) return (7);
     }
 
     /* Process 'D' for "Description */
@@ -3695,9 +3695,8 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
     {
         int num;
         quest_type *q_ptr;
-        if (buf[2] != '$')
-            return 0;
-        num = tokenize(buf + 3, 33, zz, 0);
+
+        num = tokenize(buf + 2, 33, zz, 0);
 
         /* Have we enough parameters? */
         if (num < 3) return (PARSE_ERROR_TOO_FEW_ARGUMENTS);
