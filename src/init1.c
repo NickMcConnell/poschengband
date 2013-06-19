@@ -3249,9 +3249,7 @@ static errr parse_line_building(char *buf)
     int index;
     char *s;
 
-    if (buf[2] != '$')
-        return 0;
-    s = buf + 3;
+    s = buf + 2;
     /* Get the building number */
     index = atoi(s);
 
@@ -3324,12 +3322,12 @@ static errr parse_line_building(char *buf)
 
         /* Building Classes 
             The old way:
-            B:$7:C:2:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:2:0:0:2:2:2:0:0:0:0:0:2:0:0:2:0:2:2:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0
+            B:7:C:2:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:2:0:0:2:2:2:0:0:0:0:0:2:0:0:2:0:2:2:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0
 
             The new way:
-            B:$7:C:*:None to set a default
-            B:$7:C:Warrior:Owner to set an owner
-            B:$7:C:Ranger:Member to set a member
+            B:7:C:*:None to set a default
+            B:7:C:Warrior:Owner to set an owner
+            B:7:C:Ranger:Member to set a member
             (You probably should always specify a default first since I am unsure if
             code cleans up properly.)
         */
