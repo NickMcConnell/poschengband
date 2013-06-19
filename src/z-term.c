@@ -2110,9 +2110,6 @@ errr Term_inkey(char *ch, bool wait, bool take)
     /* Assume no key */
     (*ch) = '\0';
 
-#ifdef CHUUKEI
-    flush_ringbuf();
-#endif
 
     /* Hack -- get bored */
     if (!Term->never_bored)
