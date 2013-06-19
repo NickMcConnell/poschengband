@@ -531,9 +531,6 @@ static errr send_text_to_chuukei_server(int x, int y, int len, byte col, cptr st
 	}
 	else
 	{
-#ifdef SJIS
-		sjis2euc(buf2);
-#endif
 		sprintf(buf, "t%c%c%c%c%s", x+1, y+1, len, col, buf2);
 	}
 
@@ -932,9 +929,6 @@ static bool flush_ringbuf_client(void)
 		switch (id)
 		{
 		case 't': /* дл╬О */
-#ifdef SJIS
-			euc2sjis(mesg);
-#endif
 			update_term_size(x, y, len);
 			(void)((*angband_term[0]->text_hook)(x, y, len, (byte)col, mesg));
 			strncpy(&Term->scr->c[y][x], mesg, len);
