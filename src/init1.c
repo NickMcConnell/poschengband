@@ -1512,11 +1512,6 @@ errr parse_f_info(char *buf, header *head)
     /* There better be a current f_ptr */
     else if (!f_ptr) return (3);
 
-    else if (buf[0] == 'J')
-    {
-        /* Ignore Japanese name */
-    }
-
     else if (buf[0] == 'E')
     {
         /* Acquire the Text */
