@@ -2279,6 +2279,10 @@ errr parse_e_info(char *buf, header *head)
 
         /* Nuke the colon, advance to the name */
         *s++ = '\0';
+
+		/* Paranoia -- require a name */
+		if (!*s) return (1);
+
         /* Get the index */
         i = atoi(buf+2);
 
@@ -2293,33 +2297,13 @@ errr parse_e_info(char *buf, header *head)
 
         /* Point at the "info" */
         e_ptr = &e_info[i];
+
+		/* Store the name */
+		if (!add_name(&e_ptr->name, head, s)) return (7);
     }
 
     /* There better be a current e_ptr */
     else if (!e_ptr) return (3);
-
-
-    else if (buf[0] == 'E')
-    {
-        /* Acquire the Text */
-        s = buf+2;
-
-        /* Store the name */
-        if (!add_name(&e_ptr->name, head, s)) return (7);
-    }
-#if 0
-
-    /* Process 'D' for "Description" */
-    else if (buf[0] == 'D')
-    {
-        /* Acquire the text */
-        s = buf+2;
-
-        /* Store the text */
-        if (!add_text(&e_ptr->text, head, s, TRUE)) return (7);
-    }
-
-#endif
 
     /* Process 'X' for "Xtra" (one line only) */
     else if (buf[0] == 'X')
