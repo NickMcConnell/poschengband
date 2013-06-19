@@ -1977,10 +1977,10 @@ static void get_exp_from_mon(int dam, monster_type *m_ptr)
     /* Special penalty for mutiply-monster    */
     if ((r_ptr->flags2 & RF2_MULTIPLY) || (m_ptr->r_idx == MON_DAWN))
     {
-        int monnum_penarty = r_ptr->r_akills / 400;
-        if (monnum_penarty > 8) monnum_penarty = 8;
+        int monnum_penalty = r_ptr->r_akills / 400;
+        if (monnum_penalty > 8) monnum_penalty = 8;
 
-        while (monnum_penarty--)
+        while (monnum_penalty--)
         {
             /* Divide by 2 */
             s64b_RSHIFT(new_exp, new_exp_frac, 1);
@@ -1989,6 +1989,7 @@ static void get_exp_from_mon(int dam, monster_type *m_ptr)
 
     /* Wilderness Penalty */
     if ( !dun_level 
+      && !p_ptr->inside_quest  /* Paranoia ... but I had dun_level == 0 inside a town quest once. I'm not sure what happened ... */
       && (!(r_ptr->flags8 & RF8_WILD_ONLY) || !(r_ptr->flags1 & RF1_UNIQUE)) )
     {
         s64b_RSHIFT(new_exp, new_exp_frac, 3);
