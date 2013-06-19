@@ -4210,7 +4210,43 @@ bool py_attack(int y, int x, int mode)
     }
 
     if (p_ptr->innate_attack_ct && !mdeath && !fear_stop)
-        innate_attacks(c_ptr->m_idx, &fear, &mdeath);
+    {
+        bool do_innate_attacks = TRUE;
+
+        switch (mode)
+        {
+        case WEAPONMASTER_RETALIATION:
+        case WEAPONMASTER_PROXIMITY_ALERT:
+        case WEAPONMASTER_CRUSADERS_STRIKE:
+        case WEAPONMASTER_MANY_STRIKE:
+        case WEAPONMASTER_PIERCING_STRIKE:
+        case WEAPONMASTER_WHIRLWIND:
+        case WEAPONMASTER_REAPING:
+        case MELEE_AWESOME_BLOW:
+        case ROGUE_ASSASSINATE:
+        case MAULER_STUNNING_BLOW:
+        case MAULER_KNOCKBACK:
+        case MAULER_KNOCKOUT_BLOW:
+        case MAULER_CRUSHING_BLOW:
+        case MAULER_CRITICAL_BLOW:
+        case MAULER_SCATTER:
+        case HISSATSU_KYUSHO:
+        case HISSATSU_MINEUCHI:
+        case HISSATSU_3DAN:
+        case HISSATSU_IAI:
+        case MYSTIC_KILL:
+        case MYSTIC_KNOCKOUT:
+        case MYSTIC_CONFUSE:
+            do_innate_attacks = FALSE;
+            break;
+        }
+
+        if (mauler_get_toggle() == MAULER_TOGGLE_MAUL) 
+            do_innate_attacks = FALSE;
+
+        if (do_innate_attacks)
+            innate_attacks(c_ptr->m_idx, &fear, &mdeath);
+    }
 
     melee_hack = FALSE;
 

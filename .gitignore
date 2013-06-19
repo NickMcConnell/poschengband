@@ -5,6 +5,7 @@
 *.ini
 lib/save/*
 lib/user/*.prf
+lib/user/*.txt
 
 #################
 ## Eclipse
