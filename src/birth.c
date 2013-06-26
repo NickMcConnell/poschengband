@@ -990,7 +990,7 @@ static _name_desc_t _dragon_info[DRAGON_MAX] = {
         "dragons, they eventually confuse monsters with their bite attack. Also, they become "
         "more and more resistant to confusion as they mature." },
     { "Gold Dragon",
-        "Bronze Dragons are wyrms of sound. While they are not quite as strong as most other "
+        "Gold Dragons are wyrms of sound. While they are not quite as strong as most other "
         "dragons, they are able to breathe sound on command, stunning their foes. Also, they become "
         "more and more resistant to sound as they mature." },
     { "Steel Dragon",

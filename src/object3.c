@@ -677,7 +677,7 @@ s32b _finalize_p(s32b p, u32b flgs[TR_FLAG_SIZE], object_type *o_ptr)
 
     if (have_flag(flgs, TR_TY_CURSE))
     {
-        p = p * 8 / 10;
+        p = p * 5 / 10;
         if (cost_calc_hook)
         {
             sprintf(dbg_msg, "  * AFC: p = %d", p);
