@@ -137,21 +137,21 @@ static int _breath_amount(void)
     case DRAGON_BLUE:
     case DRAGON_BLACK:
     case DRAGON_GREEN:
-        return MIN(900, p_ptr->chp * (25 + l*l*l/2500) / 100);
+        return MAX(1, MIN(900, p_ptr->chp * (25 + l*l*l/2500) / 100));
 
     case DRAGON_LAW:
     case DRAGON_CHAOS:
     case DRAGON_CRYSTAL:
     case DRAGON_BRONZE:
     case DRAGON_GOLD:
-        return MIN(450, p_ptr->chp * (20 + l*l*l*30/125000) / 100);
+        return MAX(1, MIN(450, p_ptr->chp * (20 + l*l*l*30/125000) / 100));
 
     case DRAGON_BALANCE:
-        return MIN(400, p_ptr->chp * (20 + l*l*l*25/125000) / 100);
+        return MAX(1, MIN(400, p_ptr->chp * (20 + l*l*l*25/125000) / 100));
 
     case DRAGON_NETHER:
     case DRAGON_ETHEREAL:
-        return MIN(375, p_ptr->chp * (20 + l*l*l*15/125000) / 100);
+        return MAX(1, MIN(375, p_ptr->chp * (20 + l*l*l*15/125000) / 100));
     }
     return 0;
 }
