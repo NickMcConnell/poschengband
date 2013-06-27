@@ -538,7 +538,7 @@ void check_quest_completion(monster_type *m_ptr)
                     quest[i].status = QUEST_STATUS_COMPLETED;
                     quest[i].complev = (byte)p_ptr->lev;
                     virtue_add(VIRTUE_VALOUR, 2);
-                    p_ptr->fame += randint1(4);
+                    p_ptr->fame += randint1(2);
 
                     if (!(quest[i].flags & QUEST_FLAG_SILENT))
                     {
@@ -575,7 +575,7 @@ void check_quest_completion(monster_type *m_ptr)
                         quest[i].status = QUEST_STATUS_COMPLETED;
                         quest[i].complev = (byte)p_ptr->lev;
                         virtue_add(VIRTUE_VALOUR, 2);
-                        p_ptr->fame += randint1(4);
+                        p_ptr->fame += randint1(2);
                         msg_print("You just completed your quest!");
                         msg_print(NULL);
                     }
@@ -597,7 +597,7 @@ void check_quest_completion(monster_type *m_ptr)
                     quest[i].status = QUEST_STATUS_COMPLETED;
                     quest[i].complev = (byte)p_ptr->lev;
                     virtue_add(VIRTUE_VALOUR, 2);
-                    p_ptr->fame += randint1(4);
+                    p_ptr->fame += randint1(2);
                     if (!(quest[i].flags & QUEST_FLAG_PRESET))
                     {
                         create_stairs = TRUE;
@@ -634,7 +634,7 @@ void check_quest_completion(monster_type *m_ptr)
                     quest[i].status = QUEST_STATUS_COMPLETED;
                     quest[i].complev = (byte)p_ptr->lev;
                     virtue_add(VIRTUE_VALOUR, 2);
-                    p_ptr->fame += randint1(4);
+                    p_ptr->fame += randint1(2);
 
                     if (!(quest[i].flags & QUEST_FLAG_SILENT))
                     {
@@ -1701,6 +1701,7 @@ void monster_death(int m_idx, bool drop_item)
                 : lookup_kind(TV_SCROLL, SV_SCROLL_ACQUIREMENT);
 
             gain_chosen_stat();
+            p_ptr->fame += randint1(3);
 
             if (d_info[dungeon_type].final_artifact)
             {
@@ -2190,7 +2191,9 @@ bool mon_take_hit(int m_idx, int dam, bool *fear, cptr note)
                 }
 
                 r_ptr->max_num = 0;
-                p_ptr->fame += 1;
+
+                if (one_in_(3))
+                    p_ptr->fame++;
 
                 /* Mega-Hack -- Banor & Lupart */
                 if ((m_ptr->r_idx == MON_BANOR) || (m_ptr->r_idx == MON_LUPART))

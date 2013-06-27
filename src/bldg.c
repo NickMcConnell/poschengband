@@ -1836,7 +1836,7 @@ static bool kankin(void)
                 inven_item_optimize(i);
 
                 virtue_add(VIRTUE_JUSTICE, 5);
-                p_ptr->fame += randint1(2);
+                p_ptr->fame++;
                 kubi_r_idx[j] += 10000;
 
                 /* Count number of unique corpses already handed */
