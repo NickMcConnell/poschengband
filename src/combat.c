@@ -582,7 +582,7 @@ int display_weapon_info(int hand, int row, int col)
 
                 min_dist = dex_idx - p_ptr->stat_ind[A_DEX];
 
-                sprintf(buf, " With %s STR and %s DEX you will get %d blows.", str_txt, dex_txt, blows);
+                sprintf(buf, " With %s STR and %s DEX you will get %d blows.", str_txt, dex_txt, blows + p_ptr->weapon_info[hand].xtra_blow);
                 put_str(buf, r++, c);
 
                 break;
@@ -605,7 +605,7 @@ int display_weapon_info(int hand, int row, int col)
                 _desc_stat_idx(str_txt, str_idx);
                 _desc_stat_idx(dex_txt, dex_idx);
 
-                sprintf(buf, " With %s STR and %s DEX you will get %d blows.", str_txt, dex_txt, blows);
+                sprintf(buf, " With %s STR and %s DEX you will get %d blows.", str_txt, dex_txt, blows + p_ptr->weapon_info[hand].xtra_blow);
                 put_str(buf, r++, c);
 
                 break;
@@ -638,7 +638,7 @@ int display_weapon_info(int hand, int row, int col)
             _desc_stat_idx(str_txt, save_str_idx);
             _desc_stat_idx(dex_txt, save_dex_idx);
 
-            sprintf(buf, " With %s STR and %s DEX you will get %d blows.", str_txt, dex_txt, save_blows);
+            sprintf(buf, " With %s STR and %s DEX you will get %d blows.", str_txt, dex_txt, save_blows + p_ptr->weapon_info[hand].xtra_blow);
             put_str(buf, r++, c);
         }
     }
