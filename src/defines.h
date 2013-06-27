@@ -19,7 +19,7 @@
 #define VER_MAJOR 1
 #define VER_MINOR 0
 #define VER_PATCH 25
-#define VER_EXTRA 0
+#define VER_EXTRA 1
 
 
 /*
@@ -4793,6 +4793,8 @@ extern int PlayerUID;
 #define BACT_GAMBLE_SHOP_ARMOR      52
 #define BACT_GAMBLE_SHOP_WEAPON     53
 #define BACT_GAMBLE_SHOP_ARTIFACT   54
+#define BACT_REPUTATION             55
+#define BACT_REFORGE_ARTIFACT       56
 
 /*
  * Quest status

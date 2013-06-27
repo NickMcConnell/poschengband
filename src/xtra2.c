@@ -538,6 +538,7 @@ void check_quest_completion(monster_type *m_ptr)
                     quest[i].status = QUEST_STATUS_COMPLETED;
                     quest[i].complev = (byte)p_ptr->lev;
                     virtue_add(VIRTUE_VALOUR, 2);
+                    p_ptr->fame += randint1(4);
 
                     if (!(quest[i].flags & QUEST_FLAG_SILENT))
                     {
@@ -574,6 +575,7 @@ void check_quest_completion(monster_type *m_ptr)
                         quest[i].status = QUEST_STATUS_COMPLETED;
                         quest[i].complev = (byte)p_ptr->lev;
                         virtue_add(VIRTUE_VALOUR, 2);
+                        p_ptr->fame += randint1(4);
                         msg_print("You just completed your quest!");
                         msg_print(NULL);
                     }
@@ -595,6 +597,7 @@ void check_quest_completion(monster_type *m_ptr)
                     quest[i].status = QUEST_STATUS_COMPLETED;
                     quest[i].complev = (byte)p_ptr->lev;
                     virtue_add(VIRTUE_VALOUR, 2);
+                    p_ptr->fame += randint1(4);
                     if (!(quest[i].flags & QUEST_FLAG_PRESET))
                     {
                         create_stairs = TRUE;
@@ -611,6 +614,7 @@ void check_quest_completion(monster_type *m_ptr)
                     if ((i == QUEST_OBERON) || (i == QUEST_SERPENT))
                     {
                         quest[i].status = QUEST_STATUS_FINISHED;
+                        p_ptr->fame += 10;
                     }
 
                     if (quest[i].type == QUEST_TYPE_RANDOM)
@@ -630,6 +634,7 @@ void check_quest_completion(monster_type *m_ptr)
                     quest[i].status = QUEST_STATUS_COMPLETED;
                     quest[i].complev = (byte)p_ptr->lev;
                     virtue_add(VIRTUE_VALOUR, 2);
+                    p_ptr->fame += randint1(4);
 
                     if (!(quest[i].flags & QUEST_FLAG_SILENT))
                     {
@@ -1665,6 +1670,7 @@ void monster_death(int m_idx, bool drop_item)
         if (race_ptr->boss_r_idx == m_ptr->r_idx)
         {
             msg_print("Congratulations! You have killed the boss of your race!");
+            p_ptr->fame += 10;
             chance = 100;
             p_ptr->update |= PU_BONUS; /* Player is now a "Hero" (cf IS_HERO()) */
             p_ptr->redraw |= PR_STATUS;
@@ -1822,6 +1828,8 @@ void monster_death(int m_idx, bool drop_item)
     /* Winner? */
     if ((m_ptr->r_idx == MON_SERPENT) && !cloned)
     {
+        p_ptr->fame += 50;
+
         /* Total winner */
         p_ptr->total_winner = TRUE;
 
@@ -2182,6 +2190,7 @@ bool mon_take_hit(int m_idx, int dam, bool *fear, cptr note)
                 }
 
                 r_ptr->max_num = 0;
+                p_ptr->fame += 1;
 
                 /* Mega-Hack -- Banor & Lupart */
                 if ((m_ptr->r_idx == MON_BANOR) || (m_ptr->r_idx == MON_LUPART))

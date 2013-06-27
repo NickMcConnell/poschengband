@@ -1056,6 +1056,12 @@ static void do_cmd_wiz_change_aux(void)
         /* Update */
         check_experience();
     }
+
+    sprintf(tmp_val, "%d", p_ptr->fame);
+    if (!get_string("Fame: ", tmp_val, 3)) return;
+    tmp_long = atol(tmp_val);
+    if (tmp_long < 0) tmp_long = 0L;
+    p_ptr->fame = tmp_long;
 }
 
 

@@ -3704,6 +3704,71 @@ void random_artifact_resistance(object_type * o_ptr, artifact_type *a_ptr)
     }
 }
 
+bool reforge_artifact(object_type *src, object_type *dest)
+{
+    bool        result = FALSE;
+    object_type forge = {0};    
+    object_type best = {0}, worst = {0};
+    int         base_power, best_power = -10000000, power = 0, worst_power = 10000000;
+    int         old_level, i;
+
+    /* Score the Original */
+    base_power = object_value_real(src);
+
+    /* Better Fame means better results! */
+    old_level = object_level;
+    object_level = MAX(p_ptr->fame, 100);
+
+    for (i = 0; i < MAX(1, MIN(10000, p_ptr->fame * p_ptr->fame)) && !result; i++)
+    {
+        object_copy(&forge, dest);
+        create_artifact(&forge, CREATE_ART_GOOD);
+        power = object_value_real(&forge);
+
+        if (power > best_power)
+        {
+            object_copy(&best, &forge);
+            best_power = power;
+        }
+        if (power < worst_power)
+        {
+            object_copy(&worst, &forge);
+            worst_power = power;
+        }
+
+        /* Success if 70% to 200% of original source power */
+        if (power > base_power * 7 / 10 && power < base_power * 2)
+        {
+            object_copy(dest, &forge);
+            result = TRUE;
+        }
+    }
+
+    object_level = old_level;
+
+    if (!result)
+    {
+        /* Failed! Return best or worst */
+        if (worst_power > base_power)
+            object_copy(dest, &worst);
+        else
+            object_copy(dest, &best);
+
+        result = TRUE;
+    }
+
+    /* Flavor: Keep name of source artifact if possible */
+    if (src->name1)
+    {
+        dest->name3 = src->name1;
+        dest->art_name = quark_add(a_name + a_info[src->name1].name);
+    }
+    else
+        dest->art_name = src->art_name;
+
+    return result;
+}
+
 bool create_replacement_art(int a_idx, object_type *o_ptr)
 {
     object_type        forge1 = {0};

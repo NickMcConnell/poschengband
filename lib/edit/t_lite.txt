@@ -494,6 +494,7 @@ B:0:N:The White Horse Inn:Otick:Human
 B:0:A:0:Rest for the night:20:20:r:17:0
 B:0:A:1:Buy food and drink:1:1:f:18:1
 B:0:A:2:Listen for rumors:5:5:u:19:0
+B:0:A:3:Ask about your reputation:1:1:a:55:0
 B:0:R:*:Member
 B:0:R:Golem:None
 B:0:R:Skeleton:None

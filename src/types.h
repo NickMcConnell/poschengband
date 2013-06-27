@@ -1010,6 +1010,7 @@ struct player_type
     u16b expfact;
 
     s32b au;            /* Current Gold */
+    s16b fame;
 
     s32b max_max_exp;    /* Max max experience (only to calculate score) */
     s32b max_exp;        /* Max experience */

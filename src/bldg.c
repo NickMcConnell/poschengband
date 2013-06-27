@@ -1836,6 +1836,7 @@ static bool kankin(void)
                 inven_item_optimize(i);
 
                 virtue_add(VIRTUE_JUSTICE, 5);
+                p_ptr->fame += randint1(2);
                 kubi_r_idx[j] += 10000;
 
                 /* Count number of unique corpses already handed */
@@ -2809,6 +2810,98 @@ static void _enchant_menu_fn(int cmd, int which, vptr cookie, variant *res)
     default:
         default_menu(cmd, which, cookie, res);
     }
+}
+
+static bool _reforge_artifact(void)
+{
+    int src_idx, dest_idx, cost;
+    char o_name[MAX_NLEN];
+    object_type *src, *dest;
+
+    if (p_ptr->fame < 50)
+    {
+        msg_print("You are not famous enough for this service!");
+        return FALSE;
+    }
+
+    item_tester_hook = object_is_artifact;
+    if (!get_item(&src_idx, "Use what artifact for reforging? ", "You have no artifacts to reforge.", USE_INVEN))
+        return FALSE;
+
+    src = &inventory[src_idx];
+    if (!object_is_artifact(src)) /* paranoia */
+    {
+        msg_print("You must choose an artifact for reforging.");
+        return FALSE;
+    }
+
+    cost = object_value_real(src);
+    cost *= 10;
+
+    if (cost < 500000)
+        cost = 500000;
+    if (cost > 10000000)
+        cost = 10000000;
+
+    msg_format("Reforging will cost you %d gold.", cost);
+    if (p_ptr->au < cost)
+    {
+        msg_print("You do not have that much.");
+        return FALSE;
+    }
+
+    object_desc(o_name, src, OD_NAME_ONLY);
+    if (!get_check(format("Really use %s? (It will be destroyed!) ", o_name))) 
+        return FALSE;
+
+    if (!get_item(&dest_idx, "Reforge which object? ", "You have nothing to reforge.", (USE_EQUIP | USE_INVEN)))
+        return FALSE;
+
+    dest = &inventory[dest_idx];
+
+    if (dest->number > 1)
+    {
+        msg_print("Don't be greedy! You may only reforge a single object.");
+        return FALSE;
+    }
+
+    if (object_is_artifact(dest))
+    {
+        msg_print("This item is already an artifact!");
+        return FALSE;
+    }
+
+    if (!equip_first_slot(dest))
+    {
+        msg_print("This item cannot be reforged.");
+        return FALSE;
+    }
+
+    if (!reforge_artifact(src, dest))
+    {
+        msg_print("The reforging failed!");
+        return FALSE;
+    }
+
+    inven_item_increase(src_idx, -1);
+    inven_item_describe(src_idx);
+    p_ptr->au -= cost;
+
+    msg_print("After several hours, you are presented your new artifact...");
+
+    object_aware(dest);
+    object_known(dest);
+    dest->ident |= IDENT_MENTAL;
+
+    p_ptr->update |= PU_BONUS;
+    p_ptr->window |= (PW_INVEN | PW_EQUIP);
+    handle_stuff();
+
+    screen_object(dest, 0);
+
+    inven_item_optimize(src_idx);
+
+    return TRUE;
 }
 
 static bool enchant_item(int cost, int to_hit, int to_dam, int to_ac, bool is_guild)
@@ -3909,6 +4002,28 @@ static void bldg_process_command(building_type *bldg, int i)
         break;
     case BACT_GAMBLE_SHOP_ARTIFACT:
         paid = _gamble_shop_artifact();
+        break;
+    case BACT_REFORGE_ARTIFACT:
+        paid = _reforge_artifact();
+        break;
+    case BACT_REPUTATION:
+        if (p_ptr->fame <= 0)
+            msg_print("Who the hell are you?");
+        else if (p_ptr->fame < 5)
+            msg_print("I've never even heard of you!");
+        else if (p_ptr->fame < 10)
+            msg_print("Hmmm ... You've done a few minor notable deeds, but hardly anything worth bragging about!");
+        else if (p_ptr->fame < 15)
+            msg_print("Yes, I've heard of you. The townfolk are talking!");
+        else if (p_ptr->fame < 20)
+            msg_print("Ah, good sir. 'Tis an honor to see you again!");
+        else if (p_ptr->fame < 50)
+            msg_print("You are a true hero!");
+        else if (p_ptr->fame < 75)
+            msg_print("You are the stuff of legends!");
+        else
+            msg_print("The bards doth sing of ye: Heroic ballads both far 'n wide!");
+        paid = TRUE;
         break;
     }
 

@@ -355,6 +355,7 @@ static void wr_extra(savefile_ptr file)
     for (i = 0; i < 6; ++i) savefile_write_s16b(file, p_ptr->stat_cur[i]);
 
     savefile_write_u32b(file, p_ptr->au);
+    savefile_write_s16b(file, p_ptr->fame);
     savefile_write_u32b(file, p_ptr->max_exp);
     savefile_write_u32b(file, p_ptr->max_max_exp);
     savefile_write_u32b(file, p_ptr->exp);

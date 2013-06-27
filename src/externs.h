@@ -1671,6 +1671,7 @@ extern void random_artifact_resistance(object_type * o_ptr, artifact_type *a_ptr
 extern bool create_named_art(int a_idx, int y, int x);
 extern bool create_named_art_aux(int a_idx, object_type *o_ptr);
 extern bool create_replacement_art(int a_idx, object_type *o_ptr);
+extern bool reforge_artifact(object_type *src, object_type *dest);
 extern void get_random_name(char *return_name, object_type *o_ptr, int power);
 
 /* scores.c */

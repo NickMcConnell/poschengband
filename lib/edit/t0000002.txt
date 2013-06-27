@@ -288,6 +288,7 @@ B:4:A:0:Rest for the night:20:20:r:17:0
 B:4:A:1:Buy food and drink:1:1:f:18:1
 B:4:A:2:Listen for rumors:10:10:u:19:0
 B:4:A:3:Teleport to other town:500:500:m:42:0
+B:4:A:4:Ask about your reputation:1:1:a:55:0
 B:4:R:*:Member
 B:4:R:Golem:None
 B:4:R:Skeleton:None

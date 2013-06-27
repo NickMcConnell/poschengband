@@ -1160,6 +1160,9 @@ void leave_quest_check(void)
 
         quest[leaving_quest].status = QUEST_STATUS_FAILED;
         quest[leaving_quest].complev = (byte)p_ptr->lev;
+        virtue_add(VIRTUE_VALOUR, -2);
+        p_ptr->fame /= 2;
+
         if (quest[leaving_quest].type == QUEST_TYPE_RANDOM)
         {
             if (quest[leaving_quest].r_idx)
@@ -2681,6 +2684,8 @@ void process_world_aux_movement(void)
                         {
                             quest[i].status = QUEST_STATUS_FAILED;
                             quest[i].complev = (byte)p_ptr->lev;
+                            virtue_add(VIRTUE_VALOUR, -2);
+                            p_ptr->fame /= 2; /* Trump Tower?? */
                             r_info[quest[i].r_idx].flags1 &= ~(RF1_QUESTOR);
                         }
                     }
