@@ -2586,7 +2586,14 @@ static void a_m_aux_1(object_type *o_ptr, int level, int power, int mode)
                     break;
                 case EGO_SHARPNESS:
                     o_ptr->pval = m_bonus(5, level) + 1;
-                    while (one_in_(2)) o_ptr->dd++;
+                    if (one_in_(2))
+                    {
+                        do
+                        {
+                            o_ptr->dd++;
+                        }
+                        while (one_in_(o_ptr->dd));
+                    }
                     break;
                 case EGO_EARTHQUAKES:
                     if (one_in_(3) && (level > 60))
