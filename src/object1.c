@@ -285,7 +285,7 @@ void object_flags_known(object_type *o_ptr, u32b flgs[TR_FLAG_SIZE])
     for (i = 0; i < TR_FLAG_SIZE; i++)
         flgs[i] = 0;
 
-    if (!object_is_aware(o_ptr)) return;
+    if (!object_is_aware(o_ptr) && !(o_ptr->ident & IDENT_STORE)) return;
 
     /* Base object */
     for (i = 0; i < TR_FLAG_SIZE; i++)
