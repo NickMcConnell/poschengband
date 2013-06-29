@@ -325,6 +325,18 @@ int equip_find_empty_hand(void)
     return 0;
 }
 
+bool equip_can_wield_kind(int tval, int sval)
+{
+    object_type forge;
+    int         k_idx = lookup_kind(tval, sval);
+
+    object_prep(&forge, k_idx);
+    if (equip_first_slot(&forge))
+        return TRUE;
+
+    return FALSE;
+}
+
 int equip_first_slot(object_type *o_ptr)
 {
     return equip_next_slot(o_ptr, EQUIP_BEGIN - 1);

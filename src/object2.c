@@ -4864,13 +4864,54 @@ void apply_magic(object_type *o_ptr, int lev, u32b mode)
     }
 }
 
+static bool kind_is_tailored(int k_idx)
+{
+    object_kind *k_ptr = &k_info[k_idx];
 
-/*
- * Hack -- determine if a template is "good"
- */
+    /* TODO: For now, let's throw out equipment that the player
+             is unable to actually equip. In the future, we might
+             also filter spellbooks to actually be usable, etc. 
+             For ammo, perhaps check that the shooter type is also
+             favored (no bolts for slingmasters, for example).*/
+    switch (k_ptr->tval)
+    {
+    case TV_HARD_ARMOR:
+    case TV_SOFT_ARMOR:
+    case TV_DRAG_ARMOR:
+    case TV_SHIELD:
+    case TV_CLOAK:
+    case TV_BOOTS:
+    case TV_GLOVES:
+    case TV_HELM:
+    case TV_CROWN:
+    case TV_BOW:
+    case TV_SWORD:
+    case TV_HAFTED:
+    case TV_POLEARM:
+    case TV_DIGGING:
+        return equip_can_wield_kind(k_ptr->tval, k_ptr->sval);
+
+    case TV_SHOT:
+        return equip_can_wield_kind(TV_BOW, SV_SLING);
+
+    case TV_BOLT:
+        return equip_can_wield_kind(TV_BOW, SV_LIGHT_XBOW);
+
+    case TV_ARROW:
+        return equip_can_wield_kind(TV_BOW, SV_LONG_BOW);
+    }
+
+    return TRUE;
+}
+
+static bool _drop_tailored = FALSE;
+
 static bool kind_is_great(int k_idx)
 {
     object_kind *k_ptr = &k_info[k_idx];
+
+    if (_drop_tailored && !kind_is_tailored(k_idx))
+        return FALSE;
 
     /* Analyze the item type */
     switch (k_ptr->tval)
@@ -4956,6 +4997,9 @@ static bool kind_is_great(int k_idx)
 static bool kind_is_good(int k_idx)
 {
     object_kind *k_ptr = &k_info[k_idx];
+
+    if (_drop_tailored && !kind_is_tailored(k_idx))
+        return FALSE;
 
     /* Analyze the item type */
     switch (k_ptr->tval)
@@ -5103,6 +5147,10 @@ bool make_object(object_type *j_ptr, u32b mode)
     {
         int k_idx;
 
+        _drop_tailored = FALSE;
+        if (mode & AM_TAILORED)
+            _drop_tailored = TRUE;
+
         /* Good objects */
         if ((mode & AM_GREAT) && !get_obj_num_hook)
         {
@@ -5114,6 +5162,9 @@ bool make_object(object_type *j_ptr, u32b mode)
             /* Activate restriction (if already specified, use that) */
             get_obj_num_hook = kind_is_good;
         }
+
+        if (_drop_tailored && !get_obj_num_hook)
+            get_obj_num_hook = kind_is_tailored;
 
         /* Restricted objects - prepare allocation table */
         if (get_obj_num_hook) get_obj_num_prep();

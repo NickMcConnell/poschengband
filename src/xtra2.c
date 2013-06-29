@@ -686,7 +686,7 @@ void check_quest_completion(monster_type *m_ptr)
             object_wipe(q_ptr);
 
             /* Make a great object */
-            if (make_object(q_ptr, AM_GOOD | AM_GREAT))
+            if (make_object(q_ptr, AM_GOOD | AM_GREAT | AM_TAILORED))
                 (void)drop_near(q_ptr, -1, y, x);
         }
     }
@@ -779,6 +779,23 @@ bool get_monster_drop(int m_idx, object_type *o_ptr)
         mo_mode |= AM_GOOD;
     if (r_ptr->flags1 & RF1_DROP_GREAT) 
         mo_mode |= AM_GREAT;
+
+    if ( (r_ptr->flags1 & RF1_QUESTOR)
+      || (r_ptr->flags7 & RF7_GUARDIAN) )
+    {
+        if (one_in_(2))
+            mo_mode |= AM_TAILORED;
+    }
+    if (r_ptr->flags1 & RF1_UNIQUE)
+    {
+        if (one_in_(5))
+            mo_mode |= AM_TAILORED;
+    }
+    else if (r_ptr->flags1 & (RF1_DROP_GOOD | RF1_DROP_GREAT))
+    {
+        if (one_in_(20 - MIN(10, p_ptr->fame/20)))
+            mo_mode |= AM_TAILORED;
+    }
 
     coin_type = force_coin;
     object_level = (dun_level + r_ptr->level) / 2;

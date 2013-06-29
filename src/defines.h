@@ -3604,6 +3604,7 @@
 #define AM_CURSED       0x00000010 /* Generate cursed/worthless items */
 #define AM_CRAFTING     0x00000020
 #define AM_AVERAGE      0x00000040
+#define AM_TAILORED     0x00000080 /* For player monster races to force a wearable item */
 
 
 /*** Monster blow constants ***/
