@@ -460,7 +460,7 @@ D:understanding.
 N:38:of Hammerhand
 I:32:6:3
 W:20:2:60:45000
-P:6:1d3:0:0:20
+P:6:1d3:3:4:20
 F:STR | DEX | CON | HIDE_TYPE | RES_ACID | RES_NEXUS
 D:A great helm as steady as the heroes of the Westdike. Mighty were the 
 D:blows of Helm, the Hammerhand!

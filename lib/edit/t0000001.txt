@@ -357,6 +357,44 @@ F:@:FLOOR:3:0:0:0:63
 F:a:BUILDING_0:3:0:0:0:0:NONE:27
 F:@:FLOOR:3:0:0:0:238
 
+##########################################################################
+# Dragon/Hydra
+# Hammerhand
+?:[AND [EQU $QUEST33 3] [EQU $RACE Dragon Hydra] [EQU [MOD $RANDOM33 5] 0] ]
+F:a:BUILDING_0:3:0:0:0:0:NONE:27
+F:@:FLOOR:3:0:0:0:38
+
+# Thranduil
+?:[AND [EQU $QUEST33 3] [EQU $RACE Dragon Hydra] [GEQ [MOD $RANDOM33 5] 1] ]
+F:a:BUILDING_0:3:0:0:0:0:NONE:27
+F:@:FLOOR:3:0:0:0:36
+
+##########################################################################
+# Beholder
+# Ring of the Ages
+?:[AND [EQU $QUEST33 3] [EQU $RACE Beholder] [EQU [MOD $RANDOM33 5] 0] ]
+F:a:BUILDING_0:3:0:0:0:0:NONE:27
+F:@:FLOOR:3:0:0:0:274
+
+# Frakir
+?:[AND [EQU $QUEST33 3] [EQU $RACE Beholder] [GEQ [MOD $RANDOM33 5] 1] ]
+F:a:BUILDING_0:3:0:0:0:0:NONE:27
+F:@:FLOOR:3:0:0:0:8
+
+##########################################################################
+# Xorn
+# Thorin
+?:[AND [EQU $QUEST33 3] [EQU $RACE Xorn] [EQU [MOD $RANDOM33 5] 0] ]
+F:a:BUILDING_0:3:0:0:0:0:NONE:27
+F:@:FLOOR:3:0:0:0:30
+
+# Perseus
+?:[AND [EQU $QUEST33 3] [EQU $RACE Xorn] [GEQ [MOD $RANDOM33 5] 1] ]
+F:a:BUILDING_0:3:0:0:0:0:NONE:27
+F:@:FLOOR:3:0:0:0:197
+
+##########################################################################
+
 # Quest 33 finished, continue with quest 27
 ?:[EQU $QUEST33 4]
 F:a:BUILDING_0:3:0:0:0:0:NONE:27
