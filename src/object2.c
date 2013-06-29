@@ -4864,32 +4864,50 @@ void apply_magic(object_type *o_ptr, int lev, u32b mode)
     }
 }
 
+static bool _is_favorite(int tval, int sval)
+{
+    object_type forge;
+    int         k_idx = lookup_kind(tval, sval);
+
+    object_prep(&forge, k_idx);
+    return object_is_favorite(&forge);
+}
+
 static bool kind_is_tailored(int k_idx)
 {
     object_kind *k_ptr = &k_info[k_idx];
 
-    /* TODO: For now, let's throw out equipment that the player
-             is unable to actually equip. In the future, we might
-             also filter spellbooks to actually be usable, etc. 
-             For ammo, perhaps check that the shooter type is also
-             favored (no bolts for slingmasters, for example).*/
     switch (k_ptr->tval)
     {
+    case TV_SHIELD:
+        return equip_can_wield_kind(k_ptr->tval, k_ptr->sval) 
+            && p_ptr->pclass != CLASS_NINJA;
+
     case TV_HARD_ARMOR:
     case TV_SOFT_ARMOR:
     case TV_DRAG_ARMOR:
-    case TV_SHIELD:
+        if ( p_ptr->pclass == CLASS_MONK
+          || p_ptr->pclass == CLASS_FORCETRAINER
+          || p_ptr->pclass == CLASS_MYSTIC )
+        {
+            return k_ptr->weight <= 200;
+        }
+        return equip_can_wield_kind(k_ptr->tval, k_ptr->sval);
+
     case TV_CLOAK:
     case TV_BOOTS:
     case TV_GLOVES:
     case TV_HELM:
     case TV_CROWN:
     case TV_BOW:
+        return equip_can_wield_kind(k_ptr->tval, k_ptr->sval);
+
     case TV_SWORD:
     case TV_HAFTED:
     case TV_POLEARM:
     case TV_DIGGING:
-        return equip_can_wield_kind(k_ptr->tval, k_ptr->sval);
+        return equip_can_wield_kind(k_ptr->tval, k_ptr->sval)
+            && _is_favorite(k_ptr->tval, k_ptr->sval);
 
     case TV_SHOT:
         return equip_can_wield_kind(TV_BOW, SV_SLING);
