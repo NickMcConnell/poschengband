@@ -4899,6 +4899,22 @@ static bool kind_is_tailored(int k_idx)
 
     case TV_ARROW:
         return equip_can_wield_kind(TV_BOW, SV_LONG_BOW);
+
+    case TV_LIFE_BOOK:
+    case TV_SORCERY_BOOK:
+    case TV_NATURE_BOOK:
+    case TV_CHAOS_BOOK:
+    case TV_DEATH_BOOK:
+    case TV_TRUMP_BOOK:
+    case TV_CRAFT_BOOK:
+    case TV_DAEMON_BOOK:
+    case TV_CRUSADE_BOOK:
+    case TV_NECROMANCY_BOOK:
+    case TV_ARMAGEDDON_BOOK:
+    case TV_MUSIC_BOOK:
+    case TV_HISSATSU_BOOK:
+    case TV_HEX_BOOK:
+        return check_book_realm(k_ptr->tval, k_ptr->sval);
     }
 
     return TRUE;
@@ -4974,7 +4990,6 @@ static bool kind_is_great(int k_idx)
         {
             if (k_ptr->sval == SV_RING_SPEED) return (TRUE);
             if (k_ptr->sval == SV_RING_LORDLY) return (TRUE);
-        /*    if (k_ptr->sval == SV_RING_ATTACKS) return (TRUE); */
             return (FALSE);
         }
         case TV_POTION:
@@ -5062,7 +5077,10 @@ static bool kind_is_good(int k_idx)
         {
             if (k_ptr->sval == SV_RING_SPEED) return (TRUE);
             if (k_ptr->sval == SV_RING_LORDLY) return (TRUE);
-        /*    if (k_ptr->sval == SV_RING_ATTACKS) return (TRUE); */
+            if (k_ptr->sval == SV_RING_RESISTANCE) return (TRUE);
+            if (k_ptr->sval == SV_RING_HIGH_RESISTANCE) return (TRUE);
+            if (k_ptr->sval == SV_RING_MUSCLE) return (TRUE);
+            if (k_ptr->sval == SV_RING_SLAYING) return (TRUE);
             return (FALSE);
         }
         case TV_POTION:
