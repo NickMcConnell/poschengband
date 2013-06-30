@@ -5827,7 +5827,7 @@ void acquirement(int y1, int x1, int num, bool great, bool known)
 {
     object_type *i_ptr;
     object_type object_type_body;
-    u32b mode = AM_GOOD | (great ? AM_GREAT : 0L);
+    u32b mode = AM_GOOD | (great ? (AM_GREAT | AM_TAILORED) : 0L);
 
     /* Acquirement */
     while (num--)

@@ -3292,12 +3292,6 @@ void calc_bonuses(void)
     p_ptr->skill_tht = p_ptr->skills.thb;
     p_ptr->skill_dig = 0;
 
-    if (p_ptr->special_defense & KAMAE_MASK)
-    {
-        if (p_ptr->pclass != CLASS_WILD_TALENT && !p_ptr->weapon_info[0].bare_hands)
-            set_action(ACTION_NONE);
-    }
-
     if (p_ptr->tim_superstealth)
         p_ptr->see_nocto = TRUE;
 
@@ -3473,6 +3467,12 @@ void calc_bonuses(void)
     }
 
     equip_calc_bonuses();
+
+    if (p_ptr->special_defense & KAMAE_MASK)
+    {
+        if (p_ptr->pclass != CLASS_WILD_TALENT && !p_ptr->weapon_info[0].bare_hands)
+            set_action(ACTION_NONE);
+    }
 
     if (old_mighty_throw != p_ptr->mighty_throw)
     {
