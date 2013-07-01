@@ -9,16 +9,21 @@ static cptr _desc =
     "For example, Earth Elementals are slow but gain bonuses to AC due "
     "to their tough skins. They are resistant to shards and may even turn "
     "their skins to stone. At home in elemental earth, they may travel "
-    "freely through rocky confines.\n \n"
+    "freely through rocky confines. However, being made of earth, their "
+    "potions frequently turn to mud!\n \n"
     "Air Elementals are shockingly fast, but perhaps that is just the "
     "crackle of their electrified bodies? They may hurl bolts and balls "
     "electricity at their enemies and may even imbue their weapons with "
-    "deadly lightning.\n \n"
+    "deadly lightning.  However, being surrounded by lightning, rings, "
+    "amulets, wands and rods are quickly destroyed!\n \n"
     "Fire Elementals are somewhat fast (They definitely run circles around "
     "their earthen brethren) and are cloaked in fire. Of course, they may attack "
-    "with hell's fury but need to be on the lookout for cold wielding foes.\n \n"
+    "with hell's fury but need to be on the lookout for cold wielding foes. "
+    "However, being surrounded by fire, scrolls and staves are rapidly burned "
+    "to ash!\n \n"
     "Finally, there are the Water Elementals, creatures able to conjure deadly "
-    "water bolts. They are immune to stunning.";
+    "water bolts. They are immune to stunning. Their attacks can be quite corrosive, "
+    "but, alas, sometimes their armor corrodes as well!";
 
 static void _calc_bonuses(void) 
 {
@@ -150,7 +155,7 @@ static void _elemental_pack_destroy(object_p p, cptr destroy_fmt, int chance)
 
         old_ct = o_ptr->number;
         o_ptr->number = 1;
-        object_desc(o_name, o_ptr, 0);
+        object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
         o_ptr->number = old_ct;
 
         msg_format(destroy_fmt, o_name);
@@ -379,7 +384,7 @@ static bool _earth_p(object_type *o_ptr)
 static void _earth_process_world(void)
 {
     int chance = 40 - p_ptr->lev/2;
-    _elemental_pack_destroy(_earth_p, "%^s turns to mud.", chance);
+    _elemental_pack_destroy(_earth_p, "Your %s turns to mud.", chance);
 }
 
 static race_t *_earth_get_race_t(void)
@@ -582,9 +587,11 @@ static void _air_calc_bonuses(void)
 {
     res_add(RES_ELEC);
 
-    p_ptr->pspeed += 2 + p_ptr->lev / 10;
+    p_ptr->pspeed += 2;
     if (p_ptr->lev >= 25)
     {
+        p_ptr->pspeed += 3;
+        p_ptr->pspeed += (p_ptr->lev - 25) / 5; /* up to +10 speed */
         res_add(RES_ELEC);
         res_add(RES_ACID);
         res_add(RES_FIRE);
@@ -637,7 +644,7 @@ static bool _air_p(object_type *o_ptr)
 
 static void _air_process_world(void)
 {
-    _elemental_pack_destroy(_air_p, "Your shocking touch destroys %s.", 40);
+    _elemental_pack_destroy(_air_p, "Your shocking touch destroys your %s.", 40);
 }
 
 static race_t *_air_get_race_t(void)
@@ -1147,7 +1154,7 @@ static bool _fire_p(object_type *o_ptr)
 
 static void _fire_process_world(void)
 {
-    _elemental_pack_destroy(_fire_p, "Your fiery touch burns %s.", 40);
+    _elemental_pack_destroy(_fire_p, "Your fiery touch burns your %s.", 40);
 }
 
 static race_t *_fire_get_race_t(void)
