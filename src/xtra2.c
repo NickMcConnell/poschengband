@@ -1682,6 +1682,22 @@ void monster_death(int m_idx, bool drop_item)
             a_idx = ART_ULIK;
             chance = 5;
             break;
+        case MON_QUAKER:
+            a_idx = ART_QUAKER;
+            chance = 5;
+            break;
+        case MON_ARIEL:
+            a_idx = ART_ARIEL;
+            chance = 5;
+            break;
+        case MON_MOIRE:
+            a_idx = ART_MOIRE;
+            chance = 5;
+            break;
+        case MON_LOGE:
+            a_idx = ART_LOGE;
+            chance = 5;
+            break;
         }
 
         if (race_ptr->boss_r_idx == m_ptr->r_idx)
@@ -2135,11 +2151,10 @@ bool mon_take_hit(int m_idx, int dam, bool *fear, cptr note)
     if (dam > 0 && (p_ptr->wizard || cheat_xtra))
         msg_format("You do %d (out of %d) damage.", dam, m_ptr->hp);
 
-    if (prace_is_(RACE_DEMIGOD) && 
-        p_ptr->psubrace == DEMIGOD_POSEIDON &&
-        note == NULL && /* Hack: Trying to just get melee and shooting */
-        (-m_ptr->ac_adj) < r_ptr->ac/2 && 
-        !mon_save_p(m_ptr->r_idx, A_NONE) )
+    if ( p_ptr->melt_armor
+      && note == NULL /* Hack: Trying to just get melee and shooting */
+      && (-m_ptr->ac_adj) < r_ptr->ac/2 
+      && !mon_save_p(m_ptr->r_idx, A_NONE) )
     {
         char m_name[MAX_NLEN];
         monster_desc(m_name, m_ptr, MD_POSSESSIVE);

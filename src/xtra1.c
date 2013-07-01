@@ -3130,8 +3130,6 @@ void calc_bonuses(void)
     /* Clear all the flags */
     p_ptr->cursed = 0L;
     p_ptr->bless_blade = FALSE;
-    for (i = 0; i < MAX_HANDS; i++)
-        p_ptr->impact[i] = FALSE;
     p_ptr->pass_wall = FALSE;
     p_ptr->kill_wall = FALSE;
     p_ptr->dec_mana = FALSE;
@@ -3193,6 +3191,7 @@ void calc_bonuses(void)
     p_ptr->no_stun = FALSE;
     p_ptr->no_cut = FALSE;
     p_ptr->no_passwall_dam = FALSE;
+    p_ptr->melt_armor = FALSE;
 
     p_ptr->ryoute = FALSE;
     p_ptr->migite = FALSE;

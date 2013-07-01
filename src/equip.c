@@ -1098,13 +1098,9 @@ void equip_calc_bonuses(void)
             _weapon_info_flag(i, flgs, TR_BRAND_ELEC);
             _weapon_info_flag(i, flgs, TR_BRAND_ACID);
             _weapon_info_flag(i, flgs, TR_BRAND_POIS);
+            _weapon_info_flag(i, flgs, TR_IMPACT);
         }
 
-        if (have_flag(flgs, TR_IMPACT)) /* Assume weapon slot ... */
-        {
-            int hand = _template->slots[i].hand;
-            p_ptr->impact[hand] = TRUE; /* TODO: p_ptr->weapon_info[hand].impact = TRUE; */
-        }
         if (have_flag(flgs, TR_XTRA_SHOTS)) p_ptr->shooter_info.num_fire += 100;
         if (o_ptr->name2 == EGO_SNIPER) p_ptr->shooter_info.num_fire += 50;
 
