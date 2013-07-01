@@ -17,7 +17,7 @@ static cptr _desc =
     "Fire Elementals are somewhat fast (They definitely run circles around "
     "their earthen brethren) and are cloaked in fire. Of course, they may attack "
     "with hell's fury but need to be on the lookout for cold wielding foes.\n \n"
-    "Finally, their are the Water Elementals, creatures able to conjure deadly "
+    "Finally, there are the Water Elementals, creatures able to conjure deadly "
     "water bolts. They are immune to stunning.";
 
 static void _calc_bonuses(void) 
