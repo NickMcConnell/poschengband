@@ -437,8 +437,8 @@ static void _air_birth(void)
 { 
     object_type forge;
     
-    object_prep(&forge, lookup_kind(TV_RING, SV_RING_DEX));
-    forge.pval = 3;
+    object_prep(&forge, lookup_kind(TV_RING, SV_RING_ELEC));
+    apply_magic(&forge, 1, AM_AVERAGE);
     add_outfit(&forge);
 
     object_prep(&forge, lookup_kind(TV_SWORD, SV_LONG_SWORD));
@@ -698,14 +698,15 @@ static void _water_birth(void)
 { 
     object_type forge;
     
+    object_prep(&forge, lookup_kind(TV_RING, SV_RING_ACID));
+    apply_magic(&forge, 1, AM_AVERAGE);
+    add_outfit(&forge);
+
     object_prep(&forge, lookup_kind(TV_RING, SV_RING_DAMAGE));
-    forge.to_d = 4;
+    forge.to_d = 5;
     add_outfit(&forge);
 
     object_prep(&forge, lookup_kind(TV_POLEARM, SV_TRIDENT));
-    add_outfit(&forge);
-
-    object_prep(&forge, lookup_kind(TV_HARD_ARMOR, SV_CHAIN_MAIL));
     add_outfit(&forge);
 
     p_ptr->current_r_idx = MON_WATER_SPIRIT; 
@@ -936,8 +937,8 @@ static void _fire_birth(void)
 { 
     object_type forge;
     
-    object_prep(&forge, lookup_kind(TV_RING, SV_RING_DAMAGE));
-    forge.to_d = 5;
+    object_prep(&forge, lookup_kind(TV_RING, SV_RING_FLAMES));
+    apply_magic(&forge, 1, AM_AVERAGE);
     add_outfit(&forge);
 
     object_prep(&forge, lookup_kind(TV_HAFTED, SV_WHIP));
