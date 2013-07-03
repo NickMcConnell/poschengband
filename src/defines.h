@@ -18,7 +18,7 @@
 
 #define VER_MAJOR 1
 #define VER_MINOR 0
-#define VER_PATCH 28
+#define VER_PATCH 29
 #define VER_EXTRA 0
 
 
@@ -3244,8 +3244,9 @@
 #define GF_WEB      137
 #define GF_AMNESIA  138
 #define GF_STEAL    139
+#define GF_WATER2   140
 
-#define MAX_GF                139
+#define MAX_GF                140
 
 /*
  * Some things which induce learning
