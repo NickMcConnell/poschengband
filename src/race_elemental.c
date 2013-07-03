@@ -818,9 +818,9 @@ static void _water_ball_spell(int cmd, variant *res)
         int dir = 0;
         var_set_bool(res, FALSE);
         if (!get_aim_dir(&dir)) return;
-        fire_ball(GF_WATER, dir, dam, 4);
         if (p_ptr->lev >= 35)
             fire_ball_hide(GF_WATER_FLOW, dir, 1, 4);
+        fire_ball(GF_WATER, dir, dam, 4);
         var_set_bool(res, TRUE);
         break;
     }
