@@ -4199,6 +4199,12 @@ void calc_bonuses(void)
             p_ptr->dis_to_a += 5;
         }
 
+
+        if (class_ptr->calc_weapon_bonuses)
+            class_ptr->calc_weapon_bonuses(o_ptr, info_ptr);
+        if (race_ptr->calc_weapon_bonuses)
+            race_ptr->calc_weapon_bonuses(o_ptr, info_ptr);
+
         /* Normal weapons */
         if (!info_ptr->heavy_wield)
         {
@@ -4208,11 +4214,6 @@ void calc_bonuses(void)
                 info_ptr->xtra_blow += 2;
 
             if (p_ptr->special_defense & KATA_FUUJIN) info_ptr->xtra_blow -= 1;
-
-            if (class_ptr->calc_weapon_bonuses)
-                class_ptr->calc_weapon_bonuses(o_ptr, info_ptr);
-            if (race_ptr->calc_weapon_bonuses)
-                race_ptr->calc_weapon_bonuses(o_ptr, info_ptr);
 
             if (o_ptr->tval == TV_SWORD && o_ptr->sval == SV_POISON_NEEDLE) 
             {
