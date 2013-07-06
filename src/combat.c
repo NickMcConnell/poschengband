@@ -708,7 +708,7 @@ static cptr _effect_name(int which)
 int display_innate_attack_info(int which, int row, int col)
 {
     innate_attack_ptr a = &p_ptr->innate_attacks[which];
-    int min, max, min_base, max_base, min2, max2;
+    int blows, min, max, min_base, max_base, min2, max2;
     critical_t crit = {0};
     const int ct = 10 * 1000;
     int i;
@@ -719,6 +719,10 @@ int display_innate_attack_info(int which, int row, int col)
     int mult = 100;
     int r, c;
     int result = row;
+
+    blows = a->blows;
+    if (which == 0)
+        blows += p_ptr->innate_attack_info.xtra_blow;
 
     /* First Column */
     r = row;
@@ -738,7 +742,7 @@ int display_innate_attack_info(int which, int row, int col)
     sprintf(buf, " %-7.7s: %d + %d = %d", "To Dam", a->to_d, p_ptr->to_d_m, to_d);
     put_str(buf, r++, c);
     
-    sprintf(buf, " %-7.7s: %d", "Blows", a->blows);
+    sprintf(buf, " %-7.7s: %d", "Blows", blows);
     put_str(buf, r++, c);
 
     sprintf(buf, " %-7.7s", "Damage");
@@ -779,9 +783,9 @@ int display_innate_attack_info(int which, int row, int col)
     {
         sprintf(buf, " %-7.7s: %d (%d-%d)",
                 _effect_name(a->effect[0]),
-                a->blows * (min + max)/2,
-                a->blows * min,
-                a->blows * max
+                blows * (min + max)/2,
+                blows * min,
+                blows * max
         );
         c_put_str(TERM_WHITE, buf, r++, c);
     }
@@ -822,9 +826,9 @@ int display_innate_attack_info(int which, int row, int col)
         default:
             sprintf(buf, " %-7.7s: %d (%d-%d)",
                     _effect_name(a->effect[i]),
-                    a->blows * (min2 + max2)/2,
-                    a->blows * min2,
-                    a->blows * max2
+                    blows * (min2 + max2)/2,
+                    blows * min2,
+                    blows * max2
             );
             c_put_str(TERM_RED, buf, r++, c);
         }
@@ -843,15 +847,17 @@ int display_innate_attack_info(int which, int row, int col)
         dex_idx = p_ptr->stat_ind[A_DEX];
         for (; dex_idx <= 40 - 3; dex_idx++)
         {
-            int blows = _calc_innate_blows_aux(a, a->max_blows, str_idx, dex_idx);
-            if (blows > a->blows)
+            int new_blows = _calc_innate_blows_aux(a, a->max_blows, str_idx, dex_idx);
+            if (which == 0)
+                new_blows += p_ptr->innate_attack_info.xtra_blow;
+            if (new_blows > blows)
             {
                 _desc_stat_idx(str_txt, str_idx);
                 _desc_stat_idx(dex_txt, dex_idx);
 
                 min_dist = dex_idx - p_ptr->stat_ind[A_DEX];
 
-                sprintf(buf, " With %s STR and %s DEX you will get %d blows.", str_txt, dex_txt, blows);
+                sprintf(buf, " With %s STR and %s DEX you will get %d blows.", str_txt, dex_txt, new_blows);
                 put_str(buf, r++, c);
 
                 break;
@@ -863,8 +869,10 @@ int display_innate_attack_info(int which, int row, int col)
         dex_idx = p_ptr->stat_ind[A_DEX];
         for (; str_idx <= 40 - 3; str_idx++)
         {
-            int blows = _calc_innate_blows_aux(a, a->max_blows, str_idx, dex_idx);
-            if (blows > a->blows)
+            int new_blows = _calc_innate_blows_aux(a, a->max_blows, str_idx, dex_idx);
+            if (which == 0)
+                new_blows += p_ptr->innate_attack_info.xtra_blow;
+            if (new_blows > blows)
             {
                 int dist = str_idx - p_ptr->stat_ind[A_STR];
 
@@ -874,7 +882,7 @@ int display_innate_attack_info(int which, int row, int col)
                 _desc_stat_idx(str_txt, str_idx);
                 _desc_stat_idx(dex_txt, dex_idx);
 
-                sprintf(buf, " With %s STR and %s DEX you will get %d blows.", str_txt, dex_txt, blows);
+                sprintf(buf, " With %s STR and %s DEX you will get %d blows.", str_txt, dex_txt, new_blows);
                 put_str(buf, r++, c);
 
                 break;
@@ -886,8 +894,10 @@ int display_innate_attack_info(int which, int row, int col)
         {
             for (dex_idx = p_ptr->stat_ind[A_DEX] + 1; dex_idx <= 40 - 3; dex_idx++)
             {
-                int blows = _calc_innate_blows_aux(a, a->max_blows, str_idx, dex_idx);
-                if (blows > a->blows)
+                int new_blows = _calc_innate_blows_aux(a, a->max_blows, str_idx, dex_idx);
+                if (which == 0)
+                    new_blows += p_ptr->innate_attack_info.xtra_blow;
+                if (new_blows > blows)
                 {
                     int dist = str_idx - p_ptr->stat_ind[A_STR];
                     dist += dex_idx - p_ptr->stat_ind[A_DEX];
@@ -897,7 +907,7 @@ int display_innate_attack_info(int which, int row, int col)
                         min_dist = dist;
                         save_str_idx = str_idx;
                         save_dex_idx = dex_idx;
-                        save_blows = blows;
+                        save_blows = new_blows;
                     }
                 }
             }

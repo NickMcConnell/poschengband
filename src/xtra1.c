@@ -3121,6 +3121,7 @@ void calc_bonuses(void)
     }
     p_ptr->innate_attack_ct = 0;
     p_ptr->innate_attack_info.to_dd = 0;
+    p_ptr->innate_attack_info.xtra_blow = 0;
     for (i = 0; i < TR_FLAG_SIZE; i++)
         p_ptr->innate_attack_info.flags[i] = 0;
 

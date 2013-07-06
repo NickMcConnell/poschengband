@@ -962,6 +962,7 @@ typedef struct {
 
 typedef struct {
     int to_dd;
+    int xtra_blow;
     u32b flags[TR_FLAG_SIZE]; /* TODO */
 } innate_attack_info_t;
 

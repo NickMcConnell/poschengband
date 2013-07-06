@@ -2172,7 +2172,12 @@ static void innate_attacks(s16b m_idx, bool *fear, bool *mdeath)
     for (i = 0; i < p_ptr->innate_attack_ct; i++)
     {
         innate_attack_ptr a = &p_ptr->innate_attacks[i];
-        for (j = 0; j < a->blows; j++)
+        int               blows = a->blows;
+
+        if (i == 0)
+            blows += p_ptr->innate_attack_info.xtra_blow;
+
+        for (j = 0; j < blows; j++)
         {
             to_h = a->to_h + p_ptr->to_h_m;
             chance = p_ptr->skills.thn + (to_h * BTH_PLUS_ADJ);

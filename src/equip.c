@@ -1068,6 +1068,8 @@ void equip_calc_bonuses(void)
                     p_ptr->weapon_info[rhand].xtra_blow += o_ptr->pval;
                 else if (p_ptr->weapon_info[lhand].wield_how != WIELD_NONE)
                     p_ptr->weapon_info[lhand].xtra_blow += o_ptr->pval;
+                else
+                    p_ptr->innate_attack_info.xtra_blow += o_ptr->pval;
                 break;
             }
             case EQUIP_SLOT_WEAPON_SHIELD:
@@ -1076,16 +1078,20 @@ void equip_calc_bonuses(void)
                 break;
             default:
             {
-                int j;
+                int  j;
+                bool assigned = FALSE;
                 if (object_is_melee_weapon(o_ptr)) break; /* Hack for Jellies ... */
                 for (j = 0; j < MAX_HANDS; j++)
                 {
                     if (p_ptr->weapon_info[j].wield_how != WIELD_NONE)
                     {
                         p_ptr->weapon_info[j].xtra_blow += o_ptr->pval;
+                        assigned = TRUE;
                         break; /* Assume pval == 1 so first found gets it */
                     }
                 }
+                if (!assigned)
+                    p_ptr->innate_attack_info.xtra_blow += o_ptr->pval;
             }
             }
         }
