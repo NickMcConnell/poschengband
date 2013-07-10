@@ -4994,15 +4994,6 @@ void move_player(int dir, bool do_pickup, bool break_trap)
     else if (have_flag(f_ptr->flags, FF_WEB) && !prace_is_(RACE_MON_SPIDER))
         energy_use *= 2;
 
-    if (have_flag(f_ptr->flags, FF_LAVA) && elemental_is_(ELEMENTAL_FIRE))
-        energy_use /= 2;
-
-    if (have_flag(f_ptr->flags, FF_WATER) && elemental_is_(ELEMENTAL_WATER))
-        energy_use /= 2;
-
-    if (have_flag(f_ptr->flags, FF_WALL) && elemental_is_(ELEMENTAL_EARTH))
-        energy_use /= 2;
-
 #ifdef ALLOW_EASY_DISARM /* TNB */
 
     /* Disarm a visible trap */
@@ -5119,6 +5110,18 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 
         /* Sound */
         if (!boundary_floor(c_ptr, f_ptr, mimic_f_ptr)) sound(SOUND_HITWALL);
+    }
+
+    if (oktomove)
+    {
+        if (have_flag(f_ptr->flags, FF_LAVA) && elemental_is_(ELEMENTAL_FIRE))
+            energy_use /= 2;
+
+        if (have_flag(f_ptr->flags, FF_WATER) && elemental_is_(ELEMENTAL_WATER))
+            energy_use /= 2;
+
+        if (have_flag(f_ptr->flags, FF_WALL) && elemental_is_(ELEMENTAL_EARTH))
+            energy_use /= 2;
     }
 
     /* Normal movement */
