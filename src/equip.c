@@ -1017,8 +1017,8 @@ void equip_calc_bonuses(void)
         }
     }
 
-    /* Hack for Death Swords */
-    if (prace_is_(RACE_MON_SWORD))
+    /* Hack for Death Swords ... but not Broken Death Swords ;) */
+    if (prace_is_(RACE_MON_SWORD) && p_ptr->lev >= 10)
         p_ptr->weapon_info[0].wield_how = WIELD_TWO_HANDS;
 
     /* Its convenient to have an accurate weapon count later */
