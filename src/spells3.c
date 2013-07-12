@@ -4162,6 +4162,9 @@ void blast_object(object_type *o_ptr)
     bool is_weapon = object_is_weapon(o_ptr);
     int i;
 
+    if (have_flag(o_ptr->art_flags, TR_NO_REMOVE))
+        return;
+
     o_ptr->name1 = 0;
     o_ptr->name2 = EGO_BLASTED;
     o_ptr->name3 = 0;

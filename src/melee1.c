@@ -1595,6 +1595,11 @@ bool make_attack_normal(int m_idx)
                     if (m_ptr->ml && !p_ptr->confused && !p_ptr->stun && !p_ptr->blind && !p_ptr->paralyzed && !mon_save_p(m_ptr->r_idx, A_DEX) && one_in_(2))
                         do_retaliate = TRUE;
                 }
+                else if (prace_is_(RACE_MON_SWORD) && p_ptr->lev >= 45) /* TODO: p_ptr->retaliate! */
+                {
+                    if (m_ptr->ml && !p_ptr->confused && !p_ptr->stun && !p_ptr->blind && !p_ptr->paralyzed && !mon_save_p(m_ptr->r_idx, A_STR))
+                        do_retaliate = TRUE;
+                }
 
                 if ( do_retaliate
                   && alive

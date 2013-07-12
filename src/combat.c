@@ -221,6 +221,12 @@ static _blow_info_t _get_blow_info(int hand)
             result.num = 3;
             result.mul = 2;
         }
+        else if (prace_is_(RACE_MON_SWORD))
+        {
+            result.num = 5;
+            if (p_ptr->lev >= 45) /* Death Scythes retaliate! */
+                result.num = 4;
+        }
         break;
     }
 

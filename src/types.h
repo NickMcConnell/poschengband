@@ -991,7 +991,6 @@ typedef struct {
 } innate_attack_t, *innate_attack_ptr;
 #define MAX_INNATE_ATTACKS 10
 
-
 struct player_type
 {
     s16b oldpy;        /* Previous player location -KMW- */
@@ -1352,7 +1351,6 @@ struct player_type
 
 
     /*** Extracted fields ***/
-
     u32b total_weight;    /* Total weight being carried */
 
     s16b stat_add[6];    /* Modifiers to stat values */
@@ -1885,6 +1883,8 @@ typedef void(*change_level_fn)(int old_level, int new_level);
 typedef void(*file_dump_fn)(FILE* file);
 typedef void(*player_action_fn)(int energy_use);
 typedef void(*flags_fn)(u32b flgs[TR_FLAG_SIZE]);
+typedef void(*load_fn)(savefile_ptr file);
+typedef void(*save_fn)(savefile_ptr file);
 
 /* Note: Most of this info is still not being used.  Be sure to
    double maintain tables in tables.c until I can get around to
@@ -1916,6 +1916,8 @@ typedef struct {
     file_dump_fn            character_dump;
     flags_fn                get_flags;
     flags_fn                get_immunities;
+    load_fn                 load_player;
+    save_fn                 save_player;
 } class_t;
 
 struct equip_template_s;
@@ -1951,6 +1953,8 @@ typedef struct {
     player_action_fn        player_action;  /* Called once per player action, so long as the action consumes energy */
     move_player_fn          move_player;
     process_world_fn        process_world;  /* Called every 10 game turns */
+    load_fn                 load_player;
+    save_fn                 save_player;
 } race_t;
 
 typedef struct {

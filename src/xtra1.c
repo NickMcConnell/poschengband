@@ -3061,7 +3061,6 @@ void calc_bonuses(void)
     s16b old_dis_ac = p_ptr->dis_ac;
     s16b old_dis_to_a = p_ptr->dis_to_a;
 
-
     /* Clear extra blows/shots */
     if (p_ptr->tim_speed_essentia)
         p_ptr->shooter_info.num_fire += 100;
