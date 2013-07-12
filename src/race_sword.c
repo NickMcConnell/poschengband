@@ -19,7 +19,8 @@ static int _rank(void)
 enum {
     _ESSENCE_AC = _MIN_SPECIAL,
     _ESSENCE_TO_HIT,
-    _ESSENCE_TO_DAM
+    _ESSENCE_TO_DAM,
+    _ESSENCE_XTRA_DICE
 };
 
 static int _essences[_MAX_ESSENCE] = {0};
@@ -64,33 +65,56 @@ static void _save(savefile_ptr file)
     }
 }
 
-static void _absorb(object_type *o_ptr)
+static bool _absorb(object_type *o_ptr)
 {
+    bool result = FALSE;
     int i;
+    object_kind *k_ptr = &k_info[o_ptr->k_idx];
     u32b flags[TR_FLAG_SIZE];
     object_flags(o_ptr, flags);
+
+    if (o_ptr->ds > k_ptr->ds)
+        _essences[_ESSENCE_XTRA_DICE] += o_ptr->ds - k_ptr->ds;
+
+    if (o_ptr->dd > k_ptr->dd)
+        _essences[_ESSENCE_XTRA_DICE] += o_ptr->dd - k_ptr->dd;
 
     for (i = 0; i < TR_FLAG_MAX; i++)
     {
         if (have_flag(flags, i))
         {
+            result = TRUE;
             if (is_pval_flag(i))
                 _essences[i] += o_ptr->pval;
             else
-                _essences[i] ++;
+                _essences[i]++;
         }
     }
 
     if (o_ptr->to_a > 0)
+    {
+        result = TRUE;
         _essences[_ESSENCE_AC] += o_ptr->to_a;
+    }
 
     if (o_ptr->to_h > 0)
+    {
+        result = TRUE;
         _essences[_ESSENCE_TO_HIT] += o_ptr->to_h;
+    }
 
     if (o_ptr->to_d > 0)
+    {
+        result = TRUE;
         _essences[_ESSENCE_TO_DAM] += o_ptr->to_d;
+    }
 
-    p_ptr->update |= PU_BONUS;
+    if (result)
+    {
+        p_ptr->update |= PU_BONUS;
+        msg_print("You grow stronger!");
+    }
+    return result;
 }
 
 static int _calc_amount(int amount, int power)
@@ -171,15 +195,14 @@ static _flag_info_t _slay_flag_info[] = {
 static void _calc_weapon_bonuses(object_type *o_ptr, weapon_info_t *info_ptr)
 {
     int i;
-    int to_hit = _calc_amount(_essences[_ESSENCE_TO_HIT], 3);
-    int to_dam = _calc_amount(_essences[_ESSENCE_TO_DAM], 3);
+    int to_hit = _calc_amount(_essences[_ESSENCE_TO_HIT], 1);
+    int to_dam = _calc_amount(_essences[_ESSENCE_TO_DAM], 1);
+    int to_dd = _calc_amount(_essences[_ESSENCE_XTRA_DICE], 50);
 
     for (i = 0; i < TR_FLAG_SIZE; i++)
         o_ptr->art_flags[i] = 0;
 
     add_flag(o_ptr->art_flags, TR_NO_REMOVE);
-    /*if (p_ptr->lev >= 10)
-        add_flag(o_ptr->art_flags, TR_VORPAL);*/
 
     for (i = 0; ; i++)
     {
@@ -197,6 +220,8 @@ static void _calc_weapon_bonuses(object_type *o_ptr, weapon_info_t *info_ptr)
 
     info_ptr->to_d += to_dam;
     info_ptr->dis_to_d += to_dam;
+
+    info_ptr->to_dd += to_dd;
 }
 
 static void _calc_bonuses(void) 
@@ -556,6 +581,27 @@ static void _gain_level(int new_level)
         msg_print("You have evolved into a Death Scythe.");
         p_ptr->redraw |= PR_MAP;
     }
+
+    /* Note: These boosts will be completely wiped out next evolution */
+    {
+    object_type *o_ptr = equip_obj(p_ptr->weapon_info[0].slot);
+
+        if (one_in_(15) && new_level < 45) /* Sorry, Mr. Death Scythe, but you are too powerful! */
+        {
+            o_ptr->dd++;
+            msg_print("You grow sharper!");
+        }
+        else if (one_in_(2) || (new_level % 7) == 0)
+        {
+            o_ptr->to_d++;
+            msg_print("You grow more deadly!");
+        }
+        else
+        {
+            o_ptr->to_h++;
+            msg_print("You grow more accurate!");
+        }
+    }
 }
 
 /**********************************************************************
@@ -589,7 +635,7 @@ static void _dump_bonus_flag(FILE* fff, int which, int power, cptr name)
 static void _character_dump(FILE* fff)
 {
     int i;
-    fprintf(fff, "\n\n==================================== Essences ====================================\n");
+    fprintf(fff, "\n\n=================================== Essences ==================================\n");
     fprintf(fff, "\n   %-22.22s Total Bonus\n", "Stats");
     fprintf(fff, "   ---------------------- ----- -----\n");
     for (i = 0; i < 6; i++) /* Assume in order */
@@ -597,8 +643,8 @@ static void _character_dump(FILE* fff)
 
     fprintf(fff, "\n   %-22.22s Total Bonus\n", "Skills");
     fprintf(fff, "   ---------------------- ----- -----\n");
-    _dump_bonus_flag(fff, _ESSENCE_TO_HIT, 3, "To Hit");
-    _dump_bonus_flag(fff, _ESSENCE_TO_DAM, 3, "To Dam");
+    _dump_bonus_flag(fff, _ESSENCE_TO_HIT, 1, "To Hit");
+    _dump_bonus_flag(fff, _ESSENCE_TO_DAM, 1, "To Dam");
     if (_essences[_ESSENCE_AC])
     {
         fprintf(fff, "   %-22.22s %5d %+5d\n", 
@@ -624,6 +670,7 @@ static void _character_dump(FILE* fff)
             _essences[TR_BLOWS] >= 25 ? "+1" : ""
         );
     }
+    _dump_bonus_flag(fff, _ESSENCE_XTRA_DICE, 50, "Slaying");
     _dump_bonus_flag(fff, TR_SEARCH, 2, "Searching");
     _dump_bonus_flag(fff, TR_INFRA, 2, "Infravision");
     _dump_bonus_flag(fff, TR_TUNNEL, 2, "Digging");
@@ -746,8 +793,13 @@ void sword_absorb_object(object_type *o_ptr)
     }
 }
 
-void sword_disenchant(void)
+bool sword_disenchant(void)
 {
-    if (!res_save(RES_DISEN, 80) && _drain_essences(20))
+    bool result = FALSE;
+    if (!res_save(RES_DISEN, 70) && _drain_essences(20))
+    {
         msg_print("You feel power draining from your body!");
+        result = TRUE;
+    }
+    return result;
 }

@@ -1949,7 +1949,7 @@ extern void    jelly_eat_object(object_type *o_ptr);
 extern bool    leprechaun_steal(int m_idx);
 extern int     leprechaun_get_toggle(void);
 extern void    sword_absorb_object(object_type *o_ptr);
-extern void    sword_disenchant(void);
+extern bool    sword_disenchant(void);
 
 /* Mimic Forms */
 extern race_t *clay_golem_get_race_t(void);

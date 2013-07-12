@@ -547,6 +547,10 @@ bool make_attack_normal(int m_idx)
                         if ((res_save_default(RES_DISEN) || CHECK_MULTISHADOW()) && one_in_(2))
                         {
                         }
+                        else if (prace_is_(RACE_MON_SWORD) && one_in_(2) && sword_disenchant())
+                        {
+                            obvious = TRUE;
+                        }
                         else if (disenchant_player())
                         {
                             obvious = TRUE;

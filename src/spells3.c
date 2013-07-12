@@ -1161,6 +1161,10 @@ bool brand_weapon(int brand_type)
     if (inventory[item].name1 || inventory[item].name2)
     {
     }
+    else if (have_flag(inventory[item].art_flags, TR_NO_REMOVE))
+    {
+        msg_print("You are already excellent!");
+    }
     else if (brand_type == -1)
     {
         result = brand_weapon_aux(item);
@@ -2178,6 +2182,12 @@ bool artifact_scroll(void)
             ((o_ptr->number > 1) ? "customized items" : "a customized item"));
     }
 
+    else if (have_flag(o_ptr->art_flags, TR_NO_REMOVE))
+    {
+        msg_print("You are quite special already!");
+        okay = FALSE;
+    }
+
     else
     {
         if (o_ptr->number > 1)
@@ -2365,7 +2375,13 @@ bool mundane_spell(bool only_equip)
     if (o_ptr->name1 == ART_HAND_OF_VECNA || o_ptr->name1 == ART_EYE_OF_VECNA)
     {
         msg_print("There is no effect.");
-        return FALSE;
+        return TRUE;
+    }
+
+    if (have_flag(o_ptr->art_flags, TR_NO_REMOVE))
+    {
+        msg_print("Failed! You will never be average!");
+        return TRUE;
     }
 
     /* Oops */

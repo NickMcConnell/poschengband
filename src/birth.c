@@ -2644,7 +2644,7 @@ void player_outfit(void)
     {
         _birth_object(TV_SCROLL, SV_SCROLL_DARKNESS, rand_range(2, 5));
     }
-    else if (p_ptr->prace == RACE_MON_JELLY || p_ptr->prace == RACE_MON_SPIDER)
+    else if (p_ptr->prace == RACE_MON_JELLY || p_ptr->prace == RACE_MON_SPIDER || p_ptr->prace == RACE_MON_SWORD)
     {
     }
     else if (p_ptr->pclass != CLASS_NINJA)
