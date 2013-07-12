@@ -664,7 +664,7 @@ static void _gain_level(int new_level)
     {
         p_ptr->current_r_idx = MON_POLEAXE_OF_ANIMATED_ATTACK;
         equip_on_change_race();
-        _upgrade_weapon(TV_POLEARM, SV_BATTLE_AXE);
+        _upgrade_weapon(TV_POLEARM, SV_LOCHABER_AXE);
         msg_print("You have evolved into a Poleaxe of Animated Attack.");
         p_ptr->redraw |= PR_MAP;
     }
