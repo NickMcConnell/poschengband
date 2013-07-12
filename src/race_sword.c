@@ -65,6 +65,26 @@ static void _save(savefile_ptr file)
     }
 }
 
+static bool _skip_flag(int which)
+{
+    switch (which)
+    {
+    case TR_RIDING:
+    case TR_THROW:
+    case TR_HIDE_TYPE:
+    case TR_SHOW_MODS:
+    case TR_IGNORE_ACID:
+    case TR_IGNORE_ELEC:
+    case TR_IGNORE_FIRE:
+    case TR_IGNORE_COLD:
+    case TR_ACTIVATE:
+    case TR_FULL_NAME:
+    case TR_FIXED_FLAVOR:
+        return TRUE;
+    }
+    return FALSE;
+}
+
 static bool _absorb(object_type *o_ptr)
 {
     bool result = FALSE;
@@ -81,6 +101,7 @@ static bool _absorb(object_type *o_ptr)
 
     for (i = 0; i < TR_FLAG_MAX; i++)
     {
+        if (_skip_flag(i)) continue;
         if (have_flag(flags, i))
         {
             result = TRUE;
@@ -473,17 +494,90 @@ void _absorb_spell(int cmd, variant *res)
     }
 }
 
+static void _detect_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Detect Weapons");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Locate nearby weapons, animated or not.");
+        break;
+    case SPELL_CAST:
+    {
+        int rng = DETECT_RAD_DEFAULT;
+        int i, y, x;
+        bool detect = FALSE;
+
+        if (d_info[dungeon_type].flags1 & DF1_DARKNESS) rng /= 3;
+
+        for (i = 1; i < o_max; i++)
+        {
+            object_type *o_ptr = &o_list[i];
+
+            if (!o_ptr->k_idx) continue;
+            if (o_ptr->held_m_idx) continue;
+            y = o_ptr->iy;
+            x = o_ptr->ix;
+            if (distance(py, px, y, x) > rng) continue;
+            if (!object_is_melee_weapon(o_ptr)) continue;
+            o_ptr->marked |= OM_FOUND;
+            lite_spot(y, x);
+            detect = TRUE;
+        }
+        if (detect_monsters_string(DETECT_RAD_DEFAULT, "|/"))
+            detect = TRUE;
+
+        if (detect)
+            msg_print("You sense your kind.");
+
+        var_set_bool(res, TRUE);
+        break;
+    }
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
+
+static void _judge_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Identify Weapon");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Identifies a weapon.");
+        break;
+    case SPELL_CAST:
+        if (p_ptr->lev >= 35)
+            var_set_bool(res, identify_fully(object_is_melee_weapon));
+        else
+            var_set_bool(res, ident_spell(object_is_melee_weapon));
+        break;
+        break;
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
+
 static power_info _powers[] = 
 {
     { A_STR, {  1,  0,  0, _absorb_spell } },
+    { A_STR, {  5,  1, 30, _detect_spell } },
+    { A_STR, { 10, 10, 50, _judge_spell } },
+    /*{ A_STR, { 25, 30, 60, _animate_spell } },*/
     {    -1, { -1, -1, -1, NULL}}
 };
-
 
 static int _get_powers(spell_info* spells, int max) 
 {
     return get_powers_aux(spells, max, _powers);
 }
+
 /**********************************************************************
  * Birth and Evolution
  **********************************************************************/
