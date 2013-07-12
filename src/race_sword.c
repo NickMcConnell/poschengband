@@ -85,50 +85,59 @@ static bool _skip_flag(int which)
     return FALSE;
 }
 
+static bool _add_essence(int which, int amount)
+{
+    if (amount > 0)
+    {
+        _essences[which] += amount;
+        return TRUE;
+    }
+    return FALSE;
+}
+
 static bool _absorb(object_type *o_ptr)
 {
     bool result = FALSE;
     int i;
+    int div = 1;
     object_kind *k_ptr = &k_info[o_ptr->k_idx];
     u32b flags[TR_FLAG_SIZE];
     object_flags(o_ptr, flags);
 
-    if (o_ptr->ds > k_ptr->ds)
-        _essences[_ESSENCE_XTRA_DICE] += o_ptr->ds - k_ptr->ds;
+    if (o_ptr->curse_flags & TRC_AGGRAVATE)
+        div++;
+    if (o_ptr->curse_flags & (TRC_TY_CURSE | TRC_HEAVY_CURSE))
+        div++;
 
-    if (o_ptr->dd > k_ptr->dd)
-        _essences[_ESSENCE_XTRA_DICE] += o_ptr->dd - k_ptr->dd;
+    if (_add_essence(_ESSENCE_XTRA_DICE, (o_ptr->ds - k_ptr->ds)/1/*div?*/))
+        result = TRUE;
+    if (_add_essence(_ESSENCE_XTRA_DICE, (o_ptr->dd - k_ptr->dd)/1/*div?*/))
+        result = TRUE;
 
     for (i = 0; i < TR_FLAG_MAX; i++)
     {
         if (_skip_flag(i)) continue;
         if (have_flag(flags, i))
         {
-            result = TRUE;
             if (is_pval_flag(i))
-                _essences[i] += o_ptr->pval;
+            {
+                if (_add_essence(i, o_ptr->pval/div))
+                    result = TRUE;
+            }
             else
+            {
                 _essences[i]++;
+                result = TRUE;
+            }
         }
     }
 
-    if (o_ptr->to_a > 0)
-    {
+    if (_add_essence(_ESSENCE_AC, o_ptr->to_a/div))
         result = TRUE;
-        _essences[_ESSENCE_AC] += o_ptr->to_a;
-    }
-
-    if (o_ptr->to_h > 0)
-    {
+    if (_add_essence(_ESSENCE_TO_HIT, o_ptr->to_h/div))
         result = TRUE;
-        _essences[_ESSENCE_TO_HIT] += o_ptr->to_h;
-    }
-
-    if (o_ptr->to_d > 0)
-    {
+    if (_add_essence(_ESSENCE_TO_DAM, o_ptr->to_d/div))
         result = TRUE;
-        _essences[_ESSENCE_TO_DAM] += o_ptr->to_d;
-    }
 
     if (result)
     {
