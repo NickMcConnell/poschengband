@@ -466,7 +466,10 @@ int display_weapon_info(int hand, int row, int col)
     r = row;
     c = col;
     object_desc(o_name, o_ptr, OD_OMIT_INSCRIPTION);
-    sprintf(buf, " Hand #%d: %-49.49s", hand+1, o_name);
+    if (prace_is_(RACE_MON_SWORD))
+        sprintf(buf, " You    : %-49.49s", o_name);
+    else
+        sprintf(buf, " Hand #%d: %-49.49s", hand+1, o_name);
     c_put_str(TERM_YELLOW, buf, r++, c);
 
     sprintf(buf, " %-7.7s: %d.%d lbs", "Weight", o_ptr->weight/10, o_ptr->weight%10);

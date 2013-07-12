@@ -232,7 +232,7 @@ extern cptr equip_describe_slot(int slot)
         int hand = _template->slots[i].hand;
         if (p_ptr->weapon_info[hand].heavy_wield)
             return "Just Lifting";
-        if (p_ptr->weapon_info[hand].wield_how == WIELD_TWO_HANDS)
+        if (p_ptr->weapon_info[hand].wield_how == WIELD_TWO_HANDS && !prace_is_(RACE_MON_SWORD))
             return "Both Arms";
         if (p_ptr->weapon_info[hand].riding)
             return "Riding Reins";
@@ -1016,6 +1016,10 @@ void equip_calc_bonuses(void)
             }
         }
     }
+
+    /* Hack for Death Swords */
+    if (prace_is_(RACE_MON_SWORD))
+        p_ptr->weapon_info[0].wield_how = WIELD_TWO_HANDS;
 
     /* Its convenient to have an accurate weapon count later */
     p_ptr->weapon_ct = 0;
