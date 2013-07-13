@@ -297,7 +297,7 @@ static void _calc_bonuses(void)
     p_ptr->no_cut = TRUE;
     res_add(RES_BLIND);
     res_add(RES_POIS);
-    p_ptr->hold_life;
+    p_ptr->hold_life = TRUE;
 
     if (p_ptr->lev >= 10)
         p_ptr->pspeed += 1;
@@ -417,7 +417,8 @@ static void _get_flags(u32b flgs[TR_FLAG_SIZE])
 
     for (i = 0; i < 6; i++) /* Assume in order */
     {
-        _add_stat_flag(TR_STR + i, flgs);
+        if (i != 0) /* Bug: Giving TR_STR marks the player as cursed ... */
+            _add_stat_flag(TR_STR + i, flgs);
         if (_essences[TR_SUST_STR + i] >= 5)
             add_flag(flgs, TR_SUST_STR + i);
     }
