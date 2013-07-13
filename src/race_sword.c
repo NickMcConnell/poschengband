@@ -827,6 +827,7 @@ static void _character_dump(FILE* fff)
     _dump_ability_flag(fff, TR_SEE_INVIS, 1, "See Invisible");
     _dump_ability_flag(fff, TR_LEVITATION, 3, "Levitation");
     _dump_ability_flag(fff, TR_SLOW_DIGEST, 2, "Slow Digestion");
+    _dump_bonus_flag(fff, TR_LITE, 1, "Light");
     _dump_ability_flag(fff, TR_REGEN, 7, "Regeneration");
     _dump_ability_flag(fff, TR_NO_MAGIC, 5, "Antimagic");
     _dump_ability_flag(fff, TR_REFLECT, 3, "Reflection");
@@ -919,7 +920,6 @@ void sword_absorb_object(object_type *o_ptr)
     {
         char o_name[MAX_NLEN];
         object_desc(o_name, o_ptr, OD_NAME_ONLY);
-        msg_format("You absorb the power of %s!", o_name);
         _absorb(o_ptr);
     }
 }
@@ -933,4 +933,9 @@ bool sword_disenchant(void)
         result = TRUE;
     }
     return result;
+}
+
+int sword_calc_torch(void)
+{
+    return _calc_amount(_essences[TR_LITE], 1);
 }
