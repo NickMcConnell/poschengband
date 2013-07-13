@@ -109,10 +109,13 @@ static bool _absorb(object_type *o_ptr)
     if (o_ptr->curse_flags & (TRC_TY_CURSE | TRC_HEAVY_CURSE))
         div++;
 
-    if (_add_essence(_ESSENCE_XTRA_DICE, (o_ptr->ds - k_ptr->ds)/1/*div?*/))
-        result = TRUE;
-    if (_add_essence(_ESSENCE_XTRA_DICE, (o_ptr->dd - k_ptr->dd)/1/*div?*/))
-        result = TRUE;
+    if (!have_flag(flags, TR_ORDER) && !have_flag(flags, TR_WILD))
+    {
+        if (_add_essence(_ESSENCE_XTRA_DICE, (o_ptr->ds - k_ptr->ds)/1/*div?*/))
+            result = TRUE;
+        if (_add_essence(_ESSENCE_XTRA_DICE, (o_ptr->dd - k_ptr->dd)/1/*div?*/))
+            result = TRUE;
+    }
 
     for (i = 0; i < TR_FLAG_MAX; i++)
     {
@@ -171,6 +174,30 @@ static void _add_stat_flag(int flag, u32b flgs[TR_FLAG_SIZE])
 {
     if (_calc_stat_bonus(flag))
         add_flag(flgs, flag);
+}
+
+static int _res_power(int which)
+{
+    switch (which)
+    {
+    case RES_ACID:
+    case RES_FIRE:
+    case RES_COLD:
+    case RES_ELEC:
+    case RES_CONF:
+    case RES_FEAR:
+        return 1;
+
+    case RES_SOUND:
+    case RES_SHARDS:
+        return 3;
+
+    case RES_CHAOS:
+    case RES_DISEN:
+        return 2;
+    }
+
+    return 2;
 }
 
 /**********************************************************************
@@ -294,7 +321,7 @@ static void _calc_bonuses(void)
     for (i = 0; i < RES_MAX; i++)
     {
         int j = res_get_object_flag(i);
-        int n = _calc_amount(_essences[j], 1);
+        int n = _calc_amount(_essences[j], _res_power(i));
 
         for (; n; --n)
             res_add(i);
@@ -353,9 +380,9 @@ static void _calc_bonuses(void)
         p_ptr->anti_magic = TRUE;
     if (_essences[TR_LEVITATION] >= 3)
         p_ptr->levitation = TRUE;
-    if (_essences[TR_FREE_ACT] >= 2)
+    if (_essences[TR_FREE_ACT] >= 1)
         p_ptr->free_act = TRUE;
-    if (_essences[TR_SEE_INVIS] >= 2)
+    if (_essences[TR_SEE_INVIS] >= 1)
         p_ptr->see_inv = TRUE;
     if (_essences[TR_SLOW_DIGEST] >= 2)
         p_ptr->slow_digest = TRUE;
@@ -398,7 +425,7 @@ static void _get_flags(u32b flgs[TR_FLAG_SIZE])
     for (i = 0; i < RES_MAX; i++)
     {
         int j = res_get_object_flag(i);
-        int n = _calc_amount(_essences[j], 1);
+        int n = _calc_amount(_essences[j], _res_power(i));
 
         if (n)
             add_flag(flgs, j);
@@ -428,9 +455,9 @@ static void _get_flags(u32b flgs[TR_FLAG_SIZE])
         add_flag(flgs, TR_NO_MAGIC);
     if (_essences[TR_LEVITATION] >= 3)
         add_flag(flgs, TR_LEVITATION);
-    if (_essences[TR_FREE_ACT] >= 2)
+    if (_essences[TR_FREE_ACT] >= 1)
         add_flag(flgs, TR_FREE_ACT);
-    if (_essences[TR_SEE_INVIS] >= 2)
+    if (_essences[TR_SEE_INVIS] >= 1)
         add_flag(flgs, TR_SEE_INVIS);
     if (_essences[TR_SLOW_DIGEST] >= 2)
         add_flag(flgs, TR_SLOW_DIGEST);
@@ -791,12 +818,12 @@ static void _character_dump(FILE* fff)
     fprintf(fff, "\n   %-22.22s Total Bonus\n", "Resistances");
     fprintf(fff, "   ---------------------- ----- -----\n");
     for (i = 0; i < RES_MAX; i++)
-        _dump_bonus_flag(fff, res_get_object_flag(i), 1, format("%^s", res_name(i)));
+        _dump_bonus_flag(fff, res_get_object_flag(i), _res_power(i), format("%^s", res_name(i)));
 
     fprintf(fff, "\n   %-22.22s Total Bonus\n", "Abilities");
     fprintf(fff, "   ---------------------- ----- -----\n");
-    _dump_ability_flag(fff, TR_FREE_ACT, 2, "Free Action");
-    _dump_ability_flag(fff, TR_SEE_INVIS, 2, "See Invisible");
+    _dump_ability_flag(fff, TR_FREE_ACT, 1, "Free Action");
+    _dump_ability_flag(fff, TR_SEE_INVIS, 1, "See Invisible");
     _dump_ability_flag(fff, TR_LEVITATION, 3, "Levitation");
     _dump_ability_flag(fff, TR_SLOW_DIGEST, 2, "Slow Digestion");
     _dump_ability_flag(fff, TR_REGEN, 7, "Regeneration");
