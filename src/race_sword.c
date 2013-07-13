@@ -87,11 +87,20 @@ static bool _skip_flag(int which)
 
 static bool _add_essence(int which, int amount)
 {
+    int n = _essences[which];
+
     if (amount > 0)
+        n += amount;
+
+    if (n > 10000)
+        n = 10000;
+
+    if (n != _essences[which])
     {
-        _essences[which] += amount;
+        _essences[which] = n;
         return TRUE;
     }
+
     return FALSE;
 }
 
@@ -920,6 +929,7 @@ void sword_absorb_object(object_type *o_ptr)
     {
         char o_name[MAX_NLEN];
         object_desc(o_name, o_ptr, OD_NAME_ONLY);
+        msg_format("You attempt to drain power from %s.", o_name);
         _absorb(o_ptr);
     }
 }
