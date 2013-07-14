@@ -169,6 +169,27 @@ static int _calc_amount(int amount, int power)
             result++;
         amount -= power;
         power *= 2;
+        if (power > 1024)
+            power = 1024;
+    }
+
+    return result;
+}
+
+static int _calc_needed(int amount, int power)
+{
+    int result = 0;
+    /* It would be cleaner to loop until _calc_amount increased, but the
+       power required increases exponentially! */
+    for (;;)
+    {
+        result += power;
+        amount -= power;
+        if (amount < 0)
+            break;
+        power *= 2;
+        if (power > 1024)
+            power = 1024;
     }
 
     return result;
@@ -236,11 +257,11 @@ static _flag_info_t _slay_flag_info[] = {
     { TR_SLAY_TROLL, 8, "Slay Troll" },
     { TR_SLAY_GIANT, 8, "Slay Giant" },
 
-    { TR_BRAND_ACID, 16, "Brand Acid" },
-    { TR_BRAND_ELEC, 16, "Brand Elec" },
-    { TR_BRAND_FIRE, 16, "Brand Fire" },
-    { TR_BRAND_COLD, 16, "Brand Cold" },
-    { TR_BRAND_POIS, 16, "Brand Poison" },
+    { TR_BRAND_ACID, 24, "Brand Acid" },
+    { TR_BRAND_ELEC, 24, "Brand Elec" },
+    { TR_BRAND_FIRE, 24, "Brand Fire" },
+    { TR_BRAND_COLD, 24, "Brand Cold" },
+    { TR_BRAND_POIS, 24, "Brand Poison" },
     { TR_CHAOTIC, 32, "Chaotic" },
     { TR_VAMPIRIC, 32, "Vampiric" },
     { TR_VORPAL, 16, "Vorpal" },
@@ -316,7 +337,7 @@ static void _calc_bonuses(void)
     p_ptr->dis_to_a += to_a;
 
     p_ptr->pspeed += 1;
-
+    
     p_ptr->lite = TRUE;
     p_ptr->no_cut = TRUE;
     res_add(RES_BLIND);
@@ -350,6 +371,8 @@ static void _calc_bonuses(void)
         for (; n; --n)
             res_add(i);
     }
+
+    p_ptr->life += _calc_amount(_essences[TR_LIFE], 7);
 
     p_ptr->skills.stl += _calc_amount(_essences[TR_STEALTH], 2);
     p_ptr->pspeed += _essences[TR_SPEED];
@@ -455,6 +478,15 @@ static void _get_flags(u32b flgs[TR_FLAG_SIZE])
         if (n)
             add_flag(flgs, j);
     }
+
+    if (_essences[TR_IM_ACID] >= 3)
+        res_add_immune(RES_ACID);
+    if (_essences[TR_IM_ELEC] >= 3)
+        res_add_immune(RES_ELEC);
+    if (_essences[TR_IM_FIRE] >= 3)
+        res_add_immune(RES_FIRE);
+    if (_essences[TR_IM_COLD] >= 3)
+        res_add_immune(RES_COLD);
 
     if (_calc_amount(_essences[TR_STEALTH], 2))
         add_flag(flgs, TR_STEALTH);
@@ -785,9 +817,10 @@ static void _dump_bonus_flag(FILE* fff, int which, int power, cptr name)
     int n = _essences[which];
     if (n > 0)
     {
-        fprintf(fff, "   %-22.22s %5d %+5d\n", 
+        fprintf(fff, "   %-22.22s %5d %5d %+5d\n", 
             name,
             n, 
+            _calc_needed(n, power),
             _calc_amount(n, power)
         );
     }
@@ -797,41 +830,45 @@ static void _character_dump(FILE* fff)
 {
     int i;
     fprintf(fff, "\n\n=================================== Essences ==================================\n");
-    fprintf(fff, "\n   %-22.22s Total Bonus\n", "Stats");
-    fprintf(fff, "   ---------------------- ----- -----\n");
+    fprintf(fff, "\n   %-22.22s Total  Need Bonus\n", "Stats");
+    fprintf(fff, "   ---------------------- ----- ----- -----\n");
     for (i = 0; i < 6; i++) /* Assume in order */
         _dump_bonus_flag(fff, TR_STR + i, 3, stat_name_true[A_STR + i]);
 
-    fprintf(fff, "\n   %-22.22s Total Bonus\n", "Skills");
-    fprintf(fff, "   ---------------------- ----- -----\n");
+    fprintf(fff, "\n   %-22.22s Total  Need Bonus\n", "Skills");
+    fprintf(fff, "   ---------------------- ----- ----- -----\n");
     _dump_bonus_flag(fff, _ESSENCE_TO_HIT, 1, "To Hit");
     _dump_bonus_flag(fff, _ESSENCE_TO_DAM, 1, "To Dam");
     if (_essences[_ESSENCE_AC])
     {
-        fprintf(fff, "   %-22.22s %5d %+5d\n", 
+        fprintf(fff, "   %-22.22s %5d %5d %+5d\n", 
             "To AC",
             _essences[_ESSENCE_AC], 
+            2 * (_essences[_ESSENCE_AC]/2 + 1), 
             _essences[_ESSENCE_AC] / 2
         );
     }
     _dump_bonus_flag(fff, TR_STEALTH, 2, "Stealth");
     if (_essences[TR_SPEED])
     {
-        fprintf(fff, "   %-22.22s %5d %+5d\n", 
+        fprintf(fff, "   %-22.22s %5d %5d %+5d\n", 
             "Speed",
             _essences[TR_SPEED], 
+            _essences[TR_SPEED] + 1,
             _essences[TR_SPEED]
         );
     }
     if (_essences[TR_BLOWS])
     {
-        fprintf(fff, "   %-22.22s %5d %5.5s\n", 
+        fprintf(fff, "   %-22.22s %5d %5d %5.5s\n", 
             "Attacks",
             _essences[TR_BLOWS], 
+            25,
             _essences[TR_BLOWS] >= 25 ? "+1" : ""
         );
     }
     _dump_bonus_flag(fff, _ESSENCE_XTRA_DICE, _rank_decay(64), "Slaying");
+    _dump_bonus_flag(fff, TR_LIFE, 7, "Life");
     _dump_bonus_flag(fff, TR_SEARCH, 2, "Searching");
     _dump_bonus_flag(fff, TR_INFRA, 2, "Infravision");
     _dump_bonus_flag(fff, TR_TUNNEL, 2, "Digging");
@@ -847,10 +884,15 @@ static void _character_dump(FILE* fff)
         _dump_ability_flag(fff, j, _slay_power(i), _slay_flag_info[i].name);
     }
 
-    fprintf(fff, "\n   %-22.22s Total Bonus\n", "Resistances");
-    fprintf(fff, "   ---------------------- ----- -----\n");
+    fprintf(fff, "\n   %-22.22s Total  Need Bonus\n", "Resistances");
+    fprintf(fff, "   ---------------------- ----- ----- -----\n");
     for (i = 0; i < RES_MAX; i++)
         _dump_bonus_flag(fff, res_get_object_flag(i), _res_power(i), format("%^s", res_name(i)));
+
+    _dump_ability_flag(fff, TR_IM_ACID, 3, "Immune Acid");
+    _dump_ability_flag(fff, TR_IM_ELEC, 3, "Immune Elec");
+    _dump_ability_flag(fff, TR_IM_FIRE, 3, "Immune Fire");
+    _dump_ability_flag(fff, TR_IM_COLD, 3, "Immune Cold");
 
     fprintf(fff, "\n   %-22.22s Total  Need Bonus\n", "Abilities");
     fprintf(fff, "   ---------------------- ----- ----- -----\n");
