@@ -371,8 +371,16 @@ static void _calc_bonuses(void)
         for (; n; --n)
             res_add(i);
     }
+    if (_essences[TR_IM_ACID] >= 3)
+        res_add_immune(RES_ACID);
+    if (_essences[TR_IM_ELEC] >= 3)
+        res_add_immune(RES_ELEC);
+    if (_essences[TR_IM_FIRE] >= 3)
+        res_add_immune(RES_FIRE);
+    if (_essences[TR_IM_COLD] >= 3)
+        res_add_immune(RES_COLD);
 
-    p_ptr->life += _calc_amount(_essences[TR_LIFE], 7);
+    p_ptr->life += 3*_calc_amount(_essences[TR_LIFE], 7);
 
     p_ptr->skills.stl += _calc_amount(_essences[TR_STEALTH], 2);
     p_ptr->pspeed += _essences[TR_SPEED];
@@ -425,7 +433,7 @@ static void _calc_bonuses(void)
 
     if (_essences[TR_NO_MAGIC] >= 5)
         p_ptr->anti_magic = TRUE;
-    if (_essences[TR_LEVITATION] >= 3)
+    if (_essences[TR_LEVITATION] >= 2)
         p_ptr->levitation = TRUE;
     if (_essences[TR_FREE_ACT] >= 1)
         p_ptr->free_act = TRUE;
@@ -444,6 +452,18 @@ static void _calc_bonuses(void)
         p_ptr->sh_elec = TRUE;
     if (_essences[TR_SH_COLD] >= 7)
         p_ptr->sh_cold = TRUE;
+}
+
+static void _get_immunities(u32b flgs[TR_FLAG_SIZE]) 
+{
+    if (_essences[TR_IM_ACID] >= 3)
+        add_flag(flgs, TR_RES_ACID);
+    if (_essences[TR_IM_ELEC] >= 3)
+        add_flag(flgs, TR_RES_ELEC);
+    if (_essences[TR_IM_FIRE] >= 3)
+        add_flag(flgs, TR_RES_FIRE);
+    if (_essences[TR_IM_COLD] >= 3)
+        add_flag(flgs, TR_RES_COLD);
 }
 
 static void _get_flags(u32b flgs[TR_FLAG_SIZE]) 
@@ -479,15 +499,6 @@ static void _get_flags(u32b flgs[TR_FLAG_SIZE])
             add_flag(flgs, j);
     }
 
-    if (_essences[TR_IM_ACID] >= 3)
-        res_add_immune(RES_ACID);
-    if (_essences[TR_IM_ELEC] >= 3)
-        res_add_immune(RES_ELEC);
-    if (_essences[TR_IM_FIRE] >= 3)
-        res_add_immune(RES_FIRE);
-    if (_essences[TR_IM_COLD] >= 3)
-        res_add_immune(RES_COLD);
-
     if (_calc_amount(_essences[TR_STEALTH], 2))
         add_flag(flgs, TR_STEALTH);
     if (_calc_amount(_essences[TR_MAGIC_MASTERY], 2))
@@ -510,7 +521,7 @@ static void _get_flags(u32b flgs[TR_FLAG_SIZE])
 
     if (_essences[TR_NO_MAGIC] >= 5)
         add_flag(flgs, TR_NO_MAGIC);
-    if (_essences[TR_LEVITATION] >= 3)
+    if (_essences[TR_LEVITATION] >= 2)
         add_flag(flgs, TR_LEVITATION);
     if (_essences[TR_FREE_ACT] >= 1)
         add_flag(flgs, TR_FREE_ACT);
@@ -898,7 +909,7 @@ static void _character_dump(FILE* fff)
     fprintf(fff, "   ---------------------- ----- ----- -----\n");
     _dump_ability_flag(fff, TR_FREE_ACT, 1, "Free Action");
     _dump_ability_flag(fff, TR_SEE_INVIS, 1, "See Invisible");
-    _dump_ability_flag(fff, TR_LEVITATION, 3, "Levitation");
+    _dump_ability_flag(fff, TR_LEVITATION, 2, "Levitation");
     _dump_ability_flag(fff, TR_SLOW_DIGEST, 2, "Slow Digestion");
     _dump_ability_flag(fff, TR_REGEN, 7, "Regeneration");
     _dump_ability_flag(fff, TR_NO_MAGIC, 5, "Antimagic");
@@ -960,6 +971,7 @@ race_t *mon_sword_get_race_t(void)
         me.calc_weapon_bonuses = _calc_weapon_bonuses;
         me.character_dump = _character_dump;
         me.get_flags = _get_flags;
+        me.get_immunities = _get_immunities;
         me.gain_level = _gain_level;
         me.get_powers = _get_powers;
         me.birth = _birth;
