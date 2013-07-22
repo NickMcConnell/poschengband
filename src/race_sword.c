@@ -347,6 +347,8 @@ static void _calc_bonuses(void)
     int to_a = l + l*l/50 + l*l*l/2500;
 
     to_a += _calc_amount(_essences[_ESSENCE_AC], 2, 10);
+    if (p_ptr->current_r_idx == MON_DEATH_SCYTHE)
+        to_a -= 50;
     p_ptr->to_a += to_a;
     p_ptr->dis_to_a += to_a;
 
@@ -372,7 +374,7 @@ static void _calc_bonuses(void)
         p_ptr->pspeed += 2;
 
     if (p_ptr->lev >= 45)
-        p_ptr->pspeed += 5;
+        p_ptr->pspeed += 2;
 
     for (i = 0; i < 6; i++) /* Assume in order */
         p_ptr->stat_add[A_STR + i] += _calc_stat_bonus(TR_STR + i);
