@@ -854,7 +854,7 @@ static void _get_flags(u32b flgs[TR_FLAG_SIZE])
 /**********************************************************************
  * Equipment, Birth and Evolution
  **********************************************************************/
-static equip_template_t _equip_template = {8, { 
+static equip_template_t _equip_template = {12, { 
     {EQUIP_SLOT_RING, "Ring", 0},
     {EQUIP_SLOT_RING, "Ring", 0},
     {EQUIP_SLOT_RING, "Ring", 0},
@@ -862,7 +862,11 @@ static equip_template_t _equip_template = {8, {
     {EQUIP_SLOT_LITE, "Light", 0},
     {EQUIP_SLOT_BODY_ARMOR, "Body", 0},
     {EQUIP_SLOT_CLOAK, "Cloak", 0},
-    {EQUIP_SLOT_HELMET, "Helm", 0}
+    {EQUIP_SLOT_HELMET, "Helm", 0},
+    {EQUIP_SLOT_CAPTURE_BALL, "Capture 1", 0},
+    {EQUIP_SLOT_CAPTURE_BALL, "Capture 2", 0},
+    {EQUIP_SLOT_CAPTURE_BALL, "Capture 3", 0},
+    {EQUIP_SLOT_CAPTURE_BALL, "Capture 4", 0},
 }};
 
 static void _birth(void) 
@@ -871,8 +875,11 @@ static void _birth(void)
 
     p_ptr->current_r_idx = MON_QUYLTHULG;
     
-    object_prep(&forge, lookup_kind(TV_RING, SV_RING_PROTECTION));
-    apply_magic(&forge, 1, AM_GOOD);
+    object_prep(&forge, lookup_kind(TV_CAPTURE, 0));
+    add_outfit(&forge);
+    add_outfit(&forge);
+
+    object_prep(&forge, lookup_kind(TV_WHISTLE, 1));
     add_outfit(&forge);
 }
 
