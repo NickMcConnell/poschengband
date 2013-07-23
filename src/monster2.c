@@ -815,47 +815,47 @@ static bool summon_specific_aux(int r_idx)
             }
             break;
         }
-		case SUMMON_BALROG:
-		{
+        case SUMMON_BALROG:
+        {
             if (r_idx == 720 || r_idx == 940)
                 okay = TRUE;
             break;
         }
-		case SUMMON_CLUBBER_DEMON:
-		{
+        case SUMMON_CLUBBER_DEMON:
+        {
             okay = (r_idx == 648);
             break;
         }
-		case SUMMON_DEMON_SUMMONER:
-		{
-			okay = ( !(r_ptr->flags1 & RF1_UNIQUE) 
+        case SUMMON_DEMON_SUMMONER:
+        {
+            okay = ( !(r_ptr->flags1 & RF1_UNIQUE) 
                   && (r_ptr->flags6 & RF6_S_DEMON));
-			break;
-		}
+            break;
+        }
 
-		case SUMMON_MATURE_DRAGON:
-		{
-			/* Hack -- all 'd's with 'ature' or 'rake' in name */
-			okay = ((r_ptr->d_char == 'd') &&
-				!(r_ptr->flags1 & (RF1_UNIQUE)) &&
-				(strstr(r_name + r_ptr->name, "ature") ||
-				 strstr(r_name + r_ptr->name, "rake")));
-			break;
-		}
+        case SUMMON_MATURE_DRAGON:
+        {
+            /* Hack -- all 'd's with 'ature' or 'rake' in name */
+            okay = ((r_ptr->d_char == 'd') &&
+                !(r_ptr->flags1 & (RF1_UNIQUE)) &&
+                (strstr(r_name + r_ptr->name, "ature") ||
+                 strstr(r_name + r_ptr->name, "rake")));
+            break;
+        }
 
-		case SUMMON_DRAGON_SUMMONER:
-		{
-			okay = ( !(r_ptr->flags1 & RF1_UNIQUE) 
+        case SUMMON_DRAGON_SUMMONER:
+        {
+            okay = ( !(r_ptr->flags1 & RF1_UNIQUE) 
                   && (r_ptr->flags6 & (RF6_S_DRAGON | RF6_S_HI_DRAGON)));
-			break;
-		}
+            break;
+        }
 
-		case SUMMON_UNDEAD_SUMMONER:
-		{
-			okay = ( !(r_ptr->flags1 & RF1_UNIQUE) 
+        case SUMMON_UNDEAD_SUMMONER:
+        {
+            okay = ( !(r_ptr->flags1 & RF1_UNIQUE) 
                   && (r_ptr->flags6 & (RF6_S_UNDEAD | RF6_S_HI_UNDEAD)));
-			break;
-		}
+            break;
+        }
         case SUMMON_DARK_ELF:
         {
             if ( r_idx == 122 || r_idx == 178 || r_idx == 182 || r_idx == 226 || r_idx == 348
