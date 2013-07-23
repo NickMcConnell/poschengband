@@ -1612,6 +1612,9 @@ int calculate_upkeep(void)
         if (prace_is_(RACE_DEMIGOD) && p_ptr->psubrace == DEMIGOD_APHRODITE)
             div /= 2;
 
+        if (prace_is_(RACE_MON_QUYLTHULG))
+            div = 7;
+
         upkeep_factor = (total_friend_levels - (p_ptr->lev * 80 / div));
 
         if (upkeep_factor < 0) upkeep_factor = 0;
