@@ -312,7 +312,7 @@ void _summon_high_dragon_spell(int cmd, variant *res)
     case SPELL_FAIL:
     case SPELL_CAST:
     {
-        _summon(SUMMON_HI_DRAGON, randint1(8), cmd == SPELL_FAIL);
+        _summon(SUMMON_HI_DRAGON, randint1(3), cmd == SPELL_FAIL);
         var_set_bool(res, TRUE);
         break;
     }
@@ -334,7 +334,7 @@ void _summon_high_demon_spell(int cmd, variant *res)
     case SPELL_FAIL:
     case SPELL_CAST:
     {
-        _summon(SUMMON_DEMON, randint1(8), cmd == SPELL_FAIL);
+        _summon(SUMMON_DEMON, randint1(3), cmd == SPELL_FAIL);
         var_set_bool(res, TRUE);
         break;
     }
@@ -356,7 +356,7 @@ void _summon_high_undead_spell(int cmd, variant *res)
     case SPELL_FAIL:
     case SPELL_CAST:
     {
-        _summon(SUMMON_HI_UNDEAD, randint1(8), cmd == SPELL_FAIL);
+        _summon(SUMMON_HI_UNDEAD, randint1(3), cmd == SPELL_FAIL);
         var_set_bool(res, TRUE);
         break;
     }
@@ -422,7 +422,7 @@ void _summon_ogre_spell(int cmd, variant *res)
     case SPELL_FAIL:
     case SPELL_CAST:
     {
-        _summon(SUMMON_OGRE, randint1(2), cmd == SPELL_FAIL);
+        _summon(SUMMON_OGRE, 1, cmd == SPELL_FAIL);
         var_set_bool(res, TRUE);
         break;
     }
@@ -444,7 +444,7 @@ void _summon_orc_spell(int cmd, variant *res)
     case SPELL_FAIL:
     case SPELL_CAST:
     {
-        _summon(SUMMON_ORC, randint1(2), cmd == SPELL_FAIL);
+        _summon(SUMMON_ORC, 1, cmd == SPELL_FAIL);
         var_set_bool(res, TRUE);
         break;
     }
@@ -488,7 +488,7 @@ void _summon_ultimate_spell(int cmd, variant *res)
     case SPELL_FAIL:
     case SPELL_CAST:
     {
-        _summon(SUMMON_ULTIMATE, randint1(3), cmd == SPELL_FAIL);
+        _summon(SUMMON_ULTIMATE, randint1(2), cmd == SPELL_FAIL);
         var_set_bool(res, TRUE);
         break;
     }
@@ -710,6 +710,7 @@ static spell_info _master_spells[] =
     {  1,  0, 25, phase_door_spell},
     {  1,  5, 35, teleport_spell},
     {  1, 10, 50, teleport_other_spell},
+    {  8, 10, 35, _summon_dark_elf_spell},
     { 13, 15, 45, _summon_demon_spell},
     { 13, 15, 45, _summon_undead_spell},
     { 13, 15, 45, _summon_dragon_spell},
