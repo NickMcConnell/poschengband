@@ -865,9 +865,9 @@ static bool summon_specific_aux(int r_idx)
             }
             break;
         }
-        case SUMMON_OGRE:
+        case SUMMON_GIANT:
         {
-            okay = (r_ptr->d_char == 'O') ? TRUE : FALSE;
+            okay = (r_ptr->d_char == 'O' || r_ptr->d_char == 'P');
             break;
         }
         case SUMMON_ORC:

@@ -3118,7 +3118,7 @@
 #define SUMMON_YEEK                 85
 #define SUMMON_ORC                  86
 #define SUMMON_DARK_ELF             87
-#define SUMMON_OGRE                 88
+#define SUMMON_GIANT                88
 #define SUMMON_UNDEAD_SUMMONER      89
 #define SUMMON_MATURE_DRAGON        90
 #define SUMMON_DRAGON_SUMMONER      91

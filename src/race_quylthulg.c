@@ -79,6 +79,43 @@ static void _summon(int what, int num, bool fail)
 /**********************************************************************
  * Spells
  **********************************************************************/
+void _heal_monster_spell(int cmd, variant *res)
+{
+    int heal = spell_power(p_ptr->lev * 10 + 200);
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Heal Monster");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Attempts to heal a chosen monster.");
+        break;
+    case SPELL_INFO:
+        var_set_string(res, info_heal(0, 0, heal));
+        break;
+    case SPELL_CAST:
+    {
+        int dir;
+        bool result;
+        bool old_target_pet = target_pet;
+
+        var_set_bool(res, FALSE);
+
+        target_pet = TRUE;
+        result = get_aim_dir(&dir);
+        target_pet = old_target_pet;
+
+        if (!result) return;
+
+        heal_monster(dir, heal);
+        var_set_bool(res, TRUE);
+        break;
+    }
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
 void _summon_ancient_dragon_spell(int cmd, variant *res)
 {
     switch (cmd)
@@ -93,6 +130,28 @@ void _summon_ancient_dragon_spell(int cmd, variant *res)
     case SPELL_CAST:
     {
         _summon(SUMMON_HI_DRAGON, 1, cmd == SPELL_FAIL);
+        var_set_bool(res, TRUE);
+        break;
+    }
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
+void _summon_ant_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Summon Ants");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Attempts to summon ants for assistance.");
+        break;
+    case SPELL_FAIL:
+    case SPELL_CAST:
+    {
+        _summon(SUMMON_ANT, randint1(2), cmd == SPELL_FAIL);
         var_set_bool(res, TRUE);
         break;
     }
@@ -277,6 +336,28 @@ void _summon_elemental_spell(int cmd, variant *res)
         break;
     }
 }
+void _summon_giant_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Summon Giant");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Attempts to summon a giant for assistance.");
+        break;
+    case SPELL_FAIL:
+    case SPELL_CAST:
+    {
+        _summon(SUMMON_GIANT, 1, cmd == SPELL_FAIL);
+        var_set_bool(res, TRUE);
+        break;
+    }
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
 void _summon_golem_spell(int cmd, variant *res)
 {
     switch (cmd)
@@ -365,6 +446,28 @@ void _summon_high_undead_spell(int cmd, variant *res)
         break;
     }
 }
+void _summon_hounds_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Summon Hounds");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Attempts to summon hounds for assistance.");
+        break;
+    case SPELL_FAIL:
+    case SPELL_CAST:
+    {
+        _summon(SUMMON_HOUND, 1, cmd == SPELL_FAIL);
+        var_set_bool(res, TRUE);
+        break;
+    }
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
 void _summon_lich_spell(int cmd, variant *res)
 {
     switch (cmd)
@@ -401,28 +504,6 @@ void _summon_mature_dragon_spell(int cmd, variant *res)
     case SPELL_CAST:
     {
         _summon(SUMMON_MATURE_DRAGON, 1, cmd == SPELL_FAIL);
-        var_set_bool(res, TRUE);
-        break;
-    }
-    default:
-        default_spell(cmd, res);
-        break;
-    }
-}
-void _summon_ogre_spell(int cmd, variant *res)
-{
-    switch (cmd)
-    {
-    case SPELL_NAME:
-        var_set_string(res, "Summon Ogres");
-        break;
-    case SPELL_DESC:
-        var_set_string(res, "Attempts to summon ogres for assistance.");
-        break;
-    case SPELL_FAIL:
-    case SPELL_CAST:
-    {
-        _summon(SUMMON_OGRE, 1, cmd == SPELL_FAIL);
         var_set_bool(res, TRUE);
         break;
     }
@@ -541,28 +622,6 @@ void _summon_undead_summoner_spell(int cmd, variant *res)
         break;
     }
 }
-void _summon_vortex_spell(int cmd, variant *res)
-{
-    switch (cmd)
-    {
-    case SPELL_NAME:
-        var_set_string(res, "Summon Vortex");
-        break;
-    case SPELL_DESC:
-        var_set_string(res, "Attempts to summon a vortex for assistance.");
-        break;
-    case SPELL_FAIL:
-    case SPELL_CAST:
-    {
-        _summon(SUMMON_VORTEX, 1, cmd == SPELL_FAIL);
-        var_set_bool(res, TRUE);
-        break;
-    }
-    default:
-        default_spell(cmd, res);
-        break;
-    }
-}
 void _summon_wight_spell(int cmd, variant *res)
 {
     switch (cmd)
@@ -607,43 +666,6 @@ void _summon_yeek_spell(int cmd, variant *res)
         break;
     }
 }
-void _heal_monster_spell(int cmd, variant *res)
-{
-    int heal = spell_power(p_ptr->lev * 10 + 200);
-    switch (cmd)
-    {
-    case SPELL_NAME:
-        var_set_string(res, "Heal Monster");
-        break;
-    case SPELL_DESC:
-        var_set_string(res, "Attempts to heal a chosen monster.");
-        break;
-    case SPELL_INFO:
-        var_set_string(res, info_heal(0, 0, heal));
-        break;
-    case SPELL_CAST:
-    {
-        int dir;
-        bool result;
-        bool old_target_pet = target_pet;
-
-        var_set_bool(res, FALSE);
-
-        target_pet = TRUE;
-        result = get_aim_dir(&dir);
-        target_pet = old_target_pet;
-
-        if (!result) return;
-
-        heal_monster(dir, heal);
-        var_set_bool(res, TRUE);
-        break;
-    }
-    default:
-        default_spell(cmd, res);
-        break;
-    }
-}
 
 static spell_info _baby_spells[] = 
 {
@@ -652,15 +674,16 @@ static spell_info _baby_spells[] =
     {  1, 10, 50, teleport_other_spell},
     {  1,  2, 35, _summon_yeek_spell},
     {  2,  6, 35, _summon_spider_spell},
+    {  3,  7, 35, _summon_ant_spell},
     {  4,  9, 35, _summon_orc_spell},
     {  8, 10, 35, _summon_dark_elf_spell},
     { 13, 15, 45, _summon_demon_spell},
     { 13, 15, 45, _summon_undead_spell},
     { 13, 15, 45, _summon_dragon_spell},
-    { 15, 15, 45, _summon_ogre_spell},
+    { 15, 15, 45, _summon_giant_spell},
     { 18, 20, 45, _summon_golem_spell},
-    { 20, 20, 45, _summon_vortex_spell},
-    { 23, 25, 45, _summon_elemental_spell},
+    { 20, 20, 45, _summon_elemental_spell},
+    { 23, 25, 45, _summon_hounds_spell},
     { 25, 35, 55, _heal_monster_spell},
     { -1, -1, -1, NULL}
 };
@@ -710,7 +733,6 @@ static spell_info _master_spells[] =
     {  1,  0, 25, phase_door_spell},
     {  1,  5, 35, teleport_spell},
     {  1, 10, 50, teleport_other_spell},
-    {  8, 10, 35, _summon_dark_elf_spell},
     { 13, 15, 45, _summon_demon_spell},
     { 13, 15, 45, _summon_undead_spell},
     { 13, 15, 45, _summon_dragon_spell},
