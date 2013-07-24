@@ -799,6 +799,7 @@ static void _calc_bonuses(void)
     res_add(RES_BLIND);
     res_add(RES_CONF);
     p_ptr->regenerate = TRUE;
+    p_ptr->slow_digest = TRUE;
     p_ptr->telepathy = TRUE;
     p_ptr->free_act = TRUE;
     p_ptr->see_inv = TRUE;
@@ -841,6 +842,7 @@ static void _get_flags(u32b flgs[TR_FLAG_SIZE])
     add_flag(flgs, TR_RES_BLIND);
     add_flag(flgs, TR_RES_CONF);
     add_flag(flgs, TR_REGEN);
+    add_flag(flgs, TR_SLOW_DIGEST);
     add_flag(flgs, TR_TELEPATHY);
     add_flag(flgs, TR_FREE_ACT);
     add_flag(flgs, TR_SEE_INVIS);
