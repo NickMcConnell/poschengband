@@ -751,7 +751,7 @@ static cptr k_info_flags[] =
     "BLESSED",
     "XXX3",
     "XXX4",
-    "XXX5",
+    "SH_SHARDS",
 
     "KILL_ANIMAL",
     "KILL_EVIL",
@@ -783,7 +783,10 @@ static cptr k_info_flags[] =
     "ORDER",
     "DARKNESS",
     "NO_SUMMON",
-    "NO_REMOVE"
+    "NO_REMOVE",
+    "MAGIC_RESISTANCE",
+
+    "SLAY_GOOD",
 };
 
 

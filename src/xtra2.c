@@ -1703,6 +1703,10 @@ void monster_death(int m_idx, bool drop_item)
             a_idx = ART_EMPEROR_QUYLTHULG;
             chance = 5;
             break;
+        case MON_DESTROYER:
+            a_idx = ART_DESTROYER;
+            chance = 5;
+            break;
         }
 
         if (race_ptr->boss_r_idx == m_ptr->r_idx)

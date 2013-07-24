@@ -227,6 +227,10 @@ static _blow_info_t _get_blow_info(int hand)
             if (p_ptr->lev >= 45) /* Death Scythes retaliate! */
                 result.num = 3;
         }
+        else if (prace_is_(RACE_MON_GOLEM))
+        {
+            result.num = 1;
+        }
         break;
     }
 
@@ -519,6 +523,9 @@ int display_weapon_info(int hand, int row, int col)
         _display_weapon_slay(mult, 350, force, num_blow, dd, ds, to_d, "Evil", TERM_YELLOW, r++, c);
     else if (have_flag(flgs, TR_SLAY_EVIL))
         _display_weapon_slay(mult, 200, force, num_blow, dd, ds, to_d, "Evil", TERM_YELLOW, r++, c);
+
+    if (have_flag(flgs, TR_SLAY_GOOD))
+        _display_weapon_slay(mult, 200, force, num_blow, dd, ds, to_d, "Good", TERM_YELLOW, r++, c);
 
     if (have_flag(flgs, TR_KILL_HUMAN))
         _display_weapon_slay(mult, 400, force, num_blow, dd, ds, to_d, "Human", TERM_YELLOW, r++, c);

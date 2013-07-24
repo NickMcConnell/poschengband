@@ -514,6 +514,7 @@ critical_t critical_norm(int weight, int plus, s16b meichuu, int mode, int hand)
     if ( mode == HISSATSU_MAJIN 
       || mode == HISSATSU_3DAN 
       || mode == MAULER_CRITICAL_BLOW
+      || mode == GOLEM_BIG_PUNCH
       || randint1(roll) <= i )
     {
         int k = weight + randint1(quality);
@@ -654,11 +655,12 @@ s16b tot_dam_aux_monk(int tdam, monster_type *m_ptr, int mode)
     return (tdam * mult / 10);
 }
 
-#define _MAX_CHAOS_SLAYS 14
+#define _MAX_CHAOS_SLAYS 15
 
 int _chaos_slays[_MAX_CHAOS_SLAYS] = {
     TR_SLAY_ANIMAL,
     TR_SLAY_EVIL,
+    TR_SLAY_GOOD,
     TR_SLAY_UNDEAD,
     TR_SLAY_DEMON,
     TR_SLAY_ORC,
@@ -777,6 +779,32 @@ s16b tot_dam_aux(object_type *o_ptr, int tdam, monster_type *m_ptr, s16b hand, i
                     else if (have_flag(flgs, TR_SLAY_EVIL) || weaponmaster_get_toggle() == TOGGLE_HOLY_BLADE)
                     {
                         if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= RF3_EVIL;
+                        if (mult < 20) mult = 20;
+                    }
+                }
+            }
+
+            if (r_ptr->flags3 & RF3_GOOD)
+            {
+                if (chaos_slay == TR_SLAY_GOOD)
+                {
+                    msg_format("%s slays good.", o_name);
+                    if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= RF3_GOOD;
+                    if (have_flag(flgs, TR_SLAY_GOOD))
+                    {
+                        if (mult < 30) mult = 30;
+                    }
+                    else
+                    {
+                        if (mult < 20) mult = 20;
+                    }
+
+                }
+                else
+                {
+                    if (have_flag(flgs, TR_SLAY_GOOD))
+                    {
+                        if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= RF3_GOOD;
                         if (mult < 20) mult = 20;
                     }
                 }
@@ -2141,7 +2169,7 @@ void touch_zap_player(int m_idx)
     }
 }
 
-static void innate_attacks(s16b m_idx, bool *fear, bool *mdeath)
+static void innate_attacks(s16b m_idx, bool *fear, bool *mdeath, int mode)
 {
     int             dam, base_dam, to_h, chance;
     monster_type    *m_ptr = &m_list[m_idx];
@@ -2190,7 +2218,7 @@ static void innate_attacks(s16b m_idx, bool *fear, bool *mdeath)
                 msg_format(a->msg, m_name);
 
                 base_dam = damroll(dd, a->ds) + a->to_d;
-                crit = critical_norm(a->weight, to_h, 0, 0, HAND_NONE);
+                crit = critical_norm(a->weight, to_h, 0, mode, HAND_NONE);
                 if (crit.desc)
                 {
                     base_dam = base_dam * crit.mul/100 + crit.to_d;
@@ -2245,7 +2273,7 @@ static void innate_attacks(s16b m_idx, bool *fear, bool *mdeath)
                     case GF_OLD_CONF:
                     case GF_OLD_SLOW:
                     case GF_STUN:
-                        project(0, 0, m_ptr->fy, m_ptr->fx, 2*p_ptr->lev, e, PROJECT_KILL|PROJECT_HIDE, -1);
+                        project(0, 0, m_ptr->fy, m_ptr->fx, MAX(2*p_ptr->lev, base_dam), e, PROJECT_KILL|PROJECT_HIDE, -1);
                         *mdeath = (m_ptr->r_idx == 0);
                         break;
                     case GF_DRAIN_MANA:
@@ -4254,7 +4282,7 @@ bool py_attack(int y, int x, int mode)
             do_innate_attacks = FALSE;
 
         if (do_innate_attacks)
-            innate_attacks(c_ptr->m_idx, &fear, &mdeath);
+            innate_attacks(c_ptr->m_idx, &fear, &mdeath, mode);
     }
 
     melee_hack = FALSE;
