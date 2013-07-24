@@ -744,37 +744,41 @@ F:FREE_ACT | RES_DARK | SUST_DEX | SEE_INVIS | SHOW_MODS | THROW
 # The Dagger 'Narthanc'
 
 N:66:'Narthanc'
-I:23:4:0
+I:23:4:1
 W:4:10:12:12000
 P:0:1d4:4:6:0
 F:BRAND_FIRE | RES_FIRE | ACTIVATE | SHOW_MODS | LITE | THROW | XTRA_H_RES
+F:SPEED
 D:A fiery dagger finely balanced for deadly throws.
 
 # The Dagger 'Nimthanc'
 
 N:67:'Nimthanc'
-I:23:4:0
+I:23:4:1
 W:3:10:12:11000
 P:0:1d4:4:6:0
 F:BRAND_COLD | RES_COLD | ACTIVATE | SHOW_MODS | THROW | XTRA_H_RES
+F:SPEED
 D:A frosty dagger finely balanced for deadly throws.
 
 # The Dagger 'Dethanc'
 
 N:68:'Dethanc'
-I:23:4:0
+I:23:4:1
 W:5:10:12:13000
 P:0:1d4:4:6:0
 F:BRAND_ELEC | RES_ELEC | ACTIVATE | SHOW_MODS | THROW | XTRA_H_RES
+F:SPEED
 D:A dagger covered in sparks and finely balanced for deadly throws.
 
 # The Dagger of Rilia
 
 N:69:of Rilia
-I:23:4:0
+I:23:4:1
 W:5:40:12:35000
 P:0:2d4:4:3:0
 F:SLAY_ORC | RES_POIS | RES_DISEN | ACTIVATE | SHOW_MODS | BRAND_POIS | THROW
+F:SPEED
 D:A large stiletto dagger that glistens with odorless poison, to which the 
 D:wearer seems oddly immune.
 
@@ -974,10 +978,11 @@ F:ESP_ORC | ESP_TROLL | ESP_HUMAN
 # The Rapier 'Forasgil'
 
 N:86:'Forasgil'
-I:23:7:0
+I:23:7:1
 W:15:8:40:15000
 P:0:1d6:12:19:0
 F:SLAY_ANIMAL | BRAND_COLD | RES_COLD | RES_LITE | LITE | SHOW_MODS
+F:SPEED
 D:A slender, tapered blade whose wielder strikes icy blows with deadly 
 D:accuracy.
 
