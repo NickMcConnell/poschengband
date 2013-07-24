@@ -3359,7 +3359,7 @@ static void target_set_prepare(int mode)
             /* Require target_able monsters for "TARGET_KILL" */
             if ((mode & (TARGET_KILL)) && !target_able(c_ptr->m_idx)) continue;
 
-            if ((mode & (TARGET_KILL)) && !target_pet && is_pet(&m_list[c_ptr->m_idx])) continue;
+            if ((mode & (TARGET_KILL | TARGET_MARK)) && !target_pet && is_pet(&m_list[c_ptr->m_idx])) continue;
 
             /* Duelist is attempting to mark a target ... only visible monsters, please! */
             if ( ((mode & TARGET_MARK) || (mode & TARGET_DISI))
