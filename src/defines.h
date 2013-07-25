@@ -372,33 +372,34 @@
 /*
  * Commands
  */
-#define PET_DISMISS        1
-#define PET_TARGET        2
-#define PET_STAY_CLOSE        3
-#define PET_FOLLOW_ME        4
+#define PET_DISMISS             1
+#define PET_TARGET              2
+#define PET_STAY_CLOSE          3
+#define PET_FOLLOW_ME           4
 #define PET_SEEK_AND_DESTROY    5
-#define PET_ALLOW_SPACE        6
-#define PET_STAY_AWAY        7
+#define PET_ALLOW_SPACE         6
+#define PET_STAY_AWAY           7
 #define PET_OPEN_DOORS          8
-#define PET_TAKE_ITEMS        9
-#define PET_TELEPORT        10
-#define PET_ATTACK_SPELL    11
-#define PET_SUMMON_SPELL    12
-#define PET_BALL_SPELL        13
-#define PET_RIDING        14
-#define PET_NAME        15
-#define PET_RYOUTE        16
-#define PET_NO_BREEDING        17
+#define PET_TAKE_ITEMS          9
+#define PET_TELEPORT            10
+#define PET_ATTACK_SPELL        11
+#define PET_SUMMON_SPELL        12
+#define PET_BALL_SPELL          13
+#define PET_RIDING              14
+#define PET_NAME                15
+#define PET_RYOUTE              16
+#define PET_NO_BREEDING         17
+#define PET_HILITE              18
 
 /*
  * Follow distances
  */
-#define PET_CLOSE_DIST                1
-#define PET_FOLLOW_DIST                6
-#define PET_SEEK_DIST                10
-#define PET_DESTROY_DIST            255
-#define PET_SPACE_DIST                (-10)
-#define PET_AWAY_DIST                (-25)
+#define PET_CLOSE_DIST          1
+#define PET_FOLLOW_DIST         6
+#define PET_SEEK_DIST           10
+#define PET_DESTROY_DIST        255
+#define PET_SPACE_DIST          (-10)
+#define PET_AWAY_DIST           (-25)
 
 #define PF_OPEN_DOORS   0x0001
 #define PF_PICKUP_ITEMS 0x0002
@@ -408,6 +409,7 @@
 #define PF_BALL_SPELL   0x0020
 #define PF_RYOUTE       0x0040
 #define PF_NO_BREEDING  0x0080
+#define PF_HILITE       0x0100
 
 
 #define CAN_TWO_HANDS_WIELDING() (!p_ptr->riding || (p_ptr->pet_extra_flags & PF_RYOUTE))
