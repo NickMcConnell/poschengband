@@ -2368,14 +2368,14 @@ static int get_next_dir(int dir)
 
 static bool py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
 {
-    int                 num = 0, k, k2, bonus, chance;
-    int              to_h = 0, to_d = 0;
-    int              touch_ct = 0;
-    critical_t       crit;
-    cave_type       *c_ptr = &cave[y][x];
-    monster_type    *m_ptr = NULL;
-    monster_race    *r_ptr = NULL;
-    object_type     *o_ptr = equip_obj(p_ptr->weapon_info[hand].slot);
+    int             num = 0, k, k2, bonus, chance;
+    int             to_h = 0, to_d = 0;
+    int             touch_ct = 0;
+    critical_t      crit;
+    cave_type      *c_ptr = &cave[y][x];
+    monster_type   *m_ptr = NULL;
+    monster_race   *r_ptr = NULL;
+    object_type    *o_ptr = equip_obj(p_ptr->weapon_info[hand].slot);
     char            o_name[MAX_NLEN];
     u32b            flgs[TR_FLAG_SIZE] = {0};
     char            m_name[MAX_NLEN];
@@ -2396,8 +2396,8 @@ static bool py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
     bool            is_human;
     bool            is_lowlevel;
     bool            zantetsu_mukou = FALSE, e_j_mukou = FALSE;
-    int                knock_out = 0;
-    int                dd, ds;
+    int             knock_out = 0;
+    int             dd, ds;
     bool            hit_ct = 0;
     bool            poison_needle = FALSE;
     bool            eviscerator = FALSE;
@@ -2529,6 +2529,12 @@ static bool py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
     
     set_monster_csleep(c_ptr->m_idx, 0);
     monster_desc(m_name, m_ptr, 0);
+
+    if (mode == PY_POWER_ATTACK)
+    {
+        to_h += 10;
+        to_d += p_ptr->lev / 2;
+    }
 
     /* Calculate the "attack quality" */
     bonus = p_ptr->weapon_info[hand].to_h + to_h;

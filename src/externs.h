@@ -2004,6 +2004,7 @@ extern bool magic_eater_hack;
 
 /* mauler.c */
 extern class_t *mauler_get_class_t(void);
+extern bool do_blow(int type);
 extern int mauler_get_toggle(void);
 extern void process_maul_of_vice(void);
 

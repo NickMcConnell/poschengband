@@ -17,52 +17,6 @@ static cptr _desc =
     "utter destruction, almost completely immune to magic. This last form takes "
     "nearly forever to build, unfortunately.";
 
-static bool _do_blow(int type)
-{
-    int x, y;
-    int dir;
-    int m_idx = 0;
-
-    /* For ergonomics sake, use currently targeted monster.  This allows
-       a macro of \e*tmaa or similar to pick an adjacent foe, while
-       \emaa*t won't work, since get_rep_dir2() won't allow a target. */
-    if (use_old_target && target_okay())
-    {
-        y = target_row;
-        x = target_col;
-        m_idx = cave[y][x].m_idx;
-        if (m_idx)
-        {
-            if (m_list[m_idx].cdis > 1)
-                m_idx = 0;
-            else
-                dir = 5;
-        }
-    }
-
-    if (!m_idx)
-    {
-        if (!get_rep_dir2(&dir)) return FALSE;
-        if (dir == 5) return FALSE;
-
-        y = py + ddy[dir];
-        x = px + ddx[dir];
-        m_idx = cave[y][x].m_idx;
-
-        if (!m_idx)
-        {
-            msg_print("There is no monster there.");
-            return FALSE;
-        }
-
-    }
-
-    if (m_idx)
-        py_attack(y, x, type);
-
-    return TRUE;
-}
-
 static cptr _mon_name(int r_idx)
 {
     if (r_idx)
@@ -343,7 +297,7 @@ static void _big_punch_spell(int cmd, variant *res)
         break;
     case SPELL_CAST:
         if (p_ptr->innate_attack_ct)
-            var_set_bool(res, _do_blow(GOLEM_BIG_PUNCH));
+            var_set_bool(res, do_blow(GOLEM_BIG_PUNCH));
         else
         {
             msg_print("Not while you are wielding a weapon!");

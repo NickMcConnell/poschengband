@@ -5670,6 +5670,8 @@ extern int PlayerUID;
 
 #define GOLEM_BIG_PUNCH      66
 
+#define PY_POWER_ATTACK      67
+
 #define HISSATSU_IAI    100
 
 /*
