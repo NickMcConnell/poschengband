@@ -132,7 +132,7 @@ D:Inventor of the incandescent lightbulb.
 N:8:'Frakir'
 I:45:32:1
 W:50:40:2:10000
-F:STR | INT | WIS | DEX | CON | CHR | STEALTH | HIDE_TYPE |
+F:STR | INT | WIS | DEX | CON | CHR | STEALTH | HIDE_TYPE | SPEED
 F:RES_POIS | ACTIVATE | SEE_INVIS | SEARCH | WARNING | INSTA_ART
 
 # The Ring of Tulkas
