@@ -2842,6 +2842,17 @@ static bool py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
                   || (mauler_get_toggle() == MAULER_TOGGLE_SHATTER && (k > 50 || one_in_(7))) )
                 {
                     do_quake = TRUE;
+                    if ( k <= 50
+                      || (r_ptr->flagsr & RFR_RES_ALL)
+                      || (r_ptr->flags3 & RF3_NO_STUN)
+                      || ((r_ptr->flags1 & RF1_UNIQUE) && mon_save_p(m_ptr->r_idx, A_STR)) )
+                    {
+                    }
+                    else
+                    {
+                        msg_format("%^s is stunned.", m_name);
+                        set_monster_stunned(c_ptr->m_idx, MAX(MON_STUNNED(m_ptr), 3 + randint1(3)));
+                    }
                 }
 
                 if (!poison_needle

@@ -1648,8 +1648,12 @@ void monster_death(int m_idx, bool drop_item)
             a_idx = ART_YMIR;
             chance = 5;
             break;
+        case MON_TYPHOEUS:
+            a_idx = ART_TYPHOEUS;
+            chance = 5;
+            break;
         case MON_ATLAS:
-            a_idx = ART_RAIJIN;
+            a_idx = ART_ATLAS;
             chance = 5;
             break;
         case MON_KRONOS:

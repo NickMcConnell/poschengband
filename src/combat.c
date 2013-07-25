@@ -215,6 +215,8 @@ static _blow_info_t _get_blow_info(int hand)
         {
             result.num = 6;
             result.mul = 5 + p_ptr->lev/40;
+            if (giant_is_(GIANT_HRU) && p_ptr->lev >= 40)
+                result.mul = 8;
         }
         else if (prace_is_(RACE_MON_LEPRECHAUN)) 
         {

@@ -554,7 +554,7 @@ static void _lightning_strike_spell(int cmd, variant *res)
     }
 }
 
-void _lightning_storm_spell(int cmd, variant *res)
+static void _lightning_storm_spell(int cmd, variant *res)
 {
     int l = p_ptr->lev;
     int dam = l*2 + l*l/25 + l*l*l/1250;

@@ -885,6 +885,9 @@ static _name_desc_t _giant_info[GIANT_MAX] = {
     { "Titan", "Titans are huge immortal beings of incredible strength and awesome power. "
                 "Descended from Gaia and Uranus, they ruled during the legendary Golden Age, "
                 "but were overthrown by the Olympians during the War of the Titans." },
+    { "Hru", "Hrus are rock giants, made of stone. Their hides are tough and they are able "
+                "to break through walls effortlessly. Hrus are incredibly strong, but lack "
+                "much in the way of magical powers." },
 };
 static void _giant_menu_fn(int cmd, int which, vptr cookie, variant *res)
 {
