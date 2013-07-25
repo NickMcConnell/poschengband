@@ -383,7 +383,7 @@ static cptr r_info_flags4[] =
     "SHOOT",
     "ANTI_MAGIC",
     "POLY",
-    "XXX4",
+    "BR_STORM",
     "BR_ACID",
     "BR_ELEC",
     "BR_FIRE",

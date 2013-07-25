@@ -17465,10 +17465,12 @@ F:UNIQUE | SELF_LITE_2 |
 F:FORCE_SLEEP | FORCE_MAXHP | RES_TELE | RES_NETH | MALE |
 F:ONLY_ITEM | DROP_2D2 | DROP_4D2 | DROP_GOOD | EVIL | AURA_ELEC |
 F:OPEN_DOOR | BASH_DOOR | POWERFUL | MOVE_BODY | TAKE_ITEM | CAN_SPEAK |
-F:IM_ELEC | IM_POIS | NO_CONF | NO_SLEEP | IM_POIS | GIANT | REGENERATE
-S:1_IN_3 |
-S:BR_ELEC | TELE_TO | S_KIN | S_HI_UNDEAD | BR_NETH | HAND_DOOM
-S:TELE_AWAY | HEAL | THROW | TPORT | HASTE
+F:IM_ELEC | IM_POIS | NO_CONF | NO_SLEEP | GIANT | REGENERATE
+S:1_IN_2 |
+S:BR_ELEC | BR_STORM | THROW
+S:TELE_TO | TELE_AWAY | TPORT 
+S:S_KIN | S_HI_UNDEAD
+S:HEAL | HASTE
 D:Typhoeus is a monstrous, immortal storm giant, huge beyond
 D:comprehension. According to legend, he was defeated by Zeus
 D:and imprisoned in the Pit of Tartaros. I guess he managed to escape!

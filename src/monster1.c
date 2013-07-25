@@ -757,6 +757,8 @@ static void roff_aux(int r_idx, int mode)
 
     if (flags4 & (RF4_BR_DISI))        {vp[vn] = "disintegration";color[vn++] = TERM_SLATE;}
 
+    if (flags4 & (RF4_BR_STORM))       {vp[vn] = "storm";color[vn++] = TERM_BLUE;}
+
     /* Describe breaths */
     if (vn)
     {

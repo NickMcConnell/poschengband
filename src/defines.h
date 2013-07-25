@@ -3264,8 +3264,9 @@
 #define GF_AMNESIA  138
 #define GF_STEAL    139
 #define GF_WATER2   140
+#define GF_STORM    141
 
-#define MAX_GF                140
+#define MAX_GF                141
 
 /*
  * Some things which induce learning
@@ -3836,7 +3837,7 @@
 #define RF4_SHOOT           0x00000010  /* Fire missiles */
 #define RF4_ANTI_MAGIC      0x00000020
 #define RF4_POLY            0x00000040
-#define RF4_XXX4            0x00000080
+#define RF4_BR_STORM        0x00000080
 #define RF4_BR_ACID         0x00000100  /* Breathe Acid */
 #define RF4_BR_ELEC         0x00000200  /* Breathe Elec */
 #define RF4_BR_FIRE         0x00000400  /* Breathe Fire */
