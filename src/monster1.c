@@ -1240,7 +1240,7 @@ static void roff_aux(int r_idx, int mode)
         {
             hooked_roff(format("%^s will evolve into ", wd_he[msex]));
             hook_c_roff(TERM_YELLOW, format("%s", r_name+r_info[r_ptr->next_r_idx].name));
-            hooked_roff(format(" when %s gets enugh experience.  ", wd_he[msex]));
+            hooked_roff(format(" when %s gets enough experience.  ", wd_he[msex]));
         }
         else if (!(r_ptr->flags1 & RF1_UNIQUE))
         {
