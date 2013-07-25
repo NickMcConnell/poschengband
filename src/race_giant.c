@@ -561,6 +561,7 @@ static power_info _titan_powers[] = {
     { A_STR, {  5,   0, 50, throw_boulder_spell} },
     { A_CHR, { 30,  30, 25, summon_monsters_spell} },
     { A_DEX, { 35,  10, 50, teleport_to_spell} },
+    { A_CHR, { 40,  30, 50, summon_kin_spell} },
     { A_CON, { 45, 100, 95, healing_I_spell} }, /* N.B. Casting costs are paid with hp! */
     {    -1, { -1,  -1, -1, NULL}}
 };

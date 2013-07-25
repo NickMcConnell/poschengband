@@ -144,7 +144,8 @@ static power_info _storm_troll_powers[] =
 
 static power_info _troll_king_powers[] = 
 {
-    { A_DEX, {  40, 2, 30, phase_door_spell} },
+    { A_DEX, { 40,  2, 30, phase_door_spell} },
+    { A_CHR, { 40, 30, 50, summon_kin_spell} },
     {    -1, { -1, -1, -1, NULL}}
 };
 
