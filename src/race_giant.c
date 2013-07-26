@@ -98,7 +98,7 @@ static bool _monster_toss(int m_idx)
     }
 
     info.m_idx = m_idx;
-    info.wgt = _mon_get_weight(r_ptr->d_char);
+    info.wgt = r_ptr->weight;
 
     /* Pick a target */
     info.mult = 1 + p_ptr->lev / 10;
@@ -152,6 +152,7 @@ static void _monster_toss_imp(_monster_toss_info *info)
     int msec = delay_factor * delay_factor * delay_factor;
     int y, x, ny, nx, dam = 0;
     int cur_dis, ct;
+    bool do_stun = FALSE;
     int chance;
     monster_type *m_ptr = &m_list[info->m_idx];
     monster_race *r_ptr = &r_info[m_ptr->r_idx];
@@ -198,8 +199,11 @@ static void _monster_toss_imp(_monster_toss_info *info)
         if (!cave_have_flag_bold(ny, nx, FF_PROJECT)
          && !cave[ny][nx].m_idx) 
         {
-            if (cave_have_flag_bold(ny, nx, FF_HURT_ROCK))
+            if (cave_have_flag_bold(ny, nx, FF_WALL))
+            {
                 dam = p_ptr->lev * info->mult;
+                do_stun = one_in_(2);
+            }
             else if (!(r_ptr->flags7 & RF7_CAN_FLY))
                 dam = p_ptr->lev / 5 * info->mult;
 
@@ -312,6 +316,18 @@ static void _monster_toss_imp(_monster_toss_info *info)
         }
         else
         {
+            if ( !do_stun
+              || (r_ptr->flagsr & RFR_RES_ALL)
+              || (r_ptr->flags3 & RF3_NO_STUN)
+              || ((r_ptr->flags1 & RF1_UNIQUE) && mon_save_p(m_ptr->r_idx, A_STR)) )
+            {
+            }
+            else
+            {
+                msg_format("%^s is stunned.", m_name);
+                set_monster_stunned(info->m_idx, MAX(MON_STUNNED(m_ptr), 3 + randint1(3)));
+            }
+
             message_pain(info->m_idx, dam);
             if (dam > 0)
                 anger_monster(m_ptr);
@@ -367,7 +383,7 @@ static void _monster_toss_spell(int cmd, variant *res)
  ******************************************************************************/
 static power_info _hru_powers[] = {
     { A_STR, {  5,  0, 50, throw_boulder_spell} },
-    { A_STR, {  7, 10,  0, _monster_toss_spell} },
+    { A_STR, {  7,  0,  0, _monster_toss_spell} },
     { A_STR, { 30,  5, 25, stone_to_mud_spell} },
     { A_STR, { 35, 10, 45, earthquake_spell} },
     { A_STR, { 40, 15, 50, stone_skin_spell} },
@@ -493,7 +509,7 @@ static void _breathe_plasma_spell(int cmd, variant *res)
 }
 static power_info _fire_powers[] = {
     { A_STR, {  5,  0, 50, throw_boulder_spell} },
-    { A_STR, {  7, 10,  0, _monster_toss_spell} },
+    { A_STR, {  7,  0,  0, _monster_toss_spell} },
     { A_STR, { 30,  5, 25, fire_bolt_spell} },
     { A_STR, { 32, 10, 50, fire_ball_spell} },
     { A_STR, { 35, 15, 60, plasma_bolt_spell} },
@@ -624,7 +640,7 @@ static void _ice_storm_spell(int cmd, variant *res)
 }
 static power_info _frost_powers[] = {
     { A_STR, {  5,  0, 50, throw_boulder_spell} },
-    { A_STR, {  7, 10,  0, _monster_toss_spell} },
+    { A_STR, {  7,  0,  0, _monster_toss_spell} },
     { A_STR, { 30,  3, 25, frost_bolt_spell} },
     { A_STR, { 32,  9, 50, frost_ball_spell} },
     { A_STR, { 35, 15, 60, ice_bolt_spell} },
@@ -787,7 +803,7 @@ static void _lightning_storm_spell(int cmd, variant *res)
 }
 static power_info _storm_powers[] = {
     { A_STR, {  5,  0, 50, throw_boulder_spell} },
-    { A_STR, {  7, 10,  0, _monster_toss_spell} },
+    { A_STR, {  7,  0,  0, _monster_toss_spell} },
     { A_STR, { 30,  3, 25, lightning_bolt_spell} },
     { A_STR, { 35, 10, 50, lightning_ball_spell} },
     { A_DEX, { 40,  2, 10, phase_door_spell} },
@@ -900,7 +916,7 @@ static race_t *_storm_get_race_t(void)
  ******************************************************************************/
 static power_info _titan_powers[] = {
     { A_STR, {  5,   0, 50, throw_boulder_spell} },
-    { A_STR, {  7, 10,  0, _monster_toss_spell} },
+    { A_STR, {  7,   0,  0, _monster_toss_spell} },
     { A_CHR, { 30,  30, 25, summon_monsters_spell} },
     { A_DEX, { 35,  10, 50, teleport_to_spell} },
     { A_CHR, { 40,  30, 50, summon_kin_spell} },
