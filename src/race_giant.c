@@ -109,16 +109,18 @@ static bool _monster_toss(int m_idx)
         mul = 10 + 2 * (info.mult - 1);
         div = (wgt > 10) ? wgt : 10;
         div /= 2;
-        info.tdis = (adj_str_blow[p_ptr->stat_ind[A_STR]] + 20) * mul / div;
+        info.tdis = (adj_str_blow[p_ptr->stat_ind[A_STR]] + 250) * mul / div;
 
-        if (!info.tdis)
+        if (info.tdis <= 1) /* Can the giant lift the monster? */
         {
             msg_format("Failed! %^s is too heavy!", m_name);
             return TRUE;
         }
+
+        info.tdis += info.mult; /* Tossing only 2 squares is pretty lame! */
         if (info.tdis > mul) info.tdis = mul;
 
-        project_length = info.tdis + 1;
+        project_length = info.tdis;
         command_dir = 0; /* Code is buggy asking for a direction 2x in a single player action! */
         target_who = 0;  /* TODO: Repeat command is busted ... */
         if (!get_aim_dir(&dir)) return FALSE;
@@ -197,9 +199,9 @@ static void _monster_toss_imp(_monster_toss_info *info)
          && !cave[ny][nx].m_idx) 
         {
             if (cave_have_flag_bold(ny, nx, FF_HURT_ROCK))
-                dam = 50 * info->mult;
+                dam = p_ptr->lev * info->mult;
             else if (!(r_ptr->flags7 & RF7_CAN_FLY))
-                dam = 10 * info->mult;
+                dam = p_ptr->lev / 5 * info->mult;
 
             break;
         }
@@ -234,7 +236,7 @@ static void _monster_toss_imp(_monster_toss_info *info)
                 }
 
                 /***** The Damage Calculation!!! *****/
-                dam = damroll(1 + MIN(19, info->wgt / 25), 5);
+                dam = damroll(1 + MIN(10 + p_ptr->lev/2, info->wgt / 25), 5);
                 dam = critical_throw(info->wgt * 10, p_ptr->lev, dam);
                 dam *= info->mult;
                 if (dam < 0) dam = 0;
@@ -284,7 +286,7 @@ static void _monster_toss_imp(_monster_toss_info *info)
         if (cur_dis >= ct)
         {
             if (!(r_ptr->flags7 & RF7_CAN_FLY))
-                dam = 10 * info->mult;
+                dam = p_ptr->lev / 5 * info->mult;
             break;
         }
     }
