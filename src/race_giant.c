@@ -240,7 +240,7 @@ static void _monster_toss_imp(_monster_toss_info *info)
                 }
 
                 /***** The Damage Calculation!!! *****/
-                dam = damroll(1 + MIN(10 + p_ptr->lev/2, info->wgt / 25), 5);
+                dam = damroll(1 + MIN(10 + p_ptr->lev/3, info->wgt / 25), 5);
                 dam = critical_throw(info->wgt * 10, p_ptr->lev, dam);
                 dam *= info->mult;
                 if (dam < 0) dam = 0;
