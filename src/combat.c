@@ -208,9 +208,14 @@ static _blow_info_t _get_blow_info(int hand)
             result.num = 4;
             result.mul = 3;
         }
-        else if ( prace_is_(RACE_MON_GIANT) 
-             /*|| prace_is_(RACE_MON_TROLL) */
-               || prace_is_(RACE_MON_JELLY)
+        else if (prace_is_(RACE_MON_GIANT))
+        {
+            result.mul = 5 + p_ptr->lev/40;
+            result.wgt = 150;
+            if (giant_is_(GIANT_HRU) && p_ptr->lev >= 40)
+                result.mul = 8;
+        }
+        else if ( prace_is_(RACE_MON_JELLY)
                || demon_is_(DEMON_KHORNE) )  
         {
             result.num = 6;
@@ -297,7 +302,13 @@ int calculate_base_blows(int hand, int str_idx, int dex_idx)
     div = (o_ptr->weight < blow_info.wgt) ? blow_info.wgt : o_ptr->weight;
 
     blow_str_idx = adj_str_blow[str_idx] * blow_info.mul / div;
-    if (info_ptr->wield_how == WIELD_TWO_HANDS && !info_ptr->omoi) blow_str_idx++;
+    if (info_ptr->wield_how == WIELD_TWO_HANDS)
+    {
+        if (!info_ptr->omoi)
+            blow_str_idx++;
+        if (prace_is_(RACE_MON_GIANT) && giant_is_favorite(o_ptr)) 
+            blow_str_idx++;
+    }
     if (p_ptr->pclass == CLASS_NINJA) blow_str_idx = MAX(0, blow_str_idx-1);
     if (blow_str_idx > 11) blow_str_idx = 11;
 
@@ -659,6 +670,22 @@ int display_weapon_info(int hand, int row, int col)
             sprintf(buf, " With %s STR and %s DEX you will get %d blows.", str_txt, dex_txt, save_blows + p_ptr->weapon_info[hand].xtra_blow);
             put_str(buf, r++, c);
         }
+    }
+
+    r++;
+    if (p_ptr->weapon_info[hand].wield_how == WIELD_TWO_HANDS)
+    {
+        if (p_ptr->weapon_info[hand].omoi)
+            put_str(" Your weapon requires two hands to wield properly.", r++, c);
+        /*else
+            put_str(" You are getting a two handed wielding bonus.", r++, c);*/
+    }
+
+    if (p_ptr->weapon_info[hand].info)
+    {
+        byte a = p_ptr->weapon_info[hand].info_attr;
+        if (!a) a = TERM_WHITE; /* uninitialized is TERM_DARK???! */
+        c_put_str(a, format(" %s", p_ptr->weapon_info[hand].info), r++, c);
     }
 
     result = MAX(result, r);
