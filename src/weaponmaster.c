@@ -3179,16 +3179,33 @@ int weaponmaster_get_max_blows(object_type *o_ptr, int hand)
     case _WEAPONMASTER_MELEE:
         if (_check_speciality_aux(o_ptr))
         {
-            num = 500;
-            if (p_ptr->psubclass == WEAPONMASTER_AXES)
+            switch (p_ptr->psubclass)
             {
+            case WEAPONMASTER_AXES:
+                num = 500;
                 if (p_ptr->weapon_info[hand].wield_how == WIELD_TWO_HANDS)
-                    num += 100;
-            }
-            else if (p_ptr->psubclass == WEAPONMASTER_DAGGERS)
-            {
+                    num = 600;
+                break;
+            case WEAPONMASTER_DAGGERS:
+                num = 500;
                 if (_get_toggle() == TOGGLE_FRENZY_STANCE)
-                    num += 100;
+                    num = 600;
+                break;
+            case WEAPONMASTER_CLUBS:
+                num = 525;
+                break;
+            case WEAPONMASTER_POLEARMS:
+                num = 525;
+                break;
+            case WEAPONMASTER_STAVES:
+                num = 550;
+                break;
+            case WEAPONMASTER_SWORDS:
+                num = 525;
+                break;
+            case WEAPONMASTER_DIGGERS:
+                num = 550;
+                break;
             }
         }
         break;

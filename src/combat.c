@@ -89,7 +89,7 @@ static _blow_info_t _get_blow_info(int hand)
         result.num = 300; result.wgt = 100; result.mul = 20; break;
 
     case CLASS_WARLOCK:
-        result.num = 300; result.wgt = 70; result.mul = 25; 
+        result.num = 350; result.wgt = 70; result.mul = 25; 
         if (p_ptr->psubclass == PACT_DRAGON) 
         {
             result.mul = 40;
@@ -99,7 +99,7 @@ static _blow_info_t _get_blow_info(int hand)
         break;
 
     case CLASS_PSION:
-        result.num = 300; result.wgt = 100; result.mul = 30; break;
+        result.num = 350; result.wgt = 100; result.mul = 30; break;
 
     case CLASS_PRIEST:
     case CLASS_MAGIC_EATER:
@@ -113,7 +113,7 @@ static _blow_info_t _get_blow_info(int hand)
         break;
 
     case CLASS_ROGUE:
-        result.num = 500; result.wgt = 40; result.mul = 30;
+        result.num = 525; result.wgt = 40; result.mul = 30;
         if (o_ptr->weight < 50) result.num = 600;
         break;
 
@@ -125,14 +125,14 @@ static _blow_info_t _get_blow_info(int hand)
 
     case CLASS_PALADIN:
     case CLASS_SAMURAI:
-        result.num = 500; result.wgt = 70; result.mul = 45; break;
+        result.num = 550; result.wgt = 70; result.mul = 45; break;
 
     case CLASS_MYSTIC:
         result.num = 100; result.wgt = 100; result.mul = 10; break;
 
     case CLASS_WEAPONSMITH:
     case CLASS_RUNE_KNIGHT:
-        result.num = 500; result.wgt = 150; result.mul = 55; break;
+        result.num = 525; result.wgt = 150; result.mul = 55; break;
 
     case CLASS_WEAPONMASTER:
         result.num = weaponmaster_get_max_blows(o_ptr, hand); 
@@ -140,10 +140,10 @@ static _blow_info_t _get_blow_info(int hand)
 
     case CLASS_WARRIOR_MAGE:
     case CLASS_RED_MAGE:
-        result.num = 500; result.wgt = 70; result.mul = 30; break;
+        result.num = 525; result.wgt = 70; result.mul = 30; break;
 
     case CLASS_CHAOS_WARRIOR:
-        result.num = 500; result.wgt = 70; result.mul = 45; break;
+        result.num = 550; result.wgt = 70; result.mul = 45; break;
 
     case CLASS_MONK:
         result.num = 500; result.wgt = 60; result.mul = 30; break;
@@ -168,19 +168,19 @@ static _blow_info_t _get_blow_info(int hand)
         result.num = 100; result.wgt = 70; result.mul = 40; break;
                     
     case CLASS_IMITATOR:
-        result.num = 500; result.wgt = 70; result.mul = 40; break;
+        result.num = 550; result.wgt = 70; result.mul = 40; break;
 
     case CLASS_WILD_TALENT:
-        result.num = 400; result.wgt = 70; result.mul = 40; break;
+        result.num = 450; result.wgt = 70; result.mul = 40; break;
 
     case CLASS_BEASTMASTER:
         result.num = 500; result.wgt = 70; result.mul = 35; break;
 
     case CLASS_CAVALRY:
     {
-        u32b         flgs[TR_FLAG_SIZE];
+        u32b flgs[TR_FLAG_SIZE];
         object_flags(o_ptr, flgs);
-        if (p_ptr->riding && have_flag(flgs, TR_RIDING)) {result.num = 500; result.wgt = 70; result.mul = 45;}
+        if (p_ptr->riding && have_flag(flgs, TR_RIDING)) {result.num = 550; result.wgt = 70; result.mul = 45;}
         else {result.num = 500; result.wgt = 100; result.mul = 35;}
         break;
     }
@@ -189,7 +189,7 @@ static _blow_info_t _get_blow_info(int hand)
 
     case CLASS_ARCHER:
     case CLASS_BARD:
-        result.num = 400; result.wgt = 70; result.mul = 20; break;
+        result.num = 450; result.wgt = 70; result.mul = 20; break;
 
     case CLASS_FORCETRAINER:
         result.num = 400; result.wgt = 60; result.mul = 20; break;
@@ -199,7 +199,7 @@ static _blow_info_t _get_blow_info(int hand)
         result.num = 300; result.wgt = 100; result.mul = 30; break;
 
     case CLASS_NINJA:
-        result.num = 400; result.wgt = 20; result.mul = 10; break;
+        result.num = 425; result.wgt = 20; result.mul = 10; break;
 
     case CLASS_MONSTER:
         result.num = 500; result.wgt = 70; result.mul = 50;
@@ -208,10 +208,15 @@ static _blow_info_t _get_blow_info(int hand)
             result.num = 400;
             result.mul = 30;
         }
+        else if (prace_is_(RACE_MON_TROLL))
+        {
+            result.num = 550;
+        }
         else if (prace_is_(RACE_MON_GIANT))
         {
+            result.num = 550;
             result.mul = 50 + p_ptr->lev/5;
-            result.wgt = 150;
+            result.wgt = 200;
             if (giant_is_(GIANT_HRU) && p_ptr->lev >= 40)
                 result.mul = 80;
         }
@@ -228,7 +233,7 @@ static _blow_info_t _get_blow_info(int hand)
         }
         else if (prace_is_(RACE_MON_SWORD))
         {
-            result.num = 500;
+            result.num = 525;
             if (p_ptr->lev >= 45) /* Death Scythes retaliate! */
                 result.num = 300;
         }
@@ -249,7 +254,7 @@ static _blow_info_t _get_blow_info(int hand)
     }
 
     /* Xorns and Mariliths have multiple sets of arms */
-    result.num -= arm * 100;
+    result.num -= arm * 75;
     if (result.num < 100)
         result.num = 100;
 
