@@ -491,6 +491,7 @@ static int _hru_get_powers(spell_info* spells, int max) {
     return get_powers_aux(spells, max, _hru_powers);
 }
 static void _hru_calc_bonuses(void) {
+    p_ptr->sustain_str = TRUE;
     if (p_ptr->lev >= 30)
     {
         p_ptr->kill_wall = TRUE;
@@ -504,6 +505,7 @@ static void _hru_calc_bonuses(void) {
     }
 }
 static void _hru_get_flags(u32b flgs[TR_FLAG_SIZE]) {
+    add_flag(flgs, TR_SUST_STR);
 }
 static void _hru_gain_level(int new_level) {
     if (p_ptr->current_r_idx == MON_HILL_GIANT && new_level >= 20)
@@ -620,6 +622,7 @@ static int _fire_get_powers(spell_info* spells, int max) {
     return get_powers_aux(spells, max, _fire_powers);
 }
 static void _fire_calc_bonuses(void) {
+    p_ptr->sustain_str = TRUE;    
     if (p_ptr->lev >= 30)
     {
         res_add(RES_FIRE);
@@ -629,6 +632,7 @@ static void _fire_calc_bonuses(void) {
         res_add(RES_FIRE);
 }
 static void _fire_get_flags(u32b flgs[TR_FLAG_SIZE]) {
+    add_flag(flgs, TR_SUST_STR);
     if (p_ptr->lev >= 30)
     {
         add_flag(flgs, TR_RES_FIRE);
@@ -751,6 +755,7 @@ static int _frost_get_powers(spell_info* spells, int max) {
     return get_powers_aux(spells, max, _frost_powers);
 }
 static void _frost_calc_bonuses(void) {
+    p_ptr->sustain_str = TRUE;
     if (p_ptr->lev >= 30)
     {
         res_add(RES_COLD);
@@ -760,6 +765,7 @@ static void _frost_calc_bonuses(void) {
         res_add(RES_COLD);
 }
 static void _frost_get_flags(u32b flgs[TR_FLAG_SIZE]) {
+    add_flag(flgs, TR_SUST_STR);
     if (p_ptr->lev >= 30)
     {
         add_flag(flgs, TR_RES_COLD);
@@ -917,6 +923,7 @@ static int _storm_get_powers(spell_info* spells, int max) {
     return get_powers_aux(spells, max, _storm_powers);
 }
 static void _storm_calc_bonuses(void) {
+    p_ptr->sustain_str = TRUE;
     if (p_ptr->lev >= 30)
         res_add(RES_ELEC);
 
@@ -927,6 +934,7 @@ static void _storm_calc_bonuses(void) {
     }
 }
 static void _storm_get_flags(u32b flgs[TR_FLAG_SIZE]) {
+    add_flag(flgs, TR_SUST_STR);
     if (p_ptr->lev >= 30)
         add_flag(flgs, TR_RES_ELEC);
     if (p_ptr->lev >= 40)
@@ -1029,6 +1037,7 @@ static int _titan_get_powers(spell_info* spells, int max) {
     return get_powers_aux(spells, max, _titan_powers);
 }
 static void _titan_calc_bonuses(void) {
+    p_ptr->sustain_str = TRUE;
     if (p_ptr->lev >= 30)
     {
         res_add(RES_CHAOS);
@@ -1038,6 +1047,7 @@ static void _titan_calc_bonuses(void) {
         p_ptr->pspeed += 3;
 }
 static void _titan_get_flags(u32b flgs[TR_FLAG_SIZE]) {
+    add_flag(flgs, TR_SUST_STR);
     if (p_ptr->lev >= 30)
     {
         add_flag(flgs, TR_RES_CHAOS);
