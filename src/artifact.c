@@ -2538,8 +2538,15 @@ s32b create_artifact(object_type *o_ptr, u32b mode)
         }
     }
 
-    if ((o_ptr->pval > 4) && !one_in_(WEIRD_LUCK))
+    if (o_ptr->pval > 4 && !one_in_(WEIRD_LUCK))
         o_ptr->pval = 4;
+
+    if (o_ptr->tval == TV_DIGGING && !have_flag(o_ptr->art_flags, TR_BLOWS))
+    {
+        o_ptr->pval += randint1(2);
+        if (o_ptr->pval > 6)
+            o_ptr->pval = 6;
+    }
 
     if (have_flag(o_ptr->art_flags, TR_SPELL_POWER))
         o_ptr->pval = -o_ptr->pval;

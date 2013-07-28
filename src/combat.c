@@ -254,7 +254,8 @@ static _blow_info_t _get_blow_info(int hand)
     }
 
     /* Xorns and Mariliths have multiple sets of arms */
-    result.num -= arm * 75;
+    if (arm > 0)
+        result.num -= 100;
     if (result.num < 100)
         result.num = 100;
 
