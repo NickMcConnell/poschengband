@@ -500,12 +500,15 @@ static void _hru_calc_bonuses(void) {
     }
     if (p_ptr->lev >= 40)
     {
+        res_add(RES_SHARDS);
         p_ptr->to_a += 15;
         p_ptr->dis_to_a += 15;
     }
 }
 static void _hru_get_flags(u32b flgs[TR_FLAG_SIZE]) {
     add_flag(flgs, TR_SUST_STR);
+    if (p_ptr->lev >= 40)
+        add_flag(flgs, TR_RES_SHARDS);
 }
 static void _hru_gain_level(int new_level) {
     if (p_ptr->current_r_idx == MON_HILL_GIANT && new_level >= 20)
