@@ -4266,7 +4266,7 @@ bool summon_specific(int who, int y1, int x1, int lev, int type, u32b mode)
 {
     int x, y, r_idx;
 
-    if (p_ptr->inside_arena) return (FALSE);
+    if (p_ptr->inside_arena && !prace_is_(RACE_MON_QUYLTHULG)) return (FALSE);
 
     /* Note: summon_specific does not imply summoning at all, despite the name ... 
        Let's try to guess whether or not this is really a summon spell ...
