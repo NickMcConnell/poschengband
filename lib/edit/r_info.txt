@@ -11466,6 +11466,7 @@ S:1_IN_3 |
 S:BLINK | TELE_TO | BLIND | HOLD | CONF | SCARE | CAUSE_3 | CAUSE_4 | 
 S:DRAIN_MANA | BRAIN_SMASH | S_HI_UNDEAD | S_UNDEAD | FORGET |
 S:TPORT | HEAL | S_KIN | S_DEMON | BA_NETH | ANIM_DEAD | DISPEL | ANTI_MAGIC
+S:BA_MANA
 D:A lich who has reached its ultimate evolutionary stage: a completely 
 D:immaterial state.
 
