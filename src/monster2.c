@@ -3468,13 +3468,13 @@ static int place_monster_one(int who, int y, int x, int r_idx, int pack_idx, u32
     {
         if (allow_friendly_monster && !monster_has_hostile_align(NULL, 0, -1, r_ptr)) set_friendly(m_ptr);
     }
-    else if ( (r_ptr->flags3 && RF3_ANIMAL)
+    else if ( (r_ptr->flags3 & RF3_ANIMAL)
            && randint0(1000) < virtue_current(VIRTUE_NATURE) )
     {
         if (allow_friendly_monster && !monster_has_hostile_align(NULL, 0, -1, r_ptr)) 
             set_friendly(m_ptr);
     }
-    else if ( (r_ptr->flags2 && RF2_KNIGHT)
+    else if ( (r_ptr->flags2 & RF2_KNIGHT)
            && randint0(1000) < virtue_current(VIRTUE_HONOUR) )
     {
         if (allow_friendly_monster && !monster_has_hostile_align(NULL, 0, -1, r_ptr)) 
@@ -3486,13 +3486,13 @@ static int place_monster_one(int who, int y, int x, int r_idx, int pack_idx, u32
         if (allow_friendly_monster && !monster_has_hostile_align(NULL, 0, -1, r_ptr)) 
             set_friendly(m_ptr);
     }
-    else if ( (r_ptr->flags3 && RF3_DEMON)
+    else if ( (r_ptr->flags3 & RF3_DEMON)
            && randint0(1000) < -virtue_current(VIRTUE_FAITH) )
     {
         if (allow_friendly_monster && !monster_has_hostile_align(NULL, 0, -1, r_ptr)) 
             set_friendly(m_ptr);
     }
-    else if ( (r_ptr->flags3 && RF3_UNDEAD)
+    else if ( (r_ptr->flags3 & RF3_UNDEAD)
            && randint0(1000) < virtue_current(VIRTUE_UNLIFE) )
     {
         if (allow_friendly_monster && !monster_has_hostile_align(NULL, 0, -1, r_ptr)) 
