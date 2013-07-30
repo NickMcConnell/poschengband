@@ -3755,7 +3755,7 @@ bool reforge_artifact(object_type *src, object_type *dest)
     base_power = object_value_real(src);
 
     /* Pay a Power Tax! */
-    base_power = base_power * 3 / 4;
+    base_power = base_power/2 + randint1(base_power/2);
 
     /* Setup thresholds. For weak objects, its better to use a generous range ... */
     if (base_power < 1000)
@@ -3771,9 +3771,9 @@ bool reforge_artifact(object_type *src, object_type *dest)
 
     /* Better Fame means better results! */
     old_level = object_level;
-    object_level = MAX(p_ptr->fame, 100);
+    object_level = MIN(p_ptr->fame/2, 75);
 
-    for (i = 0; i < MAX(1, MIN(10000, p_ptr->fame * p_ptr->fame)) && !result; i++)
+    for (i = 0; i < 1000 && !result; i++)
     {
         object_copy(&forge, dest);
         create_artifact(&forge, CREATE_ART_GOOD);
