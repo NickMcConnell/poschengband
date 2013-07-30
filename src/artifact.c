@@ -3754,6 +3754,9 @@ bool reforge_artifact(object_type *src, object_type *dest)
     /* Score the Original */
     base_power = object_value_real(src);
 
+    /* Pay a Power Tax! */
+    base_power = base_power * 3 / 4;
+
     /* Setup thresholds. For weak objects, its better to use a generous range ... */
     if (base_power < 1000)
     {
