@@ -3666,6 +3666,9 @@ static void store_sell(void)
             /* Get some money */
             p_ptr->au += price;
 
+            if (prace_is_(RACE_MON_LEPRECHAUN))
+                p_ptr->update |= (PU_BONUS | PU_HP | PU_MANA);
+
             /* Update the display */
             store_prt_gold();
 
