@@ -2890,6 +2890,12 @@ static bool _reforge_artifact(void)
         return FALSE;
     }
 
+    if (object_value_real(src) < object_value_real(dest))
+    {
+        msg_print("This item is too powerful for the source artifact you have chosen.");
+        return FALSE;
+    }
+
     if (!reforge_artifact(src, dest))
     {
         msg_print("The reforging failed!");
