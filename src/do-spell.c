@@ -3573,7 +3573,7 @@ static cptr do_death_spell(int spell, int mode)
         if (desc) return "Attempts to vanish a monster.";
     
         {
-            int power = spell_power(plev + 50);
+            int power = spell_power(plev + 65);
 
             if (info) return info_power(power);
 
@@ -3660,7 +3660,7 @@ static cptr do_death_spell(int spell, int mode)
         if (desc) return "Eliminates an entire class of monster, exhausting you.  Powerful or unique monsters may resist.";
     
         {
-            int power = spell_power(plev+50);
+            int power = spell_power(plev + 65);
 
             if (info) return info_power(power);
 
@@ -3925,7 +3925,7 @@ static cptr do_death_spell(int spell, int mode)
         if (desc) return "Eliminates all nearby monsters, exhausting you.  Powerful or unique monsters may be able to resist.";
     
         {
-            int power = spell_power(plev + 50);
+            int power = spell_power(plev + 65);
 
             if (info) return info_power(power);
 
@@ -6734,8 +6734,11 @@ static cptr do_crusade_spell(int spell, int mode)
         if (desc) return "Fires a huge ball of powerful light.";
     
         {
-            int dam = spell_power(100 + plev * 2);
+            int l = p_ptr->lev;
+            int dam = 100 + l + l*l/50 + l*l*l/1250;
             int rad = spell_power(4);
+
+            dam = spell_power(dam);
 
             if (info) return info_damage(0, 0, dam);
 
