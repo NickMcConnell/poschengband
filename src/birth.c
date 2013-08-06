@@ -96,6 +96,7 @@ static char realm_subinfo[VALID_REALM][128] =
 "Good at both offence and defence.",
 "Destroys evil creatures.",
 "Control and Commune with the dead.",
+"Most powerful offensive magic.",
 "Song with magical effects.",
 "Special attacks on melee.",
 "Good at obstacle and revenge.",
