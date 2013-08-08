@@ -3563,7 +3563,7 @@ static cptr do_death_spell(int spell, int mode)
 
             if (cast)
             {
-                project(0, rad, py, px, dam, GF_POIS, PROJECT_KILL | PROJECT_ITEM, -1);
+                project(0, rad, py, px, dam, GF_POIS, PROJECT_GRID | PROJECT_KILL | PROJECT_ITEM, -1);
             }
         }
         break;
