@@ -3573,7 +3573,7 @@ static cptr do_death_spell(int spell, int mode)
         if (desc) return "Attempts to vanish a monster.";
     
         {
-            int power = spell_power(plev + 65);
+            int power = spell_power(plev*2 + 50);
 
             if (info) return info_power(power);
 
@@ -3660,7 +3660,7 @@ static cptr do_death_spell(int spell, int mode)
         if (desc) return "Eliminates an entire class of monster, exhausting you.  Powerful or unique monsters may resist.";
     
         {
-            int power = spell_power(plev + 65);
+            int power = spell_power(plev*2 + 50);
 
             if (info) return info_power(power);
 
@@ -3925,7 +3925,7 @@ static cptr do_death_spell(int spell, int mode)
         if (desc) return "Eliminates all nearby monsters, exhausting you.  Powerful or unique monsters may be able to resist.";
     
         {
-            int power = spell_power(plev + 65);
+            int power = spell_power(plev*2 + 50);
 
             if (info) return info_power(power);
 
