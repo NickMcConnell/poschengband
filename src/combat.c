@@ -362,6 +362,9 @@ int calculate_base_blows(int hand, int str_idx, int dex_idx)
     if (result > blow_info.num) 
         result = blow_info.num;
 
+    if (result < 100)
+        result = 100;
+
     return result;
 }
 
