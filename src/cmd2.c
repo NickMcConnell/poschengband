@@ -2402,13 +2402,13 @@ void do_cmd_walk(bool pickup)
     /* Hack again -- Is there a special encounter ??? */
     if (p_ptr->wild_mode && !cave_have_flag_bold(py, px, FF_TOWN))
     {
-        int tmp = 1000 + p_ptr->lev*10 - wilderness[py][px].level + 5;
+        int tmp = 120 + p_ptr->lev*10 - wilderness[py][px].level + 5;
         if (tmp < 1) 
             tmp = 1;
         if (((wilderness[py][px].level + 5) > (p_ptr->lev / 2)) && randint0(tmp) < (21-p_ptr->skills.stl))
         {
             /* Inform the player of his horrible fate :=) */
-            msg_print("You are ambushed !");
+            msg_print("You are ambushed!");
 
             /* Go into large wilderness view */
             p_ptr->oldpy = randint1(MAX_HGT-2);
@@ -2418,7 +2418,7 @@ void do_cmd_walk(bool pickup)
             /* Give first move to monsters */
             energy_use = 100;
 
-            /* HACk -- set the encouter flag for the wilderness generation */
+            /* Hack -- set the encouter flag for the wilderness generation */
             generate_encounter = TRUE;
         }
     }
