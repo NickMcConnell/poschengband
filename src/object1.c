@@ -3256,6 +3256,7 @@ int show_inven(int target_item, int mode)
 
         /* Be sure to account for the weight */
         if (mode & SHOW_FAIL_RATES) l += 12;
+        else if (mode & SHOW_VALUE) l += 12;
         else if (show_weights) l += 9;
 
         /* Account for icon if displayed */
@@ -3339,6 +3340,12 @@ int show_inven(int target_item, int mode)
             sprintf(tmp_val, "Fail: %2d.%d%%", fail/10, fail%10);
             prt(tmp_val, j + 1, wid - 12);
         }
+        else if (mode & SHOW_VALUE)
+        {
+            int value = object_value_real(o_ptr);
+            sprintf(tmp_val, "Pow: %7d", value);
+            prt(tmp_val, j + 1, wid - 12);
+        }
         else if (show_weights)
         {
             int wgt = o_ptr->weight * o_ptr->number;
@@ -3408,6 +3415,7 @@ int show_equip(int target_item, int mode)
         l = strlen(out_desc[k]) + (2 + 3);
         if (show_labels) l += (10 + 2);
         if (mode & SHOW_FAIL_RATES) l += 12;
+        else if (mode & SHOW_VALUE) l += 12;
         else if (show_weights) l += 9;
         if (show_item_graph) l += 2;
         if (l > len) len = l;
@@ -3480,6 +3488,12 @@ int show_equip(int target_item, int mode)
         {
             int fail = activation_fail_rate(o_ptr);
             sprintf(tmp_val, "Fail: %2d.%d%%", fail/10, fail%10);
+            prt(tmp_val, j + 1, wid - 12);
+        }
+        else if (mode & SHOW_VALUE)
+        {
+            int value = object_value_real(o_ptr);
+            sprintf(tmp_val, "Pow: %7d", value);
             prt(tmp_val, j + 1, wid - 12);
         }
         else if (show_weights)

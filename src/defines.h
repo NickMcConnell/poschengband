@@ -2859,8 +2859,9 @@
 #define USE_EQUIP        0x01    /* Allow equip items */
 #define USE_INVEN        0x02    /* Allow inven items */
 #define USE_FLOOR        0x04    /* Allow floor items */
-#define USE_QUIVER        0x08
-#define SHOW_FAIL_RATES    0x10
+#define USE_QUIVER       0x08
+#define SHOW_FAIL_RATES  0x10
+#define SHOW_VALUE       0x20    /* For Reforging */
 
 
 /*
