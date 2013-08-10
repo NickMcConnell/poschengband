@@ -3074,11 +3074,10 @@ static bool py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
                     drain_result *= 2;
                     msg_format("You critically injured %s!", m_name);
                 }
-                else if ( ( ( m_ptr->hp < maxhp/2 && one_in_(num_blow*10)) 
-                           || one_in_(666) 
-                           || ((backstab || fuiuchi) && one_in_(11))
-                       && !(r_ptr->flags1 & RF1_UNIQUE) 
-                       && !(r_ptr->flags7 & RF7_UNIQUE2)) )
+                else if ( (m_ptr->hp < maxhp/2 && one_in_(num_blow*10)) 
+                       || ( (one_in_(666) || ((backstab || fuiuchi) && one_in_(11)))
+                         && !(r_ptr->flags1 & RF1_UNIQUE) 
+                         && !(r_ptr->flags7 & RF7_UNIQUE2)) )
                 {
                     if ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->flags7 & RF7_UNIQUE2) || (m_ptr->hp >= maxhp/2))
                     {
