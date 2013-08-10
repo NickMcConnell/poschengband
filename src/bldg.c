@@ -2818,7 +2818,7 @@ static bool _reforge_artifact(void)
     char o_name[MAX_NLEN];
     char buf[255];
     object_type *src, *dest;
-    int src_max_power = p_ptr->fame * p_ptr->fame * 15;
+    int src_max_power = p_ptr->fame * p_ptr->fame * 10;
     int dest_max_power = 0;
 
     item_tester_hook = object_is_artifact;

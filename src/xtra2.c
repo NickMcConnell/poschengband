@@ -2101,8 +2101,12 @@ void mon_check_kill_unique(int m_idx)
         {
             r_ptr->max_num = 0;
 
-            if (one_in_(3))
+            if (one_in_(3) || r_ptr->level >= 80)
+            {
                 p_ptr->fame++;
+                if (r_ptr->level >= 90)
+                    p_ptr->fame++;
+            }
 
             /* Mega-Hack -- Banor & Lupart */
             if ((m_ptr->r_idx == MON_BANOR) || (m_ptr->r_idx == MON_LUPART))
@@ -2271,8 +2275,12 @@ bool mon_take_hit(int m_idx, int dam, bool *fear, cptr note)
 
                 r_ptr->max_num = 0;
 
-                if (one_in_(3))
+                if (one_in_(3) || r_ptr->level >= 80)
+                {
                     p_ptr->fame++;
+                    if (r_ptr->level >= 90)
+                        p_ptr->fame++;
+                }
 
                 /* Mega-Hack -- Banor & Lupart */
                 if ((m_ptr->r_idx == MON_BANOR) || (m_ptr->r_idx == MON_LUPART))
