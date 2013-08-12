@@ -663,7 +663,8 @@ bool make_attack_normal(int m_idx)
                     }
 
                     if ( !drained 
-                      && !(get_race_t()->flags & RACE_IS_NONLIVING) )
+                      && !(get_race_t()->flags & RACE_IS_NONLIVING)
+                      && !prace_is_(RACE_MON_JELLY) )
                     {
                         msg_print("Food drains from your belly!");
                         set_food(MAX(0, MIN(p_ptr->food - 1000, p_ptr->food/2)));
