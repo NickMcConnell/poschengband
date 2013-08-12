@@ -376,6 +376,7 @@
     <None Include="..\lib\file\ring_high.txt" />
     <None Include="..\lib\file\ring_low.txt" />
     <None Include="..\lib\file\ring_med.txt" />
+    <None Include="..\lib\file\rumors.txt" />
     <None Include="..\lib\file\w_cursed.txt" />
     <None Include="..\lib\file\w_high.txt" />
     <None Include="..\lib\file\w_low.txt" />

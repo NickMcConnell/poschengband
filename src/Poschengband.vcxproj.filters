@@ -1131,5 +1131,8 @@
     <None Include="..\lib\file\mondeath.txt">
       <Filter>Edit\Stuff</Filter>
     </None>
+    <None Include="..\lib\file\rumors.txt">
+      <Filter>Edit\Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
