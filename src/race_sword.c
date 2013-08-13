@@ -355,7 +355,6 @@ static void _calc_bonuses(void)
 
     p_ptr->pspeed += 1;
     
-    p_ptr->lite = TRUE;
     p_ptr->no_cut = TRUE;
     res_add(RES_BLIND);
     res_add(RES_POIS);
@@ -1023,5 +1022,5 @@ bool sword_disenchant(void)
 
 int sword_calc_torch(void)
 {
-    return _calc_amount(_essences[TR_LITE], 1, 1);
+    return 1 + _calc_amount(_essences[TR_LITE], 1, 1);
 }
