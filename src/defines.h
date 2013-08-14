@@ -5014,7 +5014,7 @@ extern int PlayerUID;
 #define MS_SHOOT          4
 #define MS_XXX2           5
 #define MS_XXX3           6
-#define MS_XXX4           7
+#define MS_BR_STORM       7
 #define MS_BR_ACID        8
 #define MS_BR_ELEC        9
 #define MS_BR_FIRE        10
