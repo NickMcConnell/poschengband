@@ -818,6 +818,24 @@ bool get_monster_drop(int m_idx, object_type *o_ptr)
     return TRUE;    
 }
 
+static bool _mon_is_wanted(int m_idx)
+{
+    monster_type *m_ptr = &m_list[m_idx];
+    monster_race *r_ptr = &r_info[m_ptr->r_idx];
+    if ((r_ptr->flags1 & RF1_UNIQUE) && !(m_ptr->smart & SM_CLONED) && !vanilla_town)
+    {
+        int i;
+        for (i = 0; i < MAX_KUBI; i++)
+        {
+            if (kubi_r_idx[i] == m_ptr->r_idx && !(m_ptr->mflag2 & MFLAG2_CHAMELEON))
+            {
+                return TRUE;
+            }
+        }
+    }
+    return FALSE;
+}
+
 /*
  * Handle the "death" of a monster.
  *
@@ -944,9 +962,9 @@ void monster_death(int m_idx, bool drop_item)
     }
 
     /* Drop a dead corpse? */
-    if (one_in_(r_ptr->flags1 & RF1_UNIQUE ? 1 : 3) &&
-        (r_ptr->flags9 & (RF9_DROP_CORPSE | RF9_DROP_SKELETON)) &&
-        !(p_ptr->inside_arena || p_ptr->inside_battle || cloned || ((m_ptr->r_idx == today_mon) && is_pet(m_ptr))))
+    if ( (_mon_is_wanted(m_idx) || one_in_(3))
+      && (r_ptr->flags9 & (RF9_DROP_CORPSE | RF9_DROP_SKELETON)) 
+      && !(p_ptr->inside_arena || p_ptr->inside_battle || cloned || ((m_ptr->r_idx == today_mon) && is_pet(m_ptr))))
     {
         /* Assume skeleton */
         bool corpse = FALSE;
@@ -957,7 +975,7 @@ void monster_death(int m_idx, bool drop_item)
          */
         if (!(r_ptr->flags9 & RF9_DROP_SKELETON))
             corpse = TRUE;
-        else if ((r_ptr->flags9 & RF9_DROP_CORPSE) && (r_ptr->flags1 & RF1_UNIQUE))
+        else if ((r_ptr->flags9 & RF9_DROP_CORPSE) && _mon_is_wanted(m_idx))
             corpse = TRUE;
 
         /* Else, a corpse is more likely unless we did a "lot" of damage */
@@ -2530,16 +2548,9 @@ bool mon_take_hit(int m_idx, int dam, bool *fear, cptr note)
         else
             msg_format("You have slain %s.", m_name);
 
-        if ((r_ptr->flags1 & RF1_UNIQUE) && !(m_ptr->smart & SM_CLONED) && !vanilla_town)
+        if (_mon_is_wanted(m_idx))
         {
-            for (i = 0; i < MAX_KUBI; i++)
-            {
-                if ((kubi_r_idx[i] == m_ptr->r_idx) && !(m_ptr->mflag2 & MFLAG2_CHAMELEON))
-                {
-                    msg_format("There is a price on %s's head.", m_name);
-                    break;
-                }
-            }
+            msg_format("There is a price on %s's head.", m_name);
         }
 
         /* Generate treasure */
