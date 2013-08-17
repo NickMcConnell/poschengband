@@ -5155,7 +5155,9 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
 
             /* Attempt a saving throw */
             if (who == 0)
-                save = mon_save_p(m_ptr->r_idx, A_WIS);
+            {
+                save = p_ptr->current_r_idx != MON_KENSHIROU && mon_save_p(m_ptr->r_idx, A_WIS);
+            }
             else
             {
                 save = ((randint0(100 + (caster_lev / 2)) < (r_ptr->level + 35)) 

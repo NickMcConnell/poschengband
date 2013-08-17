@@ -866,6 +866,7 @@ void monster_death(int m_idx, bool drop_item)
     u32b mo_mode = 0L;
 
     bool cloned = (m_ptr->smart & SM_CLONED) ? TRUE : FALSE;
+    int corpse_chance = 3;
 
     object_type forge;
     object_type *q_ptr;
@@ -962,7 +963,10 @@ void monster_death(int m_idx, bool drop_item)
     }
 
     /* Drop a dead corpse? */
-    if ( (_mon_is_wanted(m_idx) || one_in_(3))
+    if (p_ptr->prace == RACE_MON_POSSESSOR && p_ptr->current_r_idx == MON_POSSESSOR_SOUL)
+        corpse_chance = 1;
+
+    if ( (_mon_is_wanted(m_idx) || one_in_(corpse_chance))
       && (r_ptr->flags9 & (RF9_DROP_CORPSE | RF9_DROP_SKELETON)) 
       && !(p_ptr->inside_arena || p_ptr->inside_battle || cloned || ((m_ptr->r_idx == today_mon) && is_pet(m_ptr))))
     {
@@ -977,7 +981,12 @@ void monster_death(int m_idx, bool drop_item)
             corpse = TRUE;
         else if ((r_ptr->flags9 & RF9_DROP_CORPSE) && _mon_is_wanted(m_idx))
             corpse = TRUE;
-
+        else if ( (r_ptr->flags9 & RF9_DROP_CORPSE) 
+               && p_ptr->prace == RACE_MON_POSSESSOR 
+               && p_ptr->current_r_idx == MON_POSSESSOR_SOUL )
+        {
+            corpse = TRUE;
+        }
         /* Else, a corpse is more likely unless we did a "lot" of damage */
         else if (r_ptr->flags9 & RF9_DROP_CORPSE)
         {
@@ -1001,6 +1010,13 @@ void monster_death(int m_idx, bool drop_item)
         apply_magic(q_ptr, object_level, AM_NO_FIXED_ART);
 
         q_ptr->pval = m_ptr->r_idx;
+        if (r_ptr->weight && p_ptr->prace == RACE_MON_POSSESSOR)
+        {
+            if (corpse)
+                q_ptr->weight = r_ptr->weight * 10;
+            else
+                q_ptr->weight = r_ptr->weight * 10 / 3;
+        }
 
         /* Drop it in the dungeon */
         (void)drop_near(q_ptr, -1, y, x);
@@ -4772,7 +4788,7 @@ bool get_rep_dir(int *dp, bool under)
             dir = ddd[randint0(8)];
         }
     }
-    else if (demon_is_(DEMON_CYBERDEMON))
+    else if (p_ptr->move_random)
     {
         if (one_in_(66))
         {
@@ -4788,7 +4804,7 @@ bool get_rep_dir(int *dp, bool under)
             /* Warn the user */
             msg_print("You are confused.");
         }
-        else if (demon_is_(DEMON_CYBERDEMON))
+        else if (p_ptr->move_random)
             msg_print("You are moving erratically.");
         else
         {

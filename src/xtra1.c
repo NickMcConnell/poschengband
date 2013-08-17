@@ -2645,7 +2645,16 @@ static void calc_mana(void)
     object_type    *o_ptr;
     caster_info *caster_ptr = get_caster_info();
 
-    if (!caster_ptr) return;
+    if (!caster_ptr)
+    {
+        if (p_ptr->msp) /* Possessor shifted from Caster body to non-caster body ... */
+        {
+            p_ptr->msp = 0;
+            p_ptr->csp = 0;
+            p_ptr->redraw |= (PR_MANA);
+        }
+        return;
+    }
     if ( (caster_ptr->options & CASTER_USE_HP) 
       || (caster_ptr->options & CASTER_NO_SPELL_COST) 
       || p_ptr->lev < caster_ptr->min_level)
@@ -3180,6 +3189,7 @@ void calc_bonuses(void)
     p_ptr->sh_elec = FALSE;
     p_ptr->sh_cold = FALSE;
     p_ptr->sh_shards = FALSE;
+    p_ptr->sh_retaliation = FALSE;
     p_ptr->anti_magic = FALSE;
     p_ptr->anti_tele = FALSE;
     p_ptr->anti_summon = FALSE;
@@ -3187,6 +3197,8 @@ void calc_bonuses(void)
     p_ptr->mighty_throw = FALSE;
     p_ptr->see_nocto = FALSE;
     p_ptr->easy_realm1 = REALM_NONE;
+
+    p_ptr->move_random = FALSE;
 
     p_ptr->magic_resistance = 0;
     p_ptr->good_luck = FALSE;

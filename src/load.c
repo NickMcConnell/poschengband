@@ -896,10 +896,10 @@ static void rd_extra(savefile_ptr file)
  */
 static errr rd_inventory(savefile_ptr file)
 {
-    int slot = 0;
+    int           slot = 0;
+    object_type   forge;
+    object_type  *q_ptr;
 
-    object_type forge;
-    object_type *q_ptr;
 
     p_ptr->total_weight = 0;
     inven_cnt = 0;
@@ -919,9 +919,19 @@ static errr rd_inventory(savefile_ptr file)
 
         if (n >= EQUIP_BEGIN)
         {
-            q_ptr->marked |= OM_TOUCHED;
-            object_copy(&inventory[n], q_ptr);
-            p_ptr->total_weight += (q_ptr->number * q_ptr->weight);
+            if (equip_is_valid_slot(n))
+            {
+                q_ptr->marked |= OM_TOUCHED;
+                object_copy(&inventory[n], q_ptr);
+                p_ptr->total_weight += (q_ptr->number * q_ptr->weight);
+            }
+            else
+            {
+                /* This should only happen while debugging, so I am content to
+                   lose the object. Or, a player is monkeying in b_info.txt and
+                   they get what they deserve :) */
+                note("Discarding invalid inventory slot!");
+            }
         }
         else if (inven_cnt == INVEN_PACK)
         {

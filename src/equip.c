@@ -184,14 +184,20 @@ static void _slot_menu_fn(int cmd, int which, vptr cookie, variant *res)
         {
             char buf[MAX_NLEN+50];
             char o_name[MAX_NLEN];
+            cptr name = _template->slots[idx].name;
+            if (!name)
+                name = b_tag + _template->slots[idx].tag;
             object_desc(o_name, o_ptr, 0);
-            sprintf(buf, "%-14s: %s", _template->slots[idx].name, o_name);
+            sprintf(buf, "%-14s: %s", name, o_name);
             var_set_string(res, buf);
         }
         else
         {
             char buf[MAX_NLEN+50];
-            sprintf(buf, "%-14s:", _template->slots[idx].name);
+            cptr name = _template->slots[idx].name;
+            if (!name)
+                name = b_tag + _template->slots[idx].tag;
+            sprintf(buf, "%-14s:", name);
             var_set_string(res, buf);
         }
         break;
@@ -253,7 +259,10 @@ extern cptr equip_describe_slot(int slot)
         if (p_ptr->shooter_info.heavy_shoot)
             return "Just Holding";
     }
-    return _template->slots[i].name;
+    if (_template->slots[i].name)
+        return _template->slots[i].name;
+
+    return b_tag + _template->slots[i].tag;
 }
 
 

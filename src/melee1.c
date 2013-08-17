@@ -1585,19 +1585,9 @@ bool make_attack_normal(int m_idx)
                     if (m_ptr->ml && !p_ptr->confused && !p_ptr->stun && !p_ptr->blind && !p_ptr->paralyzed)
                         do_retaliate = TRUE;
                 }
-                else if (p_ptr->pclass == CLASS_MONK && p_ptr->weapon_info[0].bare_hands)
+                else if (p_ptr->sh_retaliation)
                 {
                     if (m_ptr->ml && !p_ptr->confused && !p_ptr->stun && !p_ptr->blind && !p_ptr->paralyzed && !mon_save_p(m_ptr->r_idx, A_DEX))
-                        do_retaliate = TRUE;
-                }
-                else if (p_ptr->pclass == CLASS_FORCETRAINER && p_ptr->weapon_info[0].bare_hands)
-                {
-                    if (m_ptr->ml && !p_ptr->confused && !p_ptr->stun && !p_ptr->blind && !p_ptr->paralyzed && !mon_save_p(m_ptr->r_idx, A_DEX) && one_in_(2))
-                        do_retaliate = TRUE;
-                }
-                else if (prace_is_(RACE_MON_SWORD) && p_ptr->lev >= 45) /* TODO: p_ptr->retaliate! */
-                {
-                    if (m_ptr->ml && !p_ptr->confused && !p_ptr->stun && !p_ptr->blind && !p_ptr->paralyzed && !mon_save_p(m_ptr->r_idx, A_STR))
                         do_retaliate = TRUE;
                 }
 

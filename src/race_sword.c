@@ -374,7 +374,10 @@ static void _calc_bonuses(void)
         p_ptr->pspeed += 2;
 
     if (p_ptr->lev >= 45)
+    {
         p_ptr->pspeed += 2;
+        p_ptr->sh_retaliation = TRUE;
+    }
 
     for (i = 0; i < 6; i++) /* Assume in order */
         p_ptr->stat_add[A_STR + i] += _calc_stat_bonus(TR_STR + i);

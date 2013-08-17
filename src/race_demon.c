@@ -845,6 +845,8 @@ static void _cyber_calc_bonuses(void)
     int l = p_ptr->lev;
     int to_a = l/2 + l*l/100 + l*l*l/5000;
 
+    p_ptr->move_random = TRUE;
+
     p_ptr->to_a += to_a;
     p_ptr->dis_to_a += to_a;
     p_ptr->pspeed -= 1 + p_ptr->lev/23;

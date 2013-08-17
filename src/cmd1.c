@@ -2336,7 +2336,12 @@ static void innate_attacks(s16b m_idx, bool *fear, bool *mdeath, int mode)
                 sound(SOUND_MISS);
                 msg_format("You miss %s.", m_name);
             }
+
+            if (mode == WEAPONMASTER_RETALIATION)
+                break;
         }
+        if (mode == WEAPONMASTER_RETALIATION)
+            break;
     }
     if (delay_sleep && !*mdeath)
         project(0, 0, m_ptr->fy, m_ptr->fx, delay_sleep, GF_OLD_SLEEP, PROJECT_KILL|PROJECT_HIDE, -1);
@@ -4292,6 +4297,8 @@ bool py_attack(int y, int x, int mode)
         switch (mode)
         {
         case WEAPONMASTER_RETALIATION:
+            if (p_ptr->weapon_ct == 0) /* Kenshirou Possessor can retaliate with innate attacks! */
+                break;
         case WEAPONMASTER_PROXIMITY_ALERT:
         case WEAPONMASTER_CRUSADERS_STRIKE:
         case WEAPONMASTER_MANY_STRIKE:
@@ -4958,6 +4965,42 @@ void move_player(int dir, bool do_pickup, bool break_trap)
                 shadow_strike = TRUE;
             else
                 oktomove = FALSE;
+        }
+    }
+
+    if (oktomove && p_ptr->prace == RACE_MON_POSSESSOR)
+    {
+        monster_race *r_ptr = &r_info[p_ptr->current_r_idx];
+        if (r_ptr->flags1 & RF1_NEVER_MOVE)
+        {
+            msg_print("You can't move!");
+            energy_use = 0;
+            oktomove = FALSE;
+            disturb(0, 0);
+        }
+        else if (have_flag(f_ptr->flags, FF_CAN_FLY) && ((r_ptr->flags7 & RF7_CAN_FLY) || p_ptr->levitation))
+        {
+            /* Allow moving */
+        }
+        else if (have_flag(f_ptr->flags, FF_CAN_SWIM) && (r_ptr->flags7 & RF7_CAN_SWIM))
+        {
+            /* Allow moving */
+        }
+        else if (have_flag(f_ptr->flags, FF_WATER) &&
+            !(r_ptr->flags7 & RF7_AQUATIC) &&
+            (have_flag(f_ptr->flags, FF_DEEP) || (r_ptr->flags2 & RF2_AURA_FIRE)))
+        {
+            msg_print("You can't swim.");
+            energy_use = 0;
+            oktomove = FALSE;
+            disturb(0, 0);
+        }
+        else if (!have_flag(f_ptr->flags, FF_WATER) && (r_ptr->flags7 & RF7_AQUATIC))
+        {
+            msg_print("You can't move onto dry land.");
+            energy_use = 0;
+            oktomove = FALSE;
+            disturb(0, 0);
         }
     }
 
