@@ -2292,7 +2292,10 @@ static void innate_attacks(s16b m_idx, bool *fear, bool *mdeath, int mode)
                         delay_sleep += base_dam;
                         break;
                     case GF_STASIS:
-                        delay_stasis += base_dam;
+                        if (a->dd * a->ds == 0)
+                            delay_stasis += p_ptr->lev*2;
+                        else
+                            delay_stasis += base_dam;
                         break;
                     case GF_OLD_CONF:
                     case GF_OLD_SLOW:

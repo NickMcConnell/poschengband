@@ -390,7 +390,6 @@ struct monster_body_s
     skills_t skills;
     skills_t extra_skills;
     s16b     life;
-    s16b     ac;
     s16b     infra;
     s16b     spell_stat;
     s16b     body_idx;

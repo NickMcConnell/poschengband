@@ -172,8 +172,8 @@ S:RING:Ring
 S:RING:Ring
 S:AMULET:Amulet
 S:LITE:Light
-S:CLOAK:Cloak
 S:BODY_ARMOR:Body
+S:CLOAK:Cloak
 S:HELMET:Helm
 S:BOOTS:Boots
 
@@ -299,3 +299,79 @@ S:HELMET:Helm
 S:GLOVES:Hands
 S:BOOTS:Feet
 
+N:30:Harpy
+S:RING:Ring
+S:RING:Ring
+S:RING:Ring
+S:RING:Ring
+S:AMULET:Neck
+S:LITE:Light
+S:CLOAK:Cloak
+S:HELMET:Head
+
+N:31:Spider
+S:RING:Ring
+S:RING:Ring
+S:RING:Ring
+S:RING:Ring
+S:AMULET:Amulet
+S:BODY_ARMOR:Body
+S:CLOAK:Cloak
+S:HELMET:Helm
+S:BOOTS:Boots
+S:BOOTS:Boots
+
+N:32:Bird
+S:RING:Ring
+S:RING:Ring
+S:AMULET:Amulet
+S:LITE:Light
+
+N:33:Giant Bird
+S:RING:Ring
+S:RING:Ring
+S:RING:Ring
+S:RING:Ring
+S:AMULET:Amulet
+S:LITE:Light
+S:CLOAK:Cloak
+S:HELMET:Helm
+
+N:34:Monk
+S:BOW:Shooting
+S:RING:Right Ring
+S:RING:Left Ring
+S:AMULET:Neck
+S:LITE:Light
+S:BODY_ARMOR:Body
+S:CLOAK:Cloak
+S:HELMET:Head
+S:GLOVES:Hands
+S:BOOTS:Feet
+
+N:35:Naga
+S:WEAPON_SHIELD:Right Hand:0
+S:WEAPON_SHIELD:Left Hand:1
+S:BOW:Shooting
+S:RING:Right Ring:0
+S:RING:Left Ring:1
+S:AMULET:Neck
+S:LITE:Light
+S:BODY_ARMOR:Body
+S:CLOAK:Cloak
+S:HELMET:Head
+S:GLOVES:Hands
+
+N:36:Kavlax
+S:RING:Ring
+S:RING:Ring
+S:AMULET:Amulet
+S:AMULET:Amulet
+S:AMULET:Amulet
+S:AMULET:Amulet
+S:LITE:Light
+S:CLOAK:Cloak
+S:HELMET:Helm
+S:HELMET:Helm
+S:HELMET:Helm
+S:HELMET:Helm

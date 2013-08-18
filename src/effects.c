@@ -6232,6 +6232,8 @@ void gain_exp_64(s32b amount, u32b amount_frac)
 
     if (p_ptr->prace == RACE_ANDROID) return;
 
+    if (!possessor_can_gain_exp()) return;
+
     /* Gain some experience */
     s64b_add(&(p_ptr->exp), &(p_ptr->exp_frac), amount, amount_frac);
 

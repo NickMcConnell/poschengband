@@ -575,37 +575,36 @@ static cptr r_info_flags9[] =
 {
     "DROP_CORPSE",
     "DROP_SKELETON",
-    "XXX",
-    "XXX",
-    "XXX",
-    "XXX",
-    "XXX",
-    "XXX",
-    "XXX",
-    "XXX",
-    "XXX",
-    "XXX",
-    "XXX",
-    "XXX",
-    "XXX",
-    "XXX",
-    "XXX",
-    "XXX",
-    "XXX",
-    "XXX",
-    "XXX",
-    "XXX",
-    "XXX",
-    "XXX",
-    "XXX",
-    "XXX",
-    "XXX",
-    "XXX",
-    "XXX",
-    "XXX",
-    "XXX",
-    "XXX",
-    "XXX",
+    "POS_GAIN_AC",
+    "POS_TELEPATHY",
+    "POS_SEE_INVIS",
+    "POS_HOLD_LIFE",
+    "POS_SUST_STR",
+    "POS_SUST_INT",
+    "POS_SUST_WIS",
+    "POS_SUST_DEX",
+    "POS_SUST_CON",
+    "POS_SUST_CHR",
+    "XXX13",
+    "XXX14",
+    "POS_DETECT_TRAPS",
+    "POS_DETECT_EVIL",
+    "POS_DETECT_MONSTERS",
+    "POS_DETECT_OBJECTS",
+    "POS_MAPPING",
+    "POS_IDENTIFY",
+    "POS_HEROISM",
+    "POS_BLESSING",
+    "POS_BERSERK",
+    "XXX24",
+    "XXX25",
+    "XXX26",
+    "XXX27",
+    "XXX28",
+    "XXX29",
+    "XXX30",
+    "XXX31",
+    "XXX32",
 };
 
 
@@ -2768,11 +2767,6 @@ errr parse_r_info(char *buf, header *head)
             else
                 r_ptr->body.life = r_ptr->body.life * life / 100;
         }
-        else if (strcmp(zz[0], "AC") == 0)
-        {
-            if (num < 2) return PARSE_ERROR_TOO_FEW_ARGUMENTS;
-            r_ptr->body.ac += atoi(zz[1]);
-        }
         else if (strcmp(zz[0], "Infra") == 0)
         {
             if (num < 2) return PARSE_ERROR_TOO_FEW_ARGUMENTS;
@@ -2796,6 +2790,8 @@ errr parse_r_info(char *buf, header *head)
 
             if (!found) return PARSE_ERROR_OUT_OF_BOUNDS;
         }
+        else
+            return PARSE_ERROR_UNDEFINED_DIRECTIVE;
     }
     /* Process 'W' for "More Info" (one line only) */
     else if (buf[0] == 'W')

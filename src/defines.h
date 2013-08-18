@@ -16,9 +16,9 @@
 #define VERSION_NAME "PosChengband"
 
 
-#define VER_MAJOR 1
+#define VER_MAJOR 2
 #define VER_MINOR 0
-#define VER_PATCH 38
+#define VER_PATCH 0
 #define VER_EXTRA 0
 
 
@@ -3980,40 +3980,40 @@
 #define RF8_WILD_ALL            0x80000000
 
 /*
- * Monster drop info
+ * Monster Corspe Info, including a bunch of stuff for The Possessor
  */
-#define RF9_DROP_CORPSE     0x00000001
-#define RF9_DROP_SKELETON   0x00000002
-#define RF9_XXX3            0x00000004
-#define RF9_XXX4            0x00000008
-#define RF9_XXX5            0x00000010
-#define RF9_XXX6            0x00000020
-#define RF9_XXX7            0x00000040
-#define RF9_XXX8            0x00000080
-#define RF9_XXX9            0x00000100
-#define RF9_XXX10           0x00000200
-#define RF9_XXX11           0x00000400
-#define RF9_XXX12           0x00000800
-#define RF9_XXX13           0x00001000
-#define RF9_XXX14           0x00002000
-#define RF9_XXX15           0x00004000
-#define RF9_XXX16           0x00008000
-#define RF9_XXX17           0x00010000
-#define RF9_XXX18           0x00020000
-#define RF9_XXX19           0x00040000
-#define RF9_XXX20           0x00080000
-#define RF9_XXX21           0x00100000
-#define RF9_XXX22           0x00200000
-#define RF9_XXX23           0x00400000
-#define RF9_XXX24           0x00800000
-#define RF9_XXX25           0x01000000
-#define RF9_XXX26           0x02000000
-#define RF9_XXX27           0x04000000
-#define RF9_XXX28           0x08000000
-#define RF9_XXX29           0x01000000
-#define RF9_XXX30           0x20000000
-#define RF9_XXX31           0x40000000
-#define RF9_XXX32           0x80000000
+#define RF9_DROP_CORPSE         0x00000001
+#define RF9_DROP_SKELETON       0x00000002
+#define RF9_POS_GAIN_AC         0x00000004
+#define RF9_POS_TELEPATHY       0x00000008
+#define RF9_POS_SEE_INVIS       0x00000010
+#define RF9_POS_HOLD_LIFE       0x00000020
+#define RF9_POS_SUST_STR        0x00000040
+#define RF9_POS_SUST_INT        0x00000080
+#define RF9_POS_SUST_WIS        0x00000100
+#define RF9_POS_SUST_DEX        0x00000200
+#define RF9_POS_SUST_CON        0x00000400
+#define RF9_POS_SUST_CHR        0x00000800
+#define RF9_XXX13               0x00001000
+#define RF9_XXX14               0x00002000
+#define RF9_POS_DETECT_TRAPS    0x00004000
+#define RF9_POS_DETECT_EVIL     0x00008000
+#define RF9_POS_DETECT_MONSTERS 0x00010000
+#define RF9_POS_DETECT_OBJECTS  0x00020000
+#define RF9_POS_MAPPING         0x00040000
+#define RF9_POS_IDENTIFY        0x00080000
+#define RF9_POS_HEROISM         0x00100000
+#define RF9_POS_BLESSING        0x00200000
+#define RF9_POS_BERSERK         0x00400000
+#define RF9_XXX24               0x00800000
+#define RF9_XXX25               0x01000000
+#define RF9_XXX26               0x02000000
+#define RF9_XXX27               0x04000000
+#define RF9_XXX28               0x08000000
+#define RF9_XXX29               0x01000000
+#define RF9_XXX30               0x20000000
+#define RF9_XXX31               0x40000000
+#define RF9_XXX32               0x80000000
 
 /*
  * Monster bit flags of racial resistances

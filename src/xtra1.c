@@ -1254,8 +1254,6 @@ static void prt_sp(void)
     char tmp[32];
     byte color;
 
-    if (!p_ptr->msp) return;
-
     put_str("SP", ROW_CURSP, COL_CURSP);
     sprintf(tmp, "%4d", p_ptr->csp);
     if (p_ptr->csp >= p_ptr->msp)

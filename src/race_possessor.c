@@ -355,8 +355,8 @@ static void _possess_spell(int cmd, variant *res)
                 msg_print("Your previous body quickly decays!");
 
             p_ptr->current_r_idx = MON_POSSESSOR_SOUL;
-            p_ptr->update |= PU_BONUS | PU_HP;
-            p_ptr->redraw |= PR_MAP | PR_BASIC;
+            p_ptr->update |= PU_BONUS | PU_HP | PU_MANA;
+            p_ptr->redraw |= PR_MAP | PR_BASIC | PR_MANA;
             equip_on_change_race();
         }
         else
@@ -381,8 +381,8 @@ static void _possess_spell(int cmd, variant *res)
             msg_format("You possess %s.", o_name);
 
             p_ptr->current_r_idx = o_ptr->pval;
-            p_ptr->update |= PU_BONUS | PU_HP;
-            p_ptr->redraw |= PR_MAP | PR_BASIC;
+            p_ptr->update |= PU_BONUS | PU_HP | PU_MANA;
+            p_ptr->redraw |= PR_MAP | PR_BASIC | PR_MANA;
             equip_on_change_race();
 
             if (item >= 0)
@@ -592,6 +592,37 @@ static int _get_powers(spell_info* spells, int max)
 /**********************************************************************
  * Spells
  **********************************************************************/
+void _healing_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Healing");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Heals hitpoints, cuts and stun.");
+        break;
+    case SPELL_INFO:
+    {
+        monster_race *r_ptr = &r_info[p_ptr->current_r_idx];
+        var_set_string(res, format("Heals %d", spell_power(r_ptr->level * 5)));
+        break;
+    }
+    case SPELL_CAST:
+    {
+        monster_race *r_ptr = &r_info[p_ptr->current_r_idx];
+        hp_player(spell_power(r_ptr->level * 5));
+        set_stun(0, TRUE);
+        set_cut(0, TRUE);
+        var_set_bool(res, TRUE);
+        break;
+    }
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
+
 static void _add_spell(spell_info* spell, int lvl, int cost, int fail, ang_spell fn, int stat_idx)
 {
     spell->level = lvl;
@@ -606,10 +637,16 @@ static int _get_spells(spell_info* spells, int max)
     int           ct = 0;
     int           stat_idx = p_ptr->stat_ind[r_ptr->body.spell_stat];
 
+    if (ct < max && (r_ptr->flags9 & RF9_POS_BLESSING))
+        _add_spell(&spells[ct++], 1, 1, 30, bless_spell, stat_idx);
     if (ct < max && (r_ptr->flags5 & RF5_MISSILE))
         _add_spell(&spells[ct++], 1, 1, 30, magic_missile_spell, stat_idx);
     if (ct < max && (r_ptr->flags5 & RF5_CAUSE_1))
         _add_spell(&spells[ct++], 3, 1, 25, cause_wounds_I_spell, stat_idx);
+    if (ct < max && (r_ptr->flags9 & RF9_POS_DETECT_TRAPS))
+        _add_spell(&spells[ct++], 3, 2, 30, detect_traps_spell, stat_idx);
+    if (ct < max && (r_ptr->flags9 & RF9_POS_DETECT_EVIL))
+        _add_spell(&spells[ct++], 3, 2, 30, detect_evil_spell, stat_idx);
     if (ct < max && (r_ptr->flags6 & RF6_DARKNESS))
         _add_spell(&spells[ct++], 5, 1, 20, create_darkness_spell, stat_idx);
     if (ct < max && (r_ptr->flags6 & RF6_TRAPS))
@@ -620,6 +657,14 @@ static int _get_spells(spell_info* spells, int max)
         _add_spell(&spells[ct++], 5, 3, 40, stinking_cloud_spell, stat_idx);
     if (ct < max && (r_ptr->flags5 & RF5_SCARE))
         _add_spell(&spells[ct++], 5, 3, 35, scare_monster_spell, stat_idx);
+    if (ct < max && (r_ptr->flags9 & RF9_POS_DETECT_MONSTERS))
+        _add_spell(&spells[ct++], 7, 3, 40, detect_monsters_spell, stat_idx);
+    if (ct < max && (r_ptr->flags9 & RF9_POS_HEROISM))
+        _add_spell(&spells[ct++], 8, 5, 40, heroism_spell, stat_idx);
+    if (ct < max && (r_ptr->flags9 & RF9_POS_DETECT_OBJECTS))
+        _add_spell(&spells[ct++], 9, 5, 40, detect_objects_spell, stat_idx);
+    if (ct < max && (r_ptr->flags9 & RF9_POS_IDENTIFY))
+        _add_spell(&spells[ct++], 10, 7, 50, identify_spell, stat_idx);
     if (ct < max && (r_ptr->flags5 & RF5_CONF))
         _add_spell(&spells[ct++], 10, 5, 40, confuse_spell, stat_idx);
     if (ct < max && (r_ptr->flags5 & RF5_SLOW))
@@ -636,8 +681,12 @@ static int _get_spells(spell_info* spells, int max)
         _add_spell(&spells[ct++], 12, 6, 35, frost_bolt_spell, stat_idx);
     if (ct < max && (r_ptr->flags5 & RF5_BO_ACID))
         _add_spell(&spells[ct++], 13, 7, 40, acid_bolt_spell, stat_idx);
+    if (ct < max && (r_ptr->flags9 & RF9_POS_BERSERK))
+        _add_spell(&spells[ct++], 13, 9, 50, berserk_spell, stat_idx);
     if (ct < max && (r_ptr->flags5 & RF5_BA_ELEC))
         _add_spell(&spells[ct++], 14, 10, 45, lightning_ball_spell, stat_idx);
+    if (ct < max && (r_ptr->flags9 & RF9_POS_MAPPING))
+        _add_spell(&spells[ct++], 15, 10, 50, magic_mapping_spell, stat_idx);
     if (ct < max && (r_ptr->flags6 & RF6_FORGET))
         _add_spell(&spells[ct++], 15, 3, 40, amnesia_spell, stat_idx);
     if (ct < max && (r_ptr->flags6 & RF6_TPORT))
@@ -657,7 +706,7 @@ static int _get_spells(spell_info* spells, int max)
     if (ct < max && (r_ptr->flags5 & RF5_BA_FIRE))
         _add_spell(&spells[ct++], 20, 14, 60, fire_ball_spell, stat_idx);
     if (ct < max && (r_ptr->flags6 & RF6_HEAL))
-        _add_spell(&spells[ct++], 20, 20, 70, healing_I_spell, stat_idx);
+        _add_spell(&spells[ct++], 20, 20, 70, _healing_spell, stat_idx);
     if (ct < max && (r_ptr->flags5 & RF5_CAUSE_3))
         _add_spell(&spells[ct++], 22, 6, 50, cause_wounds_III_spell, stat_idx);
     if (ct < max && (r_ptr->flags5 & RF5_MIND_BLAST))
@@ -676,6 +725,8 @@ static int _get_spells(spell_info* spells, int max)
         _add_spell(&spells[ct++], 25, 20, 80, plasma_bolt_spell, stat_idx);
     if (ct < max && (r_ptr->flags5 & RF5_BO_MANA))
         _add_spell(&spells[ct++], 25, 24, 90, mana_bolt_II_spell, stat_idx);
+    if (ct < max && (r_ptr->flags2 & RF2_THIEF))
+        _add_spell(&spells[ct++], 30, 20, 60, panic_hit_spell, stat_idx);
     if (ct < max && (r_ptr->flags5 & RF5_BRAIN_SMASH))
         _add_spell(&spells[ct++], 30, 14, 65, brain_smash_spell, stat_idx);
     if (ct < max && (r_ptr->flags5 & RF5_BA_WATE))
@@ -690,6 +741,8 @@ static int _get_spells(spell_info* spells, int max)
         _add_spell(&spells[ct++], 32, 10, 70, cause_wounds_IV_spell, stat_idx);
     if (ct < max && (r_ptr->flags6 & RF6_PSY_SPEAR))
         _add_spell(&spells[ct++], 35, 30, 80, psycho_spear_spell, stat_idx);
+    if (ct < max && (r_ptr->flags6 & RF6_TRAPS) && r_ptr->level >= 30)
+        _add_spell(&spells[ct++], 37, 30, 80, create_major_trap_spell, stat_idx);
     if (ct < max && (r_ptr->flags4 & RF4_DISPEL))
         _add_spell(&spells[ct++], 40, 35, 85, dispel_magic_spell, stat_idx);
     if (ct < max && (r_ptr->flags5 & RF5_BA_DARK))
@@ -704,6 +757,8 @@ static int _get_spells(spell_info* spells, int max)
         _add_spell(&spells[ct++], 45, 65, 80, invulnerability_spell, stat_idx);
     if (ct < max && (r_ptr->flags6 & RF6_WORLD))
         _add_spell(&spells[ct++], 45, 150, 85, stop_time_spell, stat_idx);
+    if (ct < max && (r_ptr->flags6 & RF6_TRAPS) && r_ptr->level >= 40)
+        _add_spell(&spells[ct++], 50, 100, 95, create_ultimate_trap_spell, stat_idx);
 
     /* I prefer summoning at the bottom ... */
     if (ct < max && (r_ptr->flags6 & RF6_S_MONSTER))
@@ -777,10 +832,14 @@ static void _calc_bonuses(void)
 {
     monster_race *r_ptr = &r_info[p_ptr->current_r_idx];
     int           r_lvl = MAX(1, r_ptr->level);
-    int           to_a = r_ptr->body.ac * MIN(p_ptr->lev * 2, r_lvl) / r_lvl;
 
-    p_ptr->to_a += to_a;
-    p_ptr->dis_to_a += to_a;
+
+    if (r_ptr->flags9 & RF9_POS_GAIN_AC)
+    {
+        int to_a = r_ptr->ac * MIN(p_ptr->lev * 2, r_lvl) / r_lvl;
+        p_ptr->to_a += to_a;
+        p_ptr->dis_to_a += to_a;
+    }
 
     if (r_ptr->speed != 110)
     {
@@ -798,19 +857,30 @@ static void _calc_bonuses(void)
     if (r_ptr->flags3 & RF3_EVIL)
         p_ptr->align -= 200;
 
-    if (r_ptr->flags3 & (RF3_UNDEAD | RF3_DEMON)) /* DROP_CORPSE? */
+    if (r_ptr->flags9 & RF9_POS_HOLD_LIFE)
         p_ptr->hold_life = TRUE;
-
     if (r_ptr->flags1 & (RF1_RAND_25 | RF1_RAND_50))
         p_ptr->move_random = TRUE;
-
-    if (r_ptr->d_char == 'e' || p_ptr->current_r_idx == 450 || p_ptr->current_r_idx == 1055 || p_ptr->current_r_idx == 1056)
+    if (r_ptr->flags9 & RF9_POS_TELEPATHY)
         p_ptr->telepathy = TRUE;
+    if (r_ptr->flags9 & RF9_POS_SEE_INVIS)
+        p_ptr->see_inv = TRUE;
+
+    if (r_ptr->flags9 & RF9_POS_SUST_STR)
+        p_ptr->sustain_str = TRUE;
+    if (r_ptr->flags9 & RF9_POS_SUST_INT)
+        p_ptr->sustain_int = TRUE;
+    if (r_ptr->flags9 & RF9_POS_SUST_WIS)
+        p_ptr->sustain_wis = TRUE;
+    if (r_ptr->flags9 & RF9_POS_SUST_DEX)
+        p_ptr->sustain_dex = TRUE;
+    if (r_ptr->flags9 & RF9_POS_SUST_CON)
+        p_ptr->sustain_con = TRUE;
+    if (r_ptr->flags9 & RF9_POS_SUST_CHR)
+        p_ptr->sustain_chr = TRUE;
 
     if (r_ptr->flags2 & RF2_REFLECTING)
         p_ptr->reflect = TRUE;
-    if ((r_ptr->flags2 & RF2_INVISIBLE) || strchr("AeGLQsuUVWz", r_ptr->d_char) || (r_ptr->flags3 & (RF3_UNDEAD | RF3_DEMON)))
-        p_ptr->see_inv = TRUE;
     if (r_ptr->flags2 & RF2_REGENERATE)
         p_ptr->regenerate = TRUE;
     if ((r_ptr->flags2 & RF2_ELDRITCH_HORROR) || strchr("GLUVW", r_ptr->d_char))
@@ -890,16 +960,27 @@ static void _get_flags(u32b flgs[TR_FLAG_SIZE])
     if (r_ptr->speed != 110)
         add_flag(flgs, TR_SPEED);
 
-    if (r_ptr->flags3 & (RF3_UNDEAD | RF3_DEMON)) /* DROP_CORPSE? */
+    if (r_ptr->flags9 & RF9_POS_HOLD_LIFE)
         add_flag(flgs, TR_HOLD_LIFE);
-
-    if (r_ptr->d_char == 'e' || p_ptr->current_r_idx == 450 || p_ptr->current_r_idx == 1055 || p_ptr->current_r_idx == 1056)
+    if (r_ptr->flags9 & RF9_POS_TELEPATHY)
         add_flag(flgs, TR_TELEPATHY);
+    if (r_ptr->flags9 & RF9_POS_SEE_INVIS)
+        add_flag(flgs, TR_SEE_INVIS);
+    if (r_ptr->flags9 & RF9_POS_SUST_STR)
+        add_flag(flgs, TR_SUST_STR);
+    if (r_ptr->flags9 & RF9_POS_SUST_INT)
+        add_flag(flgs, TR_SUST_INT);
+    if (r_ptr->flags9 & RF9_POS_SUST_WIS)
+        add_flag(flgs, TR_SUST_WIS);
+    if (r_ptr->flags9 & RF9_POS_SUST_DEX)
+        add_flag(flgs, TR_SUST_DEX);
+    if (r_ptr->flags9 & RF9_POS_SUST_CON)
+        add_flag(flgs, TR_SUST_CON);
+    if (r_ptr->flags9 & RF9_POS_SUST_CHR)
+        add_flag(flgs, TR_SUST_CHR);
 
     if (r_ptr->flags2 & RF2_REFLECTING)
         add_flag(flgs, TR_REFLECT);
-    if ((r_ptr->flags2 & RF2_INVISIBLE) || strchr("AeGLQsuUVWz", r_ptr->d_char) || (r_ptr->flags3 & (RF3_UNDEAD | RF3_DEMON)))
-        add_flag(flgs, TR_SEE_INVIS);
     if (r_ptr->flags2 & RF2_REGENERATE)
         add_flag(flgs, TR_REGEN);
     if (r_ptr->flags2 & RF2_AURA_FIRE)
@@ -1080,4 +1161,17 @@ race_t *mon_possessor_get_race_t(void)
         me.subname = _mon_name(r_idx);
     }
     return &me;
+}
+
+bool possessor_can_gain_exp(void)
+{
+    if (p_ptr->prace == RACE_MON_POSSESSOR)
+    {
+        monster_race *r_ptr = &r_info[p_ptr->current_r_idx];
+        int           max_lvl = MAX(15, r_ptr->level + 5);
+
+        if (p_ptr->lev >= max_lvl)
+            return FALSE;
+    }
+    return TRUE;
 }
