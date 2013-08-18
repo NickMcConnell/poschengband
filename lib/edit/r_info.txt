@@ -1157,8 +1157,10 @@ B:HIT:HURT:1d7
 B:TOUCH:EAT_GOLD
 F:MALE | HAS_LITE_1 |
 F:DROP_60 | THIEF
-F:TAKE_ITEM | OPEN_DOOR | BASH_DOOR | DROP_SKELETON | DROP_CORPSE
+F:TAKE_ITEM | OPEN_DOOR | BASH_DOOR | 
 F:EVIL
+F:DROP_SKELETON | DROP_CORPSE
+P:Copy:Hobbit:Tourist
 D:A short little guy, in bedraggled clothes.  He appears to be looking 
 D:for a good tavern.
 
@@ -1169,10 +1171,10 @@ W:3:1:30:9:40:168
 B:BITE:HURT:1d7
 F:WEIRD_MIND | BASH_DOOR | WILD_GRASS
 F:ANIMAL | DROP_CORPSE
-D:It is about two feet long and has sharp pincers.
 P:Copy:Human:Warrior
 P:Life:60
 P:Body:Ant
+D:It is about two feet long and has sharp pincers.
 
 N:76:Yellow mold
 G:m:y
@@ -1245,10 +1247,10 @@ I:110:3d6:8:16:80:15
 W:4:1:30:9:30:134
 B:BITE:HURT:1d10
 F:ANIMAL | CAN_SWIM | DROP_CORPSE
-D:It is an armoured lizard with a powerful bite.
 P:Copy:Snotling:Tourist
 P:Life:70
 P:Body:Scrawny
+D:It is an armoured lizard with a powerful bite.
 
 N:83:Novice ranger
 G:p:g
@@ -1262,11 +1264,11 @@ F:FORCE_SLEEP |
 F:DROP_60
 F:OPEN_DOOR | BASH_DOOR | WILD_WOOD |
 F:DROP_SKELETON | DROP_CORPSE | POS_DETECT_MONSTERS | POS_MAPPING
+P:Copy:Human:Ranger
+P:Life:85
 S:1_IN_9 | 
 S:SHOOT | MISSILE
 D:An agile hunter, ready and relaxed.
-P:Copy:Human:Ranger
-P:Life:85
 
 N:84:Blue jelly
 G:j:b
@@ -1310,6 +1312,7 @@ F:MALE |
 F:FRIENDS | DROP_60 | RAND_50 | DROP_SKELETON | DROP_CORPSE |
 F:OPEN_DOOR | BASH_DOOR | WILD_WOOD | RES_DARK |
 F:EVIL | ORC | HURT_LITE
+P:Copy:Snotling:Tourist
 D:A pathetic breed of tiny snaga-like creatures. They are running 
 D:wild and screaming all the time!
 
@@ -1342,10 +1345,10 @@ B:CRUSH:HURT:1d10
 F:RAND_25 | CAN_SWIM | DROP_SKELETON | DROP_CORPSE
 F:BASH_DOOR | WILD_ALL |
 F:ANIMAL
-D:It is about ten feet long.
 P:Copy:Snotling:Rogue
 P:Life:60
 P:Body:Snake
+D:It is about ten feet long.
 
 
 N:91:Skeleton kobold
@@ -1369,6 +1372,7 @@ F:DROP_60 | OPEN_DOOR | BASH_DOOR | FRIENDS | DROP_CORPSE |
 F:WILD_WOOD | HAS_LITE_1 |
 S:1_IN_8
 S:SHOOT
+P:Copy:Hobbit:Tourist
 D:A cute, furry little animal, full of merchandising potential. 
 
 N:93:Novice mage
@@ -1383,9 +1387,9 @@ F:OPEN_DOOR | BASH_DOOR |
 F:DROP_SKELETON | DROP_CORPSE | POS_DETECT_MONSTERS
 S:1_IN_12 | 
 S:BLINK | BLIND | CONF | MISSILE
-D:He is leaving behind a trail of dropped spell components.
 P:Copy:Human:Mage
 P:Life:85
+D:He is leaving behind a trail of dropped spell components.
 
 N:94:Green naga
 G:n:g
@@ -1433,10 +1437,10 @@ F:OPEN_DOOR | BASH_DOOR | KNIGHT
 F:DROP_SKELETON | DROP_CORPSE | POS_DETECT_EVIL | POS_BLESSING
 S:1_IN_9 | 
 S:SCARE | CAUSE_1
-D:An adventurer both devoutly religious and skillful in combat. 
-D:He seems to consider you an agent of the devil.
 P:Copy:Human:Paladin
 P:Life:85
+D:An adventurer both devoutly religious and skillful in combat. 
+D:He seems to consider you an agent of the devil.
 
 N:98:Zog
 G:h:b
@@ -1489,10 +1493,9 @@ B:HIT:HURT:2d6
 F:DROP_90 | 
 F:OPEN_DOOR | BASH_DOOR | DROP_SKELETON | DROP_CORPSE
 F:EVIL | IM_POIS
-D:It a man-sized figure with the all too recognizable face of a kobold.
 P:Copy:Kobold:Warrior
 P:Life:95
-
+D:It a man-sized figure with the all too recognizable face of a kobold.
 
 N:103:Grey icky thing
 G:i:s
@@ -1501,10 +1504,10 @@ W:5:1:40:10:30:132
 B:TOUCH:HURT:1d8
 F:RAND_50 | CAN_SWIM | DROP_CORPSE
 F:EMPTY_MIND
-D:It is a smallish, slimy, icky, nasty creature.
 P:Copy:Snotling:Warrior
 P:Life:50
 P:Body:Icky
+D:It is a smallish, slimy, icky, nasty creature.
 
 N:104:Disenchanter eye
 G:e:v
@@ -1540,10 +1543,10 @@ B:BITE:POISON:2d6
 F:RAND_50 | CAN_SWIM | WILD_ALL | DROP_SKELETON | DROP_CORPSE
 F:BASH_DOOR
 F:ANIMAL | IM_POIS
-D:It has a copper head and sharp venomous fangs.
 P:Copy:Human:Rogue
 P:Life:60
 P:Body:Snake
+D:It has a copper head and sharp venomous fangs.
 
 N:107:Death sword
 G:|:W
@@ -1582,9 +1585,9 @@ F:OPEN_DOOR | BASH_DOOR
 F:DROP_SKELETON | DROP_CORPSE | POS_DETECT_EVIL | POS_BLESSING
 S:1_IN_12 | 
 S:HEAL | SCARE | CAUSE_1
-D:He is tripping over his priestly robes.
 P:Copy:Human:Priest
 P:Life:85
+D:He is tripping over his priestly robes.
 
 N:110:Novice warrior
 G:p:U
@@ -1596,9 +1599,9 @@ B:HIT:HURT:1d7
 F:MALE | HAS_LITE_2 | HUMAN |
 F:FRIENDS | DROP_60 | WILD_ALL |
 F:OPEN_DOOR | BASH_DOOR | DROP_SKELETON | DROP_CORPSE
-D:He looks inexperienced but tough.
 P:Copy:Human:Warrior
 P:Life:85
+D:He looks inexperienced but tough.
 
 N:111:Nibelung
 G:h:D
@@ -1610,6 +1613,7 @@ F:MALE | THIEF
 F:FRIENDS | DROP_60 | 
 F:TAKE_ITEM | OPEN_DOOR | BASH_DOOR | 
 F:HURT_LITE | RES_DARK | RES_DISE | DROP_SKELETON | DROP_CORPSE
+P:Copy:Nibelung:Rogue
 D:Night dwarfs collecting new riches for their master, Alberich. 
 
 N:112:Disembodied hand that strangled people
@@ -1640,10 +1644,10 @@ W:6:1:40:10:0:0
 B:BITE:HURT:1d4
 F:RAND_50 | CAN_FLY | WILD_MOUNTAIN | WILD_WOOD |
 F:ANIMAL | DROP_CORPSE
-D:It screeches as it attacks.
 P:Copy:Human:Sniper
 P:Life:60
 P:Body:Bat
+D:It screeches as it attacks.
 
 N:115:Rat-thing
 G:r:R
@@ -1674,9 +1678,9 @@ F:ONLY_GOLD | DROP_1D2
 F:OPEN_DOOR | BASH_DOOR
 S:1_IN_3 | 
 S:SHOOT
-D:A nasty little fellow with a bow and arrow.
 P:Copy:Human:Archer
 P:Life:85
+D:A nasty little fellow with a bow and arrow.
 
 N:117:Creeping silver coins
 G:$:s
@@ -1698,6 +1702,7 @@ F:MALE |
 F:FRIENDS | DROP_60 | WILD_ALL | DROP_SKELETON | DROP_CORPSE |
 F:OPEN_DOOR | BASH_DOOR | 
 F:EVIL | ORC | HURT_LITE | RES_DARK
+P:Copy:Snotling:Warrior
 D:He is one of the many weaker 'slave' orcs, often mistakenly known as a 
 D:goblin.
 
@@ -1709,11 +1714,11 @@ B:BITE:POISON:2d6
 F:RAND_50 | CAN_SWIM | WILD_ALL | DROP_SKELETON | DROP_CORPSE
 F:BASH_DOOR
 F:ANIMAL | IM_POIS
-D:It is recognized by the hard-scaled end of its body that is often rattled 
-D:to frighten its prey.
 P:Copy:Human:Rogue
 P:Life:60
 P:Body:Snake
+D:It is recognized by the hard-scaled end of its body that is often rattled 
+D:to frighten its prey.
 
 N:120:Giant slug
 G:w:U
@@ -1750,8 +1755,10 @@ B:HIT:HURT:1d8
 F:MALE | 
 F:FORCE_SLEEP | 
 F:DROP_90 | 
-F:OPEN_DOOR | BASH_DOOR | DROP_SKELETON | DROP_CORPSE
+F:OPEN_DOOR | BASH_DOOR | 
 F:EVIL | HURT_LITE | RES_DARK
+F:DROP_SKELETON | DROP_CORPSE | POS_SEE_INVIS
+P:Copy:Dark-Elf:Mage
 S:1_IN_10 | 
 S:CONF | DARKNESS | MISSILE
 D:An elven figure with jet black skin and white hair, his eyes are large and 
@@ -1804,6 +1811,7 @@ F:MALE |
 F:FRIENDS | DROP_60 | DROP_SKELETON | DROP_CORPSE |
 F:OPEN_DOOR | BASH_DOOR | 
 F:EVIL | ORC | HURT_LITE | RES_DARK
+P:Copy:Human:Warrior
 D:He is often found in huge numbers in deep caves.
 
 N:127:Wood spider
@@ -2000,6 +2008,7 @@ F:ESCORT |
 F:ONLY_ITEM | DROP_1D2 | DROP_GOOD | 
 F:OPEN_DOOR | BASH_DOOR | CAN_SPEAK | DROP_SKELETON | DROP_CORPSE
 F:EVIL | ORC | RES_DARK
+P:Copy:Kobold:Warrior
 D:A captain of a regiment of weaker orcs, Lagduf keeps his troop in order 
 D:with displays of excessive violence.
 D:"I've told you twice that Gorbag's swine got to the gate first, and none 
@@ -2114,6 +2123,7 @@ F:MALE |
 F:FRIENDS | DROP_60 | 
 F:OPEN_DOOR | BASH_DOOR | DROP_SKELETON | DROP_CORPSE
 F:EVIL | ORC | HURT_LITE | RES_DARK
+P:Copy:Human:Warrior
 D:He is a hardy well-weathered survivor.
 
 N:150:Bandit
@@ -2269,6 +2279,7 @@ F:MALE |
 F:FORCE_SLEEP | DROP_90 | WILD_WOOD | WILD_SWAMP | WILD_MOUNTAIN |
 F:OPEN_DOOR | BASH_DOOR | DROP_SKELETON | DROP_CORPSE | RES_DARK |
 F:EVIL | ORC | HURT_LITE
+P:Copy:Human:Priest
 S:1_IN_8 | 
 S:BLINK | CAUSE_1 | MISSILE
 D:An orc dressed in skins who gestures wildly.
@@ -2514,9 +2525,11 @@ B:HIT:HURT:1d6
 B:HIT:HURT:1d6
 F:MALE | 
 F:FORCE_SLEEP | 
-F:ONLY_ITEM | DROP_1D2 | DROP_SKELETON | DROP_CORPSE
+F:ONLY_ITEM | DROP_1D2 | 
 F:OPEN_DOOR | BASH_DOOR
 F:EVIL | IM_POIS | RES_DARK | HURT_LITE
+F:DROP_SKELETON | DROP_CORPSE | POS_SEE_INVIS | POS_DETECT_TRAPS | POS_DETECT_MONSTERS
+P:Copy:Dark-Elf:Mage
 S:1_IN_5 | 
 S:BLIND | CONF | MISSILE | DARKNESS | BA_POIS
 D:A dark elven figure, dressed all in black, hurling spells at you.
@@ -2573,8 +2586,10 @@ B:HIT:HURT:1d8
 B:HIT:HURT:1d8
 F:MALE | 
 F:DROP_1D2 | 
-F:OPEN_DOOR | BASH_DOOR | DROP_SKELETON | DROP_CORPSE
+F:OPEN_DOOR | BASH_DOOR | 
 F:EVIL | HURT_LITE | RES_DARK
+F:DROP_SKELETON | DROP_CORPSE | POS_SEE_INVIS
+P:Copy:Dark-Elf:Warrior-Mage
 S:1_IN_12
 S:MISSILE
 D:A dark elven figure in armour and ready with his sword.
@@ -2627,6 +2642,7 @@ B:HIT:HURT:1d10
 F:UNIQUE | MALE | CAN_SPEAK | FORCE_MAXHP | ESCORT | WILD_ALL |
 F:ONLY_ITEM | DROP_1D2 | DROP_GOOD | DROP_SKELETON | DROP_CORPSE |
 F:OPEN_DOOR | BASH_DOOR | EVIL | ORC | IM_POIS | RES_DARK
+P:Copy:Kobold:Warrior
 D:He is a cunning and devious orc. 
 D:"Grishnakh [was] a short crook-legged creature, very broad and with 
 D:long arms that hung almost to the ground." 
@@ -3008,6 +3024,7 @@ F:ESCORT | DROP_SKELETON | DROP_CORPSE
 F:ONLY_ITEM | DROP_2D2 | DROP_GOOD
 F:OPEN_DOOR | BASH_DOOR | CAN_SPEAK |
 F:EVIL | ORC | IM_FIRE | IM_COLD | IM_ELEC | IM_POIS | RES_DARK
+P:Copy:Kobold:Warrior
 D:A leader of a band of raiding orcs, he picks on hobbits.
 
 N:216:Swordsman
@@ -3156,8 +3173,10 @@ B:HIT:HURT:1d10
 F:MALE | 
 F:FORCE_SLEEP | 
 F:ONLY_ITEM | DROP_1D2 | 
-F:SMART | OPEN_DOOR | BASH_DOOR | DROP_SKELETON | DROP_CORPSE
+F:SMART | OPEN_DOOR | BASH_DOOR | 
 F:EVIL | HURT_LITE | RES_DARK
+F:DROP_SKELETON | DROP_CORPSE | POS_SEE_INVIS | POS_DETECT_EVIL | POS_BLESSING
+P:Copy:Dark-Elf:Priest
 S:1_IN_5 | 
 S:HEAL | BLIND | CONF | CAUSE_2 | DARKNESS | MISSILE
 D:A dark elven figure, dressed all in black, chanting curses and waiting to 
@@ -3395,6 +3414,7 @@ F:MALE | WILD_ALL | DROP_SKELETON | DROP_CORPSE
 F:FRIENDS | DROP_60
 F:OPEN_DOOR | BASH_DOOR | 
 F:EVIL | ORC | HURT_LITE | RES_DARK
+P:Copy:Kobold:Weaponmaster
 S:1_IN_15
 S:SHOOT
 D:He is a large orc with powerful arms and deep black skin.
@@ -3606,6 +3626,7 @@ F:ESCORT |
 F:ONLY_ITEM | DROP_1D2 | DROP_GOOD | 
 F:OPEN_DOOR | BASH_DOOR | 
 F:EVIL | ORC | IM_COLD | IM_POIS | RES_DARK |
+P:Copy:Kobold:Warrior
 D:A strong orc guarding the pass of Cirith Ungol.  He is mortally afraid of 
 D:spiders.
 
@@ -3658,6 +3679,7 @@ F:MALE | WILD_ALL |
 F:FRIENDS | DROP_60 | 
 F:OPEN_DOOR | BASH_DOOR | DROP_SKELETON | DROP_CORPSE
 F:EVIL | ORC | RES_DARK
+P:Copy:Kobold:Warrior
 D:He is a hideous deformed cross-breed with man and orc, combining man's 
 D:strength and cunning with orcish evil.
 
@@ -3951,6 +3973,7 @@ F:MALE | WILD_ALL |
 F:DROP_90 | 
 F:OPEN_DOOR | BASH_DOOR | ESCORT | DROP_SKELETON | DROP_CORPSE
 F:EVIL | ORC | RES_DARK | CAN_SPEAK
+P:Copy:Kobold:Weaponmaster
 S:1_IN_15
 S:SHOOT
 D:An armoured orc with an air of authority.
@@ -4021,6 +4044,7 @@ F:MALE | CAN_SWIM | IM_ACID | HAS_LITE_1 |
 F:FRIENDS | DROP_60 | WILD_SHORE |
 F:OPEN_DOOR | BASH_DOOR | DROP_CORPSE
 F:EVIL 
+P:Copy:Klackon:Tourist
 D:Intelligent lizard beings from the depths.
 
 N:291:Ulfast, Son of Ulfang
@@ -4331,6 +4355,7 @@ F:MALE |
 F:FORCE_MAXHP | FRIENDS | DROP_60 | 
 F:OPEN_DOOR | BASH_DOOR | DROP_SKELETON | DROP_CORPSE
 F:EVIL | ORC | IM_POIS | RES_DARK
+P:Copy:Kobold:Weaponmaster
 S:1_IN_12
 S:SHOOT
 D:He is a cunning orc of power, as tall as a man, and stronger.  It fears 
@@ -4350,6 +4375,7 @@ F:ESCORT | DROP_SKELETON | DROP_CORPSE
 F:ONLY_ITEM | DROP_1D2 | DROP_GOOD | 
 F:OPEN_DOOR | BASH_DOOR | 
 F:EVIL | ORC | IM_POIS | RES_DARK
+P:Copy:Kobold:Warrior
 D:He is an Uruk of power and great cunning.
 
 N:315:Gorbag, the Orc Captain
@@ -4366,6 +4392,7 @@ F:ESCORT | DROP_SKELETON | DROP_CORPSE
 F:ONLY_ITEM | DROP_1D2 | DROP_GOOD | 
 F:OPEN_DOOR | BASH_DOOR | 
 F:EVIL | ORC | IM_POIS | RES_DARK
+P:Copy:Kobold:Mauler
 D:A gruesomely ugly but cunning orc, his eyes regard you with hatred.  His 
 D:powerful arms flex menacingly as he advances.
 
@@ -4565,6 +4592,7 @@ F:ESCORT | DROP_SKELETON | DROP_CORPSE
 F:ONLY_ITEM | DROP_2D2 | DROP_GOOD | 
 F:OPEN_DOOR | BASH_DOOR | 
 F:EVIL | ORC | IM_POIS | RES_DARK
+P:Copy:Kobold:Mauler
 D:A large and powerful orc.  He looks just like his daddy.  He is tall and 
 D:fast, but fortunately blessed with orcish brains.
 
@@ -4595,6 +4623,7 @@ F:MALE | CAN_SWIM | IM_ACID | IM_POIS | WILD_SHORE |
 F:DROP_60 | DROP_1D2 | DROP_CORPSE
 F:OPEN_DOOR | BASH_DOOR | 
 F:EVIL | FORCE_MAXHP
+P:Copy:Klackon:Warrior
 D:A lizardman leader.
 
 N:333:Landmine
@@ -4817,9 +4846,11 @@ B:HIT:HURT:3d8
 B:HIT:HURT:3d5
 F:MALE | 
 F:FORCE_SLEEP | 
-F:ONLY_ITEM | DROP_2D2 | DROP_SKELETON | DROP_CORPSE
+F:ONLY_ITEM | DROP_2D2 | 
 F:OPEN_DOOR | BASH_DOOR | 
 F:EVIL | HURT_LITE | RES_DARK
+F:DROP_SKELETON | DROP_CORPSE | POS_SEE_INVIS | POS_DETECT_MONSTERS | POS_DETECT_TRAPS
+P:Copy:Dark-Elf:Chaos-Warrior
 S:1_IN_5 | 
 S:HASTE | BLIND | CONF | DARKNESS | BO_FIRE | BO_COLD | MISSILE
 D:A dark elven figure in armour and radiating evil power.
@@ -4852,6 +4883,7 @@ F:ESCORT
 F:ONLY_ITEM | DROP_1D2 | DROP_GOOD | 
 F:OPEN_DOOR | BASH_DOOR | 
 F:EVIL | ORC | IM_POIS | RES_DARK
+P:Copy:Kobold:Mauler
 D:Another of Morgoth's servants, this orc is strong and cunning.  He is ugly 
 D:and scarred from many power struggles.
 
@@ -4945,6 +4977,7 @@ F:ESCORT
 F:ONLY_ITEM | DROP_1D2 | DROP_GOOD | 
 F:OPEN_DOOR | BASH_DOOR | 
 F:EVIL | ORC | IM_FIRE | IM_COLD | IM_POIS | RES_DARK | NO_CONF | NO_SLEEP
+P:Copy:Kobold:Mauler
 D:A strong and cunning orc warrior, Lugdush sneers as he insults your mother.
 
 N:357:Arch-vile
@@ -5164,11 +5197,14 @@ B:HIT:HURT:5d5
 B:HIT:HURT:5d5
 B:HIT:HURT:5d5
 F:UNIQUE | MALE | CAN_SPEAK |
-F:FORCE_MAXHP | DROP_SKELETON | DROP_CORPSE
+F:FORCE_MAXHP | 
 F:ESCORT | ESCORTS
 F:ONLY_ITEM | DROP_2D2 | DROP_GOOD | 
 F:OPEN_DOOR | BASH_DOOR | 
 F:EVIL | ORC | IM_POIS | RES_DARK
+F:DROP_SKELETON | DROP_CORPSE | POS_BERSERK
+P:Copy:Kobold:Mauler
+P:Stats:1:0:0:1:1:1
 D:He is also known as the King of Khazad-dum.  His ego is renowned to be 
 D:bigger than his head.
 
@@ -5195,9 +5231,11 @@ B:HIT:HURT:1d6
 B:HIT:HURT:1d6
 F:MALE | 
 F:FORCE_SLEEP
-F:ONLY_ITEM | DROP_1D2 | DROP_SKELETON | DROP_CORPSE
+F:ONLY_ITEM | DROP_1D2 | 
 F:OPEN_DOOR | BASH_DOOR | FRIENDS
 F:EVIL | IM_POIS | RES_DARK | HURT_LITE
+F:DROP_SKELETON | DROP_CORPSE | POS_SEE_INVIS | POS_DETECT_MONSTERS | POS_DETECT_TRAPS
+P:Copy:Dark-Elf:Warlock
 S:1_IN_5 | 
 S:CONF | MISSILE | DARKNESS | BO_MANA
 D:A dark elven mage with spells of frightening destructive power.
@@ -5295,11 +5333,13 @@ B:HIT:HURT:3d6
 B:HIT:HURT:3d6
 B:HIT:UN_BONUS
 B:TOUCH:EAT_GOLD
-F:UNIQUE | MALE | CAN_SPEAK | DROP_SKELETON | DROP_CORPSE
+F:UNIQUE | MALE | CAN_SPEAK | 
 F:FORCE_SLEEP | FORCE_MAXHP | 
 F:ONLY_ITEM | DROP_1D2 | DROP_GOOD | 
 F:OPEN_DOOR | BASH_DOOR | EVIL | THIEF
 F:IM_FIRE | IM_COLD | NO_CONF | NO_SLEEP | RES_DARK | RES_DISE | RES_TELE
+F:DROP_SKELETON | DROP_CORPSE
+P:Copy:Nibelung:Rogue
 S:1_IN_8 | 
 S:HEAL | HASTE | BO_FIRE
 D:This tiny night dwarf is as greedy for gold as his brother, Alberich.
@@ -5312,11 +5352,13 @@ B:HIT:HURT:3d7
 B:HIT:HURT:3d7
 B:HIT:HURT:3d7
 B:HIT:UN_BONUS
-F:UNIQUE | MALE | CAN_SPEAK | DROP_SKELETON | DROP_CORPSE
+F:UNIQUE | MALE | CAN_SPEAK | 
 F:FORCE_SLEEP | FORCE_MAXHP | 
 F:ONLY_ITEM | DROP_1D2 | DROP_GOOD |
 F:OPEN_DOOR | BASH_DOOR | EVIL |
 F:IM_FIRE | IM_COLD | RES_DARK | RES_DISE | NO_CONF | NO_SLEEP | RES_TELE
+F:DROP_SKELETON | DROP_CORPSE
+P:Copy:Nibelung:Rogue
 S:1_IN_8 | 
 S:HEAL | HASTE | BO_FIRE
 D:Alberich's son, born of a mortal woman won with gold.
@@ -5564,9 +5606,11 @@ B:HIT:HURT:1d7
 B:HIT:HURT:3d8
 F:MALE | 
 F:FORCE_SLEEP | 
-F:ONLY_ITEM | DROP_1D2 | DROP_SKELETON | DROP_CORPSE
+F:ONLY_ITEM | DROP_1D2 |
 F:OPEN_DOOR | BASH_DOOR | 
 F:EVIL | IM_POIS | RES_DARK | HURT_LITE | NO_CONF | NO_SLEEP
+F:DROP_SKELETON | DROP_CORPSE | POS_SEE_INVIS | POS_MAPPING | POS_BLESSING
+P:Copy:Dark-Elf:Priest
 S:1_IN_6 | 
 S:HEAL | CONF | DARKNESS | 
 S:S_MONSTER | S_SPIDER | MISSILE
@@ -5829,11 +5873,13 @@ B:HIT:UN_BONUS:3d12
 B:TOUCH:EAT_GOLD
 B:TOUCH:EAT_GOLD
 F:UNIQUE | MALE | CAN_SPEAK
-F:FORCE_MAXHP | FORCE_SLEEP | DROP_SKELETON | DROP_CORPSE
+F:FORCE_MAXHP | FORCE_SLEEP | 
 F:ONLY_ITEM | DROP_2D2 | DROP_GOOD | THIEF 
 F:OPEN_DOOR | BASH_DOOR | INVISIBLE |
 F:EVIL | IM_ACID | IM_FIRE | IM_COLD | IM_ELEC | IM_POIS | 
 F:NO_CONF | NO_SLEEP | RES_DARK | RES_DISE | RES_TELE
+F:DROP_SKELETON | DROP_CORPSE | POS_SEE_INVIS 
+P:Copy:Nibelung:Rogue
 S:1_IN_6 | 
 S:HEAL | SCARE | BO_ACID | BA_ACID | TPORT | S_MONSTER 
 D:Made invisible with his magic cap, the greedy dwarf plots for 
@@ -6309,10 +6355,10 @@ F:FORCE_SLEEP | FORCE_MAXHP |
 F:ONLY_ITEM | DROP_60 | DROP_1D2 | 
 F:OPEN_DOOR | BASH_DOOR | 
 F:EVIL | NO_CONF | NO_SLEEP
-F:DROP_CORPSE | POS_TELEPATHY
+F:DROP_CORPSE | POS_TELEPATHY | POS_SEE_INVIS
+P:Copy:Mindflayer:Mage
 S:1_IN_8 | 
 S:BLIND | HOLD | SCARE | MIND_BLAST | BRAIN_SMASH | FORGET
-P:Copy:Mindflayer:Mage
 D:A humanoid form with a gruesome head, tentacular mouth, and piercing 
 D:eyes. Claws reach out for you and you feel a presence invade your mind.
 
@@ -7725,7 +7771,9 @@ B:SHOOT:HURT:6d6
 B:HIT:HURT:2d6
 B:HIT:HURT:2d6
 F:FORCE_MAXHP | OPEN_DOOR | FRIENDS | DROP_90 |
-F:SMART | EVIL | IM_POIS | IM_COLD | MALE | DROP_SKELETON | DROP_CORPSE
+F:SMART | EVIL | IM_POIS | IM_COLD | MALE | 
+F:DROP_SKELETON | DROP_CORPSE
+P:Copy:Hobbit:Rogue
 S:1_IN_3
 S:SHOOT
 D:A rebel halfling who has rejected the halfling tradition of archery.
@@ -8154,9 +8202,11 @@ B:HIT:POISON:3d4
 B:HIT:POISON:3d4
 B:HIT:LOSE_CON:3d4
 F:MALE | 
-F:DROP_1D2 | FRIENDS | INVISIBLE | DROP_SKELETON | DROP_CORPSE
+F:DROP_1D2 | FRIENDS | INVISIBLE |
 F:OPEN_DOOR | BASH_DOOR | HURT_LITE |
 F:EVIL | RES_DARK | NO_CONF | NO_SLEEP
+F:DROP_SKELETON | DROP_CORPSE | POS_SEE_INVIS
+P:Copy:Dark-Elf:Warrior
 D:A dark elven assassin, so stealthy that he is almost impossible to see.
 
 N:565:Trapper
@@ -9249,10 +9299,12 @@ W:40:2:999:7500:0:0
 B:HIT:HURT:12d9
 B:HIT:HURT:12d9
 F:MALE | REGENERATE | UNIQUE | CAN_SPEAK |
-F:FORCE_SLEEP | FORCE_MAXHP | DROP_CORPSE
+F:FORCE_SLEEP | FORCE_MAXHP | 
 F:ONLY_ITEM | DROP_90 | DROP_4D2 | DROP_GOOD |
 F:SMART | OPEN_DOOR | BASH_DOOR | 
 F:EVIL | HURT_LITE | RES_DARK | NO_CONF | NO_SLEEP | NO_STUN
+F:DROP_CORPSE | POS_SEE_INVIS | POS_DETECT_MONSTERS | POS_MAPPING
+P:Copy:Dark-Elf:Warlock
 S:1_IN_2 | 
 S:HEAL | TELE_TO | BLIND | CONF | CAUSE_3 | DARKNESS | FORGET | HOLD |
 S:S_MONSTER | S_MONSTERS | S_DEMON | TPORT | BA_NETH | MIND_BLAST |
@@ -9763,10 +9815,13 @@ B:HIT:HURT:2d8
 B:HIT:HURT:2d8
 B:HIT:HURT:2d8
 F:MALE | 
-F:FORCE_SLEEP | FORCE_MAXHP | DROP_SKELETON | DROP_CORPSE
+F:FORCE_SLEEP | FORCE_MAXHP |
 F:ONLY_ITEM | DROP_90 | DROP_4D2 | 
 F:SMART | OPEN_DOOR | BASH_DOOR | 
 F:EVIL | HURT_LITE | RES_DARK | NO_CONF | NO_SLEEP
+F:DROP_SKELETON | DROP_CORPSE | POS_SEE_INVIS | 
+F:POS_DETECT_MONSTERS | POS_MAPPING | POS_DETECT_TRAPS | POS_DETECT_OBJECTS
+P:Copy:Dark-Elf:Mage
 S:1_IN_2 | 
 S:HEAL | BLINK | TELE_TO | BLIND | CONF | CAUSE_3 | DARKNESS | 
 S:BO_ACID | BA_FIRE | BA_COLD | ANIM_DEAD 
@@ -11196,12 +11251,14 @@ B:HIT:LOSE_CHR:5d5
 B:TOUCH:LOSE_ALL:10d1
 B:TOUCH:LOSE_ALL:10d1
 B:CHARGE:EAT_GOLD
-F:UNIQUE | MALE | CAN_SPEAK | REFLECTING | DROP_SKELETON | DROP_CORPSE
+F:UNIQUE | MALE | CAN_SPEAK | REFLECTING | 
 F:FORCE_SLEEP | FORCE_MAXHP | SMART | HAS_LITE_1 | THIEF
 F:ONLY_ITEM | DROP_2D2 | DROP_4D2 | DROP_GOOD | DROP_GREAT |
 F:NO_STUN | NO_SLEEP | NO_CONF | 
 F:IM_ELEC | IM_FIRE | IM_POIS | IM_COLD |
 F:COLD_BLOOD | RES_TELE
+F:DROP_SKELETON | DROP_CORPSE | POS_SEE_INVIS | POS_DETECT_MONSTERS | POS_MAPPING
+P:Copy:Dark-Elf:Rogue
 S:1_IN_3 |
 S:CAUSE_4 | HOLD | DRAIN_MANA | SCARE | BLIND | SPECIAL
 S:BA_NETH | FORGET | TRAPS | BRAIN_SMASH | TELE_AWAY 
@@ -11771,11 +11828,14 @@ B:HIT:HURT:10d10
 B:HIT:HURT:8d6
 B:HIT:HURT:8d6
 B:HIT:HURT:8d6
-F:UNIQUE | MALE | CAN_SPEAK | DROP_CORPSE |
+F:UNIQUE | MALE | CAN_SPEAK | 
 F:FORCE_SLEEP | FORCE_MAXHP | FRIENDLY |
 F:ONLY_ITEM | DROP_1D2 | DROP_4D2 | DROP_GOOD |
 F:OPEN_DOOR | BASH_DOOR | 
 F:IM_ACID | IM_FIRE | IM_COLD | IM_ELEC | IM_POIS | NO_CONF | NO_SLEEP | 
+F:DROP_CORPSE | POS_SEE_INVIS | POS_HOLD_LIFE
+F:POS_DETECT_MONSTERS | POS_MAPPING | POS_BLESSING | POS_HEROISM
+P:Copy:Dwarf:Priest
 S:1_IN_4 | 
 S:HEAL | BLIND | CONF | SCARE | CAUSE_3 | CAUSE_4 | BRAIN_SMASH | 
 S:FORGET | 
@@ -11968,10 +12028,12 @@ B:HIT:EXP_VAMP:6d6
 B:HIT:EXP_VAMP:8d8
 B:HIT:EXP_VAMP:10d10
 F:UNIQUE | MALE | CAN_SPEAK | HAS_LITE_2 | HUMAN |
-F:FORCE_SLEEP | FORCE_MAXHP | SMART | DROP_CORPSE |
+F:FORCE_SLEEP | FORCE_MAXHP | SMART | 
 F:ONLY_ITEM | DROP_1D2 | DROP_4D2 | DROP_GOOD |
 F:OPEN_DOOR | BASH_DOOR | RES_NEXU | RES_NETH | RES_CHAO | EVIL | 
 F:IM_ACID | IM_FIRE | IM_COLD | IM_ELEC | IM_POIS | NO_CONF | NO_SLEEP | 
+F:DROP_CORPSE | POS_SEE_INVIS
+P:Copy:Dark-Elf:Chaos-Warrior
 S:1_IN_4 | 
 S:BA_FIRE | BA_CHAO | CONF | TPORT | S_DEMON | BR_CHAO | BA_MANA | PSY_SPEAR
 D:He is one of the greatest warriors of chaos to walk the earth. 
@@ -14632,6 +14694,7 @@ B:HIT:HURT:2d4
 B:HIT:HURT:2d4
 F:MALE | FORCE_SLEEP | FORCE_MAXHP | DROP_1D2 | SMART
 F:DROP_CORPSE | DROP_SKELETON | CAN_SWIM
+P:Copy:Hobbit:Blood-Knight
 S:1_IN_5 |
 S:ROCKET
 D:You watch in horror as he aims his massive weapon at you.
@@ -14867,6 +14930,7 @@ F:UNIQUE | MALE | HAS_LITE_1 | THIEF
 F:FORCE_MAXHP | DROP_CORPSE | DROP_SKELETON |
 F:ONLY_ITEM | DROP_2D2 | DROP_GOOD | 
 F:OPEN_DOOR | BASH_DOOR | 
+P:Copy:Hobbit:Rogue
 D:He is a sturdy hobbit who is renowned for his unusual strength and 
 D:vigour.  He can prove a troublesome opponent.
 
@@ -14883,7 +14947,7 @@ F:FORCE_SLEEP | FORCE_MAXHP | HUMAN |
 F:ONLY_ITEM | DROP_1D2 | 
 F:INVISIBLE | OPEN_DOOR | BASH_DOOR | 
 F:IM_ACID | IM_POIS | NO_CONF | NO_SLEEP | AURA_REVENGE
-F:DROP_SKELETON | DROP_CORPSE | POS_DETECT_MONSTERS | POS_MAPPING
+F:DROP_SKELETON | DROP_CORPSE | POS_DETECT_MONSTERS | POS_MAPPING | POS_GAIN_AC
 S:1_IN_6 | 
 S:HEAL | 
 S:S_SPIDER
@@ -14891,6 +14955,7 @@ D:An adept at unarmed combat, the mystic strikes with stunning power.  He
 D:can summon help from nature and is able to focus his power to ease any 
 D:pain.
 P:Copy:Demigod:Mystic
+P:Body:Monk
 
 N:916:Master mystic
 G:p:o
@@ -14906,7 +14971,7 @@ F:ONLY_ITEM | DROP_1D2 | DROP_2D2 |
 F:INVISIBLE | OPEN_DOOR | BASH_DOOR | 
 F:IM_ACID | IM_FIRE | IM_COLD | IM_ELEC | IM_POIS | 
 F:NO_CONF | NO_SLEEP | AURA_REVENGE
-F:DROP_SKELETON | DROP_CORPSE | POS_DETECT_MONSTERS | POS_MAPPING
+F:DROP_SKELETON | DROP_CORPSE | POS_DETECT_MONSTERS | POS_MAPPING | POS_GAIN_AC
 S:1_IN_3 | 
 S:HEAL | 
 S:S_SPIDER
@@ -14914,6 +14979,7 @@ D:A lord of all that is natural, skilled in the mystic ways.  He is a master
 D:of martial arts and is at one with nature, able to summon help from the 
 D:wild if need be.
 P:Copy:Demigod:Mystic
+P:Body:Monk
 
 N:917:Grand master mystic
 G:p:o
@@ -14928,7 +14994,7 @@ F:FORCE_SLEEP | FORCE_MAXHP | HUMAN |
 F:ONLY_ITEM | DROP_4D2 | 
 F:INVISIBLE | OPEN_DOOR | BASH_DOOR | AURA_REVENGE
 F:IM_ACID | IM_FIRE | IM_COLD | IM_ELEC | IM_POIS | NO_CONF | NO_SLEEP
-F:DROP_SKELETON | DROP_CORPSE | POS_DETECT_MONSTERS | POS_MAPPING
+F:DROP_SKELETON | DROP_CORPSE | POS_DETECT_MONSTERS | POS_MAPPING | POS_GAIN_AC
 S:1_IN_2 | 
 S:HEAL | MIND_BLAST | 
 S:S_SPIDER | S_HOUND
@@ -14936,6 +15002,7 @@ D:He is one of the few true masters of the art, being extremely skillful in
 D:all forms of unarmed combat and controlling the world's natural creatures 
 D:with disdainful ease.
 P:Copy:Demigod:Mystic
+P:Body:Monk
 
 N:918:Devilfish
 G:l:v
@@ -15488,6 +15555,9 @@ B:HIT:HURT:2d4
 B:HIT:HURT:2d4
 B:HIT:HURT:2d4
 F:FORCE_SLEEP | DROP_CORPSE | RAND_50 | ANIMAL |
+F:DROP_CORPSE
+P:Copy:Kutar:Rogue
+P:Body:Reptile
 S:1_IN_2 | 
 S:SHOOT
 D:A large turtle creature walking on two legs, 
@@ -15538,6 +15608,7 @@ B:HIT:HURT:1d5
 B:HIT:HURT:1d5
 F:FORCE_SLEEP | DROP_1D2 | SMART | DROP_CORPSE | DROP_SKELETON |
 F:ORC | HURT_LITE | EVIL | RES_DARK
+P:Copy:Kobold:Weaponmaster
 S:1_IN_2 |
 S:SHOOT
 D:In a rare display of ingenuity, the Orcs invented an incredibly
@@ -15882,10 +15953,12 @@ B:HIT:HURT:5d12
 B:HIT:HURT:5d12
 B:HIT:HURT:5d12
 F:UNIQUE | MALE | CAN_SPEAK |
-F:FORCE_SLEEP | FORCE_MAXHP | MOVE_BODY | DROP_CORPSE
+F:FORCE_SLEEP | FORCE_MAXHP | MOVE_BODY |
 F:ONLY_ITEM | DROP_3D2 | DROP_GOOD |
 F:SMART | OPEN_DOOR | BASH_DOOR |
 F:EVIL | IM_ACID | IM_FIRE | IM_POIS | IM_COLD | RES_DARK
+F:DROP_CORPSE | POS_SEE_INVIS | POS_IDENTIFY
+P:Copy:Dark-Elf:Chaos-Warrior
 S:1_IN_3 |
 S:HOLD | SCARE | DARKNESS | BLIND
 D:A grim-faced dark elf, garbed in layer upon layer of gleaming black
@@ -15899,11 +15972,13 @@ B:HIT:LOSE_WIS:4d11
 B:HIT:LOSE_INT:4d11
 B:HIT:SHATTER:10d10
 B:HIT:SUPERHURT:10d10
-F:UNIQUE | MALE | CAN_SPEAK | DROP_CORPSE
+F:UNIQUE | MALE | CAN_SPEAK | 
 F:FORCE_SLEEP | FORCE_MAXHP |
 F:ONLY_ITEM | DROP_2D2 | DROP_4D2 | DROP_GOOD |
 F:SMART | OPEN_DOOR | BASH_DOOR | POWERFUL | MOVE_BODY |
 F:IM_ACID | IM_FIRE | IM_COLD | IM_ELEC | IM_POIS
+F:DROP_CORPSE | POS_SEE_INVIS | POS_DETECT_MONSTERS
+P:Copy:Dark-Elf:Rogue
 S:1_IN_4 |
 S:BA_ACID | BA_ELEC | HASTE | HEAL |
 S:S_MONSTER | TPORT | TELE_TO
@@ -16169,11 +16244,13 @@ B:HIT:HURT:3d5
 B:HIT:HURT:3d5
 B:HIT:HURT:3d5
 B:HIT:HURT:3d5
-F:UNIQUE | MALE | MOVE_BODY | SMART | DROP_CORPSE | DROP_SKELETON |
+F:UNIQUE | MALE | MOVE_BODY | SMART | 
 F:FORCE_MAXHP | FORCE_SLEEP | CAN_SPEAK |
 F:ONLY_ITEM | DROP_1D2 | DROP_GOOD | 
 F:OPEN_DOOR | BASH_DOOR | 
 F:IM_FIRE | IM_COLD | IM_POIS | NO_CONF | NO_SLEEP
+F:DROP_SKELETON | DROP_CORPSE 
+P:Copy:Dwarf:Samurai
 S:1_IN_6 | 
 S:HEAL | BLIND | CONF | CAUSE_2 | MIND_BLAST
 D:This dwarf became so obsessed by gold that Morgoth tricked him into 
@@ -16334,12 +16411,13 @@ B:SHOOT:HURT:9d6
 B:HIT:HURT:10d8
 B:HIT:HURT:10d8
 F:MALE | FRIENDS | OPEN_DOOR | BASH_DOOR |
-F:GOOD | DROP_SKELETON | DROP_CORPSE | SMART |
+F:GOOD | SMART |
 F:IM_ACID | IM_COLD | RES_WATE | RES_NETH |
+F:DROP_SKELETON | DROP_CORPSE | POS_SEE_INVIS | POS_DETECT_MONSTERS | POS_MAPPING
+P:Copy:High-Elf:Ranger
 S:1_IN_2 |
 S:SHOOT
 D:An elf cloaked in green wielding a longbow.
-P:Copy:High-Elf:Ranger
 
 N:1007:Giant cockroach
 G:I:D
@@ -16536,6 +16614,7 @@ B:HIT:HURT:3d4
 B:HIT:EAT_FOOD:3d4
 F:DROP_60 | OPEN_DOOR | BASH_DOOR | DROP_CORPSE |
 F:WILD_WOOD
+P:Copy:Kutar:Tourist
 D:It is a biped living thing like the bear. 
 D:It pounces on you expressionlessly.
 
@@ -17399,6 +17478,7 @@ F:ESCORT | DROP_SKELETON | DROP_CORPSE
 F:ONLY_ITEM | DROP_1D2 | DROP_GOOD | 
 F:OPEN_DOOR | BASH_DOOR | CAN_SPEAK |
 F:EVIL | ORC | IM_POIS | RES_DARK
+P:Copy:Kobold:Warrior
 
 #
 #ブロッダのコピー
@@ -18029,6 +18109,7 @@ F:MALE |
 F:DROP_60 | 
 F:OPEN_DOOR | BASH_DOOR | DROP_SKELETON | DROP_CORPSE
 F:EVIL | ORC | HURT_LITE | RES_DARK | KILL_WALL | MOVE_BODY
+P:Copy:Kobold:Warrior
 D:He is a hardy orc with a pick in hand.
 
 N:1109:Exploding ant

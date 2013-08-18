@@ -375,3 +375,12 @@ S:HELMET:Helm
 S:HELMET:Helm
 S:HELMET:Helm
 S:HELMET:Helm
+
+N:37:Chthonian
+S:RING:Ring
+S:RING:Ring
+S:RING:Ring
+S:RING:Ring
+S:RING:Ring
+S:RING:Ring
+S:LITE:Light
