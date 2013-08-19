@@ -446,7 +446,7 @@ static void _breathe_spell(int what, int amt, int cmd, variant *res)
         var_set_bool(res, FALSE);
         if (get_aim_dir(&dir))
         {
-            msg_format("You breathe %s", gf_name(what));
+            msg_format("You breathe %s!", gf_name(what));
             fire_ball(what, dir, amt, -1 - (p_ptr->lev / 20));
             var_set_bool(res, TRUE);
         }
@@ -1190,12 +1190,17 @@ static int _max_lvl(void)
 
 bool possessor_can_gain_exp(void)
 {
-    if (p_ptr->lev >= _max_lvl())
+    int max = _max_lvl();
+    if (max < PY_MAX_LEVEL && p_ptr->lev >= max)
         return FALSE;
     return TRUE;
 }
 
 s32b possessor_max_exp(void)
 {
-    return exp_requirement(_max_lvl()) - 1;
+    int max = _max_lvl();
+    if (max < PY_MAX_LEVEL)
+        return exp_requirement(max) - 1;
+    else
+        return 99999999;
 }

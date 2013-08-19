@@ -2186,8 +2186,10 @@ W:9:3:40:30:100:983
 B:CLAW:HURT:1d3
 B:CLAW:HURT:1d3
 B:BITE:HURT:1d5
-F:OPEN_DOOR | BASH_DOOR | WILD_MOUNTAIN | DROP_CORPSE
+F:OPEN_DOOR | BASH_DOOR | WILD_MOUNTAIN | 
 F:ANIMAL | IM_COLD
+F:DROP_CORPSE | POS_GAIN_AC | POS_BERSERK
+P:Copy:Human:Mauler
 D:A large white figure covered in shaggy fur.
 
 N:155:Bloodshot icky thing
@@ -2522,6 +2524,7 @@ B:TOUCH:TERRIFY
 F:UNIQUE | DROP_CORPSE | 
 F:BASH_DOOR | FORCE_MAXHP | NO_CONF | NO_SLEEP |
 F:IM_POIS | IM_COLD | 
+P:Copy:Beastman:Warrior
 D:Pallid and twisted, this creature hates the very sight of you.
 D:"It looked like something that had started out to be a man but had never 
 D:quite made it. It had been stepped on, twisted, had holes poked into the 
@@ -2928,9 +2931,12 @@ B:CRUSH:HURT:2d12
 S:1_IN_6
 S:TELE_TO
 F:ANIMAL | NEVER_MOVE | COLD_BLOOD | WILD_ONLY | WILD_WOOD |
-F:EMPTY_MIND | UNIQUE | DROP_CORPSE | FORCE_MAXHP | FORCE_SLEEP |
+F:EMPTY_MIND | UNIQUE | FORCE_MAXHP | FORCE_SLEEP |
 F:RES_WATE | IM_POIS | IM_ACID | HURT_FIRE |
 F:DROP_90 | DROP_GOOD | ONLY_ITEM
+F:DROP_CORPSE | POS_GAIN_AC
+P:Copy:Ent:Warrior
+P:Body:Tree
 D:"...a huge willow-tree, old and hoary. Enormous it looked, its 
 D:sprawling branches going up like racing arms with may long-
 D:lingered hands, its knotted and twisted trunk gaping in wide 
@@ -3338,8 +3344,11 @@ G:K:u
 I:110:13d8:10:40:30:200
 W:13:2:50:38:400:378
 B:BITE:HURT:3d4
-F:WEIRD_MIND | BASH_DOOR | CAN_FLY | DROP_CORPSE
+F:WEIRD_MIND | BASH_DOOR | CAN_FLY | 
 F:ANIMAL
+F:DROP_CORPSE | POS_GAIN_AC
+P:Copy:Human:Warrior
+P:Body:Beetle
 D:It is a vicious insect with a tough carapace.
 
 N:237:Boldor, King of the Yeeks
@@ -3358,8 +3367,8 @@ F:ANIMAL | EVIL | IM_ACID
 S:1_IN_3 | 
 S:HEAL | BLINK | TPORT | BLIND | SLOW | 
 S:S_KIN
-D:A great yeek, powerful in magic and sorcery, but a yeek all the same.
 P:Copy:Yeek:Mage
+D:A great yeek, powerful in magic and sorcery, but a yeek all the same.
 
 N:238:Ogre
 G:O:U
@@ -3370,6 +3379,7 @@ F:FRIENDS |
 F:DROP_60 | WILD_WOOD | WILD_MOUNTAIN | DROP_CORPSE
 F:OPEN_DOOR | BASH_DOOR | 
 F:EVIL | GIANT
+P:Copy:Half-Ogre:Warrior
 D:A hideous, smallish giant that is often found near or with orcs.
 
 N:239:Creeping mithril coins
@@ -3387,7 +3397,7 @@ D:It is a pile of coins, shambling forward on thousands of tiny legs.
 N:240:Illusionist
 G:p:v
 I:110:12d8:20:10:10:150
-W:13:2:50:50:500:449
+W:15:2:50:50:500:449
 B:HIT:HURT:2d2
 F:MALE | HUMAN |
 F:FORCE_SLEEP | DROP_1D2 | 
@@ -3396,8 +3406,8 @@ F:EVIL
 F:DROP_SKELETON | DROP_CORPSE | POS_DETECT_MONSTERS
 S:1_IN_3 | 
 S:HASTE | BLINK | TPORT | BLIND | HOLD | SLOW | CONF | DARKNESS
-D:A deceptive spell caster.
 P:Copy:Dunadan:Mage
+D:A deceptive spell caster.
 
 N:241:Druid
 G:p:g
@@ -3411,8 +3421,8 @@ F:SMART | OPEN_DOOR | BASH_DOOR
 F:DROP_SKELETON | DROP_CORPSE | POS_DETECT_MONSTERS | POS_MAPPING
 S:1_IN_3 | 
 S:HASTE | BLINK | BLIND | HOLD | SLOW | BO_FIRE | BO_ELEC
-D:A mystic at one with nature.  Om.
 P:Copy:Dunadan:Mystic
+D:A mystic at one with nature.  Om.
 
 N:242:Pink horror
 G:u:R
@@ -3509,11 +3519,11 @@ W:14:3:50:40:800:389
 B:BITE:BLIND:1d10
 B:BITE:BLIND:1d10
 F:OPEN_DOOR | DROP_SKELETON | DROP_CORPSE 
+P:Copy:Human:Warrior
+P:Body:Scrawny
 D:This strange creature looks like a miniature tyrannosaurus. It has 
 D:empty, pale eyes and a sharp beak, which it aims at your eyes 
 D:as it jumps at you! 
-P:Copy:Human:Warrior
-P:Body:Scrawny
 
 N:250:Giant white dragon fly
 G:F:w
@@ -3555,11 +3565,11 @@ F:MULTIPLY | OPEN_DOOR | BASH_DOOR | CAN_SWIM | DROP_CORPSE
 F:EVIL | IM_POIS
 S:1_IN_8 | 
 S:BLIND | CONF | SCARE
-D:It is a strange, slimy, icky creature, with rudimentary intelligence, 
-D:but evil cunning.  It hungers for food, and you look tasty.
 P:Copy:Snotling:Warrior-Mage
 P:Life:50
 P:Body:Icky
+D:It is a strange, slimy, icky creature, with rudimentary intelligence, 
+D:but evil cunning.  It hungers for food, and you look tasty.
 
 N:253:Gibbering mouther
 G:j:o
@@ -3592,9 +3602,11 @@ W:17:3:60:250:400:321
 B:HIT:HURT:3d6
 B:HIT:HURT:3d6
 B:HIT:HURT:3d6
-F:ONLY_ITEM | DROP_1D2 | WILD_MOUNTAIN | DROP_SKELETON | DROP_CORPSE
+F:ONLY_ITEM | DROP_1D2 | WILD_MOUNTAIN | 
 F:OPEN_DOOR | BASH_DOOR
 F:EVIL | GIANT | MALE
+F:DROP_SKELETON | DROP_CORPSE | POS_SUST_STR
+P:Copy:Half-Giant:Warrior
 S:1_IN_8
 S:THROW
 D:A ten foot tall humanoid with powerful muscles.
@@ -3688,6 +3700,7 @@ F:RAND_25 | WILD_MOUNTAIN | DROP_CORPSE
 F:FRIENDS | DROP_60 | 
 F:OPEN_DOOR | BASH_DOOR | 
 F:EVIL | GIANT
+P:Copy:Half-Ogre:Warrior
 D:A massive orc-like figure with black skin and powerful arms.
 
 N:263:Dweller on the threshold
@@ -3697,8 +3710,10 @@ W:15:5:50:50:0:0
 B:GAZE:PARALYZE
 B:GAZE:TERRIFY
 B:GAZE:CONFUSE
-F:NEVER_MOVE | DROP_60 | EVIL | DEMON | DROP_CORPSE
+F:NEVER_MOVE | DROP_60 | EVIL | DEMON | 
 F:IM_POIS | IM_COLD |IM_FIRE | NO_FEAR | NO_CONF | NO_SLEEP
+F:DROP_CORPSE | POS_GAIN_AC
+P:Copy:Human:Mystic
 S:1_IN_6
 S:BO_ACID | S_MONSTER | SCARE | DRAIN_MANA
 D:A creature like a giant purple Buddha with lots of teeth.
@@ -3798,7 +3813,7 @@ B:CLAW:HURT:1d8
 B:CLAW:HURT:1d8
 B:BITE:HURT:2d6
 F:FORCE_SLEEP | 
-F:ONLY_GOLD | DROP_60 | DROP_CORPSE
+F:ONLY_GOLD | DROP_60 | 
 F:OPEN_DOOR | BASH_DOOR | 
 F:ANIMAL | EVIL
 F:DROP_CORPSE | POS_GAIN_AC
@@ -3909,9 +3924,11 @@ B:HIT:COLD:3d10
 B:HIT:COLD:3d10
 B:HIT:COLD:3d10
 F:ONLY_ITEM | DROP_2D2 | WILD_WASTE | WILD_MOUNTAIN |
-F:OPEN_DOOR | BASH_DOOR | DROP_SKELETON | DROP_CORPSE
+F:OPEN_DOOR | BASH_DOOR | 
 F:EVIL | GIANT | MALE | AURA_COLD 
 F:IM_COLD
+F:DROP_SKELETON | DROP_CORPSE | POS_SUST_STR
+P:Copy:Half-Giant:Mauler
 S:1_IN_4 |
 S:BO_COLD | BA_COLD | THROW
 D:A twelve foot tall giant covered in furs.
@@ -4063,8 +4080,10 @@ B:HIT:FIRE:3d12
 B:HIT:FIRE:3d12
 F:ONLY_ITEM | DROP_2D2 | SELF_LITE_1 |
 F:OPEN_DOOR | BASH_DOOR | WILD_VOLCANO |
-F:EVIL | GIANT | MALE | AURA_FIRE | DROP_SKELETON | DROP_CORPSE
+F:EVIL | GIANT | MALE | AURA_FIRE | 
 F:IM_FIRE 
+F:DROP_SKELETON | DROP_CORPSE | POS_SUST_STR
+P:Copy:Half-Giant:Mauler
 S:1_IN_4 |
 S:SCARE | BO_FIRE | BA_FIRE | THROW
 D:A glowing fourteen foot tall giant.  Flames drip from its red skin.
@@ -4106,8 +4125,8 @@ F:FORCE_MAXHP |
 F:ONLY_ITEM | DROP_90 | DROP_GOOD | 
 F:TAKE_ITEM | OPEN_DOOR | BASH_DOOR | 
 F:EVIL
-D:A short and swarthy Easterling.
 P:Copy:Dunadan:Warrior
+D:A short and swarthy Easterling.
 
 N:292:Hammerhead
 G:l:b
@@ -4130,9 +4149,9 @@ F:HUMAN |
 F:MALE | NO_FEAR | NO_STUN | BASH_DOOR | OPEN_DOOR | DROP_1D2 | HAS_LITE_1 |
 F:WILD_WASTE |
 F:DROP_SKELETON | DROP_CORPSE | POS_BERSERK
-D:A warrior in a battle-frenzy; he'll stop only when he drops.
 P:Copy:Dunadan:Berserker
 P:Life:75
+D:A warrior in a battle-frenzy; he'll stop only when he drops.
 
 N:294:Quasit
 G:u:W
@@ -4520,8 +4539,10 @@ B:HIT:HURT:3d8
 B:HIT:HURT:3d8
 B:HIT:HURT:3d8
 F:ONLY_ITEM | DROP_1D2 | 
-F:TAKE_ITEM | OPEN_DOOR | BASH_DOOR | DROP_SKELETON | DROP_CORPSE
+F:TAKE_ITEM | OPEN_DOOR | BASH_DOOR | 
 F:EVIL | GIANT | MALE | WILD_MOUNTAIN
+F:DROP_SKELETON | DROP_CORPSE | POS_SUST_STR
+P:Copy:Half-Giant:Warrior
 S:1_IN_8
 S:THROW
 D:It is eighteen feet tall and looking at you.
@@ -4620,9 +4641,11 @@ B:CRUSH:HURT:3d6
 B:CRUSH:HURT:3d6
 B:CRUSH:HURT:3d6
 B:CRUSH:HURT:3d6
-F:DROP_CORPSE |
 F:DROP_60 | NO_SLEEP | NO_CONF | ANIMAL | WEIRD_MIND | EVIL
 F:RES_WATE | IM_COLD | HURT_FIRE | NEVER_MOVE | WILD_ONLY | WILD_WOOD |
+F:DROP_CORPSE | POS_GAIN_AC
+P:Copy:Ent:Mystic
+P:Body:Tree
 S:1_IN_9
 S:BLINK | TELE_TO
 D:A very strong near-sentient tree, which has become hostile 
@@ -4842,7 +4865,9 @@ B:CLAW:HURT:1d10
 B:CLAW:HURT:1d10
 B:BITE:HURT:2d8
 F:OPEN_DOOR | BASH_DOOR | WILD_MOUNTAIN | WILD_WOOD | WILD_WASTE |
-F:ANIMAL | IM_COLD | DROP_SKELETON | DROP_CORPSE
+F:ANIMAL | IM_COLD | 
+F:DROP_SKELETON | DROP_CORPSE | POS_GAIN_AC | POS_BERSERK
+P:Copy:Human:Mauler
 D:A tall shaggy, furry humanoid, it could call the yeti brother.
 
 N:344:Weir
@@ -4916,8 +4941,10 @@ B:HIT:ELEC:3d13
 B:HIT:ELEC:3d13
 B:HIT:ELEC:3d13
 F:ONLY_ITEM | DROP_2D2 | 
-F:TAKE_ITEM | OPEN_DOOR | BASH_DOOR | DROP_SKELETON | DROP_CORPSE
+F:TAKE_ITEM | OPEN_DOOR | BASH_DOOR | 
 F:EVIL | GIANT | IM_ELEC | MALE
+F:DROP_SKELETON | DROP_CORPSE | POS_SUST_STR
+P:Copy:Half-Giant:Mauler
 S:1_IN_4
 S:THROW | BO_ELEC | BA_ELEC
 D:It is a twenty foot tall giant wreathed in clouds.
@@ -5133,12 +5160,12 @@ F:OPEN_DOOR | BASH_DOOR
 F:EVIL | 
 S:1_IN_8
 S:BA_POIS | S_MONSTER | SCARE | HOLD |
+P:Copy:Human:Rogue
+P:Life:90
 D:"They walked lithely and sinnously erect on pre-mammalian 
 D:members, their pied and hairless bodies bending with great 
 D:suppleness. There was a loud hissing of formulae as they 
 D:went to and fro."
-P:Copy:Human:Rogue
-P:Life:90
 
 N:365:Vampiric mist
 G:#:D
@@ -5156,9 +5183,12 @@ I:110:20d8:12:55:30:300
 W:22:1:60:80:0:0
 B:CLAW:HURT:1d12
 B:CLAW:HURT:1d12
-F:RAND_25 | WILD_ALL | DROP_CORPSE |
+F:RAND_25 | WILD_ALL | 
 F:WEIRD_MIND | BASH_DOOR | 
 F:ANIMAL | CAN_FLY
+F:DROP_CORPSE | POS_GAIN_AC
+P:Copy:Human:Warrior
+P:Body:Beetle
 D:It is a giant beetle with vicious claws.
 
 N:367:Iron golem
@@ -5211,9 +5241,9 @@ F:AURA_REVENGE
 F:DROP_SKELETON | DROP_CORPSE | POS_DETECT_MONSTERS | POS_MAPPING
 S:1_IN_6 | 
 S:BO_ELEC
-D:A green-garbed monk, trained in martial arts.
 P:Copy:Dunadan:Monk
 P:Body:Monk
+D:A green-garbed monk, trained in martial arts.
 
 N:371:Black ooze
 G:j:D
@@ -5239,8 +5269,8 @@ F:MALE | HAS_LITE_2 | HUMAN |
 F:DROP_1D2 | 
 F:TAKE_ITEM | OPEN_DOOR | BASH_DOOR | DROP_SKELETON | DROP_CORPSE
 F:EVIL
-D:A scarred warrior who moves with confidence.
 P:Copy:Dunadan:Warrior
+D:A scarred warrior who moves with confidence.
 
 N:373:Azog, King of the Uruk-Hai
 G:o:r
@@ -5304,8 +5334,8 @@ F:MALE | DROP_SKELETON | DROP_CORPSE | HUMAN | THIEF
 F:DROP_2D2
 F:TAKE_ITEM | OPEN_DOOR | BASH_DOOR | 
 F:EVIL
-D:A thief of great power and shifty speed.
 P:Copy:High-Elf:Rogue
+D:A thief of great power and shifty speed.
 
 N:377:Red dragon bat
 G:b:r
@@ -5317,10 +5347,10 @@ F:BASH_DOOR | CAN_FLY | DROP_CORPSE
 F:ANIMAL | IM_FIRE
 S:1_IN_4 | 
 S:BR_FIRE
-D:It is a sharp-tailed bat, wreathed in fire.
 P:Copy:Yeek:Sniper
 P:Life:60
 P:Body:Bat
+D:It is a sharp-tailed bat, wreathed in fire.
 
 N:378:Killer white beetle
 G:K:w
@@ -5328,8 +5358,11 @@ I:110:20d8:14:55:30:300
 W:23:1:60:85:1000:421
 B:BITE:HURT:4d5
 F:RAND_25 | 
-F:WEIRD_MIND | BASH_DOOR | WILD_ALL | DROP_CORPSE
+F:WEIRD_MIND | BASH_DOOR | WILD_ALL | 
 F:ANIMAL | CAN_FLY
+F:DROP_CORPSE | POS_GAIN_AC
+P:Copy:Human:Warrior
+P:Body:Beetle
 D:It is looking for prey.
 
 N:379:Ice skeleton
@@ -5359,8 +5392,8 @@ F:OPEN_DOOR | BASH_DOOR |
 F:EVIL | IM_FIRE | IM_ELEC | NO_CONF | NO_SLEEP
 S:1_IN_4 | 
 S:SLOW | FORGET
-D:A Black Numenorean who hates the men of the west.
 P:Copy:Dunadan:Chaos-Warrior
+D:A Black Numenorean who hates the men of the west.
 
 N:381:Kouko
 G:W:G
@@ -5539,8 +5572,8 @@ F:OPEN_DOOR | BASH_DOOR |
 F:EVIL | IM_FIRE | IM_ELEC | NO_CONF | NO_SLEEP
 S:1_IN_4 | 
 S:SLOW | FORGET
-D:A Black Numenorean with a blacker heart.
 P:Copy:Dunadan:Chaos-Warrior
+D:A Black Numenorean with a blacker heart.
 
 N:393:It
 G:.:W
@@ -5735,8 +5768,11 @@ I:110:20d8:14:50:30:300
 W:25:2:60:85:0:0
 B:BITE:LOSE_STR:4d4
 F:RAND_25 | WILD_ALL |
-F:WEIRD_MIND | BASH_DOOR | DROP_CORPSE
+F:WEIRD_MIND | BASH_DOOR | 
 F:ANIMAL | CAN_FLY | 
+F:DROP_CORPSE | POS_GAIN_AC
+P:Copy:Kobold:Warrior
+P:Body:Beetle
 D:A giant beetle with poisonous mandibles.
 
 N:406:Vampiric ixitxachitl
@@ -5777,10 +5813,10 @@ B:BITE:HURT:2d12
 F:RAND_25 | KILL_BODY | DROP_CORPSE
 F:WEIRD_MIND | BASH_DOOR | 
 F:ANIMAL
-D:It is an ant encased in shaggy grey fur.
 P:Copy:Human:Warrior
 P:Life:80
 P:Body:Ant
+D:It is an ant encased in shaggy grey fur.
 
 N:409:Kharis the Powerslave
 G:z:u
@@ -5853,8 +5889,8 @@ F:FORCE_MAXHP | WILD_ALL | HAS_LITE_2 | HUMAN |
 F:ONLY_ITEM | DROP_90 | DROP_GOOD | 
 F:TAKE_ITEM | OPEN_DOOR | BASH_DOOR | 
 F:EVIL
-D:A short and swarthy Easterling.
 P:Copy:Dunadan:Warrior
+D:A short and swarthy Easterling.
 
 N:414:Agent of Benedict
 G:p:W
@@ -5866,8 +5902,8 @@ F:FRIENDS | MALE | DROP_SKELETON | DROP_CORPSE
 F:BASH_DOOR | OPEN_DOOR | HAS_LITE_2 | HUMAN |
 S:1_IN_8
 S:BLIND | CONF | TPORT
-D:A faithful servitor and a skilled warrior.
 P:Copy:Human:Chaos-Warrior
+D:A faithful servitor and a skilled warrior.
 
 N:415:Cave ogre
 G:O:u
@@ -5878,6 +5914,7 @@ B:HIT:HURT:3d8
 F:FRIENDS | DROP_60 | DROP_CORPSE
 F:OPEN_DOOR | BASH_DOOR | 
 F:EVIL | GIANT
+P:Copy:Half-Ogre:Warrior
 D:A giant orc-like figure with an awesomely muscled frame.
 
 N:416:White wraith
@@ -5965,8 +6002,11 @@ I:110:13d8:14:45:30:250
 W:27:1:70:95:800:474
 B:BITE:HURT:3d4
 B:SPIT:FIRE:4d5
-F:WEIRD_MIND | BASH_DOOR | WILD_VOLCANO | DROP_CORPSE
+F:WEIRD_MIND | BASH_DOOR | WILD_VOLCANO | 
 F:ANIMAL | IM_FIRE | CAN_FLY | 
+F:DROP_CORPSE | POS_GAIN_AC
+P:Copy:Kobold:Warrior
+P:Body:Beetle
 D:It is a giant beetle wreathed in flames.
 
 N:422:Beast of Nurgle
@@ -6100,8 +6140,10 @@ B:HIT:HURT:3d8
 B:HIT:HURT:3d8
 F:FORCE_SLEEP | 
 F:DROP_1D2 | WILD_MOUNTAIN |
-F:OPEN_DOOR | BASH_DOOR | DROP_CORPSE
+F:OPEN_DOOR | BASH_DOOR | 
 F:EVIL | GIANT
+F:DROP_CORPSE | POS_DETECT_MONSTERS | POS_IDENTIFY
+P:Copy:Half-Ogre:Mage
 S:1_IN_4 | 
 S:HEAL | HOLD | TRAPS | BA_COLD | 
 S:S_MONSTER
@@ -6117,9 +6159,12 @@ B:HIT:SUPERHURT:5d6
 F:UNIQUE | MALE | CAN_SPEAK | WILD_SWAMP | WILD_SHORE |
 F:FORCE_MAXHP | 
 F:ESCORT | HAS_LITE_2 |
-F:ONLY_ITEM | DROP_2D2 | DROP_GOOD | DROP_CORPSE
+F:ONLY_ITEM | DROP_2D2 | DROP_GOOD | 
 F:OPEN_DOOR | BASH_DOOR | CAN_SWIM |
 F:EVIL | GIANT | IM_POIS | AURA_REVENGE
+F:DROP_CORPSE | POS_BERSERK
+P:Copy:Half-Ogre:Warrior
+P:Stats:3:0:0:0:2:0
 D:An ogre renowned for acts of surpassing cruelty.
 
 N:432:Vampire
@@ -6330,8 +6375,10 @@ B:HIT:HURT:9d8
 B:HIT:HURT:9d8
 F:FORCE_SLEEP | 
 F:DROP_2D2 | TAKE_ITEM | WILD_SHORE | WILD_MOUNTAIN |
-F:BASH_DOOR | OPEN_DOOR | MOVE_BODY | DROP_CORPSE | 
+F:BASH_DOOR | OPEN_DOOR | MOVE_BODY | 
 F:EVIL | IM_POIS | IM_ACID | GIANT
+F:DROP_CORPSE | POS_SUST_STR
+P:Copy:Cyclops:Warrior
 S:1_IN_8 | 
 S:THROW
 D:A gigantic humanoid with but one eye.
@@ -6347,11 +6394,11 @@ F:FORCE_SLEEP | DROP_1D2 |
 F:OPEN_DOOR | BASH_DOOR | SMART | 
 F:EVIL
 F:DROP_SKELETON | DROP_CORPSE | POS_TELEPATHY
+P:Copy:Dunadan:Mindcrafter
 S:1_IN_8 | 
 S:BLIND | MIND_BLAST | HOLD | CAUSE_3 | FORGET | S_MONSTER
 D:He is using his supernatural talents to bring about your 
 D:destruction.
-P:Copy:Dunadan:Mindcrafter
 
 N:446:Giant purple worm
 G:w:v
@@ -6410,12 +6457,12 @@ F:SMART | OPEN_DOOR | BASH_DOOR |
 F:EVIL
 F:DROP_SKELETON | DROP_CORPSE | 
 F:POS_DETECT_MONSTERS | POS_DETECT_TRAPS | POS_IDENTIFY
+P:Copy:Dunadan:Mage
 S:1_IN_3 | 
 S:HASTE | TPORT | TELE_TO | BLIND | CONF | 
 S:BO_FIRE | BO_COLD | BO_ELEC | 
 S:S_MONSTER
 D:A fat mage with glasses.
-P:Copy:Dunadan:Mage
 
 N:450:Mind flayer
 G:h:v
@@ -6821,8 +6868,11 @@ I:110:22d10:14:60:30:250
 W:30:2:70:200:800:478
 B:BITE:HURT:5d8
 B:BITE:HURT:5d8
-F:WEIRD_MIND | BASH_DOOR | WILD_GRASS | DROP_CORPSE
+F:WEIRD_MIND | BASH_DOOR | WILD_GRASS | 
 F:ANIMAL | CAN_FLY
+F:DROP_CORPSE | POS_GAIN_AC
+P:Copy:Dunadan:Warrior
+P:Body:Beetle
 D:It is a beetle with deadly sharp cutting mandibles and a rock-hard 
 D:carapace.
 
@@ -6854,8 +6904,11 @@ B:CLAW:HURT:2d7
 B:CLAW:HURT:2d7
 F:FORCE_SLEEP | 
 F:DROP_1D2 | TAKE_ITEM |
-F:BASH_DOOR | OPEN_DOOR | DROP_CORPSE
+F:BASH_DOOR | OPEN_DOOR | 
 F:EVIL | IM_POIS | IM_ACID | GIANT | 
+F:DROP_CORPSE | POS_SUST_STR
+P:Copy:Half-Giant:Warrior
+P:Body:Gug
 D:A hideous, beastly, four-armed unclean giant: "...large as a 
 D:barrel... The eyes jutted two inches from each side, shaded by 
 D:bony protuberances overgrown of the mouth. That mouth had great 
@@ -6883,8 +6936,11 @@ I:110:25d12:16:60:30:250
 W:31:3:70:190:2000:586
 B:BITE:HURT:5d4
 B:WAIL:TERRIFY:5d6
-F:WEIRD_MIND | BASH_DOOR | WILD_ALL | DROP_CORPSE
+F:WEIRD_MIND | BASH_DOOR | WILD_ALL | 
 F:ANIMAL | CAN_FLY
+F:DROP_CORPSE | POS_GAIN_AC
+P:Copy:Dunadan:Warrior
+P:Body:Beetle
 D:It is a giant beetle that produces a chilling sound.
 
 N:479:Ogre shaman
@@ -6898,6 +6954,8 @@ F:FORCE_SLEEP |
 F:ONLY_ITEM | DROP_90 | DROP_CORPSE
 F:OPEN_DOOR | BASH_DOOR | 
 F:EVIL | GIANT | HAS_LITE_1
+F:DROP_CORPSE | POS_MAPPING | POS_BLESSING
+P:Copy:Half-Ogre:Priest
 S:1_IN_5 | 
 S:TPORT | HOLD | SCARE | CAUSE_2 | TRAPS | BO_FIRE | 
 S:S_MONSTER
@@ -7023,8 +7081,10 @@ B:HIT:ELEC:3d15
 B:HIT:ELEC:3d15
 B:HIT:ELEC:3d15
 F:FORCE_SLEEP | FORCE_MAXHP | ONLY_ITEM | DROP_3D2 | WILD_MOUNTAIN | DROP_GOOD
-F:TAKE_ITEM | OPEN_DOOR | BASH_DOOR | AURA_ELEC | DROP_SKELETON | DROP_CORPSE
+F:TAKE_ITEM | OPEN_DOOR | BASH_DOOR | AURA_ELEC | 
 F:EVIL | GIANT | IM_COLD | IM_ELEC | MALE | SELF_LITE_1 | 
+F:DROP_SKELETON | DROP_CORPSE | POS_SUST_STR
+P:Copy:Half-Giant:Mauler
 S:1_IN_4 | 
 S:BLINK | TELE_TO | BO_ELEC | BA_ELEC | THROW
 D:It is a twenty-five foot tall giant wreathed in lighting.
@@ -7072,9 +7132,11 @@ B:SHOOT:HURT:9d6
 B:HIT:HURT:11d8
 B:HIT:HURT:11d8
 F:FORCE_SLEEP |
-F:DROP_2D2 | TAKE_ITEM | DROP_CORPSE |
+F:DROP_2D2 | TAKE_ITEM | 
 F:BASH_DOOR | OPEN_DOOR | MOVE_BODY |
 F:EVIL | IM_POIS | IM_ACID | GIANT | 
+F:DROP_CORPSE | POS_SUST_STR
+P:Copy:Cyclops:Warrior
 S:1_IN_8 |
 S:THROW
 D:Oh, no! Aaargh! It is the most unnatural, most disgusting 
@@ -7338,14 +7400,15 @@ B:HIT:HURT:6d6
 B:BITE:HURT:3d10
 B:HIT:EAT_GOLD:2d2
 F:UNIQUE | MALE | CAN_SPEAK | THIEF
-F:FORCE_MAXHP | WILD_ALL | DROP_CORPSE
+F:FORCE_MAXHP | WILD_ALL | 
 F:ONLY_ITEM | DROP_2D2 | DROP_GOOD | 
 F:TAKE_ITEM | OPEN_DOOR | BASH_DOOR | 
 F:EVIL | GIANT | IM_COLD | IM_POIS 
+F:DROP_CORPSE | POS_SUST_STR
+P:Copy:Half-Giant:Rogue
 S:1_IN_6 | 
 S:THROW
 D:Big, brawny, powerful and with a greed for gold.
-P:Copy:Half-Giant:Mauler
 
 N:507:Logrus ghost
 G:G:r
@@ -8653,8 +8716,11 @@ B:CLAW:ELEC:1d12
 B:GAZE:PARALYZE
 F:ATTR_MULTI |
 F:FORCE_MAXHP | 
-F:WEIRD_MIND | BASH_DOOR | AURA_ELEC | DROP_CORPSE
+F:WEIRD_MIND | BASH_DOOR | AURA_ELEC | 
 F:ANIMAL | IM_ELEC | CAN_FLY
+F:DROP_CORPSE | POS_GAIN_AC
+P:Copy:Dunadan:Warrior
+P:Body:Beetle
 D:It is a giant beetle, whose carapace shimmers with vibrant energies.
 
 N:587:Nexus vortex
@@ -9479,9 +9545,11 @@ B:HIT:CONFUSE:6d6
 B:HIT:CONFUSE:6d6
 B:HIT:CONFUSE:6d6
 F:FORCE_SLEEP | FORCE_MAXHP | 
-F:DROP_2D2 | DROP_4D2 | DROP_SKELETON | DROP_CORPSE
+F:DROP_2D2 | DROP_4D2 | 
 F:SMART | TAKE_ITEM | OPEN_DOOR | BASH_DOOR |
 F:EVIL | GIANT | MALE
+F:DROP_SKELETON | DROP_CORPSE | 
+P:Copy:Half-Titan:Mauler
 S:1_IN_5 | 
 S:HEAL | TELE_TO | SCARE | 
 S:S_MONSTERS | THROW
@@ -10404,11 +10472,13 @@ B:HIT:COLD:12d12
 B:HIT:COLD:12d12
 B:HIT:COLD:12d12
 B:HIT:COLD:12d12
-F:UNIQUE | IM_COLD | AURA_COLD | DROP_CORPSE
+F:UNIQUE | IM_COLD | AURA_COLD | 
 F:FORCE_SLEEP | FORCE_MAXHP | 
 F:ONLY_ITEM | DROP_4D2 | DROP_GOOD | MOVE_BODY |
 F:SMART | TAKE_ITEM | OPEN_DOOR | BASH_DOOR |
 F:EVIL | GIANT | MALE 
+F:DROP_CORPSE | POS_SUST_STR
+P:Copy:Half-Titan:Mauler
 S:1_IN_3 | 
 S:HEAL | TELE_TO | 
 S:S_KIN | BR_COLD | THROW
@@ -10774,10 +10844,12 @@ B:HIT:CONFUSE:12d12
 B:HIT:CONFUSE:12d12
 B:HIT:CONFUSE:12d12
 B:HIT:CONFUSE:12d12
-F:FORCE_SLEEP | FORCE_MAXHP | DROP_SKELETON | DROP_CORPSE
+F:FORCE_SLEEP | FORCE_MAXHP | 
 F:ONLY_ITEM | DROP_4D2 | DROP_GOOD | MOVE_BODY |
 F:SMART | TAKE_ITEM | OPEN_DOOR | BASH_DOOR |
 F:EVIL | GIANT | MALE
+F:DROP_SKELETON | DROP_CORPSE | 
+P:Copy:Half-Titan:Mauler
 S:1_IN_5 | 
 S:HEAL | TELE_TO | 
 S:S_MONSTERS | THROW
@@ -10891,10 +10963,14 @@ B:CRUSH:HURT:10d11
 B:CRUSH:HURT:10d11
 B:CRUSH:HURT:10d11
 B:CRUSH:HURT:10d11
-F:DROP_CORPSE | FORCE_SLEEP | FORCE_MAXHP | FRIENDLY | HURT_FIRE |
+F:FORCE_SLEEP | FORCE_MAXHP | FRIENDLY | HURT_FIRE |
 F:ONLY_ITEM | DROP_4D2 | DROP_GOOD | MOVE_BODY |
 F:SMART | TAKE_ITEM | OPEN_DOOR | BASH_DOOR |
 F:GOOD | GIANT | MALE | RIDING
+F:DROP_CORPSE | POS_GAIN_AC
+P:Copy:Ent:Mauler
+S:1_IN_4
+S:THROW
 D:A treeherd; a sentient, moving tree. Its wrath is fearsome!
 
 N:709:Hru
@@ -10980,11 +11056,15 @@ B:CRUSH:HURT:12d13
 B:CRUSH:HURT:12d13
 B:CRUSH:HURT:12d13
 B:CRUSH:HURT:12d13
-F:UNIQUE | DROP_CORPSE | CAN_SPEAK | HURT_FIRE |
+F:UNIQUE | CAN_SPEAK | HURT_FIRE |
 F:FORCE_SLEEP | FORCE_MAXHP | 
 F:ONLY_ITEM | DROP_4D2 | DROP_GOOD | MOVE_BODY |
 F:SMART | TAKE_ITEM | OPEN_DOOR | BASH_DOOR |
 F:GOOD | GIANT | FRIENDLY | MALE
+F:DROP_CORPSE | POS_GAIN_AC
+P:Copy:Ent:Mauler
+S:1_IN_4
+S:THROW
 D:The oldest of all ents, a respected and feared ancient creature.
 
 N:714:Zhar the Twin Obscenity
@@ -12509,9 +12589,11 @@ B:GAZE:TERRIFY:1d20
 B:GAZE:BLIND:1d20
 F:UNIQUE | MALE | CAN_SPEAK | ATTR_MULTI | 
 F:RES_DISE | RES_NEXU | RES_CHAO | RES_INER | CAN_FLY |
-F:FORCE_SLEEP | FORCE_MAXHP | EVIL | SMART | DROP_CORPSE
+F:FORCE_SLEEP | FORCE_MAXHP | EVIL | SMART | 
 F:ONLY_ITEM | DROP_2D2 | DROP_3D2 | DROP_4D2 | DROP_GOOD |
 F:NO_SLEEP | NO_CONF | NO_STUN | IM_POIS | IM_COLD | IM_FIRE | IM_ACID
+F:DROP_CORPSE | POS_SEE_INVIS
+P:Copy:Half-Titan:Chaos-Warrior
 S:1_IN_3
 S:BR_NEXU | BR_CHAO | HOLD | SLOW | BR_INER | BA_NUKE | 
 S:MIND_BLAST | BRAIN_SMASH | CONF | BLIND | TELE_TO | HEAL |
@@ -13547,7 +13629,9 @@ F:FORCE_SLEEP | FORCE_MAXHP | RES_TELE | RES_NETH | RES_WATE | MALE |
 F:ONLY_ITEM | DROP_2D2 | DROP_4D2 | DROP_GOOD | EVIL | GIANT |
 F:OPEN_DOOR | BASH_DOOR | POWERFUL | MOVE_BODY | TAKE_ITEM | RES_DISE |
 F:IM_COLD | NO_CONF | NO_SLEEP | IM_POIS | HURT_FIRE |
-F:COLD_BLOOD | AURA_COLD | DROP_CORPSE
+F:COLD_BLOOD | AURA_COLD | 
+F:DROP_CORPSE | POS_SUST_STR
+P:Copy:Half-Titan:Mauler
 S:1_IN_3 | 
 S:BR_COLD | BO_ICEE | DARKNESS | HEAL | TELE_TO | S_KIN | S_HI_UNDEAD | THROW
 D:Ymir is one of the oldest beings there are. He looks like a giant 
@@ -13561,12 +13645,14 @@ B:HIT:BLIND:6d11
 B:HIT:UN_BONUS:6d11
 B:HIT:UN_POWER:6d11
 B:TOUCH:DR_MANA:6d11
-F:UNIQUE | DROP_CORPSE | MALE |
+F:UNIQUE | MALE |
 F:FORCE_SLEEP | FORCE_MAXHP | RES_TELE | RES_NETH | RES_PLAS |
 F:ONLY_ITEM | DROP_4D2 | DROP_GOOD | DROP_GREAT | EVIL | AURA_FIRE |
 F:OPEN_DOOR | BASH_DOOR | POWERFUL | MOVE_BODY | TAKE_ITEM | CAN_SPEAK |
 F:IM_FIRE | NO_CONF | NO_SLEEP | IM_POIS | HURT_COLD | GIANT |
 F:REGENERATE |
+F:DROP_CORPSE | POS_SUST_STR
+P:Copy:Half-Titan:Rogue
 S:1_IN_3 |
 S:SHRIEK | HASTE | HEAL | DRAIN_MANA | TPORT | TELE_TO | TELE_AWAY |
 S:TELE_LEVEL | FORGET | S_CYBER | S_DEMON | HAND_DOOM | S_HI_UNDEAD |
@@ -14953,6 +15039,7 @@ B:HIT:SUPERHURT:4d8
 B:HIT:SUPERHURT:4d8
 F:RAND_25 | DROP_90 | OPEN_DOOR | BASH_DOOR | DROP_CORPSE | EVIL | GIANT | MOVE_BODY
 F:WILD_WASTE
+P:Copy:Half-Ogre:Warrior
 D:It is a massive ogre in metal armour, a champion of its kind.
 
 N:908:Pole axe of animated attack
@@ -15228,7 +15315,9 @@ I:110:20d8:30:30:20:50
 W:18:3:40:50:0:0
 B:HIT:HURT:2d7
 B:HIT:HURT:2d7
-F:DROP_60 | ANIMAL | DROP_SKELETON | DROP_CORPSE | FRIENDS | ONLY_GOLD
+F:DROP_60 | ANIMAL | FRIENDS | ONLY_GOLD
+F:DROP_SKELETON | DROP_CORPSE
+P:Copy:Human:Warrior
 
 N:926:Tsuchinoko
 G:J:u
@@ -15846,10 +15935,12 @@ B:PUNCH:HURT:5d12
 B:PUNCH:BLIND:20d1
 B:KICK:HURT:8d8
 F:UNIQUE | MALE | CAN_SPEAK | REFLECTING | HAS_LITE_2 | HUMAN |
-F:OPEN_DOOR | BASH_DOOR | DROP_CORPSE | DROP_SKELETON |
+F:OPEN_DOOR | BASH_DOOR | 
 F:FORCE_SLEEP | FORCE_MAXHP | MOVE_BODY | TAKE_ITEM |
 F:DROP_1D2 | DROP_90 | DROP_GOOD | ONLY_ITEM | CAN_SWIM |
 F:REGENERATE | 
+F:DROP_SKELETON | DROP_CORPSE |
+P:Copy:Half-Giant:Mauler
 S:1_IN_6 |
 S:BR_SHAR | TELE_TO
 
@@ -16143,9 +16234,12 @@ B:HIT:HURT:10d11
 B:HIT:HURT:10d11
 B:HIT:HURT:10d11
 F:UNIQUE | MALE | CAN_SPEAK | FORCE_MAXHP | ESCORT | 
-F:ONLY_ITEM | DROP_1D2 | DROP_2D2 | DROP_GOOD | DROP_CORPSE |
+F:ONLY_ITEM | DROP_1D2 | DROP_2D2 | DROP_GOOD | 
 F:OPEN_DOOR | BASH_DOOR | CAN_SWIM | AURA_ELEC |
 F:EVIL | GIANT | IM_POIS | IM_FIRE | IM_ELEC
+F:DROP_CORPSE | POS_BERSERK
+P:Copy:Half-Ogre:Warrior
+P:Stats:6:0:0:0:4:0
 
 N:980:Coatl
 I:115:30d20:30:80:50:50
@@ -16201,8 +16295,9 @@ W:14:10:30:30:400:343
 B:CLAW:HURT:1d7
 B:CLAW:HURT:1d7
 B:BITE:HURT:2d7
-F:OPEN_DOOR | BASH_DOOR | WILD_MOUNTAIN | DROP_CORPSE |
-F:ANIMAL
+F:OPEN_DOOR | BASH_DOOR | WILD_MOUNTAIN | ANIMAL
+F:DROP_CORPSE
+P:Copy:Human:Warrior
 
 N:984:Nue
 G:H:y
@@ -16971,12 +17066,15 @@ B:CLAW:ACID:5d12
 B:CLAW:ACID:6d12
 B:CLAW:HURT:8d12
 B:BITE:HURT:10d14
-F:UNIQUE | DROP_CORPSE |
+F:UNIQUE | 
 F:FORCE_SLEEP | FORCE_MAXHP | KILL_WALL |
 F:ONLY_ITEM | DROP_2D2 | DROP_4D2 | DROP_GOOD | 
 F:OPEN_DOOR | BASH_DOOR | POWERFUL | MOVE_BODY | 
 F:EVIL | IM_ACID | IM_FIRE | IM_POIS | ANIMAL |
 F:NO_CONF | NO_SLEEP 
+F:DROP_CORPSE | POS_GAIN_AC
+P:Copy:Half-Giant:Blood-Knight
+P:Body:Beetle
 S:1_IN_3 |
 S:BR_ACID | BR_POIS | S_KIN
 D:A hulking creature with massive pincers.  The Defiler oozes acidic 
@@ -17249,15 +17347,17 @@ B:HIT:CONFUSE:13d13
 F:UNIQUE | MALE | 
 F:FORCE_SLEEP | FORCE_MAXHP | 
 F:ONLY_ITEM | DROP_GOOD | DROP_4D2 | KILL_BODY | KILL_WALL |
-F:SMART | TAKE_ITEM | OPEN_DOOR | BASH_DOOR | DROP_CORPSE | 
+F:SMART | TAKE_ITEM | OPEN_DOOR | BASH_DOOR | 
 F:EVIL | GIANT | HURT_ROCK | HAS_LITE_2 | AURA_REVENGE
 F:IM_FIRE | IM_COLD | IM_ACID | IM_ELEC | IM_POIS
+F:DROP_CORPSE | POS_SUST_STR
+P:Copy:Half-Titan:Mauler
+P:Stats:5:0:0:0:2:1
 S:1_IN_4 | 
 S:THROW
 D:The strongest of all the Titans.  Legend has it that he use to hold the sky 
 D:on his shoulders; and the mountain range that now does so is named after him. 
 
-#JP#
 N:1051:Kronos, Lord of the Titans
 G:P:v
 I:125:110d100:30:150:15:1000
@@ -17270,8 +17370,11 @@ F:UNIQUE | MALE |
 F:FORCE_SLEEP | FORCE_MAXHP | MOVE_BODY | 
 F:ONLY_ITEM | DROP_4D2 | DROP_3D2 | DROP_GOOD | 
 F:SMART | TAKE_ITEM | BASH_DOOR | HAS_LITE_2 |
-F:EVIL | GIANT | ESCORT | DROP_CORPSE | RES_SHAR | RES_SOUN | RES_TIME |
+F:EVIL | GIANT | ESCORT | RES_SHAR | RES_SOUN | RES_TIME |
 F:IM_FIRE | IM_COLD | IM_ACID | IM_POIS | IM_ELEC
+F:DROP_CORPSE | POS_SUST_STR
+P:Copy:Half-Titan:Mauler
+P:Life:110
 S:1_IN_4 |
 S:BR_FIRE | BR_COLD | BR_SHAR | BR_SOUN |
 S:S_MONSTERS | S_KIN | TELE_TO | HEAL | THROW
@@ -17365,9 +17468,11 @@ I:110:22d9:20:33:30:300
 W:16:2:60:75:0:0
 B:HIT:HURT:2d10
 B:HIT:HURT:2d10
-F:FRIENDS | DROP_60 | DROP_CORPSE | 
+F:FRIENDS | DROP_60 | 
 F:OPEN_DOOR | BASH_DOOR | 
 F:EVIL | GIANT | ORC | RES_DARK
+F:DROP_CORPSE | 
+P:Copy:Half-Ogre:Warrior
 D:An unholy hybrid of ogre and orc.
 
 N:1058:Elder vampire
@@ -17722,12 +17827,13 @@ W:17:2:999:250:0:0
 B:HIT:HURT:2d20
 B:HIT:HURT:2d20
 F:UNIQUE | MALE | EVIL | HAS_LITE_2 | HUMAN |
-F:FORCE_MAXHP | CAN_SPEAK | DROP_SKELETON | DROP_CORPSE |
+F:FORCE_MAXHP | CAN_SPEAK | 
 F:ONLY_ITEM | DROP_1D2 | DROP_GOOD | OPEN_DOOR | BASH_DOOR |
 F:IM_ACID | IM_ELEC | IM_POIS | HURT_FIRE |
+F:DROP_SKELETON | DROP_CORPSE 
+P:Copy:Half-Giant:Warrior
 D:This giant man is the king of southern Nanman. It is said that 
 D:he is about 10 feet tall. His army has hard rattan armor.
-P:Copy:Half-Giant:Warrior
 
 N:1079:Invisible Pink Unicorn
 G:q:v
@@ -18010,7 +18116,7 @@ F:FORCE_MAXHP | MOVE_BODY |
 F:ONLY_ITEM | DROP_3D2 | DROP_GOOD | DROP_GREAT
 F:SMART | TAKE_ITEM | BASH_DOOR | HAS_LITE_2 |
 F:OLYMPIAN | REGENERATE | CAN_SWIM
-F:DROP_CORPSE | RES_SHAR | RES_DISE | RES_CHAO
+F:RES_SHAR | RES_DISE | RES_CHAO
 F:IM_FIRE | IM_COLD | IM_ACID | IM_POIS | IM_ELEC
 F:NO_STUN | NO_CONF | NO_SLEEP | POWERFUL | AURA_FEAR
 S:1_IN_3 | 
@@ -18034,7 +18140,6 @@ F:FORCE_MAXHP | MOVE_BODY | KILL_BODY
 F:ONLY_ITEM | DROP_3D2 | DROP_GOOD | DROP_GREAT
 F:SMART | TAKE_ITEM | BASH_DOOR | HAS_LITE_2 |
 F:OLYMPIAN | REGENERATE | POWERFUL | CAN_SWIM
-F:DROP_CORPSE
 F:IM_FIRE | IM_ACID | IM_POIS | IM_ELEC | IM_COLD
 F:NO_STUN | NO_CONF | NO_SLEEP | AURA_FEAR
 S:1_IN_3 | 
@@ -18057,7 +18162,7 @@ F:FORCE_MAXHP | MOVE_BODY |
 F:ONLY_ITEM | DROP_3D2 | DROP_GOOD | DROP_GREAT
 F:SMART | TAKE_ITEM | BASH_DOOR | HAS_LITE_2 |
 F:EVIL | OLYMPIAN | REGENERATE |
-F:DROP_CORPSE | PASS_WALL | POWERFUL | CAN_SWIM
+F:PASS_WALL | POWERFUL | CAN_SWIM
 F:IM_FIRE | IM_COLD | IM_ACID | IM_POIS | IM_ELEC
 F:RES_NETH | RES_DARK | RES_DISE | RES_TELE
 F:NO_STUN | NO_CONF | NO_SLEEP | AURA_FEAR
@@ -18081,7 +18186,7 @@ F:FORCE_MAXHP | MOVE_BODY |
 F:ONLY_ITEM | DROP_3D2 | DROP_GOOD | DROP_GREAT
 F:SMART | TAKE_ITEM | BASH_DOOR | HAS_LITE_2 |
 F:OLYMPIAN | REGENERATE |
-F:DROP_CORPSE | POWERFUL | CAN_SWIM
+F:POWERFUL | CAN_SWIM
 F:IM_COLD | IM_ACID | IM_POIS | IM_ELEC
 F:RES_SHAR | RES_SOUN | RES_LITE
 F:NO_STUN | NO_CONF | NO_SLEEP | AURA_FEAR
@@ -18104,7 +18209,7 @@ F:FORCE_MAXHP | MOVE_BODY |
 F:ONLY_ITEM | DROP_3D2 | DROP_GOOD | DROP_GREAT
 F:SMART | TAKE_ITEM | BASH_DOOR | HAS_LITE_2 |
 F:OLYMPIAN | REGENERATE | REFLECTING
-F:DROP_CORPSE | POWERFUL | CAN_SWIM
+F:POWERFUL | CAN_SWIM
 F:IM_FIRE | IM_COLD | IM_ACID | IM_POIS | IM_ELEC
 F:NO_STUN | NO_CONF | NO_SLEEP | AURA_FEAR | NO_FEAR
 S:1_IN_5 | 
@@ -18127,7 +18232,7 @@ F:FORCE_MAXHP | MOVE_BODY |
 F:ONLY_ITEM | DROP_3D2 | DROP_GOOD | DROP_GREAT
 F:SMART | TAKE_ITEM | BASH_DOOR | SELF_DARK_2 | THIEF
 F:OLYMPIAN | REGENERATE | WEIRD_MIND
-F:DROP_CORPSE | POWERFUL | CAN_SWIM
+F:POWERFUL | CAN_SWIM
 F:IM_FIRE | IM_COLD | IM_ACID | IM_POIS
 F:NO_STUN | NO_CONF | NO_SLEEP | AURA_FEAR
 S:1_IN_3 | 
@@ -18152,7 +18257,7 @@ F:FORCE_MAXHP | MOVE_BODY |
 F:ONLY_ITEM | DROP_3D2 | DROP_GOOD | DROP_GREAT
 F:SMART | TAKE_ITEM | BASH_DOOR | HAS_LITE_2 |
 F:OLYMPIAN | REGENERATE |
-F:DROP_CORPSE | POWERFUL | CAN_SWIM
+F:POWERFUL | CAN_SWIM
 F:IM_FIRE | IM_COLD | IM_ACID | IM_POIS
 F:RES_LITE | RES_SOUN | RES_DISE
 F:NO_STUN | NO_CONF | NO_SLEEP | AURA_FEAR
@@ -18169,7 +18274,7 @@ F:FORCE_MAXHP | MOVE_BODY |
 F:ONLY_ITEM | DROP_3D2 | DROP_GOOD | DROP_GREAT
 F:SMART | TAKE_ITEM | BASH_DOOR | HAS_LITE_2 |
 F:OLYMPIAN | REGENERATE |
-F:DROP_CORPSE | POWERFUL | CAN_SWIM
+F:POWERFUL | CAN_SWIM
 F:IM_FIRE | IM_COLD | IM_ACID | IM_POIS
 F:RES_LITE | RES_SOUN | RES_DISE
 F:NO_STUN | NO_CONF | NO_SLEEP | AURA_FEAR
@@ -18186,7 +18291,7 @@ F:FORCE_MAXHP | MOVE_BODY |
 F:ONLY_ITEM | DROP_3D2 | DROP_GOOD | DROP_GREAT
 F:SMART | TAKE_ITEM | BASH_DOOR | HAS_LITE_2 |
 F:OLYMPIAN | REGENERATE |
-F:DROP_CORPSE | POWERFUL | CAN_SWIM
+F:POWERFUL | CAN_SWIM
 F:IM_FIRE | IM_COLD | IM_ACID | IM_POIS | IM_ELEC
 F:RES_SOUN | RES_SHAR | RES_CHAO
 F:NO_STUN | NO_CONF | NO_SLEEP | AURA_FEAR
@@ -18206,7 +18311,7 @@ F:FORCE_MAXHP | MOVE_BODY |
 F:ONLY_ITEM | DROP_3D2 | DROP_GOOD | DROP_GREAT
 F:SMART | TAKE_ITEM | BASH_DOOR | HAS_LITE_2 |
 F:OLYMPIAN | REGENERATE |
-F:DROP_CORPSE | RES_DISE | RES_CHAO | POWERFUL
+F:RES_DISE | RES_CHAO | POWERFUL
 F:IM_FIRE | IM_COLD | IM_ACID | IM_POIS | IM_ELEC
 F:NO_STUN | NO_CONF | NO_SLEEP | CAN_SWIM | AURA_FEAR
 S:1_IN_2 | 
@@ -18226,7 +18331,7 @@ F:FORCE_MAXHP | MOVE_BODY |
 F:ONLY_ITEM | DROP_3D2 | DROP_GOOD | DROP_GREAT
 F:SMART | TAKE_ITEM | BASH_DOOR | HAS_LITE_2 |
 F:OLYMPIAN | REGENERATE | CAN_SWIM
-F:DROP_CORPSE | RES_DISE | RES_CHAO | POWERFUL
+F:RES_DISE | RES_CHAO | POWERFUL
 F:IM_FIRE | IM_COLD | IM_ACID | IM_POIS | IM_ELEC
 F:NO_STUN | NO_CONF | NO_SLEEP | AURA_FEAR
 S:1_IN_3 | 
@@ -18245,7 +18350,7 @@ F:FORCE_MAXHP | MOVE_BODY |
 F:ONLY_ITEM | DROP_3D2 | DROP_GOOD | DROP_GREAT
 F:SMART | TAKE_ITEM | BASH_DOOR | HAS_LITE_2 |
 F:OLYMPIAN | REGENERATE | REFLECTING
-F:DROP_CORPSE | RES_DISE | RES_CHAO | CAN_SWIM
+F:RES_DISE | RES_CHAO | CAN_SWIM
 F:IM_FIRE | IM_COLD | IM_ACID | IM_POIS | IM_ELEC
 F:NO_STUN | NO_CONF | NO_SLEEP | POWERFUL | AURA_FEAR
 S:1_IN_3 | 
@@ -18577,9 +18682,11 @@ B:HIT:COLD:4d10
 B:HIT:COLD:4d10
 B:HIT:SUPERHURT:5d10
 F:ONLY_ITEM | DROP_4D2 | DROP_GOOD
-F:OPEN_DOOR | BASH_DOOR | DROP_SKELETON | DROP_CORPSE
+F:OPEN_DOOR | BASH_DOOR | 
 F:EVIL | GIANT | MALE | AURA_COLD
 F:IM_COLD | NO_CONF | NO_SLEEP | HURT_FIRE
+F:DROP_SKELETON | DROP_CORPSE | POS_SUST_STR
+P:Copy:Half-Titan:Mauler
 S:1_IN_3 |
 S:BR_COLD | BO_ICEE | HEAL | TELE_TO | BLINK | THROW
 D:An ancient giant nearly twenty feet tall. The air around
@@ -18595,8 +18702,10 @@ B:HIT:FIRE:5d12
 B:HIT:SUPERHURT:5d12
 F:ONLY_ITEM | DROP_4D2 | SELF_LITE_2 | DROP_GOOD | FORCE_MAXHP 
 F:OPEN_DOOR | BASH_DOOR | WILD_VOLCANO |
-F:EVIL | GIANT | MALE | AURA_FIRE | DROP_SKELETON | DROP_CORPSE
+F:EVIL | GIANT | MALE | AURA_FIRE | 
 F:IM_FIRE | HURT_COLD | NO_CONF | NO_SLEEP
+F:DROP_SKELETON | DROP_CORPSE | POS_SUST_STR
+P:Copy:Half-Titan:Mauler
 S:1_IN_3 |
 S:BO_PLAS | BR_PLAS | BR_FIRE | THROW | HEAL | BLINK | TELE_TO
 D:An ancient giant nearly twenty feet tall. The air around
@@ -18633,8 +18742,10 @@ B:HIT:ELEC:7d15
 B:HIT:ELEC:7d15
 B:HIT:SUPERHURT:7d15
 F:FORCE_SLEEP | FORCE_MAXHP | ONLY_ITEM | DROP_4D2 | DROP_GOOD
-F:TAKE_ITEM | OPEN_DOOR | BASH_DOOR | AURA_ELEC | DROP_SKELETON | DROP_CORPSE
+F:TAKE_ITEM | OPEN_DOOR | BASH_DOOR | AURA_ELEC | 
 F:EVIL | GIANT | IM_COLD | IM_ELEC | MALE | SELF_LITE_2
+F:DROP_SKELETON | DROP_CORPSE | POS_SUST_STR
+P:Copy:Half-Titan:Mauler
 S:1_IN_3 | 
 S:BLINK | TELE_TO | BR_ELEC | BR_STORM | THROW | HEAL
 D:It is a thirty foot tall giant wreathed in lighting. Winds howl about its

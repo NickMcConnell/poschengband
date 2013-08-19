@@ -124,6 +124,7 @@ cptr gf_name(int which)
     case GF_FORCE: return "force";
     case GF_NUKE: return "nuke";
     case GF_DISINTEGRATE: return "disintegration";
+    case GF_STORM: return "storm";
     }
     return "something";
 }
