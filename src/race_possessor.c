@@ -292,6 +292,7 @@ static void _calc_innate_attacks(void)
             break;
         case RBE_SHATTER:
             /*a.effect[1] = GF_QUAKE;*/
+            a.dd += (a.dd + 1)/2;
             break;
         }
 
@@ -355,8 +356,16 @@ static void _possess_spell(int cmd, variant *res)
                 msg_print("Your previous body quickly decays!");
 
             p_ptr->current_r_idx = MON_POSSESSOR_SOUL;
+            if (p_ptr->exp > possessor_max_exp())
+            {
+                p_ptr->exp = possessor_max_exp();
+                check_experience();
+            }
+            else
+                restore_level();
+
             p_ptr->update |= PU_BONUS | PU_HP | PU_MANA;
-            p_ptr->redraw |= PR_MAP | PR_BASIC | PR_MANA;
+            p_ptr->redraw |= PR_MAP | PR_BASIC | PR_MANA | PR_EXP;
             equip_on_change_race();
         }
         else
@@ -381,8 +390,16 @@ static void _possess_spell(int cmd, variant *res)
             msg_format("You possess %s.", o_name);
 
             p_ptr->current_r_idx = o_ptr->pval;
+            if (p_ptr->exp > possessor_max_exp())
+            {
+                p_ptr->exp = possessor_max_exp();
+                check_experience();
+            }
+            else
+                restore_level();
+
             p_ptr->update |= PU_BONUS | PU_HP | PU_MANA;
-            p_ptr->redraw |= PR_MAP | PR_BASIC | PR_MANA;
+            p_ptr->redraw |= PR_MAP | PR_BASIC | PR_MANA | PR_EXP;
             equip_on_change_race();
 
             if (item >= 0)
@@ -1163,15 +1180,22 @@ race_t *mon_possessor_get_race_t(void)
     return &me;
 }
 
+static int _max_lvl(void)
+{
+    monster_race *r_ptr = &r_info[p_ptr->current_r_idx];
+    int           max_lvl = MAX(15, r_ptr->level + 5);
+
+    return MIN(PY_MAX_LEVEL, max_lvl);
+}
+
 bool possessor_can_gain_exp(void)
 {
-    if (p_ptr->prace == RACE_MON_POSSESSOR)
-    {
-        monster_race *r_ptr = &r_info[p_ptr->current_r_idx];
-        int           max_lvl = MAX(15, r_ptr->level + 5);
-
-        if (p_ptr->lev >= max_lvl)
-            return FALSE;
-    }
+    if (p_ptr->lev >= _max_lvl())
+        return FALSE;
     return TRUE;
+}
+
+s32b possessor_max_exp(void)
+{
+    return exp_requirement(_max_lvl()) - 1;
 }

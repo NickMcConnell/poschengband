@@ -274,20 +274,20 @@ S:BOOTS:Boots
 S:BOOTS:Boots
 
 N:27:Bat
-S:RING:Ring
-S:RING:Ring
+S:RING:Foot
+S:RING:Foot
 S:AMULET:Amulet
 S:LITE:Light
 
 N:28:Giant Bat
-S:RING:Ring
-S:RING:Ring
+S:RING:Foot
+S:RING:Foot
 S:AMULET:Amulet
 S:LITE:Light
 S:CLOAK:Cloak
 S:HELMET:Helm
 
-# A joke monster ...
+# A joke monster ... no damage attacks possible!
 N:29:Greater Hell-Beast 
 S:RING:Ring
 S:RING:Ring
@@ -300,10 +300,10 @@ S:GLOVES:Hands
 S:BOOTS:Feet
 
 N:30:Harpy
-S:RING:Ring
-S:RING:Ring
-S:RING:Ring
-S:RING:Ring
+S:RING:Talon
+S:RING:Talon
+S:RING:Talon
+S:RING:Talon
 S:AMULET:Neck
 S:LITE:Light
 S:CLOAK:Cloak
@@ -322,20 +322,20 @@ S:BOOTS:Boots
 S:BOOTS:Boots
 
 N:32:Bird
-S:RING:Ring
-S:RING:Ring
-S:AMULET:Amulet
+S:RING:Talon
+S:RING:Talon
+S:AMULET:Neck
 S:LITE:Light
 
 N:33:Giant Bird
-S:RING:Ring
-S:RING:Ring
-S:RING:Ring
-S:RING:Ring
-S:AMULET:Amulet
+S:RING:Talon
+S:RING:Talon
+S:RING:Talon
+S:RING:Talon
+S:AMULET:Neck
 S:LITE:Light
 S:CLOAK:Cloak
-S:HELMET:Helm
+S:HELMET:Head
 
 N:34:Monk
 S:BOW:Shooting
@@ -377,10 +377,124 @@ S:HELMET:Helm
 S:HELMET:Helm
 
 N:37:Chthonian
-S:RING:Ring
-S:RING:Ring
-S:RING:Ring
-S:RING:Ring
-S:RING:Ring
-S:RING:Ring
+S:RING:Tentacle
+S:RING:Tentacle
+S:RING:Tentacle
+S:RING:Tentacle
+S:RING:Tentacle
+S:RING:Tentacle
 S:LITE:Light
+
+N:38:Giant Worm
+S:AMULET:Amulet
+S:AMULET:Amulet
+S:AMULET:Amulet
+S:AMULET:Amulet
+S:AMULET:Amulet
+S:AMULET:Amulet
+S:LITE:Light
+
+# What could a gigantic worm with smooth sides
+# and no tentacles possible wear? Unlike the 'Giant Worm'
+# which is not too big to slither amulets about their body ...
+N:39:Dhole
+S:LITE:Light
+
+N:40:Bear
+S:RING:Claw
+S:RING:Claw
+S:RING:Claw
+S:RING:Claw
+S:AMULET:Neck
+S:LITE:Light
+S:CLOAK:Cloak
+S:HELMET:Head
+
+N:41:Horse
+S:AMULET:Neck
+S:LITE:Light
+S:BODY_ARMOR:Body
+S:CLOAK:Cloak
+S:HELMET:Head
+
+N:42:Unicorn
+S:RING:Horn
+S:AMULET:Neck
+S:LITE:Light
+S:BODY_ARMOR:Body
+S:CLOAK:Cloak
+S:HELMET:Head
+
+N:43:Elephant
+S:RING:Tail
+S:AMULET:Tusk
+S:AMULET:Tusk
+S:AMULET:Neck
+S:LITE:Light
+S:CLOAK:Back
+S:HELMET:Head
+
+N:44:Headless
+S:WEAPON_SHIELD:Right Hand:0
+S:WEAPON_SHIELD:Left Hand:1
+S:BOW:Shooting
+S:RING:Right Ring:0
+S:RING:Left Ring:1
+S:LITE:Light
+S:BODY_ARMOR:Body
+S:CLOAK:Cloak
+S:GLOVES:Hands
+S:BOOTS:Feet
+
+N:45:Gorgimera
+S:RING:Ring
+S:RING:Ring
+S:RING:Ring
+S:RING:Ring
+S:AMULET:Amulet
+S:AMULET:Amulet
+S:AMULET:Amulet
+S:LITE:Light
+S:CLOAK:Cloak
+S:HELMET:Helm
+S:HELMET:Helm
+S:HELMET:Helm
+
+N:46:Centaur
+S:WEAPON_SHIELD:Right Hand:0
+S:WEAPON_SHIELD:Left Hand:1
+S:BOW:Shooting
+S:RING:Right Ring:0
+S:RING:Left Ring:1
+S:AMULET:Neck
+S:LITE:Light
+S:BODY_ARMOR:Body
+S:CLOAK:Cloak
+S:HELMET:Head
+S:GLOVES:Hands
+
+N:47:Minotaur
+S:WEAPON_SHIELD:Right Hand:0
+S:WEAPON_SHIELD:Left Hand:1
+S:BOW:Shooting
+S:RING:Right Ring:0
+S:RING:Left Ring:1
+S:AMULET:Neck
+S:LITE:Light
+S:BODY_ARMOR:Body
+S:CLOAK:Cloak
+S:HELMET:Head
+S:GLOVES:Hands
+
+N:48:Norsa
+S:RING:Ring
+S:RING:Ring
+S:RING:Ring
+S:RING:Ring
+S:AMULET:Trunk
+S:AMULET:Trunk
+S:AMULET:Trunk
+S:AMULET:Trunk
+S:AMULET:Trunk
+S:LITE:Light
+S:CLOAK:Cloak
