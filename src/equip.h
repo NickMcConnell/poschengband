@@ -85,6 +85,7 @@ extern void               equip_for_each_slot(slot_fn f);
 extern int                equip_count(void);
 extern int                equip_count_used(void);
 extern bool               equip_is_valid_slot(int slot);
+extern bool               equip_verify_slot(int slot, object_type *o_ptr);
 extern int                equip_first_slot(object_type *o_ptr);
 extern int                equip_first_empty_slot(object_type *o_ptr);
 extern int                equip_next_slot(object_type *o_ptr, int last);

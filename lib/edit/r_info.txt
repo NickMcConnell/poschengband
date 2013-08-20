@@ -377,6 +377,7 @@ F:WILD_SWAMP | WILD_WOOD | WILD_GRASS | WILD_MOUNTAIN | WILD_ONLY
 F:TAKE_ITEM | OPEN_DOOR | BASH_DOOR |
 F:EVIL
 P:Copy:Human:Rogue
+P:Stats:-2:0:0:0:-1:-1
 P:Life:65
 D:He 'finds' new wares for the Black Market. From unwary adventurers... 
 
@@ -417,6 +418,7 @@ F:RAND_50 | DROP_90 | WILD_GRASS | WILD_TOWN | WILD_WOOD | WILD_ONLY
 F:TAKE_ITEM | OPEN_DOOR | BASH_DOOR | 
 F:EVIL
 P:Copy:Human:Warrior
+P:Stats:-2:0:0:0:-1:-1
 P:Life:75
 D:No job is too low for him.
 
@@ -428,7 +430,8 @@ B:HIT:HURT:2d6
 F:MALE | DROP_SKELETON | DROP_CORPSE | HAS_LITE_1 | HUMAN |
 F:RAND_50 | DROP_90 | WILD_TOWN | WILD_ONLY
 F:TAKE_ITEM | OPEN_DOOR | BASH_DOOR
-P:Copy:Kobold:Warrior
+P:Copy:Human:Warrior
+P:Stats:-1:0:0:0:-1:-1
 P:Life:75
 D:He doesn't take to strangers kindly.
 
@@ -591,6 +594,7 @@ F:DROP_60 | WILD_ALL |
 F:OPEN_DOOR | BASH_DOOR | DROP_SKELETON | DROP_CORPSE
 F:EVIL | IM_POIS
 P:Copy:Kobold:Warrior
+P:Stats:-2:0:0:-1:-1:0
 P:Life:70
 D:It is a small, dog-headed humanoid.
 
@@ -3421,7 +3425,7 @@ F:SMART | OPEN_DOOR | BASH_DOOR
 F:DROP_SKELETON | DROP_CORPSE | POS_DETECT_MONSTERS | POS_MAPPING
 S:1_IN_3 | 
 S:HASTE | BLINK | BLIND | HOLD | SLOW | BO_FIRE | BO_ELEC
-P:Copy:Dunadan:Mystic
+P:Copy:Human:Mystic
 D:A mystic at one with nature.  Om.
 
 N:242:Pink horror
@@ -15230,7 +15234,7 @@ F:NEVER_BLOW | ATTR_MULTI | AQUATIC | INVISIBLE | NO_CONF | UNDEAD |
 F:RES_WATE | RES_NETH | RES_TIME |
 F:EVIL
 F:DROP_CORPSE | POS_GAIN_AC
-P:Copy:Barbarian:Warrior
+P:Copy:Snotling:Warrior
 P:Body:Fish
 S:1_IN_8 |
 S:BR_NETH | BR_DISE | BR_TIME | BR_NEXU | BR_POIS
@@ -15328,7 +15332,7 @@ W:12:4:50:60:0:0
 F:NEVER_BLOW | ATTR_MULTI | AQUATIC | NO_CONF | 
 F:RES_WATE | RES_CHAO | RES_DARK | RES_LITE | RES_SOUN | RES_TIME
 F:DROP_CORPSE | POS_GAIN_AC
-P:Copy:Barbarian:Warrior
+P:Copy:Snotling:Warrior
 P:Body:Fish
 S:1_IN_9 |
 S:BR_CHAO | BR_DARK | BR_LITE | BR_SOUN | BR_DISE | BR_TIME

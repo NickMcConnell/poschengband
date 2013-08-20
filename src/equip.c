@@ -392,6 +392,17 @@ bool equip_is_valid_slot(int slot)
     return FALSE;
 }
 
+bool equip_verify_slot(int slot, object_type *o_ptr)
+{
+    if (equip_is_valid_slot(slot))
+    {
+        object_p p = _accept[_template->slots[slot - EQUIP_BEGIN].type];
+        if (p(o_ptr))
+            return TRUE;
+    }
+    return FALSE;
+}
+
 void equip_for_each_obj(object_fn f)
 {
     int i;
