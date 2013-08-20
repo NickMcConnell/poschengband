@@ -616,3 +616,34 @@ S:AMULET:Neck
 S:AMULET:Neck
 S:LITE:Light
 S:CLOAK:Cloak
+
+N:59:Fish
+S:AMULET:Fin
+S:AMULET:Fin
+S:AMULET:Neck?
+S:LITE:Light
+S:CLOAK:Cloak
+S:HELMET:Head
+
+N:60:Quylthulg
+S:RING:Ring
+S:RING:Ring
+S:RING:Ring
+S:AMULET:Amulet
+S:LITE:Light
+S:BODY_ARMOR:Body
+S:CLOAK:Cloak
+S:HELMET:Helm
+S:CAPTURE_BALL:Capture 1
+S:CAPTURE_BALL:Capture 2
+S:CAPTURE_BALL:Capture 3
+S:CAPTURE_BALL:Capture 4
+
+N:61:Shambler
+S:RING:Claw
+S:RING:Claw
+S:RING:Claw
+S:RING:Claw
+S:AMULET:Neck
+S:LITE:Light
+S:CLOAK:Cloak

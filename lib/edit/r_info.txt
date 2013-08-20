@@ -4860,6 +4860,7 @@ F:NO_CONF | NO_SLEEP | NO_FEAR
 S:1_IN_4 | 
 S:BLINK | 
 S:S_MONSTER
+P:Body:Quylthulg
 D:It is a strange pulsing mound of flesh.
 
 N:343:Sasquatch
@@ -6785,10 +6786,13 @@ B:BITE:HURT:11d2
 B:BITE:HURT:22d1
 B:BITE:HURT:11d2
 B:BITE:HURT:22d1
-F:FORCE_MAXHP | TAKE_ITEM | UNIQUE | DROP_CORPSE | MOVE_BODY | 
+F:FORCE_MAXHP | TAKE_ITEM | UNIQUE | MOVE_BODY | 
 F:WILD_OCEAN |
 F:BASH_DOOR | IM_COLD | IM_ELEC | IM_POIS | RES_WATE | ANIMAL | AQUATIC |
 F:NO_CONF | NO_SLEEP | DROP_1D2
+F:DROP_CORPSE | POS_GAIN_AC
+P:Copy:Barbarian:Warrior
+P:Body:Fish
 D:The biggest white shark who has ever lived, it is hunting for you now! 
 
 N:468:Thorondor
@@ -6994,6 +6998,7 @@ F:INVISIBLE | EMPTY_MIND | RES_NEXU |
 F:NO_CONF | NO_SLEEP | NO_FEAR | RES_TELE
 S:1_IN_1 | 
 S:BLINK | TELE_AWAY
+P:Body:Quylthulg
 D:It is a very unstable, strange pulsing mound of flesh.
 
 N:481:Shelob, Spider of Darkness
@@ -8526,6 +8531,7 @@ S:1_IN_3 |
 S:BLINK | SLOW | SCARE | DARKNESS | HEAL | ANIM_DEAD
 S:TPORT | TELE_AWAY | HASTE | S_MONSTER | DRAIN_MANA |
 S:S_UNDEAD | S_DEMON | S_DRAGON | S_KIN
+P:Body:Quylthulg
 D:This unholy abomination will crush you too. Flee while you can! 
 
 N:573:Lord Borel of Hendrake
@@ -8895,9 +8901,12 @@ B:CRUSH:HURT:20d2
 B:CRUSH:HURT:20d2
 B:CRUSH:HURT:20d2
 F:FORCE_SLEEP | FORCE_MAXHP | CAN_FLY |
-F:DROP_60 | DROP_90 | DROP_2D2 | DROP_CORPSE
+F:DROP_60 | DROP_90 | DROP_2D2 |
 F:BASH_DOOR | SMART | GOOD | 
 F:NO_CONF | NO_SLEEP | RES_WATE | RES_NEXU | RES_TELE | RES_DISE | RIDING
+F:DROP_CORPSE | POS_GAIN_AC
+P:Copy:Mindflayer:Warrior-Mage
+P:Body:Fish
 S:1_IN_9 | 
 S:BRAIN_SMASH | CONF | SCARE | FORGET | TELE_TO | TELE_AWAY | SHRIEK
 D:A vastly intelligent whale from the stars.
@@ -8910,11 +8919,13 @@ B:CLAW:POISON:8d4
 B:CLAW:POISON:8d4
 B:BITE:HURT:8d8
 F:ESCORT
-F:DROP_60 | DROP_90 | DROP_1D2 | DROP_GOOD | ONLY_ITEM | DROP_CORPSE
+F:DROP_60 | DROP_90 | DROP_1D2 | DROP_GOOD | ONLY_ITEM | 
 F:CAN_SWIM | BASH_DOOR | ELDRITCH_HORROR | RES_TELE | CAN_SPEAK |
 F:EVIL | DEMON | IM_FIRE | IM_COLD | IM_POIS | RES_WATE |
 F:UNIQUE | MALE | FORCE_SLEEP | FORCE_MAXHP |
 F:NO_CONF | NO_SLEEP |
+F:DROP_CORPSE | POS_GAIN_AC | POS_SEE_INVIS
+P:Copy:Imp:Priest
 S:1_IN_7 | 
 S:S_KIN | S_DEMON | BO_WATE | BA_WATE | BO_ACID | BA_ACID 
 D:The king of the deep ones. "Vast, Polyphemous-like, and loathsome, it 
@@ -8928,11 +8939,13 @@ B:CLAW:POISON:8d4
 B:CLAW:POISON:8d4
 B:BITE:HURT:8d8
 F:ESCORT
-F:DROP_60 | DROP_90 | DROP_1D2 | DROP_GOOD | ONLY_ITEM | DROP_CORPSE
+F:DROP_60 | DROP_90 | DROP_1D2 | DROP_GOOD | ONLY_ITEM | 
 F:CAN_SWIM | BASH_DOOR | ELDRITCH_HORROR | RES_TELE | CAN_SPEAK |
 F:EVIL | DEMON | IM_FIRE | IM_COLD | IM_POIS | RES_WATE |
 F:UNIQUE | FEMALE | FORCE_SLEEP | FORCE_MAXHP |
 F:NO_CONF | NO_SLEEP |
+F:DROP_CORPSE | POS_GAIN_AC | POS_SEE_INVIS
+P:Copy:Imp:Warrior-Mage
 S:1_IN_7 | 
 S:S_HYDRA | S_DEMON | DARKNESS | BA_WATE | BO_ACID | BA_ACID 
 D:The queen of the deep ones. "Vast, Polyphemous-like, and loathsome, it 
@@ -9270,11 +9283,13 @@ B:HIT:HURT:5d5
 B:HIT:HURT:5d5
 B:HIT:HURT:5d5
 F:UNIQUE | FEMALE | DROP_1D2 | DROP_2D2 | ONLY_ITEM | DROP_GOOD | HUMAN |
-F:FORCE_SLEEP | FORCE_MAXHP | RAND_25 | DROP_CORPSE |
+F:FORCE_SLEEP | FORCE_MAXHP | RAND_25 | 
 F:CAN_SPEAK | CAN_SWIM | WILD_OCEAN |
 F:KILL_ITEM | KILL_BODY | BASH_DOOR | POWERFUL |
 F:EVIL | IM_POIS | WILD_SHORE | WILD_SWAMP |
 F:NO_CONF | NO_SLEEP 
+F:DROP_CORPSE | POS_GAIN_AC | POS_SEE_INVIS
+P:Copy:Demigod:Mystic
 S:1_IN_4 |
 S:BO_ICEE | BO_WATE | BA_COLD | BA_WATE
 D:The Queen of the Sea where the Pattern is reflected is a cunning 
@@ -9587,6 +9602,7 @@ F:NO_CONF | NO_SLEEP | NO_FEAR
 S:1_IN_2 | 
 S:BLINK | TPORT | 
 S:S_UNDEAD
+P:Body:Quylthulg
 D:It is a pulsing flesh mound that reeks of death and putrefaction.
 
 N:634:Lesser titan
@@ -9903,8 +9919,11 @@ B:CRUSH:HURT:33d2
 B:CRUSH:SUPERHURT:33d2
 F:FORCE_SLEEP | FORCE_MAXHP | CAN_SWIM | IM_FIRE |
 F:DROP_60 | DROP_90 | DROP_2D2 | UNIQUE | WEIRD_MIND |
-F:BASH_DOOR | SMART | EVIL | IM_COLD | DROP_CORPSE
+F:BASH_DOOR | SMART | EVIL | IM_COLD |
 F:NO_CONF | NO_SLEEP | RES_WATE | WILD_OCEAN | RIDING |
+F:DROP_CORPSE | POS_GAIN_AC
+P:Copy:Barbarian:Mauler
+P:Body:Fish
 S:1_IN_9 | 
 S:BR_NUKE | BA_WATE
 D:A gargantuan mutant whale, who has grown legs that enable it to walk 
@@ -10267,12 +10286,15 @@ W:49:1:999:13000:0:0
 B:ENGULF:HURT:10d8
 B:ENGULF:HURT:10d8
 B:ENGULF:HURT:10d8
-F:AQUATIC | EVIL | UNIQUE | DROP_CORPSE |
+F:AQUATIC | EVIL | UNIQUE | 
 F:FORCE_SLEEP | FORCE_MAXHP | 
 F:ONLY_ITEM | DROP_2D2 | DROP_3D2 |
 F:SMART | POWERFUL | MOVE_BODY | NEVER_MOVE |
 F:IM_ACID | IM_FIRE | IM_COLD | RES_WATE | 
 F:IM_ELEC | IM_POIS | NO_CONF | NO_SLEEP | NO_STUN | RIDING |
+F:DROP_CORPSE | POS_GAIN_AC
+P:Copy:Barbarian:Mauler
+P:Body:Fish
 S:1_IN_5 | 
 S:BA_WATE 
 D:A monstrous dweller of the depths; its hungry maw has been the doom 
@@ -11388,6 +11410,7 @@ F:NO_CONF | NO_SLEEP | NO_FEAR
 S:1_IN_2 | 
 S:BLINK | TPORT | 
 S:S_DEMON
+P:Body:Quylthulg
 D:A pile of pulsing flesh that glows with an inner hellish fire.  The world 
 D:itself seems to cry out against it.
 
@@ -12030,6 +12053,7 @@ F:NO_CONF | NO_SLEEP | NO_FEAR
 S:1_IN_2 | 
 S:BLINK | TPORT | 
 S:S_DRAGON
+P:Body:Quylthulg
 D:It looks like it was once a dragon corpse, now deeply infected with 
 D:magical bacteria that make it pulse in a foul and degrading way.
 
@@ -12637,9 +12661,12 @@ B:CLAW:HURT:3d12
 B:CRUSH:HURT:8d12
 B:CRUSH:HURT:8d12
 F:FORCE_SLEEP | FORCE_MAXHP | RES_TELE |
-F:ONLY_ITEM | DROP_1D2 | DROP_GOOD | CAN_SWIM | DROP_CORPSE |
+F:ONLY_ITEM | DROP_1D2 | DROP_GOOD | CAN_SWIM | 
 F:BASH_DOOR | OPEN_DOOR | POWERFUL | MOVE_BODY | 
 F:NO_CONF | NO_SLEEP | EVIL 
+F:DROP_CORPSE | POS_GAIN_AC
+P:Copy:Half-Titan:Warrior
+P:Body:Shambler
 S:1_IN_3 |
 S:BR_ELEC
 D:This elemental creature is power incarnate; it looks like a huge polar bear 
@@ -12963,6 +12990,7 @@ F:ANIMAL | EVIL | RES_TELE
 F:NO_CONF | NO_SLEEP | NO_FEAR
 S:1_IN_2 | 
 S:S_MONSTER | S_MONSTERS | S_UNDEAD | S_DRAGON | S_HI_UNDEAD | S_HI_DRAGON
+P:Body:Quylthulg
 D:A pulsating mound of flesh, shining with silver pulses of throbbing light.
 
 N:801:Greater draconic quylthulg
@@ -12976,6 +13004,7 @@ F:NO_CONF | NO_SLEEP | NO_FEAR
 S:1_IN_2 | 
 S:BLINK | TELE_TO | 
 S:S_HI_DRAGON
+P:Body:Quylthulg
 D:A massive mound of scaled flesh, throbbing and pulsating with multi-hued 
 D:light.
 
@@ -12990,6 +13019,7 @@ F:NO_CONF | NO_SLEEP | NO_FEAR
 S:1_IN_2 | 
 S:BLINK | TELE_TO | 
 S:S_HI_UNDEAD
+P:Body:Quylthulg
 D:A massive pile of rotting flesh.  A disgusting stench fills the air as it 
 D:throbs and writhes.
 
@@ -13404,12 +13434,16 @@ N:821:The Emperor Quylthulg
 G:Q:y
 I:130:50d100:30:1:0:500
 W:78:3:999:20000:0:0
-F:UNIQUE | DROP_CORPSE | RES_TELE
+F:UNIQUE | RES_TELE
 F:FORCE_SLEEP | FORCE_MAXHP | NEVER_MOVE | NEVER_BLOW | 
 F:ONLY_ITEM | DROP_4D2 | 
 F:INVISIBLE | STUPID |
 F:ANIMAL | EVIL | 
 F:NO_CONF | NO_SLEEP | NO_FEAR
+F:DROP_CORPSE | POS_SEE_INVIS | POS_TELEPATHY
+P:Copy:Snotling:Tourist
+P:Stats:0:0:0:0:0:20
+P:Body:Quylthulg
 S:1_IN_2 | 
 S:BRAIN_SMASH | 
 S:S_HI_UNDEAD | S_HI_DRAGON
@@ -13421,12 +13455,16 @@ N:822:Qlzqqlzuup, the Lord of Flesh
 G:Q:B
 I:130:65d100:30:1:0:500
 W:92:3:999:25000:0:0
-F:UNIQUE | CAN_SPEAK | DROP_CORPSE | RES_TELE
+F:UNIQUE | CAN_SPEAK | RES_TELE
 F:FORCE_SLEEP | FORCE_MAXHP | NEVER_MOVE | NEVER_BLOW | 
 F:ONLY_ITEM | DROP_4D2 | STUPID |
 F:INVISIBLE | ATTR_MULTI |
 F:ANIMAL | EVIL | 
 F:NO_CONF | NO_SLEEP | NO_FEAR
+F:DROP_CORPSE | POS_SEE_INVIS | POS_TELEPATHY
+P:Copy:Snotling:Tourist
+P:Stats:0:0:0:0:0:20
+P:Body:Quylthulg
 S:1_IN_1 | 
 S:S_MONSTER | S_MONSTERS | S_UNDEAD | S_DEMON | S_DRAGON | S_ANGEL | 
 S:S_HYDRA | S_SPIDER | S_ANT | S_HOUND | S_UNIQUE | S_AMBERITES | 
@@ -15061,7 +15099,7 @@ W:25:1:999:500:70000:740
 B:ENGULF:HURT:5d6
 B:ENGULF:POISON:5d6
 F:AQUATIC | SMART | WEIRD_MIND | IM_POIS | RES_WATE | ANIMAL | NO_CONF
-F:NO_SLEEP | DROP_CORPSE
+F:NO_SLEEP
 S:1_IN_4 |
 S:DARKNESS | BO_ACID | HOLD
 D:A kraken with a tough, scaly hide.
@@ -15189,16 +15227,15 @@ G:l:v
 I:105:15d5:10:20:5:15
 W:15:4:50:75:0:0
 F:NEVER_BLOW | ATTR_MULTI | AQUATIC | INVISIBLE | NO_CONF | UNDEAD |
-F:DROP_CORPSE | RES_WATE | RES_NETH | RES_TIME |
+F:RES_WATE | RES_NETH | RES_TIME |
 F:EVIL
+F:DROP_CORPSE | POS_GAIN_AC
+P:Copy:Barbarian:Warrior
+P:Body:Fish
 S:1_IN_8 |
 S:BR_NETH | BR_DISE | BR_TIME | BR_NEXU | BR_POIS
 D:A devilfish brought back from the dead.
 
-#
-#(コメント)
-# 名前の翻訳は KOHKO-P さんに教えてもらいました
-#
 N:914:Bullroarer the Hobbit
 G:h:b
 I:120:6d10:16:8:10:130
@@ -15288,8 +15325,11 @@ N:918:Devilfish
 G:l:v
 I:105:11d5:10:16:5:20
 W:12:4:50:60:0:0
-F:NEVER_BLOW | ATTR_MULTI | AQUATIC | NO_CONF | DROP_CORPSE |
+F:NEVER_BLOW | ATTR_MULTI | AQUATIC | NO_CONF | 
 F:RES_WATE | RES_CHAO | RES_DARK | RES_LITE | RES_SOUN | RES_TIME
+F:DROP_CORPSE | POS_GAIN_AC
+P:Copy:Barbarian:Warrior
+P:Body:Fish
 S:1_IN_9 |
 S:BR_CHAO | BR_DARK | BR_LITE | BR_SOUN | BR_DISE | BR_TIME
 D:A disgusting fish, it has a large gaping mouth and a small lantern dangling
@@ -15627,6 +15667,10 @@ F:NONLIVING | NO_FEAR | FORCE_MAXHP | FORCE_SLEEP |
 F:KILL_BODY | IM_FIRE | IM_POIS |
 F:NO_STUN | REGENERATE | NO_CONF | NO_SLEEP | CAN_SWIM |
 F:COLD_BLOOD | OPEN_DOOR | BASH_DOOR |
+F:DROP_CORPSE | POS_GAIN_AC | POS_SEE_INVIS
+P:Copy:Half-Titan:Warrior
+P:Stats:2:0:0:0:1:0
+P:Life:105
 
 # Description in English by Nick Keulmann
 N:938:White knight
@@ -16404,7 +16448,10 @@ W:17:3:40:60:0:0
 B:HIT:HURT:2d5
 B:HIT:HURT:2d5
 F:MALE | EVIL | FORCE_SLEEP | DROP_1D2 | ANIMAL |
-F:SMART | OPEN_DOOR | BASH_DOOR | DROP_SKELETON | DROP_CORPSE
+F:SMART | OPEN_DOOR | BASH_DOOR | 
+F:DROP_SKELETON | DROP_CORPSE | POS_GAIN_AC
+P:Copy:Kutar:Rogue
+P:Body:Hound
 S:1_IN_3 |
 S:SCARE | CAUSE_2 | S_MONSTER
 
@@ -17109,7 +17156,11 @@ F:RES_NETH | RES_WATE | RES_PLAS | RES_NEXU |
 F:RES_DISE | RES_WALL | RES_INER | RES_TIME | RES_GRAV | NO_STUN | REGENERATE |
 F:NO_CONF | NO_SLEEP | CAN_FLY |
 F:COLD_BLOOD | BASH_DOOR | POWERFUL | RAND_25 |
-F:GOOD | DROP_CORPSE | SELF_LITE_2
+F:GOOD | SELF_LITE_2
+F:DROP_CORPSE | POS_GAIN_AC | POS_SEE_INVIS
+P:Copy:Half-Titan:Warrior
+P:Stats:5:0:0:0:3:3
+P:Life:110
 D:He was the braver of Atlantis. His body was converted by a Shinto priest, 
 D:in order to fight against "Papa". His body is now made by Orihalcon.
 
@@ -17279,12 +17330,15 @@ W:40:20:999:6000:0:0
 B:BUTT:HURT:8d5
 B:BUTT:HURT:8d5
 B:BUTT:COLD:10d8
-F:UNIQUE | DROP_CORPSE | AQUATIC | ANIMAL |
+F:UNIQUE | AQUATIC | ANIMAL |
 F:FORCE_SLEEP | FORCE_MAXHP |
 F:ONLY_ITEM | DROP_2D2 | DROP_GOOD |
 F:IM_COLD | RES_WATE |
 F:IM_POIS | NO_CONF | NO_SLEEP | NO_STUN |
 F:RIDING
+F:DROP_CORPSE | POS_GAIN_AC
+P:Copy:Barbarian:Warrior
+P:Body:Fish
 D:This is the whale of the tradition which gets across to the Inuit 
 D:who lives in the world of winter. It is said that the mystical horn 
 D:of this whale cures all illnesses.
@@ -17642,9 +17696,10 @@ B:BITE:HURT:1d5
 B:BITE:LOSE_CHR:1d5
 F:UNIQUE | MALE | CAN_SPEAK | HUMAN |
 F:RAND_50 | RAND_25 | FORCE_MAXHP | 
-F:DROP_CORPSE | CAN_FLY | WEIRD_MIND |
-F:ANIMAL |
+F:CAN_FLY | WEIRD_MIND | ANIMAL |
 F:ONLY_ITEM | DROP_1D2 | DROP_GOOD | 
+F:DROP_CORPSE
+P:Copy:Human:Tourist
 S:1_IN_6
 S:S_KIN
 D:This huge louse is the ruin of the sad man 
@@ -17734,9 +17789,11 @@ F:NO_CONF | NO_STUN |
 F:IM_ACID | IM_ELEC | IM_FIRE | IM_POIS | IM_COLD |
 F:RES_LITE | RES_NETH | RES_SHAR | RES_SOUN | RES_CHAO | RES_NEXU | RES_DISE |
 F:ONLY_ITEM | DROP_90 | DROP_GOOD | DROP_GREAT |
-F:TAKE_ITEM | DROP_CORPSE |
+F:TAKE_ITEM | 
 F:INVISIBLE | PASS_WALL | 
 F:UNDEAD | EVIL
+F:DROP_CORPSE | POS_SEE_INVIS | POS_TELEPATHY | POS_DETECT_MONSTERS | POS_MAPPING
+P:Copy:High-Elf:Rogue
 S:1_IN_2 |
 S:SHOOT | TELE_AWAY | TPORT | HASTE | BLINK | HEAL
 D:He is one of the greatest trickster. Even greatest warrior cannot
@@ -18726,6 +18783,7 @@ F:NO_CONF | NO_SLEEP | NO_FEAR
 S:1_IN_2 | 
 S:BLINK | TPORT | 
 S:S_DEMON
+P:Body:Quylthulg
 D:A massive pile of pulsing flesh that glows with an inner hellish fire.
 D:You suddenly feel very uncertain.
 
