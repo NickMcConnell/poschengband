@@ -4209,9 +4209,11 @@ B:HIT:HURT:1d4
 B:HIT:HURT:1d4
 B:BITE:HURT:1d6
 F:MALE | 
-F:FRIENDS | DROP_60 | WILD_WOOD | DROP_SKELETON | DROP_CORPSE
+F:FRIENDS | DROP_60 | WILD_WOOD | 
 F:OPEN_DOOR | BASH_DOOR | REGENERATE |
 F:EVIL | TROLL | HURT_LITE
+F:DROP_SKELETON | DROP_CORPSE | POS_GAIN_AC | POS_BERSERK
+P:Copy:Half-Troll:Warrior
 D:He is green skinned and ugly.
 
 N:298:Freezing sphere
@@ -4251,9 +4253,12 @@ W:17:2:70:80:1200:387
 B:BITE:HURT:2d6
 B:BITE:HURT:2d6
 F:FORCE_SLEEP | WILD_SHORE | WILD_SWAMP |
-F:ONLY_GOLD | DROP_1D2 | CAN_SWIM | DROP_SKELETON | DROP_CORPSE
+F:ONLY_GOLD | DROP_1D2 | CAN_SWIM | 
 F:OPEN_DOOR | BASH_DOOR | MOVE_BODY | 
 F:ANIMAL | RIDING
+F:DROP_SKELETON | DROP_CORPSE | POS_GAIN_AC
+P:Copy:Human:Mauler
+P:Body:Hydra1
 S:1_IN_11 | 
 S:SCARE
 D:A strange reptilian hybrid with two heads, guarding its hoard.
@@ -5499,8 +5504,11 @@ B:BITE:HURT:2d6
 B:BITE:HURT:2d6
 F:FORCE_SLEEP | 
 F:ONLY_GOLD | DROP_4D2 | WILD_SWAMP | WILD_SHORE | CAN_SWIM
-F:OPEN_DOOR | BASH_DOOR | MOVE_BODY | DROP_SKELETON | DROP_CORPSE
+F:OPEN_DOOR | BASH_DOOR | MOVE_BODY |
 F:ANIMAL | RIDING
+F:DROP_SKELETON | DROP_CORPSE | POS_GAIN_AC
+P:Copy:Human:Mauler
+P:Body:Hydra2
 S:1_IN_7 | 
 S:SCARE
 D:A strange reptilian hybrid with four heads, guarding its hoard.
@@ -5516,6 +5524,7 @@ F:EVIL | IM_ACID | IM_ELEC | IM_FIRE | IM_POIS | IM_COLD |
 F:RES_LITE | RES_DARK | RES_NETH | RES_WATE | RES_PLAS | RES_SHAR | RES_SOUN |
 F:RES_CHAO | RES_NEXU | RES_DISE | RES_WALL | RES_INER | RES_TIME | RES_GRAV |
 F:KILL_WALL | FORCE_MAXHP | CAN_SWIM | DROP_CORPSE
+P:Copy:Human:Tourist
 S:1_IN_9 |
 S:TPORT | BLINK | TELE_AWAY
 D:This creature just might crush you.
@@ -5588,6 +5597,7 @@ F:CHAR_MULTI | CHAR_CLEAR | ATTR_CLEAR | INVISIBLE | COLD_BLOOD
 F:NO_CONF | UNIQUE | FORCE_MAXHP | NO_SLEEP | CAN_SPEAK | REFLECTING |
 F:IM_FIRE | IM_ELEC | EMPTY_MIND | EVIL | SMART | RES_TELE | CAN_FLY
 F:THIEF
+P:Copy:Shadow-Fairy:Rogue
 S:1_IN_4
 S:DRAIN_MANA | BLINK | BLIND | SCARE | CONF | S_UNDEAD | S_MONSTER |
 S:HEAL | TELE_AWAY | DARKNESS | S_HYDRA | TRAPS | FORGET | TELE_TO | SHRIEK
@@ -5713,9 +5723,11 @@ B:HIT:HURT:1d6
 B:HIT:HURT:1d6
 B:BITE:HURT:3d4
 F:MALE | 
-F:FRIENDS | DROP_60 | DROP_SKELETON | DROP_CORPSE
+F:FRIENDS | DROP_60 | 
 F:OPEN_DOOR | BASH_DOOR | REGENERATE |
 F:EVIL | TROLL | HURT_LITE
+F:DROP_SKELETON | DROP_CORPSE | POS_GAIN_AC | POS_BERSERK
+P:Copy:Half-Troll:Warrior
 D:He is a giant troll with scabrous black skin.
 
 N:402:Black
@@ -5739,9 +5751,11 @@ B:HIT:HURT:1d8
 B:HIT:HURT:1d8
 B:BITE:HURT:3d4
 F:MALE | 
-F:FORCE_SLEEP | FORCE_MAXHP | DROP_90 | DROP_SKELETON | DROP_CORPSE
+F:FORCE_SLEEP | FORCE_MAXHP | DROP_90 | 
 F:OPEN_DOOR | BASH_DOOR | REGENERATE |
 F:EVIL | TROLL | HURT_LITE | NO_CONF | NO_SLEEP
+F:DROP_SKELETON | DROP_CORPSE | POS_GAIN_AC | 
+P:Copy:Half-Troll:Priest
 S:1_IN_5 | 
 S:BLINK | SCARE | CAUSE_1 | MISSILE | DARKNESS
 D:A troll who is so bright he knows how to read.
@@ -6043,8 +6057,10 @@ B:CLAW:POISON:3d3
 B:CLAW:POISON:3d3
 B:BITE:HURT:1d6
 F:FRIENDS | DROP_60 | WILD_WOOD | WILD_MOUNTAIN | WILD_SWAMP
-F:OPEN_DOOR | BASH_DOOR | DROP_CORPSE | REGENERATE |
+F:OPEN_DOOR | BASH_DOOR | REGENERATE |
 F:EVIL | TROLL
+F:DROP_CORPSE | POS_GAIN_AC | POS_BERSERK
+P:Copy:Half-Troll:Warrior
 D:A powerful troll form.  Venom drips from its needlelike claws.
 
 N:425:Flamer of Tzeentch
@@ -6307,9 +6323,12 @@ B:BITE:POISON:4d4
 B:BITE:POISON:4d4
 B:BITE:POISON:4d4
 F:FORCE_SLEEP | 
-F:ONLY_GOLD | DROP_1D2 | DROP_4D2 | DROP_SKELETON | DROP_CORPSE | RIDING
+F:ONLY_GOLD | DROP_1D2 | DROP_4D2 | RIDING
 F:BASH_DOOR | MOVE_BODY | CAN_SWIM | 
 F:ANIMAL | IM_POIS | WILD_SHORE | WILD_SWAMP |
+F:DROP_SKELETON | DROP_CORPSE | POS_GAIN_AC
+P:Copy:Human:Mauler
+P:Body:Hydra3
 S:1_IN_5 | 
 S:SCARE | BA_POIS
 D:A strange reptilian hybrid with five heads dripping venom.
@@ -6348,9 +6367,9 @@ F:EVIL
 F:DROP_SKELETON | DROP_CORPSE | POS_HEROISM
 S:1_IN_8 | 
 S:BLIND | SCARE | CAUSE_3 | DARKNESS
+P:Copy:Dunadan:Paladin
 D:He is a figure encased in deep black plate armour; he looks at you 
 D:menacingly.
-P:Copy:Dunadan:Paladin
 
 N:443:Seahorse
 G:l:o
@@ -6507,6 +6526,7 @@ F:RAND_25 |
 F:DROP_60 | DROP_90 |
 F:CAN_SWIM | BASH_DOOR | ELDRITCH_HORROR | RES_TELE |
 F:EVIL | DEMON | IM_FIRE | IM_COLD | IM_POIS | RES_WATE
+P:Copy:Imp:Warrior
 D:"I thought their predominant color was a greyish-green, 
 D:though they had white bellies. They were mostly shiny and 
 D:slippery, but the ridges of their backs were scaly. Their 
@@ -6543,9 +6563,11 @@ B:HIT:HURT:1d5
 B:HIT:HURT:1d5
 B:BITE:COLD:3d6
 F:MALE | 
-F:FRIENDS | DROP_60 | WILD_WASTE | DROP_SKELETON | DROP_CORPSE
+F:FRIENDS | DROP_60 | WILD_WASTE | 
 F:OPEN_DOOR | BASH_DOOR | REGENERATE |
 F:EVIL | TROLL | IM_COLD | HURT_LITE | HURT_FIRE
+F:DROP_SKELETON | DROP_CORPSE | POS_GAIN_AC | POS_BERSERK
+P:Copy:Half-Troll:Warrior
 D:He is a white troll with powerfully clawed hands.
 
 N:455:Dhole
@@ -6705,8 +6727,10 @@ B:CLAW:HURT:1d6
 B:CLAW:HURT:1d6
 B:BITE:POISON:1d20
 B:CRUSH:HURT:2d9
-F:TROLL | EVIL | FRIENDS | OPEN_DOOR | BASH_DOOR | DROP_CORPSE
+F:TROLL | EVIL | FRIENDS | OPEN_DOOR | BASH_DOOR | 
 F:IM_POIS | IM_ACID | REGENERATE | 
+F:DROP_CORPSE | POS_GAIN_AC | POS_BERSERK
+P:Copy:Half-Troll:Warrior
 S:1_IN_7
 S:BR_POIS
 D:Pale, bald, fat, hairless troll creatures. Ugly beyond description. 
@@ -6793,10 +6817,10 @@ B:BITE:ELEC:5d5
 F:RAND_25 | WILD_ALL | DROP_CORPSE
 F:WEIRD_MIND | BASH_DOOR | 
 F:ANIMAL | IM_ELEC
-D:It is a giant ant that crackles with energy.
 P:Copy:Human:Warrior
 P:Life:80
 P:Body:Ant
+D:It is a giant ant that crackles with energy.
 
 N:470:Grave wight
 G:W:b
@@ -6951,7 +6975,7 @@ B:HIT:HURT:3d6
 B:HIT:HURT:3d6
 B:HIT:HURT:3d6
 F:FORCE_SLEEP | 
-F:ONLY_ITEM | DROP_90 | DROP_CORPSE
+F:ONLY_ITEM | DROP_90 | 
 F:OPEN_DOOR | BASH_DOOR | 
 F:EVIL | GIANT | HAS_LITE_1
 F:DROP_CORPSE | POS_MAPPING | POS_BLESSING
@@ -6982,10 +7006,14 @@ B:STING:LOSE_STR:1d4
 B:STING:POISON:2d5
 F:UNIQUE | FEMALE | 
 F:FORCE_SLEEP | FORCE_MAXHP | 
-F:ESCORT | ESCORTS | DROP_CORPSE | 
+F:ESCORT | ESCORTS | 
 F:ONLY_ITEM | DROP_1D2 | DROP_2D2 | DROP_GOOD | 
 F:SMART | BASH_DOOR | 
 F:ANIMAL | EVIL | HURT_LITE | NO_CONF | NO_SLEEP | RES_DARK
+F:DROP_CORPSE | POS_GAIN_AC | POS_SEE_INVIS
+P:Copy:Hobbit:Rogue
+P:Life:110
+P:Body:Spider
 S:1_IN_2 | 
 S:HEAL | BLIND | SLOW | CONF | SCARE | CAUSE_3 | CAUSE_4 | 
 S:TRAPS | BR_DARK
@@ -6994,9 +7022,6 @@ D:Shelob is an enormous bloated spider, rumoured to have been one of the
 D:brood of Ungoliant the Unlight.  Her poison is legendary, as is her ego, 
 D:which may be her downfall.  She used to guard the pass through Cirith 
 D:Ungol, but has not been seen there for many eons.
-P:Copy:Hobbit:Rogue
-P:Life:110
-P:Body:Spider
 
 N:482:Giant squid
 G:l:g
@@ -7035,14 +7060,13 @@ W:32:2:90:250:0:0
 B:BITE:FIRE:5d4
 B:BITE:FIRE:5d4
 B:BITE:FIRE:5d4
-F:WEIRD_MIND | BASH_DOOR | AURA_FIRE | CAN_FLY | DROP_CORPSE |
-F:IM_FIRE | EVIL | 
-F:ANIMAL
-D:It is a fast moving creature of chaos, a gigantic black bat 
-D:surrounded by flickering bright red flames.
+F:WEIRD_MIND | BASH_DOOR | AURA_FIRE | CAN_FLY | IM_FIRE | EVIL | ANIMAL
+F:DROP_CORPSE | POS_GAIN_AC
 P:Copy:Kobold:Sniper
 P:Life:90
 P:Body:Giant Bat
+D:It is a fast moving creature of chaos, a gigantic black bat 
+D:surrounded by flickering bright red flames.
 
 N:485:Ninja
 G:p:D
@@ -7055,9 +7079,9 @@ F:MALE | HUMAN |
 F:DROP_1D2 | 
 F:OPEN_DOOR | BASH_DOOR | DROP_SKELETON | DROP_CORPSE |
 F:EVIL | NO_CONF | NO_SLEEP | 
-D:A humanoid clothed in black who moves with blinding speed.
 P:Copy:Hobbit:Ninja
 P:Life:90
+D:A humanoid clothed in black who moves with blinding speed.
 
 N:486:Memory moss
 G:,:b
@@ -7101,10 +7125,10 @@ F:FORCE_SLEEP |
 F:STUPID | EMPTY_MIND | CAN_FLY | 
 F:NO_CONF | NO_SLEEP | NO_FEAR | 
 F:DROP_CORPSE | POS_TELEPATHY | POS_GAIN_AC
-S:1_IN_6 | 
-S:FORGET | CAUSE_2 | HOLD | SLOW
 P:Copy:Hobbit:Mage
 P:Body:Eye2
+S:1_IN_6 | 
+S:FORGET | CAUSE_2 | HOLD | SLOW
 D:It has two small eyestalks and a large central eye.
 
 N:489:Bokrug
@@ -7153,9 +7177,11 @@ B:CLAW:HURT:1d5
 B:BITE:HURT:2d6
 F:MALE | 
 F:FRIENDS | 
-F:ONLY_ITEM | DROP_90 | DROP_SKELETON | DROP_CORPSE |
+F:ONLY_ITEM | DROP_90 | DROP_SKELETON | 
 F:OPEN_DOOR | BASH_DOOR | REGENERATE |
 F:EVIL | TROLL | IM_POIS
+F:DROP_CORPSE | POS_GAIN_AC | POS_BERSERK
+P:Copy:Half-Troll:Warrior
 D:A huge, ugly, half-human in search of plunder.
 
 N:492:Ivory monk
@@ -7169,11 +7195,11 @@ B:HIT:SUPERHURT:8d1
 F:MALE | DROP_60 | DROP_1D2 | OPEN_DOOR | BASH_DOOR | IM_FIRE | HUMAN |
 F:IM_POIS | NO_CONF | NO_SLEEP | HAS_LITE_1 | HAS_LITE_2 | AURA_REVENGE
 F:DROP_SKELETON | DROP_CORPSE | POS_DETECT_MONSTERS | POS_MAPPING
+P:Copy:Dunadan:Monk
+P:Body:Monk
 S:1_IN_7 | 
 S:HEAL
 D:A monk in white robes.  He is skilled in martial arts.
-P:Copy:Dunadan:Monk
-P:Body:Monk
 
 N:493:Bert the Stone Troll
 G:T:W
@@ -7186,8 +7212,10 @@ F:UNIQUE | MALE |
 F:FORCE_MAXHP | 
 F:ESCORT | 
 F:ONLY_ITEM | DROP_1D2 | DROP_GOOD | WILD_WOOD | REGENERATE |
-F:TAKE_ITEM | OPEN_DOOR | BASH_DOOR | DROP_SKELETON | DROP_CORPSE
+F:TAKE_ITEM | OPEN_DOOR | BASH_DOOR | 
 F:EVIL | TROLL | IM_COLD | IM_POIS | HURT_LITE | HURT_ROCK
+F:DROP_SKELETON | DROP_CORPSE | POS_GAIN_AC | POS_BERSERK
+P:Copy:Half-Troll:Warrior
 D:Big, brawny, powerful and with a taste for hobbit.  He has friends called 
 D:Bill and Tom.
 
@@ -7202,8 +7230,10 @@ F:UNIQUE | MALE |
 F:FORCE_MAXHP | 
 F:ESCORT | 
 F:ONLY_ITEM | DROP_1D2 | DROP_GOOD | WILD_WOOD | REGENERATE |
-F:TAKE_ITEM | OPEN_DOOR | BASH_DOOR | DROP_SKELETON | DROP_CORPSE
+F:TAKE_ITEM | OPEN_DOOR | BASH_DOOR | 
 F:EVIL | TROLL | IM_COLD | IM_POIS | HURT_LITE | HURT_ROCK
+F:DROP_SKELETON | DROP_CORPSE | POS_GAIN_AC | POS_BERSERK
+P:Copy:Half-Troll:Warrior
 D:Big, brawny, powerful and with a taste for hobbit.  He has friends called 
 D:Bert and Tom.
 
@@ -7218,8 +7248,10 @@ F:UNIQUE | MALE |
 F:FORCE_MAXHP | 
 F:ESCORT | 
 F:ONLY_ITEM | DROP_1D2 | DROP_GOOD | WILD_WOOD | REGENERATE |
-F:TAKE_ITEM | OPEN_DOOR | BASH_DOOR | DROP_SKELETON | DROP_CORPSE
+F:TAKE_ITEM | OPEN_DOOR | BASH_DOOR | 
 F:EVIL | TROLL | IM_COLD | IM_POIS | HURT_LITE | HURT_ROCK
+F:DROP_SKELETON | DROP_CORPSE | POS_GAIN_AC | POS_BERSERK
+P:Copy:Half-Troll:Warrior
 D:Big, brawny, powerful and with a taste for hobbit.  He has friends called 
 D:Bert and Bill.
 
@@ -7232,9 +7264,11 @@ B:HIT:HURT:1d8
 B:HIT:HURT:1d8
 B:HIT:HURT:1d8
 F:MALE | 
-F:FRIENDS | DROP_60 | DROP_SKELETON | DROP_CORPSE
+F:FRIENDS | DROP_60 | 
 F:OPEN_DOOR | BASH_DOOR | REGENERATE |
 F:EVIL | TROLL | IM_POIS | HURT_LITE
+F:DROP_SKELETON | DROP_CORPSE | POS_GAIN_AC | POS_BERSERK
+P:Copy:Half-Troll:Warrior
 D:He is a vicious monster, feared for his ferocity.
 
 N:497:Anti-paladin
@@ -7247,10 +7281,10 @@ B:HIT:HURT:1d6
 F:MALE | HUMAN | OPEN_DOOR | BASH_DOOR | TAKE_ITEM | DROP_1D2 | ONLY_ITEM |
 F:EVIL | IM_POIS | IM_COLD | NO_CONF | NO_SLEEP | 
 F:DROP_SKELETON | DROP_CORPSE | POS_HEROISM
+P:Copy:Dunadan:Paladin
 S:1_IN_4
 S:HOLD | SCARE | BLIND | CAUSE_3 | TRAPS | DARKNESS | FORGET | HASTE
 D:An embodiment of all the cardinal vices, he beholds you scornfully.
-P:Copy:Dunadan:Paladin
 
 N:498:Logrus master
 G:p:v
@@ -7266,11 +7300,11 @@ F:ONLY_ITEM | DROP_1D2 | ATTR_ANY |
 F:INVISIBLE | OPEN_DOOR | BASH_DOOR |
 F:IM_ACID | IM_POIS | NO_CONF | NO_SLEEP | 
 F:DROP_SKELETON | DROP_CORPSE | POS_DETECT_MONSTERS | POS_MAPPING
+P:Copy:Dunadan:Mystic
 S:1_IN_6 | 
 S:HEAL | 
 S:S_SPIDER | BA_CHAO | S_DEMON
 D:An adept of chaos, feared for his skill of invoking raw Logrus.
-P:Copy:Dunadan:Mystic
 
 N:499:Barrow wight
 G:W:W
@@ -7454,10 +7488,12 @@ B:HIT:HURT:1d9
 B:HIT:HURT:2d2
 B:HIT:HURT:2d2
 F:MALE | WILD_SHORE | WILD_SWAMP | REGENERATE |
-F:FORCE_MAXHP | DROP_SKELETON | DROP_CORPSE
+F:FORCE_MAXHP | 
 F:FRIENDS | DROP_60 | 
 F:OPEN_DOOR | BASH_DOOR | CAN_SWIM |
 F:EVIL | TROLL | IM_COLD | IM_POIS | RES_WATE | HURT_LITE
+F:DROP_SKELETON | DROP_CORPSE | POS_GAIN_AC | POS_BERSERK
+P:Copy:Half-Troll:Warrior
 D:He is a troll that reeks of brine.
 
 N:510:Fire elemental
@@ -7565,8 +7601,8 @@ F:MALE | HUMAN | THIEF
 F:DROP_90 | DROP_2D2 | DROP_SKELETON | DROP_CORPSE
 F:TAKE_ITEM | OPEN_DOOR | BASH_DOOR | 
 F:EVIL
-D:Cool and confident, fast and lithe; protect your possessions quickly!
 P:Copy:High-Elf:Rogue
+D:Cool and confident, fast and lithe; protect your possessions quickly!
 
 N:517:Jurt the Living Trump
 G:p:R
@@ -7576,16 +7612,15 @@ B:HIT:HURT:5d5
 B:HIT:HURT:5d5
 B:HIT:HURT:5d5
 B:HIT:HURT:5d5
-F:UNIQUE | MALE | CAN_SPEAK | HAS_LITE_1 | HUMAN |
-F:FORCE_MAXHP | DROP_SKELETON | DROP_CORPSE
+F:UNIQUE | MALE | CAN_SPEAK | HAS_LITE_1 | HUMAN | EVIL | FORCE_MAXHP | 
 F:ONLY_ITEM | DROP_2D2 | DROP_GOOD | 
 F:TAKE_ITEM | OPEN_DOOR | BASH_DOOR | 
-F:EVIL |
+F:DROP_SKELETON | DROP_CORPSE | POS_SEE_INVIS
+P:Copy:Dunadan:Mystic
 S:1_IN_6
 S:TPORT | BLINK | BA_CHAO
 D:A magical treatment has turned Jurt, an adept of Logrus, 
 D:into a Living Trump.
-P:Copy:Dunadan:Mystic
 
 N:518:Lich
 G:L:w
@@ -7811,8 +7846,8 @@ F:MALE |
 F:DROP_1D2 | 
 F:OPEN_DOOR | BASH_DOOR | DROP_SKELETON | DROP_CORPSE
 F:EVIL | HUMAN | NO_CONF | NO_SLEEP
-D:A human warrior, moving with lightning speed.
 P:Copy:Dunadan:Warrior
+D:A human warrior, moving with lightning speed.
 
 N:533:Headless ghost
 G:G:u
@@ -7855,11 +7890,12 @@ I:120:26d20:12:50:40:200
 W:35:4:999:250:0:0
 B:BITE:POISON:1d6
 B:STING:POISON:1d6
-F:WEIRD_MIND | BASH_DOOR | FRIENDS | ELDRITCH_HORROR | DROP_CORPSE
+F:WEIRD_MIND | BASH_DOOR | FRIENDS | ELDRITCH_HORROR | 
 F:ANIMAL | EVIL
-D:Bloated purple spiders with long, bristly legs.
+F:DROP_CORPSE | POS_GAIN_AC | POS_SEE_INVIS
 P:Copy:Hobbit:Rogue
 P:Body:Spider
+D:Bloated purple spiders with long, bristly legs.
 
 N:536:Star vampire
 G:V:r
@@ -7903,8 +7939,10 @@ B:HIT:HURT:1d12
 B:BITE:HURT:2d3
 B:BITE:HURT:2d3
 F:FORCE_MAXHP | OPEN_DOOR | FRIENDS | DROP_60 | REGENERATE |
-F:SMART | BASH_DOOR | DROP_SKELETON | DROP_CORPSE
+F:SMART | BASH_DOOR | 
 F:EVIL | TROLL | IM_POIS
+F:DROP_SKELETON | DROP_CORPSE | POS_GAIN_AC | POS_BERSERK
+P:Copy:Half-Troll:Warrior
 D:It is a massive intelligent troll with needle sharp fangs.
 
 N:539:Halfling slinger
@@ -8117,9 +8155,11 @@ B:SPIT:ACID:3d8
 F:UNIQUE | MALE | 
 F:FORCE_MAXHP | 
 F:ESCORT | 
-F:ONLY_ITEM | DROP_2D2 | DROP_GOOD | DROP_CORPSE | REGENERATE |
+F:ONLY_ITEM | DROP_2D2 | DROP_GOOD | REGENERATE |
 F:TAKE_ITEM | OPEN_DOOR | BASH_DOOR | 
 F:EVIL | TROLL | IM_COLD | IM_POIS
+F:DROP_CORPSE | POS_GAIN_AC | POS_BERSERK
+P:Copy:Half-Troll:Mauler
 D:A massive and cruel troll of great power, drool slides caustically down 
 D:his muscular frame.  Despite his bulk, he strikes with stunning speed.
 
@@ -8455,18 +8495,17 @@ I:110:28d13:20:50:10:140
 W:36:2:999:666:6000:638
 B:HIT:HURT:2d6
 B:HIT:HURT:2d6
-F:MALE | HUMAN |
+F:MALE | HUMAN | EVIL
 F:FORCE_SLEEP | FORCE_MAXHP | 
 F:ONLY_ITEM | DROP_1D2 | DROP_SKELETON
 F:SMART | OPEN_DOOR | BASH_DOOR | 
-F:EVIL
 F:DROP_SKELETON | DROP_CORPSE | POS_DETECT_MONSTERS | POS_MAPPING
+P:Copy:Human:Priest
 S:1_IN_3 | 
 S:HASTE | TPORT | TELE_TO | BLIND | HOLD | SCARE | CAUSE_3 | 
 S:BO_NETH | MIND_BLAST | FORGET |
 S:S_UNDEAD | S_DEMON | ANIM_DEAD
 D:A gaunt figure, clothed in black robes.
-P:Copy:Human:Priest
 
 N:572:The Greater Hell Magic Mushroom Were-Quylthulg
 G:Q:s
@@ -8912,13 +8951,13 @@ F:ONLY_ITEM | DROP_1D2 | DROP_2D2 |
 F:COLD_BLOOD | OPEN_DOOR | BASH_DOOR | 
 F:EVIL | IM_COLD | HAS_LITE_1 |
 F:DROP_SKELETON | DROP_CORPSE | POS_DETECT_MONSTERS | POS_MAPPING | POS_BLESSING
+P:Copy:Dunadan:Paladin
 S:1_IN_5 | 
 S:BLIND | SCARE | CAUSE_3 | BO_NETH | 
 S:S_MONSTERS
 D:It is a humanoid form dressed in armour of an ancient form.  From beneath 
 D:its helmet, eyes glow a baleful red and seem to pierce you like lances of 
 D:fire.
-P:Copy:Dunadan:Paladin
 
 N:598:Mandor, Master of the Logrus
 G:p:v
@@ -8934,11 +8973,11 @@ F:ONLY_ITEM | DROP_2D2 | DROP_GOOD |
 F:SMART | OPEN_DOOR | TAKE_ITEM | BASH_DOOR | 
 F:EVIL | RES_TELE
 F:DROP_SKELETON | DROP_CORPSE | POS_DETECT_MONSTERS | POS_MAPPING | POS_IDENTIFY
+P:Copy:Dark-Elf:Mystic
 S:1_IN_2 |
 S:BO_FIRE | BO_COLD | HOLD | BO_MANA | S_MONSTER
 S:TRAPS | BO_ICEE | HEAL | BO_PLAS | BA_CHAO | POLY
 D:Mandor is one of the greatest Logrus Masters, a formidable magician.
-P:Copy:Dark-Elf:Mystic
 
 N:599:Time vortex
 G:v:G
@@ -9139,9 +9178,12 @@ B:BITE:POISON:10d3
 B:BITE:POISON:10d3
 B:BITE:POISON:10d3
 F:FORCE_SLEEP | UNIQUE | CAN_SWIM | FORCE_MAXHP |
-F:ONLY_GOLD | DROP_2D2 | DROP_4D2 | ESCORT | DROP_CORPSE
+F:ONLY_GOLD | DROP_2D2 | DROP_4D2 | ESCORT | 
 F:BASH_DOOR | MOVE_BODY | EVIL | WILD_SHORE |
 F:ANIMAL | IM_POIS | RIDING
+F:DROP_CORPSE | POS_GAIN_AC
+P:Copy:Half-Giant:Mauler
+P:Body:Hydra5
 S:1_IN_5 | 
 S:BR_POIS | BR_FIRE | SCARE | CONF
 D:A strange reptilian hybrid with multiple heads dripping venom.
@@ -9208,9 +9250,12 @@ B:BITE:POISON:3d9
 B:BITE:POISON:3d9
 B:SPIT:BLIND:1d2
 F:FORCE_SLEEP | WILD_SHORE | WILD_SWAMP |
-F:ONLY_GOLD | DROP_2D2 | DROP_4D2 | CAN_SWIM | DROP_CORPSE
+F:ONLY_GOLD | DROP_2D2 | DROP_4D2 | CAN_SWIM | 
 F:BASH_DOOR | MOVE_BODY | 
 F:ANIMAL | IM_POIS | RIDING
+F:DROP_CORPSE | POS_GAIN_AC
+P:Copy:Half-Giant:Mauler
+P:Body:Hydra4
 S:1_IN_5 | 
 S:SCARE | BA_POIS | 
 S:BR_POIS
@@ -9338,7 +9383,9 @@ B:HIT:HURT:3d4
 F:FORCE_MAXHP | 
 F:DROP_60 | 
 F:TAKE_ITEM | OPEN_DOOR | BASH_DOOR | WILD_SHORE | WILD_WOOD | REGENERATE |
-F:EVIL | TROLL | IM_POIS | NO_CONF | NO_SLEEP | DROP_CORPSE | CAN_SWIM
+F:EVIL | TROLL | IM_POIS | NO_CONF | NO_SLEEP | CAN_SWIM
+F:DROP_CORPSE | POS_GAIN_AC | POS_BERSERK
+P:Copy:Half-Troll:Warrior
 D:A massive troll, larger and stronger than many men together.
 
 N:621:Ettin
@@ -9351,8 +9398,11 @@ B:BITE:HURT:3d4
 B:BITE:HURT:3d4
 F:FORCE_MAXHP | 
 F:ONLY_ITEM | DROP_1D2 | WILD_MOUNTAIN | WILD_WOOD | WILD_SWAMP |
-F:OPEN_DOOR | BASH_DOOR | DROP_CORPSE | REGENERATE |
+F:OPEN_DOOR | BASH_DOOR | REGENERATE |
 F:EVIL | TROLL | IM_POIS | NO_CONF | NO_SLEEP
+F:DROP_CORPSE | POS_GAIN_AC | POS_BERSERK
+P:Copy:Half-Troll:Warrior
+P:Body:Ettin
 D:A massive troll of huge strength.  Ettins are stupid but violent.
 
 N:622:Night mare
@@ -9508,8 +9558,11 @@ B:HIT:HURT:5d5
 B:HIT:HURT:6d6
 F:FORCE_MAXHP | 
 F:DROP_90 | REGENERATE | FRIENDS |
-F:OPEN_DOOR | BASH_DOOR | DROP_CORPSE
+F:OPEN_DOOR | BASH_DOOR | 
 F:EVIL | TROLL | IM_POIS | NO_CONF | NO_SLEEP
+F:DROP_CORPSE | POS_GAIN_AC | POS_BERSERK
+P:Copy:Half-Troll:Berserker
+P:Life:80
 D:A massive troll, equipped with a scimitar and heavy armour.
 
 N:632:Disenchanter worm mass
@@ -9566,8 +9619,11 @@ B:BITE:FIRE:3d6
 B:BITE:FIRE:3d6
 F:FORCE_SLEEP | WILD_SHORE | WILD_SWAMP |
 F:ONLY_GOLD | DROP_2D2 | DROP_4D2 | CAN_SWIM |
-F:OPEN_DOOR | BASH_DOOR | MOVE_BODY | DROP_CORPSE
+F:OPEN_DOOR | BASH_DOOR | MOVE_BODY | 
 F:ANIMAL | IM_FIRE | RIDING
+F:DROP_CORPSE | POS_GAIN_AC
+P:Copy:Half-Giant:Mauler
+P:Body:Hydra5
 S:1_IN_4 | 
 S:SCARE | BO_FIRE | 
 S:BR_FIRE
@@ -9585,13 +9641,13 @@ F:FORCE_SLEEP | FORCE_MAXHP |
 F:ONLY_ITEM | DROP_2D2 | DROP_GOOD | HUMAN |
 F:OPEN_DOOR | BASH_DOOR | 
 F:EVIL | NO_CONF | NO_SLEEP
-F:DROP_SKELETON | DROP_CORPSE | POS_DETECT_MONSTERS
+F:DROP_SKELETON | DROP_CORPSE | POS_DETECT_MONSTERS | POS_SEE_INVIS
+P:Copy:Dark-Elf:Mystic
 S:1_IN_2 | 
 S:BLIND | 
 S:S_DRAGON
 D:This elusive female spellcaster has a special affinity for dragons, whom 
 D:she rarely fights without.
-P:Copy:Dark-Elf:Mystic
 
 N:637:Archpriest
 G:p:b
@@ -9607,13 +9663,13 @@ F:SMART | OPEN_DOOR | BASH_DOOR |
 F:EVIL | NO_CONF | NO_SLEEP
 F:DROP_SKELETON | DROP_CORPSE | 
 F:POS_DETECT_MONSTERS | POS_MAPPING | POS_BLESSING | POS_HEROISM
+P:Copy:Dwarf:Priest
 S:1_IN_2 | 
 S:HEAL | BLIND | HOLD | CONF | CAUSE_3 | ANIM_DEAD
 S:S_MONSTER | S_UNDEAD
 D:An evil priest, dressed all in black.  Deadly spells hit you at an 
 D:alarming rate as his black spiked mace rains down blow after blow on your 
 D:pitiful frame.
-P:Copy:Dwarf:Priest
 
 N:638:Sorcerer
 G:p:o
@@ -9629,13 +9685,13 @@ F:SMART | OPEN_DOOR | BASH_DOOR |
 F:EVIL | NO_CONF | NO_SLEEP
 F:DROP_SKELETON | DROP_CORPSE | 
 F:POS_DETECT_MONSTERS | POS_MAPPING | POS_IDENTIFY | POS_SUST_INT
+P:Copy:High-Elf:High-Mage
 S:1_IN_2 | 
 S:BLINK | TELE_TO | BLIND | CONF | CAUSE_3 | TRAPS | 
 S:BO_ACID | BA_FIRE | BA_COLD | 
 S:S_MONSTER | S_UNDEAD | S_DRAGON
 D:A human figure in robes, he moves with magically improved speed, and his 
 D:hands are ablur with spell casting.
-P:Copy:High-Elf:High-Mage
 
 N:639:Xaren
 G:X:y
@@ -9797,12 +9853,12 @@ F:ONLY_ITEM | DROP_2D2 |
 F:OPEN_DOOR | BASH_DOOR | 
 F:EVIL | HUMAN | NO_CONF | NO_SLEEP
 F:DROP_SKELETON | DROP_CORPSE | POS_DETECT_MONSTERS | POS_MAPPING
+P:Copy:Dark-Elf:Priest
 S:1_IN_2 | 
 S:BLIND | 
 S:S_DEMON | CONF | SCARE | DARKNESS 
 D:This old crone is rumoured to be a witch of chaos... but you don't 
 D:really believe in witches, do you?
-P:Copy:Dark-Elf:Priest
 
 N:648:Clubber demon
 G:U:s
@@ -10577,9 +10633,12 @@ B:BITE:FIRE:3d12
 B:BITE:FIRE:3d12
 B:BITE:FIRE:3d12
 F:FORCE_SLEEP | WILD_SHORE | WILD_SWAMP |
-F:ONLY_GOLD | DROP_2D2 | DROP_4D2 | DROP_CORPSE
+F:ONLY_GOLD | DROP_2D2 | DROP_4D2 | 
 F:OPEN_DOOR | BASH_DOOR | MOVE_BODY | 
 F:ANIMAL | IM_FIRE | CAN_SWIM | RIDING
+F:DROP_CORPSE | POS_GAIN_AC
+P:Copy:Half-Giant:Mauler
+P:Body:Hydra5
 S:1_IN_4 | 
 S:SCARE | BO_FIRE | BO_PLAS | BA_FIRE | 
 S:BR_FIRE
@@ -11366,9 +11425,13 @@ F:UNIQUE | MALE | CAN_SPEAK |
 F:FORCE_SLEEP | FORCE_MAXHP | 
 F:ONLY_ITEM | DROP_1D2 | DROP_4D2 | DROP_GOOD | 
 F:DROP_90 | REGENERATE | KILL_WALL | RES_TELE |
-F:OPEN_DOOR | BASH_DOOR | DROP_CORPSE
+F:OPEN_DOOR | BASH_DOOR | 
 F:EVIL | TROLL | IM_POIS | NO_CONF | NO_SLEEP |
 F:IM_ELEC | IM_COLD | IM_FIRE |
+F:DROP_CORPSE | POS_GAIN_AC | POS_BERSERK
+P:Copy:Half-Troll:Warrior
+P:Stats:5:0:0:1:4:1
+P:Life:120
 D:Ulik is the strongest troll who has ever lived. He could challenge 
 D:the immortals and pound them to dust with his great strength.
 
@@ -11724,7 +11787,7 @@ B:CRUSH:SHATTER:55d2
 B:CRUSH:SHATTER:55d2
 B:TOUCH:LOSE_CON:1d2
 B:TOUCH:LOSE_CON:1d2
-F:UNIQUE | DROP_CORPSE |
+F:UNIQUE | 
 F:IM_FIRE | RES_PLAS | IM_COLD | IM_POIS | ELDRITCH_HORROR | RES_TELE
 F:KILL_WALL | ONLY_GOLD | DROP_4D2 | DROP_2D2 | CAN_SWIM | RES_DARK |
 F:EVIL | FORCE_MAXHP | SMART | 
@@ -11860,11 +11923,14 @@ B:BITE:POISON:8d6
 B:BITE:FIRE:12d6
 B:BITE:FIRE:12d6
 F:UNIQUE | 
-F:FORCE_SLEEP | FORCE_MAXHP | SMART | DROP_CORPSE | RIDING |
+F:FORCE_SLEEP | FORCE_MAXHP | SMART | RIDING |
 F:ONLY_GOLD | DROP_3D2 | DROP_4D2 | WILD_SHORE | WILD_SWAMP |
 F:OPEN_DOOR | BASH_DOOR | KILL_BODY | POWERFUL | 
 F:ANIMAL | IM_FIRE | IM_POIS | 
 F:NO_CONF | NO_SLEEP | CAN_SWIM |
+F:DROP_CORPSE | POS_GAIN_AC
+P:Copy:Half-Titan:Mauler
+P:Body:Hydra6
 S:1_IN_3 | 
 S:SCARE | 
 S:BO_FIRE | BO_PLAS | BA_FIRE | BA_POIS | 
@@ -12455,7 +12521,7 @@ B:GAZE:LOSE_INT:2d6
 B:GAZE:UN_POWER:2d6
 B:GAZE:DR_MANA:5d10
 F:FORCE_SLEEP | FORCE_MAXHP | RES_TELE | CAN_FLY |
-F:BASH_DOOR | FEMALE | SMART | DROP_CORPSE |
+F:BASH_DOOR | FEMALE | SMART | 
 F:EVIL | IM_POIS | NO_CONF | NO_SLEEP
 F:DROP_CORPSE | POS_TELEPATHY | POS_GAIN_AC
 S:1_IN_2 | 
@@ -14489,10 +14555,13 @@ B:CLAW:POISON:5d10
 B:CRUSH:UN_BONUS:5d12
 F:UNIQUE |
 F:ATTR_MULTI | 
-F:FORCE_SLEEP | FORCE_MAXHP | DROP_CORPSE | ANIMAL |
+F:FORCE_SLEEP | FORCE_MAXHP | ANIMAL |
 F:ONLY_ITEM | DROP_2D2 | DROP_3D2 | DROP_GOOD | RES_CHAO | RES_DARK |
 F:OPEN_DOOR | BASH_DOOR | POWERFUL | MOVE_BODY | CAN_SWIM | RES_WATE |
 F:EVIL | IM_FIRE | IM_COLD | IM_POIS | IM_ELEC | NO_CONF | NO_SLEEP
+F:DROP_CORPSE | POS_GAIN_AC
+P:Copy:Half-Titan:Mauler
+P:Body:Hydra5
 S:1_IN_2 | 
 S:BR_FIRE | BR_NEXU | BR_CHAO | BR_POIS | BR_DISE | BR_PLAS | BR_NUKE | BR_DARK
 
@@ -14552,10 +14621,12 @@ B:HIT:ELEC:3d10
 B:BITE:HURT:1d22
 B:HIT:COLD:3d10
 B:BITE:HURT:1d22
-F:FORCE_SLEEP | FORCE_MAXHP | DROP_CORPSE | REGENERATE |
+F:FORCE_SLEEP | FORCE_MAXHP | REGENERATE |
 F:DROP_3D2 | SMART | TAKE_ITEM | SELF_LITE_1 |
 F:OPEN_DOOR | BASH_DOOR | MOVE_BODY | POWERFUL |
 F:IM_ACID | IM_COLD | IM_ELEC | TROLL | EVIL
+F:DROP_CORPSE | POS_GAIN_AC | POS_BERSERK
+P:Copy:Half-Troll:Mauler
 S:1_IN_7 | 
 S:BA_COLD | BO_ICEE | BO_WATE | BA_ELEC
 D:The dungeon shakes as an enormous troll-form thunders into view, hurling 
@@ -14612,7 +14683,7 @@ I:110:100d10:20:90:30:800
 W:60:20:999:2300:0:0
 B:CRUSH:SUPERHURT:8d6
 F:IM_FIRE | RES_PLAS | IM_COLD | IM_POIS | RES_TELE |
-F:KILL_WALL | CAN_SWIM | DROP_CORPSE | MOVE_BODY |
+F:KILL_WALL | CAN_SWIM | MOVE_BODY |
 F:FORCE_MAXHP | ONLY_GOLD | DROP_2D2 | DROP_3D2 |
 F:DROP_CORPSE | POS_SEE_INVIS | POS_GAIN_AC
 P:Copy:Half-Titan:Mauler
@@ -14866,8 +14937,10 @@ B:HIT:HURT:5d12
 B:BITE:HURT:3d12
 B:BITE:HURT:5d12
 F:FORCE_MAXHP | OPEN_DOOR | ESCORT | DROP_90 | DROP_2D2 |
-F:SMART | BASH_DOOR | TAKE_ITEM | DROP_CORPSE | DROP_SKELETON
+F:SMART | BASH_DOOR | TAKE_ITEM | 
 F:EVIL | TROLL | IM_POIS | NO_CONF | NO_SLEEP | REGENERATE
+F:DROP_SKELETON | DROP_CORPSE | POS_GAIN_AC | POS_BERSERK
+P:Copy:Half-Troll:Mauler
 S:1_IN_8 |
 S:BLINK
 D:This troll is a king, which means it's still stupid, but has even more power.
@@ -14935,9 +15008,11 @@ W:25:1:70:90:800:424
 B:HIT:FIRE:1d6
 B:HIT:FIRE:1d6
 B:BITE:FIRE:3d4
-F:MALE | FRIENDS | DROP_60 | DROP_SKELETON | DROP_CORPSE | SELF_LITE_1 |
+F:MALE | FRIENDS | DROP_60 | SELF_LITE_1 |
 F:OPEN_DOOR | BASH_DOOR | EVIL | TROLL | HURT_LITE | REGENERATE |
 F:HURT_COLD | IM_FIRE | WILD_VOLCANO
+F:DROP_SKELETON | DROP_CORPSE | POS_GAIN_AC | POS_BERSERK
+P:Copy:Half-Troll:Warrior
 D:Fire trolls are believed to have been created by an
 D:evil wizard trying to make forest trolls immune to
 D:fire.
@@ -15764,7 +15839,7 @@ B:SHOOT:HURT:4d6
 B:HIT:HURT:2d4
 B:HIT:HURT:2d4
 B:HIT:HURT:2d4
-F:FORCE_SLEEP | DROP_CORPSE | RAND_50 | ANIMAL |
+F:FORCE_SLEEP | RAND_50 | ANIMAL |
 F:DROP_CORPSE
 P:Copy:Kutar:Rogue
 P:Body:Reptile
@@ -17502,8 +17577,7 @@ I:109:10d20:50:15:4:90
 W:0:255:999:0:0:0
 B:HIT:EAT_GOLD:1d3
 F:UNIQUE | MALE | CAN_SPEAK | UNDEAD |
-F:FORCE_MAXHP | DROP_CORPSE | WILD_TOWN | WILD_ONLY |
-#F:ONLY_ITEM | DROP_90 | DROP_GOOD | FRIENDLY |
+F:FORCE_MAXHP | WILD_TOWN | WILD_ONLY |
 F:OPEN_DOOR | BASH_DOOR | 
 F:RES_NETH | NO_CONF | NO_SLEEP
 S:1_IN_4 |
@@ -17516,8 +17590,7 @@ I:109:35d20:50:15:4:300
 W:0:255:999:0:0:0
 B:HIT:HURT:1d3
 F:UNIQUE | MALE | GIANT | CAN_SPEAK | HUMAN |
-F:FORCE_MAXHP | DROP_CORPSE | WILD_TOWN | WILD_ONLY
-#F:ONLY_ITEM | DROP_90 | DROP_GOOD | FRIENDLY |
+F:FORCE_MAXHP | WILD_TOWN | WILD_ONLY
 F:OPEN_DOOR | BASH_DOOR | HAS_LITE_1 |
 F:NO_CONF | NO_SLEEP
 D:Brazen faced this creature is more impudent than normal troll.
@@ -17695,7 +17768,7 @@ W:15:1:50:100:0:0
 B:BITE:HURT:4d2
 B:BITE:HURT:4d2
 B:BITE:HURT:4d2
-F:FORCE_MAXHP | DROP_CORPSE | RIDING |
+F:FORCE_MAXHP | RIDING |
 F:COLD_BLOOD | BASH_DOOR | KILL_WALL | ANIMAL | EVIL |
 F:IM_ELEC | IM_ACID | IM_FIRE | RES_DARK | RES_NETH 
 F:DROP_CORPSE | POS_GAIN_AC
