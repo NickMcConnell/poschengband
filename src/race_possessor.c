@@ -12,6 +12,7 @@ static void _birth(void)
     object_type forge;
 
     p_ptr->current_r_idx = MON_POSSESSOR_SOUL;
+    equip_on_change_race();
     
     object_prep(&forge, lookup_kind(TV_WAND, SV_WAND_MAGIC_MISSILE));
     forge.number = 1;
@@ -730,6 +731,8 @@ static int _get_spells(spell_info* spells, int max)
         _add_spell(&spells[ct++], 15, 10, 50, magic_mapping_spell, stat_idx);
     if (ct < max && (r_ptr->flags6 & RF6_FORGET))
         _add_spell(&spells[ct++], 15, 3, 40, amnesia_spell, stat_idx);
+    if (ct < max && (r_ptr->flags6 & RF6_HEAL) && r_ptr->level < 20)
+        _add_spell(&spells[ct++], 15, 8, 50, cure_wounds_III_spell, stat_idx);
     if (ct < max && (r_ptr->flags6 & RF6_TPORT))
         _add_spell(&spells[ct++], 15, 8, 40, teleport_spell, stat_idx);
     if (ct < max && (r_ptr->flags6 & RF6_TELE_TO))
@@ -746,7 +749,9 @@ static int _get_spells(spell_info* spells, int max)
         _add_spell(&spells[ct++], 20, 13, 80, teleport_other_spell, stat_idx);
     if (ct < max && (r_ptr->flags5 & RF5_BA_FIRE))
         _add_spell(&spells[ct++], 20, 14, 60, fire_ball_spell, stat_idx);
-    if (ct < max && (r_ptr->flags6 & RF6_HEAL))
+    if (ct < max && (r_ptr->flags5 & RF5_BO_MANA) && r_ptr->level < 25) /* DE Warlock */
+        _add_spell(&spells[ct++], 20, 15, 80, mana_bolt_I_spell, stat_idx);
+    if (ct < max && (r_ptr->flags6 & RF6_HEAL) && r_ptr->level >= 20)
         _add_spell(&spells[ct++], 20, 20, 70, _healing_spell, stat_idx);
     if (ct < max && (r_ptr->flags5 & RF5_CAUSE_3))
         _add_spell(&spells[ct++], 22, 6, 50, cause_wounds_III_spell, stat_idx);
@@ -764,7 +769,7 @@ static int _get_spells(spell_info* spells, int max)
         _add_spell(&spells[ct++], 25, 20, 65, water_bolt_spell, stat_idx);
     if (ct < max && (r_ptr->flags5 & RF5_BO_PLAS))
         _add_spell(&spells[ct++], 25, 20, 80, plasma_bolt_spell, stat_idx);
-    if (ct < max && (r_ptr->flags5 & RF5_BO_MANA))
+    if (ct < max && (r_ptr->flags5 & RF5_BO_MANA) && r_ptr->level >= 25)
         _add_spell(&spells[ct++], 25, 24, 90, mana_bolt_II_spell, stat_idx);
     if (ct < max && (r_ptr->flags2 & RF2_THIEF))
         _add_spell(&spells[ct++], 30, 20, 60, panic_hit_spell, stat_idx);
@@ -780,13 +785,15 @@ static int _get_spells(spell_info* spells, int max)
         _add_spell(&spells[ct++], 30, 40, 95, teleport_level_spell, stat_idx);
     if (ct < max && (r_ptr->flags5 & RF5_CAUSE_4))
         _add_spell(&spells[ct++], 32, 10, 70, cause_wounds_IV_spell, stat_idx);
+    if (ct < max && (r_ptr->flags5 & RF5_BA_DARK) && r_ptr->level < 43) /* Jack */
+        _add_spell(&spells[ct++], 32, 20, 80, darkness_storm_I_spell, stat_idx);
     if (ct < max && (r_ptr->flags6 & RF6_PSY_SPEAR))
         _add_spell(&spells[ct++], 35, 30, 80, psycho_spear_spell, stat_idx);
     if (ct < max && (r_ptr->flags6 & RF6_TRAPS) && r_ptr->level >= 30)
         _add_spell(&spells[ct++], 37, 30, 80, create_major_trap_spell, stat_idx);
     if (ct < max && (r_ptr->flags4 & RF4_DISPEL))
         _add_spell(&spells[ct++], 40, 35, 85, dispel_magic_spell, stat_idx);
-    if (ct < max && (r_ptr->flags5 & RF5_BA_DARK))
+    if (ct < max && (r_ptr->flags5 & RF5_BA_DARK) && r_ptr->level >= 43) /* !Jack */
         _add_spell(&spells[ct++], 40, 42, 90, darkness_storm_II_spell, stat_idx);
     if (ct < max && (r_ptr->flags5 & RF5_BA_LITE))
         _add_spell(&spells[ct++], 40, 42, 90, starburst_II_spell, stat_idx);
@@ -798,7 +805,7 @@ static int _get_spells(spell_info* spells, int max)
         _add_spell(&spells[ct++], 45, 65, 80, invulnerability_spell, stat_idx);
     if (ct < max && (r_ptr->flags6 & RF6_WORLD))
         _add_spell(&spells[ct++], 45, 150, 85, stop_time_spell, stat_idx);
-    if (ct < max && (r_ptr->flags6 & RF6_TRAPS) && r_ptr->level >= 40)
+    if (ct < max && (r_ptr->flags6 & RF6_TRAPS) && r_ptr->level >= 43) /* !Jack */
         _add_spell(&spells[ct++], 50, 100, 95, create_ultimate_trap_spell, stat_idx);
 
     /* I prefer summoning at the bottom ... */
@@ -1179,13 +1186,15 @@ race_t *mon_possessor_get_race_t(void)
     }
 
     if (!r_idx)
-        r_idx = MON_POSSESSOR_SOUL; /* Birth */
+        r_idx = MON_POSSESSOR_SOUL; /* Birth hack ... */
 
     if (r_idx != last_r_idx)
     {
         monster_race *r_ptr;
     
-        last_r_idx = r_idx;
+        if (p_ptr->current_r_idx == r_idx) /* Birth hack ... */
+            last_r_idx = r_idx;
+
         r_ptr = &r_info[r_idx];
 
         if (r_idx != MON_POSSESSOR_SOUL)
