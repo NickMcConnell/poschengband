@@ -18070,7 +18070,6 @@ S:BA_NETH | BO_MANA | BA_CHAO
 D:A wizened old man, stooped by age, he seems barely able to move.
 D:Yet, something is not quite right here.  You see a faint shimmer
 D:in the air surrounding this pathetic old man.
-P:Copy:Human:Mage
 
 N:1084:Death Scythe
 G:/:v

@@ -481,6 +481,28 @@ static void _breathe_mana_spell(int cmd, variant *res) { _breathe_spell(GF_MANA,
 static void _breathe_disintegration_spell(int cmd, variant *res) { _breathe_spell(GF_DISINTEGRATE, MIN(p_ptr->chp*25/100, 250), cmd, res); }
 static void _breathe_nuke_spell(int cmd, variant *res) { _breathe_spell(GF_NUKE, MIN(p_ptr->chp*65/100, 500), cmd, res); }
 
+static void _multiply_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Multiply");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Engage in breeding activities. No mate required!");
+        break;
+    case SPELL_CAST:
+    {
+        summon_named_creature(-1, py, px, p_ptr->current_r_idx, PM_FORCE_PET);
+        var_set_bool(res, TRUE);
+        break;
+    }
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
+
 static void _rocket_spell(int cmd, variant *res)
 {
     switch (cmd)
@@ -548,6 +570,8 @@ static int _get_powers(spell_info* spells, int max)
 
     if (ct < max)
         _add_power(&spells[ct++], 1, 0, 0, _possess_spell, p_ptr->stat_ind[A_DEX]);
+    if (ct < max && (r_ptr->flags2 & RF2_MULTIPLY))
+        _add_power(&spells[ct++], 1, 5, 40, _multiply_spell, p_ptr->stat_ind[A_CHR]);
     if (ct < max && (r_ptr->flags4 & RF4_SHRIEK))
         _add_power(&spells[ct++], 1, 1, 10, _shriek_spell, p_ptr->stat_ind[A_CON]);
     if (ct < max && (r_ptr->flags4 & RF4_SHOOT))
@@ -811,6 +835,9 @@ static int _get_spells(spell_info* spells, int max)
     if (ct < max && (r_ptr->flags6 & RF6_S_UNIQUE))
         _add_spell(&spells[ct++], 50, 150, 95, summon_uniques_spell, stat_idx);
 
+    if (ct == 0)
+        msg_print("You have no spells!");
+
     return ct;
 }
 
@@ -850,6 +877,18 @@ static void _calc_bonuses(void)
     monster_race *r_ptr = &r_info[p_ptr->current_r_idx];
     int           r_lvl = MAX(1, r_ptr->level);
 
+
+    if ((r_ptr->flags1 & RF1_FEMALE) && p_ptr->psex != SEX_FEMALE)
+    {
+        p_ptr->psex = SEX_FEMALE;
+        sp_ptr = &sex_info[p_ptr->psex];
+    }
+
+    if ((r_ptr->flags1 & RF1_MALE) && p_ptr->psex != SEX_MALE)
+    {
+        p_ptr->psex = SEX_MALE;
+        sp_ptr = &sex_info[p_ptr->psex];
+    }
 
     if (r_ptr->flags9 & RF9_POS_GAIN_AC)
     {

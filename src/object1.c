@@ -1627,6 +1627,29 @@ bool screen_object(object_type *o_ptr, u32b mode)
         for (j = 0; temp[j]; j += 1 + strlen(&temp[j]))
         { info[i] = &temp[j]; i++;}
     }
+    if ( p_ptr->prace == RACE_MON_POSSESSOR 
+      && o_ptr->tval == TV_CORPSE 
+      && o_ptr->sval == SV_CORPSE
+      && (o_ptr->ident & IDENT_MENTAL) )
+    {
+        monster_race *r_ptr = &r_info[o_ptr->pval];
+        char          temp2[70*20];
+
+        sprintf(temp2, "Body: %s\n \nStr : %+3d       Disarm : %d+%d\nInt : %+3d       Device : %d+%d\nWis : %+3d       Save   : %d+%d\nDex : %+3d       Stealth: %d+%d\nCon : %+3d       Search : %d/%d\nChr : %+3d       Melee  : %d+%d\nLife: %3d%%      Ranged : %d+%d\n \n \n",
+            b_name + b_info[r_ptr->body.body_idx].name,
+            r_ptr->body.stats[A_STR], r_ptr->body.skills.dis, r_ptr->body.extra_skills.dis,
+            r_ptr->body.stats[A_INT], r_ptr->body.skills.dev, r_ptr->body.extra_skills.dev,
+            r_ptr->body.stats[A_WIS], r_ptr->body.skills.sav, r_ptr->body.extra_skills.sav,
+            r_ptr->body.stats[A_DEX], r_ptr->body.skills.stl, r_ptr->body.extra_skills.stl,
+            r_ptr->body.stats[A_CON], r_ptr->body.skills.srh, r_ptr->body.skills.fos,
+            r_ptr->body.stats[A_CHR], r_ptr->body.skills.thn, r_ptr->body.extra_skills.thn,
+            r_ptr->body.life, r_ptr->body.skills.thb, r_ptr->body.extra_skills.thb
+        );
+            
+        roff_to_buf(temp2, 77-15, temp, sizeof(temp));
+        for (j = 0; temp[j]; j += 1 + strlen(&temp[j]))
+        { info[i] = &temp[j]; i++;}
+    }
 
     if (object_is_equipment(o_ptr))
     {
@@ -1727,9 +1750,9 @@ bool screen_object(object_type *o_ptr, u32b mode)
         if (o_ptr->pval == MON_BULLGATES)
             info[i++] = "It is shameful.";
         else if ( r_ptr->flags2 & (RF2_ELDRITCH_HORROR))
-        info[i++] = "It is fearful.";
+            info[i++] = "It is fearful.";
         else
-        info[i++] = "It is cheerful.";
+            info[i++] = "It is cheerful.";
     }
     
     /* Hack -- describe lite's */
