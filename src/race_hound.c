@@ -95,6 +95,7 @@ static void _birth(void)
     object_type    forge;
 
     p_ptr->current_r_idx = MON_CLEAR_HOUND;
+    equip_on_change_race();
     
     object_prep(&forge, lookup_kind(TV_RING, SV_RING_DAMAGE));
     forge.to_d = 3;
@@ -102,8 +103,6 @@ static void _birth(void)
 
     object_prep(&forge, lookup_kind(TV_BOOTS, SV_PAIR_OF_METAL_SHOD_BOOTS));
     add_outfit(&forge);
-
-    equip_on_change_race();
 }
 
 /**********************************************************************

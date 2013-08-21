@@ -964,7 +964,7 @@ void monster_death(int m_idx, bool drop_item)
 
     /* Drop a dead corpse? */
     if (p_ptr->prace == RACE_MON_POSSESSOR && p_ptr->current_r_idx == MON_POSSESSOR_SOUL)
-        corpse_chance = 1;
+        corpse_chance = 2;
 
     if ( (_mon_is_wanted(m_idx) || one_in_(corpse_chance))
       && (r_ptr->flags9 & (RF9_DROP_CORPSE | RF9_DROP_SKELETON)) 

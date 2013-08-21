@@ -245,13 +245,6 @@ static int _res_power(int which)
 }
 
 /**********************************************************************
- * Equipment
- **********************************************************************/
-static equip_template_t _template1 =  {1, { 
-    {EQUIP_SLOT_WEAPON, "You", 0},
-}};
-
-/**********************************************************************
  * Attacks and Bonuses
  **********************************************************************/
 typedef struct {
@@ -713,6 +706,7 @@ static void _birth(void)
         _essences[i] = 0;
 
     p_ptr->current_r_idx = MON_BROKEN_DEATH_SWORD;
+    equip_on_change_race();
 
     object_prep(&forge, lookup_kind(TV_SWORD, SV_BROKEN_SWORD));
     add_flag(forge.art_flags, TR_NO_REMOVE);
@@ -997,7 +991,7 @@ race_t *mon_sword_get_race_t(void)
     me.life = 85 + 5*rank;
     me.boss_r_idx = MON_STORMBRINGER;
 
-    me.equip_template = &_template1;
+    me.equip_template = mon_get_equip_template();
     return &me;
 }
 

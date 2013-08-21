@@ -4976,10 +4976,11 @@ void move_player(int dir, bool do_pickup, bool break_trap)
         monster_race *r_ptr = &r_info[p_ptr->current_r_idx];
         if (r_ptr->flags1 & RF1_NEVER_MOVE)
         {
-            msg_print("You can't move!");
+            energy_use *= 3;
+            /*msg_print("You can't move!");
             energy_use = 0;
             oktomove = FALSE;
-            disturb(0, 0);
+            disturb(0, 0);*/
         }
         else if (have_flag(f_ptr->flags, FF_CAN_FLY) && ((r_ptr->flags7 & RF7_CAN_FLY) || p_ptr->levitation))
         {

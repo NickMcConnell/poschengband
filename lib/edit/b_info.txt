@@ -647,3 +647,34 @@ S:RING:Claw
 S:AMULET:Neck
 S:LITE:Light
 S:CLOAK:Cloak
+
+N:62:Marilith
+S:WEAPON_SHIELD:Arm:0
+S:WEAPON_SHIELD:Arm:1
+S:RING:Ring:0
+S:RING:Ring:1
+S:GLOVES:Gloves:0
+S:WEAPON_SHIELD:Arm:2
+S:WEAPON_SHIELD:Arm:3
+S:GLOVES:Gloves:2
+S:WEAPON_SHIELD:Arm:4
+S:WEAPON_SHIELD:Arm:5
+S:AMULET:Neck
+S:LITE:Light
+
+N:63:Bloodthirster
+S:WEAPON_SHIELD:Right Paw:0
+S:WEAPON_SHIELD:Left Paw:1
+S:RING:Right Claw:0
+S:RING:Right Claw:0
+S:RING:Left Claw:1
+S:RING:Left Claw:1
+S:AMULET:Neck
+S:LITE:Light
+S:BODY_ARMOR:Body
+S:CLOAK:Cloak
+S:HELMET:Head
+S:BOOTS:Back Paws
+
+N:64:Death-Sword
+S:WEAPON:You

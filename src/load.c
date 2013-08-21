@@ -571,6 +571,15 @@ static void rd_extra(savefile_ptr file)
     p_ptr->psubclass = savefile_read_byte(file);
     p_ptr->psubrace = savefile_read_byte(file);
     p_ptr->current_r_idx = savefile_read_s16b(file);
+    if (savefile_is_older_than(file, 2, 0, 0, 1))
+    {
+        if ( p_ptr->prace == RACE_MON_DEMON
+          && p_ptr->psubrace == DEMON_MARILITH
+          && p_ptr->current_r_idx == MON_LESSER_BALROG )
+        {
+            p_ptr->current_r_idx = MON_MARILITH;
+        }
+    }
     p_ptr->expfact = savefile_read_u16b(file);
 
     for (i = 0; i < 6; i++) p_ptr->stat_max[i] = savefile_read_s16b(file);
@@ -916,7 +925,8 @@ static errr rd_inventory(savefile_ptr file)
 
         if (n >= EQUIP_BEGIN)
         {
-            if (equip_verify_slot(n, &forge))
+            /*if (equip_verify_slot(n, &forge))*/
+            if (equip_is_valid_slot(n))
             {
                 forge.marked |= OM_TOUCHED;
                 object_copy(&inventory[n], &forge);
@@ -1298,9 +1308,11 @@ static errr rd_savefile_new_aux(savefile_ptr file)
              "Loading a %d.%d.%d savefile...",
              (z_major > 9) ? z_major - 10 : z_major, z_minor, z_patch));
 
-
     if (savefile_is_older_than(file, 0, 9, 0, 1))
+    {
+        note("Old savefiles are not supported!");
         return 1;
+    }
 
     sf_system = savefile_read_u32b(file);
     sf_when = savefile_read_u32b(file);

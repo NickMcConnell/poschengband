@@ -19,7 +19,7 @@
 #define VER_MAJOR 2
 #define VER_MINOR 0
 #define VER_PATCH 0
-#define VER_EXTRA 0
+#define VER_EXTRA 1
 
 
 /*
@@ -5532,6 +5532,7 @@ extern int PlayerUID;
 #define MON_TYPHOEUS            1127
 #define MON_ELDER_STORM_GIANT   1128
 #define MON_POSSESSOR_SOUL      1129
+#define MON_MARILITH            1130
 
 /* The Metal Babble guards the Arena dungeon, but this requires the guardian to be a unique
    monster or the dungeon never gets flagged as completed. Note, this messes up the needle 

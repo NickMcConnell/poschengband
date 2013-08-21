@@ -334,6 +334,7 @@ static void _birth(void)
     object_type    forge;
 
     p_ptr->current_r_idx = MON_BLACK_OOZE;
+    equip_on_change_race();
     
     object_prep(&forge, lookup_kind(TV_RING, SV_RING_STR));
     forge.pval = 1;
@@ -345,8 +346,6 @@ static void _birth(void)
 
     object_prep(&forge, lookup_kind(TV_SOFT_ARMOR, SV_LEATHER_SCALE_MAIL));
     add_outfit(&forge);
-
-    equip_on_change_race();
 }
 
 race_t *mon_jelly_get_race_t(void)

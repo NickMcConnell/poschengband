@@ -1974,21 +1974,15 @@ typedef struct {
     cptr desc;
 } demigod_type;
 
-/* TODO: I'm moving all the body types into config files. This makes the slot's
-   cptr field not work. So we either use slot.name for the old code, or b_tag + slot.tag
-   for the new code. I really wish I coded the Possessor *before* coding all the 
-   monster races ... sigh.
-*/
 typedef struct {
     int  type;
-    cptr name;
+    s16b tag;
     int  hand; 
-    s16b tag;   /* NEW: This is last so that initializers in C code will still work ... */
 } slot_t;
 
 typedef struct equip_template_s {
     int        count;
+    u32b       name;
     slot_t     slots[EQUIP_MAX_SLOTS];
-    u32b       name;  /* NEW: This is last so that initializers in C code will still work ... */
 } equip_template_t, *equip_template_ptr;
 

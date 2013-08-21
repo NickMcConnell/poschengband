@@ -661,7 +661,7 @@ W:1:1:10:6:5:49
 B:BITE:HURT:1d5
 F:WEIRD_MIND | BASH_DOOR | DROP_CORPSE |
 F:ANIMAL | WILD_GRASS
-P:Copy:Human:Warrior
+P:Copy:Snotling:Warrior
 P:Life:60
 P:Body:Ant
 D:A large ant with powerful mandibles.
@@ -838,8 +838,8 @@ F:RAND_25 |
 F:WEIRD_MIND | DROP_CORPSE
 F:BASH_DOOR | WILD_WOOD | WILD_GRASS |
 F:ANIMAL
-P:Copy:Human:Warrior
-P:Life:60
+P:Copy:Snotling:Warrior
+P:Life:65
 P:Body:Ant
 D:It is about three feet long.
 
@@ -890,7 +890,7 @@ F:UNIQUE | CAN_SPEAK | ANIMAL
 F:FORCE_MAXHP | RAND_25 | BASH_DOOR
 F:NO_CONF | NO_SLEEP
 F:DROP_CORPSE | POS_GAIN_AC
-P:Copy:Human:Warrior
+P:Copy:Hobbit:Warrior
 P:Life:70
 P:Body:Puppy
 D:A rather vicious dog belonging to Farmer Maggot.  It thinks you are 
@@ -905,7 +905,7 @@ F:UNIQUE | CAN_SPEAK | ANIMAL
 F:FORCE_MAXHP | RAND_25 | BASH_DOOR
 F:NO_CONF | NO_SLEEP
 F:DROP_CORPSE | POS_GAIN_AC
-P:Copy:Human:Warrior
+P:Copy:Hobbit:Warrior
 P:Life:70
 P:Body:Puppy
 D:A rather vicious dog belonging to Farmer Maggot.  It thinks you are 
@@ -920,7 +920,7 @@ F:UNIQUE | CAN_SPEAK | ANIMAL
 F:FORCE_MAXHP | RAND_25 | BASH_DOOR
 F:NO_CONF | NO_SLEEP
 F:DROP_CORPSE | POS_GAIN_AC
-P:Copy:Human:Warrior
+P:Copy:Hobbit:Warrior
 P:Life:70
 P:Body:Puppy
 D:A rather vicious dog belonging to Farmer Maggot.  It thinks you are 
@@ -982,8 +982,9 @@ I:120:2d6:8:16:80:20
 W:2:1:30:9:30:127
 B:BITE:HURT:1d5
 F:FRIENDS | 
-F:WEIRD_MIND | BASH_DOOR | DROP_SKELETON | DROP_CORPSE
+F:WEIRD_MIND | BASH_DOOR | 
 F:ANIMAL | HURT_LITE
+F:DROP_SKELETON | DROP_CORPSE | POS_GAIN_AC | POS_DETECT_MONSTERS
 P:Copy:Yeek:Rogue
 P:Body:Spider
 D:It is a black spider that moves in fits and starts.
@@ -1175,8 +1176,8 @@ W:3:1:30:9:40:168
 B:BITE:HURT:1d7
 F:WEIRD_MIND | BASH_DOOR | WILD_GRASS
 F:ANIMAL | DROP_CORPSE
-P:Copy:Human:Warrior
-P:Life:60
+P:Copy:Snotling:Warrior
+P:Life:70
 P:Body:Ant
 D:It is about two feet long and has sharp pincers.
 
@@ -1563,6 +1564,7 @@ B:SLASH:POISON:20d1
 F:NEVER_MOVE | NONLIVING | NO_FEAR |
 F:STUPID | COLD_BLOOD | CHAR_MULTI | NO_CONF | NO_SLEEP |
 F:EVIL | IM_COLD | IM_FIRE | FORCE_MAXHP | IM_ELEC | IM_POIS
+P:Body:Death-Sword
 D:A bloodthirsty blade lurking for prey. Beware! 
 
 N:108:Purple mushroom patch
@@ -2407,8 +2409,8 @@ B:BITE:HURT:1d5
 B:STING:LOSE_STR:1d4
 F:WEIRD_MIND | BASH_DOOR | WILD_ALL | DROP_CORPSE
 F:ANIMAL
-P:Copy:Human:Warrior
-P:Life:60
+P:Copy:Snotling:Warrior
+P:Life:75
 P:Body:Ant
 D:It is large and has venomous mandibles.
 
@@ -3425,7 +3427,7 @@ F:SMART | OPEN_DOOR | BASH_DOOR
 F:DROP_SKELETON | DROP_CORPSE | POS_DETECT_MONSTERS | POS_MAPPING
 S:1_IN_3 | 
 S:HASTE | BLINK | BLIND | HOLD | SLOW | BO_FIRE | BO_ELEC
-P:Copy:Human:Mystic
+P:Copy:Human:Priest
 D:A mystic at one with nature.  Om.
 
 N:242:Pink horror
@@ -5312,9 +5314,9 @@ B:BITE:HURT:6d1
 F:BASH_DOOR | DEMON | NO_STUN | 
 F:ANIMAL | EVIL | IM_FIRE | NO_SLEEP | NO_CONF 
 F:RES_NETH | RES_NEXU | RES_DISE | RES_PLAS
+P:Body:Hound
 D:A revolting canine creature, a huge demon hound with a somewhat 
 D:reptilian head.
-P:Body:Hound
 
 N:375:Dark elven warlock
 G:h:v
@@ -5832,7 +5834,7 @@ B:BITE:HURT:2d12
 F:RAND_25 | KILL_BODY | DROP_CORPSE
 F:WEIRD_MIND | BASH_DOOR | 
 F:ANIMAL
-P:Copy:Human:Warrior
+P:Copy:Snotling:Warrior
 P:Life:80
 P:Body:Ant
 D:It is an ant encased in shaggy grey fur.
@@ -6013,6 +6015,7 @@ F:CHAR_MULTI | EVIL | IM_POIS | IM_COLD | RES_CHAO |
 F:FORCE_SLEEP | FORCE_MAXHP | CAN_FLY |
 F:COLD_BLOOD | BASH_DOOR | NONLIVING |
 F:NO_CONF | NO_SLEEP | NO_FEAR
+P:Body:Death-Sword
 D:A deadly blade of chaos, moving of its own volition.
 
 N:421:Killer red beetle
@@ -6825,7 +6828,7 @@ B:BITE:ELEC:5d5
 F:RAND_25 | WILD_ALL | DROP_CORPSE
 F:WEIRD_MIND | BASH_DOOR | 
 F:ANIMAL | IM_ELEC
-P:Copy:Human:Warrior
+P:Copy:Snotling:Warrior
 P:Life:80
 P:Body:Ant
 D:It is a giant ant that crackles with energy.
@@ -7019,7 +7022,7 @@ F:ESCORT | ESCORTS |
 F:ONLY_ITEM | DROP_1D2 | DROP_2D2 | DROP_GOOD | 
 F:SMART | BASH_DOOR | 
 F:ANIMAL | EVIL | HURT_LITE | NO_CONF | NO_SLEEP | RES_DARK
-F:DROP_CORPSE | POS_GAIN_AC | POS_SEE_INVIS
+F:DROP_CORPSE | POS_GAIN_AC | POS_SEE_INVIS | POS_DETECT_MONSTERS
 P:Copy:Hobbit:Rogue
 P:Life:110
 P:Body:Spider
@@ -7901,7 +7904,7 @@ B:BITE:POISON:1d6
 B:STING:POISON:1d6
 F:WEIRD_MIND | BASH_DOOR | FRIENDS | ELDRITCH_HORROR | 
 F:ANIMAL | EVIL
-F:DROP_CORPSE | POS_GAIN_AC | POS_SEE_INVIS
+F:DROP_CORPSE | POS_GAIN_AC | POS_SEE_INVIS | POS_DETECT_MONSTERS
 P:Copy:Hobbit:Rogue
 P:Body:Spider
 D:Bloated purple spiders with long, bristly legs.
@@ -10354,6 +10357,7 @@ B:BUTT:HURT:8d6
 F:BASH_DOOR | REFLECTING | KILL_ITEM |
 F:IM_FIRE | IM_COLD | IM_ELEC | IM_POIS | DEMON |
 F:NO_CONF | NO_SLEEP | NO_FEAR | NONLIVING | EVIL | RIDING
+P:Body:Hound
 D:A great, vicious beast whose flesh is made of steel and whose 
 D:blood is fire. It charges at you ignoring everything else.
 
@@ -12041,6 +12045,7 @@ F:DEMON | EVIL | DROP_GOOD | REGENERATE | CAN_FLY | NONLIVING |
 F:FORCE_SLEEP | FORCE_MAXHP | ONLY_ITEM | DROP_4D2 | ELDRITCH_HORROR |
 F:OPEN_DOOR | BASH_DOOR | RES_NETH | RES_NEXU | RES_TELE | MOVE_BODY |
 F:IM_ACID | IM_FIRE | IM_COLD | IM_POIS | NO_CONF | NO_SLEEP | 
+P:Body:Bloodthirster
 D:Khorne's mightiest servant, a winged hound-demon walking on 
 D:two paws and wielding a mighty axe and a whip in the other 
 D:two. Intelligent, bloodthirsty eyes behold you from inside 
@@ -13145,10 +13150,14 @@ B:BITE:POISON:3d9
 B:STING:POISON:2d5
 B:STING:POISON:2d5
 F:UNIQUE | FEMALE | 
-F:FORCE_SLEEP | FORCE_MAXHP | DROP_CORPSE | SELF_DARK_1 | SELF_DARK_2 |
+F:FORCE_SLEEP | FORCE_MAXHP | SELF_DARK_1 | SELF_DARK_2 |
 F:ONLY_ITEM | DROP_4D2 | DROP_GOOD | 
 F:SMART | BASH_DOOR | 
 F:ANIMAL | EVIL | IM_POIS | RES_DARK | HURT_LITE | NO_CONF | NO_SLEEP
+F:DROP_CORPSE | POS_GAIN_AC | POS_DETECT_MONSTERS
+P:Copy:Hobbit:Rogue
+P:Life:120
+P:Body:Spider
 S:1_IN_3 | 
 S:HEAL | BLIND | SLOW | CONF | SCARE | DARKNESS | BA_DARK | 
 S:BR_POIS | BR_DARK | 
@@ -13158,9 +13167,6 @@ D:immense proportions.  She is surrounded by a cloud of Unlight as she sucks
 D:in all living light into her bloated body.  She is always ravenously 
 D:hungry and would even eat herself to avoid starvation.  She is rumoured to 
 D:have a foul and deadly breath.
-P:Copy:Hobbit:Rogue
-P:Life:120
-P:Body:Spider
 
 N:809:Atlach-Nacha, the Spider God
 G:S:D
@@ -13175,15 +13181,13 @@ F:FORCE_SLEEP | FORCE_MAXHP |
 F:ONLY_ITEM | DROP_4D2 | DROP_GOOD | 
 F:SMART | BASH_DOOR | MOVE_BODY | NONLIVING |
 F:ANIMAL | EVIL | IM_POIS | RES_DARK | HURT_LITE | NO_CONF | NO_SLEEP
+P:Body:Spider
 S:1_IN_3 |
 S:SCARE | BLIND | CONF | HOLD | BR_POIS |
 S:DARKNESS | BA_DARK | BR_DARK | S_SPIDER | S_DEMON
 D:"...there was a kind of face on the squat ebon body, low down amid 
 D:the several-jointed legs. The face peered up with a weird expression 
 D:of doubt and inquiry..."
-P:Copy:Hobbit:Rogue
-P:Life:120
-P:Body:Spider
 
 N:810:Y'golonac
 G:H:R
@@ -13445,7 +13449,7 @@ F:INVISIBLE | STUPID |
 F:ANIMAL | EVIL | 
 F:NO_CONF | NO_SLEEP | NO_FEAR
 F:DROP_CORPSE | POS_SEE_INVIS | POS_TELEPATHY
-P:Copy:Snotling:Tourist
+P:Copy:Human:Sorcerer
 P:Stats:0:0:0:0:0:20
 P:Body:Quylthulg
 S:1_IN_2 | 
@@ -13466,7 +13470,7 @@ F:INVISIBLE | ATTR_MULTI |
 F:ANIMAL | EVIL | 
 F:NO_CONF | NO_SLEEP | NO_FEAR
 F:DROP_CORPSE | POS_SEE_INVIS | POS_TELEPATHY
-P:Copy:Snotling:Tourist
+P:Copy:Human:Sorcerer
 P:Stats:0:0:0:0:0:20
 P:Body:Quylthulg
 S:1_IN_1 | 
@@ -14193,7 +14197,7 @@ F:NO_CONF | NO_SLEEP | RIDING | POWERFUL
 F:DROP_CORPSE | POS_GAIN_AC
 S:1_IN_8
 S:BA_WATE
-P:Copy:Half-Giant:Rogue
+P:Copy:Half-Giant:Mauler
 P:Life:125
 P:Body:Jormungand
 D:The Midgard Serpent is so huge that its body surrounds the world of 
@@ -14482,6 +14486,7 @@ F:COLD_BLOOD | EMPTY_MIND | REGENERATE | BASH_DOOR | KILL_BODY | KILL_ITEM |
 F:ANIMAL | HURT_LITE | IM_ACID | IM_ELEC | IM_FIRE | IM_COLD | IM_POIS | 
 F:RES_TELE | RES_NETH | RES_DISE | RES_DARK |
 F:NO_FEAR | NO_CONF | NO_STUN | NO_SLEEP | 
+P:Body:Spider
 D:Small brown spiders that lurk in the darkness deep underground.
 D:  An individual would be nearly harmless, but their size allows many
 D: to crawl where only a single Mirkwood spider could stand.  Packs of
@@ -14882,15 +14887,15 @@ I:125:35d10:20:30:40:170
 W:44:2:999:850:0:0
 B:CLAW:HURT:4d8
 B:CLAW:HURT:8d4
-F:DROP_90 | DROP_2D2 | DROP_SKELETON | DROP_CORPSE
-F:OPEN_DOOR | BASH_DOOR | IM_POIS | IM_ACID | IM_COLD
-F:EVIL
+F:DROP_90 | DROP_2D2 | 
+F:OPEN_DOOR | BASH_DOOR | IM_POIS | IM_ACID | IM_COLD | EVIL
+F:DROP_SKELETON | DROP_CORPSE | POS_GAIN_AC | POS_DETECT_MONSTERS
+P:Copy:Hobbit:Rogue
+P:Body:Spider
 S:1_IN_5
 S:BO_MANA
 D:A gaunt, vaguely humanoid torso merged with the form of a giant 
 D:spider, ugly as sin. It screams horribly as it charges at you.
-P:Copy:Hobbit:Rogue
-P:Body:Spider
 
 N:889:Bouncing mine
 G:.:B
@@ -15170,6 +15175,7 @@ B:CRUSH:HURT:2d6
 F:COLD_BLOOD | NO_SLEEP | NO_CONF | NO_FEAR | NONLIVING
 S:1_IN_6
 S:SCARE | BLIND | CONF | S_MONSTER
+P:Body:Death-Sword
 D:A powerful weapon from a time long past when heroes walked the earth, and 
 D:magical weapons of power unmatched were created. Blood drips from its 
 D:wicked blade.
@@ -15675,6 +15681,7 @@ F:DROP_CORPSE | POS_GAIN_AC | POS_SEE_INVIS
 P:Copy:Half-Titan:Warrior
 P:Stats:2:0:0:0:1:0
 P:Life:105
+P:Body:Monk
 
 # Description in English by Nick Keulmann
 N:938:White knight
@@ -15931,6 +15938,7 @@ B:HIT:POISON:1d1
 F:NONLIVING | NO_FEAR |
 F:STUPID | COLD_BLOOD | NO_CONF | NO_SLEEP |
 F:EVIL | IM_COLD | IM_FIRE | IM_ELEC | IM_POIS
+P:Body:Death-Sword
 
 N:954:Orcish Artillery
 G:o:B
@@ -17165,6 +17173,7 @@ F:DROP_CORPSE | POS_GAIN_AC | POS_SEE_INVIS
 P:Copy:Half-Titan:Warrior
 P:Stats:5:0:0:0:3:3
 P:Life:110
+P:Body:Monk
 D:He was the braver of Atlantis. His body was converted by a Shinto priest, 
 D:in order to fight against "Papa". His body is now made by Orihalcon.
 
@@ -18075,6 +18084,7 @@ F:CHAR_MULTI | EVIL | IM_POIS | IM_COLD | IM_ACID | IM_FIRE | IM_ELEC
 F:FORCE_SLEEP | FORCE_MAXHP | CAN_FLY |
 F:COLD_BLOOD | BASH_DOOR | NONLIVING | RES_TELE
 F:NO_CONF | NO_SLEEP | NO_FEAR
+P:Body:Death-Sword
 D:The deadliest weapon: You've heard of these before!
 D:Few are brave enough to wield one, and many a great
 D:adventurer has been betrayed at a critical moment.
@@ -18902,6 +18912,20 @@ P:Life:20
 P:Infra:5
 P:Body:Possessor Soul
 
+N:1130:Marilith
+G:U:r
+I:125:100d7:20:50:30:180
+W:40:2:999:1000:0:0
+B:SLASH:HURT:6d5
+B:SLASH:HURT:6d5
+B:SLASH:HURT:6d5
+B:SLASH:HURT:6d5
+F:NONLIVING | REGENERATE | FEMALE | EVIL | DEMON |
+F:FORCE_MAXHP | OPEN_DOOR | 
+F:DROP_60 | ONLY_ITEM | 
+F:IM_POIS | IM_FIRE | RES_CHAO
+P:Body:Marilith
+
 # N: serial number : monster name
 # G: symbol : color
 # I: speed : hit points : vision : armor class : alertness : weight (lbs)
@@ -18915,3 +18939,4 @@ P:Body:Possessor Soul
 # r - Red          g - Green          b - Blue          u - Brown
 # d - Dark Gray    W - Light Gray     v - Violet        y - Yellow
 # R - Light Red    G - Light Green    B - Light Blue    U - Light Brown
+#

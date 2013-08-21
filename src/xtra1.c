@@ -4328,6 +4328,10 @@ void calc_bonuses(void)
     if (race_ptr->calc_innate_attacks)
         race_ptr->calc_innate_attacks();
 
+    /* Kamikaze Warrior with a Monster Race/Possessor */
+    if (!p_ptr->weapon_ct && p_ptr->tim_speed_essentia)
+        p_ptr->innate_attack_info.xtra_blow += 200;
+
     if (p_ptr->riding)
     {
         int penalty = 0;

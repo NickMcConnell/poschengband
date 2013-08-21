@@ -5,6 +5,7 @@ static void _birth(void)
     object_type    forge;
 
     p_ptr->current_r_idx = MON_GAZER;
+    equip_on_change_race();
     
     object_prep(&forge, lookup_kind(TV_CROWN, SV_IRON_CROWN));
     forge.name2 = EGO_SEEING;
@@ -24,8 +25,6 @@ static void _birth(void)
     object_prep(&forge, lookup_kind(TV_WAND, SV_WAND_COLD_BOLT));
     apply_magic(&forge, 1, AM_AVERAGE);
     add_outfit(&forge);
-
-    equip_on_change_race();
 }
 
 /**********************************************************************
