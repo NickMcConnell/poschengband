@@ -230,6 +230,24 @@ static void _calc_innate_attacks(void)
         if (a.weight < 10) /* 1 lb minimum ... */
             a.weight = 10;
 
+        /* Most early monsters with innate attacks aren't worth possessing as
+           their damage is just too low ... Heck, a Mean Looking Mercenary with
+           a good longsword is usually a much better option! */
+        switch (blow_ptr->method)
+        {
+        case RBM_HIT:
+        case RBM_PUNCH:
+        case RBM_KICK:
+        case RBM_CLAW:
+        case RBM_BITE:
+        case RBM_STING:
+        case RBM_SLASH:
+        case RBM_BUTT:
+        case RBM_CRUSH:
+            a.to_d += 2 + (r_ptr->level + 4) / 5;
+            break;
+        }
+
         switch (blow_ptr->effect)
         {
         case RBE_ACID:
@@ -579,6 +597,8 @@ static int _get_powers(spell_info* spells, int max)
         _add_power(&spells[ct++], 2, 1, 15, shoot_arrow_spell, p_ptr->stat_ind[A_DEX]);
     if (ct < max && (r_ptr->flags4 & RF4_THROW))
         _add_power(&spells[ct++], 5, 0, 50, throw_boulder_spell, p_ptr->stat_ind[A_STR]);
+    if (ct < max && (r_ptr->flags9 & RF9_POS_BERSERK))
+        _add_power(&spells[ct++], 13, 9, 50, berserk_spell, p_ptr->stat_ind[A_STR]);
     if (ct < max && (r_ptr->flags4 & RF4_BR_ACID))
         _add_power(&spells[ct++], 20, 25, 55, _breathe_acid_spell, p_ptr->stat_ind[A_CON]);
     if (ct < max && (r_ptr->flags4 & RF4_BR_ELEC))
@@ -723,8 +743,6 @@ static int _get_spells(spell_info* spells, int max)
         _add_spell(&spells[ct++], 12, 6, 35, frost_bolt_spell, stat_idx);
     if (ct < max && (r_ptr->flags5 & RF5_BO_ACID))
         _add_spell(&spells[ct++], 13, 7, 40, acid_bolt_spell, stat_idx);
-    if (ct < max && (r_ptr->flags9 & RF9_POS_BERSERK))
-        _add_spell(&spells[ct++], 13, 9, 50, berserk_spell, stat_idx);
     if (ct < max && (r_ptr->flags5 & RF5_BA_ELEC))
         _add_spell(&spells[ct++], 14, 10, 45, lightning_ball_spell, stat_idx);
     if (ct < max && (r_ptr->flags9 & RF9_POS_MAPPING))
@@ -884,6 +902,8 @@ static void _calc_bonuses(void)
     monster_race *r_ptr = &r_info[p_ptr->current_r_idx];
     int           r_lvl = MAX(1, r_ptr->level);
 
+    if (!p_ptr->current_r_idx) /* Birth hack ... we haven't been "born" yet! */
+        return;
 
     if ((r_ptr->flags1 & RF1_FEMALE) && p_ptr->psex != SEX_FEMALE)
     {
@@ -1197,10 +1217,7 @@ race_t *mon_possessor_get_race_t(void)
 
         r_ptr = &r_info[r_idx];
 
-        if (r_idx != MON_POSSESSOR_SOUL)
-            me.base_hp = 15;
-        else
-            me.base_hp = 0;
+        me.base_hp = 15;
 
         me.get_spells = NULL;
         me.caster_info = NULL;

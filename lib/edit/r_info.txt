@@ -6879,10 +6879,10 @@ F:BASH_DOOR | CAN_FLY | WILD_WOOD | RIDING
 F:EVIL
 F:DROP_CORPSE | POS_GAIN_AC
 P:Copy:Human:Warrior
-P:Body:Centaur
+P:Body:Hound
 S:1_IN_5 | 
 S:SHOOT
-D:It is a winged lion's body with a human torso and a tail covered in 
+D:It is a winged lion's body with a human head and a tail covered in 
 D:vicious spikes.
 
 N:473:Giant army ant
