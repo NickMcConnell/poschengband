@@ -901,9 +901,15 @@ static void _calc_bonuses(void)
 {
     monster_race *r_ptr = &r_info[p_ptr->current_r_idx];
     int           r_lvl = MAX(1, r_ptr->level);
+    int           p_lvl;
 
     if (!p_ptr->current_r_idx) /* Birth hack ... we haven't been "born" yet! */
         return;
+
+    if (p_ptr->lev <= 40)
+        p_lvl = p_ptr->lev;
+    else
+        p_lvl = 40 + (p_ptr->lev - 40)*6;
 
     if ((r_ptr->flags1 & RF1_FEMALE) && p_ptr->psex != SEX_FEMALE)
     {
@@ -919,7 +925,7 @@ static void _calc_bonuses(void)
 
     if (r_ptr->flags9 & RF9_POS_GAIN_AC)
     {
-        int to_a = r_ptr->ac * MIN(p_ptr->lev * 2, r_lvl) / r_lvl;
+        int to_a = r_ptr->ac * MIN(p_lvl, r_lvl) / r_lvl;
         p_ptr->to_a += to_a;
         p_ptr->dis_to_a += to_a;
     }
@@ -930,7 +936,7 @@ static void _calc_bonuses(void)
         int bonus = MIN(sp, 5);
         
         if (sp > 5)
-            bonus += ((sp - 5 + 1)/2) * MIN(p_ptr->lev * 2, r_lvl) / r_lvl;
+            bonus += ((sp - 5 + 1)/2) * MIN(p_lvl, r_lvl) / r_lvl;
 
         p_ptr->pspeed += bonus;
     }
@@ -942,8 +948,8 @@ static void _calc_bonuses(void)
 
     if (r_ptr->flags9 & RF9_POS_HOLD_LIFE)
         p_ptr->hold_life = TRUE;
-    if (r_ptr->flags1 & (RF1_RAND_25 | RF1_RAND_50))
-        p_ptr->move_random = TRUE;
+    /*if (r_ptr->flags1 & (RF1_RAND_25 | RF1_RAND_50))
+        p_ptr->move_random = TRUE;*/
     if (r_ptr->flags9 & RF9_POS_TELEPATHY)
         p_ptr->telepathy = TRUE;
     if (r_ptr->flags9 & RF9_POS_SEE_INVIS)
