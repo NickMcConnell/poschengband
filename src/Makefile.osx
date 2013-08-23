@@ -14,6 +14,7 @@ OPT ?= -O2
 NAME = PosChengband
 APPNAME = $(NAME).app
 EXE = $(NAME)
+VERSION = 2.0.0
 
 # for consistency with older versions, use a lower case bundle ID
 BUNDLE_IDENTIFIER = org.rephial.angband
@@ -47,7 +48,7 @@ CFLAGS += -DHAVE_CONFIG_H
 endif
 
 # let Makefile.inc set VERSION and then we'll use the detailed build ID as the bundle version (visible in "About Angband")
-include Makefile.inc
+# include Makefile.inc
 SRCS = \
 	archaeologist.c archer.c artifact.c autopick.c virtue.c bard.c \
 	beastmaster.c berserker.c birth.c bldg.c blood_knight.c blood_mage.c blue_mage.c \
@@ -92,7 +93,7 @@ OBJS = \
 	wizard1.o wizard2.o xtra1.o xtra2.o z-term.o int-map.o str-map.o z-form.o \
 	z-rand.o z-util.o z-virt.o main-gcu.o main-x11.o main.o
 
-BUNDLE_VERSION := $(shell ../scripts/version.sh)
+# BUNDLE_VERSION := $(shell ../scripts/version.sh)
 CFLAGS += -DBUILD_ID=${VERSION}
 
 OSX_OBJS = main-cocoa.o
