@@ -43,9 +43,67 @@ static NSInteger const AngbandCommandMenuItemTagBase = 2000;
 # define USE_LIVE_RESIZE_CACHE 1
 #endif
 
+/* Global defines etc from Angband 3.5-dev - NRM */
+#define ANGBAND_TERM_MAX 8
+/**
+ * Specifies what kind of thing a file is, when writing.  See file_open().
+ */
+typedef enum
+{
+        FTYPE_TEXT = 1,
+        FTYPE_SAVE,
+        FTYPE_RAW,
+        FTYPE_HTML
+} file_type;
+
+static bool new_game = TRUE;
+
+#define MAX_COLORS 256
+#define MSG_MAX SOUND_MAX
+
+/**
+ * Keyset mappings for various keys.
+ */
+#define ARROW_DOWN    0x80
+#define ARROW_LEFT    0x81
+#define ARROW_RIGHT   0x82
+#define ARROW_UP      0x83
+
+#define KC_F1         0x84
+#define KC_F2         0x85
+#define KC_F3         0x86
+#define KC_F4         0x87
+#define KC_F5         0x88
+#define KC_F6         0x89
+#define KC_F7         0x8A
+#define KC_F8         0x8B
+#define KC_F9         0x8C
+#define KC_F10        0x8D
+#define KC_F11        0x8E
+#define KC_F12        0x8F
+#define KC_F13        0x90
+#define KC_F14        0x91
+#define KC_F15        0x92
+
+#define KC_HELP       0x93
+#define KC_HOME       0x94
+#define KC_PGUP       0x95
+#define KC_END        0x96
+#define KC_PGDOWN     0x97
+#define KC_INSERT     0x98
+#define KC_PAUSE      0x99
+#define KC_BREAK      0x9a
+#define KC_BEGIN      0x9b
+#define KC_ENTER      0x9c /* ASCII \r */
+#define KC_TAB        0x9d /* ASCII \t */
+#define KC_DELETE     0x9e
+#define KC_BACKSPACE  0x9f /* ASCII \h */
+//#define ESCAPE        0xE000
+
+/* End Angband stuff - NRM */
 
 /* Our command-fetching function */
-static errr cocoa_get_cmd(cmd_context context, bool wait);
+//static errr cocoa_get_cmd(cmd_context context, bool wait);
 
 
 /* Application defined event numbers */
@@ -221,8 +279,7 @@ static NSFont *default_font;
  */
 u32b AngbandMaskForValidSubwindowFlags(void)
 {
-    int windowFlagBits = sizeof(*(op_ptr->window_flag)) * CHAR_BIT;
-    int maxBits = MIN( PW_MAX_FLAGS, windowFlagBits );
+    int maxBits = 16;
     u32b mask = 0;
 
     for( int i = 0; i < maxBits; i++ )
@@ -261,7 +318,7 @@ static void AngbandUpdateWindowVisibility(void)
             continue;
         }
 
-        BOOL termHasSubwindowFlags = ((op_ptr->window_flag[i] & validWindowFlagsMask) > 0);
+        BOOL termHasSubwindowFlags = ((window_flag[i] & validWindowFlagsMask) > 0);
 
         if( angbandContext.hasSubwindowFlags && !termHasSubwindowFlags )
         {
@@ -332,14 +389,14 @@ static unsigned push_options(unsigned x, unsigned y)
 /*
  * The tile image
  */
-static CGImageRef pict_image;
+//static CGImageRef pict_image;
 
 /*
  * Numbers of rows and columns in a tileset,
  * calculated by the PICT/PNG loading code
  */
-static int pict_cols = 0;
-static int pict_rows = 0;
+//static int pict_cols = 0;
+//static int pict_rows = 0;
 
 /*
  * Value used to signal that we using ASCII, not graphical tiles.
@@ -357,7 +414,7 @@ static int graf_mode_req = 0;
  */
 static BOOL graphics_are_enabled(void)
 {
-    return current_graphics_mode && current_graphics_mode->grafID != GRAPHICS_NONE;
+    return GRAPHICS_NONE;
 }
 
 /*
@@ -374,10 +431,10 @@ static void load_prefs(void);
 static void load_sounds(void);
 static void init_windows(void);
 static void handle_open_when_ready(void);
-static void play_sound(int event);
+//static void play_sound(int event);
 static BOOL check_events(int wait);
-static void cocoa_file_open_hook(const char *path, file_type ftype);
-static bool cocoa_get_file(const char *suggested_name, char *path, size_t len);
+//static void cocoa_file_open_hook(const char *path, file_type ftype);
+//static bool cocoa_get_file(const char *suggested_name, char *path, size_t len);
 static BOOL send_event(NSEvent *event);
 static void record_current_savefile(void);
 
@@ -388,11 +445,6 @@ static void record_current_savefile(void);
 #define CHECK_EVENTS_NO_WAIT	0
 #define CHECK_EVENTS_WAIT 1
 
-
-/*
- * Note when "open"/"new" become valid
- */
-static bool initialized = FALSE;
 
 /* Methods for getting the appropriate NSUserDefaults */
 @interface NSUserDefaults (AngbandDefaults)
@@ -876,8 +928,8 @@ static int compare_advances(const void *ap, const void *bp)
     [[self libDirectoryPath] getFileSystemRepresentation: libpath maxLength: sizeof(libpath)];
     [[self angbandDocumentsPath] getFileSystemRepresentation: basepath maxLength: sizeof(basepath)];
 
-    init_file_paths( libpath, libpath, basepath );
-    create_needed_dirs();
+    init_file_paths( basepath );
+    //create_needed_dirs();
 }
 
 #pragma mark -
@@ -904,10 +956,10 @@ static int compare_advances(const void *ap, const void *bp)
     init_windows();
     
     /* Set up game event handlers */
-    init_display();
+    //init_display();
     
 	/* Register the sound hook */
-	sound_hook = play_sound;
+	//sound_hook = play_sound;
     
     /* Note the "system" */
     ANGBAND_SYS = "mac";
@@ -931,7 +983,7 @@ static int compare_advances(const void *ap, const void *bp)
         
     [pool drain];
     
-    play_game();
+    play_game(new_game);
 }
 
 + (void)endGame
@@ -1513,7 +1565,7 @@ static void Term_nuke_cocoa(term *t)
     
     [pool drain];
 }
-
+#if 0
 /* Returns the CGImageRef corresponding to an image with the given name in the resource directory, transferring ownership to the caller */
 static CGImageRef create_angband_image(NSString *name)
 {
@@ -1575,7 +1627,7 @@ static CGImageRef create_angband_image(NSString *name)
     }
     return result;
 }
-
+#endif
 /*
  * React to changes
  */
@@ -1585,8 +1637,8 @@ static errr Term_xtra_cocoa_react(void)
     if (!initialized || !game_in_progress) return (-1);
 
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    AngbandContext *angbandContext = Term->data;
-    
+    //AngbandContext *angbandContext = Term->data;
+#if 0    
     /* Handle graphics */
     int expected_graf_mode = (current_graphics_mode ? current_graphics_mode->grafID : GRAF_MODE_NONE);
     if (graf_mode_req != expected_graf_mode)
@@ -1641,7 +1693,7 @@ static errr Term_xtra_cocoa_react(void)
             reset_visuals(TRUE);
         }
     }
-    
+#endif    
     [pool drain];
     
     /* Success */
@@ -1836,7 +1888,7 @@ static errr Term_wipe_cocoa(int x, int y, int n)
     /* Success */
     return (0);
 }
-
+#if 0
 static void draw_image_tile(CGImageRef image, NSRect srcRect, NSRect dstRect, NSCompositingOperation op)
 {
     /* When we use high-quality resampling to draw a tile, pixels from outside the tile may bleed in, causing graphics artifacts. Work around that. */
@@ -1936,13 +1988,13 @@ static errr Term_pict_cocoa(int x, int y, int n, const int *ap,
     /* Success */
     return (0);
 }
-
+#endif
 /*
  * Low level graphics.  Assumes valid input.
  *
  * Draw several ("n") chars, with an attr, at a given location.
  */
-static errr Term_text_cocoa(int x, int y, int n, int a, const wchar_t *cp)
+static errr Term_text_cocoa(int x, int y, int n, byte_hack a, cptr cp)
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
@@ -1979,7 +2031,7 @@ static errr Term_text_cocoa(int x, int y, int n, int a, const wchar_t *cp)
     unsigned rightPushOptions = push_options(x + n - 1, y);
     leftPushOptions &= ~ PUSH_RIGHT;
     rightPushOptions &= ~ PUSH_LEFT;
-    
+#if 0    
     switch (a / MAX_COLORS) {
     case BG_BLACK:
 	    [[NSColor blackColor] set];
@@ -1991,7 +2043,7 @@ static errr Term_text_cocoa(int x, int y, int n, int a, const wchar_t *cp)
 	    set_color_for_index(TERM_SHADE);
 	    break;
     }
-    
+#endif    
     NSRect rectToClear = charRect;
     rectToClear.size.width = tileWidth * n;
     NSRectFill(crack_rect(rectToClear, AngbandScaleIdentity, leftPushOptions | rightPushOptions));
@@ -2009,13 +2061,13 @@ static errr Term_text_cocoa(int x, int y, int n, int a, const wchar_t *cp)
         if (overdrawX >= 0 && (size_t)overdrawX < angbandContext->cols)
         {
             wchar_t previouslyDrawnVal = angbandContext->charOverdrawCache[y * angbandContext->cols + overdrawX];
-	    int previouslyDrawnAttr = angbandContext->attrOverdrawCache[y * angbandContext->cols + overdrawX];
+	    //int previouslyDrawnAttr = angbandContext->attrOverdrawCache[y * angbandContext->cols + overdrawX];
             // Don't overdraw if it's not text
             if (previouslyDrawnVal != NO_OVERDRAW)
             {
                 NSRect overdrawRect = [angbandContext rectInImageForTileAtX:overdrawX Y:y];
                 NSRect expandedRect = crack_rect(overdrawRect, AngbandScaleIdentity, push_options(overdrawX, y));
-                
+#if 0                
                 // Make sure we redisplay it
 		switch (previouslyDrawnAttr / MAX_COLORS) {
 		case BG_BLACK:
@@ -2028,6 +2080,7 @@ static errr Term_text_cocoa(int x, int y, int n, int a, const wchar_t *cp)
 		    set_color_for_index(TERM_SHADE);
 		    break;
 		}
+#endif
                 NSRectFill(expandedRect);
                 redisplayRect = NSUnionRect(redisplayRect, expandedRect);
                 
@@ -2067,7 +2120,7 @@ static errr Term_text_cocoa(int x, int y, int n, int a, const wchar_t *cp)
     /* Success */
     return (0);
 }
-
+#if 0
 /* From the Linux mbstowcs(3) man page:
  *   If dest is NULL, n is ignored, and the conversion  proceeds  as  above,
  *   except  that  the converted wide characters are not written out to mem‐
@@ -2116,7 +2169,7 @@ static size_t Term_mbcs_cocoa(wchar_t *dest, const char *src, int n)
     }
     return count;
 }
-
+#endif
 /* Post a nonsense event so that our event loop wakes up */
 static void wakeup_event_loop(void)
 {
@@ -2149,7 +2202,7 @@ static term *term_data_link(int i)
     term_init(newterm, columns, rows, 256 /* keypresses, for some reason? */);
     
     /* Differentiate between BS/^h, Tab/^i, etc. */
-    newterm->complex_input = TRUE;
+    //newterm->complex_input = TRUE;
 
     /* Use a "software" cursor */
     newterm->soft_cursor = TRUE;
@@ -2167,8 +2220,8 @@ static term *term_data_link(int i)
     newterm->wipe_hook = Term_wipe_cocoa;
     newterm->curs_hook = Term_curs_cocoa;
     newterm->text_hook = Term_text_cocoa;
-    newterm->pict_hook = Term_pict_cocoa;
-    newterm->mbcs_hook = Term_mbcs_cocoa;
+    //newterm->pict_hook = Term_pict_cocoa;
+    //newterm->mbcs_hook = Term_mbcs_cocoa;
     
     /* Global pointer */
     angband_term[i] = newterm;
@@ -2233,7 +2286,7 @@ typedef struct
 } sound_sample_list;
 
 /* Array of event sound structs */
-static sound_sample_list samples[MSG_MAX];
+//static sound_sample_list samples[MSG_MAX];
 
 
 /*
@@ -2246,6 +2299,7 @@ static sound_sample_list samples[MSG_MAX];
  */
 static void load_sounds(void)
 {
+#if 0
 	char path[2048];
 	char buffer[2048];
 	ang_file *fff;
@@ -2389,8 +2443,9 @@ static void load_sounds(void)
     
 	/* Close the file */
 	file_close(fff);
+#endif
 }
-
+#if 0
 /*
  * Play sound effects asynchronously.  Select a sound from any available
  * for the required event, and bridge to Cocoa to play it.
@@ -2431,7 +2486,7 @@ static void play_sound(int event)
     /* Release the autorelease pool */
     [autorelease_pool drain];
 }
-
+#endif
 /*
  * 
  */
@@ -2450,7 +2505,7 @@ static void init_windows(void)
     Term_activate(primary);
 }
 
-
+#if 0
 /*
  *    Run the event loop and return a gameplay status to init_angband
  */
@@ -2485,7 +2540,7 @@ static errr cocoa_get_cmd(cmd_context context, bool wait)
     else 
         return textui_get_cmd(context, wait);
 }
-
+#endif
 /* Return the directory into which we put data (save and config) */
 static NSString *get_data_directory(void)
 {
@@ -2507,7 +2562,7 @@ static void handle_open_when_ready(void)
         game_in_progress = TRUE;
         
         /* Wait for a keypress */
-        pause_line(Term);
+        pause_line(23);
     }
 }
 
@@ -2528,7 +2583,7 @@ static void quit_calmly(void)
         msg_flag = FALSE;
         
         /* Save the game */
-        do_cmd_save_game(FALSE, 0);
+        do_cmd_save_game(FALSE);
         record_current_savefile();
         
         
@@ -2583,16 +2638,16 @@ static BOOL send_event(NSEvent *event)
             
             
             /* Extract some modifiers */
-            int mc = !! (modifiers & NSControlKeyMask);
-            int ms = !! (modifiers & NSShiftKeyMask);
-            int mo = !! (modifiers & NSAlternateKeyMask);
-            int mx = !! (modifiers & NSCommandKeyMask);
+            //int mc = !! (modifiers & NSControlKeyMask);
+            //int ms = !! (modifiers & NSShiftKeyMask);
+            //int mo = !! (modifiers & NSAlternateKeyMask);
+            //int mx = !! (modifiers & NSCommandKeyMask);
             int kp = !! (modifiers & NSNumericPadKeyMask);
             
             
             /* Get the Angband char corresponding to this unichar */
             unichar c = [[event characters] characterAtIndex:0];
-            keycode_t ch;
+            char ch;
             switch (c) {
                 /* Note that NSNumericPadKeyMask is set if any of the arrow
                  * keys are pressed. We don't want KC_MOD_KEYPAD set for
@@ -2673,7 +2728,7 @@ static BOOL send_event(NSEvent *event)
             /* Queue mouse presses if they occur in the map section
              * of the main window.
              */
-
+#if 0
             AngbandContext *angbandContext =
                 [[[event window] contentView] angbandContext];
             AngbandContext *mainAngbandContext =
@@ -2707,7 +2762,7 @@ static BOOL send_event(NSEvent *event)
                     Term_mousepress(x, y, 1);
                 }
             }
-
+#endif
             /* Pass click through to permit focus change, resize, etc. */
             [NSApp sendEvent:event];
             break;
@@ -2750,7 +2805,7 @@ static BOOL check_events(int wait)
         if (quit_when_ready)
         {
             /* send escape events until we quit */
-            Term_keypress(0x1B, 0);
+            Term_keypress(0x1B);
             [pool drain];
             return false;
         }
@@ -2793,7 +2848,7 @@ static void hook_quit(const char * str)
     plog(str);
     exit(0);
 }
-
+#if 0
 /* Set HFS file type and creator codes on a path */
 static void cocoa_file_open_hook(const char *path, file_type ftype)
 {
@@ -2828,7 +2883,7 @@ static bool cocoa_get_file(const char *suggested_name, char *path, size_t len)
 
     return FALSE;
 }
-
+#endif
 /*** Main program ***/
 
 @interface AngbandAppDelegate : NSObject {
@@ -2857,7 +2912,7 @@ static bool cocoa_get_file(const char *suggested_name, char *path, size_t len)
 {
     /* Game is in progress */
     game_in_progress = TRUE;
-    cmd.command = CMD_NEWGAME;
+    new_game = TRUE;
 }
 
 - (IBAction)editFont:sender
@@ -2958,7 +3013,7 @@ static bool cocoa_get_file(const char *suggested_name, char *path, size_t len)
         
         /* Game is in progress */
         game_in_progress = TRUE;
-        cmd.command = CMD_LOADFILE;
+        new_game = FALSE;
     }
     
     [pool drain];
@@ -2970,7 +3025,7 @@ static bool cocoa_get_file(const char *suggested_name, char *path, size_t len)
     msg_flag = FALSE;
     
     /* Save the game */
-    do_cmd_save_game(FALSE, 0);
+    do_cmd_save_game(FALSE);
     
     /* Record the current save file so we can select it by default next time. It's a little sketchy that this only happens when we save through the menu; ideally game-triggered saves would trigger it too. */
     record_current_savefile();
@@ -2991,7 +3046,7 @@ static bool cocoa_get_file(const char *suggested_name, char *path, size_t len)
         else
         {
             NSInteger subwindowNumber = tag - AngbandWindowMenuItemTagBase;
-            return (op_ptr->window_flag[subwindowNumber] > 0);
+            return (window_flag[subwindowNumber] > 0);
         }
 
         return NO;
@@ -3174,7 +3229,7 @@ static bool cocoa_get_file(const char *suggested_name, char *path, size_t len)
     }
     else
     {
-        cmd_insert(CMD_QUIT);
+      //cmd_insert(CMD_QUIT);
         /* Post an escape event so that we can return from our get-key-event function */
         wakeup_event_loop();
         quit_when_ready = true;
@@ -3187,9 +3242,9 @@ static bool cocoa_get_file(const char *suggested_name, char *path, size_t len)
 - (void)menuNeedsUpdate:(NSMenu *)menu {
     
     /* Only the graphics menu is dynamic */
-    if (! [[menu title] isEqualToString:@"Graphics"])
+    //if (! [[menu title] isEqualToString:@"Graphics"])
         return;
-    
+#if 0    
     /* If it's non-empty, then we've already built it. Currently graphics modes won't change once created; if they ever can we can remove this check.
        Note that the check mark does change, but that's handled in validateMenuItem: instead of menuNeedsUpdate: */
     if ([menu numberOfItems] > 0)
@@ -3216,6 +3271,7 @@ static bool cocoa_get_file(const char *suggested_name, char *path, size_t len)
         NSMenuItem *item = [menu addItemWithTitle:title action:action keyEquivalent:@""];
         [item setTag:graf->grafID];
     }
+#endif
 }
 
 /* Delegate method that gets called if we're asked to open a file. */
@@ -3232,7 +3288,7 @@ static bool cocoa_get_file(const char *suggested_name, char *path, size_t len)
     if (! [file getFileSystemRepresentation:savefile maxLength:sizeof savefile]) return NO;
     
     /* Success, remember to load it */
-    cmd.command = CMD_LOADFILE;
+    //cmd.command = CMD_LOADFILE;
     
     /* Wake us up in case this arrives while we're sitting at the Welcome screen! */
     wakeup_event_loop();
