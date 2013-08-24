@@ -300,7 +300,7 @@
  * Note that this is only relevant for "SET_UID" machines.
  * Note that new "SOLARIS" and "SGI" machines have "usleep()".
  */
-#if defined(SET_UID) && !defined(HAVE_CONFIG_H)
+#if defined(SET_UID)
 # if !defined(HPUX) && !defined(ULTRIX) && !defined(ISC)
 #  define HAVE_USLEEP
 # endif
@@ -311,6 +311,7 @@
 #  define HAVE_USLEEP /* Set for gcc (djgpp-v2), TY */
 # endif
 #endif
+
 
 
 #endif /* INCLUDED_H_CONFIG_H */
