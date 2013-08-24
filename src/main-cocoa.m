@@ -100,6 +100,9 @@ static bool new_game = TRUE;
 #define KC_BACKSPACE  0x9f /* ASCII \h */
 //#define ESCAPE        0xE000
 
+//OSType _ftype;
+//OSType _fcreator;
+
 /* End Angband stuff - NRM */
 
 /* Our command-fetching function */

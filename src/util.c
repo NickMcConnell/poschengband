@@ -360,7 +360,8 @@ FILE *my_fopen(cptr file, cptr mode)
     /* Hack -- Try to parse the path */
     if (path_parse(buf, 1024, file)) return (NULL);
 
-#if defined(MAC_MPW) || defined(MACH_O_CARBON)
+    //#if defined(MAC_MPW) || defined(MACH_O_CARBON)
+#if 0
     if (my_strchr(mode, 'w'))
     {
         /* setting file type/creator */
@@ -684,7 +685,8 @@ int fd_make(cptr file, int mode)
 
 #else /* BEN_HACK */
 
-#if defined(MAC_MPW) || defined(MACH_O_CARBON)
+#if 0
+    //#if defined(MAC_MPW) || defined(MACH_O_CARBON)
     {
         int fdes;
         /* Create the file, fail if exists, write-only, binary */

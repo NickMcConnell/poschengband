@@ -14,7 +14,7 @@ OPT ?= -O2
 NAME = PosChengband
 APPNAME = $(NAME).app
 EXE = $(NAME)
-VERSION = 2.0.0
+VERSION = 2.0.1
 
 # for consistency with older versions, use a lower case bundle ID
 BUNDLE_IDENTIFIER = org.rephial.angband
@@ -61,7 +61,7 @@ SRCS = \
 	mut_a.c mystic.c necromancer.c ninja.c object1.c object2.c object3.c obj_kind.c paladin.c \
 	priest.c psion.c races.c races_a.c races_k.c races_mimic.c race_angel.c \
 	race_beholder.c race_demon.c race_dragon.c race_elemental.c race_giant.c race_golem.c \
-	race_hound.c race_hydra.c race_jelly.c race_leprechaun.c race_lich.c race_quylthulg.c race_spider.c \
+	race_hound.c race_hydra.c race_jelly.c race_leprechaun.c race_lich.c race_possessor.c race_quylthulg.c race_spider.c \
 	race_sword.c race_troll.c race_xorn.c racial.c rage-mage.c ranger.c red_mage.c \
 	resist.c rogue.c rooms.c rune_knight.c samurai.c save.c savefile.c scores.c scout.c \
 	skills.c sniper.c sorcerer.c spells.c spells1.c spells2.c spells3.c spells_a.c \
@@ -69,7 +69,7 @@ SRCS = \
 	tables.c time_lord.c tourist.c util.c variable.c variant.c warlock.c warrior.c \
 	warrior_mage.c weaponmaster.c weaponsmith.c wild.c wild_realm.c wild_talent.c \
 	wizard1.c wizard2.c xtra1.c xtra2.c z-term.c int-map.c str-map.c z-form.c \
-	z-rand.c z-util.c z-virt.c main-gcu.c main-x11.c main.c
+	z-rand.c z-util.c z-virt.c
 
 OBJS = \
 	archaeologist.o archer.o artifact.o autopick.o virtue.o bard.o \
@@ -83,7 +83,7 @@ OBJS = \
 	mut_a.o mystic.o necromancer.o ninja.o object1.o object2.o object3.o obj_kind.o paladin.o \
 	priest.o psion.o races.o races_a.o races_k.o races_mimic.o race_angel.o \
 	race_beholder.o race_demon.o race_dragon.o race_elemental.o race_giant.o race_golem.o \
-	race_hound.o race_hydra.o race_jelly.o race_leprechaun.o race_lich.o race_quylthulg.o race_spider.o \
+	race_hound.o race_hydra.o race_jelly.o race_leprechaun.o race_lich.o race_possessor.o race_quylthulg.o race_spider.o \
 	race_sword.o race_troll.o race_xorn.o racial.o rage-mage.o ranger.o red_mage.o \
 	resist.o rogue.o rooms.o rune_knight.o samurai.o save.o savefile.o scores.o scout.o \
 	skills.o sniper.o sorcerer.o spells.o spells1.o spells2.o spells3.o spells_a.o \
@@ -91,7 +91,7 @@ OBJS = \
 	tables.o time_lord.o tourist.o util.o variable.o variant.o warlock.o warrior.o \
 	warrior_mage.o weaponmaster.o weaponsmith.o wild.o wild_realm.o wild_talent.o \
 	wizard1.o wizard2.o xtra1.o xtra2.o z-term.o int-map.o str-map.o z-form.o \
-	z-rand.o z-util.o z-virt.o main-gcu.o main-x11.o main.o
+	z-rand.o z-util.o z-virt.o
 
 # BUNDLE_VERSION := $(shell ../scripts/version.sh)
 CFLAGS += -DBUILD_ID=${VERSION}
@@ -178,6 +178,7 @@ install: $(EXE) $(ICONFILES) $(PLIST) $(LIBFILES)
 	@mkdir -p $(APPBIN)
 	@mkdir -p $(APPRES)
 	@mkdir -p $(APPRES)/English.lproj/MainMenu.nib 
+	@mkdir -p $(APPRES)/lib/data
 	@mkdir -p $(APPRES)/lib/edit
 	@mkdir -p $(APPRES)/lib/file
 	@mkdir -p $(APPRES)/lib/help
