@@ -9752,12 +9752,12 @@ N:641:Minotaur
 G:H:U
 I:130:100d10:13:25:10:250
 W:40:2:70:2100:12000:723
-B:BUTT:HURT:4d6
-B:BUTT:HURT:4d6
+B:HIT:HURT:4d6
+B:HIT:HURT:4d6
 B:BUTT:HURT:2d6
 B:BUTT:HURT:2d6
 F:BASH_DOOR | EVIL
-F:DROP_SKELETON | DROP_CORPSE | POS_GAIN_AC | POS_BERSERK
+F:DROP_SKELETON | DROP_CORPSE
 P:Copy:Human:Mauler
 P:Body:Minotaur
 D:It is a cross between a human and a bull.
@@ -11503,7 +11503,6 @@ S:1_IN_5 |
 S:BLIND | SCARE | CAUSE_3 | BA_NETH | BA_FIRE | BO_PLAS | S_MONSTERS
 D:It is a humanoid form dressed in armour of ancient style.  From beneath 
 D:its helmet, eyes glow with hellfire.
-P:Copy:Dunadan:Paladin
 
 N:732:Bull Gates
 G:p:D
@@ -11544,7 +11543,6 @@ S:CAUSE_4 | HOLD | DRAIN_MANA | SCARE | BLIND | SPECIAL
 S:BA_NETH | FORGET | TRAPS | BRAIN_SMASH | TELE_AWAY 
 D:Why would anybody want to kill Santa Claus? To get all the presents, 
 D:of course!
-P:Copy:Gnome:Priest
 
 N:734:Eihort, the Thing in the Labyrinth
 G:j:R
@@ -13363,7 +13361,6 @@ D:The Norse ruler of Hel is a merciless queen, who ever hunts for more
 D:souls to add to her collection of tortured spirits. She arrives in 
 D:an ominous green robe, a certain sign of impending doom, to claim 
 D:as her own those who die an ignoble death.
-P:Copy:Human:Mage
 
 N:818:The Mouth of Sauron
 G:p:v
@@ -14305,7 +14302,6 @@ S:HAND_DOOM | ANIM_DEAD | DISPEL | ANTI_MAGIC | PSY_SPEAR
 D:Mighty in spells and enchantments,
 D:he created the One Ring.  His eyes glow with power and his gaze seeks to 
 D:destroy your soul.  He has many servants, and rarely fights without them.
-P:Copy:Dunadan:Warrior-Mage
 
 N:859:The Unicorn of Order
 G:q:w
@@ -15885,7 +15881,6 @@ S:1_IN_5 |
 S:BO_MANA | BA_FIRE | BA_COLD | BA_ELEC | BA_ACID | BO_ICEE | BO_PLAS |
 S:BO_WATE | BA_WATE | PSY_SPEAR | CAUSE_3 | CAUSE_4 |
 S:CONF | BLIND | S_MONSTERS | TPORT
-P:Copy:Dunadan:Paladin
 
 # Description in English by Nick Keulmann
 N:950:Hammer brother
@@ -17225,13 +17220,13 @@ N:1034:The Minotaur of the Labyrinth
 G:H:U
 I:125:50d10:13:25:10:300
 W:35:3:999:600:0:0
-B:BUTT:HURT:4d6
-B:BUTT:HURT:4d6
+B:HIT:HURT:4d6
+B:HIT:HURT:4d6
 B:BUTT:HURT:2d6
 B:BUTT:HURT:2d6
 F:BASH_DOOR | FORCE_MAXHP |
 F:EVIL | UNIQUE
-F:DROP_SKELETON | DROP_CORPSE | POS_GAIN_AC | POS_BERSERK
+F:DROP_SKELETON | DROP_CORPSE
 P:Copy:Demigod:Mauler
 P:Body:Minotaur
 D:It is a cross between a human and a bull.
