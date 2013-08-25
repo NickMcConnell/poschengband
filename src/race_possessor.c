@@ -445,8 +445,49 @@ static void _possess_spell(int cmd, variant *res)
 /**********************************************************************
  * Innate Powers
  **********************************************************************/
+static int _breath_amount(int type)
+{
+    int l = p_ptr->lev;
+    switch (type)
+    {
+    case GF_ACID: case GF_ELEC: case GF_FIRE : case GF_COLD:
+        return MAX(1, MIN(900, p_ptr->chp * (25 + l*l*l/2500) / 100));
 
-static void _breathe_spell(int what, int amt, int cmd, variant *res)
+    case GF_POIS: case GF_NUKE:
+        return MAX(1, MIN(700, p_ptr->chp * (20 + l*l*l/2500) / 100));
+
+    case GF_NETHER:
+        return MAX(1, MIN(650, p_ptr->chp * (20 + l*l*l*30/125000) / 100));
+
+    case GF_LITE: case GF_DARK:
+        return MAX(1, MIN(350, p_ptr->chp * (20 + l*l*l*15/125000) / 100));
+
+    case GF_CONFUSION: case GF_NEXUS: 
+        return MAX(1, MIN(300, p_ptr->chp * (20 + l*l*l*15/125000) / 100));
+
+    case GF_TIME: case GF_INERT: case GF_GRAVITY: case GF_DISINTEGRATE:
+    case GF_PLASMA: case GF_FORCE:
+        return MAX(1, MIN(250, p_ptr->chp * (20 + l*l*l*15/125000) / 100));
+
+    case GF_SOUND:
+        return MAX(1, MIN(400, p_ptr->chp * (20 + l*l*l*25/125000) / 100));
+
+    case GF_STORM:
+        return MAX(1, MIN(300, p_ptr->chp * (20 + l*l*l*20/125000) / 100));
+
+    case GF_CHAOS: case GF_SHARDS:
+        return MAX(1, MIN(500, p_ptr->chp * (20 + l*l*l*30/125000) / 100));
+
+    case GF_MANA:
+        return MAX(1, MIN(400, p_ptr->chp * (20 + l*l*l*25/125000) / 100));
+
+    case GF_DISENCHANT:
+        return MAX(1, MIN(450, p_ptr->chp * (20 + l*l*l*30/125000) / 100));
+    }
+    return 0;
+}
+
+static void _breathe_spell(int what, int cmd, variant *res)
 {
     switch (cmd)
     {
@@ -457,7 +498,7 @@ static void _breathe_spell(int what, int amt, int cmd, variant *res)
         var_set_string(res, format("Breathes %s at your opponent.", gf_name(what)));
         break;
     case SPELL_INFO:
-        var_set_string(res, info_damage(0, 0, amt));
+        var_set_string(res, info_damage(0, 0, _breath_amount(what)));
         break;
     case SPELL_CAST:
     {
@@ -466,7 +507,7 @@ static void _breathe_spell(int what, int amt, int cmd, variant *res)
         if (get_aim_dir(&dir))
         {
             msg_format("You breathe %s!", gf_name(what));
-            fire_ball(what, dir, amt, -1 - (p_ptr->lev / 20));
+            fire_ball(what, dir, _breath_amount(what), -1 - (p_ptr->lev / 20));
             var_set_bool(res, TRUE);
         }
         break;
@@ -476,29 +517,30 @@ static void _breathe_spell(int what, int amt, int cmd, variant *res)
         break;
     }
 }
-static void _breathe_acid_spell(int cmd, variant *res) { _breathe_spell(GF_ACID, MIN(p_ptr->chp*75/100, 900), cmd, res); }
-static void _breathe_elec_spell(int cmd, variant *res) { _breathe_spell(GF_ELEC, MIN(p_ptr->chp*75/100, 900), cmd, res); }
-static void _breathe_fire_spell(int cmd, variant *res) { _breathe_spell(GF_FIRE, MIN(p_ptr->chp*75/100, 900), cmd, res); }
-static void _breathe_cold_spell(int cmd, variant *res) { _breathe_spell(GF_COLD, MIN(p_ptr->chp*75/100, 900), cmd, res); }
-static void _breathe_poison_spell(int cmd, variant *res) { _breathe_spell(GF_POIS, MIN(p_ptr->chp*65/100, 800), cmd, res); }
-static void _breathe_nether_spell(int cmd, variant *res) { _breathe_spell(GF_NETHER, MIN(p_ptr->chp*50/100, 600), cmd, res); }
-static void _breathe_light_spell(int cmd, variant *res) { _breathe_spell(GF_LITE, MIN(p_ptr->chp*35/100, 350), cmd, res); }
-static void _breathe_dark_spell(int cmd, variant *res) { _breathe_spell(GF_DARK, MIN(p_ptr->chp*35/100, 350), cmd, res); }
-static void _breathe_confusion_spell(int cmd, variant *res) { _breathe_spell(GF_CONFUSION, MIN(p_ptr->chp*25/100, 250), cmd, res); }
-static void _breathe_sound_spell(int cmd, variant *res) { _breathe_spell(GF_SOUND, MIN(p_ptr->chp*50/100, 400), cmd, res); }
-static void _breathe_chaos_spell(int cmd, variant *res) { _breathe_spell(GF_CHAOS, MIN(p_ptr->chp*50/100, 500), cmd, res); }
-static void _breathe_disenchantment_spell(int cmd, variant *res) { _breathe_spell(GF_DISENCHANT, MIN(p_ptr->chp*50/100, 450), cmd, res); }
-static void _breathe_nexus_spell(int cmd, variant *res) { _breathe_spell(GF_NEXUS, MIN(p_ptr->chp*25/100, 300), cmd, res); }
-static void _breathe_storm_spell(int cmd, variant *res) { _breathe_spell(GF_STORM, MIN(p_ptr->chp*25/100, 300), cmd, res); }
-static void _breathe_time_spell(int cmd, variant *res) { _breathe_spell(GF_TIME, MIN(p_ptr->chp*35/100, 250), cmd, res); }
-static void _breathe_inertia_spell(int cmd, variant *res) { _breathe_spell(GF_INERT, MIN(p_ptr->chp*25/100, 250), cmd, res); }
-static void _breathe_gravity_spell(int cmd, variant *res) { _breathe_spell(GF_GRAVITY, MIN(p_ptr->chp*25/100, 250), cmd, res); }
-static void _breathe_shards_spell(int cmd, variant *res) { _breathe_spell(GF_SHARDS, MIN(p_ptr->chp*50/100, 500), cmd, res); }
-static void _breathe_plasma_spell(int cmd, variant *res) { _breathe_spell(GF_PLASMA, MIN(p_ptr->chp*35/100, 300), cmd, res); }
-static void _breathe_force_spell(int cmd, variant *res) { _breathe_spell(GF_FORCE, MIN(p_ptr->chp*35/100, 300), cmd, res); }
-static void _breathe_mana_spell(int cmd, variant *res) { _breathe_spell(GF_MANA, MIN(p_ptr->chp*35/100, 400), cmd, res); }
-static void _breathe_disintegration_spell(int cmd, variant *res) { _breathe_spell(GF_DISINTEGRATE, MIN(p_ptr->chp*25/100, 250), cmd, res); }
-static void _breathe_nuke_spell(int cmd, variant *res) { _breathe_spell(GF_NUKE, MIN(p_ptr->chp*65/100, 500), cmd, res); }
+
+static void _breathe_acid_spell(int cmd, variant *res) { _breathe_spell(GF_ACID, cmd, res); }
+static void _breathe_elec_spell(int cmd, variant *res) { _breathe_spell(GF_ELEC, cmd, res); }
+static void _breathe_fire_spell(int cmd, variant *res) { _breathe_spell(GF_FIRE, cmd, res); }
+static void _breathe_cold_spell(int cmd, variant *res) { _breathe_spell(GF_COLD, cmd, res); }
+static void _breathe_poison_spell(int cmd, variant *res) { _breathe_spell(GF_POIS, cmd, res); }
+static void _breathe_nether_spell(int cmd, variant *res) { _breathe_spell(GF_NETHER, cmd, res); }
+static void _breathe_light_spell(int cmd, variant *res) { _breathe_spell(GF_LITE, cmd, res); }
+static void _breathe_dark_spell(int cmd, variant *res) { _breathe_spell(GF_DARK, cmd, res); }
+static void _breathe_confusion_spell(int cmd, variant *res) { _breathe_spell(GF_CONFUSION, cmd, res); }
+static void _breathe_sound_spell(int cmd, variant *res) { _breathe_spell(GF_SOUND, cmd, res); }
+static void _breathe_chaos_spell(int cmd, variant *res) { _breathe_spell(GF_CHAOS, cmd, res); }
+static void _breathe_disenchantment_spell(int cmd, variant *res) { _breathe_spell(GF_DISENCHANT, cmd, res); }
+static void _breathe_nexus_spell(int cmd, variant *res) { _breathe_spell(GF_NEXUS, cmd, res); }
+static void _breathe_storm_spell(int cmd, variant *res) { _breathe_spell(GF_STORM, cmd, res); }
+static void _breathe_time_spell(int cmd, variant *res) { _breathe_spell(GF_TIME, cmd, res); }
+static void _breathe_inertia_spell(int cmd, variant *res) { _breathe_spell(GF_INERT, cmd, res); }
+static void _breathe_gravity_spell(int cmd, variant *res) { _breathe_spell(GF_GRAVITY, cmd, res); }
+static void _breathe_shards_spell(int cmd, variant *res) { _breathe_spell(GF_SHARDS, cmd, res); }
+static void _breathe_plasma_spell(int cmd, variant *res) { _breathe_spell(GF_PLASMA, cmd, res); }
+static void _breathe_force_spell(int cmd, variant *res) { _breathe_spell(GF_FORCE, cmd, res); }
+static void _breathe_mana_spell(int cmd, variant *res) { _breathe_spell(GF_MANA, cmd, res); }
+static void _breathe_disintegration_spell(int cmd, variant *res) { _breathe_spell(GF_DISINTEGRATE, cmd, res); }
+static void _breathe_nuke_spell(int cmd, variant *res) { _breathe_spell(GF_NUKE, cmd, res); }
 
 static void _multiply_spell(int cmd, variant *res)
 {
@@ -768,7 +810,7 @@ static int _get_spells(spell_info* spells, int max)
     if (ct < max && (r_ptr->flags5 & RF5_BA_FIRE))
         _add_spell(&spells[ct++], 20, 14, 60, fire_ball_spell, stat_idx);
     if (ct < max && (r_ptr->flags5 & RF5_BO_MANA) && r_ptr->level < 25) /* DE Warlock */
-        _add_spell(&spells[ct++], 20, 15, 80, mana_bolt_I_spell, stat_idx);
+        _add_spell(&spells[ct++], 20, 15, 60, mana_bolt_I_spell, stat_idx);
     if (ct < max && (r_ptr->flags6 & RF6_HEAL) && r_ptr->level >= 20)
         _add_spell(&spells[ct++], 20, 20, 70, _healing_spell, stat_idx);
     if (ct < max && (r_ptr->flags5 & RF5_CAUSE_3))
