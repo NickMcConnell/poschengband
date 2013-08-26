@@ -941,6 +941,38 @@ static caster_info * _caster_info(void)
  * Bonuses
  * TODO: Someday, we should have a unified flag system ... sigh.
  **********************************************************************/
+static int ac_percent;
+
+static void _ac_bonus_imp(int slot)
+{
+    object_type *o_ptr = equip_obj(slot);
+    if (o_ptr)
+    {
+        switch (equip_slot_type(slot))
+        {
+        case EQUIP_SLOT_BODY_ARMOR:
+            ac_percent -= 25;
+            break;
+        case EQUIP_SLOT_CLOAK:
+            ac_percent -= 5;
+            break;
+        case EQUIP_SLOT_WEAPON_SHIELD:
+            if (object_is_shield(o_ptr))
+                ac_percent -= 15;
+            break;
+        case EQUIP_SLOT_HELMET:
+            ac_percent -= 7;
+            break;
+        case EQUIP_SLOT_GLOVES:
+            ac_percent -= 5;
+            break;
+        case EQUIP_SLOT_BOOTS:
+            ac_percent -= 5;
+            break;
+        }
+    }
+}
+
 static void _calc_bonuses(void) 
 {
     monster_race *r_ptr = &r_info[p_ptr->current_r_idx];
@@ -970,8 +1002,18 @@ static void _calc_bonuses(void)
     if (r_ptr->flags9 & RF9_POS_GAIN_AC)
     {
         int to_a = r_ptr->ac * MIN(p_lvl, r_lvl) / r_lvl;
-        p_ptr->to_a += to_a;
-        p_ptr->dis_to_a += to_a;
+
+        /* Reduce AC bonus a bit depending on what armor slots are available.
+           For example, Wahha-man has AC200 yet can also wear a full complement of armor! */        
+        ac_percent = 100;
+        equip_for_each_slot(_ac_bonus_imp);
+        to_a = to_a * ac_percent / 100;
+
+        if (to_a > 0)
+        {
+            p_ptr->to_a += to_a;
+            p_ptr->dis_to_a += to_a;
+        }
     }
 
     if (r_ptr->speed != 110)
