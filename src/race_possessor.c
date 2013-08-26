@@ -310,8 +310,7 @@ static void _calc_innate_attacks(void)
             a.effect[1] = GF_DRAIN_MANA;
             break;
         case RBE_SHATTER:
-            /*a.effect[1] = GF_QUAKE;*/
-            a.dd += (a.dd + 1)/2;
+            a.effect[1] = GF_QUAKE;
             break;
         }
 
@@ -368,7 +367,7 @@ static void _possess_spell(int cmd, variant *res)
                 object_prep(&forge, lookup_kind(TV_CORPSE, SV_CORPSE));
                 apply_magic(&forge, object_level, AM_NO_FIXED_ART);
                 forge.pval = old_r_idx;
-                forge.weight = MAX(40, old_r_ptr->weight * 10);
+                forge.weight = MIN(30*1000, MAX(40, old_r_ptr->weight * 10));
                 drop_near(&forge, -1, py, px);
             }
             else
@@ -506,7 +505,10 @@ static void _breathe_spell(int what, int cmd, variant *res)
         var_set_bool(res, FALSE);
         if (get_aim_dir(&dir))
         {
-            msg_format("You breathe %s!", gf_name(what));
+            if (p_ptr->current_r_idx == MON_BOTEI) 
+                msg_print("'Botei-Build cutter!!!'");
+            else
+                msg_format("You breathe %s!", gf_name(what));
             fire_ball(what, dir, _breath_amount(what), -1 - (p_ptr->lev / 20));
             var_set_bool(res, TRUE);
         }
@@ -709,13 +711,13 @@ void _healing_spell(int cmd, variant *res)
     case SPELL_INFO:
     {
         monster_race *r_ptr = &r_info[p_ptr->current_r_idx];
-        var_set_string(res, format("Heals %d", spell_power(r_ptr->level * 5)));
+        var_set_string(res, format("Heals %d", MIN(300, r_ptr->level * 5)));
         break;
     }
     case SPELL_CAST:
     {
         monster_race *r_ptr = &r_info[p_ptr->current_r_idx];
-        hp_player(spell_power(r_ptr->level * 5));
+        hp_player(MIN(300, r_ptr->level * 5));
         set_stun(0, TRUE);
         set_cut(0, TRUE);
         var_set_bool(res, TRUE);
@@ -812,7 +814,7 @@ static int _get_spells(spell_info* spells, int max)
     if (ct < max && (r_ptr->flags5 & RF5_BO_MANA) && r_ptr->level < 25) /* DE Warlock */
         _add_spell(&spells[ct++], 20, 15, 60, mana_bolt_I_spell, stat_idx);
     if (ct < max && (r_ptr->flags6 & RF6_HEAL) && r_ptr->level >= 20)
-        _add_spell(&spells[ct++], 20, 20, 70, _healing_spell, stat_idx);
+        _add_spell(&spells[ct++], 20, 35, 70, _healing_spell, stat_idx);
     if (ct < max && (r_ptr->flags5 & RF5_CAUSE_3))
         _add_spell(&spells[ct++], 22, 6, 50, cause_wounds_III_spell, stat_idx);
     if (ct < max && (r_ptr->flags5 & RF5_MIND_BLAST))

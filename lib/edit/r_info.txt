@@ -10877,19 +10877,21 @@ I:120:77d10:20:144:20:180
 W:45:2:999:1200:10000:1037
 B:HIT:HURT:3d12
 B:HIT:HURT:3d12
-F:IM_POIS | IM_FIRE | IM_ELEC | IM_ACID | IM_COLD | GOOD | HUMAN | HAS_LITE_2 |
-F:RES_LITE | RES_DARK | RES_NETH | RES_SHAR | RES_SOUN |
-F:RES_CHAO | RES_NEXU | RES_DISE | RES_TIME | RES_TELE |
+F:GOOD | HUMAN | KNIGHT | FRIENDS | MALE | 
+F:OPEN_DOOR | BASH_DOOR | FORCE_MAXHP | HAS_LITE_2
+F:DROP_1D2 | DROP_90 | DROP_60 | 
+F:IM_POIS | IM_FIRE | IM_ELEC | IM_ACID | IM_COLD | 
+F:RES_TELE | REFLECTING
+#F:RES_LITE | RES_DARK | RES_SHAR | RES_SOUN |
+#F:RES_TIME | RES_DISE | RES_NETH | RES_CHAO | RES_NEXU
 F:NO_SLEEP | NO_CONF | NO_STUN |
-F:DROP_1D2 | DROP_90 | DROP_60 | FRIENDS | REFLECTING | KNIGHT
-F:MALE | OPEN_DOOR | BASH_DOOR | FORCE_MAXHP
 F:DROP_SKELETON | DROP_CORPSE | 
-F:POS_DETECT_EVIL | POS_MAPPING | POS_BLESSING | POS_HEROISM | 
-F:POS_SUST_STR | POS_SUST_INT | POS_SUST_WIS | POS_SUST_DEX | POS_SUST_CON | POS_SUST_CHR
+F:POS_DETECT_EVIL | POS_MAPPING | POS_BLESSING | POS_HEROISM
+#F:POS_SUST_STR | POS_SUST_INT | POS_SUST_WIS | POS_SUST_DEX | POS_SUST_CON | POS_SUST_CHR | POS_HOLD_LIFE
+P:Copy:Dunadan:Paladin
 S:1_IN_12
 S:HEAL 
 D:Fighting for a good cause, and they consider you an agent of the devil.
-P:Copy:Dunadan:Paladin
 
 N:700:Leprechaun fanatic
 G:h:D
@@ -11459,10 +11461,10 @@ F:DROP_90 | REGENERATE | KILL_WALL | RES_TELE |
 F:OPEN_DOOR | BASH_DOOR | 
 F:EVIL | TROLL | IM_POIS | NO_CONF | NO_SLEEP |
 F:IM_ELEC | IM_COLD | IM_FIRE |
-F:DROP_CORPSE | POS_GAIN_AC | POS_BERSERK
+F:DROP_CORPSE | POS_GAIN_AC | 
 P:Copy:Half-Troll:Warrior
 P:Stats:5:0:0:1:4:1
-P:Life:120
+P:Life:107
 D:Ulik is the strongest troll who has ever lived. He could challenge 
 D:the immortals and pound them to dust with his great strength.
 
@@ -14362,7 +14364,7 @@ D:me in his green and his gold. High, wide and thick, his beard black and
 D:shot with silver, his hair the same. Green rings in gold settings and 
 D:a blade of golden color."
 P:Copy:Amberite:Chaos-Warrior
-P:Stats:3:3:3:3:3:3
+P:Stats:2:0:0:2:2:2
 P:Life:110
 
 # Morgoth, mr normal monster!
@@ -17269,6 +17271,7 @@ F:TAKE_ITEM | OPEN_DOOR | BASH_DOOR | SMART |
 F:GOOD | NO_SLEEP | HAS_LITE_1 | KNIGHT
 F:DROP_SKELETON | DROP_CORPSE | 
 F:POS_DETECT_EVIL | POS_MAPPING | POS_BLESSING | POS_HEROISM
+P:Copy:Dunadan:Paladin
 S:1_IN_4 | 
 S:HEAL | SCARE | CAUSE_3 | CAUSE_4 | HASTE | BLIND | S_ANGEL
 D:It seems that the more devout the person, the more likely they are to cross 
@@ -17277,7 +17280,6 @@ D:the Order of the Knights Templar: they are among the most pious and
 D:powerful of the religious knightly orders, but noted for their intolerance. 
 D:And thus it is Morgoth's will that is unwittingly done, as the forces of good 
 D:are set against each other.
-P:Copy:Dunadan:Paladin
 
 N:1038:Paladin
 G:p:w
