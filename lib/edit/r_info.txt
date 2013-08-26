@@ -1630,6 +1630,9 @@ B:CRUSH:HURT:1d10
 F:EMPTY_MIND | COLD_BLOOD | OPEN_DOOR | BASH_DOOR | 
 F:EVIL | UNDEAD | IM_POIS | CAN_FLY | RES_NETH |
 F:NO_CONF | NO_SLEEP | NO_FEAR
+F:DROP_CORPSE
+P:Copy:Barbarian:Rogue
+P:Body:Disembodied Hand
 D:Even today, nobody knows where it lurks... 
 
 N:113:Brown mold
@@ -2830,10 +2833,10 @@ B:TOUCH:EAT_ITEM
 F:MALE | HUMAN | THIEF
 F:DROP_1D2 | 
 F:TAKE_ITEM | OPEN_DOOR | BASH_DOOR | 
-F:EVIL | DROP_SKELETON
-D:He is eyeing your purse suspiciously.
+F:EVIL | DROP_SKELETON | DROP_CORPSE
 P:Copy:Human:Rogue
 P:Life:90
+D:He is eyeing your purse suspiciously.
 
 N:200:Hobbes the Tiger
 G:f:y
@@ -3128,7 +3131,7 @@ F:DROP_1D2 |
 F:OPEN_DOOR | BASH_DOOR | DROP_SKELETON | DROP_CORPSE
 S:1_IN_8
 S:SHOOT
-P:Copy:Human:Ranger
+P:Copy:Human:Archer
 D:A warrior trained in melee as well as missile weapons.
 
 N:220:Ixitxachitl
@@ -3340,10 +3343,10 @@ B:CLAW:HURT:1d4
 B:BITE:POISON:1d8
 F:ANIMAL | EVIL | FRIENDS | CAN_FLY | FORCE_MAXHP |
 F:IM_COLD | IM_ELEC | IM_POIS | WEIRD_MIND | DROP_CORPSE
-D:Devil-bats, notoriously difficult to kill.
 P:Copy:Human:Sniper
 P:Life:80
 P:Body:Bat
+D:Devil-bats, notoriously difficult to kill.
 
 N:236:Killer brown beetle
 G:K:u
@@ -3972,10 +3975,11 @@ G:h:R
 I:110:7d8:20:20:20:70
 W:15:2:60:40:0:0
 B:HIT:HURT:1d5
-F:MALE | HAS_LITE_1 |
+F:MALE | HAS_LITE_1 | EVIL
 F:FORCE_SLEEP | FRIENDS | DROP_60 | 
-F:OPEN_DOOR | BASH_DOOR | DROP_SKELETON
-F:EVIL
+F:OPEN_DOOR | BASH_DOOR | 
+F:DROP_SKELETON | DROP_CORPSE | POS_DETECT_MONSTERS | POS_DETECT_TRAPS
+P:Copy:Gnome:Mage
 S:1_IN_4 | 
 S:BLINK | DARKNESS | BO_COLD | 
 S:S_MONSTER
@@ -5330,7 +5334,7 @@ F:ONLY_ITEM | DROP_1D2 |
 F:OPEN_DOOR | BASH_DOOR | FRIENDS
 F:EVIL | IM_POIS | RES_DARK | HURT_LITE
 F:DROP_SKELETON | DROP_CORPSE | POS_SEE_INVIS | POS_DETECT_MONSTERS | POS_DETECT_TRAPS
-P:Copy:Dark-Elf:Warlock
+P:Copy:Dark-Elf:Mage
 S:1_IN_5 | 
 S:CONF | MISSILE | DARKNESS | BO_MANA
 D:A dark elven mage with spells of frightening destructive power.
@@ -9529,7 +9533,7 @@ F:ONLY_ITEM | DROP_90 | DROP_4D2 | DROP_GOOD |
 F:SMART | OPEN_DOOR | BASH_DOOR | 
 F:EVIL | HURT_LITE | RES_DARK | NO_CONF | NO_SLEEP | NO_STUN
 F:DROP_CORPSE | POS_SEE_INVIS | POS_DETECT_MONSTERS | POS_MAPPING
-P:Copy:Dark-Elf:Warlock
+P:Copy:Dark-Elf:Mage
 S:1_IN_2 | 
 S:HEAL | TELE_TO | BLIND | CONF | CAUSE_3 | DARKNESS | FORGET | HOLD |
 S:S_MONSTER | S_MONSTERS | S_DEMON | TPORT | BA_NETH | MIND_BLAST |
@@ -11461,7 +11465,7 @@ F:DROP_90 | REGENERATE | KILL_WALL | RES_TELE |
 F:OPEN_DOOR | BASH_DOOR | 
 F:EVIL | TROLL | IM_POIS | NO_CONF | NO_SLEEP |
 F:IM_ELEC | IM_COLD | IM_FIRE |
-F:DROP_CORPSE | POS_GAIN_AC | 
+F:DROP_CORPSE | POS_GAIN_AC | POS_BERSERK
 P:Copy:Half-Troll:Warrior
 P:Stats:5:0:0:1:4:1
 P:Life:107

@@ -7,7 +7,7 @@
 # Warning: Don't monkey with this file while you are 
 # playing a character. You can lose objects this way!
 
-# Note: Currently you may list up to 17 slots for each
+# Note: Currently you may list up to 16 slots for each
 # template, but giving more than the standard 12 is a bit
 # unbalancing!
 
@@ -689,3 +689,10 @@ S:BODY_ARMOR:Body
 S:CLOAK:Cloak
 S:HELMET:Head
 S:BOOTS:Feet
+
+N:66:Disembodied Hand
+S:RING:Ring
+S:RING:Ring
+S:RING:Ring
+S:RING:Ring
+S:LITE:Light

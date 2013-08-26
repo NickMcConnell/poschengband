@@ -999,6 +999,9 @@ static void _calc_bonuses(void)
         sp_ptr = &sex_info[p_ptr->psex];
     }
 
+    if (!equip_can_wield_kind(TV_LITE, SV_LITE_FEANOR))
+        p_ptr->see_nocto = TRUE;
+
     if (r_ptr->flags9 & RF9_POS_GAIN_AC)
     {
         int to_a = r_ptr->ac * MIN(p_lvl, r_lvl) / r_lvl;
