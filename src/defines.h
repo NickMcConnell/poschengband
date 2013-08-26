@@ -6169,7 +6169,7 @@ extern int PlayerUID;
 #define MAX_SUMMONS 50
 
 #define EQUIP_BEGIN 24
-#define EQUIP_MAX_SLOTS (INVEN_TOTAL - EQUIP_BEGIN + 1)
+#define EQUIP_MAX_SLOTS (INVEN_TOTAL - EQUIP_BEGIN)
 
 enum slot_e {
     EQUIP_SLOT_NONE,
