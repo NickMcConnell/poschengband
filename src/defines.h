@@ -3269,8 +3269,9 @@
 #define GF_STEAL    139
 #define GF_WATER2   140
 #define GF_STORM    141
+#define GF_QUAKE    142
 
-#define MAX_GF                141
+#define MAX_GF                142
 
 /*
  * Some things which induce learning
