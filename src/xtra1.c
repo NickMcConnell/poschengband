@@ -3204,11 +3204,14 @@ void calc_bonuses(void)
 
     p_ptr->life = 0;
     p_ptr->reflect = FALSE;
+    
     p_ptr->sh_fire = FALSE;
     p_ptr->sh_elec = FALSE;
     p_ptr->sh_cold = FALSE;
     p_ptr->sh_shards = FALSE;
     p_ptr->sh_retaliation = FALSE;
+    p_ptr->sh_fear = FALSE;
+
     p_ptr->anti_magic = FALSE;
     p_ptr->anti_tele = FALSE;
     p_ptr->anti_summon = FALSE;
