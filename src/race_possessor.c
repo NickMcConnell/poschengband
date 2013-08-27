@@ -23,6 +23,10 @@ static void _birth(void)
     forge.number = 1;
     forge.pval = (byte)rand_range(25, 30);
     add_outfit(&forge);
+
+    object_prep(&forge, lookup_kind(TV_RING, SV_RING_DAMAGE));
+    forge.to_d = 3;
+    add_outfit(&forge);
 }
 
 /**********************************************************************

@@ -327,10 +327,14 @@ S:BOOTS:Boots
 N:32:Bird
 S:RING:Talon
 S:RING:Talon
+S:RING:Talon
+S:RING:Talon
 S:AMULET:Neck
 S:LITE:Light
 
 N:33:Giant Bird
+S:RING:Talon
+S:RING:Talon
 S:RING:Talon
 S:RING:Talon
 S:RING:Talon
@@ -385,7 +389,11 @@ S:RING:Tentacle
 S:RING:Tentacle
 S:RING:Tentacle
 S:RING:Tentacle
-S:RING:Tentacle
+S:AMULET:Tentacle
+S:AMULET:Tentacle
+S:AMULET:Tentacle
+S:AMULET:Tentacle
+S:AMULET:Tentacle
 S:LITE:Light
 
 N:38:Giant Worm
@@ -726,3 +734,9 @@ S:BODY_ARMOR:Body
 S:CLOAK:Cloak
 S:BOOTS:Boots
 S:BOOTS:Boots
+
+N:69:Tome
+S:AMULET:Amulet
+S:LITE:Light
+S:CLOAK:Cloak
+S:HELMET:Head
