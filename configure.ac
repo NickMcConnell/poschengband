@@ -1,5 +1,5 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT(Angband, 3.5-dev, bugs@rephial.org)
+AC_INIT(PosChengband, 2.0.1, bugs@rephial.org)
 AC_CONFIG_SRCDIR(src)
 
 AC_CANONICAL_HOST
@@ -400,7 +400,7 @@ echo "  var path:                               ${displayedvardatadir}"
 if test "x$wsetgid" = "xyes"; then
 	echo "  (as group ${SETEGID})"
 elif test "x$with_private_dirs" = "xyes"; then
-	echo "  (with private save and score files in ~/.angband/Angband/)"
+	echo "  (with private save and score files in ~/.angband/PosChengband/)"
 fi
 
 echo
