@@ -516,6 +516,10 @@ int main(int argc, char *argv[])
 				puts("  -d<def>  Define a 'lib' dir sub-path");
 				puts("");
 
+#ifdef USE_SDL
+				puts("  -msdl    To use SDL");
+#endif /* USE_SDL */
+
 #ifdef USE_X11
 				puts("  -mx11    To use X11");
 				puts("  --       Sub options");
@@ -592,6 +596,19 @@ int main(int argc, char *argv[])
 		if (0 == init_xaw(argc, argv))
 		{
 			ANGBAND_SYS = "xaw";
+			done = TRUE;
+		}
+	}
+#endif
+
+#ifdef USE_SDL
+	/* Attempt to use the "main-sdl.c" support */
+	if (!done && (!mstr || (streq(mstr, "sdl"))))
+	{
+		extern errr init_sdl(int, char**);
+		if (0 == init_sdl(argc, argv))
+		{
+			ANGBAND_SYS = "sdl";
 			done = TRUE;
 		}
 	}
