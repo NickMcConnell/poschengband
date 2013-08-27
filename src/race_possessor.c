@@ -1,5 +1,10 @@
 #include "angband.h"
 
+static int _calc_level(int l)
+{
+    return l + l*l*l/2500;
+}
+
 static cptr _mon_name(int r_idx)
 {
     if (r_idx)
@@ -339,102 +344,85 @@ static void _possess_spell(int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        if (p_ptr->current_r_idx != MON_POSSESSOR_SOUL)
-            var_set_string(res, "Unpossess");
-        else
-            var_set_string(res, "Possess");
+        var_set_string(res, "Possess");
         break;
     case SPELL_DESC:
-        if (p_ptr->current_r_idx != MON_POSSESSOR_SOUL)
-            var_set_string(res, "Leave your current form so you may enter a new body. Beware, this will probably destroy your current body!");
-        else
-            var_set_string(res, "Enter the corpse of a new body, gaining the powers and abilities of that form.");
+        var_set_string(res, "Enter the corpse of a new body, gaining the powers and abilities of that form.");
+        break;
+    case SPELL_INFO:
+        var_set_string(res, format("Lvl %d", _calc_level(p_ptr->max_plv) + 5));
         break;
     case SPELL_CAST:
+    {
+        int item;
+        char o_name[MAX_NLEN];
+        object_type *o_ptr;
+        object_type copy;
+
         var_set_bool(res, FALSE);
-        if (p_ptr->current_r_idx != MON_POSSESSOR_SOUL)
+
+        if ( p_ptr->current_r_idx != MON_POSSESSOR_SOUL 
+          && !get_check("Your current body will be destroyed. Are you sure? ") )
         {
-            int           old_r_idx = p_ptr->current_r_idx;
-            monster_race *old_r_ptr = &r_info[old_r_idx];
+            return;
+        }
 
-            if (!get_check("Your current body may be destroyed. Are you sure? ")) 
-                return;
-            
-            msg_print("You leave your current body!");
-            if (one_in_(10))
-            {
-                object_type forge;
-                object_prep(&forge, lookup_kind(TV_CORPSE, SV_CORPSE));
-                apply_magic(&forge, object_level, AM_NO_FIXED_ART);
-                forge.pval = old_r_idx;
-                forge.weight = MIN(30*1000, MAX(40, old_r_ptr->weight * 10));
-                drop_near(&forge, -1, py, px);
-            }
-            else
-                msg_print("Your previous body quickly decays!");
+        item_tester_hook = _obj_can_possess;
+        if (!get_item(&item, "Possess which corpse? ", "You have nothing to possess.", (USE_INVEN | USE_FLOOR))) 
+            return;
 
-            p_ptr->current_r_idx = MON_POSSESSOR_SOUL;
-            if (p_ptr->exp > possessor_max_exp())
-            {
-                p_ptr->exp = possessor_max_exp();
-                check_experience();
-            }
-            else
-                restore_level();
+        if (item >= 0)
+            o_ptr = &inventory[item];
+        else
+            o_ptr = &o_list[0 - item];
 
-            p_ptr->update |= PU_BONUS | PU_HP | PU_MANA;
-            p_ptr->redraw |= PR_MAP | PR_BASIC | PR_MANA | PR_EXP;
-            equip_on_change_race();
+        object_copy(&copy, o_ptr);
+        copy.number = 1;
+        object_desc(o_name, &copy, OD_NAME_ONLY);
+
+        if (r_info[copy.pval].level > _calc_level(p_ptr->max_plv) + 5)
+        {
+            msg_format("You are not powerful enough to possess %s (Lvl %d).", o_name, r_info[copy.pval].level);
+            return;
+        }
+        else
+            msg_format("You possess %s.", o_name);
+
+        /* Order is important. Changing body forms may result in illegal
+           equipment being placed in the pack, invalidating the item index.
+           This is exacerbated by corpses sorting to the bottom :( */
+        if (item >= 0)
+        {
+            inven_item_increase(item, -1);
+            inven_item_describe(item);
+            inven_item_optimize(item);
         }
         else
         {
-            int item;
-            char o_name[MAX_NLEN];
-            object_type *o_ptr;
-            object_type copy;
-
-            item_tester_hook = _obj_can_possess;
-            if (!get_item(&item, "Possess which corpse? ", "You have nothing to possess.", (USE_INVEN | USE_FLOOR))) 
-                return;
-
-            if (item >= 0)
-                o_ptr = &inventory[item];
-            else
-                o_ptr = &o_list[0 - item];
-
-            object_copy(&copy, o_ptr);
-            copy.number = 1;
-            object_desc(o_name, &copy, OD_NAME_ONLY);
-            msg_format("You possess %s.", o_name);
-
-            p_ptr->current_r_idx = o_ptr->pval;
-            if (p_ptr->exp > possessor_max_exp())
-            {
-                p_ptr->exp = possessor_max_exp();
-                check_experience();
-            }
-            else
-                restore_level();
-
-            p_ptr->update |= PU_BONUS | PU_HP | PU_MANA;
-            p_ptr->redraw |= PR_MAP | PR_BASIC | PR_MANA | PR_EXP;
-            equip_on_change_race();
-
-            if (item >= 0)
-            {
-                inven_item_increase(item, -1);
-                inven_item_describe(item);
-                inven_item_optimize(item);
-            }
-            else
-            {
-                floor_item_increase(0 - item, -1);
-                floor_item_describe(0 - item);
-                floor_item_optimize(0 - item);
-            }
+            floor_item_increase(0 - item, -1);
+            floor_item_describe(0 - item);
+            floor_item_optimize(0 - item);
         }
+        o_ptr = NULL;
+
+        p_ptr->current_r_idx = copy.pval;
+        if (p_ptr->exp > possessor_max_exp())
+        {
+            p_ptr->exp = possessor_max_exp();
+            check_experience();
+        }
+        else
+            restore_level();
+
+        p_ptr->update |= PU_BONUS | PU_HP | PU_MANA;
+        p_ptr->redraw |= PR_MAP | PR_BASIC | PR_MANA | PR_EXP | PR_EQUIPPY;
+
+        /* Apply the new body type to our equipment */
+        equip_on_change_race();
+
         var_set_bool(res, TRUE);
         break;
+    }
     default:
         default_spell(cmd, res);
         break;
@@ -977,15 +965,10 @@ static void _calc_bonuses(void)
 {
     monster_race *r_ptr = &r_info[p_ptr->current_r_idx];
     int           r_lvl = MAX(1, r_ptr->level);
-    int           p_lvl;
+    int           p_lvl = _calc_level(p_ptr->lev);
 
     if (!p_ptr->current_r_idx) /* Birth hack ... we haven't been "born" yet! */
         return;
-
-    if (p_ptr->lev <= 40)
-        p_lvl = p_ptr->lev;
-    else
-        p_lvl = 40 + (p_ptr->lev - 40)*6;
 
     if ((r_ptr->flags1 & RF1_FEMALE) && p_ptr->psex != SEX_FEMALE)
     {
@@ -1019,15 +1002,26 @@ static void _calc_bonuses(void)
         }
     }
 
+    /* Add possessor speed info to r_info? The problem is that many end game
+       humanoid forms are too fast! Possessing Great Eagles should be encouraged,
+       as they have severe equipment limitations to compensate. */
     if (r_ptr->speed != 110)
     {
         int sp = (int)r_ptr->speed - 110;
-        int bonus = MIN(sp, 5);
-        
-        if (sp > 5)
-            bonus += ((sp - 5 + 1)/2) * MIN(p_lvl, r_lvl) / r_lvl;
 
-        p_ptr->pspeed += bonus;
+        if (sp < 0)
+            p_ptr->pspeed += sp;
+        else
+        {
+        int bonus;
+
+            if (strchr("hkoOpPTVWz", r_ptr->d_char))
+                sp /= 3;
+
+            bonus = sp * MIN(p_lvl, r_lvl) / r_lvl;
+
+            p_ptr->pspeed += bonus;
+        }
     }
 
     if (r_ptr->flags3 & RF3_GOOD)
@@ -1078,6 +1072,8 @@ static void _calc_bonuses(void)
         p_ptr->kill_wall = TRUE;
     if (r_ptr->flags2 & RF2_AURA_REVENGE)
         p_ptr->sh_retaliation = TRUE;
+    if (r_ptr->flags2 & RF2_AURA_FEAR)
+        p_ptr->sh_fear = TRUE;
 
     if (r_ptr->flags3 & RF3_HURT_LITE)
         res_add_vuln(RES_LITE);
@@ -1363,4 +1359,50 @@ s32b possessor_max_exp(void)
         return exp_requirement(max) - 1;
     else
         return 99999999;
+}
+
+void possessor_on_take_hit(void)
+{
+    /* Getting too wounded may eject the possessor! */
+    if ( p_ptr->chp < p_ptr->mhp/4
+      && p_ptr->current_r_idx != MON_POSSESSOR_SOUL )
+    {
+        if (one_in_(66))
+        {
+            int old_r_idx = p_ptr->current_r_idx;
+            monster_race *old_r_ptr = &r_info[old_r_idx];
+
+            msg_print("You can no longer maintain your current body!");
+            if (one_in_(3))
+            {
+                object_type forge;
+                object_prep(&forge, lookup_kind(TV_CORPSE, SV_CORPSE));
+                apply_magic(&forge, object_level, AM_NO_FIXED_ART);
+                forge.pval = old_r_idx;
+                forge.weight = MIN(30*1000, MAX(40, old_r_ptr->weight * 10));
+                drop_near(&forge, -1, py, px);
+            }
+            else
+                msg_print("Your previous body quickly decays!");
+
+            p_ptr->current_r_idx = MON_POSSESSOR_SOUL;
+            p_ptr->chp = p_ptr->mhp;
+            p_ptr->chp_frac = 0;
+            if (p_ptr->exp > possessor_max_exp())
+            {
+                p_ptr->exp = possessor_max_exp();
+                check_experience();
+            }
+            else
+                restore_level();
+
+            p_ptr->update |= PU_BONUS | PU_HP | PU_MANA;
+            p_ptr->redraw |= PR_MAP | PR_BASIC | PR_MANA | PR_EXP | PR_EQUIPPY;
+            equip_on_change_race();
+        }
+        else
+        {
+            msg_print("You struggle to maintain possession of your current body!");
+        }
+    }
 }

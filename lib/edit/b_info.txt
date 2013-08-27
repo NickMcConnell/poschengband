@@ -32,9 +32,12 @@ S:HELMET:Head
 S:GLOVES:Hands
 S:BOOTS:Feet
 
-# The Possessor gets virtually no equipment!
 N:1:Possessor Soul
 S:LITE:Light
+S:RING:Ring
+S:RING:Ring
+S:CLOAK:Cloak
+S:HELMET:Head
 
 # Greater Cyber Wyrm Angel Daemon Liches are fantastically OP!
 N:2:GCWADL
@@ -696,3 +699,30 @@ S:RING:Ring
 S:RING:Ring
 S:RING:Ring
 S:LITE:Light
+
+N:67:Drider
+S:WEAPON_SHIELD:Right Hand:0
+S:WEAPON_SHIELD:Left Hand:1
+S:BOW:Shooting
+S:RING:Right Ring:0
+S:RING:Left Ring:1
+S:AMULET:Amulet
+S:BODY_ARMOR:Body
+S:CLOAK:Cloak
+S:HELMET:Helm
+S:GLOVES:Hands
+S:BOOTS:Boots
+S:BOOTS:Boots
+S:BOOTS:Boots
+S:BOOTS:Boots
+
+N:68:Scorpion
+S:RING:Ring
+S:RING:Ring
+S:RING:Ring
+S:RING:Ring
+S:AMULET:Amulet
+S:BODY_ARMOR:Body
+S:CLOAK:Cloak
+S:BOOTS:Boots
+S:BOOTS:Boots
