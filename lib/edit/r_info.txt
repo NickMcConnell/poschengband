@@ -671,7 +671,8 @@ G:b:v
 I:120:1d6:20:3:10:10
 W:1:1:10:3:20:114
 B:BITE:HURT:1d3
-F:ANIMAL | CAN_FLY | WILD_WOOD | WILD_SWAMP | DROP_CORPSE
+F:ANIMAL | CAN_FLY | WILD_WOOD | WILD_SWAMP |
+F:DROP_CORPSE | POS_GAIN_AC
 P:Copy:Yeek:Sniper
 P:Life:60
 P:Body:Bat
@@ -1651,8 +1652,8 @@ G:b:u
 I:130:3d8:10:15:30:10
 W:6:1:40:10:0:0
 B:BITE:HURT:1d4
-F:RAND_50 | CAN_FLY | WILD_MOUNTAIN | WILD_WOOD |
-F:ANIMAL | DROP_CORPSE
+F:RAND_50 | CAN_FLY | WILD_MOUNTAIN | WILD_WOOD | ANIMAL
+F:DROP_CORPSE | POS_GAIN_AC
 P:Copy:Human:Sniper
 P:Life:60
 P:Body:Bat
@@ -3349,7 +3350,8 @@ B:CLAW:HURT:1d4
 B:CLAW:HURT:1d4
 B:BITE:POISON:1d8
 F:ANIMAL | EVIL | FRIENDS | CAN_FLY | FORCE_MAXHP |
-F:IM_COLD | IM_ELEC | IM_POIS | WEIRD_MIND | DROP_CORPSE
+F:IM_COLD | IM_ELEC | IM_POIS | WEIRD_MIND | 
+F:DROP_CORPSE | POS_GAIN_AC
 P:Copy:Human:Sniper
 P:Life:80
 P:Body:Bat
@@ -4025,13 +4027,15 @@ B:HIT:HURT:1d6
 B:HIT:HURT:1d6
 B:BITE:HURT:2d6
 F:EMPTY_MIND | COLD_BLOOD | 
-F:BASH_DOOR | KILL_WALL | DROP_SKELETON
+F:BASH_DOOR | KILL_WALL | 
 F:ANIMAL | EVIL | 
 F:IM_POIS | 
 F:HURT_ROCK | NO_CONF | NO_SLEEP
+F:DROP_SKELETON | DROP_CORPSE | POS_GAIN_AC
+P:Copy:Kobold:Warrior
+P:Body:Umber Hulk
 D:This bizarre creature has glaring eyes and large mandibles capable of 
 D:slicing through rock.
-P:Body:Umber Hulk
 
 N:284:Rust monster
 G:q:o
@@ -5024,12 +5028,13 @@ F:FORCE_SLEEP |
 F:RAND_50 | SELF_LITE_1 |
 F:BASH_DOOR | CAN_FLY |
 F:ANIMAL | IM_ELEC
-S:1_IN_4 | 
-S:BR_ELEC
-D:It is a glowing blue bat with a sharp tail.
+F:DROP_CORPSE | POS_GAIN_AC
 P:Copy:Yeek:Sniper
 P:Life:60
 P:Body:Bat
+S:1_IN_4 | 
+S:BR_ELEC
+D:It is a glowing blue bat with a sharp tail.
 
 N:352:Scroll mimic
 G:?:w
@@ -5393,8 +5398,9 @@ I:130:3d8:12:28:50:15
 W:23:1:70:60:2000:484
 B:BITE:FIRE:1d3
 F:FORCE_SLEEP | RAND_50 | SELF_LITE_1 |
-F:BASH_DOOR | CAN_FLY | DROP_CORPSE
+F:BASH_DOOR | CAN_FLY | 
 F:ANIMAL | IM_FIRE
+F:DROP_CORPSE | POS_GAIN_AC
 S:1_IN_4 | 
 S:BR_FIRE
 P:Copy:Yeek:Sniper
@@ -5685,6 +5691,9 @@ B:BITE:HURT:3d2
 F:RAND_25 | 
 F:EMPTY_MIND | BASH_DOOR | FORCE_MAXHP |
 F:IM_POIS | IM_ELEC | RIDING
+F:DROP_CORPSE | POS_GAIN_AC
+P:Copy:Ent:Warrior
+P:Body:Tree
 D:"...a metallically grey tree... about sixteen feet high with 
 D:very thick cylindrical branches... cylinders further 
 D:divided into six flat circular extensions... and from the top 
@@ -7883,8 +7892,6 @@ F:NO_CONF | NO_SLEEP | NO_FEAR | NONLIVING
 D:It is a massive deep brown statue, striding towards you with an 
 D:all-too-familiar purpose.  Your magic surprisingly feels much less 
 D:powerful now.
-#D:それは深い茶色の堂々たる巨像で、みんなと仲良くしようと思って大股で歩み寄って
-#D:くる。このモンスターに対してはあまりの魔法の無力さに呆然とするであろう。
 
 N:531:Sheer Heart Attack, the Bomb Hand
 G:{:D
@@ -8207,9 +8214,11 @@ F:EMPTY_MIND | COLD_BLOOD |
 F:KILL_ITEM | PASS_WALL | 
 F:IM_FIRE | IM_COLD | IM_ELEC | IM_POIS | 
 F:HURT_ROCK | NO_CONF | NO_SLEEP
+F:DROP_CORPSE | POS_GAIN_AC
+P:Copy:Kobold:Warrior
+P:Body:Xorn
 D:A huge creature of the element Earth.  Able to merge with its element, it 
 D:has four huge arms protruding from its enormous torso.
-P:Body:Xorn
 
 N:551:Rogrog the Black Troll
 G:T:D
@@ -8327,6 +8336,9 @@ F:NEVER_MOVE | NEVER_BLOW | NONLIVING |
 F:FORCE_SLEEP | EVIL | COLD_BLOOD | EMPTY_MIND |
 F:FORCE_MAXHP | NO_CONF | NO_FEAR | NO_SLEEP | CHAR_MULTI |
 F:IM_ACID | IM_POIS | IM_COLD | IM_ELEC | HURT_FIRE | RES_NETH | RES_TELE
+F:DROP_CORPSE | POS_GAIN_AC | POS_TELEPATHY | POS_SEE_INVIS
+P:Copy:High-Elf:Mage
+P:Body:Tome
 S:1_IN_2 |
 S:BO_ACID | BR_FIRE | BO_MANA | BR_COLD | BR_POIS |
 S:BO_WATE | BA_POIS | BR_NETH
@@ -8593,7 +8605,6 @@ S:1_IN_3 |
 S:BLINK | SLOW | SCARE | DARKNESS | HEAL | ANIM_DEAD
 S:TPORT | TELE_AWAY | HASTE | S_MONSTER | DRAIN_MANA |
 S:S_UNDEAD | S_DEMON | S_DRAGON | S_KIN
-P:Body:Quylthulg
 D:This unholy abomination will crush you too. Flee while you can! 
 
 N:573:Lord Borel of Hendrake
@@ -8688,6 +8699,8 @@ F:FORCE_SLEEP |
 F:CAN_FLY |
 F:WEIRD_MIND | BASH_DOOR | ATTR_MULTI | ATTR_ANY |
 F:RES_CHAO | NO_CONF | NO_SLEEP | EVIL
+F:DROP_CORPSE | POS_GAIN_AC
+P:Copy:Hobbit:Warrior
 S:1_IN_9
 S:BR_CONF | BR_CHAO
 D:"It had the appearance of a butterfly, but but a butterfly with 
@@ -8899,9 +8912,9 @@ N:591:Crystal drake
 G:d:B
 I:120:50d10:25:100:30:250
 W:37:2:999:1500:11000:646
-B:CLAW:HURT:1d4
-B:CLAW:HURT:1d4
-B:BITE:HURT:2d5
+B:CLAW:HURT:1d10
+B:CLAW:HURT:1d10
+B:BITE:HURT:2d12
 F:FORCE_SLEEP | FORCE_MAXHP | RIDING
 F:ONLY_ITEM | DROP_4D2 | REFLECTING | ATTR_CLEAR |
 F:INVISIBLE | OPEN_DOOR | BASH_DOOR | CAN_FLY |
@@ -9768,10 +9781,10 @@ F:SMART | OPEN_DOOR | BASH_DOOR |
 F:EVIL | NO_CONF | NO_SLEEP
 F:DROP_SKELETON | DROP_CORPSE | 
 F:POS_DETECT_MONSTERS | POS_MAPPING | POS_IDENTIFY | POS_SUST_INT
-P:Copy:High-Elf:High-Mage
+P:Copy:High-Elf:Mage
 S:1_IN_2 | 
 S:BLINK | TELE_TO | BLIND | CONF | CAUSE_3 | TRAPS | 
-S:BO_ACID | BA_FIRE | BA_COLD | 
+S:BO_ACID | BA_FIRE | BA_COLD | BO_MANA
 S:S_MONSTER | S_UNDEAD | S_DRAGON
 D:A human figure in robes, he moves with magically improved speed, and his 
 D:hands are ablur with spell casting.
@@ -9789,8 +9802,10 @@ F:EMPTY_MIND | COLD_BLOOD |
 F:KILL_ITEM | PASS_WALL | 
 F:IM_FIRE | IM_COLD | IM_ELEC | IM_POIS | 
 F:HURT_ROCK | NO_CONF | NO_SLEEP
-D:It is a tougher relative of the Xorn.  Its hide glitters with metal ores.
+F:DROP_CORPSE | POS_GAIN_AC
+P:Copy:Kobold:Warrior
 P:Body:Xorn
+D:It is a tougher relative of the Xorn.  Its hide glitters with metal ores.
 
 N:640:Jubjub bird
 G:B:u
@@ -9803,7 +9818,6 @@ F:BASH_DOOR | CAN_FLY | WILD_MOUNTAIN | WILD_WOOD |
 F:ANIMAL | IM_ELEC | RIDING
 F:DROP_CORPSE | POS_GAIN_AC
 P:Copy:Dunadan:Mystic
-P:Life:80
 P:Body:Giant Bird
 D:A vast legendary bird, its iron talons rake the most impenetrable of 
 D:surfaces and its screech echoes through the many winding dungeon corridors.
@@ -9838,7 +9852,7 @@ F:EVIL | IM_ACID | IM_FIRE | IM_POIS | NO_CONF | NO_SLEEP
 S:1_IN_2 | 
 S:HOLD | SCARE | CAUSE_3 | BO_FIRE | BO_PLAS | BA_ACID | 
 S:S_HYDRA
-P:Copy:Dunadan:Warrior
+P:Copy:Kobold:Warrior
 P:Body:Naga
 D:Brand's one-time mistress.  Her face could sink a thousand 
 D:ships, but Brand is not too selective.
@@ -11577,6 +11591,8 @@ B:HIT:EXP_80
 F:FORCE_SLEEP | FORCE_MAXHP | SMART | IM_FIRE | IM_COLD | IM_POIS | MALE | HUMAN |
 F:ONLY_ITEM | DROP_1D2 | DROP_2D2 | RES_NETH | RES_NEXU | RES_PLAS |
 F:COLD_BLOOD | OPEN_DOOR | BASH_DOOR | EVIL
+F:DROP_CORPSE | POS_SEE_INVIS | POS_DETECT_MONSTERS
+P:Copy:Dunadan:Paladin
 S:1_IN_5 |
 S:BLIND | SCARE | CAUSE_3 | BA_NETH | BA_FIRE | BO_PLAS | S_MONSTERS
 D:It is a humanoid form dressed in armour of ancient style.  From beneath 
@@ -11700,13 +11716,14 @@ F:FORCE_SLEEP | FORCE_MAXHP | DROP_SKELETON |
 F:ONLY_ITEM | DROP_4D2 | ATTR_MULTI | SHAPECHANGER | ATTR_ANY |
 F:INVISIBLE | OPEN_DOOR | BASH_DOOR | SMART | HAS_LITE_2 | RES_CHAO |
 F:IM_ACID | IM_FIRE | IM_COLD | IM_ELEC | IM_POIS | NO_CONF | NO_SLEEP
+F:DROP_CORPSE | POS_SEE_INVIS | POS_DETECT_MONSTERS | POS_MAPPING
+P:Copy:Amberite:Mystic
 S:1_IN_2 |
 S:HEAL | MIND_BLAST | BA_CHAO |
 S:S_MONSTERS | S_DEMON | PSY_SPEAR
 D:He is one of the few true masters of the art, being extremely skillful in 
 D:all forms of unarmed combat and controlling the Logrus 
 D:with disdainful ease.
-P:Copy:Amberite:Mystic
 
 N:738:Khamul the Easterling
 G:W:D
@@ -12433,7 +12450,7 @@ S:S_UNDEAD | S_DEMON | S_DRAGON | PSY_SPEAR
 D:Originally known as the White, Saruman fell prey to Sauron's wiles. He 
 D:searches forever for the One Ring, to become a mighty Sorcerer-King of the 
 D:world.
-P:Copy:High-Elf:High-Mage
+P:Copy:High-Elf:Mage
 
 N:772:Gandalf the Grey
 G:p:v
@@ -12457,7 +12474,7 @@ S:S_MONSTER | S_ANGEL | S_DRAGON | S_KIN
 D:The wizard who opposed Saruman, and in the end, was the only 
 D:one of the Istari to succeed in his task. Gandalf is very 
 D:wise and specializes in fire magic.
-P:Copy:High-Elf:High-Mage
+P:Copy:High-Elf:Mage
 
 N:773:Brand, Mad Visionary of Amber
 G:p:v
@@ -13970,11 +13987,11 @@ F:TAKE_ITEM | OPEN_DOOR | BASH_DOOR | MOVE_BODY | RAND_25 |
 F:ONLY_ITEM | DROP_1D2 | DROP_GOOD | 
 F:IM_POIS
 F:DROP_CORPSE | POS_GAIN_AC
+P:Copy:Barbarian:Mauler
+P:Body:Hound
 S:1_IN_3 | 
 S:SCARE | 
 S:S_MONSTERS | S_HOUND
-P:Copy:Barbarian:Mauler
-P:Body:Hound
 D:Draugluin provides Sauron with a fearsome personal guard.  He is an 
 D:enormous wolf inhabited with a human spirit.  He is chief of all his kind.
 
@@ -14787,16 +14804,17 @@ I:120:30d10:20:60:30:100
 W:28:3:50:200:0:0
 B:BITE:POISON:1d10
 B:CLAW:HURT:1d4
-F:DROP_60 | RAND_25 | MOVE_BODY | CAN_FLY | DROP_CORPSE |
+F:DROP_60 | RAND_25 | MOVE_BODY | CAN_FLY | 
 F:BASH_DOOR | FRIENDS |
 F:ANIMAL | IM_POIS | RES_DARK
+F:DROP_CORPSE | POS_GAIN_AC
+P:Copy:Kobold:Mystic
+P:Life:90
+P:Body:Giant Bat
 S:1_IN_8 | 
 S:SCARE | BR_POIS | BR_DARK
 D:Fed with horrid meats and grown to enormous size, this slavering creature 
 D:seeks livelier prey.
-P:Copy:Kobold:Mystic
-P:Life:90
-P:Body:Giant Bat
 
 N:878:Dio Brando
 G:V:y
@@ -15168,6 +15186,8 @@ B:HIT:HURT:1d9
 B:HIT:HURT:4d8
 F:MALE | ONLY_ITEM | DROP_1D2 | DROP_GOOD | OPEN_DOOR | BASH_DOOR |
 F:NO_SLEEP | FRIENDLY | GOOD | 
+F:DROP_CORPSE | POS_SEE_INVIS
+P:Copy:High-Elf:Ranger
 S:1_IN_3 |
 S:HEAL | BLINK | TPORT | BA_FIRE | SHOOT | BA_COLD
 D:A powerful elven leader who knows some magic as well.
@@ -16381,13 +16401,14 @@ F:UNIQUE | FORCE_MAXHP | RAND_25 | RAND_50 | DROP_90
 F:DROP_1D2 | DROP_GOOD | SMART | EMPTY_MIND | OPEN_DOOR
 F:BASH_DOOR | PASS_WALL | MOVE_BODY | TAKE_ITEM | EVIL
 F:ANIMAL | NO_STUN | NO_SLEEP | CAN_FLY
+F:DROP_CORPSE | POS_GAIN_AC
+P:Copy:Kobold:Rogue
+P:Life:90
+P:Body:Giant Bat
 S:1_IN_7 |
 S:S_DRAGON
 D:This bat has been the death of many adventurers, taking their only 
 D:weapon and leaving them to face a dragon.
-P:Copy:Kobold:Rogue
-P:Life:90
-P:Body:Bat
 
 N:976:Eol, the Dark Elven Smith
 G:h:D
@@ -16544,6 +16565,8 @@ B:BITE:LOSE_ALL:3d8
 F:REFLECTING | DROP_1D2 | DROP_2D2 | RES_DISE | ANIMAL |
 F:REGENERATE | IM_ACID | IM_FIRE | IM_COLD | IM_ELEC | IM_POIS | 
 F:NO_CONF | NO_SLEEP | RES_TELE | CAN_SWIM | RIDING
+F:DROP_CORPSE | POS_GAIN_AC | POS_SEE_INVIS
+P:Copy:Kutar:Rogue
 P:Body:Unicorn
 
 N:986:Nekomata
@@ -16571,6 +16594,9 @@ B:BITE:HURT:5d12
 F:REFLECTING | DROP_1D2 | DROP_3D2 | ANIMAL | FORCE_MAXHP | FORCE_SLEEP |
 F:REGENERATE | IM_FIRE | IM_COLD |
 F:NO_CONF | NO_SLEEP | RES_TELE | RIDING |
+F:DROP_CORPSE | POS_GAIN_AC | POS_SEE_INVIS
+P:Copy:Kutar:Rogue
+P:Body:Hound
 S:1_IN_2
 S:S_MONSTERS | CAUSE_3 | CAUSE_4 | CONF | BRAIN_SMASH | DRAIN_MANA | SCARE |
 S:HASTE | HOLD |
@@ -16589,6 +16615,9 @@ F:OPEN_DOOR | SMART | POWERFUL | CAN_FLY |
 F:IM_ACID | IM_FIRE | IM_COLD | IM_ELEC | IM_POIS | RES_TELE |
 F:RES_DISE | RES_NEXU | RES_NETH | RES_PLAS | RES_LITE | RES_SOUN |
 F:NO_STUN | NO_CONF | NO_SLEEP | RIDING
+F:DROP_CORPSE | POS_GAIN_AC | POS_SEE_INVIS | POS_TELEPATHY
+P:Copy:Archon:Priest
+P:Body:Giant Bird
 S:1_IN_3 |
 S:SCARE | BRAIN_SMASH | DRAIN_MANA |
 S:BR_FIRE | BR_LITE | BR_SOUN | HEAL | S_ANGEL
@@ -16607,9 +16636,11 @@ F:OPEN_DOOR | SMART | POWERFUL | CAN_SWIM |
 F:IM_ACID | IM_FIRE | IM_COLD | IM_ELEC | IM_POIS | RES_TELE |
 F:RES_DISE | RES_NETH | RES_PLAS |
 F:NO_STUN | NO_CONF | NO_SLEEP | RIDING
-S:1_IN_6 |
-S:BLIND | SHRIEK | DISPEL | ANTI_MAGIC | INVULNER | S_ANGEL
+F:DROP_CORPSE | POS_GAIN_AC | POS_SEE_INVIS | POS_TELEPATHY
+P:Copy:Archon:Paladin
 P:Body:Unicorn
+S:1_IN_6 |
+S:BLIND | SHRIEK | DISPEL | ANTI_MAGIC | INVULNER | S_ANGEL | HEAL
 
 N:990:Pegasus
 G:q:w
@@ -16620,6 +16651,8 @@ B:BITE:HURT:3d8
 B:KICK:HURT:4d10
 B:KICK:HURT:4d10
 F:DROP_2D2 | ANIMAL | NO_SLEEP | CAN_FLY | RIDING
+F:DROP_CORPSE | POS_GAIN_AC |
+P:Copy:Kutar:Warrior
 P:Body:Horse
 
 N:991:Sleipnir, the Odin's Steed
@@ -16998,9 +17031,6 @@ S:1_IN_8
 S:BO_MANA | BLINK
 P:Copy:Human:Mystic
 
-#
-# ミサイル
-#
 N:1015:TaepoDong
 G:{:W
 I:120:7d14:10:80:12:20
@@ -17012,9 +17042,6 @@ F:IM_FIRE | IM_COLD | IM_ELEC | IM_POIS |
 F:NO_FEAR | NO_CONF | NO_SLEEP | NONLIVING | RES_TELE
 D:A shining machine of death and destruction.
 
-#
-# 蜘蛛召喚する敵が召喚しちゃうと変だけど。訳は「蜘蛛型爆弾」の方がよいかも。
-#
 N:1016:Spider bomb
 G:S:W
 I:120:5d10:30:50:0:30
@@ -17077,9 +17104,6 @@ P:Copy:Kutar:Tourist
 D:It is a biped living thing like the bear. 
 D:It pounces on you expressionlessly.
 
-#
-# OnePiecebandのプレビュー。こうしてみるとなんかサブイ……。
-#
 N:1021:Nami, the Mate
 G:p:o
 I:120:13d12:20:30:20:110
@@ -17136,11 +17160,14 @@ B:HIT:EAT_GOLD:5d5
 F:MALE | DROP_2D2 | HUMAN | THIEF
 F:TAKE_ITEM | OPEN_DOOR | BASH_DOOR |
 F:EVIL |
+F:DROP_CORPSE | POS_TELEPATHY | POS_SEE_INVIS | 
+F:POS_DETECT_OBJECTS | POS_DETECT_MONSTERS | POS_MAPPING | POS_DETECT_TRAPS
+P:Copy:High-Elf:Rogue
+P:Skills:0:0:0:5:0:0:0:0
 S:1_IN_2 |
 S:BLINK | TPORT | TELE_TO | CONF | TRAPS
 D:A class of its own: you are already too late to protect your possessions 
 D:and he seems to have studied magic too, and is a master of setting traps.
-P:Copy:High-Elf:Rogue
 
 N:1025:Charon, Boatman of the Styx
 G:W:D
@@ -17178,14 +17205,14 @@ F:SMART | OPEN_DOOR | BASH_DOOR | TAKE_ITEM |
 F:EVIL | NO_CONF | NO_SLEEP |
 F:DROP_SKELETON | DROP_CORPSE | 
 F:POS_DETECT_MONSTERS | POS_MAPPING | POS_IDENTIFY | POS_TELEPATHY
+P:Copy:Demigod:Mage
 S:1_IN_2 |
 S:BLINK | TELE_TO | BLIND | CONF | CAUSE_3 | CAUSE_4 | TRAPS |
-S:BO_ACID | BA_FIRE | BA_COLD | BA_POIS |
+S:BO_ACID | BA_FIRE | BA_COLD | BA_POIS | BO_WATE | BO_MANA
 S:S_MONSTER | S_UNDEAD | S_DRAGON | S_HI_DRAGON | S_HI_UNDEAD
 D:A human figure in robes, he moves with magically improved speed, and his 
 D:hands are a blur with spell casting. You stagger at the mighty sound of his 
 D:spells as they echo hollowly through the dungeon.
-P:Copy:Demigod:Sorcerer
 
 N:1027:Red Helm, the King of Bear
 G:q:r
@@ -17270,9 +17297,6 @@ P:Body:Monk
 D:He was the braver of Atlantis. His body was converted by a Shinto priest, 
 D:in order to fight against "Papa". His body is now made by Orihalcon.
 
-#
-#ジャスラのコピー
-#
 N:1032:Madame Debby
 G:k:v
 I:120:24d100:30:100:5:180
@@ -17284,11 +17308,11 @@ F:FORCE_SLEEP | FORCE_MAXHP | CAN_SWIM | ELDRITCH_HORROR | HUMAN |
 F:ONLY_ITEM | DROP_1D2 | DROP_2D2 | DROP_GOOD | 
 F:SMART | OPEN_DOOR | BASH_DOOR | SELF_LITE_2 |
 F:EVIL | IM_ACID | IM_FIRE | IM_POIS | RES_CHAO | NO_CONF | NO_SLEEP
+P:Copy:Kobold:Mauler
 S:1_IN_2 | 
 S:HOLD | SCARE | CAUSE_3 | BR_CONF | BR_NETH | BR_CHAO | 
 D:Sukarno's third wife. Her face could sink a thousand 
 D:ships, but Sukarno is not too selective.
-P:Copy:Kobold:Mauler
 
 N:1033:The Defiler
 G:K:D
@@ -17907,7 +17931,6 @@ D:He is one of the greatest trickster. Even greatest warrior cannot
 D: defeat him, and his storm of holy might arrows from the dark have
 D: defeated numerous victims.
 
-# バオー来訪者より
 N:1069:Walken
 G:p:o
 I:125:40d100:100:140:10:170
@@ -17974,9 +17997,6 @@ F:OPEN_DOOR | BASH_DOOR | CAN_SPEAK |
 F:EVIL | ORC | IM_POIS | RES_DARK
 P:Copy:Kobold:Warrior
 
-#
-#ブロッダのコピー
-#
 N:1073:Meng You, the Brother of Meng Huo
 G:p:o
 I:110:25d10:20:25:20:170
@@ -18086,6 +18106,9 @@ F:ONLY_ITEM | DROP_GOOD | DROP_GREAT | DROP_2D2 |
 F:SMART | REGENERATE |
 F:IM_ACID | IM_ELEC | IM_FIRE | IM_POIS | IM_COLD | NO_CONF | NO_SLEEP |
 F:RES_LITE | RES_DARK | RES_NETH | RES_CHAO | RES_NEXU |
+F:DROP_CORPSE | POS_GAIN_AC | POS_SEE_INVIS | POS_TELEPATHY
+P:Copy:Archon:Paladin
+P:Body:Unicorn
 S:1_IN_3 |
 S:BLINK | HEAL | SHRIEK | SCARE | CONF | BLIND |
 S:DARKNESS | FORGET | MIND_BLAST | BRAIN_SMASH |
@@ -18281,9 +18304,9 @@ B:HIT:HURT:1d4
 B:HIT:HURT:1d4
 B:HIT:HURT:1d4
 F:DROP_60 | DROP_SKELETON | DROP_CORPSE | HUMAN |
+P:Copy:Human:Time-Lord
 S:1_IN_3 | HASTE | SLOW
 D:A human, clothed in a blue robe, moving with speed uncanny.
-P:Copy:Human:Time-Lord
 
 N:1092:Chronomage
 G:p:b
@@ -18295,10 +18318,10 @@ B:HIT:TIME:3d5
 F:ONLY_ITEM | DROP_2D2 | DROP_GOOD | 
 F:DROP_SKELETON | DROP_CORPSE | HUMAN |
 F:SMART | OPEN_DOOR | TAKE_ITEM | BASH_DOOR | 
+P:Copy:Demigod:Time-Lord
 S:1_IN_3 | HASTE | SLOW | TELE_LEVEL
 D:A human, clothed in a blue robe, moving with speed uncanny.
 D:He seems both young and old.
-P:Copy:Demigod:Time-Lord
 
 N:1093:Temporal Champion
 G:p:b
@@ -18312,10 +18335,10 @@ F:ONLY_ITEM | DROP_4D2 | DROP_GOOD |
 F:DROP_SKELETON | DROP_CORPSE | HUMAN |
 F:SMART | OPEN_DOOR | TAKE_ITEM | BASH_DOOR | 
 F:NO_CONF | NO_SLEEP
+P:Copy:Dunadan:Time-Lord
 S:1_IN_3 | HASTE | SLOW | TELE_LEVEL
 D:A human, clothed in a blue robe, moving with speed uncanny.
 D:He seems to be in several places at once.
-P:Copy:Dunadan:Time-Lord
 
 N:1094:The Variant Maintainer
 G:p:r
@@ -18327,12 +18350,12 @@ F:UNIQUE | MALE | CAN_SPEAK | HUMAN |
 F:RAND_25 | FORCE_MAXHP | 
 F:DROP_CORPSE | CAN_FLY | WEIRD_MIND |
 F:ONLY_ITEM | DROP_1D2 | DROP_GOOD | DROP_GREAT | 
+P:Copy:Imp:Rogue
 S:1_IN_3
 S:S_KIN | POLY
 D:A frazzled stumbling pathetic shadow of a man.  He
 D:seems steeped in confusion while mumbling something
 D:about memory corruption in cmd2.c.
-P:Copy:Imp:Rogue
 
 N:1095:Monkey Clone
 G:H:R
