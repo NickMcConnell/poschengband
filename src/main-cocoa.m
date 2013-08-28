@@ -30,7 +30,7 @@
 
 static NSSize const AngbandScaleIdentity = {1.0, 1.0};
 static NSString * const AngbandDirectoryNameLib = @"lib";
-static NSString * const AngbandDirectoryNameBase = @"Angband";
+static NSString * const AngbandDirectoryNameBase = @"PosChengband";
 
 static NSString * const AngbandTerminalsDefaultsKey = @"Terminals";
 static NSString * const AngbandTerminalRowsDefaultsKey = @"Rows";
@@ -931,8 +931,8 @@ static int compare_advances(const void *ap, const void *bp)
     [[self libDirectoryPath] getFileSystemRepresentation: libpath maxLength: sizeof(libpath)];
     [[self angbandDocumentsPath] getFileSystemRepresentation: basepath maxLength: sizeof(basepath)];
 
-    init_file_paths( basepath );
-    //create_needed_dirs();
+    init_file_paths( libpath, libpath, basepath );
+    create_needed_dirs();
 }
 
 #pragma mark -
@@ -964,17 +964,17 @@ static int compare_advances(const void *ap, const void *bp)
 	/* Register the sound hook */
 	//sound_hook = play_sound;
     
+    /* Initialize */
+    init_angband();
+
     /* Note the "system" */
     ANGBAND_SYS = "mac";
     
     /* Initialize some save file stuff */
     player_egid = getegid();
     
-    /* We are now initialized */
-    initialized = TRUE;
-    
     /* Handle "open_when_ready" */
-    handle_open_when_ready();
+    //handle_open_when_ready();
     
     /* Handle pending events (most notably update) and flush input */
     Term_flush();
@@ -986,6 +986,11 @@ static int compare_advances(const void *ap, const void *bp)
         
     [pool drain];
     
+    /* Wait for response */
+    prt("[Choose 'New' or 'Open' from the 'File' menu]", 23, 17);
+    while (!game_in_progress) (check_events(CHECK_EVENTS_WAIT)); 
+
+    /* Play the game */
     play_game(new_game);
 }
 
@@ -2547,7 +2552,7 @@ static errr cocoa_get_cmd(cmd_context context, bool wait)
 /* Return the directory into which we put data (save and config) */
 static NSString *get_data_directory(void)
 {
-    return [@"~/Documents/Angband/" stringByExpandingTildeInPath];
+    return [@"~/Documents/PosChengband/" stringByExpandingTildeInPath];
 }
 
 /*

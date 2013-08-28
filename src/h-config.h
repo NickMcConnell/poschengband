@@ -276,6 +276,7 @@
 # define FILE_TYPE(X) (_ftype = (X))
 #else
 # define FILE_TYPE(X) ((void)0)
+#define HAVE_USLEEP
 #endif
 
 
