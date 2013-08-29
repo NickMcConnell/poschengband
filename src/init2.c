@@ -112,6 +112,7 @@ void init_file_paths(const char *configpath, const char *libpath, const char *da
     ANGBAND_DIR = string_make(libpath);
 
     /* Prepare to append to the Base Path */
+    /* This is really suspicious code as we might sprintf to this buffer below! */
     tail = libpath + strlen(libpath);
 
 
@@ -237,12 +238,16 @@ bool dir_exists(const char *path)
 #define PATH_SEPC '/'
 bool dir_create(const char *path)
 {
+#ifdef WIN32
+	/* If the directory already exists then we're done */
+	if (dir_exists(path)) return TRUE;
+    return FALSE;
+#else
 	const char *ptr;
 	char buf[512];
 
 	/* If the directory already exists then we're done */
 	if (dir_exists(path)) return TRUE;
-
 	/* Iterate through the path looking for path segements. At each step,
 	 * create the path segment if it doesn't already exist. */
 	for (ptr = path; *ptr; ptr++)
@@ -272,6 +277,7 @@ bool dir_create(const char *path)
 		}
 	}
 	return mkdir(path, 0755) == 0 ? TRUE : FALSE;
+#endif
 }
 /*
  * Create any missing directories. We create only those dirs which may be
