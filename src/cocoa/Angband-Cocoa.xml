@@ -23,7 +23,7 @@
 	<key>CFBundleGetInfoString</key>
 	<string>$VERSION$, © $COPYRIGHT$</string>
 	<key>CFBundleSignature</key>
-	<string>A271</string>
+	<string>Heng</string>
 	<key>CFBundleVersion</key>
 	<string>$BUNDLE_VERSION$</string>
 	<key>CGDisableCoalescedUpdates</key>

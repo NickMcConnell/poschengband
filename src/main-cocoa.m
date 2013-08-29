@@ -21,7 +21,7 @@
 
 /* Default creator signature */
 #ifndef ANGBAND_CREATOR
-# define ANGBAND_CREATOR 'A271'
+# define ANGBAND_CREATOR 'Heng'
 #endif
 
 /* Mac headers */
@@ -896,7 +896,7 @@ static int compare_advances(const void *ap, const void *bp)
     if( !libExists || !isDirectory )
     {
         NSLog( @"[%@ %@]: can't find %@/ in bundle: isDirectory: %d libExists: %d", NSStringFromClass( [self class] ), NSStringFromSelector( _cmd ), AngbandDirectoryNameLib, isDirectory, libExists );
-        NSRunAlertPanel( @"Missing Resources", @"Angband was unable to find required resources and must quit. Please report a bug on the Angband forums.", @"Quit", nil, nil );
+        NSRunAlertPanel( @"Missing Resources", @"PosChengband was unable to find required resources and must quit. Please report a bug on the Angband forums.", @"Quit", nil, nil );
         exit( 0 );
     }
 
@@ -1504,7 +1504,7 @@ static void Term_init_cocoa(term *t)
     /* Set its title and, for auxiliary terms, tentative size */
     if (termIdx == 0)
     {
-        [window setTitle:@"Angband"];
+        [window setTitle:@"PosChengband"];
     }
     else
     {
@@ -3112,7 +3112,7 @@ static bool cocoa_get_file(const char *suggested_name, char *path, size_t len)
     NSMenu *windowsMenu = [[NSApplication sharedApplication] windowsMenu];
     [windowsMenu addItem: [NSMenuItem separatorItem]];
 
-    NSMenuItem *angbandItem = [[NSMenuItem alloc] initWithTitle: @"Angband" action: @selector(selectWindow:) keyEquivalent: @"0"];
+    NSMenuItem *angbandItem = [[NSMenuItem alloc] initWithTitle: @"PosChengband" action: @selector(selectWindow:) keyEquivalent: @"0"];
     [angbandItem setTarget: self];
     [angbandItem setTag: AngbandWindowMenuItemTagBase];
     [windowsMenu addItem: angbandItem];

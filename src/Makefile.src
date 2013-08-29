@@ -6,7 +6,7 @@
 #
 
 VERSION = 2.0.1
-COPYRIGHT = (c) 1995-2012 Angband contributors
+COPYRIGHT = (c) 1995-2013 Angband contributors
 
 HEADERS = \
 	h-basic.h \
@@ -14,8 +14,7 @@ HEADERS = \
 	z-config.h defines.h types.h externs.h \
 	z-term.h z-rand.h z-util.h z-virt.h z-form.h
 
-ZFILES = z-bitflag.o z-file.o z-form.o z-msg.o z-quark.o z-queue.o z-rand.o \
-	z-set.o z-term.o z-type.o z-util.o z-virt.o z-textblock.o
+ZFILES = z-form.o z-rand.o z-term.o z-util.o z-virt.o
 
 # MAINFILES is defined by autotools (or manually) to be combinations of these
 
@@ -50,7 +49,6 @@ ANGFILES = \
 	spells_c.o spells_h.o spells_m.o spells_s.o spoilers.o store.o streams.o \
 	tables.o time_lord.o tourist.o util.o variable.o variant.o warlock.o warrior.o \
 	warrior_mage.o weaponmaster.o weaponsmith.o wild.o wild_realm.o wild_talent.o \
-	wizard1.o wizard2.o xtra1.o xtra2.o z-term.o int-map.o str-map.o z-form.o \
-	z-rand.o z-util.o z-virt.o main-gcu.o
+	wizard1.o wizard2.o xtra1.o xtra2.o int-map.o str-map.o
 
 
