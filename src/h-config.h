@@ -206,7 +206,7 @@
  * or for the "Atari" platform which is Unix-like, apparently
  */
 #if !defined(MACINTOSH) && !defined(WINDOWS) && \
-    !defined(MSDOS) && !defined(USE_EMX) && \
+  !defined(MSDOS) && !defined(USE_EMX) && !defined(MACH_O_CARBON) &&	\
     !defined(AMIGA) && !defined(ACORN) && !defined(VM)
 # define SET_UID
 #endif
