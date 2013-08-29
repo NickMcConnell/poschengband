@@ -237,4 +237,15 @@ pip-log.txt
 *.raw
 
 # Save files
-lib/save
+!lib/save/Makefile
+lib/save/*
+
+# Linux build system
+.deps
+src/autoconf.h
+aclocal.m4
+autom4te.cache/
+config.log
+config.status
+configure
+mk/buildsys.mk
