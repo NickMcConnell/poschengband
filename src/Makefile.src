@@ -49,6 +49,6 @@ ANGFILES = \
 	spells_c.o spells_h.o spells_m.o spells_s.o spoilers.o store.o streams.o \
 	tables.o time_lord.o tourist.o util.o variable.o variant.o warlock.o warrior.o \
 	warrior_mage.o weaponmaster.o weaponsmith.o wild.o wild_realm.o wild_talent.o \
-	wizard1.o wizard2.o xtra1.o xtra2.o int-map.o str-map.o
+	wizard1.o wizard2.o xtra1.o xtra2.o int-map.o str-map.o main-gcu.o
 
 

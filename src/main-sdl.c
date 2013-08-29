@@ -4124,7 +4124,7 @@ static void init_paths(void)
 	while (my_dread(dir, buf, ANGBAND_DIR_XTRA_FONT, sizeof buf))
 	{
 		/* Check for file extension */
-		if (suffix(buf, ".fon"))
+		if (suffix(buf, ".fon")||suffix(buf, ".FON"))
 			FontList[num_fonts++] = string_make(buf);
 
 		/* Don't grow to long */

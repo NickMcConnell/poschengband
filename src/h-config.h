@@ -208,7 +208,7 @@
 #if !defined(MACINTOSH) && !defined(WINDOWS) && \
     !defined(MSDOS) && !defined(USE_EMX) && \
     !defined(AMIGA) && !defined(ACORN) && !defined(VM)
-//# define SET_UID
+# define SET_UID
 #endif
 
 
@@ -269,15 +269,15 @@
 /*
  * The Macintosh allows the use of a "file type" when creating a file
  */
-#if defined(MACINTOSH) || !defined(MACH_O_CARBON)
-# define FILE_TYPE_TEXT 'TEXT'
-# define FILE_TYPE_DATA 'DATA'
-# define FILE_TYPE_SAVE 'SAVE'
-# define FILE_TYPE(X) (_ftype = (X))
-#else
+//#if defined(MACH_O_CARBON)
+//# define FILE_TYPE_TEXT 'TEXT'
+//# define FILE_TYPE_DATA 'DATA'
+//# define FILE_TYPE_SAVE 'SAVE'
+//# define FILE_TYPE(X) (_ftype = (X))
+//#else
 # define FILE_TYPE(X) ((void)0)
 #define HAVE_USLEEP
-#endif
+//#endif
 
 
 /*
