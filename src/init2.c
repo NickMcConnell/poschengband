@@ -113,7 +113,7 @@ void init_file_paths(const char *configpath, const char *libpath, const char *da
 
     /* Prepare to append to the Base Path */
     /* This is really suspicious code as we might sprintf to this buffer below! */
-    tail = libpath + strlen(libpath);
+    tail = (char*)(libpath + strlen(libpath));
 
 
 #ifdef VM
