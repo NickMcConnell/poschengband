@@ -3757,7 +3757,7 @@
 #define RF1_DROP_4D2            0x08000000  /* Drop 4d2 items/gold */
 #define RF1_DROP_GOOD           0x10000000  /* Drop good items */
 #define RF1_DROP_GREAT          0x20000000  /* Drop great items */
-#define RF1_XXX2                0x40000000  /* XXX */
+#define RF1_TRUMP               0x40000000  /* Free teleport every turn */
 #define RF1_XXX3                0x80000000  /* XXX */
 
 /*

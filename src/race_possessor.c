@@ -29,6 +29,40 @@ static void _birth(void)
     add_outfit(&forge);
 }
 
+static int _get_toggle(void)
+{
+    return p_ptr->magic_num1[0];
+}
+
+static int _set_toggle(s32b toggle)
+{
+    int result = p_ptr->magic_num1[0];
+
+    if (toggle == result) return result;
+
+    p_ptr->magic_num1[0] = toggle;
+
+    p_ptr->redraw |= PR_STATUS;
+    p_ptr->update |= PU_BONUS;
+    handle_stuff();
+
+    return result;
+}
+
+int possessor_get_toggle(void)
+{
+    int result = TOGGLE_NONE;
+    if (p_ptr->prace == RACE_MON_POSSESSOR)
+        result = _get_toggle();
+    return result;
+}
+
+static void _player_action(int energy_use)
+{
+    if (_get_toggle() == LEPRECHAUN_TOGGLE_BLINK)
+        teleport_player(10, TELEPORT_LINE_OF_SIGHT);
+}
+
 /**********************************************************************
  * Attacks
  * We could either write new attack code, or translate to existing innate
@@ -651,6 +685,8 @@ static int _get_powers(spell_info* spells, int max)
 
     if (ct < max)
         _add_power(&spells[ct++], 1, 0, 0, _possess_spell, p_ptr->stat_ind[A_DEX]);
+    if (ct < max && (r_ptr->flags1 & RF1_TRUMP))
+        _add_power(&spells[ct++], 1, 0, 0, blink_toggle_spell, p_ptr->stat_ind[A_DEX]);
     if (ct < max && (r_ptr->flags2 & RF2_MULTIPLY))
         _add_power(&spells[ct++], 1, 5, 40, _multiply_spell, p_ptr->stat_ind[A_CHR]);
     if (ct < max && (r_ptr->flags4 & RF4_SHRIEK))
@@ -1045,9 +1081,9 @@ static void _calc_bonuses(void)
             p_ptr->pspeed += sp;
         else
         {
-        int bonus;
+            int bonus;
 
-            if (strchr("hknoOpPTVWz", r_ptr->d_char))
+            if (strchr("ghknoOpPTVWz", r_ptr->d_char))
                 sp /= 3;
             if (strchr("H", r_ptr->d_char))
                 sp = sp * 2/3;
@@ -1323,6 +1359,7 @@ race_t *mon_possessor_get_race_t(void)
         me.get_flags = _get_flags;
         me.get_immunities = _get_immunities;
         me.get_vulnerabilities = _get_vulnerabilities;
+        me.player_action = _player_action;
         
         me.calc_innate_attacks = _calc_innate_attacks;
 

@@ -1955,10 +1955,12 @@ extern race_t *mon_troll_get_race_t(void);
 extern race_t *mon_xorn_get_race_t(void);
 
 extern bool    possessor_can_gain_exp(void);
+extern int     possessor_get_toggle(void);
 extern s32b    possessor_max_exp(void);
 extern void    possessor_on_take_hit(void);
 extern bool    giant_is_favorite(object_type *o_ptr);
 extern void    jelly_eat_object(object_type *o_ptr);
+extern void    blink_toggle_spell(int cmd, variant *res);
 extern bool    leprechaun_steal(int m_idx);
 extern int     leprechaun_get_toggle(void);
 extern void    sword_absorb_object(object_type *o_ptr);

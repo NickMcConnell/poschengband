@@ -3069,7 +3069,7 @@ bool make_attack_spell(int m_idx, bool ticked_off)
             }
             case MON_ATHENA:
             {
-                int num = randint1(4);
+                int num = randint1(2);
                 msg_format("%^s summons friends!", m_name);
                 if (one_in_(3) && r_info[MON_ZEUS].max_num == 1)
                 {
