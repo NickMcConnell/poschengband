@@ -1164,15 +1164,26 @@ static void _calc_bonuses(void)
         p_ptr->levitation = TRUE;
 
     if (r_ptr->flagsr & RFR_IM_ACID)
-        res_add_amt(RES_ACID, 3);
+        res_add_immune(RES_ACID);
     if (r_ptr->flagsr & RFR_IM_ELEC)
-        res_add_amt(RES_ELEC, 3);
+        res_add_immune(RES_ELEC);
     if (r_ptr->flagsr & RFR_IM_FIRE)
-        res_add_amt(RES_FIRE, 3);
+        res_add_immune(RES_FIRE);
     if (r_ptr->flagsr & RFR_IM_COLD)
-        res_add_amt(RES_COLD, 3);
+        res_add_immune(RES_COLD);
     if (r_ptr->flagsr & RFR_IM_POIS)
-        res_add_amt(RES_POIS, 3);
+        res_add_immune(RES_POIS);
+
+    if (r_ptr->flagsr & RFR_RES_ACID)
+        res_add(RES_ACID);
+    if (r_ptr->flagsr & RFR_RES_ELEC)
+        res_add(RES_ELEC);
+    if (r_ptr->flagsr & RFR_RES_FIRE)
+        res_add(RES_FIRE);
+    if (r_ptr->flagsr & RFR_RES_COLD)
+        res_add(RES_COLD);
+    if (r_ptr->flagsr & RFR_RES_POIS)
+        res_add(RES_POIS);
     if (r_ptr->flagsr & RFR_RES_LITE)
         res_add(RES_LITE);
     if (r_ptr->flagsr & RFR_RES_DARK)
@@ -1244,15 +1255,15 @@ static void _get_flags(u32b flgs[TR_FLAG_SIZE])
     if (r_ptr->flags7 & RF7_CAN_FLY)
         add_flag(flgs, TR_LEVITATION);
 
-    if (r_ptr->flagsr & RFR_IM_ACID)
+    if (r_ptr->flagsr & RFR_RES_ACID)
         add_flag(flgs, TR_RES_ACID);
-    if (r_ptr->flagsr & RFR_IM_ELEC)
+    if (r_ptr->flagsr & RFR_RES_ELEC)
         add_flag(flgs, TR_RES_ELEC);
-    if (r_ptr->flagsr & RFR_IM_FIRE)
+    if (r_ptr->flagsr & RFR_RES_FIRE)
         add_flag(flgs, TR_RES_FIRE);
-    if (r_ptr->flagsr & RFR_IM_COLD)
+    if (r_ptr->flagsr & RFR_RES_COLD)
         add_flag(flgs, TR_RES_COLD);
-    if (r_ptr->flagsr & RFR_IM_POIS)
+    if (r_ptr->flagsr & RFR_RES_POIS)
         add_flag(flgs, TR_RES_POIS);
     if (r_ptr->flagsr & RFR_RES_LITE)
         add_flag(flgs, TR_RES_LITE);
@@ -1295,7 +1306,7 @@ static void _get_flags(u32b flgs[TR_FLAG_SIZE])
 static void _get_immunities(u32b flgs[TR_FLAG_SIZE]) 
 {
     monster_race *r_ptr = &r_info[p_ptr->current_r_idx];
-    /*if (r_ptr->flagsr & RFR_IM_ACID)
+    if (r_ptr->flagsr & RFR_IM_ACID)
         add_flag(flgs, TR_RES_ACID);
     if (r_ptr->flagsr & RFR_IM_ELEC)
         add_flag(flgs, TR_RES_ELEC);
@@ -1304,7 +1315,7 @@ static void _get_immunities(u32b flgs[TR_FLAG_SIZE])
     if (r_ptr->flagsr & RFR_IM_COLD)
         add_flag(flgs, TR_RES_COLD);
     if (r_ptr->flagsr & RFR_IM_POIS)
-        add_flag(flgs, TR_RES_POIS);*/
+        add_flag(flgs, TR_RES_POIS);
 }
 
 static void _get_vulnerabilities(u32b flgs[TR_FLAG_SIZE]) 

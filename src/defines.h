@@ -4042,11 +4042,11 @@
 #define RFR_RES_ALL         0x00080000  /* Resist all */
 #define RFR_RES_TELE        0x00100000  /* Resist teleportation */
 #define RFR_PACT_MONSTER    0x00200000  /* Resists damage due to pact alliance ... s/b reset on new characters! */
-#define RFR_XXX22           0x00400000
-#define RFR_XXX23           0x00800000
-#define RFR_XXX24           0x01000000
-#define RFR_XXX25           0x02000000
-#define RFR_XXX26           0x04000000
+#define RFR_RES_ACID        0x00400000
+#define RFR_RES_ELEC        0x00800000
+#define RFR_RES_FIRE        0x01000000
+#define RFR_RES_COLD        0x02000000
+#define RFR_RES_POIS        0x04000000
 #define RFR_XXX27           0x08000000
 #define RFR_XXX28           0x10000000
 #define RFR_XXX29           0x20000000
@@ -4239,12 +4239,14 @@
 
 /*
  * Hack -- effective elemental and poison immunity mask
+ * Note: These flags are currently used for slays (monk, melee, shots)
+ * and auras, so lumping immunity and resistance together is probably OK for now.
  */
-#define RFR_EFF_IM_ACID_MASK  (RFR_IM_ACID | RFR_RES_ALL)
-#define RFR_EFF_IM_ELEC_MASK  (RFR_IM_ELEC | RFR_RES_ALL)
-#define RFR_EFF_IM_FIRE_MASK  (RFR_IM_FIRE | RFR_RES_ALL)
-#define RFR_EFF_IM_COLD_MASK  (RFR_IM_COLD | RFR_RES_ALL)
-#define RFR_EFF_IM_POIS_MASK  (RFR_IM_POIS | RFR_RES_ALL)
+#define RFR_EFF_IM_ACID_MASK  (RFR_IM_ACID | RFR_RES_ACID | RFR_RES_ALL)
+#define RFR_EFF_IM_ELEC_MASK  (RFR_IM_ELEC | RFR_RES_ELEC | RFR_RES_ALL)
+#define RFR_EFF_IM_FIRE_MASK  (RFR_IM_FIRE | RFR_RES_FIRE | RFR_RES_ALL)
+#define RFR_EFF_IM_COLD_MASK  (RFR_IM_COLD | RFR_RES_COLD | RFR_RES_ALL)
+#define RFR_EFF_IM_POIS_MASK  (RFR_IM_POIS | RFR_RES_POIS | RFR_RES_ALL)
 #define RFR_EFF_RES_SHAR_MASK (RFR_RES_SHAR | RFR_RES_ALL)
 #define RFR_EFF_RES_CHAO_MASK (RFR_RES_CHAO | RFR_RES_ALL)
 #define RFR_EFF_RES_NEXU_MASK (RFR_RES_NEXU | RFR_RES_ALL)
