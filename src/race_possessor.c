@@ -845,6 +845,8 @@ static int _get_spells(spell_info* spells, int max)
         _add_spell(&spells[ct++], 14, 10, 45, lightning_ball_spell, stat_idx);
     if (ct < max && (r_ptr->flags9 & RF9_POS_MAPPING))
         _add_spell(&spells[ct++], 15, 10, 50, magic_mapping_spell, stat_idx);
+    if (ct < max && (r_ptr->flags9 & RF9_POS_CLAIRVOYANCE)) /* Leprechauns */
+        _add_spell(&spells[ct++], 15, 20, 50, clairvoyance_spell, stat_idx);
     if (ct < max && (r_ptr->flags6 & RF6_FORGET))
         _add_spell(&spells[ct++], 15, 3, 40, amnesia_spell, stat_idx);
     if (ct < max && (r_ptr->flags6 & RF6_HEAL) && r_ptr->level < 20)

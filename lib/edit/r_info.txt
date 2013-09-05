@@ -3664,6 +3664,10 @@ B:TOUCH:EAT_GOLD
 B:TOUCH:EAT_FOOD
 F:MULTIPLY | DROP_60 | ONLY_GOLD | RAND_50 | OPEN_DOOR | MALE | GOOD 
 F:HAS_LITE_1 |
+F:DROP_CORPSE | POS_CLAIRVOYANCE
+P:Copy:High-Elf:Ninja
+P:Skills:0:0:0:7:0:0:0:0
+P:Life:60
 S:1_IN_6
 S:BLINK
 D:A merry little gnome.
@@ -7873,6 +7877,10 @@ F:MULTIPLY | INVISIBLE | RAND_25 | TAKE_ITEM | COLD_BLOOD |
 F:HURT_LITE | EVIL | OPEN_DOOR | MALE | HAS_LITE_1 | THIEF
 B:TOUCH:EAT_GOLD
 B:TOUCH:EAT_ITEM
+F:DROP_CORPSE | POS_CLAIRVOYANCE
+P:Copy:High-Elf:Ninja
+P:Skills:0:0:0:7:0:0:0:0
+P:Life:75
 S:1_IN_6
 S:BLINK | TPORT | TELE_TO | CAUSE_1
 D:This little creature has a fiendish gleam in its eyes.
@@ -10583,6 +10591,10 @@ B:TOUCH:EAT_GOLD
 B:TOUCH:EAT_ITEM
 F:MULTIPLY | INVISIBLE | RAND_25 | TAKE_ITEM | COLD_BLOOD | SMART | THIEF
 F:HURT_LITE | EVIL | OPEN_DOOR | MALE | UNDEAD | RES_NETH | HAS_LITE_1 |
+F:DROP_CORPSE | POS_CLAIRVOYANCE
+P:Copy:High-Elf:Ninja
+P:Skills:0:0:0:7:0:0:0:0
+P:Life:85
 S:1_IN_6
 S:BLINK | TPORT | TELE_TO | CAUSE_3 | ANIM_DEAD
 D:Nasty undead little creatures.  They are chanting the name of the 
@@ -12585,6 +12597,10 @@ F:ESCORT | ESCORTS | EVIL |
 F:ONLY_ITEM | DROP_4D2 | DROP_GOOD | 
 F:INVISIBLE | OPEN_DOOR | BASH_DOOR | 
 F:RES_FIRE | RES_COLD | RES_POIS | NO_CONF | NO_SLEEP
+F:DROP_CORPSE | POS_GAIN_AC
+P:Copy:High-Elf:Ninja
+P:Skills:0:0:0:7:0:0:0:0
+P:Body:Hound
 S:1_IN_3 | 
 S:TELE_TO | HEAL | S_KIN
 D:"Beauty -- coolness -- aloofness -- philosophical repose -- 
