@@ -1463,7 +1463,7 @@ void possessor_on_take_hit(void)
                 object_prep(&forge, lookup_kind(TV_CORPSE, SV_CORPSE));
                 apply_magic(&forge, object_level, AM_NO_FIXED_ART);
                 forge.pval = old_r_idx;
-                forge.weight = MIN(30*1000, MAX(40, old_r_ptr->weight * 10));
+                forge.weight = MIN(500*10, MAX(40, old_r_ptr->weight * 10));
                 drop_near(&forge, -1, py, px);
             }
             else
