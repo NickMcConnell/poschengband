@@ -229,7 +229,11 @@ bool dir_exists(const char *path)
 	struct stat buf;
 	if (stat(path, &buf) != 0)
 		return FALSE;
+#ifdef WIN32
 	else if (buf.st_mode & S_IFDIR)
+#else
+    else if (S_ISDIR(buf.st_mode))
+#endif
 		return TRUE;
 	else
 		return FALSE;
