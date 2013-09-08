@@ -1750,7 +1750,10 @@ void monster_death(int m_idx, bool drop_item)
             break;
         }
 
-        if (race_ptr->boss_r_idx == m_ptr->r_idx)
+        /* I think the bug is Kill Amberite, get Blood Curse, entomb said Amberite,
+           zeroing out the m_ptr while processing monster death, and continuing to call 
+           this routine after m_list[m_idx] has been corrupted. */
+        if (race_ptr->boss_r_idx && race_ptr->boss_r_idx == m_ptr->r_idx)
         {
             msg_print("Congratulations! You have killed the boss of your race!");
             p_ptr->fame += 10;
