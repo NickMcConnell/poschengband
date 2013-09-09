@@ -13518,6 +13518,7 @@ D:remember his own name, his power and evil are undeniable.  He believes
 D:unshakeably that he is unbeatable and laughs as he weaves his awesome 
 D:spells.
 P:Copy:Human:Mage
+P:Stats:0:3:0:0:0:0
 
 N:819:Klingsor, Evil Master of Magic
 G:p:y
@@ -13540,6 +13541,7 @@ S:BA_MANA | BA_DARK | S_HI_UNDEAD | BA_CHAO | HAND_DOOM | ANIM_DEAD
 D:Klingsor, whose hopeless effort to join the Knights of the Grail 
 D:was thwarted, turned to black magic and became a deadly necromancer.
 P:Copy:Dunadan:Mage
+P:Stats:0:3:0:0:0:0
 
 N:820:Corwin, Lord of Avalon
 G:p:r
