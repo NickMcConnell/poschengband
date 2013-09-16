@@ -228,7 +228,8 @@ static void curse_artifact(object_type * o_ptr)
 static void random_plus(object_type * o_ptr)
 {
     int this_type = (object_is_weapon_ammo(o_ptr) ? 23 : 19);
-
+    
+    has_pval = TRUE;
     switch (artifact_bias)
     {
     case BIAS_WARRIOR:
@@ -2415,6 +2416,11 @@ s32b create_artifact(object_type *o_ptr, u32b mode)
                 {
                     add_flag(o_ptr->art_flags, TR_REFLECT);
                 }
+                else if (one_in_(30))
+                {
+                    add_flag(o_ptr->art_flags, TR_MAGIC_MASTERY);
+                    has_pval = TRUE;
+                }
                 else if (one_in_(77))
                 {
                     add_flag(o_ptr->art_flags, TR_SPELL_POWER);
@@ -2554,8 +2560,21 @@ s32b create_artifact(object_type *o_ptr, u32b mode)
             o_ptr->pval = 6;
     }
 
-    if (have_flag(o_ptr->art_flags, TR_WEAPONMASTERY) && o_ptr->pval > 3)
-        o_ptr->pval = 3;
+    if (have_flag(o_ptr->art_flags, TR_WEAPONMASTERY) && o_ptr->pval > 2)
+    {
+        if (one_in_(30))
+            o_ptr->pval = 3;
+        else
+            o_ptr->pval = 2;
+    }
+
+    if (have_flag(o_ptr->art_flags, TR_MAGIC_MASTERY) && o_ptr->pval > 2)
+    {
+        if (one_in_(30))
+            o_ptr->pval = 3;
+        else
+            o_ptr->pval = 2;
+    }
 
     if (have_flag(o_ptr->art_flags, TR_SPELL_POWER))
         o_ptr->pval = -o_ptr->pval;
