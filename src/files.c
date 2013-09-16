@@ -1728,6 +1728,11 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE])
         add_flag(flgs, TR_FREE_ACT);
     }
 
+    if (mut_present(MUT_TREAD_SOFTLY))
+    {
+        add_flag(flgs, TR_STEALTH);
+    }
+
     if (p_ptr->personality == PERS_SEXY)
         add_flag(flgs, TR_AGGRAVATE);
     if (p_ptr->personality == PERS_MUNCHKIN)
