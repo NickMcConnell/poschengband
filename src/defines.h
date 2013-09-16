@@ -5322,6 +5322,7 @@ extern int PlayerUID;
 #define MON_SMAUG               697
 #define MON_STORMBRINGER        698
 #define MON_ULTRA_PALADIN       699
+#define MON_LEPRECHAUN_FANATIC  700
 #define MON_DRACOLICH           701
 #define MON_G_TITAN             702
 #define MON_GREATER_TITAN       702

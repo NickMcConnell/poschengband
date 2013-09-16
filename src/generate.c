@@ -1558,7 +1558,8 @@ void generate_cave(void)
             okay = FALSE;
         }
 
-        if (okay) break;
+        if (okay) 
+            break;
         if (why) 
             msg_format("Generation restarted (%s)", why);
         
