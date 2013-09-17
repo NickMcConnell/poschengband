@@ -1628,8 +1628,7 @@ s16b get_mon_num(int level)
     /* Restrict uniques ... except for summoning, of course ;) */
     if ( unique_count 
       && !summon_specific_who 
-      && !one_in_(unique_count)
-      && randint0(250) < virtue_current(VIRTUE_HARMONY) )
+      && !one_in_(unique_count) )
     {
         allow_unique = FALSE;
     }
