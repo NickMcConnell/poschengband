@@ -1768,6 +1768,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
         break;
     }
 
+    if (mode & OD_NAME_AND_DICE) goto object_desc_done;
 
     /* Add the weapon bonuses */
     if (known)

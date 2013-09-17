@@ -2998,6 +2998,7 @@
 #define OD_STORE            0x00000020  /* Assume to be aware and known */
 #define OD_NO_FLAVOR        0x00000040  /* Allow to hidden flavor */
 #define OD_FORCE_FLAVOR     0x00000080  /* Get un-shuffled flavor name */
+#define OD_NAME_AND_DICE    0x00000100
 
 
 /*

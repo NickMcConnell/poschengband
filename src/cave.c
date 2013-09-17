@@ -1810,6 +1810,14 @@ static cptr simplify_list[][2] =
     {NULL, NULL}
 };
 
+static bool _is_dice_boosted(object_type *o_ptr)
+{
+    object_kind *k_ptr = &k_info[o_ptr->k_idx];
+    if (o_ptr->dd != k_ptr->dd || o_ptr->ds != k_ptr->ds)
+        return TRUE;
+    return FALSE;
+}
+
 static void display_shortened_item_name(object_type *o_ptr, int y)
 {
     char buf[MAX_NLEN];
@@ -1817,6 +1825,14 @@ static void display_shortened_item_name(object_type *o_ptr, int y)
     int len = 0;
     byte attr;
 
+/*  object_desc(buf, o_ptr, (OD_NO_FLAVOR | OD_OMIT_PREFIX | OD_NAME_AND_DICE)); */
+    if (object_is_melee_weapon(o_ptr) && _is_dice_boosted(o_ptr))
+    {
+        char tmp[MAX_NLEN];
+        object_desc(tmp, o_ptr, (OD_NO_FLAVOR | OD_OMIT_PREFIX | OD_NAME_ONLY));
+        sprintf(buf, "%dd%d %s", o_ptr->dd, o_ptr->ds, tmp);
+    }
+    else
     object_desc(buf, o_ptr, (OD_NO_FLAVOR | OD_OMIT_PREFIX | OD_NAME_ONLY));
     attr = tval_to_attr[o_ptr->tval % 128];
 
