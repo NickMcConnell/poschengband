@@ -407,7 +407,7 @@ static void _display_weapon_slay(int base_mult, int slay_mult, bool force, int b
 
     mult = slay_mult;
     if (force)
-        mult = mult * 3/2 + 100;
+        mult = mult * 3/2 + 150;
     mult = mult * base_mult / 100;
 
     min = blows * (mult*dd/100 + to_d) / 100;

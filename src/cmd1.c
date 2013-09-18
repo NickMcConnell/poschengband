@@ -274,7 +274,7 @@ static void death_scythe_miss(object_type *o_ptr, int hand, int mode)
         {
             p_ptr->csp -= (1+(p_ptr->msp / 30));
             p_ptr->redraw |= (PR_MANA);
-            mult = mult * 3 / 2 + 10;
+            mult = mult * 3 / 2 + 15;
         }
 
         k *= mult;
@@ -1268,7 +1268,7 @@ s16b tot_dam_aux(object_type *o_ptr, int tdam, monster_type *m_ptr, s16b hand, i
                 {
                     p_ptr->csp -= cost;
                     p_ptr->redraw |= (PR_MANA);
-                    mult = mult * 3 / 2 + 10;
+                    mult = mult * 3 / 2 + 15;
                 }
             }
             if (p_ptr->tim_blood_feast)
