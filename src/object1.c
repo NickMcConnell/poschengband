@@ -847,7 +847,7 @@ cptr item_activation(object_type *o_ptr)
         case ART_STOMPER:
             return "earthquake every 35 turns";
         case ART_RAILGUN:
-            return "beam of light (300) every turn";
+            return "beam of light (300) every 15 turns";
         case ART_KAMIKAZE_ROBE:
             return "Speed Essentia every 111 turns";
         case ART_BALLISTA:

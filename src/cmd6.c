@@ -2668,7 +2668,7 @@ static void do_cmd_activate_aux(int item)
                 msg_print("Your gun is covered with a blinding light...");
                 if (!get_aim_dir(&dir)) return;
                 fire_beam(GF_LITE, dir, device_power(300));
-                o_ptr->timeout = 0; /* Every turn? */
+                o_ptr->timeout = 15;
                 break;
             }
             case ART_GONG:
