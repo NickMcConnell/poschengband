@@ -2688,9 +2688,9 @@ static cptr do_nature_spell(int spell, int mode)
 
             case 5: /* Elemental Storm */
                 msg_print("You unleash the elements!");
-                project(0, spell_power(1 + plev / 12), py, px, spell_power((120 + plev) * 2), GF_FIRE, PROJECT_KILL | PROJECT_ITEM, -1);
-                project(0, spell_power(1 + plev / 12), py, px, spell_power((120 + plev) * 2), GF_COLD, PROJECT_KILL | PROJECT_ITEM, -1);
-                project(0, spell_power(1 + plev / 12), py, px, spell_power((120 + plev) * 2), GF_ELEC, PROJECT_KILL | PROJECT_ITEM, -1);
+                project(0, spell_power(1 + plev / 12), py, px, spell_power((120 + plev) * 2), GF_FIRE, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
+                project(0, spell_power(1 + plev / 12), py, px, spell_power((120 + plev) * 2), GF_COLD, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
+                project(0, spell_power(1 + plev / 12), py, px, spell_power((120 + plev) * 2), GF_ELEC, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
                 break;
 
             case 6: /* Rock Storm */
