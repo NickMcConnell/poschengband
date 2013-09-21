@@ -5247,7 +5247,8 @@ static cptr do_craft_spell(int spell, int mode)
             {
                 if (flush_failure) flush();
                 msg_print("The enchantment failed.");
-                if (one_in_(3)) virtue_add(VIRTUE_ENCHANTMENT, -1);
+                if (one_in_(3) && virtue_current(VIRTUE_ENCHANTMENT) < 100) 
+                    virtue_add(VIRTUE_ENCHANTMENT, -1);
             }
             else
             {

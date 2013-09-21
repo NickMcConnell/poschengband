@@ -1919,7 +1919,7 @@ bool enchant(object_type *o_ptr, int n, int eflag)
                 idx -= 2*(psion_enchant_power() - 1);
             }
 
-            idx -= virtue_current(VIRTUE_ENCHANTMENT)/50;
+            idx -= virtue_current(VIRTUE_ENCHANTMENT)/110;
 
             if (idx < 0) chance = 0;
             else if (idx > 15) chance = 1000;
@@ -1948,7 +1948,7 @@ bool enchant(object_type *o_ptr, int n, int eflag)
                 idx -= 2*(psion_enchant_power() - 1);
             }
 
-            idx -= virtue_current(VIRTUE_ENCHANTMENT)/50;
+            idx -= virtue_current(VIRTUE_ENCHANTMENT)/110;
 
             if (idx < 0) chance = 0;
             else if (idx > 15) chance = 1000;
@@ -1978,7 +1978,7 @@ bool enchant(object_type *o_ptr, int n, int eflag)
                 idx -= 2*(psion_enchant_power() - 1);
             }
 
-            idx -= virtue_current(VIRTUE_ENCHANTMENT)/50;
+            idx -= virtue_current(VIRTUE_ENCHANTMENT)/110;
 
             if (idx < 0) chance = 0;
             else if (idx > 15) chance = 1000;
@@ -2082,7 +2082,8 @@ bool enchant_spell(int num_hit, int num_dam, int num_ac)
         /* Message */
         msg_print("The enchantment failed.");
 
-        if (one_in_(3)) virtue_add(VIRTUE_ENCHANTMENT, -1);
+        if (one_in_(3) && virtue_current(VIRTUE_ENCHANTMENT) < 100) 
+            virtue_add(VIRTUE_ENCHANTMENT, -1);
     }
     else
         virtue_add(VIRTUE_ENCHANTMENT, 1);
