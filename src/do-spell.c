@@ -17,8 +17,8 @@ int spell_power(int pow)
     int tmp = p_ptr->spell_power;
     if (p_ptr->tim_blood_rite)
         tmp += 7;
-    if (_current_realm_hack && _current_realm_hack == p_ptr->easy_realm1)
-        tmp += 2;
+/*  if (_current_realm_hack && _current_realm_hack == p_ptr->easy_realm1)
+        tmp += 2; */
     return spell_power_aux(pow, tmp);
 }
 
