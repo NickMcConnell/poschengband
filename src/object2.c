@@ -3202,910 +3202,643 @@ static void a_m_aux_2(object_type *o_ptr, int level, int power, int mode)
 static void a_m_aux_3(object_type *o_ptr, int level, int power, int mode)
 {
     /* Apply magic (good or bad) according to type */
-    switch (o_ptr->tval)
+    if (o_ptr->tval == TV_RING)
     {
-        case TV_RING:
+        switch (o_ptr->sval)
         {
-            /* Analyze */
-            switch (o_ptr->sval)
+        case SV_RING_WEAPONMASTERY:
+            o_ptr->pval = m_bonus(3, level);
+            if (one_in_(30)) o_ptr->pval++;
+            if (o_ptr->pval < 1) o_ptr->pval = 1;
+            if (power < 0)
             {
-                case SV_RING_WEAPONMASTERY:
+                o_ptr->ident |= (IDENT_BROKEN);
+                o_ptr->curse_flags |= TRC_CURSED;
+                o_ptr->pval = 0 - (o_ptr->pval);
+            }
+            else if (one_in_(30))
+            {
+                switch (randint1(5))
                 {
-                    o_ptr->pval = m_bonus(3, level);
-                    if (one_in_(30)) o_ptr->pval++;
-                    if (o_ptr->pval < 1) o_ptr->pval = 1;
-                    if (power < 0)
-                    {
-                        o_ptr->ident |= (IDENT_BROKEN);
-                        o_ptr->curse_flags |= TRC_CURSED;
-                        o_ptr->pval = 0 - (o_ptr->pval);
-                    }
-                    else if (one_in_(30))
-                    {
-                        switch (randint1(5))
-                        {
-                        case 1: add_flag(o_ptr->art_flags, TR_BRAND_ACID); break;
-                        case 2: add_flag(o_ptr->art_flags, TR_BRAND_COLD); break;
-                        case 3: add_flag(o_ptr->art_flags, TR_BRAND_FIRE); break;
-                        case 4: add_flag(o_ptr->art_flags, TR_BRAND_ELEC); break;
-                        case 5: add_flag(o_ptr->art_flags, TR_BRAND_POIS); break;
-                        }
-                    }
-                    break;
-                }
-                case SV_RING_ATTACKS:
-                {
-                    /* Stat bonus */
-                    o_ptr->pval = m_bonus(2, level);
-                    if (one_in_(15)) o_ptr->pval++;
-                    if (o_ptr->pval < 1) o_ptr->pval = 1;
-
-                    /* Cursed */
-                    if (power < 0)
-                    {
-                        /* Broken */
-                        o_ptr->ident |= (IDENT_BROKEN);
-
-                        /* Cursed */
-                        o_ptr->curse_flags |= TRC_CURSED;
-
-                        /* Reverse pval */
-                        o_ptr->pval = 0 - (o_ptr->pval);
-                    }
-
-                    break;
-                }
-                case SV_RING_SHOTS:
-                    break;
-                
-                case SV_RING_SPELL_POWER:
-                {
-                    int pv = m_bonus(3, level);
-                    while (one_in_(30)) pv++;
-                    if (pv == 0) pv = 1;
-                    o_ptr->pval = -pv;
-                    return; /* No ego or artifacts, please!*/
-                }
-
-                case SV_RING_SPELL_CAP:
-                {
-                    /* Stat bonus */
-                    o_ptr->pval = 1 + m_bonus(3, level);
-
-                    /* Cursed */
-                    if (power < 0)
-                    {
-                        /* Broken */
-                        o_ptr->ident |= (IDENT_BROKEN);
-
-                        /* Cursed */
-                        o_ptr->curse_flags |= TRC_CURSED;
-
-                        /* Reverse pval */
-                        o_ptr->pval = 0 - (o_ptr->pval);
-                    }
-
-                    break;
-                }
-
-                /* Strength, Constitution, Dexterity, Intelligence */
-                case SV_RING_STR:
-                case SV_RING_CON:
-                case SV_RING_DEX:
-                {
-                    /* Stat bonus */
-                    o_ptr->pval = 1 + m_bonus(5, level);
-
-                    /* Cursed */
-                    if (power < 0)
-                    {
-                        /* Broken */
-                        o_ptr->ident |= (IDENT_BROKEN);
-
-                        /* Cursed */
-                        o_ptr->curse_flags |= TRC_CURSED;
-
-                        /* Reverse pval */
-                        o_ptr->pval = 0 - (o_ptr->pval);
-                    }
-
-                    break;
-                }
-
-                /* Ring of Speed! */
-                case SV_RING_SPEED:
-                {
-                    /* Base speed (1 to 10) */
-                    o_ptr->pval = randint1(5) + m_bonus(5, level);
-
-                    /* Super-charge the ring */
-                    while (randint0(100) < 50) o_ptr->pval++;
-
-                    /* Cursed Ring */
-                    if (power < 0)
-                    {
-                        /* Broken */
-                        o_ptr->ident |= (IDENT_BROKEN);
-
-                        /* Cursed */
-                        o_ptr->curse_flags |= TRC_CURSED;
-
-                        /* Reverse pval */
-                        o_ptr->pval = 0 - (o_ptr->pval);
-
-                        break;
-                    }
-
-                    /* Mention the item */
-                    if (cheat_peek) object_mention(o_ptr);
-
-                    break;
-                }
-
-                case SV_RING_RESISTANCE:
-                {
-                    if (one_in_(5)) 
-                        add_flag(o_ptr->art_flags, TR_RES_POIS);
-                    else if (one_in_(5))
-                        one_high_resistance(o_ptr);
-                }
-                break;
-
-                case SV_RING_HIGH_RESISTANCE:
-                {
-                    do
-                    {
-                        one_high_resistance(o_ptr);
-                    } while (one_in_(3));
-                }
-                break;
-
-                case SV_RING_LORDLY:
-                {
-                    do
-                    {
-                        one_lordly_high_resistance(o_ptr);
-                    }
-                    while (one_in_(4));
-
-                    /* Bonus to armor class */
-                    o_ptr->to_a = 10 + randint1(5) + m_bonus(10, level);
-                }
-                break;
-
-                case SV_RING_WARNING:
-                {
-                    if (one_in_(3))
-                    {
-                        if (one_in_(20)) 
-                            add_flag(o_ptr->art_flags, TR_ESP_EVIL);
-                        else
-                            one_low_esp(o_ptr);
-                    }
-                    break;
-                }
-
-                /* Searching */
-                case SV_RING_SEARCHING:
-                {
-                    /* Bonus to searching */
-                    o_ptr->pval = 1 + m_bonus(5, level);
-
-                    /* Cursed */
-                    if (power < 0)
-                    {
-                        /* Broken */
-                        o_ptr->ident |= (IDENT_BROKEN);
-
-                        /* Cursed */
-                        o_ptr->curse_flags |= TRC_CURSED;
-
-                        /* Reverse pval */
-                        o_ptr->pval = 0 - (o_ptr->pval);
-                    }
-
-                    break;
-                }
-
-                /* Flames, Acid, Ice */
-                case SV_RING_FLAMES:
-                case SV_RING_ACID:
-                case SV_RING_ICE:
-                case SV_RING_ELEC:
-                {
-                    /* Bonus to armor class */
-                    o_ptr->to_a = 5 + randint1(5) + m_bonus(10, level);
-                    break;
-                }
-
-                /* Weakness, Stupidity */
-                case SV_RING_WEAKNESS:
-                case SV_RING_STUPIDITY:
-                {
-                    /* Broken */
-                    o_ptr->ident |= (IDENT_BROKEN);
-
-                    /* Cursed */
-                    o_ptr->curse_flags |= TRC_CURSED;
-
-                    /* Penalize */
-                    o_ptr->pval = 0 - (1 + m_bonus(5, level));
-                    if (power > 0) power = 0 - power;
-
-                    break;
-                }
-
-                /* WOE, Stupidity */
-                case SV_RING_WOE:
-                {
-                    /* Broken */
-                    o_ptr->ident |= (IDENT_BROKEN);
-
-                    /* Cursed */
-                    o_ptr->curse_flags |= TRC_CURSED;
-
-                    /* Penalize */
-                    o_ptr->to_a = 0 - (5 + m_bonus(10, level));
-                    o_ptr->pval = 0 - (1 + m_bonus(5, level));
-                    if (power > 0) power = 0 - power;
-
-                    break;
-                }
-
-                /* Ring of damage */
-                case SV_RING_DAMAGE:
-                {
-                    /* Bonus to damage */
-                    o_ptr->to_d = 1 + randint1(5) + m_bonus(16, level);
-
-                    /* Cursed */
-                    if (power < 0)
-                    {
-                        /* Broken */
-                        o_ptr->ident |= (IDENT_BROKEN);
-
-                        /* Cursed */
-                        o_ptr->curse_flags |= TRC_CURSED;
-
-                        /* Reverse bonus */
-                        o_ptr->to_d = 0 - o_ptr->to_d;
-                    }
-
-                    break;
-                }
-
-                /* Ring of Accuracy */
-                case SV_RING_ACCURACY:
-                {
-                    /* Bonus to hit */
-                    o_ptr->to_h = 1 + randint1(5) + m_bonus(16, level);
-
-                    /* Cursed */
-                    if (power < 0)
-                    {
-                        /* Broken */
-                        o_ptr->ident |= (IDENT_BROKEN);
-
-                        /* Cursed */
-                        o_ptr->curse_flags |= TRC_CURSED;
-
-                        /* Reverse tohit */
-                        o_ptr->to_h = 0 - o_ptr->to_h;
-                    }
-
-                    break;
-                }
-
-                /* Ring of Protection */
-                case SV_RING_PROTECTION:
-                {
-                    /* Bonus to armor class */
-                    o_ptr->to_a = 5 + randint1(8) + m_bonus(10, level);
-
-                    /* Cursed */
-                    if (power < 0)
-                    {
-                        /* Broken */
-                        o_ptr->ident |= (IDENT_BROKEN);
-
-                        /* Cursed */
-                        o_ptr->curse_flags |= TRC_CURSED;
-
-                        /* Reverse toac */
-                        o_ptr->to_a = 0 - o_ptr->to_a;
-                    }
-
-                    break;
-                }
-
-                /* Ring of Slaying */
-                case SV_RING_SLAYING:
-                {
-                    /* Bonus to damage and to hit */
-                    o_ptr->to_d = randint1(5) + m_bonus(12, level);
-                    o_ptr->to_h = randint1(5) + m_bonus(12, level);
-
-                    /* Cursed */
-                    if (power < 0)
-                    {
-                        /* Broken */
-                        o_ptr->ident |= (IDENT_BROKEN);
-
-                        /* Cursed */
-                        o_ptr->curse_flags |= TRC_CURSED;
-
-                        /* Reverse bonuses */
-                        o_ptr->to_h = 0 - o_ptr->to_h;
-                        o_ptr->to_d = 0 - o_ptr->to_d;
-                    }
-
-                    break;
-                }
-
-                case SV_RING_MUSCLE:
-                {
-                    o_ptr->pval = 1 + m_bonus(3, level);
-                    if (one_in_(4)) o_ptr->pval++;
-
-                    /* Cursed */
-                    if (power < 0)
-                    {
-                        /* Broken */
-                        o_ptr->ident |= (IDENT_BROKEN);
-
-                        /* Cursed */
-                        o_ptr->curse_flags |= TRC_CURSED;
-
-                        /* Reverse bonuses */
-                        o_ptr->pval = 0 - o_ptr->pval;
-                    }
-                    else if (one_in_(4))
-                    {
-                        o_ptr->to_h += randint1(7);
-                        o_ptr->to_d += randint1(7);
-                    }
-
-                    break;
-                }
-                case SV_RING_AGGRAVATION:
-                {
-                    /* Broken */
-                    o_ptr->ident |= (IDENT_BROKEN);
-
-                    /* Cursed */
-                    o_ptr->curse_flags |= TRC_CURSED;
-
-                    if (power > 0) power = 0 - power;
-                    break;
+                case 1: add_flag(o_ptr->art_flags, TR_BRAND_ACID); break;
+                case 2: add_flag(o_ptr->art_flags, TR_BRAND_COLD); break;
+                case 3: add_flag(o_ptr->art_flags, TR_BRAND_FIRE); break;
+                case 4: add_flag(o_ptr->art_flags, TR_BRAND_ELEC); break;
+                case 5: add_flag(o_ptr->art_flags, TR_BRAND_POIS); break;
                 }
             }
-            if (power > 1 && one_in_(2))
+            break;
+        case SV_RING_ATTACKS:
+            o_ptr->pval = m_bonus(2, level);
+            if (one_in_(15)) o_ptr->pval++;
+            if (o_ptr->pval < 1) o_ptr->pval = 1;
+            if (power < 0)
             {
-                if ((one_in_(20) && !object_is_cursed(o_ptr)) || (power > 2)) /* power > 2 is debug only */
-                {
-                    o_ptr->pval = MIN(o_ptr->pval, 4);
-                    create_artifact(o_ptr, CREATE_ART_NORMAL);
-                }
-                else if ((power == 2))
-                {
-                    while(!o_ptr->name2)
-                    {
-                        int tmp = m_bonus(10, level);
-                        object_kind *k_ptr = &k_info[o_ptr->k_idx];
-                        switch(randint1(28))
-                        {
-                        case 1: case 2:
-                            o_ptr->name2 = EGO_RING_THROW;
-                            break;
-                        case 3: case 4:
-                            if (have_flag(k_ptr->flags, TR_REGEN)) break;
-                            o_ptr->name2 = EGO_RING_REGEN;
-                            break;
-                        case 5: case 6:
-                            if (have_flag(k_ptr->flags, TR_LITE)) break;
-                            o_ptr->name2 = EGO_RING_LITE;
-                            break;
-                        case 7: case 8:
-                            if (have_flag(k_ptr->flags, TR_TELEPORT)) break;
-                            o_ptr->name2 = EGO_RING_TELEPORT;
-                            break;
-                        case 9: case 10:
-                            if (o_ptr->to_h) break;
-                            o_ptr->name2 = EGO_RING_TO_H;
-                            break;
-                        case 11: case 12:
-                            if (o_ptr->to_d) break;
-                            o_ptr->name2 = EGO_RING_TO_D;
-                            break;
-                        case 13:
-                            if ((o_ptr->to_h) || (o_ptr->to_d)) break;
-                            o_ptr->name2 = EGO_RING_SLAY;
-                            break;
-                        case 14:
-                            if ((have_flag(k_ptr->flags, TR_STR)) || o_ptr->to_h || o_ptr->to_d) break;
-                            o_ptr->name2 = EGO_RING_WIZARD;
-                            break;
-                        case 15:
-                            if (have_flag(k_ptr->flags, TR_ACTIVATE)) break;
-                            o_ptr->name2 = EGO_RING_HERO;
-                            break;
-                        case 16:
-                            if (have_flag(k_ptr->flags, TR_ACTIVATE)) break;
-                            if (tmp > 8) o_ptr->name2 = EGO_RING_MANA_BALL;
-                            else if (tmp > 4) o_ptr->name2 = EGO_RING_MANA_BOLT;
-                            else o_ptr->name2 = EGO_RING_MAGIC_MIS;
-                            break;
-                        case 17:
-                            if (have_flag(k_ptr->flags, TR_ACTIVATE)) break;
-                            if (!(have_flag(k_ptr->flags, TR_RES_FIRE)) && (have_flag(k_ptr->flags, TR_RES_COLD) || have_flag(k_ptr->flags, TR_RES_ELEC) || have_flag(k_ptr->flags, TR_RES_ACID))) break;
-                            if (tmp > 7) o_ptr->name2 = EGO_RING_DRAGON_F;
-                            else if (tmp > 3) o_ptr->name2 = EGO_RING_FIRE_BALL;
-                            else o_ptr->name2 = EGO_RING_FIRE_BOLT;
-                            break;
-                        case 18:
-                            if (have_flag(k_ptr->flags, TR_ACTIVATE)) break;
-                            if (!(have_flag(k_ptr->flags, TR_RES_COLD)) && (have_flag(k_ptr->flags, TR_RES_FIRE) || have_flag(k_ptr->flags, TR_RES_ELEC) || have_flag(k_ptr->flags, TR_RES_ACID))) break;
-                            if (tmp > 7) o_ptr->name2 = EGO_RING_DRAGON_C;
-                            else if (tmp > 3) o_ptr->name2 = EGO_RING_COLD_BALL;
-                            else o_ptr->name2 = EGO_RING_COLD_BOLT;
-                            break;
-                        case 19:
-                            if (have_flag(k_ptr->flags, TR_ACTIVATE)) break;
-                            if (!(have_flag(k_ptr->flags, TR_RES_ELEC)) && (have_flag(k_ptr->flags, TR_RES_COLD) || have_flag(k_ptr->flags, TR_RES_FIRE) || have_flag(k_ptr->flags, TR_RES_ACID))) break;
-                            if (tmp > 4) o_ptr->name2 = EGO_RING_ELEC_BALL;
-                            else o_ptr->name2 = EGO_RING_ELEC_BOLT;
-                            break;
-                        case 20:
-                            if (have_flag(k_ptr->flags, TR_ACTIVATE)) break;
-                            if (!(have_flag(k_ptr->flags, TR_RES_ACID)) && (have_flag(k_ptr->flags, TR_RES_COLD) || have_flag(k_ptr->flags, TR_RES_ELEC) || have_flag(k_ptr->flags, TR_RES_FIRE))) break;
-                            if (tmp > 4) o_ptr->name2 = EGO_RING_ACID_BALL;
-                            else o_ptr->name2 = EGO_RING_ACID_BOLT;
-                            break;
-                        case 21: case 22: case 23: case 24: case 25: case 26:
-                            switch (o_ptr->sval)
-                            {
-                            case SV_RING_SPEED:
-                                if (!one_in_(3)) break;
-                                o_ptr->name2 = EGO_RING_D_SPEED;
-                                break;
-                            case SV_RING_DAMAGE:
-                            case SV_RING_ACCURACY:
-                            case SV_RING_SLAYING:
-                                if (one_in_(2)) break;
-                                if (one_in_(2)) o_ptr->name2 = EGO_RING_HERO;
-                                else
-                                {
-                                    o_ptr->name2 = EGO_RING_BERSERKER;
-                                    o_ptr->to_h -= 2+randint1(4);
-                                    o_ptr->to_d += 2+randint1(4);
-                                }
-                                break;
-                            case SV_RING_PROTECTION:
-                                o_ptr->name2 = EGO_RING_SUPER_AC;
-                                o_ptr->to_a += 7 + m_bonus(5, level);
-                                break;
-                            case SV_RING_RES_FEAR:
-                                o_ptr->name2 = EGO_RING_HERO;
-                                break;
-                            case SV_RING_SHOTS:
-                                if (one_in_(2)) break;
-                                o_ptr->name2 = EGO_RING_HUNTER;
-                                break;
-                            case SV_RING_SEARCHING:
-                                o_ptr->name2 = EGO_RING_STEALTH;
-                                break;
-                            case SV_RING_TELEPORTATION:
-                                o_ptr->name2 = EGO_RING_TELE_AWAY;
-                                break;
-                            case SV_RING_RES_BLINDNESS:
-                                if (one_in_(2))
-                                    o_ptr->name2 = EGO_RING_RES_LITE;
-                                else
-                                    o_ptr->name2 = EGO_RING_RES_DARK;
-                                break;
-                            case SV_RING_LORDLY:
-                                if (!one_in_(20)) break;
-                                one_lordly_high_resistance(o_ptr);
-                                one_lordly_high_resistance(o_ptr);
-                                o_ptr->name2 = EGO_RING_TRUE;
-                                break;
-                            case SV_RING_SUSTAIN:
-                                if (!one_in_(4)) break;
-                                o_ptr->name2 = EGO_RING_RES_TIME;
-                                break;
-                            case SV_RING_FLAMES:
-                                if (!one_in_(2)) break;
-                                o_ptr->name2 = EGO_RING_DRAGON_F;
-                                break;
-                            case SV_RING_ICE:
-                                if (!one_in_(2)) break;
-                                o_ptr->name2 = EGO_RING_DRAGON_C;
-                                break;
-                            case SV_RING_WARNING:
-                                if (!one_in_(2)) break;
-                                o_ptr->name2 = EGO_RING_M_DETECT;
-                                break;
-                            default:
-                                break;
-                            }
-                            break;
-                        }
-                    }
-                    o_ptr->curse_flags = 0L;
-                }
+                o_ptr->ident |= (IDENT_BROKEN);
+                o_ptr->curse_flags |= TRC_CURSED;
+                o_ptr->pval = 0 - (o_ptr->pval);
             }
-            else if ((power == -2) && one_in_(2))
+            break;
+        case SV_RING_SHOTS:
+            break;              
+        case SV_RING_SPELL_POWER:
+        {
+            int pv = m_bonus(3, level);
+            while (one_in_(30)) pv++;
+            if (pv == 0) pv = 1;
+            o_ptr->pval = -pv;
+            return; /* No ego or artifacts, please!*/
+        }
+        case SV_RING_SPELL_CAP:
+            o_ptr->pval = 1 + m_bonus(3, level);
+            if (power < 0)
             {
-                if (o_ptr->to_h > 0) o_ptr->to_h = 0-o_ptr->to_h;
-                if (o_ptr->to_d > 0) o_ptr->to_d = 0-o_ptr->to_d;
-                if (o_ptr->to_a > 0) o_ptr->to_a = 0-o_ptr->to_a;
-                if (o_ptr->pval > 0) o_ptr->pval = 0-o_ptr->pval;
-                o_ptr->art_flags[0] = 0;
-                o_ptr->art_flags[1] = 0;
+                o_ptr->ident |= (IDENT_BROKEN);
+                o_ptr->curse_flags |= TRC_CURSED;
+                o_ptr->pval = 0 - (o_ptr->pval);
+            }
+            break;
+        case SV_RING_STR:
+        case SV_RING_CON:
+        case SV_RING_DEX:
+            o_ptr->pval = 1 + m_bonus(5, level);
+            if (power < 0)
+            {
+                o_ptr->ident |= (IDENT_BROKEN);
+                o_ptr->curse_flags |= TRC_CURSED;
+                o_ptr->pval = 0 - (o_ptr->pval);
+            }
+            break;
+        case SV_RING_SPEED:
+            o_ptr->pval = randint1(5) + m_bonus(5, level);
+            while (randint0(100) < 50) o_ptr->pval++;
+            if (power < 0)
+            {
+                o_ptr->ident |= (IDENT_BROKEN);
+                o_ptr->curse_flags |= TRC_CURSED;
+                o_ptr->pval = 0 - (o_ptr->pval);
+                break;
+            }
+            if (cheat_peek) object_mention(o_ptr);
+            break;
+        case SV_RING_RESISTANCE:
+            if (one_in_(5)) 
+                add_flag(o_ptr->art_flags, TR_RES_POIS);
+            else if (one_in_(5))
+                one_high_resistance(o_ptr);
+            break;
+        case SV_RING_HIGH_RESISTANCE:
+            do
+            {
+                one_high_resistance(o_ptr);
+            } 
+            while (one_in_(3));
+            break;
+        case SV_RING_LORDLY:
+            do
+            {
+                one_lordly_high_resistance(o_ptr);
+            }
+            while (one_in_(4));
+            o_ptr->to_a = 10 + randint1(5) + m_bonus(10, level);
+            break;
+        case SV_RING_WARNING:
+            if (one_in_(3))
+            {
+                if (one_in_(20)) 
+                    add_flag(o_ptr->art_flags, TR_ESP_EVIL);
+                else
+                    one_low_esp(o_ptr);
+            }
+            break;
+        case SV_RING_SEARCHING:
+            o_ptr->pval = 1 + m_bonus(5, level);
+            if (power < 0)
+            {
+                o_ptr->ident |= (IDENT_BROKEN);
+                o_ptr->curse_flags |= TRC_CURSED;
+                o_ptr->pval = 0 - (o_ptr->pval);
+            }
+            break;
+        case SV_RING_FLAMES:
+        case SV_RING_ACID:
+        case SV_RING_ICE:
+        case SV_RING_ELEC:
+            o_ptr->to_a = 5 + randint1(5) + m_bonus(10, level);
+            break;
+        case SV_RING_WEAKNESS:
+        case SV_RING_STUPIDITY:
+            o_ptr->ident |= (IDENT_BROKEN);
+            o_ptr->curse_flags |= TRC_CURSED;
+            o_ptr->pval = 0 - (1 + m_bonus(5, level));
+            if (power > 0) power = 0 - power;
+            break;
+        case SV_RING_WOE:
+            o_ptr->ident |= (IDENT_BROKEN);
+            o_ptr->curse_flags |= TRC_CURSED;
+            o_ptr->to_a = 0 - (5 + m_bonus(10, level));
+            o_ptr->pval = 0 - (1 + m_bonus(5, level));
+            if (power > 0) power = 0 - power;
+            break;
+        case SV_RING_DAMAGE:
+            o_ptr->to_d = 1 + randint1(5) + m_bonus(16, level);
+            if (power < 0)
+            {
+                o_ptr->ident |= (IDENT_BROKEN);
+                o_ptr->curse_flags |= TRC_CURSED;
+                o_ptr->to_d = 0 - o_ptr->to_d;
+            }
+            break;
+        case SV_RING_ACCURACY:
+            o_ptr->to_h = 1 + randint1(5) + m_bonus(16, level);
+            if (power < 0)
+            {
+                o_ptr->ident |= (IDENT_BROKEN);
+                o_ptr->curse_flags |= TRC_CURSED;
+                o_ptr->to_h = 0 - o_ptr->to_h;
+            }
+            break;
+        case SV_RING_PROTECTION:
+            o_ptr->to_a = 5 + randint1(8) + m_bonus(10, level);
+            if (power < 0)
+            {
+                o_ptr->ident |= (IDENT_BROKEN);
+                o_ptr->curse_flags |= TRC_CURSED;
+                o_ptr->to_a = 0 - o_ptr->to_a;
+            }
+            break;
+        case SV_RING_SLAYING:
+            o_ptr->to_d = randint1(5) + m_bonus(12, level);
+            o_ptr->to_h = randint1(5) + m_bonus(12, level);
+            if (power < 0)
+            {
+                o_ptr->ident |= (IDENT_BROKEN);
+                o_ptr->curse_flags |= TRC_CURSED;
+                o_ptr->to_h = 0 - o_ptr->to_h;
+                o_ptr->to_d = 0 - o_ptr->to_d;
+            }
+            break;
+        case SV_RING_MUSCLE:
+            o_ptr->pval = 1 + m_bonus(3, level);
+            if (one_in_(4)) o_ptr->pval++;
+            if (power < 0)
+            {
+                o_ptr->ident |= (IDENT_BROKEN);
+                o_ptr->curse_flags |= TRC_CURSED;
+                o_ptr->pval = 0 - o_ptr->pval;
+            }
+            else if (one_in_(4))
+            {
+                o_ptr->to_h += randint1(7);
+                o_ptr->to_d += randint1(7);
+            }
+            break;
+        case SV_RING_AGGRAVATION:
+            o_ptr->ident |= (IDENT_BROKEN);
+            o_ptr->curse_flags |= TRC_CURSED;
+            if (power > 0) power = 0 - power;
+            break;
+        }
+        if (power > 1 && one_in_(2))
+        {
+            if ((one_in_(20) && !object_is_cursed(o_ptr)) || (power > 2)) /* power > 2 is debug only */
+            {
+                o_ptr->pval = MIN(o_ptr->pval, 4);
+                create_artifact(o_ptr, CREATE_ART_NORMAL);
+            }
+            else if ((power == 2))
+            {
                 while(!o_ptr->name2)
                 {
+                    int tmp = m_bonus(10, level);
                     object_kind *k_ptr = &k_info[o_ptr->k_idx];
-                    switch(randint1(5))
+                    switch(randint1(28))
                     {
-                    case 1:
-                        if (have_flag(k_ptr->flags, TR_DRAIN_EXP)) break;
-                        o_ptr->name2 = EGO_RING_DRAIN_EXP;
+                    case 1: case 2:
+                        o_ptr->name2 = EGO_RING_THROW;
                         break;
-                    case 2:
-                        o_ptr->name2 = EGO_RING_NO_MELEE;
+                    case 3: case 4:
+                        if (have_flag(k_ptr->flags, TR_REGEN)) break;
+                        o_ptr->name2 = EGO_RING_REGEN;
                         break;
-                    case 3:
-                        if (have_flag(k_ptr->flags, TR_AGGRAVATE)) break;
-                        o_ptr->name2 = EGO_RING_AGGRAVATE;
+                    case 5: case 6:
+                        if (have_flag(k_ptr->flags, TR_LITE)) break;
+                        o_ptr->name2 = EGO_RING_LITE;
                         break;
-                    case 4:
-                        if (have_flag(k_ptr->flags, TR_TY_CURSE)) break;
-                        o_ptr->name2 = EGO_RING_TY_CURSE;
+                    case 7: case 8:
+                        if (have_flag(k_ptr->flags, TR_TELEPORT)) break;
+                        o_ptr->name2 = EGO_RING_TELEPORT;
                         break;
-                    case 5:
-                        o_ptr->name2 = EGO_RING_ALBINO;
+                    case 9: case 10:
+                        if (o_ptr->to_h) break;
+                        o_ptr->name2 = EGO_RING_TO_H;
+                        break;
+                    case 11: case 12:
+                        if (o_ptr->to_d) break;
+                        o_ptr->name2 = EGO_RING_TO_D;
+                        break;
+                    case 13:
+                        if ((o_ptr->to_h) || (o_ptr->to_d)) break;
+                        o_ptr->name2 = EGO_RING_SLAY;
+                        break;
+                    case 14:
+                        if ((have_flag(k_ptr->flags, TR_STR)) || o_ptr->to_h || o_ptr->to_d) break;
+                        o_ptr->name2 = EGO_RING_WIZARD;
+                        break;
+                    case 15:
+                        if (have_flag(k_ptr->flags, TR_ACTIVATE)) break;
+                        o_ptr->name2 = EGO_RING_HERO;
+                        break;
+                    case 16:
+                        if (have_flag(k_ptr->flags, TR_ACTIVATE)) break;
+                        if (tmp > 8) o_ptr->name2 = EGO_RING_MANA_BALL;
+                        else if (tmp > 4) o_ptr->name2 = EGO_RING_MANA_BOLT;
+                        else o_ptr->name2 = EGO_RING_MAGIC_MIS;
+                        break;
+                    case 17:
+                        if (have_flag(k_ptr->flags, TR_ACTIVATE)) break;
+                        if (!(have_flag(k_ptr->flags, TR_RES_FIRE)) && (have_flag(k_ptr->flags, TR_RES_COLD) || have_flag(k_ptr->flags, TR_RES_ELEC) || have_flag(k_ptr->flags, TR_RES_ACID))) break;
+                        if (tmp > 7) o_ptr->name2 = EGO_RING_DRAGON_F;
+                        else if (tmp > 3) o_ptr->name2 = EGO_RING_FIRE_BALL;
+                        else o_ptr->name2 = EGO_RING_FIRE_BOLT;
+                        break;
+                    case 18:
+                        if (have_flag(k_ptr->flags, TR_ACTIVATE)) break;
+                        if (!(have_flag(k_ptr->flags, TR_RES_COLD)) && (have_flag(k_ptr->flags, TR_RES_FIRE) || have_flag(k_ptr->flags, TR_RES_ELEC) || have_flag(k_ptr->flags, TR_RES_ACID))) break;
+                        if (tmp > 7) o_ptr->name2 = EGO_RING_DRAGON_C;
+                        else if (tmp > 3) o_ptr->name2 = EGO_RING_COLD_BALL;
+                        else o_ptr->name2 = EGO_RING_COLD_BOLT;
+                        break;
+                    case 19:
+                        if (have_flag(k_ptr->flags, TR_ACTIVATE)) break;
+                        if (!(have_flag(k_ptr->flags, TR_RES_ELEC)) && (have_flag(k_ptr->flags, TR_RES_COLD) || have_flag(k_ptr->flags, TR_RES_FIRE) || have_flag(k_ptr->flags, TR_RES_ACID))) break;
+                        if (tmp > 4) o_ptr->name2 = EGO_RING_ELEC_BALL;
+                        else o_ptr->name2 = EGO_RING_ELEC_BOLT;
+                        break;
+                    case 20:
+                        if (have_flag(k_ptr->flags, TR_ACTIVATE)) break;
+                        if (!(have_flag(k_ptr->flags, TR_RES_ACID)) && (have_flag(k_ptr->flags, TR_RES_COLD) || have_flag(k_ptr->flags, TR_RES_ELEC) || have_flag(k_ptr->flags, TR_RES_FIRE))) break;
+                        if (tmp > 4) o_ptr->name2 = EGO_RING_ACID_BALL;
+                        else o_ptr->name2 = EGO_RING_ACID_BOLT;
+                        break;
+                    case 21: case 22: case 23: case 24: case 25: case 26:
+                        switch (o_ptr->sval)
+                        {
+                        case SV_RING_SPEED:
+                            if (!one_in_(3)) break;
+                            o_ptr->name2 = EGO_RING_D_SPEED;
+                            break;
+                        case SV_RING_DAMAGE:
+                        case SV_RING_ACCURACY:
+                        case SV_RING_SLAYING:
+                            if (one_in_(2)) break;
+                            if (one_in_(2)) o_ptr->name2 = EGO_RING_HERO;
+                            else
+                            {
+                                o_ptr->name2 = EGO_RING_BERSERKER;
+                                o_ptr->to_h -= 2+randint1(4);
+                                o_ptr->to_d += 2+randint1(4);
+                            }
+                            break;
+                        case SV_RING_PROTECTION:
+                            o_ptr->name2 = EGO_RING_SUPER_AC;
+                            o_ptr->to_a += 7 + m_bonus(5, level);
+                            break;
+                        case SV_RING_RES_FEAR:
+                            o_ptr->name2 = EGO_RING_HERO;
+                            break;
+                        case SV_RING_SHOTS:
+                            if (one_in_(2)) break;
+                            o_ptr->name2 = EGO_RING_HUNTER;
+                            break;
+                        case SV_RING_SEARCHING:
+                            o_ptr->name2 = EGO_RING_STEALTH;
+                            break;
+                        case SV_RING_TELEPORTATION:
+                            o_ptr->name2 = EGO_RING_TELE_AWAY;
+                            break;
+                        case SV_RING_RES_BLINDNESS:
+                            if (one_in_(2))
+                                o_ptr->name2 = EGO_RING_RES_LITE;
+                            else
+                                o_ptr->name2 = EGO_RING_RES_DARK;
+                            break;
+                        case SV_RING_LORDLY:
+                            if (!one_in_(20)) break;
+                            one_lordly_high_resistance(o_ptr);
+                            one_lordly_high_resistance(o_ptr);
+                            o_ptr->name2 = EGO_RING_TRUE;
+                            break;
+                        case SV_RING_SUSTAIN:
+                            if (!one_in_(4)) break;
+                            o_ptr->name2 = EGO_RING_RES_TIME;
+                            break;
+                        case SV_RING_FLAMES:
+                            if (!one_in_(2)) break;
+                            o_ptr->name2 = EGO_RING_DRAGON_F;
+                            break;
+                        case SV_RING_ICE:
+                            if (!one_in_(2)) break;
+                            o_ptr->name2 = EGO_RING_DRAGON_C;
+                            break;
+                        case SV_RING_WARNING:
+                            if (!one_in_(2)) break;
+                            o_ptr->name2 = EGO_RING_M_DETECT;
+                            break;
+                        default:
+                            break;
+                        }
                         break;
                     }
                 }
+                o_ptr->curse_flags = 0L;
+            }
+        }
+        else if ((power == -2) && one_in_(2))
+        {
+            if (o_ptr->to_h > 0) o_ptr->to_h = 0-o_ptr->to_h;
+            if (o_ptr->to_d > 0) o_ptr->to_d = 0-o_ptr->to_d;
+            if (o_ptr->to_a > 0) o_ptr->to_a = 0-o_ptr->to_a;
+            if (o_ptr->pval > 0) o_ptr->pval = 0-o_ptr->pval;
+            o_ptr->art_flags[0] = 0;
+            o_ptr->art_flags[1] = 0;
+            while(!o_ptr->name2)
+            {
+                object_kind *k_ptr = &k_info[o_ptr->k_idx];
+                switch(randint1(5))
+                {
+                case 1:
+                    if (have_flag(k_ptr->flags, TR_DRAIN_EXP)) break;
+                    o_ptr->name2 = EGO_RING_DRAIN_EXP;
+                    break;
+                case 2:
+                    o_ptr->name2 = EGO_RING_NO_MELEE;
+                    break;
+                case 3:
+                    if (have_flag(k_ptr->flags, TR_AGGRAVATE)) break;
+                    o_ptr->name2 = EGO_RING_AGGRAVATE;
+                    break;
+                case 4:
+                    if (have_flag(k_ptr->flags, TR_TY_CURSE)) break;
+                    o_ptr->name2 = EGO_RING_TY_CURSE;
+                    break;
+                case 5:
+                    o_ptr->name2 = EGO_RING_ALBINO;
+                    break;
+                }
+            }
+            o_ptr->ident |= (IDENT_BROKEN);
+            o_ptr->curse_flags |= (TRC_CURSED | TRC_HEAVY_CURSE);
+        }
+    }
+    else if (o_ptr->tval == TV_AMULET)
+    {
+        switch (o_ptr->sval)
+        {
+        case SV_AMULET_SPELL_POWER:
+        {
+            int pv = 1 + m_bonus(4, level);
+            o_ptr->pval = -pv;
+            return; /* No ego or artifacts, please!*/
+        }
+        case SV_AMULET_SPELL_CAP:
+            o_ptr->pval = 1 + m_bonus(4, level);
+            if (power < 0)
+            {
                 o_ptr->ident |= (IDENT_BROKEN);
-                o_ptr->curse_flags |= (TRC_CURSED | TRC_HEAVY_CURSE);
+                o_ptr->curse_flags |= TRC_CURSED;
+                o_ptr->pval = 0 - (o_ptr->pval);
+            }
+            break;
+        case SV_AMULET_TRICKERY:
+            o_ptr->pval = 1 + m_bonus(2, level);
+            if (power < 0)
+            {
+                o_ptr->ident |= (IDENT_BROKEN);
+                o_ptr->curse_flags |= (TRC_CURSED);
+                o_ptr->pval = 0 - o_ptr->pval;
+            }
+            break;
+        case SV_AMULET_HERO:
+            o_ptr->pval = randint1(5) + m_bonus(5, level);
+            o_ptr->to_a = randint1(5) + m_bonus(5, level);
+            o_ptr->to_h = randint1(3) + m_bonus(5, level);
+            o_ptr->to_d = randint1(3) + m_bonus(5, level);
+            if (one_in_(3)) add_flag(o_ptr->art_flags, TR_SLOW_DIGEST);
+            if (one_in_(3)) add_flag(o_ptr->art_flags, TR_SUST_CON);
+            break;
+        case SV_AMULET_INTELLIGENCE:
+        case SV_AMULET_WISDOM:
+        case SV_AMULET_CHARISMA:
+            o_ptr->pval = 1 + m_bonus(5, level);
+            if (power < 0)
+            {
+                o_ptr->ident |= (IDENT_BROKEN);
+                o_ptr->curse_flags |= (TRC_CURSED);
+                o_ptr->pval = 0 - o_ptr->pval;
+            }
+            break;
+        case SV_AMULET_BRILLIANCE:
+            o_ptr->pval = 1 + m_bonus(3, level);
+            if (one_in_(4)) o_ptr->pval++;
+            if (power < 0)
+            {
+                o_ptr->ident |= (IDENT_BROKEN);
+                o_ptr->curse_flags |= (TRC_CURSED);
+                o_ptr->pval = 0 - o_ptr->pval;
+            }
+            break;
+        case SV_AMULET_NO_MAGIC: 
+        case SV_AMULET_NO_TELE:
+            if (power < 0)
+                o_ptr->curse_flags |= (TRC_CURSED);
+            break;
+        case SV_AMULET_RESISTANCE:
+            if (one_in_(5)) 
+                add_flag(o_ptr->art_flags, TR_RES_POIS);
+            else if (one_in_(5))
+                one_high_resistance(o_ptr);
+            break;
+        case SV_AMULET_HIGH_RESISTANCE:
+            do
+            {
+                one_high_resistance(o_ptr);
+            } 
+            while (one_in_(3));
+            break;
+        case SV_AMULET_SEARCHING:
+            o_ptr->pval = randint1(2) + m_bonus(4, level);
+            if (power < 0)
+            {
+                o_ptr->ident |= (IDENT_BROKEN);
+                o_ptr->curse_flags |= (TRC_CURSED);
+                o_ptr->pval = 0 - (o_ptr->pval);
+            }
+            break;
+        case SV_AMULET_THE_MAGI:
+            o_ptr->pval = randint1(5) + m_bonus(5, level);
+            o_ptr->to_a = randint1(5) + m_bonus(5, level);
+            add_esp_weak(o_ptr, FALSE);
+            break;
+        case SV_AMULET_DOOM:
+            o_ptr->ident |= (IDENT_BROKEN);
+            o_ptr->curse_flags |= (TRC_CURSED);
+            o_ptr->pval = 0 - (randint1(5) + m_bonus(5, level));
+            o_ptr->to_a = 0 - (randint1(5) + m_bonus(5, level));
+            if (power > 0) power = 0 - power;
+            break;
+        case SV_AMULET_MAGIC_MASTERY:
+            o_ptr->pval = 1 + m_bonus(3, level);
+            if (power < 0)
+            {
+                o_ptr->ident |= (IDENT_BROKEN);
+                o_ptr->curse_flags |= (TRC_CURSED);
+                o_ptr->pval = 0 - o_ptr->pval;
             }
             break;
         }
-
-        case TV_AMULET:
+        if (power > 1 && one_in_(2))
         {
-            /* Analyze */
-            switch (o_ptr->sval)
+            if ((one_in_(20) && !object_is_cursed(o_ptr)) || power > 2)
             {
-                case SV_AMULET_SPELL_POWER:
-                {
-                    int pv = 1 + m_bonus(4, level);
-                    o_ptr->pval = -pv;
-                    return; /* No ego or artifacts, please!*/
-                }
-
-                case SV_AMULET_SPELL_CAP:
-                {
-                    /* Stat bonus */
-                    o_ptr->pval = 1 + m_bonus(4, level);
-
-                    /* Cursed */
-                    if (power < 0)
-                    {
-                        /* Broken */
-                        o_ptr->ident |= (IDENT_BROKEN);
-
-                        /* Cursed */
-                        o_ptr->curse_flags |= TRC_CURSED;
-
-                        /* Reverse pval */
-                        o_ptr->pval = 0 - (o_ptr->pval);
-                    }
-
-                    break;
-                }
-                case SV_AMULET_TRICKERY:
-                {
-                    o_ptr->pval = 1 + m_bonus(2, level);
-                    if (power < 0)
-                    {
-                        o_ptr->ident |= (IDENT_BROKEN);
-                        o_ptr->curse_flags |= (TRC_CURSED);
-                        o_ptr->pval = 0 - o_ptr->pval;
-                    }
-                    break;
-                }
-
-                /* Amulet of wisdom/charisma */
-                case SV_AMULET_INTELLIGENCE:
-                case SV_AMULET_WISDOM:
-                case SV_AMULET_CHARISMA:
-                {
-                    o_ptr->pval = 1 + m_bonus(5, level);
-
-                    /* Cursed */
-                    if (power < 0)
-                    {
-                        /* Broken */
-                        o_ptr->ident |= (IDENT_BROKEN);
-
-                        /* Cursed */
-                        o_ptr->curse_flags |= (TRC_CURSED);
-
-                        /* Reverse bonuses */
-                        o_ptr->pval = 0 - o_ptr->pval;
-                    }
-
-                    break;
-                }
-
-                /* Amulet of brilliance */
-                case SV_AMULET_BRILLIANCE:
-                {
-                    o_ptr->pval = 1 + m_bonus(3, level);
-                    if (one_in_(4)) o_ptr->pval++;
-
-                    /* Cursed */
-                    if (power < 0)
-                    {
-                        /* Broken */
-                        o_ptr->ident |= (IDENT_BROKEN);
-
-                        /* Cursed */
-                        o_ptr->curse_flags |= (TRC_CURSED);
-
-                        /* Reverse bonuses */
-                        o_ptr->pval = 0 - o_ptr->pval;
-                    }
-
-                    break;
-                }
-
-                case SV_AMULET_NO_MAGIC: case SV_AMULET_NO_TELE:
-                {
-                    if (power < 0)
-                    {
-                        o_ptr->curse_flags |= (TRC_CURSED);
-                    }
-                    break;
-                }
-
-                case SV_AMULET_RESISTANCE:
-                {
-                    if (one_in_(5)) 
-                        add_flag(o_ptr->art_flags, TR_RES_POIS);
-                    else if (one_in_(5))
-                        one_high_resistance(o_ptr);
-                }
-                break;
-
-                case SV_AMULET_HIGH_RESISTANCE:
-                {
-                    do
-                    {
-                        one_high_resistance(o_ptr);
-                    } while (one_in_(3));
-                }
-                break;
-
-                /* Amulet of searching */
-                case SV_AMULET_SEARCHING:
-                {
-                    o_ptr->pval = randint1(2) + m_bonus(4, level);
-
-                    /* Cursed */
-                    if (power < 0)
-                    {
-                        /* Broken */
-                        o_ptr->ident |= (IDENT_BROKEN);
-
-                        /* Cursed */
-                        o_ptr->curse_flags |= (TRC_CURSED);
-
-                        /* Reverse bonuses */
-                        o_ptr->pval = 0 - (o_ptr->pval);
-                    }
-
-                    break;
-                }
-
-                /* Amulet of the Magi -- never cursed */
-                case SV_AMULET_THE_MAGI:
-                {
-                    o_ptr->pval = randint1(5) + m_bonus(5, level);
-                    o_ptr->to_a = randint1(5) + m_bonus(5, level);
-
-                    /* gain one low ESP */
-                    add_esp_weak(o_ptr, FALSE);
-
-                    /* Mention the item */
-                    if (cheat_peek) object_mention(o_ptr);
-
-                    break;
-                }
-
-                /* Amulet of Doom -- always cursed */
-                case SV_AMULET_DOOM:
-                {
-                    /* Broken */
-                    o_ptr->ident |= (IDENT_BROKEN);
-
-                    /* Cursed */
-                    o_ptr->curse_flags |= (TRC_CURSED);
-
-                    /* Penalize */
-                    o_ptr->pval = 0 - (randint1(5) + m_bonus(5, level));
-                    o_ptr->to_a = 0 - (randint1(5) + m_bonus(5, level));
-                    if (power > 0) power = 0 - power;
-
-                    break;
-                }
-
-                case SV_AMULET_MAGIC_MASTERY:
-                {
-                    o_ptr->pval = 1 + m_bonus(3, level);
-
-                    /* Cursed */
-                    if (power < 0)
-                    {
-                        /* Broken */
-                        o_ptr->ident |= (IDENT_BROKEN);
-
-                        /* Cursed */
-                        o_ptr->curse_flags |= (TRC_CURSED);
-
-                        /* Reverse bonuses */
-                        o_ptr->pval = 0 - o_ptr->pval;
-                    }
-
-                    break;
-                }
+                o_ptr->pval = MIN(o_ptr->pval, 4);
+                create_artifact(o_ptr, CREATE_ART_NORMAL);
             }
-            if (power > 1 && one_in_(2))
+            else if (power == 2)
             {
-                if ((one_in_(20) && !object_is_cursed(o_ptr)) || power > 2)
-                {
-                    o_ptr->pval = MIN(o_ptr->pval, 4);
-                    create_artifact(o_ptr, CREATE_ART_NORMAL);
-                }
-                else if (power == 2)
-                {
-                    while(!o_ptr->name2)
-                    {
-                        object_kind *k_ptr = &k_info[o_ptr->k_idx];
-                        switch(randint1(21))
-                        {
-                        case 1: case 2:
-                            if (have_flag(k_ptr->flags, TR_SLOW_DIGEST)) break;
-                            o_ptr->name2 = EGO_AMU_SLOW_D;
-                            break;
-                        case 3: case 4:
-                            if (o_ptr->pval) break;
-                            o_ptr->name2 = EGO_AMU_INFRA;
-                            break;
-                        case 5: case 6:
-                            if (have_flag(k_ptr->flags, TR_SEE_INVIS)) break;
-                            o_ptr->name2 = EGO_AMU_SEE_INVIS;
-                            break;
-                        case 7: case 8:
-                            if (have_flag(k_ptr->flags, TR_HOLD_LIFE)) break;
-                            o_ptr->name2 = EGO_AMU_HOLD_LIFE;
-                            break;
-                        case 9:
-                            if (have_flag(k_ptr->flags, TR_LEVITATION)) break;
-                            o_ptr->name2 = EGO_AMU_LEVITATION;
-                            break;
-                        case 10: case 11: case 21:
-                            o_ptr->name2 = EGO_AMU_AC;
-                            break;
-                        case 12:
-                            if (have_flag(k_ptr->flags, TR_RES_FIRE)) break;
-                            if (m_bonus(10, level) > 8)
-                                o_ptr->name2 = EGO_AMU_RES_FIRE_;
-                            else
-                                o_ptr->name2 = EGO_AMU_RES_FIRE;
-                            break;
-                        case 13:
-                            if (have_flag(k_ptr->flags, TR_RES_COLD)) break;
-                            if (m_bonus(10, level) > 8)
-                                o_ptr->name2 = EGO_AMU_RES_COLD_;
-                            else
-                                o_ptr->name2 = EGO_AMU_RES_COLD;
-                            break;
-                        case 14:
-                            if (have_flag(k_ptr->flags, TR_RES_ELEC)) break;
-                            if (m_bonus(10, level) > 8)
-                                o_ptr->name2 = EGO_AMU_RES_ELEC_;
-                            else
-                                o_ptr->name2 = EGO_AMU_RES_ELEC;
-                            break;
-                        case 15:
-                            if (have_flag(k_ptr->flags, TR_RES_ACID)) break;
-                            if (m_bonus(10, level) > 8)
-                                o_ptr->name2 = EGO_AMU_RES_ACID_;
-                            else
-                                o_ptr->name2 = EGO_AMU_RES_ACID;
-                            break;
-                        case 16: case 17: case 18: case 19: case 20:
-                            switch (o_ptr->sval)
-                            {
-                            case SV_AMULET_TELEPORT:
-                                if (m_bonus(10, level) > 9) o_ptr->name2 = EGO_AMU_D_DOOR;
-                                else if (one_in_(2)) o_ptr->name2 = EGO_AMU_JUMP;
-                                else o_ptr->name2 = EGO_AMU_TELEPORT;
-                                break;
-                            case SV_AMULET_RESIST_ACID:
-                                if ((m_bonus(10, level) > 6) && one_in_(2)) o_ptr->name2 = EGO_AMU_RES_ACID_;
-                                break;
-                            case SV_AMULET_SEARCHING:
-                                o_ptr->name2 = EGO_AMU_STEALTH;
-                                break;
-                            case SV_AMULET_BRILLIANCE:
-                                if (!one_in_(3)) break;
-                                o_ptr->name2 = EGO_AMU_IDENT;
-                                break;
-                            case SV_AMULET_CHARISMA:
-                                if (!one_in_(3)) break;
-                                o_ptr->name2 = EGO_AMU_CHARM;
-                                break;
-                            case SV_AMULET_THE_MAGI:
-                                if (one_in_(2)) break;
-                                o_ptr->name2 = EGO_AMU_GREAT;
-                                break;
-                            case SV_AMULET_RESISTANCE:
-                                if (!one_in_(5)) break;
-                                o_ptr->name2 = EGO_AMU_DEFENDER;
-                                if (!one_in_(2)) break;
-                                o_ptr->name2 = EGO_AMU_RESISTANCE;
-                                break;
-                            case SV_AMULET_TELEPATHY:
-                                if (!one_in_(3)) break;
-                                o_ptr->name2 = EGO_AMU_DETECTION;
-                                break;
-                            }
-                        }
-                    }
-                    o_ptr->curse_flags = 0L;
-                }
-            }
-            else if ((power == -2) && one_in_(2))
-            {
-                if (o_ptr->to_h > 0) o_ptr->to_h = 0-o_ptr->to_h;
-                if (o_ptr->to_d > 0) o_ptr->to_d = 0-o_ptr->to_d;
-                if (o_ptr->to_a > 0) o_ptr->to_a = 0-o_ptr->to_a;
-                if (o_ptr->pval > 0) o_ptr->pval = 0-o_ptr->pval;
-                o_ptr->art_flags[0] = 0;
-                o_ptr->art_flags[1] = 0;
                 while(!o_ptr->name2)
                 {
                     object_kind *k_ptr = &k_info[o_ptr->k_idx];
-                    switch(randint1(5))
+                    switch(randint1(21))
                     {
-                    case 1:
-                        if (have_flag(k_ptr->flags, TR_DRAIN_EXP)) break;
-                        o_ptr->name2 = EGO_AMU_DRAIN_EXP;
+                    case 1: case 2:
+                        if (have_flag(k_ptr->flags, TR_SLOW_DIGEST)) break;
+                        o_ptr->name2 = EGO_AMU_SLOW_D;
                         break;
-                    case 2:
-                        o_ptr->name2 = EGO_AMU_FOOL;
+                    case 3: case 4:
+                        if (o_ptr->pval) break;
+                        o_ptr->name2 = EGO_AMU_INFRA;
                         break;
-                    case 3:
-                        if (have_flag(k_ptr->flags, TR_AGGRAVATE)) break;
-                        o_ptr->name2 = EGO_AMU_AGGRAVATE;
+                    case 5: case 6:
+                        if (have_flag(k_ptr->flags, TR_SEE_INVIS)) break;
+                        o_ptr->name2 = EGO_AMU_SEE_INVIS;
                         break;
-                    case 4:
-                        if (have_flag(k_ptr->flags, TR_TY_CURSE)) break;
-                        o_ptr->name2 = EGO_AMU_TY_CURSE;
+                    case 7: case 8:
+                        if (have_flag(k_ptr->flags, TR_HOLD_LIFE)) break;
+                        o_ptr->name2 = EGO_AMU_HOLD_LIFE;
                         break;
-                    case 5:
-                        o_ptr->name2 = EGO_AMU_NAIVETY;
+                    case 9:
+                        if (have_flag(k_ptr->flags, TR_LEVITATION)) break;
+                        o_ptr->name2 = EGO_AMU_LEVITATION;
                         break;
+                    case 10: case 11: case 21:
+                        o_ptr->name2 = EGO_AMU_AC;
+                        break;
+                    case 12:
+                        if (have_flag(k_ptr->flags, TR_RES_FIRE)) break;
+                        if (m_bonus(10, level) > 8)
+                            o_ptr->name2 = EGO_AMU_RES_FIRE_;
+                        else
+                            o_ptr->name2 = EGO_AMU_RES_FIRE;
+                        break;
+                    case 13:
+                        if (have_flag(k_ptr->flags, TR_RES_COLD)) break;
+                        if (m_bonus(10, level) > 8)
+                            o_ptr->name2 = EGO_AMU_RES_COLD_;
+                        else
+                            o_ptr->name2 = EGO_AMU_RES_COLD;
+                        break;
+                    case 14:
+                        if (have_flag(k_ptr->flags, TR_RES_ELEC)) break;
+                        if (m_bonus(10, level) > 8)
+                            o_ptr->name2 = EGO_AMU_RES_ELEC_;
+                        else
+                            o_ptr->name2 = EGO_AMU_RES_ELEC;
+                        break;
+                    case 15:
+                        if (have_flag(k_ptr->flags, TR_RES_ACID)) break;
+                        if (m_bonus(10, level) > 8)
+                            o_ptr->name2 = EGO_AMU_RES_ACID_;
+                        else
+                            o_ptr->name2 = EGO_AMU_RES_ACID;
+                        break;
+                    case 16: case 17: case 18: case 19: case 20:
+                        switch (o_ptr->sval)
+                        {
+                        case SV_AMULET_TELEPORT:
+                            if (m_bonus(10, level) > 9) o_ptr->name2 = EGO_AMU_D_DOOR;
+                            else if (one_in_(2)) o_ptr->name2 = EGO_AMU_JUMP;
+                            else o_ptr->name2 = EGO_AMU_TELEPORT;
+                            break;
+                        case SV_AMULET_RESIST_ACID:
+                            if ((m_bonus(10, level) > 6) && one_in_(2)) o_ptr->name2 = EGO_AMU_RES_ACID_;
+                            break;
+                        case SV_AMULET_SEARCHING:
+                            o_ptr->name2 = EGO_AMU_STEALTH;
+                            break;
+                        case SV_AMULET_BRILLIANCE:
+                            if (!one_in_(3)) break;
+                            o_ptr->name2 = EGO_AMU_IDENT;
+                            break;
+                        case SV_AMULET_CHARISMA:
+                            if (!one_in_(3)) break;
+                            o_ptr->name2 = EGO_AMU_CHARM;
+                            break;
+                        case SV_AMULET_THE_MAGI:
+                            if (one_in_(2)) break;
+                            o_ptr->name2 = EGO_AMU_GREAT;
+                            break;
+                        case SV_AMULET_RESISTANCE:
+                            if (!one_in_(5)) break;
+                            o_ptr->name2 = EGO_AMU_DEFENDER;
+                            if (!one_in_(2)) break;
+                            o_ptr->name2 = EGO_AMU_RESISTANCE;
+                            break;
+                        case SV_AMULET_TELEPATHY:
+                            if (!one_in_(3)) break;
+                            o_ptr->name2 = EGO_AMU_DETECTION;
+                            break;
+                        }
                     }
                 }
-                o_ptr->ident |= (IDENT_BROKEN);
-                o_ptr->curse_flags |= (TRC_CURSED | TRC_HEAVY_CURSE);
+                o_ptr->curse_flags = 0L;
             }
-            break;
+        }
+        else if ((power == -2) && one_in_(2))
+        {
+            if (o_ptr->to_h > 0) o_ptr->to_h = 0-o_ptr->to_h;
+            if (o_ptr->to_d > 0) o_ptr->to_d = 0-o_ptr->to_d;
+            if (o_ptr->to_a > 0) o_ptr->to_a = 0-o_ptr->to_a;
+            if (o_ptr->pval > 0) o_ptr->pval = 0-o_ptr->pval;
+            o_ptr->art_flags[0] = 0;
+            o_ptr->art_flags[1] = 0;
+            while(!o_ptr->name2)
+            {
+                object_kind *k_ptr = &k_info[o_ptr->k_idx];
+                switch(randint1(5))
+                {
+                case 1:
+                    if (have_flag(k_ptr->flags, TR_DRAIN_EXP)) break;
+                    o_ptr->name2 = EGO_AMU_DRAIN_EXP;
+                    break;
+                case 2:
+                    o_ptr->name2 = EGO_AMU_FOOL;
+                    break;
+                case 3:
+                    if (have_flag(k_ptr->flags, TR_AGGRAVATE)) break;
+                    o_ptr->name2 = EGO_AMU_AGGRAVATE;
+                    break;
+                case 4:
+                    if (have_flag(k_ptr->flags, TR_TY_CURSE)) break;
+                    o_ptr->name2 = EGO_AMU_TY_CURSE;
+                    break;
+                case 5:
+                    o_ptr->name2 = EGO_AMU_NAIVETY;
+                    break;
+                }
+            }
+            o_ptr->ident |= (IDENT_BROKEN);
+            o_ptr->curse_flags |= (TRC_CURSED | TRC_HEAVY_CURSE);
         }
     }
 }

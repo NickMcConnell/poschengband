@@ -5583,6 +5583,16 @@ W:70:0:0:350:10000
 P:0:10d10:-50:30:0
 F:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
 
+N:747:the Hero:Crimson
+G:":r
+I:40:44:0
+W:50:0:0:3:25000
+A:80/32
+P:0:0d0:5:5:3
+F:FREE_ACT | SEE_INVIS | SUST_STR | SUST_DEX |
+F:RES_FEAR | REGEN | SH_FIRE | HIDE_TYPE |
+F:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
+
 # N: serial number : & object name~
 # G: symbol : color
 # I: tval : sval : pval

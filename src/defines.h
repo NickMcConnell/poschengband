@@ -2314,6 +2314,7 @@
 #define SV_AMULET_WOLF                  41
 #define SV_AMULET_GRIP                  42
 #define SV_AMULET_NO_SUMMON             43
+#define SV_AMULET_HERO                  44
 
 /* The sval codes for TV_RING */
 #define SV_RING_WOE                      0
