@@ -290,7 +290,8 @@ static void do_cmd_wiz_hack_chris3_imp(FILE* file)
             apply_magic(&forge, depth, 0);
 
             #if 1
-            if (forge.name2 == EGO_BERSERKER)
+            if (forge.name2 == EGO_DWARVEN_SHIELD || forge.name2 == EGO_DWARVEN_HELM 
+                || forge.name2 == EGO_DWARVEN || forge.name2 == EGO_LITE_VALINOR )
             {
                 char buf[MAX_NLEN];
 

@@ -2911,6 +2911,8 @@ static void a_m_aux_2(object_type *o_ptr, int level, int power, int mode)
                             o_ptr->ac = k_info[o_ptr->k_idx].ac + 5;
                             if (one_in_(4))
                                 add_flag(o_ptr->art_flags, TR_CON);
+                            if (one_in_(4))
+                                add_flag(o_ptr->art_flags, TR_REGEN);
                             break;
                         }
                     }
@@ -2953,14 +2955,18 @@ static void a_m_aux_2(object_type *o_ptr, int level, int power, int mode)
                         one_high_resistance(o_ptr);
                     break;
                 case EGO_SHIELD_HIGH_RESISTANCE:
-                {
                     while (one_in_(3))
                         one_high_resistance(o_ptr);
                     break;
-                }
                 case EGO_REFLECTION:
                     if (o_ptr->sval == SV_MIRROR_SHIELD)
                         o_ptr->name2 = 0;
+                    break;
+                case EGO_DWARVEN_SHIELD:
+                    o_ptr->weight = (2 * k_info[o_ptr->k_idx].weight / 3);
+                    o_ptr->ac = k_info[o_ptr->k_idx].ac + 4;
+                    if (one_in_(4))
+                        add_flag(o_ptr->art_flags, TR_SUST_CON);
                     break;
                 }
             }
@@ -3134,6 +3140,12 @@ static void a_m_aux_2(object_type *o_ptr, int level, int power, int mode)
                             if (one_in_(2)) add_esp_strong(o_ptr);
                             else add_esp_weak(o_ptr, FALSE);
                         }
+                        break;
+                    case EGO_DWARVEN_HELM:
+                        o_ptr->weight = (2 * k_info[o_ptr->k_idx].weight / 3);
+                        o_ptr->ac = k_info[o_ptr->k_idx].ac + 3;
+                        if (one_in_(4))
+                            add_flag(o_ptr->art_flags, TR_TUNNEL);
                         break;
                     default:/* not existing helm (Magi, Might, etc...)*/
                         ok_flag = FALSE;
@@ -3937,6 +3949,13 @@ static void a_m_aux_4(object_type *o_ptr, int level, int power, int mode)
                             case EGO_LITE_LONG:
                                 if (o_ptr->sval == SV_LITE_FEANOR)
                                     okay_flag = FALSE;
+                                break;
+                            case EGO_LITE_VALINOR:
+                                if (o_ptr->sval != SV_LITE_FEANOR)
+                                    okay_flag = FALSE;
+                                else if (one_in_(7))
+                                    add_flag(o_ptr->art_flags, TR_STEALTH);
+                                break;
                             }
                             if (okay_flag)
                                 break;

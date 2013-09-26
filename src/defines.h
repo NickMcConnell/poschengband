@@ -1618,6 +1618,7 @@
 #define EGO_ENDURANCE           20
 #define EGO_REFLECTION          21
 #define EGO_NIGHT_DAY           22
+#define EGO_DWARVEN_SHIELD      253
 
 /* Crowns and Helms */
 #define EGO_DARK                23
@@ -1637,6 +1638,7 @@
 #define EGO_NAIVETY             37
 #define EGO_UGLINESS            38
 #define EGO_SICKLINESS          39
+#define EGO_DWARVEN_HELM        254
 
 /* Cloaks */
 #define EGO_PROTECTION          40
@@ -1758,6 +1760,7 @@
 #define EGO_LITE_LONG           144
 #define EGO_LITE_DARKNESS       145
 #define EGO_LITE_EYE            146
+#define EGO_LITE_VALINOR        255
 
 #define EGO_RING_HERO           150
 #define EGO_RING_SLAY           151
