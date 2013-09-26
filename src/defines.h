@@ -1752,6 +1752,7 @@
 #define EGO_BACKBITING          125
 #define EGO_SHATTERED           126
 #define EGO_BLASTED             127
+#define EGO_RETURNING           256
 
 #define EGO_LITE_SHINE          140
 #define EGO_LITE_ILLUMINATION   141

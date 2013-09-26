@@ -1349,6 +1349,11 @@ W:0:100:0:4000
 C:0:0:0:2
 F:RES_LITE | SPEED
 
+N:256:of Returning
+X:23:5
+W:0:18:0:60
+C:5:5:0:0
+
 # N: serial number : ego type
 # X: inventory slot : rating
 # C: max to-hit : max to-dam : max to-ac : pval

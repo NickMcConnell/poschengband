@@ -2245,8 +2245,8 @@ static bool make_artifact(object_type *o_ptr)
 /*
  *  Choose random ego type
  */
-int         apply_magic_ego = 0;
-static byte get_random_ego(byte slot, bool good)
+int        apply_magic_ego = 0;
+static int get_random_ego(byte slot, bool good)
 {
     int i, value;
     ego_item_type *e_ptr;
@@ -2300,7 +2300,7 @@ static byte get_random_ego(byte slot, bool good)
             if (value <= 0L) break;
         }
     }
-    return (byte)i;
+    return i;
 }
 
 
