@@ -104,7 +104,7 @@ D:of evil could stand.
 N:6:of the Dwarves
 I:40:12:3
 W:70:70:3:75000
-F:STR | CON | INFRA | HIDE_TYPE | RES_BLIND
+F:STR | CON | INFRA | HIDE_TYPE | RES_BLIND | DEC_STEALTH
 F:SEE_INVIS | FREE_ACT | REGEN | LITE | INSTA_ART
 D:The Nauglamir; a carencet of gold set with a multitude of shining gems of 
 D:Valinor, accenting a radiant Silmaril.  The sturdy spirits of Dwarvish 
@@ -800,7 +800,7 @@ W:30:15:140:100000
 P:0:5d4:-20:20:0
 F:CON | HIDE_TYPE |
 F:KILL_DRAGON | SLAY_EVIL | SLAY_DEMON | SLAY_TROLL | RES_DISEN | SLAY_HUMAN |
-F:AGGRAVATE | CURSED | HEAVY_CURSE | SHOW_MODS
+F:DEC_STEALTH | CURSED | HEAVY_CURSE | SHOW_MODS | VULN_FIRE
 D:This sword has runes of power incused on its ornate hint, and a single 
 D:blood channel that gleams coldly blue as you grasp this mighty weapon of 
 D:peril.
@@ -886,7 +886,7 @@ W:30:15:250:0
 P:0:4d6:-40:-60:-50
 F:QUESTITEM
 F:SPEED | IM_FIRE | RES_FIRE | BRAND_FIRE | RES_DISEN | 
-F:SHOW_MODS | LITE
+F:SHOW_MODS | LITE | 
 
 # The Cutlass 'Gondricam'
 
@@ -1624,6 +1624,7 @@ I:23:17:2
 W:50:5:150:100
 P:0:5d5:32:32:0
 F:TY_CURSE | AGGRAVATE | DRAIN_EXP | INFRA | NO_TELE | NO_MAGIC | HIDE_TYPE
+F:VULN_FIRE | VULN_COLD | VULN_ELEC | VULN_ACID | VULN_POIS | VULN_CONF | VULN_CHAOS
 D:It is a look-alike for the strongest sword!
 
 N:143:of Boromir
@@ -1660,7 +1661,7 @@ P:5:1d3:8:8:-10
 F:STR | CON | INFRA | HIDE_TYPE | SHOW_MODS |
 F:RES_CONF | RES_NETHER | RES_COLD | RES_POIS | RES_DARK | RES_FEAR |
 F:SEE_INVIS | ACTIVATE | DRAIN_EXP |
-F:SH_COLD | HOLD_LIFE | LEVITATION | REGEN
+F:SH_COLD | HOLD_LIFE | LEVITATION | REGEN | VULN_LITE
 
 N:147:of Laputa
 I:39:9:2
@@ -1807,7 +1808,7 @@ W:40:40:20:40000
 P:0:1d1:0:0:0
 F:DEX | HIDE_TYPE | SUST_CHR | STEALTH | SPEED |
 F:RES_LITE | RES_DARK | RES_NEXUS |
-F:RES_NETHER | RES_CHAOS | LITE | FULL_NAME
+F:RES_NETHER | RES_CHAOS | LITE | FULL_NAME | VULN_SHARDS
 
 N:166:of Mito Koumon
 I:40:20:2
@@ -1866,7 +1867,6 @@ P:0:25d4:-30:0:20
 F:SPEED | STEALTH | WIS | IMPACT | SHOW_MODS | HIDE_TYPE |
 F:CURSED | HEAVY_CURSE
 
-#英語名は適当です。エルリックサーガ８「薔薇の復讐」より。
 N:174:'Quickthorn'
 I:23:7:2
 W:30:15:55:75000
@@ -1874,7 +1874,6 @@ P:0:1d7:27:9:0
 F:DEX | BLOWS | SLAY_DEMON | RIDING | SPEED
 F:FREE_ACT | SEE_INVIS | SHOW_MODS | RES_CHAOS | RES_DISEN |
 
-#英語名は適当です。エルリックサーガ８「薔薇の復讐」より。
 N:175:'Littlethorn'
 I:23:5:3
 W:20:6:30:22500
@@ -1882,9 +1881,6 @@ P:0:1d5:18:6:0
 F:INT | CHR | REGEN | SLAY_EVIL |
 F:RES_NEXUS | FREE_ACT | SEE_INVIS | SHOW_MODS |
 
-#N:*:『カレイドウルフ』
-#N:*:『カラドヴォルヒ』
-#N:*:『キャリバーン』
 N:176:'Excalibur'
 I:23:17:3
 W:50:180:130:300000
@@ -1899,7 +1895,7 @@ N:177:'Excalipur'
 I:23:17:-3
 W:50:30:130:0
 P:0:5d5:-50:-50:-5
-F:WIS | CHR | 
+F:WIS | CHR | VULN_FEAR
 F:TY_CURSE | AGGRAVATE | DRAIN_EXP | SHOW_MODS | THROW
 
 N:178:of Samson
@@ -1955,16 +1951,6 @@ F:RES_CONF | RES_SOUND | RES_NETHER | RES_NEXUS | RES_CHAOS |
 F:SH_FIRE | SH_ELEC | SH_COLD | RES_POIS | HOLD_LIFE | LEVITATION |
 F:HIDE_TYPE | SHOW_MODS | QUESTITEM | INSTA_ART
 
-# The Broad Sword 'Arunruth'
-
-# (コメント)
-#
-#
-# (小林)
-# これは，文字どおりだと「アルンルース」なんだけど，シルマリルリオン
-# に出てくる剣は本当は'Aranruth'．シンゴル王と代々のヌメノールの王の
-# 剣です．たぶん元のソースが綴りを間違えちゃったんだよね．
-#
 N:184:'Aranruth'
 I:23:16:4
 W:20:45:150:50000
@@ -1977,9 +1963,6 @@ D:The beautiful sword of Thingol, justly named "King's Ire".  It glistens
 D: icy enough to freeze the hearts of demons, and you feel supple and
 D: lightfooted as you clasp its hilt of gold and silver inlay.
 
-# The Set of Gauntlets 'Paurnimmen'
-
-# ???, Ko
 N:185:'Paurnimmen'
 I:31:2:0
 W:10:20:25:13000
@@ -1996,24 +1979,6 @@ F:ACTIVATE | ESP_GOOD
 D:A shining shield, once borne by the great mariner Earendil, "scored with 
 D:runes to keep all wounds and harm from him".
 
-#D:あらゆる害なすものを退けるルーン文字が刻まれている。
-
-# The Spear 'Aeglos'
-
-# (コメント)
-#
-# wp.220
-#
-#(都々目)
-#『つらら』というスピア → 『アイグロス』というスピア
-#＊指輪物語ではこう表記されています。
-#　『親しみを出すために』日本語でと言われましたが、そうするとエルフ語全部を
-#日本語に訳さなくてはなりません。一部だけエルフ語から日本語に訳するのは不自
-#然です。また、指輪物語についてのトールキンの話しに『英語とエルフ語の対比を』
-#出そうとしたと言うことですから、英語は日本語に訳し、エルフ語はエルフ語とし
-#て残しておくべきです。指輪物語の日本語版でも基本的にこの考え方によって訳さ
-#れていますし。それに『つらら』は格好悪いし折れそうだ(笑)。
-#
 N:187:'Aeglos'
 I:22:2:4
 W:15:45:80:140000
@@ -2128,7 +2093,6 @@ F:SLAY_EVIL | SLAY_DEMON | SLAY_UNDEAD |
 F:RES_ACID | RES_COLD | RES_BLIND | RES_CHAOS |
 F:LITE | ACTIVATE | BLESSED | SEE_INVIS | SHOW_MODS
 
-# モーロックの高僧の錆びた鎖かたびら
 N:203:of The High Preist of Morlok
 I:37:1:-2
 W:90:8:200:100000
@@ -2139,7 +2103,6 @@ F:RES_POIS | RES_CONF | RES_CHAOS | RES_NETHER |
 F:RES_NEXUS | AGGRAVATE | CURSED | HEAVY_CURSE | TY_CURSE
 F:STR | DEX | CON | SPELL_POWER
 
-# 綱鎧『化粧回し』
 N:204:'Sumo Wrestler's Loincloth'
 I:36:9:4
 W:20:10:60:50000
@@ -2153,9 +2116,6 @@ W:20:20:30:50000
 P:3:0d0:0:0:20
 F:RES_COLD | RES_ACID | RES_CHAOS | LEVITATION | ACTIVATE
 
-# 金属製ラメラー・アーマー『バテレン鎧』
-# 「夢幻の如く」という漫画で，織田信長が西洋鎧を着ます。
-# REFLECTは，矢でも鉄砲でも持って来い！ってことで(笑)。
 N:206:of The Padre
 I:37:13:2
 W:45:5:340:80000
@@ -2163,11 +2123,6 @@ P:23:1d6:5:5:17
 F:CHR | REFLECT |
 F:RES_FIRE | RES_CHAOS | LITE
 
-# グレート・ソード『真魔剛竜剣』 (from ダイの大冒険)
-# ダイの親父，竜騎将バランの剣。
-# 発動でサンダーボール(ギガ・ブレイクのつもり)
-# ダイの大冒険中で最強といわれる剣なので，強くないと意味ない。
-# でも，強すぎてもゲーム的に意味ない。
 N:207:'Dragonic Sword'
 I:23:25:3
 W:50:160:200:180000
@@ -2211,14 +2166,15 @@ D:mattock brought victory to the Dwarves over Azog's Orcs - though Nain
 D:himself fell at the last, even with victory already assured.
 
 N:212:of Gothmog
-I:21:2:-2
+I:21:2:3
 W:60:35:90:66666
 P:0:3d6:13:15:0
 F:QUESTITEM
-F:INT | WIS | DEX | STEALTH | HIDE_TYPE | SLAY_HUMAN |
-F:BRAND_FIRE | IM_FIRE | RES_ELEC | RES_DARK | LITE
+F:STR | DEC_WIS | DEX | CON | CHR | DEC_STEALTH | 
+F:HIDE_TYPE | SLAY_HUMAN | BRAND_FIRE | 
 F:SLAY_ANIMAL | SLAY_ORC | SLAY_TROLL | SLAY_GIANT | 
-F:ACTIVATE | SHOW_MODS
+F:IM_FIRE | RES_ELEC | RES_DARK | VULN_COLD |
+F:LITE | ACTIVATE | SHOW_MODS
 D:With this unbearably bright whip of flame, the Balrog Gothmog has become
 D: known for never having lost in combat.
 
@@ -2248,8 +2204,6 @@ P:0:0d0:0:0:5
 F:STEALTH | SEARCH | HIDE_TYPE | SEE_INVIS |
 F:RES_DARK | ACTIVATE | LITE |
 F:INSTA_ART
-
-# The Bastard Sword of Eowyn
 
 N:216:of Eowyn
 I:23:21:4
@@ -2330,12 +2284,11 @@ F:KILL_HUMAN
 D:It is said that this bolt sticked onto the heart of Gessler 
 D:when Wilhelm Tell shot it.
 
-#JX#
 N:225:of Aesculapius
 I:21:14:3
 W:40:45:160:300000
 P:0:2d11:15:15:5
-F:WIS | CHR | BLESSED | LITE | ACTIVATE |
+F:WIS | CHR | BLESSED | LITE | ACTIVATE | LIFE
 F:SEE_INVIS | FREE_ACT | HOLD_LIFE | REGEN | SLOW_DIGEST |
 F:VAMPIRIC | SLAY_ANIMAL | SLAY_DRAGON | SLAY_HUMAN |
 F:SLAY_ORC | SLAY_TROLL | SLAY_GIANT |
@@ -2343,15 +2296,15 @@ F:RES_POIS | RES_CONF | RES_CHAOS |
 D:This is the staff of Aesculapius, who is a greek god of 
 D:the medicine.
 
-#JX#
 N:226:Spectral Dragon Scale Mail
-I:38:3:0
+I:38:3:2
 W:75:30:100:350000
 P:40:2d4:-2:0:20
 F:SH_COLD | RES_COLD | RES_POIS | RES_CONF | 
 F:RES_NETHER | RES_NEXUS | RES_DISEN |
 F:SEE_INVIS | HOLD_LIFE | LEVITATION |
-F:CURSED | HEAVY_CURSE | DRAIN_EXP | FULL_NAME
+F:DEC_STR | DEC_DEX | DEC_CON | STEALTH
+F:CURSED | HEAVY_CURSE | FULL_NAME
 D:A white transparent dragon scale mail which was made from
 D:the tortured soul of a once powerful wyrm.
 
@@ -2461,7 +2414,8 @@ N:238:of Frodo
 I:30:2:2
 W:50:20:20:30000
 P:4:1d1:1:1:7
-F:STR | SPEED | HIDE_TYPE | STEALTH | FREE_ACT | LEVITATION
+F:DEC_STR | DEX | CHR
+F:SPEED | HIDE_TYPE | STEALTH | FREE_ACT | LEVITATION
 D:Frodo somehow found courage to bear the One Ring to Mount Doom.
 D:These boots seem endowed with all that is brave and noble in hobbits.
 
@@ -2469,7 +2423,7 @@ N:239:of Sam
 I:32:2:1
 W:20:1:15:15000
 P:2:0d0:1:1:7
-F:CON | HIDE_TYPE | SPEED
+F:DEC_STR | DEX | CON | HIDE_TYPE | SPEED
 D:Sam was brave and trustworthy companion of Frodo.
 D:With this cap, you feel able to face the dangers
 D:ahead with a steady hand and a noble heart.
@@ -2478,23 +2432,22 @@ N:240:of Merry
 I:35:1:1
 W:20:1:10:15000
 P:1:0d0:1:1:7
-F:INT | STEALTH | SPEED | RES_CONF | SEARCH | HIDE_TYPE 
+F:DEC_STR | DEX | INT | STEALTH | SPEED | RES_CONF | SEARCH | HIDE_TYPE 
 D:Merry was the most perceptive and intelligent of hobbits.
 
 N:241:of Pippin
 I:31:1:1
 W:20:1:5:15000
 P:1:0d0:1:1:7
-F:DEX | CHR | HIDE_TYPE | SHOW_MODS | SPEED
+F:DEC_STR | DEX | CHR | HIDE_TYPE | SHOW_MODS | SPEED
 D:'Fool of a Took' ... Ah, but Peregrin was brave if not wise.
 
 N:242:of Bilbo
 I:37:20:1
 W:60:4:70:200000
 P:28:1d4:1:1:7
-F:STEALTH | WIS | INT | SEE_INVIS | DEX | CHR | SPEED |
-F:RES_ACID | RES_ELEC | RES_FIRE | RES_COLD | RES_POIS | RES_DARK | RES_DISEN |
-F:XTRA_H_RES
+F:STEALTH | DEC_STR | WIS | INT | SEE_INVIS | DEX | CHR | SPEED |
+F:RES_ACID | RES_ELEC | RES_FIRE | RES_COLD | RES_POIS | RES_DARK | 
 D:"Also there is this!" said Bilbo, bringing out a parcel which seemed
 D:to be rather heavy for its size. He unwound several folds of old cloth,
 D:and held up a small shirt of mail. It was close-woven of many rings,
@@ -2507,7 +2460,7 @@ W:66:6:150:166666
 P:0:6d6:10:10:0
 F:CON | HIDE_TYPE | ACTIVATE | SHOW_MODS |
 F:VORPAL | VAMPIRIC | FREE_ACT | SEE_INVIS | SLAY_GOOD |
-F:RES_CONF | RES_SOUND
+F:RES_CONF | RES_SOUND | DEC_STEALTH
 D:This weapon is infused with the soul of the first Blood Knight.  Beware!
 D:It longs for blood, even the wielder's!  But there is no finer weapon for
 D:those who walk the red path.
@@ -2770,7 +2723,7 @@ N:272:of the Kamikaze Warrior
 I:36:2:2
 W:50:40:20:80000
 P:2:0d0:10:10:-50
-F:STR | DEX | SPEED | HIDE_TYPE | ACTIVATE 
+F:STR | DEX | DEC_WIS | SPEED | HIDE_TYPE | ACTIVATE 
 F:SUST_STR | SUST_DEX | HOLD_LIFE | LEVITATION
 F:RES_FIRE | RES_POIS | RES_CONF | RES_SOUND | RES_NETHER | RES_FEAR
 F:NO_MAGIC | WEAPONMASTERY
@@ -2803,13 +2756,13 @@ N:276:of the Bard
 I:30:2:4
 W:30:25:20:70000
 P:2:1d1:0:0:18
-F:DEX | CHR | STEALTH | RES_POIS | HIDE_TYPE
+F:DEX | CHR | STEALTH | RES_POIS | FREE_ACT | HIDE_TYPE
 
 N:277:'Stomper'
 I:30:6:3
 W:30:25:80:85000
 P:6:1d1:0:0:21
-F:STR | CON | AGGRAVATE | RES_SHARDS | RES_CONF | RES_NEXUS | ACTIVATE
+F:STR | CON | DEC_STEALTH | RES_SHARDS | RES_CONF | RES_NEXUS | ACTIVATE
 
 N:278:'Gong'
 I:34:5:4
@@ -2830,8 +2783,9 @@ D:to constantly lose cash, and it seems impossible to leave its presence.
 N:280:of Destruction
 I:45:59:4
 W:90:70:2:100000
-P:0:0d0:0:0:-50
-F:BRAND_ELEC | BRAND_FIRE | BRAND_COLD | BRAND_ACID | BRAND_POIS | TY_CURSE | AGGRAVATE
+P:0:0d0:0:0:0
+F:BRAND_ELEC | BRAND_FIRE | BRAND_COLD | BRAND_ACID | BRAND_POIS | 
+F:VULN_ACID | VULN_ELEC | VULN_FIRE | VULN_COLD | VULN_POIS | DEC_CON
 F:WEAPONMASTERY | INSTA_ART
 
 N:281:of Ancalagon
@@ -2928,7 +2882,7 @@ I:20:7:4
 W:60:25:400:80000
 P:0:4d8:12:12:0
 F:TUNNEL | INFRA | REGEN | STR | CON | RES_BLIND
-F:SLAY_EVIL | RES_DISEN | 
+F:SLAY_EVIL | RES_DISEN | DEC_STEALTH
 D:"The Dwarves delved too greedily and too deep. You know what
 D:they awoke in the darkness of Khazad-dum: Shadow and Flame!"
 
@@ -2960,7 +2914,7 @@ W:50:40:2:10000
 P:0:1d2:10:12:0
 F:INSTA_ART | QUESTITEM
 F:STEALTH | SEE_INVIS | HOLD_LIFE | FREE_ACT
-F:RES_BLIND | RES_DARK | RES_NETHER | RES_POIS
+F:RES_BLIND | RES_DARK | RES_NETHER | RES_POIS | VULN_LITE
 
 N:300:of Dragonkind
 I:33:11:2
@@ -2990,10 +2944,11 @@ F:RES_FEAR | TELEPATHY
 F:INSTA_ART
 
 N:303:of Ymir
-I:23:25:0
+I:23:25:3
 W:30:15:400:0
 P:0:5d10:7:17:0
 F:QUESTITEM
+F:STR | DEC_DEX | CON | VULN_FIRE
 F:IM_COLD | RES_COLD | BRAND_COLD | VORPAL
 
 N:304:of Typhoeus

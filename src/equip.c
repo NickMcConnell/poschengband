@@ -1076,6 +1076,13 @@ void equip_calc_bonuses(void)
         if (have_flag(flgs, TR_CON)) p_ptr->stat_add[A_CON] += o_ptr->pval;
         if (have_flag(flgs, TR_CHR)) p_ptr->stat_add[A_CHR] += o_ptr->pval;
 
+        if (have_flag(flgs, TR_DEC_STR)) p_ptr->stat_add[A_STR] -= o_ptr->pval;
+        if (have_flag(flgs, TR_DEC_INT)) p_ptr->stat_add[A_INT] -= o_ptr->pval;
+        if (have_flag(flgs, TR_DEC_WIS)) p_ptr->stat_add[A_WIS] -= o_ptr->pval;
+        if (have_flag(flgs, TR_DEC_DEX)) p_ptr->stat_add[A_DEX] -= o_ptr->pval;
+        if (have_flag(flgs, TR_DEC_CON)) p_ptr->stat_add[A_CON] -= o_ptr->pval;
+        if (have_flag(flgs, TR_DEC_CHR)) p_ptr->stat_add[A_CHR] -= o_ptr->pval;
+
         if (have_flag(flgs, TR_MAGIC_MASTERY))
         {
             p_ptr->skills.dev += 8*o_ptr->pval;
@@ -1083,6 +1090,7 @@ void equip_calc_bonuses(void)
         }
 
         if (have_flag(flgs, TR_STEALTH)) p_ptr->skills.stl += o_ptr->pval;
+        if (have_flag(flgs, TR_DEC_STEALTH)) p_ptr->skills.stl -= o_ptr->pval;
         if (have_flag(flgs, TR_SEARCH)) p_ptr->skills.srh += (o_ptr->pval * 5);
         if (have_flag(flgs, TR_SEARCH)) p_ptr->skills.fos += (o_ptr->pval * 5);
         if (have_flag(flgs, TR_INFRA)) p_ptr->see_infra += o_ptr->pval;
@@ -1334,7 +1342,7 @@ void equip_calc_bonuses(void)
         p_ptr->to_d_m += bonus_to_d;
 
         if ( o_ptr->name1 != ART_MASTER_TONBERRY
-          && o_ptr->name2 != EGO_POWER )
+          && o_ptr->name2 != EGO_GIANT_STRENGTH )
         {
             p_ptr->shooter_info.to_d += bonus_to_d;
             if (object_is_known(o_ptr))

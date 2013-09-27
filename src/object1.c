@@ -1844,34 +1844,63 @@ bool screen_object(object_type *o_ptr, u32b mode)
     }
     if (have_flag(flgs, TR_STR))
     {
-        info[i++] = "It affects your strength.";
-
+        if (o_ptr->pval > 0)
+            info[i++] = "It increases your strength.";
+        else if (o_ptr->pval < 0)
+            info[i++] = "It decreases your strength.";
     }
+    if (have_flag(flgs, TR_DEC_STR))
+       info[i++] = "It decreases your strength.";
+    
     if (have_flag(flgs, TR_INT))
     {
-        info[i++] = "It affects your intelligence.";
-
+        if (o_ptr->pval > 0)
+            info[i++] = "It increases your intelligence.";
+        else if (o_ptr->pval < 0)
+            info[i++] = "It decreases your intelligence.";
     }
+    if (have_flag(flgs, TR_DEC_INT))
+       info[i++] = "It decreases your intelligence.";
+    
     if (have_flag(flgs, TR_WIS))
     {
-        info[i++] = "It affects your wisdom.";
-
+        if (o_ptr->pval > 0)
+            info[i++] = "It increases your wisdom.";
+        else if (o_ptr->pval < 0)
+            info[i++] = "It decreases your wisdom.";
     }
+    if (have_flag(flgs, TR_DEC_WIS))
+       info[i++] = "It decreases your wisdom.";
+
     if (have_flag(flgs, TR_DEX))
     {
-        info[i++] = "It affects your dexterity.";
-
+        if (o_ptr->pval > 0)
+            info[i++] = "It increases your dexterity.";
+        else if (o_ptr->pval < 0)
+            info[i++] = "It decreases your dexterity.";
     }
+    if (have_flag(flgs, TR_DEC_DEX))
+       info[i++] = "It decreases your dexterity.";
+
     if (have_flag(flgs, TR_CON))
     {
-        info[i++] = "It affects your constitution.";
-
+        if (o_ptr->pval > 0)
+            info[i++] = "It increases your constitution.";
+        else if (o_ptr->pval < 0)
+            info[i++] = "It decreases your constitution.";
     }
+    if (have_flag(flgs, TR_DEC_CON))
+       info[i++] = "It decreases your constitution.";
+
     if (have_flag(flgs, TR_CHR))
     {
-        info[i++] = "It affects your charisma.";
-
+        if (o_ptr->pval > 0)
+            info[i++] = "It increases your charisma.";
+        else if (o_ptr->pval < 0)
+            info[i++] = "It decreases your charisma.";
     }
+    if (have_flag(flgs, TR_DEC_CHR))
+       info[i++] = "It decreases your charisma.";
 
     if (have_flag(flgs, TR_MAGIC_MASTERY))
     {
@@ -1880,9 +1909,15 @@ bool screen_object(object_type *o_ptr, u32b mode)
     }
     if (have_flag(flgs, TR_STEALTH))
     {
-        info[i++] = "It affects your stealth.";
-
+        if (o_ptr->pval > 0)
+            info[i++] = "It increases your stealth.";
+        else if (o_ptr->pval < 0)
+            info[i++] = "It decreases your stealth.";
     }
+    if (have_flag(flgs, TR_DEC_STEALTH))
+       info[i++] = "It decreases your stealth.";
+
+
     if (have_flag(flgs, TR_SEARCH))
     {
         info[i++] = "It affects your searching.";
@@ -2120,27 +2155,6 @@ bool screen_object(object_type *o_ptr, u32b mode)
 
     }
 
-    if (have_flag(flgs, TR_IM_ACID))
-    {
-        info[i++] = "It provides immunity to acid.";
-
-    }
-    if (have_flag(flgs, TR_IM_ELEC))
-    {
-        info[i++] = "It provides immunity to electricity.";
-
-    }
-    if (have_flag(flgs, TR_IM_FIRE))
-    {
-        info[i++] = "It provides immunity to fire.";
-
-    }
-    if (have_flag(flgs, TR_IM_COLD))
-    {
-        info[i++] = "It provides immunity to cold.";
-
-    }
-
     if (have_flag(flgs, TR_THROW))
     {
         info[i++] = "It is perfectly balanced for throwing.";
@@ -2156,94 +2170,97 @@ bool screen_object(object_type *o_ptr, u32b mode)
         info[i++] = "It provides resistance to life draining.";
 
     }
+    
     if (have_flag(flgs, TR_RES_FEAR))
-    {
         info[i++] = "It provides resistance to fear.";
+    if (have_flag(flgs, TR_VULN_FEAR))
+        info[i++] = "It makes you vulnerable to fear.";
 
-    }
+    if (have_flag(flgs, TR_IM_ACID))
+        info[i++] = "It provides immunity to acid.";
     if (have_flag(flgs, TR_RES_ACID))
-    {
         info[i++] = "It provides resistance to acid.";
+    if (have_flag(flgs, TR_VULN_ACID))
+        info[i++] = "It makes you vulnerable to acid.";
 
-    }
+    if (have_flag(flgs, TR_IM_ELEC))
+        info[i++] = "It provides immunity to electricity.";
     if (have_flag(flgs, TR_RES_ELEC))
-    {
         info[i++] = "It provides resistance to electricity.";
+    if (have_flag(flgs, TR_VULN_ELEC))
+        info[i++] = "It makes you vulnerable to electricity.";
 
-    }
+    if (have_flag(flgs, TR_IM_FIRE))
+        info[i++] = "It provides immunity to fire.";
     if (have_flag(flgs, TR_RES_FIRE))
-    {
         info[i++] = "It provides resistance to fire.";
+    if (have_flag(flgs, TR_VULN_FIRE))
+        info[i++] = "It makes you vulnerable to fire.";
 
-    }
+    if (have_flag(flgs, TR_IM_COLD))
+        info[i++] = "It provides immunity to cold.";
     if (have_flag(flgs, TR_RES_COLD))
-    {
         info[i++] = "It provides resistance to cold.";
+    if (have_flag(flgs, TR_VULN_COLD))
+        info[i++] = "It makes you vulnerable to cold.";
 
-    }
     if (have_flag(flgs, TR_RES_POIS))
-    {
         info[i++] = "It provides resistance to poison.";
-
-    }
+    if (have_flag(flgs, TR_VULN_POIS))
+        info[i++] = "It makes you vulnerable to poison.";
 
     if (have_flag(flgs, TR_RES_LITE))
-    {
         info[i++] = "It provides resistance to light.";
+    if (have_flag(flgs, TR_VULN_LITE))
+        info[i++] = "It makes you vulnerable to light.";
 
-    }
     if (have_flag(flgs, TR_RES_DARK))
-    {
-        info[i++] = "It provides resistance to dark.";
-
-    }
+        info[i++] = "It provides resistance to darkness.";
+    if (have_flag(flgs, TR_VULN_DARK))
+        info[i++] = "It makes you vulnerable to darkness.";
 
     if (have_flag(flgs, TR_RES_BLIND))
-    {
         info[i++] = "It provides resistance to blindness.";
+    if (have_flag(flgs, TR_VULN_BLIND))
+        info[i++] = "It makes you vulnerable to blindness.";
 
-    }
     if (have_flag(flgs, TR_RES_CONF))
-    {
         info[i++] = "It provides resistance to confusion.";
+    if (have_flag(flgs, TR_VULN_CONF))
+        info[i++] = "It makes you vulnerable to confusion.";
 
-    }
     if (have_flag(flgs, TR_RES_SOUND))
-    {
         info[i++] = "It provides resistance to sound.";
+    if (have_flag(flgs, TR_VULN_SOUND))
+        info[i++] = "It makes you vulnerable to sound.";
 
-    }
     if (have_flag(flgs, TR_RES_SHARDS))
-    {
         info[i++] = "It provides resistance to shards.";
-
-    }
+    if (have_flag(flgs, TR_VULN_SHARDS))
+        info[i++] = "It makes you vulnerable to shards.";
 
     if (have_flag(flgs, TR_RES_NETHER))
-    {
         info[i++] = "It provides resistance to nether.";
+    if (have_flag(flgs, TR_VULN_NETHER))
+        info[i++] = "It makes you vulnerable to nether.";
 
-    }
     if (have_flag(flgs, TR_RES_TIME))
-    {
         info[i++] = "It provides resistance to time.";
 
-    }
     if (have_flag(flgs, TR_RES_NEXUS))
-    {
         info[i++] = "It provides resistance to nexus.";
+    if (have_flag(flgs, TR_VULN_NEXUS))
+        info[i++] = "It makes you vulnerable to nexus.";
 
-    }
     if (have_flag(flgs, TR_RES_CHAOS))
-    {
         info[i++] = "It provides resistance to chaos.";
+    if (have_flag(flgs, TR_VULN_CHAOS))
+        info[i++] = "It makes you vulnerable to chaos.";
 
-    }
     if (have_flag(flgs, TR_RES_DISEN))
-    {
         info[i++] = "It provides resistance to disenchantment.";
-
-    }
+    if (have_flag(flgs, TR_VULN_DISEN))
+        info[i++] = "It makes you vulnerable to disenchantment.";
 
     if (have_flag(flgs, TR_LEVITATION))
     {

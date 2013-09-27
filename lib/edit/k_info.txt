@@ -1179,7 +1179,7 @@ I:34:10:0
 W:70:0:0:100:10000
 A:70/8
 P:10:1d1:0:0:10
-F:IGNORE_ACID | REFLECT
+F:IGNORE_ACID | REFLECT | RES_LITE
 #D:$A shield of purest white, made of mithril, engraved with runes to keep 
 #D:$all hurt and harm from you.
 #D:傷と危険から守られるようにルーン文字が刻まれたミスリル製の純白の盾だ。
@@ -1562,7 +1562,7 @@ G:":U
 I:40:0:-5
 W:50:0:0:3:0
 A:50/1
-P:0:7d7:-5:-5:5
+P:0:7d7:25:25:5
 F:CURSED | HEAVY_CURSE | STR | INT | WIS | DEX | CON | CHR | 
 F:TY_CURSE | NO_TELE | NO_MAGIC | REGEN | 
 F:HIDE_TYPE | RANDOM_CURSE2
@@ -5586,8 +5586,8 @@ F:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
 N:747:the Hero:Crimson
 G:":r
 I:40:44:0
-W:50:0:0:3:25000
-A:80/32
+W:40:0:0:3:10000
+A:40/32
 P:0:0d0:5:5:3
 F:FREE_ACT | SEE_INVIS | SUST_STR | SUST_DEX |
 F:RES_FEAR | REGEN | SH_FIRE | HIDE_TYPE |

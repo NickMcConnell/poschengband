@@ -1951,6 +1951,7 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE])
 /* Mode flags for displaying player flags */
 #define DP_CURSE   0x01
 #define DP_IMM     0x02
+#define DP_VULN    0x04
 #define DP_WP      0x08
 
 #define EQUIPPY_MAIN 1
@@ -2126,7 +2127,7 @@ static void display_flag_aux(int row, int col, cptr header,
         object_type *o_ptr = equip_obj(slot);
 
         /* Default */
-        if (!(mode & DP_IMM))
+        if (!(mode & (DP_IMM | DP_VULN)))
             c_put_str((byte)(vuln ? TERM_RED : TERM_SLATE), ".", row, col);
 
         if (o_ptr)
@@ -2145,7 +2146,9 @@ static void display_flag_aux(int row, int col, cptr header,
                 if (have_flag(flgs, flag1))
                 {
                     c_put_str((byte)(vuln ? TERM_L_RED : TERM_WHITE),
-                          (mode & DP_IMM) ? "*" : "+", row, col);
+                          (mode & DP_IMM) ? "*" : 
+                            (mode & DP_VULN) ? "-" : "+", 
+                          row, col);
                 }
             }
         }
@@ -2155,7 +2158,7 @@ static void display_flag_aux(int row, int col, cptr header,
     }
 
     /* Assume that player flag is already written */
-    if (mode & DP_IMM) return;
+    if (mode & (DP_IMM | DP_VULN)) return;
 
     /* Default */
     c_put_str((byte)(vuln ? TERM_RED : TERM_SLATE), ".", row, col);
@@ -2236,57 +2239,74 @@ static void display_player_flag_info(void)
 
     display_flag_aux(row+ 0, col, "Acid       :", TR_RES_ACID, &f, 0);
     display_flag_aux(row+ 0, col, "Acid       :", TR_IM_ACID, &f, DP_IMM);
+    display_flag_aux(row+ 0, col, "Acid       :", TR_VULN_ACID, &f, DP_VULN);
     put_str(format(" %3d%%", _known_res_pct(RES_ACID)), row + 0, col + 13 + equip_count() + 1);
 
     display_flag_aux(row+ 1, col, "Elec       :", TR_RES_ELEC, &f, 0);
     display_flag_aux(row+ 1, col, "Elec       :", TR_IM_ELEC, &f, DP_IMM);
+    display_flag_aux(row+ 1, col, "Elec       :", TR_VULN_ELEC, &f, DP_VULN);
     put_str(format(" %3d%%", _known_res_pct(RES_ELEC)), row + 1, col + 13 + equip_count() + 1);
 
     display_flag_aux(row+ 2, col, "Fire       :", TR_RES_FIRE, &f, 0);
     display_flag_aux(row+ 2, col, "Fire       :", TR_IM_FIRE, &f, DP_IMM);
+    display_flag_aux(row+ 2, col, "Fire       :", TR_VULN_FIRE, &f, DP_VULN);
     put_str(format(" %3d%%", _known_res_pct(RES_FIRE)), row + 2, col + 13 + equip_count() + 1);
     
     display_flag_aux(row+ 3, col, "Cold       :", TR_RES_COLD, &f, 0);
     display_flag_aux(row+ 3, col, "Cold       :", TR_IM_COLD, &f, DP_IMM);
+    display_flag_aux(row+ 3, col, "Cold       :", TR_VULN_COLD, &f, DP_VULN);
     put_str(format(" %3d%%", _known_res_pct(RES_COLD)), row + 3, col + 13 + equip_count() + 1);
 
     display_flag_aux(row+ 4, col, "Poison     :", TR_RES_POIS, &f, 0);
+    display_flag_aux(row+ 4, col, "Poison     :", TR_VULN_POIS, &f, DP_VULN);
     put_str(format(" %3d%%", _known_res_pct(RES_POIS)), row + 4, col + 13 + equip_count() + 1);
 
     display_flag_aux(row+ 5, col, "Light      :", TR_RES_LITE, &f, 0);
+    display_flag_aux(row+ 5, col, "Light      :", TR_VULN_LITE, &f, DP_VULN);
     put_str(format(" %3d%%", _known_res_pct(RES_LITE)), row + 5, col + 13 + equip_count() + 1);
 
     display_flag_aux(row+ 6, col, "Dark       :", TR_RES_DARK, &f, 0);
+    display_flag_aux(row+ 6, col, "Dark       :", TR_VULN_DARK, &f, DP_VULN);
     put_str(format(" %3d%%", _known_res_pct(RES_DARK)), row + 6, col + 13 + equip_count() + 1);
 
     display_flag_aux(row+ 7, col, "Confusion  :", TR_RES_CONF, &f, 0);
+    display_flag_aux(row+ 7, col, "Confusion  :", TR_VULN_CONF, &f, DP_VULN);
     put_str(format(" %3d%%", _known_res_pct(RES_CONF)), row + 7, col + 13 + equip_count() + 1);
 
     display_flag_aux(row+ 8, col, "Nether     :", TR_RES_NETHER, &f, 0);
+    display_flag_aux(row+ 8, col, "Nether     :", TR_VULN_NETHER, &f, DP_VULN);
     put_str(format(" %3d%%", _known_res_pct(RES_NETHER)), row + 8, col + 13 + equip_count() + 1);
 
     display_flag_aux(row+ 9, col, "Nexus      :", TR_RES_NEXUS, &f, 0);
+    display_flag_aux(row+ 9, col, "Nexus      :", TR_VULN_NEXUS, &f, DP_VULN);
     put_str(format(" %3d%%", _known_res_pct(RES_NEXUS)), row + 9, col + 13 + equip_count() + 1);
 
     display_flag_aux(row+10, col, "Sound      :", TR_RES_SOUND, &f, 0);
+    display_flag_aux(row+10, col, "Sound      :", TR_VULN_SOUND, &f, DP_VULN);
     put_str(format(" %3d%%", _known_res_pct(RES_SOUND)), row +10, col + 13 + equip_count() + 1);
 
     display_flag_aux(row+11, col, "Shards     :", TR_RES_SHARDS, &f, 0);
+    display_flag_aux(row+11, col, "Shards     :", TR_VULN_SHARDS, &f, DP_VULN);
     put_str(format(" %3d%%", _known_res_pct(RES_SHARDS)), row +11, col + 13 + equip_count() + 1);
 
     display_flag_aux(row+12, col, "Chaos      :", TR_RES_CHAOS, &f, 0);
+    display_flag_aux(row+12, col, "Chaos      :", TR_VULN_CHAOS, &f, DP_VULN);
     put_str(format(" %3d%%", _known_res_pct(RES_CHAOS)), row +12, col + 13 + equip_count() + 1);
 
     display_flag_aux(row+13, col, "Disenchant :", TR_RES_DISEN, &f, 0);
+    display_flag_aux(row+13, col, "Disenchant :", TR_VULN_DISEN, &f, DP_VULN);
     put_str(format(" %3d%%", _known_res_pct(RES_DISEN)), row +13, col + 13 + equip_count() + 1);
 
     display_flag_aux(row+14, col, "Time       :", TR_RES_TIME, &f, 0);
     put_str(format(" %3d%%", _known_res_pct(RES_TIME)), row +14, col + 13 + equip_count() + 1);
 
     display_flag_aux(row+15, col, "Blindness  :", TR_RES_BLIND, &f, 0);
+    display_flag_aux(row+15, col, "Blindness  :", TR_VULN_BLIND, &f, DP_VULN);
     put_str(format(" %3d%%", _known_res_pct(RES_BLIND)), row +15, col + 13 + equip_count() + 1);
 
     display_flag_aux(row+16, col, "Fear       :", TR_RES_FEAR, &f, 0);
+    display_flag_aux(row+16, col, "Fear       :", TR_VULN_FEAR, &f, DP_VULN);
+
     display_flag_aux(row+17, col, "Aura Fire  :", TR_SH_FIRE, &f, 0);
     if (p_ptr->sh_fire)
         put_str(format(" %dd%d+2", 1 + (p_ptr->lev / 10), 2 + (p_ptr->lev / 10)), row +17, col + 13 + equip_count() + 1);
@@ -2452,6 +2472,7 @@ static void display_player_other_flag_info(void)
     }
 
     display_flag_aux(row+17, col, "Stealth    :", TR_STEALTH, &f, 0);
+    display_flag_aux(row+17, col, "Stealth    :", TR_DEC_STEALTH, &f, DP_VULN);
     display_flag_aux(row+18, col, "Searching  :", TR_SEARCH, &f, 0);
     display_flag_aux(row+19, col, "Cursed     :", 0, &f, DP_CURSE);
     display_flag_aux(row+20, col, "Rnd Tele   :", TR_TELEPORT, &f, 0);
@@ -2586,8 +2607,11 @@ static void display_player_stat_info(void)
 
             if (o_ptr)
             {
-                if (have_flag(flgs, stat))
+                if (have_flag(flgs, TR_STR + stat))
                     adj = o_ptr->pval;
+
+                if (have_flag(flgs, TR_DEC_STR + stat))
+                    adj = -o_ptr->pval;
 
                 /* Gargantuan hack for runes ... */
                 switch (stat)

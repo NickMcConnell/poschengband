@@ -1657,7 +1657,7 @@
 #define EGO_FREE_ACTION         48
 #define EGO_SLAYING             49
 #define EGO_AGILITY             50
-#define EGO_POWER               51
+#define EGO_GIANT_STRENGTH      51
 #define EGO_GENJI               52
 #define EGO_MAGIC_MASTERY       53
 #define EGO_WEAKNESS            54
@@ -3577,8 +3577,31 @@
 #define TR_MAGIC_RESISTANCE    127
 
 #define TR_SLAY_GOOD           128
+#define TR_DEC_STR             129
+#define TR_DEC_INT             130
+#define TR_DEC_WIS             131
+#define TR_DEC_DEX             132
+#define TR_DEC_CON             133
+#define TR_DEC_CHR             134
+#define TR_VULN_ACID           135
+#define TR_VULN_ELEC           136
+#define TR_VULN_FIRE           137
+#define TR_VULN_COLD           138
+#define TR_VULN_POIS           139
+#define TR_VULN_FEAR           140
+#define TR_VULN_LITE           141
+#define TR_VULN_DARK           142
+#define TR_VULN_BLIND          143
+#define TR_VULN_CONF           144
+#define TR_VULN_SOUND          145
+#define TR_VULN_SHARDS         146
+#define TR_VULN_NETHER         147
+#define TR_VULN_NEXUS          148
+#define TR_VULN_CHAOS          149
+#define TR_VULN_DISEN          150
+#define TR_DEC_STEALTH         151
 
-#define TR_FLAG_MAX            129
+#define TR_FLAG_MAX            152
 #define TR_FLAG_SIZE           6
 
 #define TRG_INSTA_ART           0x00000001     /* Item must be an artifact */

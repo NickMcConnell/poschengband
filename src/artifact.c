@@ -3633,7 +3633,6 @@ void random_artifact_resistance(object_type * o_ptr, artifact_type *a_ptr)
         }
         else
         {
-            add_flag(o_ptr->art_flags, TR_AGGRAVATE);
             o_ptr->curse_flags |= (TRC_CURSED | TRC_HEAVY_CURSE);
         }
     }

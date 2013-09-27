@@ -392,15 +392,35 @@ F:a:BUILDING_0:3:0:0:0:0:NONE:33
 F:a:BUILDING_0:3:0:0:0:0:NONE:33
 
 # Quest 33 rewarding
-# The Pair of Soft Leather Boots of Shiva's Avatar
-?:[AND [EQU $QUEST33 3] [EQU [MOD $RANDOM33 5] 0] ]
+# Shiva's Avatar
+?:[AND [EQU $QUEST33 3] [EQU [MOD $RANDOM33 6] 0] ]
 F:a:BUILDING_0:3:0:0:0:0:NONE:27
 F:@:FLOOR:3:0:0:0:63
 
-# The Pair of Soft Leather Boots of Frodo
-?:[AND [EQU $QUEST33 3] [GEQ [MOD $RANDOM33 5] 1] ]
+# Thror
+?:[AND [EQU $QUEST33 3] [EQU [MOD $RANDOM33 6] 1] ]
+F:a:BUILDING_0:3:0:0:0:0:NONE:27
+F:@:FLOOR:3:0:0:0:62
+
+# Stomper
+?:[AND [EQU $QUEST33 3] [EQU [MOD $RANDOM33 6] 2] ]
+F:a:BUILDING_0:3:0:0:0:0:NONE:27
+F:@:FLOOR:3:0:0:0:277
+
+# Frodo
+?:[AND [EQU $QUEST33 3] [EQU [MOD $RANDOM33 6] 3] ]
 F:a:BUILDING_0:3:0:0:0:0:NONE:27
 F:@:FLOOR:3:0:0:0:238
+
+# Bard
+?:[AND [EQU $QUEST33 3] [EQU [MOD $RANDOM33 6] 4] ]
+F:a:BUILDING_0:3:0:0:0:0:NONE:27
+F:@:FLOOR:3:0:0:0:276
+
+# Flora
+?:[AND [EQU $QUEST33 3] [EQU [MOD $RANDOM33 6] 5] ]
+F:a:BUILDING_0:3:0:0:0:0:NONE:27
+F:@:FLOOR:3:0:0:0:61
 
 ##########################################################################
 # Dragon/Hydra

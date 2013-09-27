@@ -413,6 +413,20 @@ static s32b _stats_q(u32b flgs[TR_FLAG_SIZE], int pval)
     if (have_flag(flgs, TR_LIFE))
         q += 5000 * pval;
 
+    if (have_flag(flgs, TR_DEC_STR))
+        q -= 2000 * pval;
+    if (have_flag(flgs, TR_DEC_INT))
+        q -= 2000 * pval;
+    if (have_flag(flgs, TR_DEC_WIS))
+        q -= 2000 * pval;
+    if (have_flag(flgs, TR_DEC_DEX))
+        q -= 2000 * pval;
+    if (have_flag(flgs, TR_DEC_CON))
+        q -= 2000 * pval;
+    if (have_flag(flgs, TR_DEC_CHR))
+        q -= 2000 * pval;
+    if (have_flag(flgs, TR_DEC_STEALTH))
+        q -= 1000 * pval;
     return q;
 }
 
@@ -616,6 +630,23 @@ static s32b _resistances_q(u32b flgs[TR_FLAG_SIZE])
     cost += _check_flag_and_score(flgs, TR_IM_FIRE, 120000, &count);
     cost += _check_flag_and_score(flgs, TR_IM_COLD, 140000, &count);
 
+    count = 0;
+    cost -= _check_flag_and_score(flgs, TR_VULN_ACID, 15000, &count);
+    cost -= _check_flag_and_score(flgs, TR_VULN_ELEC, 16000, &count);
+    cost -= _check_flag_and_score(flgs, TR_VULN_FIRE, 15000, &count);
+    cost -= _check_flag_and_score(flgs, TR_VULN_COLD, 16000, &count);
+    cost -= _check_flag_and_score(flgs, TR_VULN_POIS, 20000, &count);
+    cost -= _check_flag_and_score(flgs, TR_VULN_LITE, 18000, &count);
+    cost -= _check_flag_and_score(flgs, TR_VULN_DARK, 18000, &count);
+    cost -= _check_flag_and_score(flgs, TR_VULN_BLIND, 15000, &count);
+    cost -= _check_flag_and_score(flgs, TR_VULN_CONF, 18000, &count);
+    cost -= _check_flag_and_score(flgs, TR_VULN_NETHER, 20000, &count);
+    cost -= _check_flag_and_score(flgs, TR_VULN_NEXUS, 18000, &count);
+    cost -= _check_flag_and_score(flgs, TR_VULN_CHAOS, 20000, &count);
+    cost -= _check_flag_and_score(flgs, TR_VULN_SOUND, 20000, &count);
+    cost -= _check_flag_and_score(flgs, TR_VULN_SHARDS, 30000, &count);
+    cost -= _check_flag_and_score(flgs, TR_VULN_DISEN, 25000, &count);
+
     return (u32b) cost;
 }
 
@@ -694,6 +725,17 @@ s32b _finalize_p(s32b p, u32b flgs[TR_FLAG_SIZE], object_type *o_ptr)
             cost_calc_hook(dbg_msg);
         }
     }
+
+    /* TODO
+    if (have_flag(flgs, TR_VULN_ACID))
+    {
+        p = p * 8 / 10;
+        if (cost_calc_hook)
+        {
+            sprintf(dbg_msg, "  * Vuln Acid: p = %d", p);
+            cost_calc_hook(dbg_msg);
+        }
+    }*/
 
     if (!object_is_artifact(o_ptr))
     {

@@ -290,7 +290,7 @@ static void do_cmd_wiz_hack_chris3_imp(FILE* file)
             apply_magic(&forge, depth, 0);
 
             #if 1
-            if (forge.name2 == EGO_RETURNING)
+            if (forge.name2 == EGO_GIANT_STRENGTH)
             {
                 char buf[MAX_NLEN];
 

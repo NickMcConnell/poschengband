@@ -2251,7 +2251,7 @@ static int get_random_ego(byte slot, bool good)
     int i, value;
     ego_item_type *e_ptr;
 
-    long total = 0L;
+    int total = 0;
 
     if (apply_magic_ego)
         return apply_magic_ego;
@@ -2297,7 +2297,7 @@ static int get_random_ego(byte slot, bool good)
             }
             if (rarity)
                 value -= MAX(255 / rarity, 1);
-            if (value <= 0L) break;
+            if (value <= 0) break;
         }
     }
     return i;
@@ -3697,6 +3697,8 @@ static void a_m_aux_3(object_type *o_ptr, int level, int power, int mode)
             o_ptr->curse_flags |= (TRC_CURSED);
             o_ptr->pval = 0 - (randint1(5) + m_bonus(5, level));
             o_ptr->to_a = 0 - (randint1(5) + m_bonus(5, level));
+            o_ptr->to_h = 10 + m_bonus(15, level);
+            o_ptr->to_d = 10 + m_bonus(15, level);
             if (power > 0) power = 0 - power;
             break;
         case SV_AMULET_MAGIC_MASTERY:

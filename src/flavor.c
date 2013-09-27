@@ -468,6 +468,18 @@ static flag_insc_table flag_insc_plus[] =
     { NULL, 0, -1 }
 };
 
+static flag_insc_table flag_insc_minus[] =
+{
+    { "St", TR_DEC_STR, -1 },
+    { "In", TR_DEC_INT, -1 },
+    { "Wi", TR_DEC_WIS, -1 },
+    { "Dx", TR_DEC_DEX, -1 },
+    { "Cn", TR_DEC_CON, -1 },
+    { "Ch", TR_DEC_CHR, -1 },
+    { "Sl", TR_DEC_STEALTH, -1 },
+    { NULL, 0, -1 }
+};
+
 static flag_insc_table flag_insc_immune[] =
 {
     { "Ac", TR_IM_ACID, -1 },
@@ -496,6 +508,27 @@ static flag_insc_table flag_insc_resistance[] =
     { "Di", TR_RES_DISEN, -1 },
     { "Fe", TR_RES_FEAR, -1 },
     { "Ti", TR_RES_TIME, -1 },
+    { NULL, 0, -1 }
+};
+
+static flag_insc_table flag_insc_vulnerability[] =
+{
+    { "Ac", TR_VULN_ACID, -1 },
+    { "El", TR_VULN_ELEC, -1 },
+    { "Fi", TR_VULN_FIRE, -1 },
+    { "Co", TR_VULN_COLD, -1 },
+    { "Po", TR_VULN_POIS, -1 },
+    { "Li", TR_VULN_LITE, -1 },
+    { "Dk", TR_VULN_DARK, -1 },
+    { "Sh", TR_VULN_SHARDS, -1 },
+    { "Bl", TR_VULN_BLIND, -1 },
+    { "Cf", TR_VULN_CONF, -1 },
+    { "So", TR_VULN_SOUND, -1 },
+    { "Nt", TR_VULN_NETHER, -1 },
+    { "Nx", TR_VULN_NEXUS, -1 },
+    { "Ca", TR_VULN_CHAOS, -1 },
+    { "Di", TR_VULN_DISEN, -1 },
+    { "Fe", TR_VULN_FEAR, -1 },
     { NULL, 0, -1 }
 };
 
@@ -690,6 +723,18 @@ static char *get_ability_abbreviation(char *ptr, object_type *o_ptr, bool all)
     /* Plusses */
     ptr = inscribe_flags_aux(flag_insc_plus, flgs, ptr);
 
+    /* Minusses */
+    if (have_flag_of(flag_insc_minus, flgs))
+    {
+        if (ptr != prev_ptr)
+        {
+            ADD_INSC(";");
+            prev_ptr = ptr;
+        }
+        ADD_INSC("-");
+    }
+    ptr = inscribe_flags_aux(flag_insc_minus, flgs, ptr);
+
     /* Immunity */
     if (have_flag_of(flag_insc_immune, flgs))
     {
@@ -701,6 +746,18 @@ static char *get_ability_abbreviation(char *ptr, object_type *o_ptr, bool all)
         ADD_INSC("*");
     }
     ptr = inscribe_flags_aux(flag_insc_immune, flgs, ptr);
+
+    /* Vulnerability */
+    if (have_flag_of(flag_insc_vulnerability, flgs))
+    {
+        if (ptr != prev_ptr)
+        {
+            ADD_INSC(";");
+            prev_ptr = ptr;
+        }
+        ADD_INSC("-");
+    }
+    ptr = inscribe_flags_aux(flag_insc_vulnerability, flgs, ptr);
 
     /* Resistance */
     if (have_flag_of(flag_insc_resistance, flgs))
