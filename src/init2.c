@@ -1236,14 +1236,7 @@ static byte store_table[MAX_STORES][STORE_CHOICES][2] =
     {
         /* Magic-User store */
 
-        { TV_RING, SV_RING_PROTECTION },
-        { TV_RING, SV_RING_LEVITATION_FALL },
-        { TV_RING, SV_RING_PROTECTION },
-        { TV_RING, SV_RING_RESIST_FIRE },
-
-        { TV_RING, SV_RING_RESIST_COLD },
         { TV_AMULET, SV_AMULET_ADORNMENT },
-        { TV_RING, SV_RING_WARNING },
         { TV_AMULET, SV_AMULET_RESIST_ACID },
 
         { TV_AMULET, SV_AMULET_SEARCHING },

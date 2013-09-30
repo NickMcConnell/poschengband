@@ -1388,18 +1388,6 @@ cptr item_activation(object_type *o_ptr)
         }
         switch (o_ptr->sval)
         {
-            case SV_RING_FLAMES:
-                return "ball of fire (100) and resist fire every 50+d50 turns";
-
-            case SV_RING_ICE:
-                return "ball of cold (100) and resist cold every 50+d50 turns";
-
-            case SV_RING_ACID:
-                return "ball of acid (100) and resist acid every 50+d50 turns";
-
-            case SV_RING_ELEC:
-                return "ball of elec (100) and resist elec every 50+d50 turns";
-
             default:
                 return NULL;
         }
@@ -1646,9 +1634,6 @@ bool screen_object(object_type *o_ptr, u32b mode)
 
     if (have_flag(flgs, TR_WEAPONMASTERY))
         info[i++] = "It increases the damage dice of your melee weapon.";
-
-    if (o_ptr->name2 == EGO_GLOVES_SNIPER)
-        info[i++] = "It increases your shooting speed.";
 
     if (have_flag(flgs, TR_EASY_SPELL))
     {
@@ -2448,33 +2433,6 @@ bool screen_object(object_type *o_ptr, u32b mode)
     /* Describe about this kind of object instead of THIS fake object */
     if (mode & SCROBJ_FAKE_OBJECT)
     {
-        switch (o_ptr->tval)
-        {
-        case TV_RING:
-            switch (o_ptr->sval)
-            {
-            case SV_RING_LORDLY:
-                info[i++] = "It provides some random resistances.";
-                break;
-            case SV_RING_WARNING:
-                info[i++] = "It may provide a low rank ESP.";
-                break;
-            }
-            break;
-
-        case TV_AMULET:
-            switch (o_ptr->sval)
-            {
-            case SV_AMULET_RESISTANCE:
-                info[i++] = "It may provides resistance to poison.";
-                info[i++] = "It may provide a random resistances.";
-                break;
-            case SV_AMULET_THE_MAGI:
-                info[i++] = "It provides up to three low rank ESPs.";
-                break;
-            }
-            break;
-        }
     }
 
     if (have_flag(flgs, TR_IGNORE_ACID) &&

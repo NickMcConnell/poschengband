@@ -1208,19 +1208,6 @@ s32b object_value_real(object_type *o_ptr)
         /* No pval */
         if (!o_ptr->pval) break;
 
-        /* Hack -- Spell Power should not auto destroy */
-        if (o_ptr->tval == TV_RING && o_ptr->sval == SV_RING_SPELL_POWER)
-        {
-            value -= (o_ptr->pval * 10000L);
-            break;
-        }
-
-        if (o_ptr->tval == TV_AMULET && o_ptr->sval == SV_AMULET_SPELL_POWER)
-        {
-            value -= (o_ptr->pval * 10000L);
-            break;
-        }
-
         /* Hack -- Negative "pval" is always bad */
         if (o_ptr->pval < 0) return (0L);
 
@@ -2319,6 +2306,340 @@ static void _cursify(object_type *o_ptr)
     }
 }
 
+static void _create_ring(object_type *o_ptr, int level, int power, int mode)
+{
+    int powers = 0;
+    
+    o_ptr->name2 = _get_random_ego(EGO_TYPE_RING);
+    switch (o_ptr->name2)
+    {
+    case EGO_RING_COMBAT:
+        for (powers = abs(power) + randint1(m_bonus(5, object_level)); powers > 0; --powers)
+        {
+            switch (randint1(7))
+            {
+            case 1:
+                add_flag(o_ptr->art_flags, TR_STR);
+                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(5, object_level));
+                break;
+            case 2:
+                add_flag(o_ptr->art_flags, TR_DEX);
+                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(5, object_level));
+                break;
+            case 3:
+                add_flag(o_ptr->art_flags, TR_CON);
+                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(5, object_level));
+                break;
+            case 4:
+                o_ptr->to_h += randint1(5) + m_bonus(5, object_level);
+                break;
+            case 5:
+                o_ptr->to_d += randint1(5) + m_bonus(5, object_level);
+                break;
+            case 6:
+                if (abs(power) >= 2 && one_in_(30) && object_level >= 50)
+                {
+                    add_flag(o_ptr->art_flags, TR_WEAPONMASTERY);
+                    o_ptr->pval = randint1(2);
+                    if (one_in_(30))
+                    {
+                        switch (randint1(5))
+                        {
+                        case 1: add_flag(o_ptr->art_flags, TR_BRAND_ACID); break;
+                        case 2: add_flag(o_ptr->art_flags, TR_BRAND_COLD); break;
+                        case 3: add_flag(o_ptr->art_flags, TR_BRAND_FIRE); break;
+                        case 4: add_flag(o_ptr->art_flags, TR_BRAND_ELEC); break;
+                        case 5: add_flag(o_ptr->art_flags, TR_BRAND_POIS); break;
+                        }
+                    }
+                    break;
+                }
+                else if (one_in_(3))
+                {
+                    add_flag(o_ptr->art_flags, TR_RES_FEAR);
+                    break;
+                }
+            default:
+                o_ptr->to_h += randint1(5);
+                o_ptr->to_d += randint1(5);
+            }
+        }
+        if (o_ptr->to_h > 30) o_ptr->to_h = 30;
+        if (o_ptr->to_d > 25) o_ptr->to_d = 25;
+        break;
+    case EGO_RING_ARCHERY:
+        for (powers = abs(power) + randint1(m_bonus(4, object_level)); powers > 0; --powers)
+        {
+            switch (randint1(7))
+            {
+            case 1:
+                add_flag(o_ptr->art_flags, TR_DEX);
+                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(5, object_level));
+                break;
+            case 2:
+                add_flag(o_ptr->art_flags, TR_STEALTH);
+                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(5, object_level));
+                break;
+            case 3:
+                o_ptr->to_h += randint1(5) + m_bonus(5, object_level);
+                break;
+            case 4:
+                o_ptr->to_d += randint1(5) + m_bonus(5, object_level);
+                break;
+            case 5:
+                if (abs(power) >= 2)
+                {
+                    add_flag(o_ptr->art_flags, TR_XTRA_SHOTS);
+                    o_ptr->pval = randint1(m_bonus(3, object_level));
+                    break;
+                }
+            case 6:
+                if (abs(power) >= 2 && one_in_(2))
+                {
+                    add_flag(o_ptr->art_flags, TR_XTRA_MIGHT);
+                    break;
+                }
+            default:
+                o_ptr->to_h += randint1(5) + m_bonus(5, object_level);
+            }
+        }
+        if (o_ptr->to_h > 30) o_ptr->to_h = 30;
+        if (o_ptr->to_d > 25) o_ptr->to_d = 25;
+        break;
+    case EGO_RING_PROTECTION:
+        for (powers = abs(power) + randint1(m_bonus(5, object_level)); powers > 0; --powers)
+        {
+            switch (randint1(7))
+            {
+            case 1:
+                one_high_resistance(o_ptr);
+                if (abs(power) >= 2)
+                {
+                    while(one_in_(2)) { one_high_resistance(o_ptr); --power; }
+                }
+                break;
+            case 2:
+                add_flag(o_ptr->art_flags, TR_FREE_ACT);
+                break;
+            case 3:
+                add_flag(o_ptr->art_flags, TR_SEE_INVIS);
+                break;
+            case 4:
+                if (one_in_(2))
+                {
+                    add_flag(o_ptr->art_flags, TR_WARNING);
+                    if (one_in_(3))
+                        one_low_esp(o_ptr);
+                    break;
+                }
+            case 5:
+                if (one_in_(2))
+                {
+                    one_sustain(o_ptr);
+                    break;
+                }
+            default:
+                o_ptr->to_a += randint1(10);
+            }
+        }
+        if (o_ptr->to_a > 35) o_ptr->to_a = 35;
+        break;
+    case EGO_RING_ELEMENTAL:
+        if (abs(power) >= 2)
+        {
+            switch (randint1(6))
+            {
+            case 1:
+                add_flag(o_ptr->art_flags, TR_RES_COLD);
+                add_flag(o_ptr->art_flags, TR_RES_FIRE);
+                add_flag(o_ptr->art_flags, TR_RES_ELEC);
+                if (one_in_(3))
+                    add_flag(o_ptr->art_flags, TR_RES_ACID);
+                if (one_in_(5))
+                    add_flag(o_ptr->art_flags, TR_RES_POIS);
+                break;
+            case 2:
+                o_ptr->to_a = 5 + randint1(5) + m_bonus(10, level);
+                add_flag(o_ptr->art_flags, TR_RES_FIRE);
+                if (one_in_(3))
+                    add_flag(o_ptr->art_flags, TR_SH_FIRE);
+                if (one_in_(7))
+                    add_flag(o_ptr->art_flags, TR_BRAND_FIRE);
+                else if (one_in_(100) && object_level >= 70)
+                    add_flag(o_ptr->art_flags, TR_IM_FIRE);
+                break;
+            case 3:
+                o_ptr->to_a = 5 + randint1(5) + m_bonus(10, level);
+                add_flag(o_ptr->art_flags, TR_RES_COLD);
+                if (one_in_(3))
+                    add_flag(o_ptr->art_flags, TR_SH_COLD);
+                if (one_in_(7))
+                    add_flag(o_ptr->art_flags, TR_BRAND_COLD);
+                else if (one_in_(100) && object_level >= 70)
+                    add_flag(o_ptr->art_flags, TR_IM_COLD);
+                break;
+            case 4:
+                o_ptr->to_a = 5 + randint1(5) + m_bonus(10, level);
+                add_flag(o_ptr->art_flags, TR_RES_ELEC);
+                if (one_in_(3))
+                    add_flag(o_ptr->art_flags, TR_SH_ELEC);
+                if (one_in_(7))
+                    add_flag(o_ptr->art_flags, TR_BRAND_ELEC);
+                else if (one_in_(100) && object_level >= 70)
+                    add_flag(o_ptr->art_flags, TR_IM_ELEC);
+                break;
+            case 5:
+                o_ptr->to_a = 5 + randint1(5) + m_bonus(10, level);
+                add_flag(o_ptr->art_flags, TR_RES_ACID);
+                if (one_in_(7))
+                    add_flag(o_ptr->art_flags, TR_BRAND_ACID);
+                else if (one_in_(100) && object_level >= 70)
+                    add_flag(o_ptr->art_flags, TR_IM_ACID);
+                break;
+            case 6:
+                o_ptr->to_a = 5 + randint1(5) + m_bonus(10, level);
+                add_flag(o_ptr->art_flags, TR_RES_SHARDS);
+                if (one_in_(3))
+                    add_flag(o_ptr->art_flags, TR_SH_SHARDS);
+                break;
+            }
+        }
+        else
+        {
+            one_ele_resistance(o_ptr);
+            if (one_in_(3))
+                one_ele_resistance(o_ptr);
+        }
+        break;
+    case EGO_RING_DEFENDER:
+        add_flag(o_ptr->art_flags, TR_FREE_ACT);
+        add_flag(o_ptr->art_flags, TR_SEE_INVIS);
+        if (abs(power) >= 2)
+        {
+            add_flag(o_ptr->art_flags, TR_LEVITATION);
+            one_sustain(o_ptr);
+            o_ptr->to_a = 5 + randint1(5) + m_bonus(10, level);
+            switch (randint1(4))
+            {
+            case 1: /* Classic Defender */
+                add_flag(o_ptr->art_flags, TR_RES_ACID);
+                add_flag(o_ptr->art_flags, TR_RES_ELEC);
+                add_flag(o_ptr->art_flags, TR_RES_FIRE);
+                add_flag(o_ptr->art_flags, TR_RES_COLD);
+                if (one_in_(3))
+                    add_flag(o_ptr->art_flags, TR_RES_POIS);
+                else if (one_in_(3))
+                    one_high_resistance(o_ptr);
+                break;
+            case 2: /* High Defender */
+                one_high_resistance(o_ptr);
+                do
+                {
+                    one_high_resistance(o_ptr);
+                } 
+                while (one_in_(2));
+                break;
+            case 3: /* Lordly Protection */
+                o_ptr->to_a += 5;
+                add_flag(o_ptr->art_flags, TR_RES_POIS);
+                add_flag(o_ptr->art_flags, TR_RES_DISEN);
+                add_flag(o_ptr->art_flags, TR_HOLD_LIFE);
+                do
+                {
+                    one_lordly_high_resistance(o_ptr);
+                }
+                while (one_in_(4));
+                break;
+            case 4: /* Revenge! */
+                o_ptr->to_a += 15;
+                add_flag(o_ptr->art_flags, TR_SH_COLD);
+                add_flag(o_ptr->art_flags, TR_SH_ELEC);
+                add_flag(o_ptr->art_flags, TR_SH_FIRE);
+                if (one_in_(2))
+                    add_flag(o_ptr->art_flags, TR_SH_SHARDS);
+                if (one_in_(7))
+                    add_flag(o_ptr->art_flags, TR_SH_REVENGE);
+                break;
+            }
+        }
+        else
+        {
+            o_ptr->to_a = randint1(5) + m_bonus(5, level);
+            one_ele_resistance(o_ptr);
+            one_ele_resistance(o_ptr);
+            one_ele_resistance(o_ptr);
+            one_ele_resistance(o_ptr);
+            one_ele_resistance(o_ptr);
+        }
+        break;
+    case EGO_RING_SPEED:
+        if (abs(power) >= 2)
+        {
+            o_ptr->pval = 5 + m_bonus(5, level);
+            while (randint0(100) < 50) 
+                o_ptr->pval++;
+        }
+        else
+        {
+            o_ptr->pval = randint1(5);     
+            while (randint0(100) < 10) 
+                o_ptr->pval++;
+        }
+        if (cheat_peek) object_mention(o_ptr);
+        break;
+    case EGO_RING_WIZARDRY:
+        for (powers = abs(power) + randint1(m_bonus(4, object_level)); powers > 0; --powers)
+        {
+            switch (randint1(7))
+            {
+            case 1:
+                add_flag(o_ptr->art_flags, TR_INT);
+                if (!o_ptr->pval) o_ptr->pval = randint1(5);
+                break;
+            case 2:
+                add_flag(o_ptr->art_flags, TR_SUST_INT);
+                break;
+            case 3:
+                add_flag(o_ptr->art_flags, TR_SPELL_CAP);
+                if (!o_ptr->pval) 
+                    o_ptr->pval = randint1(m_bonus(3, object_level));
+                else if (o_ptr->pval > 3)
+                    o_ptr->pval = 3;
+                break;
+            case 4:
+                add_flag(o_ptr->art_flags, TR_EASY_SPELL);
+                break;
+            case 5:
+                if (abs(power) >= 2)
+                {
+                    add_flag(o_ptr->art_flags, TR_DEC_MANA);
+                    break;
+                }
+            case 6:
+                if (abs(power) >= 2 && one_in_(30))
+                {
+                    add_flag(o_ptr->art_flags, TR_SPELL_POWER);
+                    add_flag(o_ptr->art_flags, TR_DEC_STR);
+                    add_flag(o_ptr->art_flags, TR_DEC_DEX);
+                    add_flag(o_ptr->art_flags, TR_DEC_CON);
+                    o_ptr->pval = randint1(m_bonus(3, object_level));
+                    break;
+                }
+            default:
+                if (one_in_(7))
+                    add_flag(o_ptr->art_flags, TR_TELEPATHY);
+                else
+                    one_low_esp(o_ptr);
+            }
+        }
+        break;
+    }
+
+    /* Be sure to cursify later! */
+    if (power == -1)
+        power--;
+}
+
 static void _create_weapon(object_type *o_ptr, int level, int power, int mode)
 {
     int tohit1 = randint1(5) + m_bonus(5, level);
@@ -3191,227 +3512,7 @@ static void _create_armor(object_type *o_ptr, int level, int power, int mode)
 static void a_m_aux_3(object_type *o_ptr, int level, int power, int mode)
 {
     /* Apply magic (good or bad) according to type */
-    if (o_ptr->tval == TV_RING)
-    {
-        switch (o_ptr->sval)
-        {
-        case SV_RING_WEAPONMASTERY:
-            o_ptr->pval = m_bonus(3, level);
-            if (one_in_(30)) o_ptr->pval++;
-            if (o_ptr->pval < 1) o_ptr->pval = 1;
-            if (power < 0)
-            {
-                o_ptr->ident |= (IDENT_BROKEN);
-                o_ptr->curse_flags |= TRC_CURSED;
-                o_ptr->pval = 0 - (o_ptr->pval);
-            }
-            else if (one_in_(30))
-            {
-                switch (randint1(5))
-                {
-                case 1: add_flag(o_ptr->art_flags, TR_BRAND_ACID); break;
-                case 2: add_flag(o_ptr->art_flags, TR_BRAND_COLD); break;
-                case 3: add_flag(o_ptr->art_flags, TR_BRAND_FIRE); break;
-                case 4: add_flag(o_ptr->art_flags, TR_BRAND_ELEC); break;
-                case 5: add_flag(o_ptr->art_flags, TR_BRAND_POIS); break;
-                }
-            }
-            break;
-        case SV_RING_ATTACKS:
-            o_ptr->pval = m_bonus(2, level);
-            if (one_in_(15)) o_ptr->pval++;
-            if (o_ptr->pval < 1) o_ptr->pval = 1;
-            if (power < 0)
-            {
-                o_ptr->ident |= (IDENT_BROKEN);
-                o_ptr->curse_flags |= TRC_CURSED;
-                o_ptr->pval = 0 - (o_ptr->pval);
-            }
-            break;
-        case SV_RING_SHOTS:
-            break;              
-        case SV_RING_SPELL_POWER:
-        {
-            int pv = m_bonus(3, level);
-            while (one_in_(30)) pv++;
-            if (pv == 0) pv = 1;
-            o_ptr->pval = -pv;
-            return; /* No ego or artifacts, please!*/
-        }
-        case SV_RING_SPELL_CAP:
-            o_ptr->pval = 1 + m_bonus(3, level);
-            if (power < 0)
-            {
-                o_ptr->ident |= (IDENT_BROKEN);
-                o_ptr->curse_flags |= TRC_CURSED;
-                o_ptr->pval = 0 - (o_ptr->pval);
-            }
-            break;
-        case SV_RING_STR:
-        case SV_RING_CON:
-        case SV_RING_DEX:
-            o_ptr->pval = 1 + m_bonus(5, level);
-            if (power < 0)
-            {
-                o_ptr->ident |= (IDENT_BROKEN);
-                o_ptr->curse_flags |= TRC_CURSED;
-                o_ptr->pval = 0 - (o_ptr->pval);
-            }
-            break;
-        case SV_RING_SPEED:
-            o_ptr->pval = randint1(5) + m_bonus(5, level);
-            while (randint0(100) < 50) o_ptr->pval++;
-            if (power < 0)
-            {
-                o_ptr->ident |= (IDENT_BROKEN);
-                o_ptr->curse_flags |= TRC_CURSED;
-                o_ptr->pval = 0 - (o_ptr->pval);
-                break;
-            }
-            if (cheat_peek) object_mention(o_ptr);
-            break;
-        case SV_RING_RESISTANCE:
-            if (one_in_(5)) 
-                add_flag(o_ptr->art_flags, TR_RES_POIS);
-            else if (one_in_(5))
-                one_high_resistance(o_ptr);
-            break;
-        case SV_RING_HIGH_RESISTANCE:
-            do
-            {
-                one_high_resistance(o_ptr);
-            } 
-            while (one_in_(3));
-            break;
-        case SV_RING_LORDLY:
-            do
-            {
-                one_lordly_high_resistance(o_ptr);
-            }
-            while (one_in_(4));
-            o_ptr->to_a = 10 + randint1(5) + m_bonus(10, level);
-            break;
-        case SV_RING_WARNING:
-            if (one_in_(3))
-            {
-                if (one_in_(20)) 
-                    add_flag(o_ptr->art_flags, TR_ESP_EVIL);
-                else
-                    one_low_esp(o_ptr);
-            }
-            break;
-        case SV_RING_SEARCHING:
-            o_ptr->pval = 1 + m_bonus(5, level);
-            if (power < 0)
-            {
-                o_ptr->ident |= (IDENT_BROKEN);
-                o_ptr->curse_flags |= TRC_CURSED;
-                o_ptr->pval = 0 - (o_ptr->pval);
-            }
-            break;
-        case SV_RING_FLAMES:
-        case SV_RING_ACID:
-        case SV_RING_ICE:
-        case SV_RING_ELEC:
-            o_ptr->to_a = 5 + randint1(5) + m_bonus(10, level);
-            break;
-        case SV_RING_WEAKNESS:
-        case SV_RING_STUPIDITY:
-            o_ptr->ident |= (IDENT_BROKEN);
-            o_ptr->curse_flags |= TRC_CURSED;
-            o_ptr->pval = 0 - (1 + m_bonus(5, level));
-            if (power > 0) power = 0 - power;
-            break;
-        case SV_RING_WOE:
-            o_ptr->ident |= (IDENT_BROKEN);
-            o_ptr->curse_flags |= TRC_CURSED;
-            o_ptr->to_a = 0 - (5 + m_bonus(10, level));
-            o_ptr->pval = 0 - (1 + m_bonus(5, level));
-            if (power > 0) power = 0 - power;
-            break;
-        case SV_RING_DAMAGE:
-            o_ptr->to_d = 1 + randint1(5) + m_bonus(16, level);
-            if (power < 0)
-            {
-                o_ptr->ident |= (IDENT_BROKEN);
-                o_ptr->curse_flags |= TRC_CURSED;
-                o_ptr->to_d = 0 - o_ptr->to_d;
-            }
-            break;
-        case SV_RING_ACCURACY:
-            o_ptr->to_h = 1 + randint1(5) + m_bonus(16, level);
-            if (power < 0)
-            {
-                o_ptr->ident |= (IDENT_BROKEN);
-                o_ptr->curse_flags |= TRC_CURSED;
-                o_ptr->to_h = 0 - o_ptr->to_h;
-            }
-            break;
-        case SV_RING_PROTECTION:
-            o_ptr->to_a = 5 + randint1(8) + m_bonus(10, level);
-            if (power < 0)
-            {
-                o_ptr->ident |= (IDENT_BROKEN);
-                o_ptr->curse_flags |= TRC_CURSED;
-                o_ptr->to_a = 0 - o_ptr->to_a;
-            }
-            break;
-        case SV_RING_SLAYING:
-            o_ptr->to_d = randint1(5) + m_bonus(12, level);
-            o_ptr->to_h = randint1(5) + m_bonus(12, level);
-            if (power < 0)
-            {
-                o_ptr->ident |= (IDENT_BROKEN);
-                o_ptr->curse_flags |= TRC_CURSED;
-                o_ptr->to_h = 0 - o_ptr->to_h;
-                o_ptr->to_d = 0 - o_ptr->to_d;
-            }
-            break;
-        case SV_RING_MUSCLE:
-            o_ptr->pval = 1 + m_bonus(3, level);
-            if (one_in_(4)) o_ptr->pval++;
-            if (power < 0)
-            {
-                o_ptr->ident |= (IDENT_BROKEN);
-                o_ptr->curse_flags |= TRC_CURSED;
-                o_ptr->pval = 0 - o_ptr->pval;
-            }
-            else if (one_in_(4))
-            {
-                o_ptr->to_h += randint1(7);
-                o_ptr->to_d += randint1(7);
-            }
-            break;
-        case SV_RING_AGGRAVATION:
-            o_ptr->ident |= (IDENT_BROKEN);
-            o_ptr->curse_flags |= TRC_CURSED;
-            if (power > 0) power = 0 - power;
-            break;
-        }
-        if (power > 1 && one_in_(2))
-        {
-            if ((one_in_(20) && !object_is_cursed(o_ptr)) || (power > 2)) /* power > 2 is debug only */
-            {
-                o_ptr->pval = MIN(o_ptr->pval, 4);
-                create_artifact(o_ptr, CREATE_ART_NORMAL);
-            }
-            else if ((power == 2))
-            {
-            }
-        }
-        else if ((power == -2) && one_in_(2))
-        {
-            if (o_ptr->to_h > 0) o_ptr->to_h = 0-o_ptr->to_h;
-            if (o_ptr->to_d > 0) o_ptr->to_d = 0-o_ptr->to_d;
-            if (o_ptr->to_a > 0) o_ptr->to_a = 0-o_ptr->to_a;
-            if (o_ptr->pval > 0) o_ptr->pval = 0-o_ptr->pval;
-            o_ptr->art_flags[0] = 0;
-            o_ptr->art_flags[1] = 0;
-            o_ptr->ident |= (IDENT_BROKEN);
-            o_ptr->curse_flags |= (TRC_CURSED | TRC_HEAVY_CURSE);
-        }
-    }
-    else if (o_ptr->tval == TV_AMULET)
+    if (o_ptr->tval == TV_AMULET)
     {
         switch (o_ptr->sval)
         {
@@ -4125,6 +4226,9 @@ void apply_magic(object_type *o_ptr, int lev, u32b mode)
         }
 
         case TV_RING:
+            if (power) _create_ring(o_ptr, lev, power, mode);
+            break;
+
         case TV_AMULET:
         {
             if (!power && (randint0(100) < 50)) power = -1;
@@ -4437,12 +4541,6 @@ static bool kind_is_great(int k_idx)
             if (k_ptr->sval >= SV_BOOK_MIN_GOOD + 1) return TRUE;   /* Fourth Spellbooks */
             return (FALSE);
         }
-        case TV_RING:
-        {
-            if (k_ptr->sval == SV_RING_SPEED) return (TRUE);
-            if (k_ptr->sval == SV_RING_LORDLY) return (TRUE);
-            return (FALSE);
-        }
         case TV_POTION:
         {
             if (k_ptr->sval == SV_POTION_LIFE) return one_in_(3);
@@ -4454,6 +4552,9 @@ static bool kind_is_great(int k_idx)
             if (k_ptr->sval == SV_WAND_ROCKETS) return TRUE;
             return FALSE;
         }
+        case TV_RING:
+        case TV_AMULET:
+            return TRUE;
     }
 
     /* Assume not good */
@@ -4524,16 +4625,6 @@ static bool kind_is_good(int k_idx)
             if (k_ptr->sval >= SV_BOOK_MIN_GOOD + 1) return TRUE;   /* Fourth Spellbooks */
             return (FALSE);
         }
-        case TV_RING:
-        {
-            if (k_ptr->sval == SV_RING_SPEED) return (TRUE);
-            if (k_ptr->sval == SV_RING_LORDLY) return (TRUE);
-            if (k_ptr->sval == SV_RING_RESISTANCE) return (TRUE);
-            if (k_ptr->sval == SV_RING_HIGH_RESISTANCE) return (TRUE);
-            if (k_ptr->sval == SV_RING_MUSCLE) return (TRUE);
-            if (k_ptr->sval == SV_RING_SLAYING) return (TRUE);
-            return (FALSE);
-        }
         case TV_POTION:
         {
             switch (k_ptr->sval)
@@ -4560,12 +4651,6 @@ static bool kind_is_good(int k_idx)
             if (k_ptr->sval == SV_SCROLL_MASS_GENOCIDE) return one_in_(12);
             return FALSE;
         }
-        case TV_AMULET:
-        {
-            if (k_ptr->sval == SV_AMULET_THE_MAGI) return (TRUE);
-            if (k_ptr->sval == SV_AMULET_RESISTANCE) return (TRUE);
-            return (FALSE);
-        }
         case TV_WAND:
         {
             if (k_ptr->sval == SV_WAND_ROCKETS) return one_in_(7);
@@ -4578,12 +4663,109 @@ static bool kind_is_good(int k_idx)
             if (k_ptr->sval == SV_STAFF_MSTORM) return one_in_(12);
             return FALSE;
         }
+        case TV_RING:
+        case TV_AMULET:
+            return TRUE;
     }
 
     /* Assume not good */
     return (FALSE);
 }
 
+typedef bool (*_kind_p)(int k_idx);
+static bool _kind_is_device(int k_idx) { 
+    switch (k_info[k_idx].tval)
+    {
+    case TV_POTION: case TV_SCROLL: case TV_WAND: case TV_ROD: case TV_STAFF:
+        return TRUE;
+    }
+    return FALSE;
+}
+static bool _kind_is_jewelry(int k_idx) { 
+    switch (k_info[k_idx].tval)
+    {
+    case TV_RING: /* TODO: case TV_AMULET:*/
+        return TRUE;
+    }
+    return FALSE;
+}
+static bool _kind_is_book(int k_idx) { 
+    if (TV_LIFE_BOOK <= k_info[k_idx].tval && k_info[k_idx].tval <= TV_BURGLARY_BOOK)
+        return TRUE;
+    return FALSE;
+}
+static bool _kind_is_armor(int k_idx) { 
+    if (TV_ARMOR_BEGIN <= k_info[k_idx].tval && k_info[k_idx].tval <= TV_ARMOR_END)
+        return TRUE;
+    return FALSE;
+}
+static bool _kind_is_weapon(int k_idx) { 
+    if (TV_DIGGING <= k_info[k_idx].tval && k_info[k_idx].tval <= TV_WEAPON_END)
+        return TRUE;
+    return FALSE;
+}
+static bool _kind_is_ammo(int k_idx) { 
+    if (TV_MISSILE_BEGIN <= k_info[k_idx].tval && k_info[k_idx].tval <= TV_MISSILE_END)
+        return TRUE;
+    return FALSE;
+}
+static bool _kind_is_bow(int k_idx) { 
+    if (k_info[k_idx].tval == TV_BOW)
+        return TRUE;
+    return FALSE;
+}
+static bool _kind_is_misc(int k_idx) { 
+    switch (k_info[k_idx].tval)
+    {
+    case TV_SKELETON: case TV_BOTTLE: case TV_JUNK: case TV_WHISTLE:
+    case TV_SPIKE: case TV_CHEST: case TV_FIGURINE: case TV_STATUE:
+    case TV_CAPTURE: case TV_LITE:
+        return TRUE;
+    }
+    return FALSE;
+}
+typedef struct {
+    _kind_p hook;
+    int     weight;
+} _kind_alloc_entry;
+static _kind_alloc_entry _kind_alloc_table[] = {
+    { _kind_is_weapon, 25 },
+    { _kind_is_armor, 25 },
+    { _kind_is_device, 20 },
+    { _kind_is_bow, 7 },
+    { _kind_is_ammo, 7 },
+    { _kind_is_book, 7 },
+    { _kind_is_jewelry, 5 },
+    { _kind_is_misc, 4 },
+    { NULL, 0}
+};
+
+_kind_p _choose_obj_kind(void)
+{
+    int i;
+    int tot = 0;
+
+    for (i = 0; ; i++)
+    {
+        if (!_kind_alloc_table[i].hook) break;
+        tot += _kind_alloc_table[i].weight;
+    }
+
+    if (tot > 0)
+    {
+        int j = randint0(tot);
+        
+        for (i = 0; ; i++)
+        {
+            if (!_kind_alloc_table[i].hook) break;
+            j -= _kind_alloc_table[i].weight;
+            if (j < 0)
+                return _kind_alloc_table[i].hook;
+        }
+    }
+
+    return NULL;
+}
 
 /*
  * Attempt to make an object (normal or good/great)
@@ -4634,6 +4816,10 @@ bool make_object(object_type *j_ptr, u32b mode)
 
         if (_drop_tailored && !get_obj_num_hook)
             get_obj_num_hook = kind_is_tailored;
+
+        /* Experimental: Restrict object allocation by type. */
+        if (!get_obj_num_hook)
+            get_obj_num_hook = _choose_obj_kind();
 
         /* Restricted objects - prepare allocation table */
         if (get_obj_num_hook) get_obj_num_prep();

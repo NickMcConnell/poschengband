@@ -130,29 +130,29 @@ D:Inventor of the incandescent lightbulb.
 # The Ring of Barahir -> Frakir
 
 N:8:'Frakir'
-I:45:32:1
+I:45:0:1
 W:50:40:2:10000
 F:STR | INT | WIS | DEX | CON | CHR | STEALTH | HIDE_TYPE | SPEED
-F:RES_POIS | ACTIVATE | SEE_INVIS | SEARCH | WARNING | INSTA_ART
+F:RES_POIS | ACTIVATE | SEE_INVIS | SEARCH | WARNING |
 
 # The Ring of Tulkas
 
 N:9:of Tulkas
-I:45:33:4
+I:45:0:4
 W:70:90:2:35000
-F:STR | DEX | CON | HIDE_TYPE | ACTIVATE | SPEED | INSTA_ART
+F:STR | DEX | CON | HIDE_TYPE | ACTIVATE | SPEED | 
 D:The treasure of Tulkas, most fleet and wrathful of the Valar.
 
 # The Ring of Power (Narya)
 
 N:10:of Power (Narya)
-I:45:34:1
+I:45:0:1
 W:70:100:2:100000
 P:0:1d1:0:0:0
 F:STR | INT | WIS | DEX | CON | CHR | SPEED | HIDE_TYPE |
 F:ACTIVATE | FREE_ACT | SEE_INVIS |
 F:SLOW_DIGEST | REGEN | SUST_STR | SUST_DEX | IM_FIRE | BRAND_FIRE
-F:INSTA_ART | WEAPONMASTERY
+F:WEAPONMASTERY
 D:The Ring of Fire, set with a ruby that glows like flame.  Narya is one 
 D:of the three Rings of Power created by the Elves and hidden by them from 
 D:Sauron.
@@ -160,14 +160,14 @@ D:Sauron.
 # The Ring of Power (Nenya)
 
 N:11:of Power (Nenya)
-I:45:35:2
+I:45:0:2
 W:80:140:2:200000
 P:0:1d1:0:0:0
 F:STR | INT | WIS | DEX | CON | CHR | SPEED | HIDE_TYPE |
 F:ACTIVATE | HOLD_LIFE | FREE_ACT | SEE_INVIS |
 F:LEVITATION | REGEN | 
 F:SUST_INT | SUST_WIS | IM_COLD | BRAND_COLD
-F:XTRA_POWER | INSTA_ART | WEAPONMASTERY
+F:XTRA_POWER | WEAPONMASTERY
 D:The Ring of Adamant, with a pure white stone as centerpiece.  Nenya is one 
 D:of the three Rings of Power created by the Elves and hidden by them from 
 D:Sauron.
@@ -175,14 +175,14 @@ D:Sauron.
 # The Ring of Power (Vilya)
 
 N:12:of Power (Vilya)
-I:45:36:3
+I:45:0:3
 W:90:170:2:300000
 P:0:1d1:0:0:0
 F:STR | INT | WIS | DEX | CON | CHR | SPEED | HIDE_TYPE |
 F:ACTIVATE | HOLD_LIFE | FREE_ACT | SEE_INVIS |
 F:LEVITATION | SLOW_DIGEST | REGEN |
 F:SUST_INT | SUST_WIS | SUST_STR | SUST_DEX | IM_ELEC | BRAND_ELEC
-F:INSTA_ART | XTRA_POWER | WEAPONMASTERY
+F:XTRA_POWER | WEAPONMASTERY
 D:The Ring of Sapphire, with clear blue gems that shine like stars, 
 D:glittering untouchable despite all that Morgoth ever wrought.  Vilya is 
 D:one of the three Rings of Power created by the Elves and hidden by them 
@@ -191,7 +191,7 @@ D:from Sauron.
 # The Ring of Power (The One Ring)
 
 N:13:of Power (The One Ring)
-I:45:37:5
+I:45:0:5
 W:100:255:2:5000000
 P:0:1d1:0:0:0
 F:STR | INT | WIS | DEX | CON | CHR | SPEED | HIDE_TYPE |
@@ -200,7 +200,7 @@ F:AGGRAVATE | DRAIN_EXP | SEE_INVIS | REGEN | TY_CURSE |
 F:IM_FIRE | IM_COLD | IM_ELEC | IM_ACID |
 F:SUST_STR | SUST_DEX | SUST_CON |
 F:SUST_INT | SUST_WIS | SUST_CHR |
-F:INSTA_ART | XTRA_POWER | XTRA_H_RES | SPELL_CAP
+F:XTRA_POWER | XTRA_H_RES | SPELL_CAP
 F:ESP_DEMON | ESP_UNDEAD | WEAPONMASTERY
 F:BRAND_FIRE | BRAND_COLD | BRAND_ELEC | BRAND_ACID
 D:"One Ring to rule them all, One Ring to find them, One Ring to bring 
@@ -210,13 +210,12 @@ D:powers so great that it inevitably twists and masters any earthly being
 D:who wears it.
 
 N:14:of Cower (Darnya)
-I:45:50:-5
+I:45:0:-5
 W:100:100:2:0
 P:0:1d1:-15:-15:0
 F:STR | INT | WIS | DEX | CON | CHR | SPEED | HIDE_TYPE |
 F:ACTIVATE | CURSED | HEAVY_CURSE | PERMA_CURSE |
 F:AGGRAVATE | DRAIN_EXP | TY_CURSE |
-F:INSTA_ART
 D:Adorned, showy gilding, 
 D:set with runes in the strange speech of Heheh, with power so great that it 
 D:inevitably twists and masters any earthly being who wears it.
@@ -557,7 +556,7 @@ N:47:of Thorongil
 I:35:1:0
 W:5:20:10:13000
 P:1:0d0:0:0:10
-F:FREE_ACT | RES_ACID | SEE_INVIS
+F:FREE_ACT | RES_ELEC | RES_FIRE | RES_COLD | SEE_INVIS
 D:A cloak of shimmering green and brown that grants sight beyond sight and 
 D:shakes off holding magics, worn by Aragorn son of Arathorn in his youth 
 D:as he adventured under the name of Thorongil.
@@ -2414,7 +2413,7 @@ N:238:of Aragorn
 I:30:2:2
 W:50:20:20:30000
 P:4:1d1:7:3:17
-F:STR | DEX | CHR
+F:STR | DEX | WIS
 F:SPEED | HIDE_TYPE | STEALTH | FREE_ACT | 
 F:RES_ELEC | RES_FIRE | RES_COLD
 
@@ -2737,11 +2736,11 @@ F:DEX | SPEED | SUST_DEX | IM_FIRE | RES_LITE | ACTIVATE
 F:INSTA_ART
 
 N:274:of the Ages
-I:45:59:4
+I:45:0:4
 W:70:70:2:100000
 P:0:0d0:0:0:20
 F:CON | SUST_STR | SUST_INT | SUST_WIS | SUST_DEX | SUST_CON | SUST_CHR
-F:RES_TIME | HOLD_LIFE | INSTA_ART
+F:RES_TIME | HOLD_LIFE | 
 D:Forged you know not when, this ring seems to have withstood the test of time.
 
 N:275:'Eviscerator'
@@ -2780,12 +2779,12 @@ D:species. Those who find themselves in a proximity of one seem
 D:to constantly lose cash, and it seems impossible to leave its presence.
 
 N:280:of Destruction
-I:45:59:4
+I:45:0:4
 W:90:70:2:100000
 P:0:0d0:0:0:0
 F:BRAND_ELEC | BRAND_FIRE | BRAND_COLD | BRAND_ACID | BRAND_POIS | 
 F:VULN_ACID | VULN_ELEC | VULN_FIRE | VULN_COLD | VULN_POIS | DEC_CON
-F:WEAPONMASTERY | INSTA_ART
+F:WEAPONMASTERY | 
 
 N:281:of Ancalagon
 I:23:35:1
@@ -2908,10 +2907,10 @@ F:RES_CONF | RES_CHAOS | STR | CON
 F:HOLD_LIFE | SEE_INVIS | REGEN
 
 N:299:of Devouring Darkness
-I:45:62:5
+I:45:0:5
 W:50:40:2:10000
 P:0:1d2:10:12:0
-F:INSTA_ART | QUESTITEM
+F:QUESTITEM
 F:STEALTH | SEE_INVIS | HOLD_LIFE | FREE_ACT
 F:RES_BLIND | RES_DARK | RES_NETHER | RES_POIS | VULN_LITE
 

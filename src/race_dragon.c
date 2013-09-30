@@ -24,20 +24,13 @@ static void _dragon_birth(void)
 
     equip_on_change_race();
     
-    object_prep(&forge, lookup_kind(TV_RING, SV_RING_STR));
-    forge.pval = 1;
-    add_outfit(&forge);
-
-    object_prep(&forge, lookup_kind(TV_RING, SV_RING_DAMAGE));
-    forge.to_d = 3;
-    add_outfit(&forge);
-
-    object_prep(&forge, lookup_kind(TV_RING, SV_RING_ACCURACY));
+    object_prep(&forge, lookup_kind(TV_RING, 0));
+    forge.name2 = EGO_RING_COMBAT;
     forge.to_h = 3;
-    add_outfit(&forge);
-
-    object_prep(&forge, lookup_kind(TV_RING, SV_RING_DEX));
+    forge.to_d = 3;
     forge.pval = 1;
+    add_flag(forge.art_flags, TR_STR);
+    add_flag(forge.art_flags, TR_DEX);
     add_outfit(&forge);
 }
 

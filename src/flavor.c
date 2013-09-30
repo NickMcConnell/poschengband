@@ -271,12 +271,6 @@ void flavor_init(void)
         k_ptr->flavor = i;
     }
 
-    /* Shuffle Rings */
-    shuffle_flavors(TV_RING);
-
-    /* Shuffle Amulets */
-    shuffle_flavors(TV_AMULET);
-
     /* Shuffle Staves */
     shuffle_flavors(TV_STAFF);
 
@@ -1151,59 +1145,11 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
             break;
         }
 
-        /* Amulets (including a few "Specials") */
         case TV_AMULET:
-        {
-            /* Known artifacts */
-            if (aware)
-            {
-                if (object_is_fixed_artifact(o_ptr)) break;
-                if (k_ptr->gen_flags & TRG_INSTA_ART) break;
-                if (object_is_artifact(o_ptr))
-                {
-                    basenm = "& Amulet~";
-                    kindname = "";
-                    break;
-                }
-            }
-
-            /* Color the object */
-            modstr = k_name + flavor_k_ptr->flavor_name;
-
-            if (!flavor)    basenm = "& Amulet~ of %";
-            else if (aware) basenm = "& # Amulet~ of %";
-            else            basenm = "& # Amulet~";
-            break;
-        }
-
-        /* Rings (including a few "Specials") */
         case TV_RING:
-        {
-            /* Known artifacts */
-            if (aware)
-            {
-                if (object_is_fixed_artifact(o_ptr)) break;
-                if (k_ptr->gen_flags & TRG_INSTA_ART) break;
-                if (object_is_artifact(o_ptr))
-                {
-                    basenm = "& Ring~";
-                    kindname = "";
-                    if (o_ptr->to_h || o_ptr->to_d)
-                        show_weapon = TRUE;
-                    break;
-                }
-            }
-
-            /* Color the object */
-            modstr = k_name + flavor_k_ptr->flavor_name;
-
-            if (!flavor)    basenm = "& Ring~ of %";
-            else if (aware) basenm = "& # Ring~ of %";
-            else            basenm = "& # Ring~";
-            if (!k_ptr->to_h && !k_ptr->to_d && (o_ptr->to_h || o_ptr->to_d)) 
+            if (o_ptr->to_h || o_ptr->to_d)
                 show_weapon = TRUE;
             break;
-        }
 
         case TV_CARD:
         {
@@ -1446,6 +1392,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
     if (aware && have_flag(flgs, TR_FULL_NAME))
     {
         if (known && o_ptr->name1) basenm = a_name + a_info[o_ptr->name1].name;
+        else if (known && o_ptr->name2) basenm = e_name + e_info[o_ptr->name2].name;
         else basenm = kindname;
     }
 
@@ -2221,10 +2168,10 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
     }
 
     /* Note "unidentified" if the item is unidentified */
-    else if (((o_ptr->tval == TV_RING) || (o_ptr->tval == TV_AMULET)
-           || (o_ptr->tval == TV_LITE) || (o_ptr->tval == TV_FIGURINE))
-         && aware && !known
-         && !(o_ptr->ident & IDENT_SENSE))
+    else if ( (o_ptr->tval == TV_LITE || o_ptr->tval == TV_FIGURINE)
+           && aware 
+           && !known
+           && !(o_ptr->ident & IDENT_SENSE) )
     {
         strcpy(fake_insc_buf, "unidentified");
     }

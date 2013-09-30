@@ -301,13 +301,6 @@ static s32b _activation_p(object_type *o_ptr)
         if (object_is_ego(o_ptr))
         {
         }
-        switch (o_ptr->sval)
-        {
-        case SV_RING_ACID:
-        case SV_RING_ICE:
-        case SV_RING_FLAMES:
-        case SV_RING_ELEC: return 7000;
-        }
     }
     else if (o_ptr->tval == TV_AMULET)
     {
@@ -994,8 +987,6 @@ s32b armor_cost(object_type *o_ptr)
 
     /* Abilities */
     q = _abilities_q(flgs);
-    if (o_ptr->name2 == EGO_GLOVES_SNIPER)
-        q += 20000;
     p += q;
 
     if (cost_calc_hook)

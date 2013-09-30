@@ -1847,39 +1847,15 @@ static bool _magic_accept(int k_idx)
 
     switch (k_info[k_idx].tval)
     {
-    case TV_RING:
-        switch (k_info[k_idx].sval)
-        {
-        case SV_RING_PROTECTION:
-        case SV_RING_LEVITATION_FALL:
-        case SV_RING_RESIST_FIRE:
-        case SV_RING_RESIST_COLD:
-        case SV_RING_SUSTAIN_INT:
-        case SV_RING_WARNING:
-            return TRUE;
-        }
-        return FALSE;
-        break;
-
-    case TV_AMULET:
-        switch (k_info[k_idx].sval)
-        {
-        case SV_AMULET_ADORNMENT:
-        case SV_AMULET_RESIST_ACID:
-        case SV_AMULET_SEARCHING:
-        case SV_AMULET_RESIST_FIRE:
-        case SV_AMULET_RESIST_COLD:
-        case SV_AMULET_RESIST_ELEC:
-            return TRUE;
-        }
-        return FALSE;
-        break;
-
     case TV_WAND:
     case TV_STAFF:
         if (k_info[k_idx].level < 20)
             return TRUE;
         break;
+
+    case TV_RING:
+    case TV_AMULET:
+        return TRUE;
 
     case TV_FIGURINE:
     case TV_ARCANE_BOOK:

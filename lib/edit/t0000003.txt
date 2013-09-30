@@ -163,8 +163,7 @@ F:@:FLOOR:3:0:144
 
 ?:[AND [EQU $QUEST29 3] [EQU $RACE Death-Sword] ]
 F:k:BUILDING_10:3:0:0:0:0:NONE:30
-F:@:FLOOR:3:0:43:68
-#F:<letter>:<terrain>:<cave_info>:<monster>:<object>:<ego>:<artifact>:<trap>:<special>
+F:@:FLOOR:3:0:43:247
 
 # Quest 29 finished, continue with quest 30
 ?:[EQU $QUEST29 4]

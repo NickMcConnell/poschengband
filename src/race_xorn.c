@@ -9,7 +9,8 @@ static void _birth(void)
     object_prep(&forge, lookup_kind(TV_SWORD, SV_LONG_SWORD));
     add_outfit(&forge);
 
-    object_prep(&forge, lookup_kind(TV_RING, SV_RING_DAMAGE));
+    object_prep(&forge, lookup_kind(TV_RING, 0));
+    forge.name2 = EGO_RING_COMBAT;
     forge.to_d = 5;
     add_outfit(&forge);
 

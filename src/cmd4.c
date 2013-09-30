@@ -4084,8 +4084,6 @@ static void do_cmd_knowledge_inven_aux(FILE *fff, object_type *o_ptr, int *j, by
      * have random resistances.
      */
     if ((object_is_wearable(o_ptr) && object_is_ego(o_ptr))
-        || ((tval == TV_AMULET) && (o_ptr->sval == SV_AMULET_RESISTANCE))
-        || ((tval == TV_RING) && (o_ptr->sval == SV_RING_LORDLY))
         || object_is_dragon_armor(o_ptr)
         || object_is_artifact(o_ptr))
     {

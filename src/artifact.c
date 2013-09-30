@@ -2208,10 +2208,7 @@ s32b create_artifact(object_type *o_ptr, u32b mode)
 
     if ( (o_ptr->tval == TV_LITE && o_ptr->sval != SV_LITE_JUDGE) 
       || o_ptr->tval == TV_AMULET
-      || (o_ptr->tval == TV_RING && o_ptr->sval != SV_RING_NARYA 
-                                 && o_ptr->sval != SV_RING_NENYA
-                                 && o_ptr->sval != SV_RING_VILYA
-                                 && o_ptr->sval != SV_RING_POWER ) ) 
+      || o_ptr->tval == TV_RING ) 
     {
         if (!one_in_(WEIRD_LUCK))
         {

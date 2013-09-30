@@ -336,12 +336,11 @@ static void _birth(void)
     p_ptr->current_r_idx = MON_BLACK_OOZE;
     equip_on_change_race();
     
-    object_prep(&forge, lookup_kind(TV_RING, SV_RING_STR));
+    object_prep(&forge, lookup_kind(TV_RING, 0));
+    forge.name2 = EGO_RING_COMBAT;
     forge.pval = 1;
-    add_outfit(&forge);
-
-    object_prep(&forge, lookup_kind(TV_RING, SV_RING_DAMAGE));
     forge.to_d = 3;
+    add_flag(forge.art_flags, TR_STR);
     add_outfit(&forge);
 
     object_prep(&forge, lookup_kind(TV_SOFT_ARMOR, SV_LEATHER_SCALE_MAIL));

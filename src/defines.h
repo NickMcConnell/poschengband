@@ -1679,46 +1679,39 @@
  *
  * This value is the primary means by which items are sorted in the
  * player inventory, followed by "sval" and "cost".
- *
- * Note that a "BOW" with tval = 19 and sval S = 10*N+P takes a missile
- * weapon with tval = 16+N, and does (xP) damage when so combined.  This
- * fact is not actually used in the source, but it kind of interesting.
- *
- * Note that as of 2.7.8, the "item flags" apply to all items, though
- * only armor and weapons and a few other items use any of these flags.
  */
 
 #define TV_SKELETON      1      /* Skeletons ('s'), not specified */
-#define TV_BOTTLE        2      /* Empty bottles ('!') */
+#define TV_BOTTLE        2
 #define TV_JUNK          3      /* Sticks, Pottery, etc ('~') */
-#define TV_WHISTLE       4      /* Whistle ('~') */
-#define TV_SPIKE         5      /* Spikes ('~') */
-#define TV_CHEST         7      /* Chests ('&') */
-#define TV_FIGURINE      8      /* Magical figurines */
-#define TV_STATUE        9      /* Statue, what a silly object... */
+#define TV_WHISTLE       4
+#define TV_SPIKE         5
+#define TV_CHEST         7
+#define TV_FIGURINE      8
+#define TV_STATUE        9
 #define TV_CORPSE       10      /* Corpses and Skeletons, specific */
 #define TV_CAPTURE      11      /* Monster ball */
-#define TV_NO_AMMO      15      /* Ammo for crimson */
-#define TV_SHOT         16      /* Ammo for slings */
-#define TV_ARROW        17      /* Ammo for bows */
-#define TV_BOLT         18      /* Ammo for x-bows */
-#define TV_BOW          19      /* Slings/Bows/Xbows */
-#define TV_DIGGING      20      /* Shovels/Picks */
+#define TV_NO_AMMO      15      /* Ammo for crimson?? */
+#define TV_SHOT         16
+#define TV_ARROW        17
+#define TV_BOLT         18
+#define TV_BOW          19
+#define TV_DIGGING      20
 #define TV_HAFTED       21      /* Priest Weapons */
 #define TV_POLEARM      22      /* Axes and Pikes */
 #define TV_SWORD        23      /* Edged Weapons */
-#define TV_BOOTS        30      /* Boots */
-#define TV_GLOVES       31      /* Gloves */
-#define TV_HELM         32      /* Helms */
-#define TV_CROWN        33      /* Crowns */
-#define TV_SHIELD       34      /* Shields */
-#define TV_CLOAK        35      /* Cloaks */
-#define TV_SOFT_ARMOR   36      /* Soft Armor */
-#define TV_HARD_ARMOR   37      /* Hard Armor */
-#define TV_DRAG_ARMOR   38      /* Dragon Scale Mail */
-#define TV_LITE         39      /* Lites (including Specials) */
-#define TV_AMULET       40      /* Amulets (including Specials) */
-#define TV_RING         45      /* Rings (including Specials) */
+#define TV_BOOTS        30
+#define TV_GLOVES       31
+#define TV_HELM         32
+#define TV_CROWN        33
+#define TV_SHIELD       34
+#define TV_CLOAK        35
+#define TV_SOFT_ARMOR   36
+#define TV_HARD_ARMOR   37
+#define TV_DRAG_ARMOR   38
+#define TV_LITE         39
+#define TV_AMULET       40
+#define TV_RING         45
 #define TV_CARD         50
 #define TV_STAFF        55
 #define TV_WAND         65
@@ -2077,71 +2070,7 @@
 #define SV_AMULET_HERO                  44
 
 /* The sval codes for TV_RING */
-#define SV_RING_WOE                      0
-#define SV_RING_AGGRAVATION              1
-#define SV_RING_WEAKNESS                 2
-#define SV_RING_STUPIDITY                3
-#define SV_RING_TELEPORTATION            4
-#define SV_RING_SLOW_DIGESTION           6
-#define SV_RING_LEVITATION_FALL          7
-#define SV_RING_RESIST_FIRE              8
-#define SV_RING_RESIST_COLD              9
-#define SV_RING_SUSTAIN_STR             10
-#define SV_RING_SUSTAIN_INT             11
-#define SV_RING_SUSTAIN_WIS             12
-#define SV_RING_SUSTAIN_CON             13
-#define SV_RING_SUSTAIN_DEX             14
-#define SV_RING_SUSTAIN_CHR             15
-#define SV_RING_PROTECTION              16
-#define SV_RING_ACID                    17
-#define SV_RING_FLAMES                  18
-#define SV_RING_ICE                     19
-#define SV_RING_RESIST_POIS             20
-#define SV_RING_FREE_ACTION             21
-#define SV_RING_SEE_INVIS               22
-#define SV_RING_SEARCHING               23
-#define SV_RING_STR                     24
-#define SV_RING_ELEC                    25
-#define SV_RING_DEX                     26
-#define SV_RING_CON                     27
-#define SV_RING_ACCURACY                28
-#define SV_RING_DAMAGE                  29
-#define SV_RING_SLAYING                 30
-#define SV_RING_SPEED                   31
-#define SV_RING_FRAKIR                  32
-#define SV_RING_TULKAS                  33
-#define SV_RING_NARYA                   34
-#define SV_RING_NENYA                   35
-#define SV_RING_VILYA                   36
-#define SV_RING_POWER                   37
-#define SV_RING_RES_FEAR                38
-#define SV_RING_RES_LD                  39
-#define SV_RING_RES_NETHER              40
-#define SV_RING_RES_NEXUS               41
-#define SV_RING_RES_SOUND               42
-#define SV_RING_RES_CONFUSION           43
-#define SV_RING_RES_SHARDS              44
-#define SV_RING_RES_DISENCHANT          45
-#define SV_RING_RES_CHAOS               46
-#define SV_RING_RES_BLINDNESS           47
-#define SV_RING_LORDLY                  48
-#define SV_RING_ATTACKS                 49
-#define SV_RING_AHO                     50
-#define SV_RING_SHOTS                   51
-#define SV_RING_SUSTAIN                 52
-#define SV_RING_DEC_MANA                53
-#define SV_RING_WARNING                 54
-#define SV_RING_MUSCLE                  55
-#define SV_RING_FRODO                   56
-#define SV_RING_SPELL_POWER                57
-#define SV_RING_SPELL_CAP                58
-#define SV_RING_AGES                    59
-#define SV_RING_DESTRUCTION             60
-#define SV_RING_WEAPONMASTERY           61
-#define SV_RING_DEVOURING_DARKNESS      62
-#define SV_RING_RESISTANCE              63
-#define SV_RING_HIGH_RESISTANCE         64
-#define SV_RING_EXTRA_MIGHT             65
+#define SV_RING                      0
 
 #define SV_EXPRESS_CARD                  0
 
@@ -6199,3 +6128,17 @@ enum ego_weapon_e {
     EGO_WEAPON_GONDOLIN = 249,
 };
 
+enum ego_ring_e {
+    EGO_RING_PROTECTION = 300,
+    EGO_RING_ELEMENTAL,
+    EGO_RING_COMBAT,
+    EGO_RING_ARCHERY,
+    EGO_RING_DEFENDER,
+    EGO_RING_WIZARDRY,
+    EGO_RING_SPEED,
+    EGO_RING_NAZGUL,
+};
+
+enum ego_amulet_e {
+    EGO_AMULET_DUMMY,
+};

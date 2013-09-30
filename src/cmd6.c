@@ -3691,59 +3691,8 @@ static void do_cmd_activate_aux(int item)
     {
         if (object_is_ego(o_ptr))
         {
-            bool success = TRUE;
-
-            switch (o_ptr->name2)
-            {
-            default:
-                success = FALSE;
-                break;
-            }
-            if (success) return;
         }
 
-        /* Get a direction for breathing (or abort) */
-        if (!get_aim_dir(&dir)) return;
-
-        switch (o_ptr->sval)
-        {
-            case SV_RING_ACID:
-            {
-                fire_ball(GF_ACID, dir, device_power(100), 2);
-                (void)set_oppose_acid(device_power(randint1(20) + 20), FALSE);
-                o_ptr->timeout = randint0(50) + 50;
-                break;
-            }
-
-            case SV_RING_ICE:
-            {
-                fire_ball(GF_COLD, dir, device_power(100), 2);
-                (void)set_oppose_cold(device_power(randint1(20) + 20), FALSE);
-                o_ptr->timeout = randint0(50) + 50;
-                break;
-            }
-
-            case SV_RING_FLAMES:
-            {
-                fire_ball(GF_FIRE, dir, device_power(100), 2);
-                (void)set_oppose_fire(device_power(randint1(20) + 20), FALSE);
-                o_ptr->timeout = randint0(50) + 50;
-                break;
-            }
-
-            case SV_RING_ELEC:
-            {
-                fire_ball(GF_ELEC, dir, device_power(100), 2);
-                (void)set_oppose_elec(device_power(randint1(20) + 20), FALSE);
-                o_ptr->timeout = randint0(50) + 50;
-                break;
-            }
-        }
-
-        /* Window stuff */
-        p_ptr->window |= (PW_INVEN | PW_EQUIP);
-
-        /* Success */
         return;
     }
 

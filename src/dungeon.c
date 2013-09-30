@@ -2855,16 +2855,11 @@ static byte get_dungeon_feeling(void)
         /* Skip pseudo-known objects */
         if (o_ptr->ident & IDENT_SENSE) continue;
 
-        /* Ego objects */
-        if (object_is_ego(o_ptr))
-        {
-            ego_item_type *e_ptr = &e_info[o_ptr->name2];
-
-            delta += e_ptr->rating * base;
-        }
-
-        /* Artifacts */
+        /* Experimental Hack: Force Special Feelings for artifacts no matter what. */
         if (object_is_artifact(o_ptr))
+            return 1;
+
+        if (object_is_artifact(o_ptr) || object_is_ego(o_ptr) || object_is_dragon_armor(o_ptr))
         {
             s32b cost = object_value_real(o_ptr);
 
@@ -2873,22 +2868,12 @@ static byte get_dungeon_feeling(void)
             if (cost > 50000L) delta += 10 * base;
             if (cost > 100000L) delta += 10 * base;
 
-            /* Special feeling */
-            /*if (!preserve_mode) return 1;*/
-            return 1;
+            if (!preserve_mode && object_is_artifact(o_ptr))
+                return 1;
         }
 
         if (o_ptr->tval == TV_DRAG_ARMOR) delta += 30 * base;
         if (object_is_dragon_armor(o_ptr))delta += 5 * base;
-        if (o_ptr->tval == TV_RING &&
-            o_ptr->sval == SV_RING_SPEED &&
-            !object_is_cursed(o_ptr)) delta += 25 * base;
-        if (o_ptr->tval == TV_RING &&
-            o_ptr->sval == SV_RING_LORDLY &&
-            !object_is_cursed(o_ptr)) delta += 15 * base;
-        if (o_ptr->tval == TV_AMULET &&
-            o_ptr->sval == SV_AMULET_THE_MAGI &&
-            !object_is_cursed(o_ptr)) delta += 15 * base;
 
         /* Out-of-depth objects */
         if (!object_is_cursed(o_ptr) && !object_is_broken(o_ptr) &&

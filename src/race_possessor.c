@@ -24,7 +24,8 @@ static void _birth(void)
     forge.pval = (byte)rand_range(25, 30);
     add_outfit(&forge);
 
-    object_prep(&forge, lookup_kind(TV_RING, SV_RING_DAMAGE));
+    object_prep(&forge, lookup_kind(TV_RING, 0));
+    forge.name2 = EGO_RING_COMBAT;
     forge.to_d = 3;
     add_outfit(&forge);
 }

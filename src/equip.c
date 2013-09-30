@@ -1167,8 +1167,15 @@ void equip_calc_bonuses(void)
             _weapon_info_flag(i, flgs, TR_SLAY_GOOD);  /* Thanos */
         }
 
-        if (have_flag(flgs, TR_XTRA_SHOTS)) p_ptr->shooter_info.num_fire += 100;
-        if (o_ptr->name2 == EGO_GLOVES_SNIPER) p_ptr->shooter_info.num_fire += 50;
+        if (have_flag(flgs, TR_XTRA_SHOTS))
+        {
+            if (o_ptr->name2 == EGO_RING_ARCHERY)
+                p_ptr->shooter_info.num_fire += 50 * o_ptr->pval;
+            else if (o_ptr->name2 == EGO_GLOVES_SNIPER) 
+                p_ptr->shooter_info.num_fire += 50;
+            else
+                p_ptr->shooter_info.num_fire += 100;
+        }
 
         if (have_flag(flgs, TR_LIFE))
             p_ptr->life += 3*o_ptr->pval;
@@ -1320,17 +1327,21 @@ void equip_calc_bonuses(void)
         /* Hack -- do not apply "bow" bonuses */
         if (_object_is_bow(o_ptr)) continue;
 
-        bonus_to_h = o_ptr->to_h;
-        bonus_to_d = o_ptr->to_d;
-
-        /* Hack -- Sniper gloves apply damage bonus to missiles only */
-        if (o_ptr->name2 == EGO_GLOVES_SNIPER)
+        /* Hack -- Sniper gloves apply to missiles only */
+        if (o_ptr->name2 == EGO_GLOVES_SNIPER || o_ptr->name2 == EGO_RING_ARCHERY)
         {
-            bonus_to_d = 0;
+            p_ptr->shooter_info.to_h += o_ptr->to_h;
             p_ptr->shooter_info.to_d += o_ptr->to_d;
             if (object_is_known(o_ptr))
+            {
+                p_ptr->shooter_info.dis_to_h += o_ptr->to_h;
                 p_ptr->shooter_info.dis_to_d += o_ptr->to_d;
+            }
+            continue;
         }
+
+        bonus_to_h = o_ptr->to_h;
+        bonus_to_d = o_ptr->to_d;
 
         if (p_ptr->pclass == CLASS_NINJA)
         {
@@ -1338,21 +1349,8 @@ void equip_calc_bonuses(void)
             if (o_ptr->to_d > 0) bonus_to_d = (o_ptr->to_d+1)/2;
         }
 
-        /* To Bow and Natural attack */
-        p_ptr->shooter_info.to_h += bonus_to_h;
         p_ptr->to_h_m += bonus_to_h;
         p_ptr->to_d_m += bonus_to_d;
-
-        if ( o_ptr->name1 != ART_MASTER_TONBERRY
-          && o_ptr->name2 != EGO_GLOVES_GIANT )
-        {
-            p_ptr->shooter_info.to_d += bonus_to_d;
-            if (object_is_known(o_ptr))
-                p_ptr->shooter_info.dis_to_d += bonus_to_d;
-        }
-
-        /* Apply the mental bonuses tp hit/damage, if known */
-        if (object_is_known(o_ptr)) p_ptr->shooter_info.dis_to_h += bonus_to_h;
 
         _weapon_bonus(i, bonus_to_h, bonus_to_d);
         if (have_flag(flgs, TR_WEAPONMASTERY))

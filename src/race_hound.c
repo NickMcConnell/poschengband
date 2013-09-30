@@ -97,7 +97,8 @@ static void _birth(void)
     p_ptr->current_r_idx = MON_CLEAR_HOUND;
     equip_on_change_race();
     
-    object_prep(&forge, lookup_kind(TV_RING, SV_RING_DAMAGE));
+    object_prep(&forge, lookup_kind(TV_RING, 0));
+    forge.name2 = EGO_RING_COMBAT;
     forge.to_d = 3;
     add_outfit(&forge);
 

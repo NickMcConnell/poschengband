@@ -42,6 +42,7 @@ bool have_pval_flags(u32b flgs[TR_FLAG_SIZE])
       || have_flag(flgs, TR_TUNNEL)
       || have_flag(flgs, TR_SPEED)
       || have_flag(flgs, TR_BLOWS)
+      || have_flag(flgs, TR_XTRA_SHOTS) /* But only for Rings of Archery! */
       || have_flag(flgs, TR_SPELL_POWER)
       || have_flag(flgs, TR_SPELL_CAP) 
       || have_flag(flgs, TR_WEAPONMASTERY) 

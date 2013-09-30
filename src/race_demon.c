@@ -46,7 +46,8 @@ static void _khorne_birth(void)
     p_ptr->current_r_idx = MON_BLOODLETTER_KHORNE;
     equip_on_change_race();
 
-    object_prep(&forge, lookup_kind(TV_RING, SV_RING_DAMAGE));
+    object_prep(&forge, lookup_kind(TV_RING, 0));
+    forge.name2 = EGO_RING_COMBAT;
     forge.to_d = 6;
     add_outfit(&forge);
     
@@ -361,7 +362,8 @@ static void _marilith_birth(void) {
     p_ptr->current_r_idx = MON_MANES;
     equip_on_change_race();
 
-    object_prep(&forge, lookup_kind(TV_RING, SV_RING_DAMAGE));
+    object_prep(&forge, lookup_kind(TV_RING, 0));
+    forge.name2 = EGO_RING_COMBAT;
     forge.to_d = 3;
     add_outfit(&forge);
     
@@ -595,7 +597,8 @@ static void _balrog_birth(void)
 
     p_ptr->current_r_idx = MON_LESSER_BALROG;
 
-    object_prep(&forge, lookup_kind(TV_RING, SV_RING_DAMAGE));
+    object_prep(&forge, lookup_kind(TV_RING, 0));
+    forge.name2 = EGO_RING_COMBAT;
     forge.to_d = 5;
     add_outfit(&forge);
     
@@ -769,7 +772,8 @@ static void _cyber_birth(void)
 
     p_ptr->current_r_idx = MON_CYBER;
 
-    object_prep(&forge, lookup_kind(TV_RING, SV_RING_DAMAGE));
+    object_prep(&forge, lookup_kind(TV_RING, 0));
+    forge.name2 = EGO_RING_COMBAT;
     forge.to_d = 10;
     add_outfit(&forge);
     
