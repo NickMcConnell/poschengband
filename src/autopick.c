@@ -1464,9 +1464,14 @@ static bool is_opt_confirm_destroy(object_type *o_ptr)
 {
     if (!destroy_items) return FALSE;
 
-    /* Known to be worthless? */
+    /* Known to be worthless? 
+       Note: Many egos now have plusses and minusses, and occasional score as zero value
+       but should *not* be destroyed. Example, gloves of giant strenght increase some stats, 
+       decrease others, and occasionally give vulnerability to confusion. The player might
+       still want to wear these, even if the scoring algorithm considers them worthless!
+    */
     if (leave_worth)
-        if (object_value(o_ptr) > 0) return FALSE;
+        if (object_value(o_ptr) > 0 || o_ptr->name1 || o_ptr->name2) return FALSE;
 
     if (leave_equip)
         if (object_is_weapon_armour_ammo(o_ptr)) return FALSE;

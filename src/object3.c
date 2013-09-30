@@ -270,11 +270,11 @@ static s32b _activation_p(object_type *o_ptr)
     
     switch (o_ptr->name2)
     {
-    case EGO_TRUMP: return 1500;
+    case EGO_WEAPON_TRUMP: return 1500;
     case EGO_LITE_ILLUMINATION: return 200;
-    case EGO_EARTHQUAKES: return 700;
-    case EGO_JUMP: return 1000;
-    case EGO_DAEMON: return 8000;
+    case EGO_WEAPON_EARTHQUAKES: return 700;
+    case EGO_BOOTS_GNOMISH: return 1000;
+    case EGO_WEAPON_DAEMON: return 8000;
     }
 
     if (o_ptr->tval == TV_DRAG_ARMOR)
@@ -300,28 +300,6 @@ static s32b _activation_p(object_type *o_ptr)
     {
         if (object_is_ego(o_ptr))
         {
-            switch (o_ptr->name2)
-            {
-            case EGO_RING_HERO: return 1500;
-            case EGO_RING_MAGIC_MIS: return 200;
-            case EGO_RING_FIRE_BOLT: return 500;
-            case EGO_RING_COLD_BOLT: return 500;
-            case EGO_RING_ELEC_BOLT: return 500;
-            case EGO_RING_ACID_BOLT: return 500;
-            case EGO_RING_MANA_BOLT: return 900;
-            case EGO_RING_FIRE_BALL: return 700;
-            case EGO_RING_COLD_BALL: return 700;
-            case EGO_RING_ELEC_BALL: return 700;
-            case EGO_RING_ACID_BALL: return 700;
-            case EGO_RING_MANA_BALL: return 1200;
-            case EGO_RING_DRAGON_F: return 1500;
-            case EGO_RING_DRAGON_C: return 1500;
-            case EGO_RING_M_DETECT: return 2000;
-            case EGO_RING_D_SPEED: return 15000;
-            case EGO_RING_BERSERKER: return 5000;
-            case EGO_RING_TELE_AWAY: return 3000;
-            case EGO_RING_TRUE: return 35000;
-            }
         }
         switch (o_ptr->sval)
         {
@@ -335,20 +313,6 @@ static s32b _activation_p(object_type *o_ptr)
     {
         if (object_is_ego(o_ptr))
         {
-            switch (o_ptr->name2)
-            {
-            case EGO_AMU_IDENT: return 1500;
-            case EGO_AMU_CHARM: return 600;
-            case EGO_AMU_JUMP: return 2000;
-            case EGO_AMU_TELEPORT: return 1500;
-            case EGO_AMU_D_DOOR: return 7000;
-            case EGO_AMU_RES_FIRE_:
-            case EGO_AMU_RES_COLD_:
-            case EGO_AMU_RES_ELEC_:
-            case EGO_AMU_RES_ACID_: return 7000;
-            case EGO_AMU_DETECTION: return 4000;
-            case EGO_AMU_RESISTANCE: return 50000;
-            }
         }
     }
     return 0;
@@ -362,6 +326,7 @@ static s32b _aura_p(u32b flgs[TR_FLAG_SIZE])
     if (have_flag(flgs, TR_SH_ELEC)) ct++;
     if (have_flag(flgs, TR_SH_COLD)) ct++;
     if (have_flag(flgs, TR_SH_SHARDS)) ct++;
+    if (have_flag(flgs, TR_SH_REVENGE)) ct++;
     switch (ct)
     {
     case 0: p = 0; break;
@@ -381,7 +346,7 @@ static s32b _stats_q(u32b flgs[TR_FLAG_SIZE], int pval)
     pval = MIN(pval, 10); /* Iron Crown of the Serpent is +125 */
 
     if (have_flag(flgs, TR_SPELL_POWER)) 
-        return 5000 * ABS(pval); /* Hack! */
+        return 5000 * pval; /* Hack! */
     else
     {
         if (have_flag(flgs, TR_STR)) {y += 12; ct++;}
@@ -412,6 +377,8 @@ static s32b _stats_q(u32b flgs[TR_FLAG_SIZE], int pval)
 
     if (have_flag(flgs, TR_LIFE))
         q += 5000 * pval;
+    if (have_flag(flgs, TR_DEC_LIFE))
+        q -= 5000 * pval;
 
     if (have_flag(flgs, TR_DEC_STR))
         q -= 2000 * pval;
@@ -427,6 +394,8 @@ static s32b _stats_q(u32b flgs[TR_FLAG_SIZE], int pval)
         q -= 2000 * pval;
     if (have_flag(flgs, TR_DEC_STEALTH))
         q -= 1000 * pval;
+    if (have_flag(flgs, TR_DEC_SPEED))
+        q -= 10000 * pval;
     return q;
 }
 
@@ -1025,7 +994,7 @@ s32b armor_cost(object_type *o_ptr)
 
     /* Abilities */
     q = _abilities_q(flgs);
-    if (o_ptr->name2 == EGO_SNIPER)
+    if (o_ptr->name2 == EGO_GLOVES_SNIPER)
         q += 20000;
     p += q;
 
@@ -1094,7 +1063,7 @@ s32b armor_cost(object_type *o_ptr)
     }
 
     /* Genji? This will become TR_2WEAPON someday ... */
-    if (o_ptr->name2 == EGO_GENJI || o_ptr->name1 == ART_MASTER_TONBERRY || o_ptr->name1 == ART_MEPHISTOPHELES)
+    if (o_ptr->name2 == EGO_GLOVES_GENJI || o_ptr->name1 == ART_MASTER_TONBERRY || o_ptr->name1 == ART_MEPHISTOPHELES)
     {
         p += 20000;
         if (cost_calc_hook)

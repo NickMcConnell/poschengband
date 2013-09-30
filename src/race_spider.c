@@ -548,7 +548,6 @@ static void _birth(void)
 
     object_prep(&forge, lookup_kind(TV_RING, SV_RING_SEARCHING));
     forge.pval = 1;
-    forge.name2 = EGO_RING_STEALTH;
     add_outfit(&forge);
 
     object_prep(&forge, lookup_kind(TV_SOFT_ARMOR, SV_LEATHER_SCALE_MAIL));

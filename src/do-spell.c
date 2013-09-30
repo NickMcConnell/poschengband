@@ -3147,7 +3147,7 @@ static cptr do_chaos_spell(int spell, int mode)
         {
             if (cast)
             {
-                brand_weapon(EGO_CHAOTIC);
+                brand_weapon(EGO_WEAPON_CHAOS);
             }
         }
         break;
@@ -3593,7 +3593,7 @@ static cptr do_death_spell(int spell, int mode)
         {
             if (cast)
             {
-                brand_weapon(EGO_BRAND_POIS);
+                brand_weapon(EGO_WEAPON_VENOM);
             }
         }
         break;
@@ -3750,7 +3750,7 @@ static cptr do_death_spell(int spell, int mode)
         {
             if (cast)
             {
-                brand_weapon(EGO_VAMPIRIC);
+                brand_weapon(EGO_WEAPON_DEATH);
             }
         }
         break;
@@ -4426,7 +4426,7 @@ static cptr do_trump_spell(int spell, int mode)
         {
             if (cast)
             {
-                brand_weapon(EGO_TRUMP);
+                brand_weapon(EGO_WEAPON_TRUMP);
             }
         }
         break;
@@ -6005,7 +6005,7 @@ static cptr do_daemon_spell(int spell, int mode)
         {
             if (cast)
             {
-                brand_weapon(EGO_BRAND_FIRE);
+                brand_weapon(EGO_WEAPON_BURNING);
             }
         }
         break;
@@ -6725,7 +6725,7 @@ static cptr do_crusade_spell(int spell, int mode)
         {
             if (cast)
             {
-                brand_weapon(EGO_SLAY_EVIL);
+                brand_weapon(EGO_WEAPON_SLAY_EVIL);
             }
         }
         break;

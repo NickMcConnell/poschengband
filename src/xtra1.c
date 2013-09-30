@@ -2970,7 +2970,7 @@ static void _calc_torch_imp(object_type *o_ptr)
         {
             p_ptr->cur_lite += 3;
         }
-        if (o_ptr->name2 == EGO_LITE_SHINE) p_ptr->cur_lite++;
+        if (o_ptr->name2 == EGO_LITE_EXTRA_LIGHT) p_ptr->cur_lite++;
         if (o_ptr->sval == SV_LITE_EYE) p_ptr->cur_lite -= 10;
     }
     else
@@ -2979,7 +2979,7 @@ static void _calc_torch_imp(object_type *o_ptr)
         object_flags(o_ptr, flgs);
         if (have_flag(flgs, TR_LITE))
         {
-            if (o_ptr->name2 == EGO_DARK || o_ptr->name1 == ART_NIGHT) p_ptr->cur_lite--;
+            if (o_ptr->name2 == EGO_HELMET_VAMPIRE || o_ptr->name1 == ART_NIGHT) p_ptr->cur_lite--;
             else p_ptr->cur_lite++;
         }
     }
@@ -4596,7 +4596,7 @@ void calc_bonuses(void)
         p_ptr->redraw |= PR_SPEED;
 
     /* Robe of the Twilight forces AC to 0 */
-    if (equip_find_ego(EGO_YOIYAMI))
+    if (equip_find_ego(EGO_ROBE_TWILIGHT))
     {
         if (p_ptr->to_a > (0 - p_ptr->ac))
             p_ptr->to_a = 0 - p_ptr->ac;
@@ -4660,9 +4660,6 @@ void calc_bonuses(void)
     if (p_ptr->tsubureru) p_ptr->skills.sav = 10;
 
     if ((p_ptr->ult_res || IS_RESIST_MAGIC() || p_ptr->magicdef) && (p_ptr->skills.sav < (95 + p_ptr->lev))) p_ptr->skills.sav = 95 + p_ptr->lev;
-
-    if (equip_find_ego(EGO_AMU_NAIVETY)) 
-        p_ptr->skills.sav /= 2;
 
     if (enable_virtues)
     {

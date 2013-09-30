@@ -1657,12 +1657,18 @@ extern bool monst_spell_monst(int m_idx);
 extern bool immunity_hack;
 extern void one_sustain(object_type *o_ptr);
 extern void one_high_resistance(object_type *o_ptr);
+extern bool one_high_vulnerability(object_type *o_ptr);
 extern void one_lordly_high_resistance(object_type *o_ptr);
 extern void one_ele_slay(object_type *o_ptr);
 extern void one_ele_resistance(object_type *o_ptr);
+extern bool one_ele_vulnerability(object_type *o_ptr);
 extern void one_dragon_ele_resistance(object_type *o_ptr);
+extern bool one_dragon_ele_vulnerability(object_type *o_ptr);
 extern void one_low_esp(object_type *o_ptr);
 extern void one_resistance(object_type *o_ptr);
+extern bool one_vulnerability(object_type *o_ptr);
+extern bool one_stat_biff(object_type *o_ptr);
+extern bool one_biff(object_type *o_ptr);
 extern void one_ability(object_type *o_ptr);
 enum {
     CREATE_ART_NORMAL = 0x00,
@@ -1822,6 +1828,7 @@ extern bool object_allow_enchant_weapon(object_type *o_ptr);
 extern bool object_allow_enchant_melee_weapon(object_type *o_ptr);
 extern bool object_is_smith(object_type *o_ptr);
 extern bool object_is_artifact(object_type *o_ptr);
+extern bool object_is_dragon_armor(object_type *o_ptr);
 extern bool object_is_nameless(object_type *o_ptr);
 extern bool object_allow_two_hands_wielding(object_type *o_ptr);
 extern bool object_can_activate(object_type *o_ptr);

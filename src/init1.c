@@ -809,6 +809,9 @@ static cptr k_info_flags[] =
     "VULN_CHAOS",
     "VULN_DISEN",
     "DEC_STEALTH", 
+    "DEC_SPEED", 
+    "DEC_LIFE", 
+    "SH_REVENGE", 
 };
 
 
@@ -2265,8 +2268,27 @@ static bool grab_one_ego_item_flag(ego_item_type *e_ptr, cptr what)
     return (1);
 }
 
-
-
+static cptr e_info_types[] = /* order must match ego_e in defines.h, obviously */
+{
+    "NONE", 
+    "AMMO",
+    "WEAPON",
+    "SHIELD",
+    "BOW",
+    "RING",
+    "AMULET",
+    "LITE",
+    "BODY_ARMOR",
+    "CLOAK",
+    "HELMET",
+    "GLOVES",
+    "BOOTS",
+    "DIGGER",
+    "CROWN",
+    "HARP",
+    "ROBE",
+    "SPECIAL",
+};
 
 /*
  * Initialize the "e_info" array, by parsing an ascii "template" file
@@ -2288,72 +2310,59 @@ errr parse_e_info(char *buf, header *head)
     error_line = -1;
 
 
-    /* Process 'N' for "New/Number/Name" */
+    /* N:1:Gloves:of Free Action */
     if (buf[0] == 'N')
     {
-        /* Find the colon before the name */
-        s = my_strchr(buf+2, ':');
+        char *zz[3];
+        int   num = tokenize(buf + 2, 3, zz, 0);
+        int   j;
 
-            /* Verify that colon */
-        if (!s) return (1);
+        if (num != 3) return PARSE_ERROR_TOO_FEW_ARGUMENTS;
 
-        /* Nuke the colon, advance to the name */
-        *s++ = '\0';
+        /* Unique Index */
+        i = atoi(zz[0]);
+        if (i < error_idx) return 4;
+        if (i >= head->info_num) return 2;
 
-        /* Paranoia -- require a name */
-        if (!*s) return (1);
-
-        /* Get the index */
-        i = atoi(buf+2);
-
-        /* Verify information */
-        if (i < error_idx) return (4);
-
-        /* Verify information */
-        if (i >= head->info_num) return (2);
-
-        /* Save the index */
         error_idx = i;
-
-        /* Point at the "info" */
         e_ptr = &e_info[i];
 
-        /* Store the name */
-        if (!add_name(&e_ptr->name, head, s)) return (7);
+        /* Type */
+        for (j = 0; j < EGO_TYPE_MAX; j++)
+        {
+            if (streq(zz[1], e_info_types[j])) 
+            {
+                e_ptr->type = j;
+                break;
+            }
+        }
+
+        if (!e_ptr->type) return 1;
+
+
+        /* Description */
+        if (!add_name(&e_ptr->name, head, zz[2])) return 7;
     }
 
     /* There better be a current e_ptr */
     else if (!e_ptr) return (3);
 
-    /* Process 'X' for "Xtra" (one line only) */
-    else if (buf[0] == 'X')
-    {
-        int slot, rating;
-
-        /* Scan for the values */
-        if (2 != sscanf(buf+2, "%d:%d",
-                &slot, &rating)) return (1);
-
-        /* Save the values */
-        e_ptr->slot = slot;
-        e_ptr->rating = rating;
-    }
-
-    /* Process 'W' for "More Info" (one line only) */
+    /* W:MinDepth:MaxDepth:Rarity:Rating 
+       W:30:*:32:50                    */
     else if (buf[0] == 'W')
     {
-        int level, rarity, max_level;
-        int cost;
+        char *zz[4];
+        int   num = tokenize(buf + 2, 4, zz, 0);
 
-        /* Scan for the values */
-        if (4 != sscanf(buf+2, "%d:%d:%d:%d",
-                &level, &rarity, &max_level, &cost)) return (1);
+        if (num != 4) return PARSE_ERROR_TOO_FEW_ARGUMENTS;
 
-        /* Save the values */
-        e_ptr->level = level;
-        e_ptr->rarity = rarity;
-        e_ptr->max_level = max_level;
-        e_ptr->cost = cost;
+        e_ptr->level = atoi(zz[0]);
+        if (strcmp(zz[1], "*") == 0)
+            e_ptr->max_level = 0;
+        else
+            e_ptr->max_level = atoi(zz[1]);
+        e_ptr->rarity = atoi(zz[2]);
+        e_ptr->rating = atoi(zz[3]);
     }
 
     /* Hack -- Process 'C' for "creation" */

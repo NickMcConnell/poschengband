@@ -3406,7 +3406,7 @@ void do_cmd_fire_aux2(int item, object_type *bow, int sx, int sy, int tx, int ty
         x = sx;
 
         /* Weaponmaster power:  Ammo is not consumed */
-        if ( (p_ptr->return_ammo || o_ptr->name2 == EGO_RETURNING)
+        if ( (p_ptr->return_ammo || o_ptr->name2 == EGO_AMMO_RETURNING)
           && randint1(100) <= 50 + p_ptr->lev/2 )
         {
             return_ammo = TRUE;

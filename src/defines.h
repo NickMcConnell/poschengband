@@ -16,9 +16,9 @@
 #define VERSION_NAME "PosChengband"
 
 
-#define VER_MAJOR 2
+#define VER_MAJOR 3
 #define VER_MINOR 0
-#define VER_PATCH 4
+#define VER_PATCH 0
 #define VER_EXTRA 0
 
 
@@ -1587,250 +1587,6 @@
 #define ART_EMPEROR_QUYLTHULG 319
 #define ART_DESTROYER       320
 #define ART_ATLAS           321
-
-/*** Ego-Item indexes (see "lib/edit/e_info.txt") ***/
-
-
-/* Nothing */
-/* xxx */
-/* xxx */
-/* xxx */
-
-/* Body Armor */
-#define EGO_RESIST_ACID         4
-#define EGO_RESIST_ELEC         5
-#define EGO_RESIST_FIRE         6
-#define EGO_RESIST_COLD         7
-#define EGO_RESISTANCE          8
-#define EGO_ELVENKIND           9
-#define EGO_DWARVEN             10
-#define EGO_PERMANENCE          11
-#define EGO_YOIYAMI             12
-#define EGO_ARMOR_HIGH_RESISTANCE 13
-
-/* Shields */
-#define EGO_SHIELD_ELVENKIND    14
-#define EGO_SHIELD_HIGH_RESISTANCE 15
-#define EGO_ENDURE_ACID         16
-#define EGO_ENDURE_ELEC         17
-#define EGO_ENDURE_FIRE         18
-#define EGO_ENDURE_COLD         19
-#define EGO_ENDURANCE           20
-#define EGO_REFLECTION          21
-#define EGO_NIGHT_DAY           22
-#define EGO_DWARVEN_SHIELD      253
-
-/* Crowns and Helms */
-#define EGO_DARK                23
-#define EGO_INTELLIGENCE        24
-#define EGO_WISDOM              25
-#define EGO_BEAUTY              26
-#define EGO_MAGI                27
-#define EGO_MIGHT               28
-#define EGO_LORDLINESS          29
-#define EGO_SEEING              30
-#define EGO_INFRAVISION         31
-#define EGO_LITE                32
-#define EGO_TELEPATHY           33
-#define EGO_REGENERATION        34
-#define EGO_TELEPORTATION       35
-#define EGO_STUPIDITY           36
-#define EGO_NAIVETY             37
-#define EGO_UGLINESS            38
-#define EGO_SICKLINESS          39
-#define EGO_DWARVEN_HELM        254
-
-/* Cloaks */
-#define EGO_PROTECTION          40
-#define EGO_STEALTH             41
-#define EGO_AMAN                42
-#define EGO_AURA_FIRE           43
-#define EGO_ENVELOPING          44
-#define EGO_VULNERABILITY       45
-#define EGO_IRRITATION          46
-#define EGO_AURA_ELEC           47
-#define EGO_AURA_COLD          128
-#define EGO_BAT                129
-#define EGO_CLOAK_THIEVERY     240
-
-/* Gloves */
-#define EGO_FREE_ACTION         48
-#define EGO_SLAYING             49
-#define EGO_AGILITY             50
-#define EGO_GIANT_STRENGTH      51
-#define EGO_GENJI               52
-#define EGO_MAGIC_MASTERY       53
-#define EGO_WEAKNESS            54
-#define EGO_CLUMSINESS          55
-#define EGO_SNIPER             248
-#define EGO_BERSERKER          249
-
-/* Boots */
-#define EGO_SLOW_DESCENT        56
-#define EGO_QUIET               57
-#define EGO_MOTION              58
-#define EGO_SPEED               59
-#define EGO_JUMP                60
-#define EGO_NOISE               61
-#define EGO_SLOWNESS            62
-#define EGO_ANNOYANCE           63
-#define EGO_BOOTS_THIEVERY     241
-
-/* Weapons */
-#define EGO_HA                  64
-#define EGO_DEFENDER            65
-#define EGO_BLESS_BLADE         66
-/* xxx */
-#define EGO_WEST                68
-#define EGO_ATTACKS             69
-#define EGO_SLAYING_WEAPON      70
-#define EGO_FORCE_WEAPON        71
-#define EGO_BRAND_ACID          72
-#define EGO_BRAND_ELEC          73
-#define EGO_BRAND_FIRE          74
-#define EGO_BRAND_COLD          75
-#define EGO_BRAND_POIS          76
-#define EGO_CHAOTIC             77
-#define EGO_SHARPNESS           78
-#define EGO_EARTHQUAKES         79
-#define EGO_SLAY_ANIMAL         80
-#define EGO_SLAY_EVIL           81
-#define EGO_SLAY_UNDEAD         82
-#define EGO_SLAY_DEMON          83
-#define EGO_SLAY_ORC            84
-#define EGO_SLAY_TROLL          85
-#define EGO_SLAY_GIANT          86
-#define EGO_SLAY_DRAGON         87
-#define EGO_KILL_ANIMAL         88
-#define EGO_KILL_EVIL           89
-#define EGO_KILL_UNDEAD         90
-#define EGO_KILL_DEMON          91
-#define EGO_KILL_ORC            92
-#define EGO_KILL_TROLL          93
-#define EGO_KILL_GIANT          94
-#define EGO_KILL_DRAGON         95
-#define EGO_VAMPIRIC            96
-#define EGO_PRISM               97
-#define EGO_TRUMP               98
-#define EGO_PATTERN             99
-#define EGO_DIGGING             100
-#define EGO_SLAY_HUMAN          101
-#define EGO_MORGUL              102
-#define EGO_KILL_HUMAN          103
-#define EGO_WILD                242
-#define EGO_ORDER                243
-#define EGO_LIFE                244
-#define EGO_ARCANE                245
-#define EGO_DAEMON                246
-#define EGO_DISSOLVING          251
-#define EGO_DISRUPTING          252
-
-/* Bows */
-#define EGO_ACCURACY            104
-#define EGO_VELOCITY            105
-/* xxx */
-/* xxx */
-#define EGO_EXTRA_MIGHT         108
-#define EGO_EXTRA_SHOTS         109
-/* xxx */
-/* xxx */
-
-/* Ammo */
-#define EGO_HURT_ANIMAL         112
-#define EGO_HURT_EVIL           113
-/* xxx */
-/* xxx */
-/* xxx */
-/* xxx */
-/* xxx */
-#define EGO_HURT_DRAGON         119
-#define EGO_SLAYING_BOLT        120
-#define EGO_LIGHTNING_BOLT      121
-#define EGO_FLAME               122
-#define EGO_FROST               123
-#define EGO_WOUNDING            124
-#define EGO_BACKBITING          125
-#define EGO_SHATTERED           126
-#define EGO_BLASTED             127
-#define EGO_RETURNING           256
-
-#define EGO_LITE_SHINE          140
-#define EGO_LITE_ILLUMINATION   141
-#define EGO_LITE_AURA_FIRE      142
-#define EGO_LITE_INFRA          143
-#define EGO_LITE_LONG           144
-#define EGO_LITE_DARKNESS       145
-#define EGO_LITE_EYE            146
-#define EGO_LITE_VALINOR        255
-
-#define EGO_RING_HERO           150
-#define EGO_RING_SLAY           151
-#define EGO_RING_SUPER_AC       152
-#define EGO_RING_MAGIC_MIS      153
-#define EGO_RING_FIRE_BOLT      154
-#define EGO_RING_COLD_BOLT      155
-#define EGO_RING_ELEC_BOLT      156
-#define EGO_RING_ACID_BOLT      157
-#define EGO_RING_MANA_BOLT      158
-#define EGO_RING_FIRE_BALL      159
-#define EGO_RING_COLD_BALL      160
-#define EGO_RING_ELEC_BALL      161
-#define EGO_RING_ACID_BALL      162
-#define EGO_RING_MANA_BALL      163
-#define EGO_RING_DRAGON_F       164
-#define EGO_RING_DRAGON_C       165
-#define EGO_RING_D_SPEED        166
-#define EGO_RING_BERSERKER      167
-#define EGO_RING_HUNTER         168
-#define EGO_RING_THROW          169
-#define EGO_RING_REGEN          170
-#define EGO_RING_LITE           171
-#define EGO_RING_M_DETECT       172
-#define EGO_RING_STEALTH        173
-#define EGO_RING_TELE_AWAY      174
-#define EGO_RING_TO_H           175
-#define EGO_RING_TO_D           176
-#define EGO_RING_RES_LITE       177
-#define EGO_RING_RES_DARK       178
-#define EGO_RING_WIZARD         179
-#define EGO_RING_TRUE           180
-#define EGO_RING_DRAIN_EXP      181
-#define EGO_RING_NO_MELEE       182
-#define EGO_RING_AGGRAVATE      183
-#define EGO_RING_TY_CURSE       184
-#define EGO_RING_RES_TIME       185
-#define EGO_RING_TELEPORT       186
-#define EGO_RING_ALBINO         187
-
-#define EGO_AMU_SLOW_D          210
-#define EGO_AMU_INFRA           211
-#define EGO_AMU_SEE_INVIS       212
-#define EGO_AMU_HOLD_LIFE       213
-#define EGO_AMU_DRAIN_EXP       214
-#define EGO_AMU_FOOL            215
-#define EGO_AMU_AGGRAVATE       216
-#define EGO_AMU_TY_CURSE        217
-#define EGO_AMU_AC              218
-#define EGO_AMU_IDENT           219
-#define EGO_AMU_CHARM           220
-#define EGO_AMU_STEALTH         221
-#define EGO_AMU_JUMP            222
-#define EGO_AMU_TELEPORT        223
-#define EGO_AMU_D_DOOR          224
-#define EGO_AMU_DEFENDER        225
-#define EGO_AMU_RES_FIRE        226
-#define EGO_AMU_RES_FIRE_       227
-#define EGO_AMU_RES_COLD        228
-#define EGO_AMU_RES_COLD_       229
-#define EGO_AMU_RES_ELEC        230
-#define EGO_AMU_RES_ELEC_       231
-#define EGO_AMU_RES_ACID        232
-#define EGO_AMU_RES_ACID_       233
-#define EGO_AMU_LEVITATION      234
-#define EGO_AMU_GREAT           235
-#define EGO_AMU_DETECTION       236
-#define EGO_AMU_NAIVETY         237
-#define EGO_AMU_RESISTANCE      250
 
 /* Activation effects for random artifacts */
 #define ACT_SUNLIGHT            1
@@ -3600,8 +3356,11 @@
 #define TR_VULN_CHAOS          149
 #define TR_VULN_DISEN          150
 #define TR_DEC_STEALTH         151
+#define TR_DEC_SPEED           152
+#define TR_DEC_LIFE            153
+#define TR_SH_REVENGE          154
 
-#define TR_FLAG_MAX            152
+#define TR_FLAG_MAX            155
 #define TR_FLAG_SIZE           6
 
 #define TRG_INSTA_ART           0x00000001     /* Item must be an artifact */
@@ -6218,6 +5977,225 @@ enum slot_e {
     EQUIP_SLOT_ANY,             
     EQUIP_SLOT_WEAPON,
     EQUIP_SLOT_CAPTURE_BALL,
-    EQUIP_SLOT_MAX,
+    EQUIP_SLOT_MAX
+};
+
+enum ego_e {
+    EGO_TYPE_NONE, 
+    EGO_TYPE_AMMO,
+    EGO_TYPE_WEAPON,
+    EGO_TYPE_SHIELD,
+    EGO_TYPE_BOW,
+    EGO_TYPE_RING,
+    EGO_TYPE_AMULET,
+    EGO_TYPE_LITE,
+    EGO_TYPE_BODY_ARMOR,
+    EGO_TYPE_CLOAK,
+    EGO_TYPE_HELMET,
+    EGO_TYPE_GLOVES,
+    EGO_TYPE_BOOTS,
+    EGO_TYPE_DIGGER,
+    EGO_TYPE_CROWN,
+    EGO_TYPE_HARP,
+    EGO_TYPE_ROBE,
+    EGO_TYPE_SPECIAL,
+    EGO_TYPE_MAX
+};
+
+enum ego_gloves_e {
+    EGO_GLOVES_FREE_ACTION = 1,
+    EGO_GLOVES_SLAYING,
+    EGO_GLOVES_THIEF,
+    EGO_GLOVES_GIANT,
+    EGO_GLOVES_WIZARD,
+    EGO_GLOVES_YEEK,
+    EGO_GLOVES_GENJI,
+    EGO_GLOVES_SNIPER,
+    EGO_GLOVES_BERSERKER,
+};
+
+enum ego_robe_e {
+    EGO_ROBE_PERMANENCE = 17,
+    EGO_ROBE_TWILIGHT,
+    EGO_ROBE_SORCERER,
+};
+
+enum ego_body_e {
+    EGO_BODY_PROTECTION = 20,
+    EGO_BODY_ELEMENTAL_PROTECTION,
+    EGO_BODY_CELESTIAL_PROTECTION,
+    EGO_BODY_ELVENKIND,
+    EGO_BODY_DWARVEN,
+    EGO_BODY_URUK_HAI,
+    EGO_BODY_OLOG_HAI,
+    EGO_BODY_DEMON,
+    EGO_BODY_DEMON_LORD,
+};
+
+enum ego_crown_e {
+    EGO_CROWN_SEEING = 40,
+    EGO_CROWN_TELEPATHY,
+    EGO_CROWN_MAGI,
+    EGO_CROWN_MIGHT,
+    EGO_CROWN_LORDLINESS,
+    EGO_CROWN_ANGMAR,
+    EGO_CROWN_UNBELIEVER,
+    EGO_CROWN_CELESTIAL_PROTECTION,
+};
+
+enum ego_helmet_e {
+    EGO_HELMET_KNOWLEDGE = 60,
+    EGO_HELMET_UNDERSTANDING,
+    EGO_HELMET_DOMINATION,
+    EGO_HELMET_FORTITUDE,
+    EGO_HELMET_KOBOLD,
+    EGO_HELMET_TROLL,
+    EGO_HELMET_VAMPIRE,
+    EGO_HELMET_SUNLIGHT,
+    EGO_HELMET_SEEING,
+    EGO_HELMET_DWARVEN,
+    EGO_HELMET_VALKYRIE,
+    EGO_HELMET_RAGE,
+};
+
+enum ego_shield_e {
+    EGO_SHIELD_PROTECTION = 80,
+    EGO_SHIELD_ELEMENTAL_PROTECTION,
+    EGO_SHIELD_CELESTIAL_PROTECTION,
+    EGO_SHIELD_DWARVEN,
+    EGO_SHIELD_ORCISH,
+    EGO_SHIELD_ELVENKIND,
+    EGO_SHIELD_REFLECTION,
+    EGO_SHIELD_NIGHT_AND_DAY,
+    EGO_SHIELD_ENDURANCE,
+};
+
+enum ego_cloak_e {
+    EGO_CLOAK_PROTECTION = 100,
+    EGO_CLOAK_COWARDICE,
+    EGO_CLOAK_STEALTH,
+    EGO_CLOAK_ELEMENTAL_PROTECTION,
+    EGO_CLOAK_IMMOLATION,
+    EGO_CLOAK_ELECTRICITY,
+    EGO_CLOAK_FREEZING,
+    EGO_CLOAK_RETRIBUTION,
+    EGO_CLOAK_SHADOWS,
+    EGO_CLOAK_AMAN,
+    EGO_CLOAK_BAT,
+    EGO_CLOAK_FAIRY,
+    EGO_CLOAK_NAZGUL,
+};
+
+enum ego_boots_e {
+    EGO_BOOTS_LEVITATION = 120,
+    EGO_BOOTS_STEALTH,
+    EGO_BOOTS_GNOMISH,
+    EGO_BOOTS_DWARVEN,
+    EGO_BOOTS_SPEED,
+    EGO_BOOTS_ELVENKIND,
+    EGO_BOOTS_FEANOR,
+    EGO_BOOTS_FAIRY,
+};
+
+enum ego_harp_e {
+    EGO_HARP_VANYAR = 138,
+    EGO_HARP_EREBOR,
+};
+
+enum ego_bow_e {
+    EGO_BOW_ACCURACY = 140,
+    EGO_BOW_VELOCITY,
+    EGO_BOW_EXTRA_MIGHT,
+    EGO_BOW_EXTRA_SHOTS,
+    EGO_BOW_LOTHLORIEN,
+    EGO_BOW_HARADRIM,
+    EGO_BOW_BUCKLAND,
+};
+
+enum ego_ammo_e {
+    EGO_AMMO_HURT_ANIMAL = 155,
+    EGO_AMMO_HURT_DRAGON,
+    EGO_AMMO_HURT_EVIL,
+    EGO_AMMO_SLAYING,
+    EGO_AMMO_WOUNDING,
+    EGO_AMMO_SHOCKING,
+    EGO_AMMO_FLAME,
+    EGO_AMMO_FROST,
+    EGO_AMMO_PRISM,
+    EGO_AMMO_RETURNING,
+    EGO_AMMO_HOLY_MIGHT,
+};
+
+enum ego_special_e {
+    EGO_SPECIAL_BLASTED = 169,
+};
+
+enum ego_lite_e {
+    EGO_LITE_EXTRA_LIGHT = 175,
+    EGO_LITE_ILLUMINATION,
+    EGO_LITE_DURATION,
+    EGO_LITE_INFRAVISION,
+    EGO_LITE_IMMOLATION,
+    EGO_LITE_DARKNESS,
+    EGO_LITE_IMMORTAL_EYE,
+    EGO_LITE_VALINOR,
+};
+
+enum ego_digger_e {
+    EGO_DIGGER_DIGGING = 190,
+    EGO_DIGGER_DISSOLVING,
+    EGO_DIGGER_DISRUPTION,
+};
+
+enum ego_weapon_e {
+    EGO_WEAPON_BURNING = 200,
+    EGO_WEAPON_FREEZING,
+    EGO_WEAPON_MELTING,
+    EGO_WEAPON_SHOCKING,
+    EGO_WEAPON_VENOM,
+    EGO_WEAPON_FORCE,
+
+    EGO_WEAPON_SLAY_ANIMAL = 206,
+    EGO_WEAPON_SLAY_DEMON,
+    EGO_WEAPON_SLAY_DRAGON,
+    EGO_WEAPON_SLAY_EVIL,
+    EGO_WEAPON_SLAY_GIANT,
+    EGO_WEAPON_SLAY_HUMAN,
+    EGO_WEAPON_SLAY_ORC,
+    EGO_WEAPON_SLAY_TROLL,
+    EGO_WEAPON_SLAY_UNDEAD,
+
+    EGO_WEAPON_KILL_DEMON = 215,
+    EGO_WEAPON_KILL_DRAGON,
+    EGO_WEAPON_KILL_EVIL,
+    EGO_WEAPON_KILL_GIANT,
+    EGO_WEAPON_KILL_HUMAN,
+    EGO_WEAPON_KILL_ORC,
+    EGO_WEAPON_KILL_TROLL,
+    EGO_WEAPON_KILL_UNDEAD,
+
+    EGO_WEAPON_ARCANE = 223,
+    EGO_WEAPON_ARMAGEDDON,
+    EGO_WEAPON_CHAOS,
+    EGO_WEAPON_CRAFT,
+    EGO_WEAPON_CRUSADE,
+    EGO_WEAPON_DAEMON,
+    EGO_WEAPON_DEATH,
+    EGO_WEAPON_LIFE,
+    EGO_WEAPON_NATURE,
+    EGO_WEAPON_TRUMP,
+    EGO_WEAPON_WILD,
+    EGO_WEAPON_ORDER = 234,
+
+    EGO_WEAPON_BLESSED = 240,
+    EGO_WEAPON_DEFENDER,
+    EGO_WEAPON_EARTHQUAKES,
+    EGO_WEAPON_EXTRA_ATTACKS,
+    EGO_WEAPON_MORGUL,
+    EGO_WEAPON_PATTERN,
+    EGO_WEAPON_SHARPNESS,
+    EGO_WEAPON_WESTERNESSE,
+    EGO_WEAPON_NOLDOR,
+    EGO_WEAPON_GONDOLIN = 249,
 };
 

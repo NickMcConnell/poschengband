@@ -54,7 +54,7 @@ static void _khorne_birth(void)
     add_outfit(&forge);
 
     object_prep(&forge, lookup_kind(TV_SWORD, SV_BLADE_OF_CHAOS));
-    forge.name2 = EGO_SHARPNESS;
+    forge.name2 = EGO_WEAPON_SHARPNESS;
     forge.pval = 1;
     forge.to_h = 0;
     forge.to_d = 0;
@@ -275,7 +275,7 @@ static void _khorne_gain_level(int new_level)
         equip_on_change_race();
         p_ptr->redraw |= PR_MAP;
         object_prep(&forge, lookup_kind(TV_SWORD, SV_BLADE_OF_CHAOS));
-        forge.name2 = EGO_VAMPIRIC; /* Prevent ?Artifact or ?WeaponBranding */
+        forge.name2 = EGO_WEAPON_DEATH; /* Prevent ?Artifact or ?WeaponBranding */
         forge.dd = 50;
         forge.ds = 1;
         forge.weight = 500;
@@ -369,7 +369,7 @@ static void _marilith_birth(void) {
     add_outfit(&forge);
 
     object_prep(&forge, lookup_kind(TV_HAFTED, SV_WHIP));
-    forge.name2 = EGO_BRAND_FIRE;
+    forge.name2 = EGO_WEAPON_BURNING;
     forge.dd = 1;
     forge.ds = 6;
     forge.to_h = 1;
@@ -603,7 +603,7 @@ static void _balrog_birth(void)
     add_outfit(&forge);
 
     object_prep(&forge, lookup_kind(TV_HAFTED, SV_WHIP));
-    forge.name2 = EGO_BRAND_FIRE;
+    forge.name2 = EGO_WEAPON_BURNING;
     forge.dd = 2;
     forge.ds = 6;
     forge.to_h = 5;

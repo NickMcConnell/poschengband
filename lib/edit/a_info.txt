@@ -425,10 +425,10 @@ F:CURSED | HEAVY_CURSE | PERMA_CURSE | NO_TELE | INSTA_ART | QUESTITEM
 # The Iron Crown of Beruthiel
 
 N:35:of Beruthiel
-I:33:10:-25
+I:33:10:25
 W:40:166:20:0
 P:0:1d1:0:0:25
-F:STR | DEX | CON | HIDE_TYPE | DEC_MANA | EASY_SPELL |
+F:DEC_STR | DEC_DEX | DEC_CON | HIDE_TYPE | DEC_MANA | EASY_SPELL |
 F:FREE_ACT | SEE_INVIS | TELEPATHY | CURSED | XTRA_POWER | SPELL_POWER
 D:The midnight-hued steel circlet of the sorceress-queen Beruthiel, which 
 D:grants extraordinary powers of sight and awareness at a terrible physical 
@@ -1552,14 +1552,14 @@ D: and each time that he slew Hurin cried 'Aure entuluva! Day shall come
 D: again!'. Seventy times he uttered that cry, but they took him at last
 D: alive, by the command of Morgoth..."
 
-N:134:of Buckland
-I:19:2:3
-W:40:35:20:50000
-P:0:2d1:19:15:0
-F:SPEED | XTRA_MIGHT |
-F:RES_BLIND | RES_CONF | SHOW_MODS | XTRA_RES_OR_POWER
-D:A sling granting extraordinary clarity of mind amidst darkness and 
-D:confusion, and which hurls shot with deadly speed.
+#N:134:of Buckland
+#I:19:2:3
+#W:40:35:20:50000
+#P:0:2d1:19:15:0
+#F:SPEED | XTRA_MIGHT |
+#F:RES_BLIND | RES_CONF | SHOW_MODS | XTRA_RES_OR_POWER
+#D:A sling granting extraordinary clarity of mind amidst darkness and 
+#D:confusion, and which hurls shot with deadly speed.
 
 N:135:of Azaghal
 I:23:5:0
@@ -1913,14 +1913,14 @@ F:SLAY_UNDEAD | SLAY_DRAGON | SLAY_ANIMAL |
 F:RES_FIRE | BLESSED | 
 F:SLOW_DIGEST | SHOW_MODS
 
-N:180:of Harad
-I:19:24:-2
-W:60:120:200:35000
-P:0:4d1:18:18:-44
-F:WIS | STEALTH | XTRA_SHOTS | XTRA_MIGHT | AGGRAVATE | RES_LITE | RES_DARK | 
-F:HIDE_TYPE | SHOW_MODS | TY_CURSE
-D:A great brazen arbalest with arms of gleaming steel shooting quarrels with 
-D:speed and power for those brave enough to risk betrayal.
+#N:180:of Harad
+#I:19:24:-2
+#W:60:120:200:35000
+#P:0:4d1:18:18:-44
+#F:WIS | STEALTH | XTRA_SHOTS | XTRA_MIGHT | AGGRAVATE | RES_LITE | RES_DARK | 
+#F:HIDE_TYPE | SHOW_MODS | TY_CURSE
+#D:A great brazen arbalest with arms of gleaming steel shooting quarrels with 
+#D:speed and power for those brave enough to risk betrayal.
 
 N:181:of halfheart
 I:21:63:7
@@ -2094,14 +2094,14 @@ F:RES_ACID | RES_COLD | RES_BLIND | RES_CHAOS |
 F:LITE | ACTIVATE | BLESSED | SEE_INVIS | SHOW_MODS
 
 N:203:of The High Preist of Morlok
-I:37:1:-2
+I:37:1:2
 W:90:8:200:100000
 P:14:1d4:-5:0:-40
 F:INT | WIS | CHR | HIDE_TYPE | RES_LITE | RES_DARK |
 F:RES_ACID | RES_ELEC | RES_FIRE | RES_COLD |
 F:RES_POIS | RES_CONF | RES_CHAOS | RES_NETHER |
 F:RES_NEXUS | AGGRAVATE | CURSED | HEAVY_CURSE | TY_CURSE
-F:STR | DEX | CON | SPELL_POWER
+F:DEC_STR | DEC_DEX | DEC_CON | SPELL_POWER
 
 N:204:'Sumo Wrestler's Loincloth'
 I:36:9:4
@@ -2410,14 +2410,13 @@ F:STR | CON | DEX | HIDE_TYPE | SHOW_MODS | REGEN |
 F:RES_SOUND | RES_DISEN | XTRA_H_RES
 D:A cape worn by a hero from Hong Kong
 
-N:238:of Frodo
+N:238:of Aragorn
 I:30:2:2
 W:50:20:20:30000
-P:4:1d1:1:1:7
-F:DEC_STR | DEX | CHR
-F:SPEED | HIDE_TYPE | STEALTH | FREE_ACT | LEVITATION
-D:Frodo somehow found courage to bear the One Ring to Mount Doom.
-D:These boots seem endowed with all that is brave and noble in hobbits.
+P:4:1d1:7:3:17
+F:STR | DEX | CHR
+F:SPEED | HIDE_TYPE | STEALTH | FREE_ACT | 
+F:RES_ELEC | RES_FIRE | RES_COLD
 
 N:239:of Sam
 I:32:2:1
@@ -2518,11 +2517,11 @@ F:RES_FIRE | RES_COLD | RES_ACID | RES_ELEC | ACTIVATE
 F:VAMPIRIC | BRAND_POIS | FORCE_WEAPON | SPELL_CAP
 
 N:250:of Kaschei
-I:21:21:-6
+I:21:21:4
 W:30:66:40:300000
 P:0:3d2:-6:-6:0
 F:CURSED | HEAVY_CURSE | PERMA_CURSE | AGGRAVATE | DRAIN_EXP
-F:STR | DEX | CON | SPELL_POWER | DEC_MANA
+F:DEC_STR | DEC_DEX | DEC_CON | SPELL_POWER | DEC_MANA | INT
 F:RES_POIS | RES_NETHER | RES_DARK | RES_DISEN
 
 N:251:of Aegir
@@ -2605,12 +2604,12 @@ F:PERMA_CURSE | ACTIVATE | QUESTITEM
 D:This simple tunic belongs to Hades, Lord of the Underworld.
 
 N:259:of Athena
-I:22:2:-4
+I:22:2:4
 W:90:127:50:555555
 P:0:3d6:15:15:15
-F:SUST_INT | SUST_WIS | DEC_MANA | BLESSED
-F:HOLD_LIFE | TELEPATHY | PERMA_CURSE | ACTIVATE | QUESTITEM
-F:STR | DEX | CON | SPELL_POWER
+F:SUST_INT | SUST_WIS | DEC_MANA | BLESSED |
+F:HOLD_LIFE | TELEPATHY | PERMA_CURSE | ACTIVATE | QUESTITEM |
+F:DEC_STR | DEC_DEX | DEC_CON | SPELL_POWER | INT |
 D:This is the favored weapon of Athena, the great goddess of War and Wisdom.
 
 N:260:of Ares

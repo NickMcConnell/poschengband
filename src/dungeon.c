@@ -1120,7 +1120,7 @@ void notice_lite_change(object_type *o_ptr)
     }
 
     /* The light is getting dim */
-    else if (o_ptr->name2 == EGO_LITE_LONG)
+    else if (o_ptr->name2 == EGO_LITE_DURATION)
     {
         if ((o_ptr->xtra4 < 50) && (!(o_ptr->xtra4 % 5))
             && (turn % (TURNS_PER_TICK*2)))
@@ -2204,7 +2204,7 @@ static void process_world_aux_light(void)
         if ( !(lite->name1 || lite->name3 || lite->art_name || lite->sval == SV_LITE_FEANOR) 
           && lite->xtra4 > 0 )
         {
-            if (lite->name2 == EGO_LITE_LONG)
+            if (lite->name2 == EGO_LITE_DURATION)
             {
                 if (turn % (TURNS_PER_TICK*2)) lite->xtra4--;
             }
@@ -2879,16 +2879,7 @@ static byte get_dungeon_feeling(void)
         }
 
         if (o_ptr->tval == TV_DRAG_ARMOR) delta += 30 * base;
-        if (o_ptr->tval == TV_SHIELD &&
-            o_ptr->sval == SV_DRAGON_SHIELD) delta += 5 * base;
-        if (o_ptr->tval == TV_GLOVES &&
-            o_ptr->sval == SV_SET_OF_DRAGON_GLOVES) delta += 5 * base;
-        if (o_ptr->tval == TV_BOOTS &&
-            o_ptr->sval == SV_PAIR_OF_DRAGON_GREAVE) delta += 5 * base;
-        if (o_ptr->tval == TV_HELM &&
-            o_ptr->sval == SV_DRAGON_HELM) delta += 5 * base;
-        if (o_ptr->tval == TV_CLOAK &&
-            o_ptr->sval == SV_DRAGON_CLOAK) delta += 5 * base;
+        if (object_is_dragon_armor(o_ptr))delta += 5 * base;
         if (o_ptr->tval == TV_RING &&
             o_ptr->sval == SV_RING_SPEED &&
             !object_is_cursed(o_ptr)) delta += 25 * base;

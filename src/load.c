@@ -1294,7 +1294,7 @@ static errr rd_savefile_new_aux(savefile_ptr file)
              "Loading a %d.%d.%d savefile...",
              (z_major > 9) ? z_major - 10 : z_major, z_minor, z_patch));
 
-    if (savefile_is_older_than(file, 0, 9, 0, 1))
+    if (savefile_is_older_than(file, 3, 0, 0, 0))
     {
         note("Old savefiles are not supported!");
         return 1;

@@ -8,7 +8,7 @@ static void _birth(void)
     equip_on_change_race();
     
     object_prep(&forge, lookup_kind(TV_CROWN, SV_IRON_CROWN));
-    forge.name2 = EGO_SEEING;
+    forge.name2 = EGO_CROWN_SEEING;
     forge.pval = 4;
     forge.to_a = 10;
     add_esp_weak(&forge, FALSE);

@@ -1096,6 +1096,7 @@ void equip_calc_bonuses(void)
         if (have_flag(flgs, TR_INFRA)) p_ptr->see_infra += o_ptr->pval;
         if (have_flag(flgs, TR_TUNNEL)) p_ptr->skill_dig += (o_ptr->pval * 20);
         if (have_flag(flgs, TR_SPEED)) p_ptr->pspeed += o_ptr->pval;
+        if (have_flag(flgs, TR_DEC_SPEED)) p_ptr->pspeed -= o_ptr->pval;
 
         if (have_flag(flgs, TR_BLOWS) && (p_ptr->pclass != CLASS_MAULER || o_ptr->pval < 0))
         {
@@ -1167,18 +1168,21 @@ void equip_calc_bonuses(void)
         }
 
         if (have_flag(flgs, TR_XTRA_SHOTS)) p_ptr->shooter_info.num_fire += 100;
-        if (o_ptr->name2 == EGO_SNIPER) p_ptr->shooter_info.num_fire += 50;
+        if (o_ptr->name2 == EGO_GLOVES_SNIPER) p_ptr->shooter_info.num_fire += 50;
 
         if (have_flag(flgs, TR_LIFE))
             p_ptr->life += 3*o_ptr->pval;
+        if (have_flag(flgs, TR_DEC_LIFE))
+            p_ptr->life -= 3*o_ptr->pval;
 
         if (have_flag(flgs, TR_AGGRAVATE))   p_ptr->cursed |= TRC_AGGRAVATE;
         if (have_flag(flgs, TR_DRAIN_EXP))   p_ptr->cursed |= TRC_DRAIN_EXP;
         if (have_flag(flgs, TR_TY_CURSE))    p_ptr->cursed |= TRC_TY_CURSE;
 
         if (have_flag(flgs, TR_DEC_MANA))    p_ptr->dec_mana = TRUE;
-        if (have_flag(flgs, TR_SPELL_POWER)) p_ptr->spell_power -= o_ptr->pval;
+        if (have_flag(flgs, TR_SPELL_POWER)) p_ptr->spell_power += o_ptr->pval;
         if (have_flag(flgs, TR_SPELL_CAP))   p_ptr->spell_cap += o_ptr->pval;
+        if (have_flag(flgs, TR_MAGIC_RESISTANCE))   p_ptr->magic_resistance += 5*o_ptr->pval;
         if (have_flag(flgs, TR_BLESSED))     p_ptr->bless_blade = TRUE;
         if (have_flag(flgs, TR_XTRA_MIGHT))  p_ptr->shooter_info.to_mult++;
         if (have_flag(flgs, TR_SLOW_DIGEST)) p_ptr->slow_digest = TRUE;
@@ -1225,6 +1229,7 @@ void equip_calc_bonuses(void)
         if (have_flag(flgs, TR_SH_ELEC))  p_ptr->sh_elec = TRUE;
         if (have_flag(flgs, TR_SH_COLD))  p_ptr->sh_cold = TRUE;
         if (have_flag(flgs, TR_SH_SHARDS))  p_ptr->sh_shards = TRUE;
+        if (have_flag(flgs, TR_SH_REVENGE))  p_ptr->sh_retaliation = TRUE;
         if (have_flag(flgs, TR_NO_MAGIC)) p_ptr->anti_magic = TRUE;
         if (have_flag(flgs, TR_NO_TELE))  p_ptr->anti_tele = TRUE;
         if (have_flag(flgs, TR_NO_SUMMON)) p_ptr->anti_summon = TRUE;
@@ -1236,7 +1241,7 @@ void equip_calc_bonuses(void)
         if (have_flag(flgs, TR_SUST_CON)) p_ptr->sustain_con = TRUE;
         if (have_flag(flgs, TR_SUST_CHR)) p_ptr->sustain_chr = TRUE;
 
-        if (o_ptr->name2 == EGO_GENJI || o_ptr->name1 == ART_MASTER_TONBERRY || o_ptr->name1 == ART_MEPHISTOPHELES)
+        if (o_ptr->name2 == EGO_GLOVES_GENJI || o_ptr->name1 == ART_MASTER_TONBERRY || o_ptr->name1 == ART_MEPHISTOPHELES)
         {
             switch (_template->slots[i].type)
             {
@@ -1254,10 +1259,7 @@ void equip_calc_bonuses(void)
             }
         }
 
-        if (o_ptr->name2 == EGO_RING_RES_TIME) res_add(RES_TIME);
-        if (o_ptr->name2 == EGO_RING_THROW) p_ptr->mighty_throw = TRUE;
         if (have_flag(flgs, TR_EASY_SPELL)) p_ptr->easy_spell = TRUE;
-        if (o_ptr->name2 == EGO_AMU_FOOL) p_ptr->heavy_spell = TRUE;
 
         if (o_ptr->curse_flags & TRC_LOW_MAGIC)
         {
@@ -1322,7 +1324,7 @@ void equip_calc_bonuses(void)
         bonus_to_d = o_ptr->to_d;
 
         /* Hack -- Sniper gloves apply damage bonus to missiles only */
-        if (o_ptr->name2 == EGO_SNIPER)
+        if (o_ptr->name2 == EGO_GLOVES_SNIPER)
         {
             bonus_to_d = 0;
             p_ptr->shooter_info.to_d += o_ptr->to_d;
@@ -1342,7 +1344,7 @@ void equip_calc_bonuses(void)
         p_ptr->to_d_m += bonus_to_d;
 
         if ( o_ptr->name1 != ART_MASTER_TONBERRY
-          && o_ptr->name2 != EGO_GIANT_STRENGTH )
+          && o_ptr->name2 != EGO_GLOVES_GIANT )
         {
             p_ptr->shooter_info.to_d += bonus_to_d;
             if (object_is_known(o_ptr))

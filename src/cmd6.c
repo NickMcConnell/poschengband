@@ -3457,7 +3457,7 @@ static void do_cmd_activate_aux(int item)
     }
 
 
-    if (o_ptr->name2 == EGO_TRUMP)
+    if (o_ptr->name2 == EGO_WEAPON_TRUMP)
     {
         if (mut_present(MUT_ASTRAL_GUIDE))
             energy_use = 30;
@@ -3490,7 +3490,7 @@ static void do_cmd_activate_aux(int item)
     }
 
 
-    if (o_ptr->name2 == EGO_EARTHQUAKES)
+    if (o_ptr->name2 == EGO_WEAPON_EARTHQUAKES)
     {
         earthquake(py, px, 5);
         o_ptr->timeout = 100 + randint1(100);
@@ -3503,7 +3503,7 @@ static void do_cmd_activate_aux(int item)
     }
 
 
-    if (o_ptr->name2 == EGO_JUMP)
+    if (o_ptr->name2 == EGO_BOOTS_GNOMISH)
     {
         if (mut_present(MUT_ASTRAL_GUIDE))
             energy_use = 30;
@@ -3517,7 +3517,7 @@ static void do_cmd_activate_aux(int item)
         return;
     }
 
-    if (o_ptr->name2 == EGO_DAEMON)
+    if (o_ptr->name2 == EGO_WEAPON_DAEMON)
     {
         destroy_area(py, px, 13 + randint0(5), device_power(4 * p_ptr->lev));
         o_ptr->timeout = 100 + randint1(100);
@@ -3695,117 +3695,6 @@ static void do_cmd_activate_aux(int item)
 
             switch (o_ptr->name2)
             {
-            case EGO_RING_HERO:
-                (void)set_hero(device_power(randint1(25) + 25), FALSE);
-                o_ptr->timeout = randint1(100)+100;
-                break;
-            case EGO_RING_MAGIC_MIS:
-                if (!get_aim_dir(&dir)) return;
-                fire_bolt(GF_MISSILE, dir, device_power(damroll(2, 6)));
-                o_ptr->timeout = 2;
-                break;
-            case EGO_RING_FIRE_BOLT:
-                if (!get_aim_dir(&dir)) return;
-                fire_bolt(GF_FIRE, dir, device_power(damroll(9, 8)));
-                o_ptr->timeout = randint0(8) + 8;
-                break;
-            case EGO_RING_COLD_BOLT:
-                if (!get_aim_dir(&dir)) return;
-                fire_bolt(GF_COLD, dir, device_power(damroll(6, 8)));
-                o_ptr->timeout = randint0(7) + 7;
-                break;
-            case EGO_RING_ELEC_BOLT:
-                if (!get_aim_dir(&dir)) return;
-                fire_bolt(GF_ELEC, dir, device_power(damroll(4, 8)));
-                o_ptr->timeout = randint0(5) + 5;
-                break;
-            case EGO_RING_ACID_BOLT:
-                if (!get_aim_dir(&dir)) return;
-                fire_bolt(GF_ACID, dir, device_power(damroll(5, 8)));
-                o_ptr->timeout = randint0(6) + 6;
-                break;
-            case EGO_RING_MANA_BOLT:
-                if (!get_aim_dir(&dir)) return;
-                fire_bolt(GF_MANA, dir, device_power(120));
-                o_ptr->timeout = randint0(120)+120;
-                break;
-            case EGO_RING_FIRE_BALL:
-                if (!get_aim_dir(&dir)) return;
-                fire_ball(GF_FIRE, dir, device_power(100), 2);
-                o_ptr->timeout = randint0(80) + 80;
-                break;
-            case EGO_RING_COLD_BALL:
-                if (!get_aim_dir(&dir)) return;
-                fire_ball(GF_COLD, dir, device_power(100), 2);
-                o_ptr->timeout = randint0(80) + 80;
-                break;
-            case EGO_RING_ELEC_BALL:
-                if (!get_aim_dir(&dir)) return;
-                fire_ball(GF_ELEC, dir, device_power(100), 2);
-                o_ptr->timeout = randint0(80) + 80;
-                break;
-            case EGO_RING_ACID_BALL:
-                if (!get_aim_dir(&dir)) return;
-                fire_ball(GF_ACID, dir, device_power(100), 2);
-                o_ptr->timeout = randint0(80) + 80;
-                break;
-            case EGO_RING_MANA_BALL:
-                if (!get_aim_dir(&dir)) return;
-                fire_ball(GF_MANA, dir, device_power(250), 2);
-                o_ptr->timeout = 300;
-                break;
-            case EGO_RING_DRAGON_F:
-                if (!get_aim_dir(&dir)) return;
-                fire_ball(GF_FIRE, dir, device_power(200), -2);
-                if (o_ptr->sval == SV_RING_FLAMES)
-                {
-                    (void)set_oppose_fire(device_power(randint1(20) + 20), FALSE);
-                    o_ptr->timeout = 200;
-                }
-                else o_ptr->timeout = 250;
-                break;
-            case EGO_RING_DRAGON_C:
-                if (!get_aim_dir(&dir)) return;
-                fire_ball(GF_COLD, dir, device_power(200), -2);
-                if (o_ptr->sval == SV_RING_ICE)
-                {
-                    (void)set_oppose_cold(device_power(randint1(20) + 20), FALSE);
-                    o_ptr->timeout = 200;
-                }
-                else o_ptr->timeout = 250;
-                break;
-            case EGO_RING_M_DETECT:
-                (void)detect_monsters_invis(255);
-                (void)detect_monsters_normal(255);
-                o_ptr->timeout = 150;
-                break;
-            case EGO_RING_D_SPEED:
-                (void)set_fast(device_power(randint1(30) + 15), FALSE);
-                o_ptr->timeout = 100;
-                break;
-            case EGO_RING_BERSERKER:
-                (void)set_shero(device_power(randint1(25) + 25), FALSE);
-                o_ptr->timeout = randint0(75)+75;
-                break;
-            case EGO_RING_TELE_AWAY:
-                if (!get_aim_dir(&dir)) return;
-                teleport_monster(dir);
-                o_ptr->timeout = 150;
-                break;
-            case EGO_RING_TRUE:
-            {
-                int v = device_power(randint1(25)+25);
-                (void)set_hero(v, FALSE);
-                (void)set_blessed(v, FALSE);
-                (void)set_oppose_acid(v, FALSE);
-                (void)set_oppose_elec(v, FALSE);
-                (void)set_oppose_fire(v, FALSE);
-                (void)set_oppose_cold(v, FALSE);
-                (void)set_oppose_pois(v, FALSE);
-                (void)set_ultimate_res(v, FALSE);
-                o_ptr->timeout = 777;
-                break;
-            }
             default:
                 success = FALSE;
                 break;
@@ -3862,60 +3751,6 @@ static void do_cmd_activate_aux(int item)
     {
         if (object_is_ego(o_ptr))
         {
-            switch (o_ptr->name2)
-            {
-            case EGO_AMU_IDENT:
-                if (!ident_spell(NULL)) return;
-                o_ptr->timeout = 10;
-                break;
-            case EGO_AMU_CHARM:
-                if (!get_aim_dir(&dir)) return;
-                charm_monster(dir, device_power(MAX(20, p_ptr->lev)));
-                o_ptr->timeout = 200;
-                break;
-            case EGO_AMU_JUMP:
-                if (mut_present(MUT_ASTRAL_GUIDE))
-                    energy_use = 30;
-                teleport_player(10, 0L);
-                o_ptr->timeout = randint0(10) + 10;
-                break;
-            case EGO_AMU_TELEPORT:
-                teleport_player(100, 0L);
-                o_ptr->timeout = randint0(50) + 50;
-                break;
-            case EGO_AMU_RESISTANCE:
-                (void)set_oppose_acid(device_power(randint1(20) + 20), FALSE);
-                (void)set_oppose_elec(device_power(randint1(20) + 20), FALSE);
-                (void)set_oppose_fire(device_power(randint1(20) + 20), FALSE);
-                (void)set_oppose_cold(device_power(randint1(20) + 20), FALSE);
-                (void)set_oppose_pois(device_power(randint1(20) + 20), FALSE);
-                o_ptr->timeout = randint0(75) + 75;
-                break;
-            case EGO_AMU_D_DOOR:
-                (void)dimension_door(device_power(p_ptr->lev / 2 + 10));
-                o_ptr->timeout = 200;
-                break;
-            case EGO_AMU_RES_FIRE_:
-                (void)set_oppose_fire(device_power(randint1(20) + 20), FALSE);
-                o_ptr->timeout = randint0(50) + 50;
-                break;
-            case EGO_AMU_RES_COLD_:
-                (void)set_oppose_cold(device_power(randint1(20) + 20), FALSE);
-                o_ptr->timeout = randint0(50) + 50;
-                break;
-            case EGO_AMU_RES_ELEC_:
-                (void)set_oppose_elec(device_power(randint1(20) + 20), FALSE);
-                o_ptr->timeout = randint0(50) + 50;
-                break;
-            case EGO_AMU_RES_ACID_:
-                (void)set_oppose_acid(device_power(randint1(20) + 20), FALSE);
-                o_ptr->timeout = randint0(50) + 50;
-                break;
-            case EGO_AMU_DETECTION:
-                detect_all(DETECT_RAD_DEFAULT);
-                o_ptr->timeout = randint0(55)+55;
-                break;
-            }
         }
         return;
     }

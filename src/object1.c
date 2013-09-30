@@ -193,15 +193,15 @@ void object_flags(object_type *o_ptr, u32b flgs[TR_FLAG_SIZE])
         for (i = 0; i < TR_FLAG_SIZE; i++)
             flgs[i] |= e_ptr->flags[i];
 
-        if ((o_ptr->name2 == EGO_LITE_AURA_FIRE) && !o_ptr->xtra4 && (o_ptr->sval <= SV_LITE_LANTERN))
+        if ((o_ptr->name2 == EGO_LITE_IMMOLATION) && !o_ptr->xtra4 && (o_ptr->sval <= SV_LITE_LANTERN))
         {
             remove_flag(flgs, TR_SH_FIRE);
         }
-        else if ((o_ptr->name2 == EGO_LITE_INFRA) && !o_ptr->xtra4 && (o_ptr->sval <= SV_LITE_LANTERN))
+        else if ((o_ptr->name2 == EGO_LITE_INFRAVISION) && !o_ptr->xtra4 && (o_ptr->sval <= SV_LITE_LANTERN))
         {
             remove_flag(flgs, TR_INFRA);
         }
-        else if ((o_ptr->name2 == EGO_LITE_EYE) && !o_ptr->xtra4 && (o_ptr->sval <= SV_LITE_LANTERN))
+        else if ((o_ptr->name2 == EGO_LITE_IMMORTAL_EYE) && !o_ptr->xtra4 && (o_ptr->sval <= SV_LITE_LANTERN))
         {
             remove_flag(flgs, TR_RES_BLIND);
             remove_flag(flgs, TR_SEE_INVIS);
@@ -302,15 +302,15 @@ void object_flags_known(object_type *o_ptr, u32b flgs[TR_FLAG_SIZE])
         for (i = 0; i < TR_FLAG_SIZE; i++)
             flgs[i] |= e_ptr->flags[i];
 
-        if ((o_ptr->name2 == EGO_LITE_AURA_FIRE) && !o_ptr->xtra4 && (o_ptr->sval <= SV_LITE_LANTERN))
+        if (o_ptr->name2 == EGO_LITE_IMMOLATION && !o_ptr->xtra4 && (o_ptr->sval <= SV_LITE_LANTERN))
         {
             remove_flag(flgs, TR_SH_FIRE);
         }
-        else if ((o_ptr->name2 == EGO_LITE_INFRA) && !o_ptr->xtra4 && (o_ptr->sval <= SV_LITE_LANTERN))
+        else if ((o_ptr->name2 == EGO_LITE_INFRAVISION) && !o_ptr->xtra4 && (o_ptr->sval <= SV_LITE_LANTERN))
         {
             remove_flag(flgs, TR_INFRA);
         }
-        else if ((o_ptr->name2 == EGO_LITE_EYE) && !o_ptr->xtra4 && (o_ptr->sval <= SV_LITE_LANTERN))
+        else if ((o_ptr->name2 == EGO_LITE_IMMORTAL_EYE) && !o_ptr->xtra4 && (o_ptr->sval <= SV_LITE_LANTERN))
         {
             remove_flag(flgs, TR_RES_BLIND);
             remove_flag(flgs, TR_SEE_INVIS);
@@ -1353,7 +1353,7 @@ cptr item_activation(object_type *o_ptr)
         }
     }
 
-    if (o_ptr->name2 == EGO_TRUMP)
+    if (o_ptr->name2 == EGO_WEAPON_TRUMP)
     {
         return "teleport every 50+d50 turns";
 
@@ -1364,19 +1364,19 @@ cptr item_activation(object_type *o_ptr)
             return "illumination every 10+d10 turns";
     }
 
-    else if (o_ptr->name2 == EGO_EARTHQUAKES)
+    else if (o_ptr->name2 == EGO_WEAPON_EARTHQUAKES)
     {
         return "earthquake every 100+d100 turns";
 
     }
 
-    else if (o_ptr->name2 == EGO_JUMP)
+    else if (o_ptr->name2 == EGO_BOOTS_GNOMISH)
     {
         return "blink every 10+d10 turns";
 
     }
 
-    else if (o_ptr->name2 == EGO_DAEMON)
+    else if (o_ptr->name2 == EGO_WEAPON_DAEMON)
     {
         return "destruction every 100+d100 turns";
     }
@@ -1385,53 +1385,6 @@ cptr item_activation(object_type *o_ptr)
     {
         if (object_is_ego(o_ptr))
         {
-            switch (o_ptr->name2)
-            {
-            case EGO_RING_HERO:
-                return "heroism every 100+d100 turns";
-            case EGO_RING_MAGIC_MIS:
-            return "magic missile (2d6) every 2 turns";
-            case EGO_RING_FIRE_BOLT:
-            return "fire bolt (9d8) every 8+d8 turns";
-            case EGO_RING_COLD_BOLT:
-                return "frost bolt (6d8) every 7+d7 turns";
-            case EGO_RING_ELEC_BOLT:
-                return "lightning bolt (4d8) every 5+d5 turns";
-            case EGO_RING_ACID_BOLT:
-                return "acid bolt (5d8) every 6+d6 turns";
-            case EGO_RING_MANA_BOLT:
-            return "a mana bolt (120) every 120+d120 turns";
-            case EGO_RING_FIRE_BALL:
-                return "fire ball (100) every 80+d80 turns";
-            case EGO_RING_COLD_BALL:
-                return "cold ball (100) every 80+d80 turns";
-            case EGO_RING_ELEC_BALL:
-                return "elec ball (100) every 80+d80 turns";
-            case EGO_RING_ACID_BALL:
-                return "acid ball (100) every 80+d80 turns";
-            case EGO_RING_MANA_BALL:
-                return "mana storm (250) every 300 turns";
-            case EGO_RING_DRAGON_F:
-                if (o_ptr->sval == SV_RING_FLAMES)
-                    return "breath of fire (200) and resist fire every 200 turns";
-                else
-                    return "fire breath (200) every 250 turns";
-            case EGO_RING_DRAGON_C:
-                if (o_ptr->sval == SV_RING_ICE)
-                    return "breath of cold (200) and resist cold every 200 turns";
-                else
-                    return "cold breath (200) every 250 turns";
-            case EGO_RING_M_DETECT:
-                return "detect all monsters every 150 turns";
-            case EGO_RING_D_SPEED:
-                return "haste self (15+d30 turns) every 100 turns";
-            case EGO_RING_BERSERKER:
-                return "berserk (25+d25 turns) every 75+d75 turns";
-            case EGO_RING_TELE_AWAY:
-            return "teleport away every 150 turns";
-            case EGO_RING_TRUE:
-            return "hero, bless, and ultimate resistance every 777 turns";
-            }
         }
         switch (o_ptr->sval)
         {
@@ -1456,32 +1409,6 @@ cptr item_activation(object_type *o_ptr)
     {
         if (object_is_ego(o_ptr))
         {
-            switch (o_ptr->name2)
-            {
-            case EGO_AMU_IDENT:
-                return "identify every 10 turns";
-            case EGO_AMU_CHARM:
-                return "charm monster every 200 turns";
-            case EGO_AMU_JUMP:
-                return "blink every 10+d10 turns";
-            case EGO_AMU_RESISTANCE:
-                return "resist elements every 75+d75 turns";
-
-            case EGO_AMU_TELEPORT:
-                return "teleport every 50+d50 turns";
-            case EGO_AMU_D_DOOR:
-                return "dimension door every 200 turns";
-            case EGO_AMU_RES_FIRE_:
-                return "resist fire every 50+d50 turns";
-            case EGO_AMU_RES_COLD_:
-                return "resist cold every 50+d50 turns";
-            case EGO_AMU_RES_ELEC_:
-                return "resist elec every 50+d50 turns";
-            case EGO_AMU_RES_ACID_:
-                return "resist acid every 50+d50 turns";
-            case EGO_AMU_DETECTION:
-                return "detect all floor every 55+d55 turns";
-            }
         }
     }
 
@@ -1714,33 +1641,18 @@ bool screen_object(object_type *o_ptr, u32b mode)
         info[i++] = "It always penetrates invulnerability barriers.";
     }
 
-    if (o_ptr->name2 == EGO_GENJI || o_ptr->name1 == ART_MASTER_TONBERRY || o_ptr->name1 == ART_MEPHISTOPHELES)
+    if (o_ptr->name2 == EGO_GLOVES_GENJI || o_ptr->name1 == ART_MASTER_TONBERRY || o_ptr->name1 == ART_MEPHISTOPHELES)
         info[i++] = "It affects your ability to hit when you are wielding two weapons.";
 
     if (have_flag(flgs, TR_WEAPONMASTERY))
         info[i++] = "It increases the damage dice of your melee weapon.";
 
-    if (o_ptr->name2 == EGO_SNIPER)
+    if (o_ptr->name2 == EGO_GLOVES_SNIPER)
         info[i++] = "It increases your shooting speed.";
 
     if (have_flag(flgs, TR_EASY_SPELL))
     {
         info[i++] = "It affects your ability to cast spells.";
-    }
-
-    if (o_ptr->name2 == EGO_AMU_FOOL)
-    {
-        info[i++] = "It interferes with casting spells.";
-    }
-
-    if (o_ptr->name2 == EGO_RING_THROW)
-    {
-        info[i++] = "It provides great strength when you throw an item.";
-    }
-
-    if (o_ptr->name2 == EGO_AMU_NAIVETY)
-    {
-        info[i++] = "It decreases your magic resistance.";
     }
 
     if (o_ptr->tval == TV_STATUE)
@@ -1786,7 +1698,7 @@ bool screen_object(object_type *o_ptr, u32b mode)
                 info[i++] = "It provides light (radius 3) forever.";
             }
         }
-        else if (o_ptr->name2 == EGO_LITE_SHINE)
+        else if (o_ptr->name2 == EGO_LITE_EXTRA_LIGHT)
         {
             if (o_ptr->sval == SV_LITE_FEANOR)
             {
@@ -1822,7 +1734,7 @@ bool screen_object(object_type *o_ptr, u32b mode)
 
             }
         }
-        if (o_ptr->name2 == EGO_LITE_LONG)
+        if (o_ptr->name2 == EGO_LITE_DURATION)
         {
             info[i++] = "It provides light for much longer time.";
         }
@@ -1936,7 +1848,10 @@ bool screen_object(object_type *o_ptr, u32b mode)
     if (have_flag(flgs, TR_SPEED))
     {
         info[i++] = "It affects your speed.";
-
+    }
+    if (have_flag(flgs, TR_DEC_SPEED))
+    {
+        info[i++] = "It decreases your speed.";
     }
     if (have_flag(flgs, TR_BLOWS))
     {
@@ -2123,7 +2038,10 @@ bool screen_object(object_type *o_ptr, u32b mode)
         info[i++] = "It increases your spell capacity.";
     }
     if (have_flag(flgs, TR_LIFE))
-        info[i++] = "It affects your hitpoints.";
+        info[i++] = "It increases your hitpoints.";
+    if (have_flag(flgs, TR_DEC_LIFE))
+        info[i++] = "It decreases your hitpoints.";
+
     if (have_flag(flgs, TR_SUST_STR))
     {
         info[i++] = "It sustains your strength.";
@@ -2269,7 +2187,7 @@ bool screen_object(object_type *o_ptr, u32b mode)
     }
     if (have_flag(flgs, TR_LITE))
     {
-        if ((o_ptr->name2 == EGO_DARK) || (o_ptr->name1 == ART_NIGHT))
+        if ((o_ptr->name2 == EGO_HELMET_VAMPIRE) || (o_ptr->name1 == ART_NIGHT))
             info[i++] = "It decreases radius of your light source by 1.";
         else
             info[i++] = "It provides permanent light. (radius +1)";
@@ -2372,6 +2290,10 @@ bool screen_object(object_type *o_ptr, u32b mode)
     if (have_flag(flgs, TR_SH_SHARDS))
     {
         info[i++] = "It produces a shard aura.";
+    }
+    if (have_flag(flgs, TR_SH_REVENGE))
+    {
+        info[i++] = "It produces an aura of retaliation.";
     }
 
     if (have_flag(flgs, TR_SH_ELEC))

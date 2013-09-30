@@ -6329,11 +6329,7 @@ void calc_android_exp(void)
         if ( object_is_artifact(o_ptr) 
           || object_is_ego(o_ptr) 
           || o_ptr->tval == TV_DRAG_ARMOR 
-          || object_is_(o_ptr, TV_HELM, SV_DRAGON_HELM)
-          || object_is_(o_ptr, TV_CLOAK, SV_DRAGON_CLOAK)
-          || object_is_(o_ptr, TV_SHIELD, SV_DRAGON_SHIELD)
-          || object_is_(o_ptr, TV_GLOVES, SV_SET_OF_DRAGON_GLOVES)
-          || object_is_(o_ptr, TV_BOOTS, SV_PAIR_OF_DRAGON_GREAVE)
+          || object_is_dragon_armor(o_ptr)
           || object_is_(o_ptr, TV_SWORD, SV_DIAMOND_EDGE) )
         {
             if (level > 65) level = 35 + (level - 65) / 5;

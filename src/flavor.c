@@ -465,6 +465,7 @@ static flag_insc_table flag_insc_plus[] =
     { "Sr", TR_SEARCH, -1 },
     { "If", TR_INFRA, -1 },
     { "Dg", TR_TUNNEL, -1 },
+    { "Lf", TR_LIFE, -1 },
     { NULL, 0, -1 }
 };
 
@@ -477,6 +478,8 @@ static flag_insc_table flag_insc_minus[] =
     { "Cn", TR_DEC_CON, -1 },
     { "Ch", TR_DEC_CHR, -1 },
     { "Sl", TR_DEC_STEALTH, -1 },
+    { "Sp", TR_DEC_SPEED, -1 },
+    { "Lf", TR_DEC_LIFE, -1 },
     { NULL, 0, -1 }
 };
 
@@ -563,6 +566,7 @@ static flag_insc_table flag_insc_aura[] =
     { "E", TR_SH_ELEC, -1 },
     { "C", TR_SH_COLD, -1 },
     { "Sh", TR_SH_SHARDS, -1 },
+    { "At", TR_SH_REVENGE, -1 },
     { "M", TR_NO_MAGIC, -1 },
     { "T", TR_NO_TELE, -1 },
     { "Sm", TR_NO_SUMMON, -1 },
@@ -2133,7 +2137,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 
         if (have_flag(flgs, TR_SPELL_POWER))
         {
-            int pct = spell_power_aux(100, -o_ptr->pval) - 100;
+            int pct = spell_power_aux(100, o_ptr->pval) - 100;
             t = object_desc_str(t, format(" <+%d%%>", pct));
         }
 
@@ -2152,7 +2156,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
             /* Hack -- Turns of light for normal lites */
             t = object_desc_str(t, " (with ");
 
-            if (o_ptr->name2 == EGO_LITE_LONG) t = object_desc_num(t, o_ptr->xtra4 * 2);
+            if (o_ptr->name2 == EGO_LITE_DURATION) t = object_desc_num(t, o_ptr->xtra4 * 2);
             else t = object_desc_num(t, o_ptr->xtra4);
             t = object_desc_str(t, " turns of light)");
         }

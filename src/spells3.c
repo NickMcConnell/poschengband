@@ -1179,7 +1179,7 @@ bool brand_weapon(int brand_type)
            void ego_init_armor(object_type *o_ptr, int ego_type);
            etc.
         */
-        if (brand_type == EGO_TRUMP)
+        if (brand_type == EGO_WEAPON_TRUMP)
             inventory[item].pval = randint1(2);
         result = TRUE;
     }
@@ -1893,7 +1893,7 @@ bool enchant(object_type *o_ptr, int n, int eflag)
     if (o_ptr->tval == TV_SWORD && o_ptr->sval == SV_RUNESWORD)
         return FALSE;
 
-    if (o_ptr->name2 == EGO_BERSERKER)
+    if (o_ptr->name2 == EGO_GLOVES_BERSERKER)
         return FALSE;
 
     /* Missiles are easy to enchant */
@@ -3016,7 +3016,7 @@ bool polish_shield(void)
         msg_format("%s %s shine%s!",
             ((item >= 0) ? "Your" : "The"), o_name,
             ((o_ptr->number > 1) ? "" : "s"));
-        o_ptr->name2 = EGO_REFLECTION;
+        o_ptr->name2 = EGO_SHIELD_REFLECTION;
         enchant(o_ptr, randint0(3) + 4, ENCH_TOAC);
 
         o_ptr->discount = 99;
@@ -4183,7 +4183,7 @@ void blast_object(object_type *o_ptr)
         return;
 
     o_ptr->name1 = 0;
-    o_ptr->name2 = EGO_BLASTED;
+    o_ptr->name2 = EGO_SPECIAL_BLASTED;
     o_ptr->name3 = 0;
     o_ptr->to_a = 0;
     o_ptr->to_h = 0;

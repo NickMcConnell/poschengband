@@ -215,20 +215,18 @@ struct ego_item_type
     u32b name;            /* Name (offset) */
     u32b text;            /* Text (offset) */
 
-    byte slot;            /* Standard slot value */
-    byte rating;        /* Rating boost */
+    byte type;            /* Type of Ego (Bow, Weapon, Gloves, Helmet, Crown, Harp, etc) */
+    byte rating;          /* Level Feelings and Cursed/Noncursed */
 
     byte level;            /* Minimum level */
     byte rarity;        /* Object rarity */
     byte max_level;     /* Maximum level. 0 => No restriction */
 
-    byte max_to_h;        /* Maximum to-hit bonus */
-    byte max_to_d;        /* Maximum to-dam bonus */
-    byte max_to_a;        /* Maximum to-ac bonus */
+    s16b max_to_h;        /* Maximum to-hit bonus */
+    s16b max_to_d;        /* Maximum to-dam bonus */
+    s16b max_to_a;        /* Maximum to-ac bonus */
 
     byte max_pval;        /* Maximum pval */
-
-    s32b cost;            /* Ego-item "cost" */
 
     u32b flags[TR_FLAG_SIZE];    /* Ego-Item Flags */
 

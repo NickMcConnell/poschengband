@@ -38,6 +38,22 @@ static bool has_pval;
  */
 static int artifact_bias;
 
+/*
+ * Cursed arts now pick up bad flags at the end. To avoid idiocy like
+ * arts that give resistance and vulnerability to fire simultaneously, 
+ * we implement the following check:
+ */
+static bool _add_bad_flag(object_type *o_ptr, int bad_flag, int good_flag)
+{
+    u32b flags[TR_FLAG_SIZE];
+    object_flags(o_ptr, flags); /* Careful: Might be a cursed ego! */
+    if (!have_flag(flags, good_flag))
+    {
+        add_flag(o_ptr->art_flags, bad_flag);
+        return TRUE;
+    }
+    return FALSE;
+}
 
 /*
  * Choose one random sustain
@@ -77,6 +93,33 @@ void one_high_resistance(object_type *o_ptr)
         case 11: add_flag(o_ptr->art_flags, TR_RES_FEAR);   break;
     }
 }
+bool one_high_vulnerability(object_type *o_ptr)
+{
+    int attempts = 100;
+    int i;
+    for (i = 0; i < attempts; i++)
+    {
+        int good_flag, bad_flag;
+        switch (randint0(12))
+        {
+            case  0: bad_flag = TR_VULN_POIS; good_flag = TR_RES_POIS; break;
+            case  1: bad_flag = TR_VULN_LITE; good_flag = TR_RES_LITE; break;
+            case  2: bad_flag = TR_VULN_DARK; good_flag = TR_RES_DARK; break;
+            case  3: bad_flag = TR_VULN_SHARDS; good_flag = TR_RES_SHARDS; break;
+            case  4: bad_flag = TR_VULN_BLIND; good_flag = TR_RES_BLIND; break;
+            case  5: bad_flag = TR_VULN_CONF; good_flag = TR_RES_CONF; break;
+            case  6: bad_flag = TR_VULN_SOUND; good_flag = TR_RES_SOUND; break;
+            case  7: bad_flag = TR_VULN_NETHER; good_flag = TR_RES_NETHER; break;
+            case  8: bad_flag = TR_VULN_NEXUS; good_flag = TR_RES_NEXUS; break;
+            case  9: bad_flag = TR_VULN_CHAOS; good_flag = TR_RES_CHAOS; break;
+            case 10: bad_flag = TR_VULN_DISEN; good_flag = TR_RES_DISEN; break;
+            case 11: bad_flag = TR_VULN_FEAR; good_flag = TR_RES_FEAR; break;
+        }
+        if (_add_bad_flag(o_ptr, bad_flag, good_flag))
+            return TRUE;
+    }
+    return FALSE;
+}
 
 
 /*
@@ -99,7 +142,6 @@ void one_lordly_high_resistance(object_type *o_ptr)
     }
 }
 
-
 /*
  * Choose one random element resistance
  */
@@ -112,6 +154,25 @@ void one_ele_resistance(object_type *o_ptr)
         case  2: add_flag(o_ptr->art_flags, TR_RES_COLD); break;
         case  3: add_flag(o_ptr->art_flags, TR_RES_FIRE); break;
     }
+}
+bool one_ele_vulnerability(object_type *o_ptr)
+{
+    int attempts = 100;
+    int i;
+    for (i = 0; i < attempts; i++)
+    {
+        int good_flag, bad_flag;
+        switch (randint0(4))
+        {
+            case  0: bad_flag = TR_VULN_ACID; good_flag = TR_RES_ACID; break;
+            case  1: bad_flag = TR_VULN_ELEC; good_flag = TR_RES_ELEC; break;
+            case  2: bad_flag = TR_VULN_COLD; good_flag = TR_RES_COLD; break;
+            case  3: bad_flag = TR_VULN_FIRE; good_flag = TR_RES_FIRE; break;
+        }
+        if (_add_bad_flag(o_ptr, bad_flag, good_flag))
+            return TRUE;
+    }
+    return FALSE;
 }
 
 void one_ele_slay(object_type *o_ptr)
@@ -141,7 +202,15 @@ void one_dragon_ele_resistance(object_type *o_ptr)
         one_ele_resistance(o_ptr);
     }
 }
-
+bool one_dragon_ele_vulnerability(object_type *o_ptr)
+{
+    if (one_in_(7) && !have_flag(o_ptr->art_flags, TR_RES_POIS))
+    {
+        add_flag(o_ptr->art_flags, TR_VULN_POIS);
+        return TRUE;
+    }
+    return one_ele_vulnerability(o_ptr);
+}
 
 /*
  * Choose one lower rank esp
@@ -178,7 +247,74 @@ void one_resistance(object_type *o_ptr)
         one_high_resistance(o_ptr);
     }
 }
+bool one_vulnerability(object_type *o_ptr)
+{
+    if (one_in_(3))
+        return one_ele_vulnerability(o_ptr);
+    
+    return one_high_vulnerability(o_ptr);
+}
 
+bool one_stat_biff(object_type *o_ptr)
+{
+    int attempts = 100;
+    int i;
+    for (i = 0; i < attempts; i++)
+    {
+        int n = randint0(6);
+        if (_add_bad_flag(o_ptr, TR_DEC_STR + n, TR_STR + n))
+            return TRUE;
+    }
+    return FALSE;
+}
+
+bool one_biff(object_type *o_ptr)
+{
+    int attempts = 100;
+    int i;
+    for (i = 0; i < attempts; i++)
+    {
+        int n = randint0(100);
+        if (n < 10)
+        {
+            if (_add_bad_flag(o_ptr, TR_DEC_STEALTH, TR_STEALTH))
+            {
+                has_pval = TRUE;
+                return TRUE;
+            }
+        }
+        else if (n < 13)
+        {
+            if (_add_bad_flag(o_ptr, TR_DEC_SPEED, TR_SPEED))
+            {
+                has_pval = TRUE;
+                return TRUE;
+            }
+        }
+        else if (n < 17)
+        {
+            if (_add_bad_flag(o_ptr, TR_DEC_LIFE, TR_LIFE))
+            {
+                has_pval = TRUE;
+                return TRUE;
+            }
+        }
+        else if (n < 57) 
+        {
+            if (one_stat_biff(o_ptr))
+            {
+                has_pval = TRUE;
+                return TRUE;
+            }
+        }
+        else
+        {
+            if (one_vulnerability(o_ptr))
+                return TRUE;
+        }
+    }
+    return FALSE;
+}
 
 /*
  * Choose one random ability
@@ -2207,9 +2343,9 @@ s32b create_artifact(object_type *o_ptr, u32b mode)
                 else if (one_in_(77))
                 {
                     add_flag(o_ptr->art_flags, TR_SPELL_POWER);
-                    add_flag(o_ptr->art_flags, TR_STR);
-                    add_flag(o_ptr->art_flags, TR_DEX);
-                    add_flag(o_ptr->art_flags, TR_CON);
+                    add_flag(o_ptr->art_flags, TR_DEC_STR);
+                    add_flag(o_ptr->art_flags, TR_DEC_DEX);
+                    add_flag(o_ptr->art_flags, TR_DEC_CON);
                     has_pval = TRUE;
                 }
                 else
@@ -2370,9 +2506,9 @@ s32b create_artifact(object_type *o_ptr, u32b mode)
                 else if (one_in_(77))
                 {
                     add_flag(o_ptr->art_flags, TR_SPELL_POWER);
-                    add_flag(o_ptr->art_flags, TR_STR);
-                    add_flag(o_ptr->art_flags, TR_DEX);
-                    add_flag(o_ptr->art_flags, TR_CON);
+                    add_flag(o_ptr->art_flags, TR_DEC_STR);
+                    add_flag(o_ptr->art_flags, TR_DEC_DEX);
+                    add_flag(o_ptr->art_flags, TR_DEC_CON);
                     has_pval = TRUE;
                 }
                 else if (one_in_(3))
@@ -2424,9 +2560,9 @@ s32b create_artifact(object_type *o_ptr, u32b mode)
                 else if (one_in_(77))
                 {
                     add_flag(o_ptr->art_flags, TR_SPELL_POWER);
-                    add_flag(o_ptr->art_flags, TR_STR);
-                    add_flag(o_ptr->art_flags, TR_DEX);
-                    add_flag(o_ptr->art_flags, TR_CON);
+                    add_flag(o_ptr->art_flags, TR_DEC_STR);
+                    add_flag(o_ptr->art_flags, TR_DEC_DEX);
+                    add_flag(o_ptr->art_flags, TR_DEC_CON);
                     has_pval = TRUE;
                 }
                 else if (one_in_(3))
@@ -2575,9 +2711,6 @@ s32b create_artifact(object_type *o_ptr, u32b mode)
         else
             o_ptr->pval = 2;
     }
-
-    if (have_flag(o_ptr->art_flags, TR_SPELL_POWER))
-        o_ptr->pval = -o_ptr->pval;
 
     /* give it some plusses... */
     if (object_is_armour(o_ptr))

@@ -2832,7 +2832,7 @@ void player_outfit(void)
         if ((tv == TV_SWORD || tv == TV_HAFTED) && (p_ptr->pclass == CLASS_ROGUE &&
             p_ptr->realm1 == REALM_DEATH)) /* Only assassins get a poisoned weapon */
         {
-            forge.name2 = EGO_BRAND_POIS;
+            forge.name2 = EGO_WEAPON_VENOM;
         }
 
         /* Hack: Rune-Knights begin with an Absorption Rune on their broad sword (or whip if sexy) */

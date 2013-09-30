@@ -27,7 +27,7 @@ static void _birth(void)
     add_outfit(&forge);
 
     object_prep(&forge, lookup_kind(TV_CROWN, SV_IRON_CROWN));
-    forge.name2 = EGO_MIGHT;
+    forge.name2 = EGO_CROWN_MIGHT;
     forge.pval = 1;
     forge.to_a = 5;
     add_outfit(&forge);

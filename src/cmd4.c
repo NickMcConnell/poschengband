@@ -4086,11 +4086,7 @@ static void do_cmd_knowledge_inven_aux(FILE *fff, object_type *o_ptr, int *j, by
     if ((object_is_wearable(o_ptr) && object_is_ego(o_ptr))
         || ((tval == TV_AMULET) && (o_ptr->sval == SV_AMULET_RESISTANCE))
         || ((tval == TV_RING) && (o_ptr->sval == SV_RING_LORDLY))
-        || ((tval == TV_SHIELD) && (o_ptr->sval == SV_DRAGON_SHIELD))
-        || ((tval == TV_HELM) && (o_ptr->sval == SV_DRAGON_HELM))
-        || ((tval == TV_GLOVES) && (o_ptr->sval == SV_SET_OF_DRAGON_GLOVES))
-        || ((tval == TV_BOOTS) && (o_ptr->sval == SV_PAIR_OF_DRAGON_GREAVE))
-        || ((tval == TV_CLOAK) && (o_ptr->sval == SV_DRAGON_CLOAK))
+        || object_is_dragon_armor(o_ptr)
         || object_is_artifact(o_ptr))
     {
         int i = 0;
