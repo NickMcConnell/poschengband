@@ -2291,15 +2291,19 @@ static void _cursify(object_type *o_ptr)
         int n = randint0(100);
         if (n < 3)
             o_ptr->curse_flags |= TRC_PERMA_CURSE;
-        else if (n < 20)
+        else if (n < 6) 
+            add_flag(o_ptr->art_flags, TR_TY_CURSE);
+        else if (n < 10) 
+            add_flag(o_ptr->art_flags, TR_AGGRAVATE);
+        else if (n < 25)
             o_ptr->curse_flags |= TRC_HEAVY_CURSE;
         else if (n < 50)
         {
             do { o_ptr->curse_flags |= get_curse(0, o_ptr); } while (one_in_(2));
         }
-        else if (n < 55) /* TY_CURSE or AGGRAVATE */
+        else if (n < 55)
             o_ptr->curse_flags |= get_curse(1, o_ptr);
-        else if (n < 60) /* TY_CURSE or AGGRAVATE or other less bad stuff */
+        else if (n < 60) 
             o_ptr->curse_flags |= get_curse(2, o_ptr);
         else
             one_biff(o_ptr);
@@ -2314,30 +2318,30 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
     switch (o_ptr->name2)
     {
     case EGO_RING_COMBAT:
-        for (powers = abs(power) + randint1(m_bonus(5, object_level)); powers > 0; --powers)
+        for (powers = abs(power) + randint1(m_bonus(5, level)); powers > 0; --powers)
         {
             switch (randint1(7))
             {
             case 1:
                 add_flag(o_ptr->art_flags, TR_STR);
-                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(5, object_level));
+                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(5, level));
                 break;
             case 2:
                 add_flag(o_ptr->art_flags, TR_DEX);
-                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(5, object_level));
+                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(5, level));
                 break;
             case 3:
                 add_flag(o_ptr->art_flags, TR_CON);
-                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(5, object_level));
+                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(5, level));
                 break;
             case 4:
-                o_ptr->to_h += randint1(5) + m_bonus(5, object_level);
+                o_ptr->to_h += randint1(5) + m_bonus(5, level);
                 break;
             case 5:
-                o_ptr->to_d += randint1(5) + m_bonus(5, object_level);
+                o_ptr->to_d += randint1(5) + m_bonus(5, level);
                 break;
             case 6:
-                if (abs(power) >= 2 && one_in_(30) && object_level >= 50)
+                if (abs(power) >= 2 && one_in_(30) && level >= 50)
                 {
                     add_flag(o_ptr->art_flags, TR_WEAPONMASTERY);
                     o_ptr->pval = randint1(2);
@@ -2368,29 +2372,29 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
         if (o_ptr->to_d > 25) o_ptr->to_d = 25;
         break;
     case EGO_RING_ARCHERY:
-        for (powers = abs(power) + randint1(m_bonus(4, object_level)); powers > 0; --powers)
+        for (powers = abs(power) + randint1(m_bonus(4, level)); powers > 0; --powers)
         {
             switch (randint1(7))
             {
             case 1:
                 add_flag(o_ptr->art_flags, TR_DEX);
-                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(5, object_level));
+                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(5, level));
                 break;
             case 2:
                 add_flag(o_ptr->art_flags, TR_STEALTH);
-                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(5, object_level));
+                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(5, level));
                 break;
             case 3:
-                o_ptr->to_h += randint1(5) + m_bonus(5, object_level);
+                o_ptr->to_h += randint1(5) + m_bonus(5, level);
                 break;
             case 4:
-                o_ptr->to_d += randint1(5) + m_bonus(5, object_level);
+                o_ptr->to_d += randint1(5) + m_bonus(5, level);
                 break;
             case 5:
                 if (abs(power) >= 2)
                 {
                     add_flag(o_ptr->art_flags, TR_XTRA_SHOTS);
-                    o_ptr->pval = randint1(m_bonus(3, object_level));
+                    o_ptr->pval = randint1(m_bonus(3, level));
                     break;
                 }
             case 6:
@@ -2400,14 +2404,14 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
                     break;
                 }
             default:
-                o_ptr->to_h += randint1(5) + m_bonus(5, object_level);
+                o_ptr->to_h += randint1(5) + m_bonus(5, level);
             }
         }
         if (o_ptr->to_h > 30) o_ptr->to_h = 30;
         if (o_ptr->to_d > 25) o_ptr->to_d = 25;
         break;
     case EGO_RING_PROTECTION:
-        for (powers = abs(power) + randint1(m_bonus(5, object_level)); powers > 0; --powers)
+        for (powers = abs(power) + randint1(m_bonus(5, level)); powers > 0; --powers)
         {
             switch (randint1(7))
             {
@@ -2465,7 +2469,7 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
                     add_flag(o_ptr->art_flags, TR_SH_FIRE);
                 if (one_in_(7))
                     add_flag(o_ptr->art_flags, TR_BRAND_FIRE);
-                else if (one_in_(100) && object_level >= 70)
+                else if (one_in_(100) && level >= 70)
                     add_flag(o_ptr->art_flags, TR_IM_FIRE);
                 break;
             case 3:
@@ -2475,7 +2479,7 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
                     add_flag(o_ptr->art_flags, TR_SH_COLD);
                 if (one_in_(7))
                     add_flag(o_ptr->art_flags, TR_BRAND_COLD);
-                else if (one_in_(100) && object_level >= 70)
+                else if (one_in_(100) && level >= 70)
                     add_flag(o_ptr->art_flags, TR_IM_COLD);
                 break;
             case 4:
@@ -2485,7 +2489,7 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
                     add_flag(o_ptr->art_flags, TR_SH_ELEC);
                 if (one_in_(7))
                     add_flag(o_ptr->art_flags, TR_BRAND_ELEC);
-                else if (one_in_(100) && object_level >= 70)
+                else if (one_in_(100) && level >= 70)
                     add_flag(o_ptr->art_flags, TR_IM_ELEC);
                 break;
             case 5:
@@ -2493,7 +2497,7 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
                 add_flag(o_ptr->art_flags, TR_RES_ACID);
                 if (one_in_(7))
                     add_flag(o_ptr->art_flags, TR_BRAND_ACID);
-                else if (one_in_(100) && object_level >= 70)
+                else if (one_in_(100) && level >= 70)
                     add_flag(o_ptr->art_flags, TR_IM_ACID);
                 break;
             case 6:
@@ -2588,7 +2592,7 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
         if (cheat_peek) object_mention(o_ptr);
         break;
     case EGO_RING_WIZARDRY:
-        for (powers = abs(power) + randint1(m_bonus(4, object_level)); powers > 0; --powers)
+        for (powers = abs(power) + randint1(m_bonus(4, level)); powers > 0; --powers)
         {
             switch (randint1(7))
             {
@@ -2602,7 +2606,7 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
             case 3:
                 add_flag(o_ptr->art_flags, TR_SPELL_CAP);
                 if (!o_ptr->pval) 
-                    o_ptr->pval = randint1(m_bonus(3, object_level));
+                    o_ptr->pval = randint1(m_bonus(3, level));
                 else if (o_ptr->pval > 3)
                     o_ptr->pval = 3;
                 break;
@@ -2622,7 +2626,7 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
                     add_flag(o_ptr->art_flags, TR_DEC_STR);
                     add_flag(o_ptr->art_flags, TR_DEC_DEX);
                     add_flag(o_ptr->art_flags, TR_DEC_CON);
-                    o_ptr->pval = randint1(m_bonus(3, object_level));
+                    o_ptr->pval = randint1(m_bonus(2, level));
                     break;
                 }
             default:
@@ -2635,6 +2639,453 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
         break;
     }
 
+    /* Be sure to cursify later! */
+    if (power == -1)
+        power--;
+}
+
+static void _create_amulet(object_type *o_ptr, int level, int power, int mode)
+{
+    int powers = 0;
+    
+    o_ptr->name2 = _get_random_ego(EGO_TYPE_AMULET);
+    switch (o_ptr->name2)
+    {
+    case EGO_AMULET_MAGI:
+        add_flag(o_ptr->art_flags, TR_SEARCH);
+        for (powers = abs(power) + randint1(m_bonus(5, level)); powers > 0; --powers)
+        {
+            switch (randint1(7))
+            {
+            case 1:
+                add_flag(o_ptr->art_flags, TR_FREE_ACT);
+                add_flag(o_ptr->art_flags, TR_SEE_INVIS);
+                break;
+            case 2:
+                add_flag(o_ptr->art_flags, TR_SUST_INT);
+                break;
+            case 3:
+                add_flag(o_ptr->art_flags, TR_EASY_SPELL);
+                break;
+            case 4:
+                if (abs(power) >= 2 && one_in_(2))
+                    add_flag(o_ptr->art_flags, TR_TELEPATHY);
+                else
+                    one_low_esp(o_ptr);
+                break;
+            case 5:
+                if (abs(power) >= 2)
+                {
+                    add_flag(o_ptr->art_flags, TR_DEC_MANA);
+                    break;
+                }
+            case 6:
+                if (abs(power) >= 2 && one_in_(15))
+                {
+                    add_flag(o_ptr->art_flags, TR_SPELL_POWER);
+                    add_flag(o_ptr->art_flags, TR_DEC_STR);
+                    add_flag(o_ptr->art_flags, TR_DEC_DEX);
+                    add_flag(o_ptr->art_flags, TR_DEC_CON);
+                    o_ptr->pval = randint1(m_bonus(2, level));
+                    break;
+                }
+            default:
+                add_flag(o_ptr->art_flags, TR_INT);
+                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(5, level));
+            }
+        }
+        if (!o_ptr->pval) o_ptr->pval = randint1(8); /* Searching */
+        break;
+    case EGO_AMULET_DEVOTION:
+        for (powers = abs(power) + randint1(m_bonus(5, level)); powers > 0; --powers)
+        {
+            switch (randint1(7))
+            {
+            case 1:
+                add_flag(o_ptr->art_flags, TR_CHR);
+                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(5, level));
+                break;
+            case 2:
+                add_flag(o_ptr->art_flags, TR_REFLECT);
+                break;
+            case 3:
+                if (abs(power) >= 2 && one_in_(2) && level >= 30)
+                {
+                    add_flag(o_ptr->art_flags, TR_SPELL_CAP);
+                    o_ptr->pval = randint1(m_bonus(3, level));
+                }
+                else
+                {
+                    add_flag(o_ptr->art_flags, TR_HOLD_LIFE);
+                    if (one_in_(2))
+                        add_flag(o_ptr->art_flags, TR_FREE_ACT);
+                    if (one_in_(2))
+                        add_flag(o_ptr->art_flags, TR_SEE_INVIS);
+                }
+                break;
+            case 4: 
+                one_high_resistance(o_ptr);
+                break;
+            case 5:
+                if (abs(power) >= 2 && one_in_(2) && level >= 30)
+                {
+                    do { one_high_resistance(o_ptr); } while (one_in_(2));
+                    break;
+                }
+            default:
+                add_flag(o_ptr->art_flags, TR_WIS);
+                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(5, level));
+            }
+        }
+        break;
+    case EGO_AMULET_TRICKERY:
+        add_flag(o_ptr->art_flags, TR_SEARCH);
+        for (powers = abs(power) + randint1(m_bonus(5, level)); powers > 0; --powers)
+        {
+            switch (randint1(7))
+            {
+            case 1:
+                add_flag(o_ptr->art_flags, TR_DEX);
+                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(5, level));
+                break;
+            case 2:
+                add_flag(o_ptr->art_flags, TR_SUST_DEX);
+                break;
+            case 3:
+                if (one_in_(2))
+                    add_flag(o_ptr->art_flags, TR_RES_POIS);
+                else
+                    add_flag(o_ptr->art_flags, TR_RES_DARK);
+                break;
+            case 4:
+                if (one_in_(2))
+                    add_flag(o_ptr->art_flags, TR_RES_NEXUS);
+                else
+                    add_flag(o_ptr->art_flags, TR_RES_CONF);
+                break;
+            case 5:
+                if (abs(power) >= 2 && one_in_(2) && level >= 50)
+                {
+                    add_flag(o_ptr->art_flags, TR_TELEPATHY);
+                    break;
+                }
+            case 6:
+                if (abs(power) >= 2 && one_in_(2) && level >= 50)
+                {
+                    add_flag(o_ptr->art_flags, TR_SPEED);
+                    o_ptr->pval = randint1(m_bonus(3, level));
+                    break;
+                }
+            default:
+                add_flag(o_ptr->art_flags, TR_STEALTH);
+            }
+        }
+        if (!o_ptr->pval) o_ptr->pval = randint1(5); /* Searching & Stealth */
+        break;
+    case EGO_AMULET_HERO:
+        o_ptr->to_a = randint1(5) + m_bonus(5, level);
+        o_ptr->to_h = randint1(3) + m_bonus(5, level);
+        o_ptr->to_d = randint1(3) + m_bonus(5, level);
+        if (one_in_(3)) add_flag(o_ptr->art_flags, TR_SLOW_DIGEST);
+        if (one_in_(3)) add_flag(o_ptr->art_flags, TR_SUST_CON);
+        break;
+    case EGO_AMULET_DWARVEN:
+        add_flag(o_ptr->art_flags, TR_INFRA);
+        for (powers = abs(power) + randint1(m_bonus(5, level)); powers > 0; --powers)
+        {
+            switch (randint1(9))
+            {
+            case 1:
+                add_flag(o_ptr->art_flags, TR_STR);
+                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(4, level));
+                break;
+            case 2:
+                if (one_in_(3))
+                    add_flag(o_ptr->art_flags, TR_DEC_DEX);
+                else
+                    add_flag(o_ptr->art_flags, TR_DEC_STEALTH);
+                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(4, level));
+                break;
+            case 3:
+                add_flag(o_ptr->art_flags, TR_CON);
+                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(4, level));
+                break;
+            case 4:
+                add_flag(o_ptr->art_flags, TR_RES_BLIND);
+                break;
+            case 5:
+                add_flag(o_ptr->art_flags, TR_RES_DARK);
+                break;
+            case 6:
+                add_flag(o_ptr->art_flags, TR_RES_DISEN);
+                break;
+            case 7:
+                add_flag(o_ptr->art_flags, TR_FREE_ACT);
+                break;
+            default:
+                add_flag(o_ptr->art_flags, TR_REGEN);
+            }
+        }
+        if (!o_ptr->pval) o_ptr->pval = 2 + randint1(6); /* Infravision */
+        break;
+    case EGO_AMULET_BARBARIAN:
+        for (powers = abs(power) + randint1(m_bonus(5, level)); powers > 0; --powers)
+        {
+            switch (randint1(6))
+            {
+            case 1:
+                add_flag(o_ptr->art_flags, TR_STR);
+                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(4, level));
+                break;
+            case 2:
+                add_flag(o_ptr->art_flags, TR_DEX);
+                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(4, level));
+                break;
+            case 3:
+                if (one_in_(3))
+                    add_flag(o_ptr->art_flags, TR_FREE_ACT);
+                else
+                {
+                    add_flag(o_ptr->art_flags, TR_NO_MAGIC);
+                    if (abs(power) >= 2 && one_in_(10) && level >= 70)
+                    {
+                        add_flag(o_ptr->art_flags, TR_MAGIC_RESISTANCE);
+                        o_ptr->pval = randint1(m_bonus(3, level));
+                    }
+                }
+                break;
+            case 4:
+                if (abs(power) >= 2 && one_in_(10) && level >= 70)
+                    add_flag(o_ptr->art_flags, TR_NO_SUMMON);
+                else if (one_in_(6))
+                    add_flag(o_ptr->art_flags, TR_NO_TELE);
+                else
+                    add_flag(o_ptr->art_flags, TR_RES_FEAR);
+                break;
+            case 5:
+                add_flag(o_ptr->art_flags, TR_DEC_INT);
+                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(4, level));
+                break;
+            case 6:
+                o_ptr->to_a += randint1(5) + m_bonus(5, level);
+                break;
+            }
+        }
+        if (o_ptr->to_a > 15) o_ptr->to_a = 15;
+        break;
+    case EGO_AMULET_SACRED:
+        add_flag(o_ptr->art_flags, TR_BLESSED);
+        o_ptr->to_a = 5;
+        for (powers = abs(power) + randint1(m_bonus(5, level)); powers > 0; --powers)
+        {
+            switch (randint1(8))
+            {
+            case 1:
+                add_flag(o_ptr->art_flags, TR_STR);
+                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(4, level));
+                break;
+            case 2:
+                add_flag(o_ptr->art_flags, TR_WIS);
+                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(4, level));
+                break;
+            case 3:
+                add_flag(o_ptr->art_flags, TR_FREE_ACT);
+                if (one_in_(2))
+                    add_flag(o_ptr->art_flags, TR_SEE_INVIS);
+                break;
+            case 4:
+                if (abs(power) >= 2 && one_in_(10) && level >= 50)
+                    add_flag(o_ptr->art_flags, TR_REFLECT);
+                else if (one_in_(5))
+                    add_flag(o_ptr->art_flags, TR_RES_CHAOS);
+                else if (one_in_(3))
+                    add_flag(o_ptr->art_flags, TR_RES_CONF);
+                else if (one_in_(3))
+                    add_flag(o_ptr->art_flags, TR_RES_NETHER);
+                else
+                    add_flag(o_ptr->art_flags, TR_RES_FEAR);
+                break;
+            case 5:
+                if (abs(power) >= 2 && one_in_(20) && level >= 70)
+                {
+                    add_flag(o_ptr->art_flags, TR_SPEED);
+                    o_ptr->pval = randint1(2);
+                }
+                else if (one_in_(7) && level >= 50)
+                {
+                    add_flag(o_ptr->art_flags, TR_LIFE);
+                    if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(4, level));
+                }
+                else if (one_in_(2))
+                    add_flag(o_ptr->art_flags, TR_REGEN);
+                else
+                    add_flag(o_ptr->art_flags, TR_HOLD_LIFE);
+                break;
+            default:
+                o_ptr->to_a += randint1(5) + m_bonus(5, level);
+            }
+        }
+        if (o_ptr->to_a > 20) o_ptr->to_a = 20;
+        break;
+    case EGO_AMULET_HELL:
+        o_ptr->curse_flags |= TRC_CURSED;
+        o_ptr->to_a = -5;
+        for (powers = abs(power) + randint1(m_bonus(5, level)); powers > 0; --powers)
+        {
+            switch (randint1(7))
+            {
+            case 1:
+                if (one_in_(3))
+                {
+                    add_flag(o_ptr->art_flags, TR_AGGRAVATE);
+                    one_demon_resistance(o_ptr);
+                }
+                else
+                {
+                    add_flag(o_ptr->art_flags, TR_DEC_STEALTH);
+                    add_flag(o_ptr->art_flags, TR_DEC_WIS);
+                    if (!o_ptr->pval) o_ptr->pval = randint1(7);
+                }
+                break;
+            case 2:
+                o_ptr->to_a -= randint1(5) + m_bonus(5, level);
+                one_demon_resistance(o_ptr);
+                break;
+            case 3:
+                add_flag(o_ptr->art_flags, TR_FREE_ACT);
+                if (one_in_(2))
+                    add_flag(o_ptr->art_flags, TR_SEE_INVIS);
+                if (one_in_(6))
+                {
+                    add_flag(o_ptr->art_flags, TR_VULN_COLD);
+                    o_ptr->to_h += 5;
+                    o_ptr->to_d += 5;
+                    o_ptr->to_a -= 5;
+                    one_demon_resistance(o_ptr);
+                }
+                break;
+            case 4:
+                o_ptr->to_h += randint1(5) + m_bonus(5, level);
+                break;
+            case 5:
+                o_ptr->to_d += randint1(5) + m_bonus(5, level);
+                if (one_in_(6))
+                {
+                    add_flag(o_ptr->art_flags, TR_DRAIN_EXP);
+                    one_demon_resistance(o_ptr);
+                }
+                break;
+            case 6:
+                if (abs(power) >= 2 && one_in_(66) && level >= 66)
+                {
+                    add_flag(o_ptr->art_flags, TR_TY_CURSE);
+                    add_flag(o_ptr->art_flags, TR_IM_FIRE);
+                    o_ptr->to_h += 5;
+                    o_ptr->to_d += 5;
+                    o_ptr->to_a -= 20;
+                    break;
+                }
+                else if (one_in_(3))
+                {
+                    add_flag(o_ptr->art_flags, TR_DEC_SPEED);
+                    o_ptr->pval = randint1(3);
+                    o_ptr->to_h += 5;
+                    o_ptr->to_d += 5;
+                    o_ptr->to_a -= 5;
+                    one_demon_resistance(o_ptr);
+                    break;
+                }
+            default:
+                o_ptr->to_h += randint1(5);
+                o_ptr->to_d += randint1(5);
+            }
+        }
+        if (o_ptr->to_a < -20) o_ptr->to_a = -20;
+        if (o_ptr->to_h > 20) o_ptr->to_h = 20;
+        if (o_ptr->to_d > 20) o_ptr->to_d = 20;
+        break;
+    case EGO_AMULET_ELEMENTAL:
+        if (abs(power) >= 2)
+        {
+            add_flag(o_ptr->art_flags, TR_RES_COLD);
+            add_flag(o_ptr->art_flags, TR_RES_FIRE);
+            add_flag(o_ptr->art_flags, TR_RES_ELEC);
+            if (one_in_(3))
+                add_flag(o_ptr->art_flags, TR_RES_ACID);
+            if (one_in_(5))
+                add_flag(o_ptr->art_flags, TR_RES_POIS);
+            else if (one_in_(5))
+                add_flag(o_ptr->art_flags, TR_RES_SHARDS);
+        }
+        else
+        {
+            one_ele_resistance(o_ptr);
+            if (one_in_(3))
+                one_ele_resistance(o_ptr);
+        }
+        break;
+    case EGO_AMULET_DEFENDER:
+        add_flag(o_ptr->art_flags, TR_FREE_ACT);
+        add_flag(o_ptr->art_flags, TR_SEE_INVIS);
+        if (abs(power) >= 2)
+        {
+            add_flag(o_ptr->art_flags, TR_LEVITATION);
+            one_sustain(o_ptr);
+            o_ptr->to_a = 5 + randint1(5) + m_bonus(10, level);
+            switch (randint1(4))
+            {
+            case 1: /* Classic Defender */
+                add_flag(o_ptr->art_flags, TR_RES_ACID);
+                add_flag(o_ptr->art_flags, TR_RES_ELEC);
+                add_flag(o_ptr->art_flags, TR_RES_FIRE);
+                add_flag(o_ptr->art_flags, TR_RES_COLD);
+                if (one_in_(3))
+                    add_flag(o_ptr->art_flags, TR_RES_POIS);
+                else if (one_in_(3))
+                    one_high_resistance(o_ptr);
+                break;
+            case 2: /* High Defender */
+                one_high_resistance(o_ptr);
+                do
+                {
+                    one_high_resistance(o_ptr);
+                } 
+                while (one_in_(2));
+                break;
+            case 3: /* Lordly Protection */
+                o_ptr->to_a += 5;
+                add_flag(o_ptr->art_flags, TR_RES_POIS);
+                add_flag(o_ptr->art_flags, TR_RES_DISEN);
+                add_flag(o_ptr->art_flags, TR_HOLD_LIFE);
+                do
+                {
+                    one_lordly_high_resistance(o_ptr);
+                }
+                while (one_in_(4));
+                break;
+            case 4: /* Revenge! */
+                o_ptr->to_a += 15;
+                add_flag(o_ptr->art_flags, TR_SH_COLD);
+                add_flag(o_ptr->art_flags, TR_SH_ELEC);
+                add_flag(o_ptr->art_flags, TR_SH_FIRE);
+                if (one_in_(2))
+                    add_flag(o_ptr->art_flags, TR_SH_SHARDS);
+                if (one_in_(7))
+                    add_flag(o_ptr->art_flags, TR_SH_REVENGE);
+                break;
+            }
+        }
+        else
+        {
+            o_ptr->to_a = randint1(5) + m_bonus(5, level);
+            one_ele_resistance(o_ptr);
+            one_ele_resistance(o_ptr);
+            one_ele_resistance(o_ptr);
+            one_ele_resistance(o_ptr);
+            one_ele_resistance(o_ptr);
+        }
+        break;
+    }
     /* Be sure to cursify later! */
     if (power == -1)
         power--;
@@ -2907,6 +3358,13 @@ static void _create_weapon(object_type *o_ptr, int level, int power, int mode)
             case EGO_WEAPON_DEATH:
                 if (one_in_(5))
                     add_flag(o_ptr->art_flags, TR_SLAY_HUMAN);
+                else if (one_in_(13))
+                {
+                    /* add_flag(o_ptr->art_flags, TR_SLAY_LIVING);
+                    o_ptr->dd++; 
+                    o_ptr->curse_flags |= TRC_CURSED;
+                    o_ptr->curse_flags |= get_curse(2, o_ptr); */
+                }
                 break;
             case EGO_WEAPON_DEFENDER:
                 o_ptr->to_a = 5;
@@ -3504,149 +3962,6 @@ static void _create_armor(object_type *o_ptr, int level, int power, int mode)
 
 
 /*
- * Apply magic to an item known to be a "ring" or "amulet"
- *
- * Hack -- note special "pval boost" code for ring of speed
- * Hack -- note that some items must be cursed (or blessed)
- */
-static void a_m_aux_3(object_type *o_ptr, int level, int power, int mode)
-{
-    /* Apply magic (good or bad) according to type */
-    if (o_ptr->tval == TV_AMULET)
-    {
-        switch (o_ptr->sval)
-        {
-        case SV_AMULET_SPELL_POWER:
-        {
-            int pv = 1 + m_bonus(4, level);
-            o_ptr->pval = -pv;
-            return; /* No ego or artifacts, please!*/
-        }
-        case SV_AMULET_SPELL_CAP:
-            o_ptr->pval = 1 + m_bonus(4, level);
-            if (power < 0)
-            {
-                o_ptr->ident |= (IDENT_BROKEN);
-                o_ptr->curse_flags |= TRC_CURSED;
-                o_ptr->pval = 0 - (o_ptr->pval);
-            }
-            break;
-        case SV_AMULET_TRICKERY:
-            o_ptr->pval = 1 + m_bonus(2, level);
-            if (power < 0)
-            {
-                o_ptr->ident |= (IDENT_BROKEN);
-                o_ptr->curse_flags |= (TRC_CURSED);
-                o_ptr->pval = 0 - o_ptr->pval;
-            }
-            break;
-        case SV_AMULET_HERO:
-            o_ptr->pval = randint1(5) + m_bonus(5, level);
-            o_ptr->to_a = randint1(5) + m_bonus(5, level);
-            o_ptr->to_h = randint1(3) + m_bonus(5, level);
-            o_ptr->to_d = randint1(3) + m_bonus(5, level);
-            if (one_in_(3)) add_flag(o_ptr->art_flags, TR_SLOW_DIGEST);
-            if (one_in_(3)) add_flag(o_ptr->art_flags, TR_SUST_CON);
-            break;
-        case SV_AMULET_INTELLIGENCE:
-        case SV_AMULET_WISDOM:
-        case SV_AMULET_CHARISMA:
-            o_ptr->pval = 1 + m_bonus(5, level);
-            if (power < 0)
-            {
-                o_ptr->ident |= (IDENT_BROKEN);
-                o_ptr->curse_flags |= (TRC_CURSED);
-                o_ptr->pval = 0 - o_ptr->pval;
-            }
-            break;
-        case SV_AMULET_BRILLIANCE:
-            o_ptr->pval = 1 + m_bonus(3, level);
-            if (one_in_(4)) o_ptr->pval++;
-            if (power < 0)
-            {
-                o_ptr->ident |= (IDENT_BROKEN);
-                o_ptr->curse_flags |= (TRC_CURSED);
-                o_ptr->pval = 0 - o_ptr->pval;
-            }
-            break;
-        case SV_AMULET_NO_MAGIC: 
-        case SV_AMULET_NO_TELE:
-            if (power < 0)
-                o_ptr->curse_flags |= (TRC_CURSED);
-            break;
-        case SV_AMULET_RESISTANCE:
-            if (one_in_(5)) 
-                add_flag(o_ptr->art_flags, TR_RES_POIS);
-            else if (one_in_(5))
-                one_high_resistance(o_ptr);
-            break;
-        case SV_AMULET_HIGH_RESISTANCE:
-            do
-            {
-                one_high_resistance(o_ptr);
-            } 
-            while (one_in_(3));
-            break;
-        case SV_AMULET_SEARCHING:
-            o_ptr->pval = randint1(2) + m_bonus(4, level);
-            if (power < 0)
-            {
-                o_ptr->ident |= (IDENT_BROKEN);
-                o_ptr->curse_flags |= (TRC_CURSED);
-                o_ptr->pval = 0 - (o_ptr->pval);
-            }
-            break;
-        case SV_AMULET_THE_MAGI:
-            o_ptr->pval = randint1(5) + m_bonus(5, level);
-            o_ptr->to_a = randint1(5) + m_bonus(5, level);
-            add_esp_weak(o_ptr, FALSE);
-            break;
-        case SV_AMULET_DOOM:
-            o_ptr->ident |= (IDENT_BROKEN);
-            o_ptr->curse_flags |= (TRC_CURSED);
-            o_ptr->pval = 0 - (randint1(5) + m_bonus(5, level));
-            o_ptr->to_a = 0 - (randint1(5) + m_bonus(5, level));
-            o_ptr->to_h = 10 + m_bonus(15, level);
-            o_ptr->to_d = 10 + m_bonus(15, level);
-            if (power > 0) power = 0 - power;
-            break;
-        case SV_AMULET_MAGIC_MASTERY:
-            o_ptr->pval = 1 + m_bonus(3, level);
-            if (power < 0)
-            {
-                o_ptr->ident |= (IDENT_BROKEN);
-                o_ptr->curse_flags |= (TRC_CURSED);
-                o_ptr->pval = 0 - o_ptr->pval;
-            }
-            break;
-        }
-        if (power > 1 && one_in_(2))
-        {
-            if ((one_in_(20) && !object_is_cursed(o_ptr)) || power > 2)
-            {
-                o_ptr->pval = MIN(o_ptr->pval, 4);
-                create_artifact(o_ptr, CREATE_ART_NORMAL);
-            }
-            else if (power == 2)
-            {
-            }
-        }
-        else if ((power == -2) && one_in_(2))
-        {
-            if (o_ptr->to_h > 0) o_ptr->to_h = 0-o_ptr->to_h;
-            if (o_ptr->to_d > 0) o_ptr->to_d = 0-o_ptr->to_d;
-            if (o_ptr->to_a > 0) o_ptr->to_a = 0-o_ptr->to_a;
-            if (o_ptr->pval > 0) o_ptr->pval = 0-o_ptr->pval;
-            o_ptr->art_flags[0] = 0;
-            o_ptr->art_flags[1] = 0;
-            o_ptr->ident |= (IDENT_BROKEN);
-            o_ptr->curse_flags |= (TRC_CURSED | TRC_HEAVY_CURSE);
-        }
-    }
-}
-
-
-/*
  * Hack -- help pick an item type
  */
 static bool item_monster_okay(int r_idx)
@@ -4179,6 +4494,14 @@ void apply_magic(object_type *o_ptr, int lev, u32b mode)
 
         case TV_SWORD:
         {
+            if (object_is_(o_ptr, TV_SWORD, SV_DRAGON_FANG))
+            {
+                /* TODO */
+                if (cheat_peek) object_mention(o_ptr);
+                dragon_resist(o_ptr);
+                if (!one_in_(3)) power = 0;
+            }
+
             if (o_ptr->sval == SV_RUNESWORD) 
             {
                 o_ptr->curse_flags |= (TRC_PERMA_CURSE);
@@ -4206,16 +4529,13 @@ void apply_magic(object_type *o_ptr, int lev, u32b mode)
         case TV_CLOAK:
         case TV_GLOVES:
         case TV_BOOTS:
-        {
-            /* Elven Cloak and Black Clothes ... */
-            if (((o_ptr->tval == TV_CLOAK) && (o_ptr->sval == SV_ELVEN_CLOAK)) ||
-                ((o_ptr->tval == TV_SOFT_ARMOR) && (o_ptr->sval == SV_KUROSHOUZOKU)))
+            if ( object_is_(o_ptr, TV_CLOAK, SV_ELVEN_CLOAK)
+              || object_is_(o_ptr, TV_SOFT_ARMOR, SV_BLACK_CLOTHES) )
             {
                 o_ptr->pval = randint1(4);
             }
 
-            if ( object_is_dragon_armor(o_ptr)
-              || (o_ptr->tval == TV_SWORD && o_ptr->sval == SV_DRAGON_FANG) )
+            if (object_is_dragon_armor(o_ptr))
             {
                 if (cheat_peek) object_mention(o_ptr);
                 dragon_resist(o_ptr);
@@ -4223,23 +4543,15 @@ void apply_magic(object_type *o_ptr, int lev, u32b mode)
             }
             if (power) _create_armor(o_ptr, lev, power, mode);
             break;
-        }
-
         case TV_RING:
             if (power) _create_ring(o_ptr, lev, power, mode);
             break;
-
         case TV_AMULET:
-        {
-            if (!power && (randint0(100) < 50)) power = -1;
-            a_m_aux_3(o_ptr, lev, power, mode);
+            if (power) _create_amulet(o_ptr, lev, power, mode);
             break;
-        }
-
         case TV_LITE:
             _create_lite(o_ptr, lev, power, mode);
             break;
-
         default:
         {
             a_m_aux_4(o_ptr, lev, power, mode);
@@ -4437,6 +4749,8 @@ static bool kind_is_tailored(int k_idx)
     case TV_HELM:
     case TV_CROWN:
     case TV_BOW:
+    case TV_RING:
+    case TV_AMULET:
         return equip_can_wield_kind(k_ptr->tval, k_ptr->sval);
 
     case TV_SWORD:
@@ -4472,7 +4786,7 @@ static bool kind_is_tailored(int k_idx)
         return check_book_realm(k_ptr->tval, k_ptr->sval);
     }
 
-    return TRUE;
+    return FALSE;
 }
 
 static bool _drop_tailored = FALSE;
@@ -4684,7 +4998,7 @@ static bool _kind_is_device(int k_idx) {
 static bool _kind_is_jewelry(int k_idx) { 
     switch (k_info[k_idx].tval)
     {
-    case TV_RING: /* TODO: case TV_AMULET:*/
+    case TV_RING: case TV_AMULET:
         return TRUE;
     }
     return FALSE;
@@ -4727,20 +5041,20 @@ static bool _kind_is_misc(int k_idx) {
 typedef struct {
     _kind_p hook;
     int     weight;
+    u32b    reject;
 } _kind_alloc_entry;
 static _kind_alloc_entry _kind_alloc_table[] = {
-    { _kind_is_weapon, 25 },
-    { _kind_is_armor, 25 },
-    { _kind_is_device, 20 },
-    { _kind_is_bow, 7 },
-    { _kind_is_ammo, 7 },
-    { _kind_is_book, 7 },
-    { _kind_is_jewelry, 5 },
-    { _kind_is_misc, 4 },
+    { _kind_is_weapon, 25, 0 },
+    { _kind_is_armor,  25, 0 },
+    { _kind_is_device, 20, AM_GOOD | AM_GREAT },
+    { _kind_is_bow,     7, 0 },
+    { _kind_is_ammo,    7, 0 },
+    { _kind_is_book,    7, AM_GOOD | AM_GREAT }, /* TODO: Well, there are too many spellbooks anyway ... */
+    { _kind_is_jewelry, 5, 0 },
+    { _kind_is_misc,    4, AM_GOOD | AM_GREAT },
     { NULL, 0}
 };
-
-_kind_p _choose_obj_kind(void)
+_kind_p _choose_obj_kind(u32b mode)
 {
     int i;
     int tot = 0;
@@ -4748,6 +5062,7 @@ _kind_p _choose_obj_kind(void)
     for (i = 0; ; i++)
     {
         if (!_kind_alloc_table[i].hook) break;
+        if (_kind_alloc_table[i].reject & mode) continue;
         tot += _kind_alloc_table[i].weight;
     }
 
@@ -4758,6 +5073,7 @@ _kind_p _choose_obj_kind(void)
         for (i = 0; ; i++)
         {
             if (!_kind_alloc_table[i].hook) break;
+            if (_kind_alloc_table[i].reject & mode) continue;
             j -= _kind_alloc_table[i].weight;
             if (j < 0)
                 return _kind_alloc_table[i].hook;
@@ -4802,24 +5118,22 @@ bool make_object(object_type *j_ptr, u32b mode)
         if (mode & AM_TAILORED)
             _drop_tailored = TRUE;
 
-        /* Good objects */
+        /* Experimental: Restrict object allocation by type, even for DROP_GOOD and DROP_GREAT!
         if ((mode & AM_GREAT) && !get_obj_num_hook)
         {
-            /* Activate restriction (if already specified, use that) */
             get_obj_num_hook = kind_is_great;
         }
         if ((mode & AM_GOOD) && !get_obj_num_hook)
         {
-            /* Activate restriction (if already specified, use that) */
             get_obj_num_hook = kind_is_good;
-        }
+        }*/
 
         if (_drop_tailored && !get_obj_num_hook)
             get_obj_num_hook = kind_is_tailored;
 
         /* Experimental: Restrict object allocation by type. */
         if (!get_obj_num_hook)
-            get_obj_num_hook = _choose_obj_kind();
+            get_obj_num_hook = _choose_obj_kind(mode);
 
         /* Restricted objects - prepare allocation table */
         if (get_obj_num_hook) get_obj_num_prep();

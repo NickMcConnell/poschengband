@@ -1265,7 +1265,7 @@ P:8:1d3:0:0:0
 D:An oval shield of wood covered by leather and rimmed with metal.  A large 
 D:iron shield boss offers excellent hand protection.
 
-##### Rings #####
+##### Jewelry #####
 
 N:132:& Ring~
 G:=:g
@@ -1273,54 +1273,11 @@ I:45:0:0
 W:10:0:0:2:500
 A:10/1:40/1:60/1
 
-##### Amulets #####
-
-N:163:Brilliance:Amber
+N:133:& Amulet~
 G:":y
-I:40:6:0
-W:50:0:0:3:5000
-A:50/4
-F:INT | WIS | CHR | SUST_INT | SUST_WIS | SUST_CHR | HIDE_TYPE
-
-N:164:Charisma:Driftwood
-G:":U
-I:40:7:0
-W:20:0:60:3:500
-A:20/1
-F:CHR | HIDE_TYPE
-
-N:165:Searching:Coral
-G:":w
-I:40:5:0
-W:30:0:50:3:600
-A:30/4
-F:SEARCH | HIDE_TYPE
-
-N:166:Teleportation:Agate
-G:":W
-I:40:1:0
-W:15:0:30:3:250
-A:15/1
-F:TELEPORT | CURSED
-
-N:167:Slow Digestion:Ivory
-G:":w
-I:40:3:0
-W:15:0:50:3:200
-F:SLOW_DIGEST
-
-N:168:Resist Acid:Obsidian
-G:":D
-I:40:4:0
-W:20:0:50:3:300
-A:20/1
-F:RES_ACID | IGNORE_ACID
-
-N:169:Adornment:Bone
-G:":w
-I:40:2:0
-W:15:0:30:3:20
-A:15/1
+I:40:0:0
+W:10:0:0:2:500
+A:10/1:40/1:60/1
 
 ##### Extra armor #####
 
@@ -1330,27 +1287,6 @@ I:37:5:0
 W:25:0:0:230:700
 A:25/1
 P:15:1d4:-2:0:0
-
-##### Additional amulets #####
-
-N:171:the Magi:Brass
-G:":U
-I:40:8:0
-W:50:0:0:3:30000
-A:50/4:80/3
-P:0:0d0:0:0:3
-F:FREE_ACT | SEE_INVIS | SEARCH | INFRA |
-F:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
-
-N:172:Destruction:Bronze
-G:":U
-I:40:0:-5
-W:50:0:0:3:0
-A:50/1
-P:0:7d7:25:25:5
-F:CURSED | HEAVY_CURSE | STR | INT | WIS | DEX | CON | CHR | 
-F:TY_CURSE | NO_TELE | NO_MAGIC | REGEN | 
-F:HIDE_TYPE | RANDOM_CURSE2
 
 ##### Scrolls #####
 
@@ -3483,30 +3419,6 @@ W:70:0:0:5:60000
 P:0:1d1:0:0:0
 F:INSTA_ART
 
-# The Amulet of Carlammas -- see artifact list
-
-N:503:& Amulet~:Pewter
-G:":s
-I:40:10:0
-W:50:0:0:3:60000
-F:INSTA_ART
-
-# The Amulet of Ingwe -- see artifact list
-
-N:504:& Amulet~:Tortoise Shell
-G:":g
-I:40:11:0
-W:60:0:0:3:90000
-F:INSTA_ART
-
-# The Necklace of the Dwarves -- see artifact list
-
-N:505:& Necklace~:Golden
-G:":y
-I:40:12:0
-W:70:0:0:3:75000
-F:INSTA_ART
-
 ### Room for new objects added after 511 (Zangband 2.1.0): 512-575
 
 # Trump Spellbooks
@@ -3572,42 +3484,6 @@ I:96:3:0
 W:25:0:0:30:2500
 A:25/1
 P:0:1d1:0:0:0
-
-N:520:Reflection:Azure
-G:":B
-I:40:9:0
-W:60:0:0:3:30000
-A:60/4
-F:REFLECT
-F:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
-
-#521 and 522 cannot have EASY_KNOW because they may be cursed
-
-N:521:Anti-Magic:Crystal
-G:":B
-I:40:13:0
-W:40:0:0:3:10000
-A:40/4
-F:NO_MAGIC
-F:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
-
-N:522:Anti-Teleportation:Silver
-G:":W
-I:40:14:0
-W:30:0:0:3:5000
-A:30/4
-F:NO_TELE
-F:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
-
-#523 cannot have EASY_KNOW because it can get random resistances
-
-N:523:Resistance:Copper
-G:":U
-I:40:15:0
-W:50:0:0:3:25000
-A:50/4
-F:RES_ACID | RES_ELEC | RES_FIRE | RES_COLD
-F:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
 
 ##### New arms #####
 
@@ -4072,14 +3948,6 @@ A:60/5
 P:5:1d3:0:0:10
 F:IGNORE_ACID | IGNORE_FIRE | IGNORE_ELEC | IGNORE_COLD
 
-N:587:Telepathy:Swastika
-G:":v
-I:40:16:0
-W:60:0:0:3:50000
-A:60/4
-F:TELEPATHY
-F:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
-
 N:588:& Gun~
 G:}:r
 I:19:50:0
@@ -4098,12 +3966,6 @@ G:*:R
 I:39:7:0
 W:15:0:0:5:60000
 P:0:1d1:0:0:0
-F:INSTA_ART
-
-N:591:& Amulet~:Platinum
-G:":w
-I:40:17:0
-W:30:0:0:3:25000
 F:INSTA_ART
 
 N:592:& Poison Needle~
@@ -4160,12 +4022,6 @@ I:70:6:0
 W:30:0:0:5:1000
 A:30/2
 
-N:602:& Torque~:Rusty
-G:":r
-I:40:18:0
-W:30:0:0:3:25000
-F:INSTA_ART
-
 N:603:Tsuyoshi Special:Silver
 G:!:w
 I:75:65:0
@@ -4218,12 +4074,6 @@ W:60:0:0:10:60000
 P:0:1d1:0:0:0
 F:INSTA_ART
 
-N:610:& Bead~:Curved
-G:":g
-I:40:19:0
-W:60:0:0:3:90000
-F:INSTA_ART
-
 N:611:& Ethereal Cloak~
 G:(:W
 I:35:5:0
@@ -4261,12 +4111,6 @@ G:/:B
 I:22:40:0
 W:10:0:0:30:30
 P:0:1d1:0:0:0
-F:INSTA_ART
-
-N:616:& Inro~:Dragon's claw
-G:":G
-I:40:20:0
-W:50:0:0:3:100000
 F:INSTA_ART
 
 N:617:Polymorph:Bronze
@@ -4310,20 +4154,6 @@ G:(:y
 I:36:63:0
 W:1:0:0:10:1000000
 F:INSTA_ART
-
-N:624:Intelligence:Rosary
-G:":G
-I:40:21:0
-W:20:0:60:3:500
-A:20/1
-F:INT | HIDE_TYPE
-
-N:625:Wisdom:Jade
-G:":g
-I:40:22:0
-W:20:0:60:3:500
-A:20/1
-F:WIS | HIDE_TYPE
 
 N:627:& Knight's Shield~
 G:):W
@@ -4454,13 +4284,6 @@ W:0:0:0:1:0
 A:0/255
 P:0:1d1:0:0:0
 
-N:644:Magic Device Mastery:Mithril
-G:":B
-I:40:23:0
-W:35:0:0:3:1000
-A:35/8
-F:MAGIC_MASTERY | HIDE_TYPE
-
 N:645:& Robe~
 G:(:D
 I:36:60:0
@@ -4512,12 +4335,6 @@ W:15:0:60:3:1000
 A:15/2
 F:ACTIVATE
 
-N:652:& Amulet~:Ruby
-G:":r
-I:40:24:0
-W:50:0:0:3:25000
-F:INSTA_ART
-
 N:653:Black Clothes
 G:(:D
 I:36:13:1
@@ -4563,30 +4380,6 @@ I:55:32:20
 W:1:0:0:50:20
 P:0:1d2:0:0:0
 F:FULL_NAME
-
-N:659:& Amulet~:Emerald
-G:":g
-I:40:25:0
-W:50:0:0:2:77777
-F:INSTA_ART
-
-N:660:& Collar Harness~:Sapphire
-G:":b
-I:40:26:0
-W:50:0:0:30:66666
-F:INSTA_ART
-
-N:661:& Pendant~:Garnet
-G:":r
-I:40:27:0
-W:50:0:0:2:100000
-F:INSTA_ART
-
-N:662:& Pendant~:Diamond
-G:":w
-I:40:28:0
-W:50:0:0:2:55555
-F:INSTA_ART
 
 N:663:[Handbook of Hex]
 G:?:v
@@ -4659,18 +4452,6 @@ W:0:0:0:4:500
 P:0:1d1:0:0:0
 D:A cryptic rune, of powers incomprehensible.
 
-N:675:Spell Power:Steel
-G:":y
-I:40:30:0
-W:20:0:0:2:1000
-F:SPELL_POWER | STR | DEX | CON
-
-N:676:Spell Capacity:Opal
-G:":v
-I:40:31:0
-W:20:0:0:2:1000
-F:SPELL_CAP
-
 N:677:Weapon Branding:enchantus maximus
 G:?:w
 I:70:55:0
@@ -4684,18 +4465,6 @@ I:70:56:0
 W:60:0:0:5:100000
 A:60/8
 F:FIXED_FLAVOR
-
-N:679:& Pendant~:Sparkling
-G:":w
-I:40:29:0
-W:90:0:0:2:555555
-F:INSTA_ART | FIXED_FLAVOR
-
-N:680:& Golden Apple~:Alluring
-G:":w
-I:40:32:0
-W:90:0:0:2:555555
-F:INSTA_ART | FIXED_FLAVOR
 
 N:681:& Hand~:Decrepit
 G:]:W
@@ -4814,22 +4583,6 @@ A:40/15
 P:0:1d8:3:3:0
 F:IGNORE_ACID | IGNORE_FIRE | IGNORE_ELEC | IGNORE_COLD
 
-N:698:High Resistance:Translucent
-G:":U
-I:40:33:0
-W:50:0:0:3:25000
-A:50/6
-F:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
-
-N:699:Trickery:Golden
-G:":U
-I:40:34:3
-W:50:0:0:3:25000
-A:80/32
-F:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
-F:STEALTH | DEX | SPEED | SEARCH | SUST_DEX |
-F:RES_POIS | RES_NEXUS
-
 N:701:[Burglar's Handbook]
 G:?:o
 I:109:0:0
@@ -4931,12 +4684,6 @@ W:50:0:0:5:25000
 P:0:1d1:0:0:0
 F:INSTA_ART
 
-N:715:& Goblet~:Golden
-G:":y
-I:40:35:0
-W:30:0:0:3:60000
-F:INSTA_ART
-
 N:716:Clarity:Metallic
 G:!:w
 I:75:70:100
@@ -5015,57 +4762,12 @@ W:50:0:0:5:25000
 P:0:1d1:0:0:0
 F:INSTA_ART
 
-N:729:& Dog Collar~:Amber
-G:":r
-I:40:36:0
-W:50:0:0:30:66666
-F:INSTA_ART
-
 N:730:& Eye
 G:*:y
 I:39:22:0
 W:20:0:0:5:25000
 P:0:1d1:0:0:0
 F:INSTA_ART
-
-N:731:Resist Fire:Red
-G:":r
-I:40:37:0
-W:15:0:50:3:300
-A:15/1
-F:RES_FIRE | IGNORE_FIRE
-
-N:732:Resist Cold:Blue
-G:":B
-I:40:38:0
-W:15:0:50:3:300
-A:15/1
-F:RES_COLD | IGNORE_COLD
-
-N:733:Resist Lightning:Shocking
-G:":b
-I:40:39:0
-W:20:0:50:3:300
-A:20/1
-F:RES_ELEC | IGNORE_ELEC
-
-N:734:& Dog Collar~:Leather
-G:":u
-I:40:40:0
-W:5:0:0:30:5000
-F:INSTA_ART | FIXED_FLAVOR
-
-N:735:& Dog Collar~:Studded
-G:":U
-I:40:41:0
-W:5:0:0:30:5000
-F:INSTA_ART | FIXED_FLAVOR
-
-N:736:& Dog Collar~:Black
-G:":u
-I:40:42:0
-W:5:0:0:30:5000
-F:INSTA_ART | FIXED_FLAVOR
 
 N:737:Fire:itus whamko
 G:?:w
@@ -5095,14 +4797,6 @@ W:90:0:0:5:10000
 A:90/6
 F:IGNORE_COLD | IGNORE_FIRE | IGNORE_ACID | IGNORE_ELEC
 
-N:741:Anti-Summoning:Obsidian
-G:":o
-I:40:43:0
-W:100:0:0:3:1000000
-A:100/32
-F:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
-F:NO_SUMMON
-
 N:742:Escaping:Translucent
 G:-:s
 I:66:32:12
@@ -5129,16 +4823,6 @@ G:/:R
 I:22:51:0
 W:70:0:0:350:10000
 P:0:10d10:-50:30:0
-F:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
-
-N:747:the Hero:Crimson
-G:":r
-I:40:44:0
-W:40:0:0:3:10000
-A:40/32
-P:0:0d0:5:5:3
-F:FREE_ACT | SEE_INVIS | SUST_STR | SUST_DEX |
-F:RES_FEAR | REGEN | SH_FIRE | HIDE_TYPE |
 F:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
 
 # N: serial number : & object name~

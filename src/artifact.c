@@ -120,6 +120,30 @@ bool one_high_vulnerability(object_type *o_ptr)
     }
     return FALSE;
 }
+void one_undead_resistance(object_type *o_ptr)
+{
+    switch (randint1(6))
+    {
+        case 1: add_flag(o_ptr->art_flags, TR_RES_COLD);   break;
+        case 2: add_flag(o_ptr->art_flags, TR_RES_POIS);   break;
+        case 3: add_flag(o_ptr->art_flags, TR_RES_DARK);   break;
+        case 4: add_flag(o_ptr->art_flags, TR_RES_NETHER); break;
+        case 5: add_flag(o_ptr->art_flags, TR_RES_DISEN);  break;
+        case 6: add_flag(o_ptr->art_flags, TR_RES_FEAR);   break;
+    }
+}
+void one_demon_resistance(object_type *o_ptr)
+{
+    switch (randint1(6))
+    {
+        case 1: add_flag(o_ptr->art_flags, TR_RES_FIRE);   break;
+        case 2: add_flag(o_ptr->art_flags, TR_RES_CONF);   break;
+        case 3: add_flag(o_ptr->art_flags, TR_RES_NEXUS);  break;
+        case 4: add_flag(o_ptr->art_flags, TR_RES_CHAOS);  break;
+        case 5: add_flag(o_ptr->art_flags, TR_RES_DISEN);  break;
+        case 6: add_flag(o_ptr->art_flags, TR_RES_FEAR);   break;
+    }
+}
 
 
 /*

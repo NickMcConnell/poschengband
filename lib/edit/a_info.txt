@@ -82,34 +82,33 @@ F:INSTA_ART | SPEED | WIS | INT
 # The Amulet of Carlammas
 
 N:4:of Carlammas
-I:40:10:2
+I:40:0:2
 W:50:30:3:60000
-F:CON | HIDE_TYPE | ACTIVATE | RES_FIRE | RES_FEAR | INSTA_ART
+F:CON | HIDE_TYPE | ACTIVATE | RES_FIRE | RES_FEAR
 D:A fiery circle of bronze, with mighty spells to ward off evil.
 
 # The Amulet of Ingwe
 
 N:5:of Ingwe
-I:40:11:3
+I:40:0:3
 W:65:50:3:90000
 F:WIS | CHR | INFRA | HIDE_TYPE |
 F:SEE_INVIS | FREE_ACT | ACTIVATE |
 F:RES_ACID | RES_COLD | RES_ELEC |
-F:INSTA_ART
 D:The ancient heirloom of Ingwe, high lord of the Vanyar, against whom nothing 
 D:of evil could stand. 
 
 # The Necklace of the Dwarves
 
-N:6:of the Dwarves
-I:40:12:3
-W:70:70:3:75000
-F:STR | CON | INFRA | HIDE_TYPE | RES_BLIND | DEC_STEALTH
-F:SEE_INVIS | FREE_ACT | REGEN | LITE | INSTA_ART
-D:The Nauglamir; a carencet of gold set with a multitude of shining gems of 
-D:Valinor, accenting a radiant Silmaril.  The sturdy spirits of Dwarvish 
-D:craftsmen who labored long in mountain smithies lie within it still, and 
-D:as gossamer it rests upon the bearer.
+#N:6:Necklace of the Dwarves
+#I:40:0:3
+#W:70:70:3:75000
+#F:STR | CON | INFRA | HIDE_TYPE | RES_BLIND | DEC_STEALTH
+#F:SEE_INVIS | FREE_ACT | REGEN | LITE | FULL_NAME
+#D:The Nauglamir; a carencet of gold set with a multitude of shining gems of 
+#D:Valinor, accenting a radiant Silmaril.  The sturdy spirits of Dwarvish 
+#D:craftsmen who labored long in mountain smithies lie within it still, and 
+#D:as gossamer it rests upon the bearer.
 
 # The Incandescent Light of Yeduson
 # Thomas Alva Yeduson the "Wizard of Menlo Park"
@@ -244,15 +243,14 @@ F:INSTA_ART
 D:A great emerald that fills your mind with images of knowledge and dreadful 
 D:understanding as you stare into its depths.
 
-N:18:of Faramir
-I:40:17:3
-W:30:60:2:20000
-P:0:0d0:12:0:0
-F:STEALTH | SHOW_MODS | HIDE_TYPE |
-F:RES_CONF | SUST_DEX | ACTIVATE |
-F:INSTA_ART
-D:A slim neckpiece of True-silver, with quiet spells of Ithilien to aid and 
-D:protect the wearer.
+#N:18:of Faramir
+#I:40:0:3
+#W:30:60:2:20000
+#P:0:0d0:12:0:0
+#F:STEALTH | SHOW_MODS | HIDE_TYPE |
+#F:RES_CONF | SUST_DEX | ACTIVATE |
+#D:A slim neckpiece of True-silver, with quiet spells of Ithilien to aid and 
+#D:protect the wearer.
 
 # The Adamantite Plate Mail 'Soulkeeper'
 
@@ -1626,15 +1624,14 @@ F:TY_CURSE | AGGRAVATE | DRAIN_EXP | INFRA | NO_TELE | NO_MAGIC | HIDE_TYPE
 F:VULN_FIRE | VULN_COLD | VULN_ELEC | VULN_ACID | VULN_POIS | VULN_CONF | VULN_CHAOS
 D:It is a look-alike for the strongest sword!
 
-N:143:of Boromir
-I:40:18:2
-W:30:60:2:25000
-P:0:0d0:0:8:0
-F:SHOW_MODS | HIDE_TYPE | 
-F:SUST_STR | RES_FEAR | ACTIVATE | 
-F:INSTA_ART
-D:A massive golden torque, made of innumerable strands of gold and steel 
-D:intermingled, with great golden hounds set at either end.
+#N:143:of Boromir
+#I:40:0:2
+#W:30:60:2:25000
+#P:0:0d0:0:8:0
+#F:SHOW_MODS | HIDE_TYPE | 
+#F:SUST_STR | RES_FEAR | ACTIVATE | 
+#D:A massive golden torque, made of innumerable strands of gold and steel 
+#D:intermingled, with great golden hounds set at either end.
 
 N:144:'Muramasa'
 I:23:20:2
@@ -1675,12 +1672,11 @@ P:0:0d0:40:13:0
 F:DEX | HIDE_TYPE | SEE_INVIS | XTRA_MIGHT | SHOW_MODS
 
 N:149:'Yasaka-no-Magatama'
-I:40:19:3
+I:40:0:3
 W:65:50:3:90000
 F:INT | CHR | SEARCH | HIDE_TYPE |
 F:SEE_INVIS | FREE_ACT | ACTIVATE |
 F:RES_FIRE | RES_COLD | RES_ELEC | 
-F:INSTA_ART
 
 N:150:'Zantetsuken'
 I:23:20:2
@@ -1809,11 +1805,11 @@ F:DEX | HIDE_TYPE | SUST_CHR | STEALTH | SPEED |
 F:RES_LITE | RES_DARK | RES_NEXUS |
 F:RES_NETHER | RES_CHAOS | LITE | FULL_NAME | VULN_SHARDS
 
-N:166:of Mito Koumon
-I:40:20:2
-W:30:80:3:100000
-F:INT | WIS | CHR | SEARCH | INFRA | SEE_INVIS | ACTIVATE |
-F:HIDE_TYPE | INSTA_ART
+#N:166:Inro of Mito Koumon
+#I:40:0:2
+#W:30:80:3:100000
+#F:INT | WIS | CHR | SEARCH | INFRA | SEE_INVIS | ACTIVATE |
+#F:HIDE_TYPE | FULL_NAME 
 
 N:167:'Tailbiter'
 I:23:16:1
@@ -2197,12 +2193,11 @@ D:to preserve body and soul, and the bane of those
 D:who seek life beyond death.
 
 N:215:of The Pitch Dark Night
-I:40:24:4
+I:40:0:4
 W:50:150:2:50000
 P:0:0d0:0:0:5
 F:STEALTH | SEARCH | HIDE_TYPE | SEE_INVIS |
 F:RES_DARK | ACTIVATE | LITE |
-F:INSTA_ART
 
 N:216:of Eowyn
 I:23:21:4
@@ -2212,40 +2207,36 @@ F:STR | CHR | STEALTH | SPEED |
 F:SLAY_EVIL | KILL_UNDEAD | SLAY_GIANT | SLAY_ANIMAL | 
 F:RES_NETHER | RES_FEAR | RES_DARK | RES_COLD
 
-N:217:of Sacred Knights
-I:40:25:2
-W:50:50:2:77777
-P:0:0d0:0:0:10
-F:STR | WIS | HIDE_TYPE |
-F:RES_CONF | RES_CHAOS | BLESSED | 
-F:SEE_INVIS | FREE_ACT | REGEN | HOLD_LIFE | ACTIVATE |
-F:INSTA_ART
+#N:217:of Sacred Knights
+#I:40:0:2
+#W:50:50:2:77777
+#P:0:0d0:0:0:10
+#F:STR | WIS | HIDE_TYPE |
+#F:RES_CONF | RES_CHAOS | BLESSED | 
+#F:SEE_INVIS | FREE_ACT | REGEN | HOLD_LIFE | ACTIVATE |
 
-N:218:of the Hell
-I:40:26:-2
-W:50:40:30:66666
-P:0:0d0:15:15:-5
-F:INT | WIS | CHR | STEALTH | SPEED | HIDE_TYPE |
-F:RES_DARK | RES_NETHER |
-F:SEE_INVIS | AGGRAVATE | ESP_UNDEAD | ACTIVATE |
-F:INSTA_ART
+#N:218:of the Hell
+#I:40:0:-2
+#W:50:40:30:66666
+#P:0:0d0:15:15:-5
+#F:INT | WIS | CHR | STEALTH | SPEED | HIDE_TYPE |
+#F:RES_DARK | RES_NETHER |
+#F:SEE_INVIS | AGGRAVATE | ESP_UNDEAD | ACTIVATE |
 
 N:219:Charmed Pendant
-I:40:27:2
+I:40:0:2
 W:50:100:2:100000
 P:0:0d0:0:0:5
 F:INT | CHR | INFRA | SEARCH | HIDE_TYPE | FULL_NAME |
 F:SEE_INVIS | FREE_ACT | SLOW_DIGEST | REGEN | LITE | WARNING |
 F:SH_FIRE | SH_ELEC | SH_COLD | ACTIVATE | EASY_SPELL
-F:INSTA_ART
 
 N:220:of Gogo
-I:40:28:4
+I:40:0:4
 W:50:100:2:55555
 P:0:0d0:0:0:0
 F:INT | WIS | DEX | 
 F:SEE_INVIS | LITE |
-F:INSTA_ART
 
 N:221:of Robin Hood
 I:19:12:2
@@ -2576,11 +2567,11 @@ F:FREE_ACT | RES_SOUND | HOLD_LIFE | SUST_STR | SUST_DEX |
 F:BLOWS | SPEED | STR | DEX | CON | WIS
 
 N:256:of Zeus
-I:40:29:5
+I:40:0:5
 W:90:127:2:555555
 P:0:0d0:5:5:5
 F:SPEED | MAGIC_MASTERY | LITE | REGEN | FREE_ACT |
-F:RES_SHARDS | SH_ELEC | PERMA_CURSE | ACTIVATE | QUESTITEM | INSTA_ART
+F:RES_SHARDS | SH_ELEC | PERMA_CURSE | ACTIVATE | QUESTITEM | 
 D:This is the charm worn by Zeus, King of the Olympians and Bane of the Titans.
 
 N:257:of Poseidon
@@ -2672,13 +2663,13 @@ F:WIS | CON | RES_TIME | REGEN | LITE |
 F:PERMA_CURSE | ACTIVATE | QUESTITEM
 
 N:267:of Aphrodite
-I:40:32:5
+I:40:0:5
 W:90:127:2:555555
 P:0:1d1:0:0:25
 F:CHR | SUST_CHR | RES_POIS | RES_BLIND | RES_NEXUS |
 F:RES_CHAOS | RES_DISEN | FREE_ACT | SEE_INVIS | LEVITATION |
 F:TELEPATHY | REFLECT | AGGRAVATE | PERMA_CURSE | ACTIVATE |
-F:QUESTITEM | INSTA_ART
+F:QUESTITEM 
 D:The legendary Apple of Discord, created by Eris in revenge for 
 D:not being invited to the wedding of Peleus and Thetis. On this 
 D:apple is engrave "For the Fairest," and Athena, Hera, and Aphrodite 
@@ -2864,9 +2855,9 @@ P:0:2d3:20:12:0
 F:KILL_GIANT
 
 N:293:Goblet 'Holy Grail'
-I:40:35:3
+I:40:0:3
 W:30:250:3:60000
-F:HIDE_TYPE | ACTIVATE | INSTA_ART | FULL_NAME
+F:HIDE_TYPE | ACTIVATE | FULL_NAME
 F:WIS | CHR | RES_NETHER
 
 N:294:'Eternal Blade'
@@ -2934,12 +2925,11 @@ F:DEC_MANA | SPELL_CAP
 F:REGEN | XTRA_H_RES
 
 N:302:of Carcharoth
-I:40:36:0
+I:40:0:0
 W:50:40:30:66666
 P:0:0d0:3:17:25
 F:QUESTITEM | HIDE_TYPE 
 F:RES_FEAR | TELEPATHY
-F:INSTA_ART
 
 N:303:of Ymir
 I:23:25:3
@@ -2983,31 +2973,28 @@ F:QUESTITEM | ACTIVATE | INSTA_ART
 F:SPEED | SUST_CON | SUST_STR | REGEN | RES_POIS
 
 N:308:of Fang
-I:40:40:1
+I:40:0:1
 W:5:70:30:5000
 P:0:0d0:2:3:0
 F:QUESTITEM
 F:HIDE_TYPE 
 F:RES_FEAR | STR
-F:INSTA_ART
 
 N:309:of Wolf
-I:40:41:1
+I:40:0:1
 W:5:70:30:5000
 P:0:0d0:0:0:7
 F:QUESTITEM
 F:HIDE_TYPE 
 F:FREE_ACT | CON
-F:INSTA_ART
 
 N:310:of Grip
-I:40:42:1
+I:40:0:1
 W:5:70:30:5000
 P:0:0d0:0:0:0
 F:QUESTITEM
 F:HIDE_TYPE 
 F:SPEED | DEX
-F:INSTA_ART
 
 N:311:of the Cyberdemon Lord
 I:37:15:3

@@ -564,6 +564,7 @@ static flag_insc_table flag_insc_aura[] =
     { "M", TR_NO_MAGIC, -1 },
     { "T", TR_NO_TELE, -1 },
     { "Sm", TR_NO_SUMMON, -1 },
+    { "Mr", TR_MAGIC_RESISTANCE, -1 },
     { NULL, 0, -1 }
 };
 

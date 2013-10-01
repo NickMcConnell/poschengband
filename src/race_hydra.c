@@ -23,7 +23,9 @@ static void _birth(void)
     p_ptr->current_r_idx = MON_TWO_HEADED_HYDRA;
     equip_on_change_race();
     
-    object_prep(&forge, lookup_kind(TV_AMULET, SV_AMULET_RESIST_ACID));
+    object_prep(&forge, lookup_kind(TV_AMULET, 0));
+    forge.name2 = EGO_AMULET_ELEMENTAL;
+    add_flag(forge.art_flags, TR_RES_ACID);
     add_outfit(&forge);
 
     object_prep(&forge, lookup_kind(TV_CROWN, SV_IRON_CROWN));

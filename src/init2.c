@@ -1236,10 +1236,6 @@ static byte store_table[MAX_STORES][STORE_CHOICES][2] =
     {
         /* Magic-User store */
 
-        { TV_AMULET, SV_AMULET_ADORNMENT },
-        { TV_AMULET, SV_AMULET_RESIST_ACID },
-
-        { TV_AMULET, SV_AMULET_SEARCHING },
         { TV_WAND, SV_WAND_SLOW_MONSTER },
         { TV_WAND, SV_WAND_CONFUSE_MONSTER },
         { TV_WAND, SV_WAND_SLEEP_MONSTER },

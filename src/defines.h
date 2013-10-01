@@ -1955,6 +1955,7 @@
 #define SV_LEATHER_SCALE_MAIL           11
 #define SV_LEATHER_JACK                 12
 #define SV_KUROSHOUZOKU                 13  /* Black Clothes */
+#define SV_BLACK_CLOTHES                13
 #define SV_STONE_AND_HIDE_ARMOR         15  /* 15 */
 #define SV_ABUNAI_MIZUGI                50  /* Swimsuit */
 #define SV_YOIYAMI_ROBE                 60  /* Robe of Twilight */
@@ -2022,56 +2023,8 @@
 #define SV_LITE_ARMAGEDDON              21
 #define SV_LITE_HYDRA                   22
 
-/* The "sval" codes for TV_AMULET */
-#define SV_AMULET_DOOM                   0
-#define SV_AMULET_TELEPORT               1
-#define SV_AMULET_ADORNMENT              2
-#define SV_AMULET_SLOW_DIGEST            3
-#define SV_AMULET_RESIST_ACID            4
-#define SV_AMULET_SEARCHING              5
-#define SV_AMULET_BRILLIANCE             6
-#define SV_AMULET_CHARISMA               7
-#define SV_AMULET_THE_MAGI               8
-#define SV_AMULET_REFLECTION             9
-#define SV_AMULET_CARLAMMAS             10
-#define SV_AMULET_INGWE                 11
-#define SV_AMULET_DWARVES               12
-#define SV_AMULET_NO_MAGIC              13
-#define SV_AMULET_NO_TELE               14
-#define SV_AMULET_RESISTANCE            15
-#define SV_AMULET_TELEPATHY             16
-#define SV_AMULET_FARAMIR               17
-#define SV_AMULET_BOROMIR               18
-#define SV_AMULET_MAGATAMA              19
-#define SV_AMULET_INROU                 20
-#define SV_AMULET_INTELLIGENCE          21
-#define SV_AMULET_WISDOM                22
-#define SV_AMULET_MAGIC_MASTERY         23
-#define SV_AMULET_NIGHT                 24
-#define SV_AMULET_SACRED_KNIGHTS        25
-#define SV_AMULET_HARNESS_OF_THE_HELL    26
-#define SV_AMULET_CHARMED_PENDANT        27
-#define SV_AMULET_GOGO                    28
-#define SV_AMULET_ZEUS                    29
-#define SV_AMULET_SPELL_POWER           30
-#define SV_AMULET_SPELL_CAP             31
-#define SV_AMULET_APHRODITE                32
-#define SV_AMULET_HIGH_RESISTANCE       33
-#define SV_AMULET_TRICKERY              34
-#define SV_AMULET_HOLY_GRAIL            35
-#define SV_AMULET_CARCHAROTH            36
-#define SV_AMULET_RESIST_FIRE           37
-#define SV_AMULET_RESIST_COLD           38
-#define SV_AMULET_RESIST_ELEC           39
-#define SV_AMULET_FANG                  40
-#define SV_AMULET_WOLF                  41
-#define SV_AMULET_GRIP                  42
-#define SV_AMULET_NO_SUMMON             43
-#define SV_AMULET_HERO                  44
-
-/* The sval codes for TV_RING */
-#define SV_RING                      0
-
+#define SV_AMULT                         0
+#define SV_RING                          0
 #define SV_EXPRESS_CARD                  0
 
 /* The "sval" codes for TV_STAFF */
@@ -6140,5 +6093,14 @@ enum ego_ring_e {
 };
 
 enum ego_amulet_e {
-    EGO_AMULET_DUMMY,
+    EGO_AMULET_BARBARIAN = 320,
+    EGO_AMULET_ELEMENTAL,
+    EGO_AMULET_DEFENDER,
+    EGO_AMULET_SACRED,
+    EGO_AMULET_HELL,
+    EGO_AMULET_DWARVEN,
+    EGO_AMULET_MAGI,
+    EGO_AMULET_HERO,
+    EGO_AMULET_DEVOTION,
+    EGO_AMULET_TRICKERY,
 };
