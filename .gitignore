@@ -6,6 +6,7 @@
 lib/save/*
 lib/user/*.prf
 lib/user/*.txt
+lib/user/*.csv
 lib/help/*.csv
 lib/help/*.xlsx
 *.bat

@@ -647,7 +647,8 @@ s16b get_obj_num(int level)
     }
 
     /* No legal objects */
-    if (total <= 0) return (0);
+    if (total <= 0)
+        return 0;
 
 
     /* Pick an object */
@@ -712,7 +713,6 @@ s16b get_obj_num(int level)
         /* Keep the "best" one */
         if (table[i].level < table[j].level) i = j;
     }
-
 
     /* Result */
     return (table[i].index);
@@ -2364,8 +2364,7 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
                     break;
                 }
             default:
-                o_ptr->to_h += randint1(5);
-                o_ptr->to_d += randint1(5);
+                o_ptr->to_d += randint1(5) + m_bonus(5, level);
             }
         }
         if (o_ptr->to_h > 30) o_ptr->to_h = 30;
@@ -2577,18 +2576,9 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
         }
         break;
     case EGO_RING_SPEED:
-        if (abs(power) >= 2)
-        {
-            o_ptr->pval = 5 + m_bonus(5, level);
-            while (randint0(100) < 50) 
-                o_ptr->pval++;
-        }
-        else
-        {
-            o_ptr->pval = randint1(5);     
-            while (randint0(100) < 10) 
-                o_ptr->pval++;
-        }
+        o_ptr->pval = randint1(5) + m_bonus(5, level);
+        while (randint0(100) < 50) 
+            o_ptr->pval++;
         if (cheat_peek) object_mention(o_ptr);
         break;
     case EGO_RING_WIZARDRY:
@@ -4496,7 +4486,6 @@ void apply_magic(object_type *o_ptr, int lev, u32b mode)
         {
             if (object_is_(o_ptr, TV_SWORD, SV_DRAGON_FANG))
             {
-                /* TODO */
                 if (cheat_peek) object_mention(o_ptr);
                 dragon_resist(o_ptr);
                 if (!one_in_(3)) power = 0;
@@ -4510,11 +4499,7 @@ void apply_magic(object_type *o_ptr, int lev, u32b mode)
             {
                 if (!(o_ptr->sval == SV_DOKUBARI))
                 {
-                    if ( power ||
-                         (o_ptr->tval == TV_SWORD && o_ptr->sval == SV_DRAGON_FANG) )
-                    {
-                        _create_weapon(o_ptr, lev, power, mode);
-                    }
+                    if (power) _create_weapon(o_ptr, lev, power, mode);
                 }
             }
             break;
@@ -4953,22 +4938,46 @@ static bool kind_is_good(int k_idx)
             case SV_POTION_INC_WIS:
             case SV_POTION_INC_DEX:
             case SV_POTION_INC_CON:
-            case SV_POTION_INC_CHR: return one_in_(7);
+            case SV_POTION_INC_CHR: return one_in_(5 + object_level / 5);
             }
             return FALSE;
         }
         case TV_SCROLL:
         {
+            if (k_ptr->sval == SV_SCROLL_ACQUIREMENT) return one_in_(5);
+            if (k_ptr->sval == SV_SCROLL_FOREST_CREATION) return one_in_(5);
+            if (k_ptr->sval == SV_SCROLL_WALL_CREATION) return one_in_(5);
+            if (k_ptr->sval == SV_SCROLL_VENGEANCE) return one_in_(5);
             if (k_ptr->sval == SV_SCROLL_STAR_ACQUIREMENT) return one_in_(5);
             if (k_ptr->sval == SV_SCROLL_STAR_DESTRUCTION) return one_in_(5);
             if (k_ptr->sval == SV_SCROLL_GENOCIDE) return one_in_(7);
             if (k_ptr->sval == SV_SCROLL_MASS_GENOCIDE) return one_in_(12);
+            if (k_ptr->sval == SV_SCROLL_ARTIFACT) return one_in_(50);
+            if (k_ptr->sval == SV_SCROLL_FIRE) return one_in_(7);
+            if (k_ptr->sval == SV_SCROLL_ICE) return one_in_(7);
+            if (k_ptr->sval == SV_SCROLL_CHAOS) return one_in_(7);
+            if (k_ptr->sval == SV_SCROLL_MANA) return one_in_(7);
             return FALSE;
         }
         case TV_WAND:
         {
             if (k_ptr->sval == SV_WAND_ROCKETS) return one_in_(7);
             if (k_ptr->sval == SV_WAND_DISINTEGRATE) return one_in_(7);
+            if (k_ptr->sval == SV_WAND_DRAGON_FIRE) return one_in_(7);
+            if (k_ptr->sval == SV_WAND_DRAGON_COLD) return one_in_(7);
+            if (k_ptr->sval == SV_WAND_DRAGON_BREATH) return one_in_(7);
+            if (k_ptr->sval == SV_WAND_STRIKING) return one_in_(7);
+            return FALSE;
+        }
+        case TV_ROD:
+        {
+            if (k_ptr->sval == SV_ROD_MAPPING) return one_in_(7);
+            if (k_ptr->sval == SV_ROD_DETECTION) return one_in_(7);
+            if (k_ptr->sval == SV_ROD_HEALING) return one_in_(12);
+            if (k_ptr->sval == SV_ROD_RESTORATION) return one_in_(12);
+            if (k_ptr->sval == SV_ROD_HAVOC) return one_in_(20);
+            if (k_ptr->sval == SV_ROD_SPEED) return one_in_(20);
+            if (k_ptr->sval == SV_ROD_MANA_BALL) return one_in_(12);
             return FALSE;
         }
         case TV_STAFF:
@@ -4987,6 +4996,15 @@ static bool kind_is_good(int k_idx)
 }
 
 typedef bool (*_kind_p)(int k_idx);
+static _kind_p _kind_hook1;
+static _kind_p _kind_hook2;
+static bool _kind_hook(int k_idx) { 
+    if (_kind_hook1 && !_kind_hook1(k_idx))
+        return FALSE;
+    if (_kind_hook2 && !_kind_hook2(k_idx))
+        return FALSE;
+    return TRUE;
+}
 static bool _kind_is_device(int k_idx) { 
     switch (k_info[k_idx].tval)
     {
@@ -5006,6 +5024,24 @@ static bool _kind_is_jewelry(int k_idx) {
 static bool _kind_is_book(int k_idx) { 
     if (TV_LIFE_BOOK <= k_info[k_idx].tval && k_info[k_idx].tval <= TV_BURGLARY_BOOK)
         return TRUE;
+    return FALSE;
+}
+static bool _kind_is_body_armor(int k_idx) { 
+    switch (k_info[k_idx].tval)
+    {
+    case TV_SOFT_ARMOR: case TV_HARD_ARMOR: case TV_DRAG_ARMOR:
+    case TV_SHIELD:
+        return TRUE;
+    }
+    return FALSE;
+}
+static bool _kind_is_other_armor(int k_idx) { 
+    switch (k_info[k_idx].tval)
+    {
+    case TV_BOOTS: case TV_GLOVES: 
+    case TV_HELM: case TV_CROWN: case TV_CLOAK:
+        return TRUE;
+    }
     return FALSE;
 }
 static bool _kind_is_armor(int k_idx) { 
@@ -5033,7 +5069,7 @@ static bool _kind_is_misc(int k_idx) {
     {
     case TV_SKELETON: case TV_BOTTLE: case TV_JUNK: case TV_WHISTLE:
     case TV_SPIKE: case TV_CHEST: case TV_FIGURINE: case TV_STATUE:
-    case TV_CAPTURE: case TV_LITE:
+    case TV_CAPTURE: case TV_LITE: case TV_FOOD:
         return TRUE;
     }
     return FALSE;
@@ -5044,20 +5080,29 @@ typedef struct {
     u32b    reject;
 } _kind_alloc_entry;
 static _kind_alloc_entry _kind_alloc_table[] = {
-    { _kind_is_weapon, 25, 0 },
-    { _kind_is_armor,  25, 0 },
-    { _kind_is_device, 20, AM_GOOD | AM_GREAT },
-    { _kind_is_bow,     7, 0 },
-    { _kind_is_ammo,    7, 0 },
-    { _kind_is_book,    7, AM_GOOD | AM_GREAT }, /* TODO: Well, there are too many spellbooks anyway ... */
-    { _kind_is_jewelry, 5, 0 },
-    { _kind_is_misc,    4, AM_GOOD | AM_GREAT },
+    { _kind_is_weapon,       15, 0 },  
+    { _kind_is_body_armor,   10, 0 },
+    { _kind_is_other_armor,  15, 0 },
+    { _kind_is_device,       25, 0 },
+    { _kind_is_bow,           5, 0 },
+    { _kind_is_ammo,          5, 0 },
+    { _kind_is_book,         11, 0 },
+    { _kind_is_jewelry,      10, 0 },
+    { _kind_is_misc,          4, AM_GOOD | AM_GREAT },
     { NULL, 0}
 };
 _kind_p _choose_obj_kind(u32b mode)
 {
     int i;
     int tot = 0;
+
+    _kind_hook1 = NULL;
+    _kind_hook2 = NULL;
+
+    if (mode & AM_GREAT)
+        _kind_hook2 = kind_is_great;
+    else if (mode & AM_GOOD)
+        _kind_hook2 = kind_is_good;
 
     for (i = 0; ; i++)
     {
@@ -5076,11 +5121,14 @@ _kind_p _choose_obj_kind(u32b mode)
             if (_kind_alloc_table[i].reject & mode) continue;
             j -= _kind_alloc_table[i].weight;
             if (j < 0)
-                return _kind_alloc_table[i].hook;
+            {
+                _kind_hook1 = _kind_alloc_table[i].hook;
+                break;
+            }
         }
     }
 
-    return NULL;
+    return _kind_hook;
 }
 
 /*
@@ -5097,11 +5145,11 @@ bool make_object(object_type *j_ptr, u32b mode)
     int prob, base;
     byte obj_level;
 
-    /* Since object quality has improved, quantity must decrease. */
+    /* Since object quality has improved, quantity must decrease.
     if (!(mode & AM_GREAT) && !(mode & AM_GOOD))
     {
         if (randint1(100) < 30 * object_level / 100) return FALSE;
-    }
+    } */
 
     /* Chance of "special object" */
     prob = ((mode & AM_GOOD) ? 10 : 1000);
@@ -5152,7 +5200,8 @@ bool make_object(object_type *j_ptr, u32b mode)
         }
 
         /* Handle failure */
-        if (!k_idx) return (FALSE);
+        if (!k_idx) 
+            return (FALSE);
 
         /* Prepare the object */
         object_prep(j_ptr, k_idx);

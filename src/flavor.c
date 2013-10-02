@@ -2017,7 +2017,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
         }
 
         /* Dump "pval" flags for wearable items */
-        if (have_pval_flags(flgs))
+        if (have_pval_flags(flgs) && o_ptr->pval)
         {
             /* Start the display */
             t = object_desc_chr(t, ' ');
