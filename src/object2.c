@@ -2278,38 +2278,6 @@ static void _create_artifact(object_type *o_ptr, int power)
     create_artifact(o_ptr, mode);
 }
 
-/* Mess up an otherwise good ego object */
-static void _cursify(object_type *o_ptr)
-{
-    int ct = randint1(randint1(6));
-    int i;
-    o_ptr->curse_flags |= TRC_CURSED;
-    one_biff(o_ptr);
-    ct--;
-    for (i = 0; i < ct; i++)
-    {
-        int n = randint0(100);
-        if (n < 3)
-            o_ptr->curse_flags |= TRC_PERMA_CURSE;
-        else if (n < 6) 
-            add_flag(o_ptr->art_flags, TR_TY_CURSE);
-        else if (n < 10) 
-            add_flag(o_ptr->art_flags, TR_AGGRAVATE);
-        else if (n < 25)
-            o_ptr->curse_flags |= TRC_HEAVY_CURSE;
-        else if (n < 50)
-        {
-            do { o_ptr->curse_flags |= get_curse(0, o_ptr); } while (one_in_(2));
-        }
-        else if (n < 55)
-            o_ptr->curse_flags |= get_curse(1, o_ptr);
-        else if (n < 60) 
-            o_ptr->curse_flags |= get_curse(2, o_ptr);
-        else
-            one_biff(o_ptr);
-    }
-}
-
 static void _create_ring(object_type *o_ptr, int level, int power, int mode)
 {
     int powers = 0;
@@ -4671,7 +4639,7 @@ void apply_magic(object_type *o_ptr, int lev, u32b mode)
            good and bad flags (e.g. resist fire and vulnerable to fire) */
         if (power == -2)
         {
-            _cursify(o_ptr);
+            curse_object(o_ptr);
             if (!o_ptr->pval && have_pval_flags(o_ptr->art_flags))
                 o_ptr->pval = randint1(3);
         }
@@ -5069,7 +5037,7 @@ static bool _kind_is_misc(int k_idx) {
     {
     case TV_SKELETON: case TV_BOTTLE: case TV_JUNK: case TV_WHISTLE:
     case TV_SPIKE: case TV_CHEST: case TV_FIGURINE: case TV_STATUE:
-    case TV_CAPTURE: case TV_LITE: case TV_FOOD:
+    case TV_CAPTURE: case TV_LITE: case TV_FOOD: case TV_FLASK:
         return TRUE;
     }
     return FALSE;

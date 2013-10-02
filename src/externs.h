@@ -1679,6 +1679,7 @@ enum {
     CREATE_ART_CURSED = 0x04,
 };
 extern s32b create_artifact(object_type *o_ptr, u32b mode);
+extern void curse_object(object_type *o_ptr);
 extern bool activate_random_artifact(object_type * o_ptr);
 extern void get_bloody_moon_flags(object_type *o_ptr);
 extern void random_artifact_resistance(object_type * o_ptr, artifact_type *a_ptr);

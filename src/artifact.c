@@ -362,29 +362,6 @@ void one_ability(object_type *o_ptr)
     }
 }
 
-
-static void curse_artifact(object_type * o_ptr)
-{
-    if (o_ptr->pval > 0) o_ptr->pval = 0 - (o_ptr->pval + randint1(4));
-    if (o_ptr->to_a > 0) o_ptr->to_a = 0 - (o_ptr->to_a + randint1(4));
-    if (o_ptr->to_h > 0) o_ptr->to_h = 0 - (o_ptr->to_h + randint1(4));
-    if (o_ptr->to_d > 0) o_ptr->to_d = 0 - (o_ptr->to_d + randint1(4));
-
-    o_ptr->curse_flags |= (TRC_HEAVY_CURSE | TRC_CURSED);
-    remove_flag(o_ptr->art_flags, TR_BLESSED);
-
-    if (one_in_(4)) o_ptr->curse_flags |= TRC_PERMA_CURSE;
-    if (one_in_(3)) add_flag(o_ptr->art_flags, TR_TY_CURSE);
-    if (one_in_(2)) add_flag(o_ptr->art_flags, TR_AGGRAVATE);
-    if (one_in_(3)) add_flag(o_ptr->art_flags, TR_DRAIN_EXP);
-    if (one_in_(2)) add_flag(o_ptr->art_flags, TR_TELEPORT);
-    else if (one_in_(3)) add_flag(o_ptr->art_flags, TR_NO_TELE);
-
-    if ((p_ptr->pclass != CLASS_WARRIOR) && (p_ptr->pclass != CLASS_ARCHER) && (p_ptr->pclass != CLASS_CAVALRY) && (p_ptr->pclass != CLASS_BERSERKER) && (p_ptr->pclass != CLASS_WEAPONSMITH) && one_in_(3))
-        add_flag(o_ptr->art_flags, TR_NO_MAGIC);
-}
-
-
 static void random_plus(object_type * o_ptr)
 {
     int this_type = (object_is_weapon_ammo(o_ptr) ? 23 : 19);
@@ -2053,6 +2030,58 @@ void get_random_name(char *return_name, object_type *o_ptr, int power)
     }
 }
 
+void curse_object(object_type *o_ptr)
+{
+    int ct = randint1(2);
+    int v = object_value_real(o_ptr) / 10000;
+    int i;
+    
+    o_ptr->curse_flags |= TRC_CURSED;
+    
+    one_biff(o_ptr);
+    ct--;
+
+    ct += randint1(randint1(v)); /* TODO */
+    
+    for (i = 0; i < ct; i++)
+    {
+        int n = randint0(70 + v*v);
+        if (n < 25)
+        {
+            do { o_ptr->curse_flags |= get_curse(0, o_ptr); } while (one_in_(2));
+        }
+        else if (n < 35)
+            o_ptr->curse_flags |= get_curse(1, o_ptr);
+        else if (n < 40)
+            o_ptr->curse_flags |= TRC_HEAVY_CURSE;
+        else if (n < 45)
+            o_ptr->curse_flags |= get_curse(2, o_ptr);
+        else if (n < 50)
+            add_flag(o_ptr->art_flags, TR_AGGRAVATE);
+        else if (n < 55)
+            add_flag(o_ptr->art_flags, TR_TY_CURSE);
+        else if (n < 60)
+            o_ptr->curse_flags |= TRC_PERMA_CURSE;
+        else if (n < 250)
+            one_biff(o_ptr);
+        else
+        {
+            if (one_in_(2))
+            {
+                o_ptr->curse_flags |= TRC_PERMA_CURSE;
+                if (one_in_(2))
+                    add_flag(o_ptr->art_flags, TR_TY_CURSE);
+                if (one_in_(2))
+                    add_flag(o_ptr->art_flags, TR_NO_TELE);
+                if (one_in_(2))
+                    add_flag(o_ptr->art_flags, TR_AGGRAVATE);
+            }
+            else
+                one_biff(o_ptr);
+        }
+    }
+}
+
 s32b create_artifact(object_type *o_ptr, u32b mode)
 {
     char    new_name[1024];
@@ -2214,21 +2243,19 @@ s32b create_artifact(object_type *o_ptr, u32b mode)
     if (mode & CREATE_ART_CURSED)
         a_cursed = TRUE;
 
-    if (((o_ptr->tval == TV_AMULET) || (o_ptr->tval == TV_RING)) && object_is_cursed(o_ptr))
+    if ( (o_ptr->tval == TV_AMULET || o_ptr->tval == TV_RING) 
+      && object_is_cursed(o_ptr) )
+    {
         a_cursed = TRUE;
+    }
 
     powers = randint1(5) + 1;
 
     while (one_in_(powers) || one_in_(7 * 90/MAX(object_level, 1)) || one_in_(10 * 70/MAX(object_level, 1)))
         powers++;
 
-    if (!a_cursed)
-    {
-        if (one_in_(WEIRD_LUCK))
-            powers *= 2;
-    }
-
-    if (a_cursed) powers /= 2;
+    if (one_in_(WEIRD_LUCK))
+        powers *= 2;
 
     if ( (o_ptr->tval == TV_LITE && o_ptr->sval != SV_LITE_JUDGE) 
       || o_ptr->tval == TV_AMULET
@@ -2404,7 +2431,6 @@ s32b create_artifact(object_type *o_ptr, u32b mode)
                 {
                     int odds = o_ptr->dd * o_ptr->ds / 2;
                     if (odds < 3) odds = 3;
-                    if (a_cursed && !one_in_(13)) break;
                     /* spiked code from EGO_SLAYING_WEAPON */
                     if (slaying_hack == 0 && one_in_(odds)) /* double damage */
                     {
@@ -2778,10 +2804,7 @@ s32b create_artifact(object_type *o_ptr, u32b mode)
     add_flag(o_ptr->art_flags, TR_IGNORE_FIRE);
     add_flag(o_ptr->art_flags, TR_IGNORE_COLD);
 
-    if (a_cursed) curse_artifact(o_ptr);
-
-    if (!a_cursed &&
-        !have_flag(o_ptr->art_flags, TR_ACTIVATE))
+    if (!have_flag(o_ptr->art_flags, TR_ACTIVATE))
     {
         int odds = object_is_armour(o_ptr) ? ACTIVATION_CHANCE * 2 : ACTIVATION_CHANCE;
         if (one_in_(odds))
@@ -2859,7 +2882,7 @@ s32b create_artifact(object_type *o_ptr, u32b mode)
 
     if (object_is_jewelry(o_ptr))
     {
-        if (a_cursed) power_level = 0;
+        if (total_flags <= 0) power_level = 0;
         else if (total_flags < 15000) power_level = 1;
         else if (total_flags < 60000) power_level = 2;
         else power_level = 3;
@@ -2867,7 +2890,7 @@ s32b create_artifact(object_type *o_ptr, u32b mode)
     else if (!object_is_weapon_ammo(o_ptr))
     {
         /* For armors */
-        if (a_cursed) power_level = 0;
+        if (total_flags <= 0) power_level = 0;
         else if (total_flags < 30000) power_level = 1;
         else if (total_flags < 70000) power_level = 2;
         else 
@@ -2880,7 +2903,7 @@ s32b create_artifact(object_type *o_ptr, u32b mode)
     else
     {
         /* For weapons */
-        if (a_cursed) power_level = 0;
+        if (total_flags <= 0) power_level = 0;
         else if (total_flags <  50000) power_level = 1;
         else if (total_flags < 100000) power_level = 2;
         else 
@@ -2920,6 +2943,13 @@ s32b create_artifact(object_type *o_ptr, u32b mode)
     else
     {
         get_random_name(new_name, o_ptr, power_level);
+        if (a_cursed) /* Curse after naming for flavor. ?Art will never curse */
+        {
+            curse_object(o_ptr);
+            if (has_pval && !o_ptr->pval)
+                o_ptr->pval = randint1(5);
+            total_flags = new_object_cost(o_ptr);
+        }
     }
 
     if (cheat_xtra)

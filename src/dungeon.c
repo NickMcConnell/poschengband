@@ -2859,7 +2859,10 @@ static byte get_dungeon_feeling(void)
         if (object_is_artifact(o_ptr))
             return 1;
 
-        if (object_is_artifact(o_ptr) || object_is_ego(o_ptr) || object_is_dragon_armor(o_ptr))
+        if ( object_is_artifact(o_ptr) 
+          || object_is_ego(o_ptr) 
+          || o_ptr->tval == TV_DRAG_ARMOR
+          || object_is_dragon_armor(o_ptr) )
         {
             s32b cost = object_value_real(o_ptr);
 
@@ -2872,14 +2875,9 @@ static byte get_dungeon_feeling(void)
                 return 1;
         }
 
-        if (o_ptr->tval == TV_DRAG_ARMOR) delta += 30 * base;
-        if (object_is_dragon_armor(o_ptr))delta += 5 * base;
-
         /* Out-of-depth objects */
-        if (!object_is_cursed(o_ptr) && !object_is_broken(o_ptr) &&
-            k_ptr->level > dun_level)
+        if (k_ptr->level > dun_level)
         {
-            /* Rating increase */
             delta += (k_ptr->level - dun_level) * base;
         }
 

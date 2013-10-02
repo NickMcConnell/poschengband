@@ -100,15 +100,15 @@ D:of evil could stand.
 
 # The Necklace of the Dwarves
 
-#N:6:Necklace of the Dwarves
-#I:40:0:3
-#W:70:70:3:75000
-#F:STR | CON | INFRA | HIDE_TYPE | RES_BLIND | DEC_STEALTH
-#F:SEE_INVIS | FREE_ACT | REGEN | LITE | FULL_NAME
-#D:The Nauglamir; a carencet of gold set with a multitude of shining gems of 
-#D:Valinor, accenting a radiant Silmaril.  The sturdy spirits of Dwarvish 
-#D:craftsmen who labored long in mountain smithies lie within it still, and 
-#D:as gossamer it rests upon the bearer.
+N:6:Necklace of the Dwarves
+I:40:0:3
+W:70:70:3:75000
+F:STR | CON | INFRA | HIDE_TYPE | RES_BLIND | DEC_STEALTH
+F:SEE_INVIS | FREE_ACT | REGEN | LITE | FULL_NAME
+D:The Nauglamir; a carencet of gold set with a multitude of shining gems of 
+D:Valinor, accenting a radiant Silmaril.  The sturdy spirits of Dwarvish 
+D:craftsmen who labored long in mountain smithies lie within it still, and 
+D:as gossamer it rests upon the bearer.
 
 # The Incandescent Light of Yeduson
 # Thomas Alva Yeduson the "Wizard of Menlo Park"
@@ -243,14 +243,14 @@ F:INSTA_ART
 D:A great emerald that fills your mind with images of knowledge and dreadful 
 D:understanding as you stare into its depths.
 
-#N:18:of Faramir
-#I:40:0:3
-#W:30:60:2:20000
-#P:0:0d0:12:0:0
-#F:STEALTH | SHOW_MODS | HIDE_TYPE |
-#F:RES_CONF | SUST_DEX | ACTIVATE |
-#D:A slim neckpiece of True-silver, with quiet spells of Ithilien to aid and 
-#D:protect the wearer.
+N:18:of Faramir
+I:40:0:3
+W:30:60:2:20000
+P:0:0d0:12:0:0
+F:STEALTH | SHOW_MODS | HIDE_TYPE |
+F:RES_CONF | SUST_DEX | ACTIVATE |
+D:A slim neckpiece of True-silver, with quiet spells of Ithilien to aid and 
+D:protect the wearer.
 
 # The Adamantite Plate Mail 'Soulkeeper'
 
@@ -1549,14 +1549,14 @@ D: and each time that he slew Hurin cried 'Aure entuluva! Day shall come
 D: again!'. Seventy times he uttered that cry, but they took him at last
 D: alive, by the command of Morgoth..."
 
-#N:134:of Buckland
-#I:19:2:3
-#W:40:35:20:50000
-#P:0:2d1:19:15:0
-#F:SPEED | XTRA_MIGHT |
-#F:RES_BLIND | RES_CONF | SHOW_MODS | XTRA_RES_OR_POWER
-#D:A sling granting extraordinary clarity of mind amidst darkness and 
-#D:confusion, and which hurls shot with deadly speed.
+N:134:of Buckland
+I:19:2:3
+W:40:35:20:50000
+P:0:2d1:19:15:0
+F:SPEED | XTRA_MIGHT |
+F:RES_BLIND | RES_CONF | SHOW_MODS | XTRA_RES_OR_POWER
+D:A sling granting extraordinary clarity of mind amidst darkness and 
+D:confusion, and which hurls shot with deadly speed.
 
 N:135:of Azaghal
 I:23:5:0
@@ -1624,14 +1624,14 @@ F:TY_CURSE | AGGRAVATE | DRAIN_EXP | INFRA | NO_TELE | NO_MAGIC | HIDE_TYPE
 F:VULN_FIRE | VULN_COLD | VULN_ELEC | VULN_ACID | VULN_POIS | VULN_CONF | VULN_CHAOS
 D:It is a look-alike for the strongest sword!
 
-#N:143:of Boromir
-#I:40:0:2
-#W:30:60:2:25000
-#P:0:0d0:0:8:0
-#F:SHOW_MODS | HIDE_TYPE | 
-#F:SUST_STR | RES_FEAR | ACTIVATE | 
-#D:A massive golden torque, made of innumerable strands of gold and steel 
-#D:intermingled, with great golden hounds set at either end.
+N:143:of Boromir
+I:40:0:2
+W:30:60:2:25000
+P:0:0d0:0:8:0
+F:SHOW_MODS | HIDE_TYPE | 
+F:SUST_STR | RES_FEAR | ACTIVATE | 
+D:A massive golden torque, made of innumerable strands of gold and steel 
+D:intermingled, with great golden hounds set at either end.
 
 N:144:'Muramasa'
 I:23:20:2
@@ -1805,11 +1805,11 @@ F:DEX | HIDE_TYPE | SUST_CHR | STEALTH | SPEED |
 F:RES_LITE | RES_DARK | RES_NEXUS |
 F:RES_NETHER | RES_CHAOS | LITE | FULL_NAME | VULN_SHARDS
 
-#N:166:Inro of Mito Koumon
-#I:40:0:2
-#W:30:80:3:100000
-#F:INT | WIS | CHR | SEARCH | INFRA | SEE_INVIS | ACTIVATE |
-#F:HIDE_TYPE | FULL_NAME 
+N:166:Inro of Mito Koumon
+I:40:0:2
+W:30:80:3:100000
+F:INT | WIS | CHR | SEARCH | INFRA | SEE_INVIS | ACTIVATE |
+F:HIDE_TYPE | FULL_NAME 
 
 N:167:'Tailbiter'
 I:23:16:1
@@ -2207,21 +2207,21 @@ F:STR | CHR | STEALTH | SPEED |
 F:SLAY_EVIL | KILL_UNDEAD | SLAY_GIANT | SLAY_ANIMAL | 
 F:RES_NETHER | RES_FEAR | RES_DARK | RES_COLD
 
-#N:217:of Sacred Knights
-#I:40:0:2
-#W:50:50:2:77777
-#P:0:0d0:0:0:10
-#F:STR | WIS | HIDE_TYPE |
-#F:RES_CONF | RES_CHAOS | BLESSED | 
-#F:SEE_INVIS | FREE_ACT | REGEN | HOLD_LIFE | ACTIVATE |
+N:217:of Sacred Knights
+I:40:0:2
+W:50:50:2:77777
+P:0:0d0:0:0:10
+F:STR | WIS | HIDE_TYPE |
+F:RES_CONF | RES_CHAOS | BLESSED | 
+F:SEE_INVIS | FREE_ACT | REGEN | HOLD_LIFE | ACTIVATE |
 
-#N:218:of the Hell
-#I:40:0:-2
-#W:50:40:30:66666
-#P:0:0d0:15:15:-5
-#F:INT | WIS | CHR | STEALTH | SPEED | HIDE_TYPE |
-#F:RES_DARK | RES_NETHER |
-#F:SEE_INVIS | AGGRAVATE | ESP_UNDEAD | ACTIVATE |
+N:218:of the Hell
+I:40:0:-2
+W:50:40:30:66666
+P:0:0d0:15:15:-5
+F:INT | WIS | CHR | STEALTH | SPEED | HIDE_TYPE |
+F:RES_DARK | RES_NETHER |
+F:SEE_INVIS | AGGRAVATE | ESP_UNDEAD | ACTIVATE |
 
 N:219:Charmed Pendant
 I:40:0:2

@@ -247,21 +247,28 @@ static void do_cmd_wiz_hack_chris1(void)
 
 static void do_cmd_wiz_hack_chris2(void)
 {
+    int k_idx = get_quantity("Enter k_idx: ", 1000);
+    int ct = get_quantity("How Many?", 10000);
     int i;
-    for (i = 0; i < INVEN_TOTAL; i++)
+    for (i = 0; i < ct; i++)
     {
-        if (inventory[i].name3)
-        {
-            create_replacement_art(inventory[i].name3, &inventory[i]);
-            identify_item(&inventory[i]);
-            inventory[i].ident |= IDENT_MENTAL; 
-        }
+        char buf[MAX_NLEN];
+        object_type forge;
+        
+        object_prep(&forge, k_idx);
+        create_artifact(&forge, CREATE_ART_CURSED);
+        
+        identify_item(&forge);
+        forge.ident |= (IDENT_MENTAL); 
+        
+        object_desc(buf, &forge, 0);
+        msg_format("%s", buf);
     }
 }
 
 static void do_cmd_wiz_hack_chris3_imp(FILE* file)
 {
-    /*int k_idx = get_quantity("Enter k_idx: ", 1000);*/
+    int k_idx = get_quantity("Enter k_idx: ", 1000);
     int ct = get_quantity("How Many?", 10000);
     int depths[] = { 1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, -1 };
     int i, j;
@@ -286,14 +293,10 @@ static void do_cmd_wiz_hack_chris3_imp(FILE* file)
         {
             object_type forge;
 
-        /*
             object_prep(&forge, k_idx);
-            apply_magic(&forge, depth, 0); */
+            apply_magic(&forge, depth, 0);
 
-            object_wipe(&forge);
-            if (!make_object(&forge, AM_GOOD)) continue;
-
-            if (1)
+            if (forge.name2 && forge.curse_flags)
             {
                 char buf[MAX_NLEN];
 
@@ -474,7 +477,8 @@ static void do_cmd_wiz_hack_chris5(void)
 {
     int i;
     int ct_success = 0, ct_tries = 0, ct_errors = 0;
-    const int max = 10*1000;
+    const int max = 10 * 1000;
+
     for (i = 0; ; i++)
     {
         object_type forge;
@@ -487,17 +491,17 @@ static void do_cmd_wiz_hack_chris5(void)
             break;
         }
         object_wipe(&forge);
-        if (!make_object(&forge, 0)) 
+        if (!make_object(&forge, AM_GOOD)) 
         {
             ct_errors++;
             continue;
         }
         ct_tries++;
-        /*if (forge.tval == TV_BOOTS && forge.name2 == EGO_BOOTS_SPEED)*/
+        if (forge.tval == TV_BOOTS && forge.name2 == EGO_BOOTS_SPEED)
         /*if (forge.k_idx == 133)*/
         /*if (forge.tval >= TV_LIFE_BOOK && 3 == forge.sval && forge.tval != TV_ARCANE_BOOK)*/
         /*if (object_is_body_armour(&forge) && forge.name2)*/
-        if (object_is_(&forge, TV_POTION, SV_POTION_HEALING))
+        /*if (object_is_(&forge, TV_POTION, SV_POTION_HEALING))*/
         {
             char buf[MAX_NLEN];
             ct_success++;

@@ -3316,21 +3316,6 @@ static cptr do_cmd_feeling_text[11] =
     "What a boring place..."
 };
 
-static cptr do_cmd_feeling_text_combat[11] =
-{
-    "Looks like any other level.",
-    "You feel there is something special about this level.",
-    "You nearly faint as horrible visions of death fill your mind!",
-    "This level looks very dangerous.",
-    "You have a very bad feeling...",
-    "You have a bad feeling...",
-    "You feel nervous.",
-    "You feel your luck is turning...",
-    "You don't like the look of this place.",
-    "This level looks reasonably safe.",
-    "What a boring place..."
-};
-
 static cptr do_cmd_feeling_text_lucky[11] =
 {
     "Looks like any other level.",
@@ -3389,8 +3374,6 @@ void do_cmd_feeling(void)
     /* Display the feeling */
     if (p_ptr->good_luck || p_ptr->pclass == CLASS_ARCHAEOLOGIST)
         msg_print(do_cmd_feeling_text_lucky[p_ptr->feeling]);
-    else if (p_ptr->personality == PERS_COMBAT || equip_find_artifact(ART_CRIMSON))
-        msg_print(do_cmd_feeling_text_combat[p_ptr->feeling]);
     else
         msg_print(do_cmd_feeling_text[p_ptr->feeling]);
 }
