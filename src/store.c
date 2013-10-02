@@ -1815,7 +1815,6 @@ static bool _alchemist_accept(int k_idx)
         case SV_SCROLL_RECHARGING:
         case SV_SCROLL_WORD_OF_RECALL:
         case SV_SCROLL_STAR_IDENTIFY:
-        case SV_SCROLL_ARTIFACT: /* :D */
             return TRUE;
         }
         return FALSE;
@@ -1852,10 +1851,6 @@ static bool _magic_accept(int k_idx)
         if (k_info[k_idx].level < 20)
             return TRUE;
         break;
-
-    case TV_RING:
-    case TV_AMULET:
-        return TRUE;
 
     case TV_FIGURINE:
     case TV_ARCANE_BOOK:
@@ -2004,6 +1999,7 @@ static void store_create(void)
 
             /* No "worthless" items */
             /* if (object_value(q_ptr) <= 0) continue; */
+            if (object_is_cursed(&forge)) continue;
         }
 
         /* Prune normal stores */
@@ -2011,6 +2007,7 @@ static void store_create(void)
         {
             /* No "worthless" items */
             if (object_value(&forge) <= 0) continue;
+            if (object_is_cursed(&forge)) continue;
         }
 
         /* Mass produce and/or Apply discount (mass_produce needs to know about the discount) */

@@ -271,7 +271,7 @@ N:20:of Isildur
 I:37:15:2
 W:30:3:300:50000
 P:25:2d4:0:0:25
-F:CON | RES_ACID | RES_ELEC | RES_FIRE | RES_COLD |
+F:CON | RES_ACID | RES_FIRE | RES_COLD | XTRA_H_RES |
 F:RES_SOUND | RES_CONF | RES_NEXUS
 D:A gleaming steel suit covering the wearer from neck to foot, with runes of 
 D:warding and stability deeply engraved into its surface.
@@ -283,7 +283,7 @@ I:37:9:2
 W:30:3:200:30000
 P:19:1d4:0:0:15
 F:STR | DEX | HIDE_TYPE | XTRA_H_RES |
-F:RES_ACID | RES_ELEC | RES_FIRE | RES_COLD | RES_CONF | RES_SOUND
+F:RES_ACID | RES_ELEC | RES_COLD | RES_CONF | RES_SOUND
 D:Small metal plates cover an inner layer of sturdy canvas, and both bear 
 D:scenes of hunting and war.  You feel the spirit of Eorl the Young, matchless 
 D:in combat, around you as you put his armour on.
@@ -316,7 +316,7 @@ I:37:4:2
 W:20:3:220:32000
 P:14:1d4:-2:0:15
 F:STR | CHR | HIDE_TYPE | XTRA_H_RES |
-F:RES_ACID | RES_ELEC | RES_FIRE | RES_COLD | RES_SHARDS | RES_NEXUS
+F:RES_ELEC | RES_FIRE | RES_COLD | RES_SHARDS | RES_NEXUS
 D:A hauberk, leggings, and sleeves of interlocking steel rings, well padded 
 D:with leather. You feel strong and tall as Arvedui, last king of Arnor, 
 D:as you put it on.
@@ -350,7 +350,7 @@ N:27:'Hithlomir'
 I:36:4:4
 W:20:3:80:45000
 P:4:0d0:0:0:20
-F:STEALTH | RES_ACID | RES_ELEC | RES_FIRE | RES_COLD | RES_DARK | XTRA_H_RES
+F:STEALTH | RES_ACID | RES_ELEC | RES_FIRE | RES_DARK | XTRA_H_RES
 D:Familar with the secret ways hidden in darkness, this leather cuirass is 
 D:truly more than it appears.
 
@@ -370,7 +370,7 @@ D:hardened leather whose wearer moves with agility and assurance.
 
 N:30:of Thorin
 I:34:3:4
-W:40:50:65:120000
+W:40:35:65:120000
 P:5:1d2:0:0:21
 F:STR | CON | HIDE_TYPE | FREE_ACT | IM_ACID | RES_SOUND | RES_CHAOS
 F:XTRA_H_RES
@@ -383,7 +383,7 @@ N:31:of Celegorm
 I:34:4:0
 W:30:3:60:30000
 P:6:1d2:0:0:20
-F:RES_ACID | RES_ELEC | RES_FIRE | RES_COLD | RES_LITE | RES_DARK | XTRA_H_RES
+F:RES_ACID | RES_ELEC | RES_FIRE | RES_LITE | RES_DARK | XTRA_H_RES
 D:This shield emblazoned with a multitude of creatures not seen for ages 
 D:once protected Celegorm, lord of Himlad; around it lies a mystic balance  
 D:that contains the conflicts of the elements.
@@ -458,7 +458,7 @@ N:38:of Hammerhand
 I:32:6:3
 W:20:2:60:45000
 P:6:1d3:3:4:20
-F:STR | DEX | CON | HIDE_TYPE | RES_ACID | RES_NEXUS
+F:STR | DEX | CON | HIDE_TYPE | RES_ACID | RES_NEXUS | DEC_STEALTH
 D:A great helm as steady as the heroes of the Westdike. Mighty were the 
 D:blows of Helm, the Hammerhand!
 
@@ -2392,13 +2392,13 @@ D:This is Shigetada Hatakeyama's O-yoroi. He is brave, wise
 D:and honest warrior, so he was called the best model of 
 D:eastern samurai. This O-yoroi is majestical like him.
 
-N:237:of Bruce Lee
-I:35:1:3
-W:50:85:10:80000
-P:1:0d0:5:5:15
-F:STR | CON | DEX | HIDE_TYPE | SHOW_MODS | REGEN |
-F:RES_SOUND | RES_DISEN | XTRA_H_RES
-D:A cape worn by a hero from Hong Kong
+#N:237:of Bruce Lee
+#I:35:1:3
+#W:50:85:10:80000
+#P:1:0d0:5:5:15
+#F:STR | CON | DEX | HIDE_TYPE | SHOW_MODS | REGEN |
+#F:RES_SOUND | RES_DISEN | XTRA_H_RES
+#D:A cape worn by a hero from Hong Kong
 
 N:238:of Aragorn
 I:30:2:2
@@ -2412,7 +2412,7 @@ N:239:of Sam
 I:32:2:1
 W:20:1:15:15000
 P:2:0d0:1:1:7
-F:DEC_STR | DEX | CON | HIDE_TYPE | SPEED
+F:DEC_STR | DEX | HIDE_TYPE | SPEED
 D:Sam was brave and trustworthy companion of Frodo.
 D:With this cap, you feel able to face the dangers
 D:ahead with a steady hand and a noble heart.
@@ -2421,22 +2421,22 @@ N:240:of Merry
 I:35:1:1
 W:20:1:10:15000
 P:1:0d0:1:1:7
-F:DEC_STR | DEX | INT | STEALTH | SPEED | RES_CONF | SEARCH | HIDE_TYPE 
+F:DEC_STR | DEX | STEALTH | SPEED | RES_CONF | SEARCH | HIDE_TYPE 
 D:Merry was the most perceptive and intelligent of hobbits.
 
 N:241:of Pippin
 I:31:1:1
 W:20:1:5:15000
 P:1:0d0:1:1:7
-F:DEC_STR | DEX | CHR | HIDE_TYPE | SHOW_MODS | SPEED
+F:DEC_STR | DEX | HIDE_TYPE | SHOW_MODS | SPEED
 D:'Fool of a Took' ... Ah, but Peregrin was brave if not wise.
 
 N:242:of Bilbo
 I:37:20:1
 W:60:4:70:200000
 P:28:1d4:1:1:7
-F:STEALTH | DEC_STR | WIS | INT | SEE_INVIS | DEX | CHR | SPEED |
-F:RES_ACID | RES_ELEC | RES_FIRE | RES_COLD | RES_POIS | RES_DARK | 
+F:STEALTH | DEC_STR | SEE_INVIS | DEX | SPEED |
+F:RES_ACID | RES_FIRE | RES_COLD | RES_POIS | RES_DARK | 
 D:"Also there is this!" said Bilbo, bringing out a parcel which seemed
 D:to be rather heavy for its size. He unwound several folds of old cloth,
 D:and held up a small shirt of mail. It was close-woven of many rings,

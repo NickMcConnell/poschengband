@@ -711,8 +711,12 @@ s32b _finalize_p(s32b p, u32b flgs[TR_FLAG_SIZE], object_type *o_ptr)
 
     /* Negative values don't make much sense, and some code
        was using unsigned integers for values (e.g. Androids) */
-    if (p < 0)
+    if (p <= 0)
+    {
         p = 0;
+        if (o_ptr->name1 || o_ptr->name2 || o_ptr->art_name)
+            p = 1;
+    }
 
     if (cost_calc_hook)
     {
@@ -1319,27 +1323,27 @@ static s32b _avg_dam_bow(int sval, int to_d, bool might)
     switch (sval)
     {
     case SV_SLING:
-        d = m*2 + m*MAX(0, to_d);
+        d = m*2 + m*to_d;
         break;
 
     case SV_SHORT_BOW:
-        d = m*5/2 + m*MAX(0, to_d);
+        d = m*5/2 + m*to_d;
         break;
 
     case SV_LONG_BOW:
-        d = m*5/2 + m*MAX(0, to_d) + m;
+        d = m*5/2 + m*to_d + m;
         break;
 
     case SV_NAMAKE_BOW:
-        d = m*18 + m*MAX(0, to_d);
+        d = m*18 + m*to_d;
         break;
 
     case SV_LIGHT_XBOW:
-        d = m*3 + m*MAX(0, to_d);
+        d = m*3 + m*to_d;
         break;
 
     case SV_HEAVY_XBOW:
-        d = m*3 + m*MAX(0, to_d) + m;
+        d = m*3 + m*to_d + m;
         break;
 
     case SV_HARP:
@@ -1350,7 +1354,7 @@ static s32b _avg_dam_bow(int sval, int to_d, bool might)
         d = 50; /* Gun */
     }
 
-    return d;
+    return MAX(0, d);
 }
 
 s32b bow_cost(object_type *o_ptr)

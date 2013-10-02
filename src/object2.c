@@ -2338,14 +2338,14 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
                 o_ptr->to_d += randint1(5) + m_bonus(5, level);
                 break;
             case 5:
-                if (abs(power) >= 2)
+                if (abs(power) >= 2 && level >= 40)
                 {
                     add_flag(o_ptr->art_flags, TR_XTRA_SHOTS);
                     o_ptr->pval = randint1(m_bonus(3, level));
                     break;
                 }
             case 6:
-                if (abs(power) >= 2 && one_in_(2))
+                if (abs(power) >= 2 && one_in_(2) && level >= 40)
                 {
                     add_flag(o_ptr->art_flags, TR_XTRA_MIGHT);
                     break;
@@ -4325,7 +4325,12 @@ void apply_magic(object_type *o_ptr, int lev, u32b mode)
     if (mode & AM_FORCE_EGO) 
     {
         rolls = 0;
-        power = 2;
+        /* AM_FORCE_EGO is used for granting quest rewards. Ego rings and amulets
+           can be achieved with just power 1 ... Indeed, power 2 is often too much! */
+        if (o_ptr->tval == TV_RING || o_ptr->tval == TV_AMULET)
+            power = MAX(1, power);
+        else
+            power = 2;
     }
     else
         apply_magic_ego = 0;
@@ -4999,13 +5004,10 @@ static bool _kind_is_weapon(int k_idx) {
         return TRUE;
     return FALSE;
 }
-static bool _kind_is_ammo(int k_idx) { 
-    if (TV_MISSILE_BEGIN <= k_info[k_idx].tval && k_info[k_idx].tval <= TV_MISSILE_END)
-        return TRUE;
-    return FALSE;
-}
-static bool _kind_is_bow(int k_idx) { 
+static bool _kind_is_bow_ammo(int k_idx) { 
     if (k_info[k_idx].tval == TV_BOW)
+        return TRUE;
+    if (TV_MISSILE_BEGIN <= k_info[k_idx].tval && k_info[k_idx].tval <= TV_MISSILE_END)
         return TRUE;
     return FALSE;
 }
@@ -5026,11 +5028,10 @@ typedef struct {
 } _kind_alloc_entry;
 static _kind_alloc_entry _kind_alloc_table[] = {
     { _kind_is_weapon,       15, 0 },  
-    { _kind_is_body_armor,   10, 0 },
-    { _kind_is_other_armor,  15, 0 },
+    { _kind_is_body_armor,   11, 0 },
+    { _kind_is_other_armor,  17, 0 },
     { _kind_is_device,       25, 0 },
-    { _kind_is_bow,           5, 0 },
-    { _kind_is_ammo,          5, 0 },
+    { _kind_is_bow_ammo,      7, 0 },
     { _kind_is_book,         11, 0 },
     { _kind_is_jewelry,      10, 0 },
     { _kind_is_misc,          4, AM_GOOD | AM_GREAT },

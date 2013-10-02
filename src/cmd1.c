@@ -2628,11 +2628,6 @@ static bool py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
                     msg_format ("There is something scary in your way!");
 
                 fear_stop = TRUE;
-
-                energy_use = 0;
-                if (hand)
-                    energy_use += (hand - 1) * 100 / p_ptr->weapon_ct;
-                energy_use += num * (100 / p_ptr->weapon_ct) / num_blow;
                 break;
             }
         }

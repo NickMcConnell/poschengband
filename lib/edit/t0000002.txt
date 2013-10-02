@@ -171,10 +171,10 @@ F:b:BUILDING_1:3:0:0:0:0:NONE:16
 F:b:BUILDING_1:3:0:0:0:0:NONE:16
 
 # Quest 16 rewarding, continue with quest 26,
-# reward is amulet of reflection
+# reward is a Hell Harness
 ?:[EQU $QUEST16 3]
 F:b:BUILDING_1:3:0:0:0:0:NONE:26
-F:!:FLOOR:3:0:520
+F:!:FLOOR:3:0:163:324
 
 # Quest 16 finished, continue with quest 26
 ?:[EQU $QUEST16 4]

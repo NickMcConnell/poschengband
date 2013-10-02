@@ -64,10 +64,10 @@ F:b:BUILDING_1:3:0:0:0:0:NONE:19
 ?:[EQU $QUEST19 2]
 F:b:BUILDING_1:3:0:0:0:0:NONE:19
 
-# Quest 19 rewarding, reward is Ring of Flames, continue with quest 23
+# Quest 19 rewarding, reward is an Elemental Ring, continue with quest 23
 ?:[EQU $QUEST19 3]
 F:b:BUILDING_1:3:0:0:0:0:NONE:23
-F:!:FLOOR:3:0:146
+F:!:FLOOR:3:0:132:301
 
 # Quest 19 finished, continue with quest 23
 ?:[EQU $QUEST19 4]
