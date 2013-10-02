@@ -2957,8 +2957,15 @@
 
 #define FEEL_NONE              0
 #define FEEL_BROKEN            1
+/* CTK: Worthless and Terrible may now actually be useful. The problem is, that
+ *      the game often tries to auto destroy all cursed objects, and this is rather
+ *      hard to avoid satisfactorily. One approach is to change the way unidentified
+ *      but sensed objects value. However, this leaks information for weakly sensing 
+ *      classes (or we destroy useful objects). Given a choice between removing the 
+ *      easy destroyer altogether and nerfing heavy sensing of cursed objects, I am
+ *      temporarily choosing the latter pending a more creative solution.
 #define FEEL_TERRIBLE          2
-#define FEEL_WORTHLESS         3
+#define FEEL_WORTHLESS         3 */
 #define FEEL_CURSED            4
 #define FEEL_UNCURSED          5
 #define FEEL_AVERAGE           6

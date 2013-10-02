@@ -1386,37 +1386,17 @@ s32b object_value_real(object_type *o_ptr)
 s32b object_value(object_type *o_ptr)
 {
     s32b value;
-
     if (object_is_known(o_ptr))
-    {
-        /* Broken items -- worthless */
-        if (object_is_broken(o_ptr)) return (0L);
-
-        /* Cursed items -- worthless */
-        if (object_is_cursed(o_ptr)) return (0L);
-
-        /* Real value (see above) */
         value = object_value_real(o_ptr);
-    }
     else
     {
-        /* Hack -- Felt broken items */
-        if ((o_ptr->ident & (IDENT_SENSE)) && object_is_broken(o_ptr)) return (0L);
-
-        /* Hack -- Felt cursed items */
-        if ((o_ptr->ident & (IDENT_SENSE)) && object_is_cursed(o_ptr)) return (0L);
-
-        /* Base value (see above) */
         value = object_value_base(o_ptr);
+        if ((o_ptr->ident & IDENT_SENSE) && object_is_cursed(o_ptr))
+            value /= 3;
     }
-
-
-    /* Apply discount (if any) */
-    if (o_ptr->discount) value -= (value * o_ptr->discount / 100L);
-
-
-    /* Return the final value */
-    return (value);
+    if (o_ptr->discount) 
+        value -= (value * o_ptr->discount / 100L);
+    return value;
 }
 
 
@@ -1434,7 +1414,7 @@ bool can_player_destroy_object(object_type *o_ptr)
         byte feel = FEEL_SPECIAL;
 
         /* Hack -- Handle icky artifacts */
-        if (object_is_cursed(o_ptr) || object_is_broken(o_ptr)) feel = FEEL_TERRIBLE;
+        if (object_is_cursed(o_ptr) || object_is_broken(o_ptr)) feel = FEEL_CURSED;
 
         /* Hack -- inscribe the artifact */
         o_ptr->feeling = feel;
@@ -4529,9 +4509,6 @@ void apply_magic(object_type *o_ptr, int lev, u32b mode)
     if (object_is_ego(o_ptr))
     {
         ego_item_type *e_ptr = &e_info[o_ptr->name2];
-
-        /* Hack -- acquire "broken" flag */
-        if (!e_ptr->rating) o_ptr->ident |= (IDENT_BROKEN);
 
         /* Hack -- acquire "cursed" flag */
         if (e_ptr->gen_flags & TRG_CURSED) o_ptr->curse_flags |= (TRC_CURSED);

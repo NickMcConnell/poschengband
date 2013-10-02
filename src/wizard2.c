@@ -257,12 +257,14 @@ static void do_cmd_wiz_hack_chris2(void)
         
         object_prep(&forge, k_idx);
         create_artifact(&forge, CREATE_ART_CURSED);
-        
+        /*apply_magic(&forge, object_level, 0);*/
+
         identify_item(&forge);
         forge.ident |= (IDENT_MENTAL); 
         
         object_desc(buf, &forge, 0);
         msg_format("%s", buf);
+        /*drop_near(&forge, -1, py, px);*/
     }
 }
 

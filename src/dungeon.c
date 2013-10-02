@@ -20,6 +20,7 @@ static int wild_regen = 20;
 
 /*
  * Return a "feeling" (or NULL) about an item.  Method 1 (Heavy).
+ *
  */
 static byte value_check_aux1(object_type *o_ptr)
 {
@@ -27,7 +28,7 @@ static byte value_check_aux1(object_type *o_ptr)
     if (object_is_artifact(o_ptr))
     {
         /* Cursed/Broken */
-        if (object_is_cursed(o_ptr) || object_is_broken(o_ptr)) return FEEL_TERRIBLE;
+        if (object_is_cursed(o_ptr) || object_is_broken(o_ptr)) return FEEL_CURSED;
 
         /* Normal */
         return FEEL_SPECIAL;
@@ -37,7 +38,7 @@ static byte value_check_aux1(object_type *o_ptr)
     if (object_is_ego(o_ptr))
     {
         /* Cursed/Broken */
-        if (object_is_cursed(o_ptr) || object_is_broken(o_ptr)) return FEEL_WORTHLESS;
+        if (object_is_cursed(o_ptr) || object_is_broken(o_ptr)) return FEEL_CURSED;
 
         /* Normal */
         return FEEL_EXCELLENT;
@@ -108,55 +109,6 @@ static void sense_inventory_aux(int slot, bool heavy)
 
     /* Skip non-feelings */
     if (!feel) return;
-
-    /* Bad luck */
-    if (mut_present(MUT_BAD_LUCK) && !randint0(13))
-    {
-        switch (feel)
-        {
-            case FEEL_TERRIBLE:
-            {
-                feel = FEEL_SPECIAL;
-                break;
-            }
-            case FEEL_WORTHLESS:
-            {
-                feel = FEEL_EXCELLENT;
-                break;
-            }
-            case FEEL_CURSED:
-            {
-                if (heavy)
-                    feel = randint0(3) ? FEEL_GOOD : FEEL_AVERAGE;
-                else
-                    feel = FEEL_UNCURSED;
-                break;
-            }
-            case FEEL_AVERAGE:
-            {
-                feel = randint0(2) ? FEEL_CURSED : FEEL_GOOD;
-                break;
-            }
-            case FEEL_GOOD:
-            {
-                if (heavy)
-                    feel = randint0(3) ? FEEL_CURSED : FEEL_AVERAGE;
-                else
-                    feel = FEEL_CURSED;
-                break;
-            }
-            case FEEL_EXCELLENT:
-            {
-                feel = FEEL_WORTHLESS;
-                break;
-            }
-            case FEEL_SPECIAL:
-            {
-                feel = FEEL_TERRIBLE;
-                break;
-            }
-        }
-    }
 
     /* Stop everything */
     if (disturb_minor) disturb(0, 0);

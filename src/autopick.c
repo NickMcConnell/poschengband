@@ -451,10 +451,10 @@ static void autopick_entry_from_object(autopick_type *entry, object_type *o_ptr)
                 bol_mark = TRUE;
                 break;
 
-            case FEEL_TERRIBLE:
+            /*case FEEL_TERRIBLE:
             case FEEL_WORTHLESS:
                 ADD_FLG(FLG_WORTHLESS);
-                break;
+                break;*/
 
             case FEEL_EXCELLENT:
                 ADD_FLG(FLG_EGO);
@@ -1464,14 +1464,9 @@ static bool is_opt_confirm_destroy(object_type *o_ptr)
 {
     if (!destroy_items) return FALSE;
 
-    /* Known to be worthless? 
-       Note: Many egos now have plusses and minusses, and occasional score as zero value
-       but should *not* be destroyed. Example, gloves of giant strenght increase some stats, 
-       decrease others, and occasionally give vulnerability to confusion. The player might
-       still want to wear these, even if the scoring algorithm considers them worthless!
-    */
+    /* Known to be worthless? */
     if (leave_worth)
-        if (object_value(o_ptr) > 0 || o_ptr->name1 || o_ptr->name2) return FALSE;
+        if (object_value(o_ptr) > 0) return FALSE;
 
     if (leave_equip)
         if (object_is_weapon_armour_ammo(o_ptr)) return FALSE;
@@ -1727,13 +1722,13 @@ static byte _get_object_feeling(object_type *o_ptr)
 {
     if (object_is_artifact(o_ptr))
     {
-        if (object_is_cursed(o_ptr) || object_is_broken(o_ptr)) return FEEL_TERRIBLE;
+        if (object_is_cursed(o_ptr) || object_is_broken(o_ptr)) return FEEL_CURSED;
         return FEEL_SPECIAL;
     }
 
     if (object_is_ego(o_ptr))
     {
-        if (object_is_cursed(o_ptr) || object_is_broken(o_ptr)) return FEEL_WORTHLESS;
+        if (object_is_cursed(o_ptr) || object_is_broken(o_ptr)) return FEEL_CURSED;
         return FEEL_EXCELLENT;
     }
 
@@ -1999,7 +1994,7 @@ bool autopick_autoregister(object_type *o_ptr)
     /* Known to be an artifact? */
     if ((object_is_known(o_ptr) && object_is_artifact(o_ptr)) ||
         ((o_ptr->ident & IDENT_SENSE) &&
-         (o_ptr->feeling == FEEL_TERRIBLE || o_ptr->feeling == FEEL_SPECIAL)))
+         (o_ptr->feeling == FEEL_SPECIAL)))
     {
         char o_name[MAX_NLEN];
 
