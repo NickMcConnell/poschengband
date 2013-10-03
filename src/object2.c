@@ -3623,7 +3623,8 @@ static void _create_armor(object_type *o_ptr, int level, int power, int mode)
             switch (o_ptr->name2)
             {
             case EGO_BODY_PROTECTION:
-                /*o_ptr->to_a += 10;*/
+                if (one_in_(3))
+                    o_ptr->to_a += m_bonus(10, level);
                 break;
             case EGO_BODY_ELEMENTAL_PROTECTION:
                 one_ele_resistance(o_ptr);
@@ -3641,7 +3642,10 @@ static void _create_armor(object_type *o_ptr, int level, int power, int mode)
                 break;
             case EGO_BODY_ELVENKIND:
                 if (one_in_(4))
+                {
                     add_flag(o_ptr->art_flags, TR_DEC_STR);
+                    add_flag(o_ptr->art_flags, TR_DEX);
+                }
                 break;
             case EGO_BODY_DWARVEN:
                 if (o_ptr->tval != TV_HARD_ARMOR || o_ptr->sval == SV_RUSTY_CHAIN_MAIL)

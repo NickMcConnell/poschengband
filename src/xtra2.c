@@ -1892,7 +1892,7 @@ void monster_death(int m_idx, bool drop_item)
     if (!drop_item && (r_ptr->d_char != '$')) number = 0;
 
     /* Drop some objects */
-    for (j = 0; j < number; j++)
+    for (j = 0; j < number; )
     {
         if (get_monster_drop(m_idx, &forge))
         {
@@ -1902,6 +1902,7 @@ void monster_death(int m_idx, bool drop_item)
                 dump_item++;
 
             drop_near(&forge, -1, y, x);
+            j++;
         }
     }
 

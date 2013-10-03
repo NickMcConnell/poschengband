@@ -820,6 +820,8 @@ static cptr _do_potion(int sval, int mode)
             device_noticed = TRUE;
             if (p_ptr->pclass == CLASS_WILD_TALENT)
                 wild_talent_new_life();
+            if (p_ptr->pclass == CLASS_PSION && get_check("Relearn Powers? "))
+                psion_relearn_powers();
         }
         break;
     case SV_POTION_NEO_TSUYOSHI:

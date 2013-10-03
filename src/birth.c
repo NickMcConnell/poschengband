@@ -1674,7 +1674,7 @@ void get_max_stats(void)
         for (j = i = 0; i < 6; i++)
         {
             /* Roll the dice */
-            roll = randint1(5);
+            roll = randint1(7);
 
             dice[i] = roll;
 
@@ -1683,13 +1683,13 @@ void get_max_stats(void)
         }
 
         /* Verify totals */
-        if (j == 18) break;
+        if (j == 24) break;
     }
 
     /* Acquire the stats */
     for (i = 0; i < 6; i++)
     {
-        j = 18 + 70 + dice[i]*10;
+        j = 18 + 60 + dice[i]*10;
 
         /* Save that value */
         p_ptr->stat_max_max[i] = j;
@@ -2305,6 +2305,7 @@ static byte player_init[MAX_CLASS][3][2] =
 {
     {
         /* Warrior */
+        { TV_BOW, SV_LIGHT_XBOW },
         { TV_HARD_ARMOR, SV_CHAIN_MAIL },
         { TV_SWORD, SV_BROAD_SWORD }
     },
@@ -2375,7 +2376,8 @@ static byte player_init[MAX_CLASS][3][2] =
     {
         /* High Mage */
         { TV_SORCERY_BOOK, 0 }, /* Hack: for realm1 book */
-        { TV_SWORD, SV_DAGGER }
+        { TV_SWORD, SV_DAGGER },
+        { TV_POTION, SV_POTION_RESTORE_MANA }
     },
 
     {
@@ -2401,8 +2403,9 @@ static byte player_init[MAX_CLASS][3][2] =
 
     {
         /* Sorcerer */
-        { TV_HAFTED, SV_WIZSTAFF }, /* Hack: for realm1 book */
-        { TV_WAND, SV_WAND_MAGIC_MISSILE }
+        { TV_HAFTED, SV_WIZSTAFF },
+        { TV_WAND, SV_WAND_MAGIC_MISSILE },
+        { TV_POTION, SV_POTION_RESTORE_MANA }
     },
 
     {
@@ -2471,12 +2474,14 @@ static byte player_init[MAX_CLASS][3][2] =
     {
         /* Weaponsmith */
         { TV_HARD_ARMOR, SV_CHAIN_MAIL },
-        { TV_POLEARM, SV_BROAD_AXE }
+        { TV_POLEARM, SV_BROAD_AXE },
+        { TV_BOW, SV_LIGHT_XBOW }
     },
     {
         /* Mirror-Master */
         { TV_POTION, SV_POTION_SPEED },
-        { TV_SWORD, SV_DAGGER }
+        { TV_SWORD, SV_DAGGER },
+        { TV_POTION, SV_POTION_RESTORE_MANA }
     },
     {
         /* Ninja */
@@ -2518,6 +2523,7 @@ static byte player_init[MAX_CLASS][3][2] =
         /* Duelist */
         { TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR},
         { TV_SWORD, SV_RAPIER },
+        { TV_GLOVES, SV_SET_OF_GAUNTLETS },
     },
     {
         /* Wild-Talent */
@@ -2549,12 +2555,14 @@ static byte player_init[MAX_CLASS][3][2] =
         /* Necromancer */
         { TV_NECROMANCY_BOOK, 0 },
         { TV_SCROLL, SV_SCROLL_PHASE_DOOR },
+        { TV_WHISTLE, 0 },
     },
 
     {
         /* Psion */
         { TV_SWORD, SV_SMALL_SWORD },
         { TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
+        { TV_POTION, SV_POTION_RESTORE_MANA }
     },
 
     {
@@ -2574,7 +2582,8 @@ static byte player_init[MAX_CLASS][3][2] =
     {
         /* Mauler */
         { TV_HARD_ARMOR, SV_CHAIN_MAIL },
-        { TV_SWORD, SV_TWO_HANDED_SWORD }
+        { TV_SWORD, SV_TWO_HANDED_SWORD },
+        { TV_BOOTS, SV_PAIR_OF_METAL_SHOD_BOOTS },
     },
 
     {
