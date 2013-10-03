@@ -2261,8 +2261,23 @@ static void _create_artifact(object_type *o_ptr, int power)
 static void _create_ring(object_type *o_ptr, int level, int power, int mode)
 {
     int powers = 0;
+    bool done = FALSE;
     
-    o_ptr->name2 = _get_random_ego(EGO_TYPE_RING);
+    while (!done)
+    {
+        o_ptr->name2 = _get_random_ego(EGO_TYPE_RING);
+        done = TRUE;
+        if ( (mode & AM_GREAT) 
+          || ((mode & AM_GOOD) && randint0(200) < level) )
+        {
+            if ( o_ptr->name2 != EGO_RING_SPEED
+              && o_ptr->name2 != EGO_RING_NAZGUL
+              && o_ptr->name2 != EGO_RING_DEFENDER )
+            {
+                done = FALSE;
+            }
+        }
+    }
     switch (o_ptr->name2)
     {
     case EGO_RING_COMBAT:
@@ -4792,13 +4807,31 @@ static bool kind_is_great(int k_idx)
         }
         case TV_POTION:
         {
-            if (k_ptr->sval == SV_POTION_LIFE) return one_in_(3);
-            if (k_ptr->sval == SV_POTION_STAR_HEALING) return one_in_(3);
+            if (k_ptr->sval == SV_POTION_LIFE) return TRUE;
+            if (k_ptr->sval == SV_POTION_STAR_HEALING) return TRUE;
+            if (k_ptr->sval == SV_POTION_AUGMENTATION) return TRUE;
+            return FALSE;
+        }
+        case TV_SCROLL:
+        {
+            if (k_ptr->sval == SV_SCROLL_ACQUIREMENT) return TRUE;
+            if (k_ptr->sval == SV_SCROLL_STAR_ACQUIREMENT) return TRUE;
+            if (k_ptr->sval == SV_SCROLL_STAR_DESTRUCTION) return TRUE;
+            if (k_ptr->sval == SV_SCROLL_GENOCIDE) return TRUE;
+            if (k_ptr->sval == SV_SCROLL_MASS_GENOCIDE) return TRUE;
+            if (k_ptr->sval == SV_SCROLL_ARTIFACT) return TRUE;
+            if (k_ptr->sval == SV_SCROLL_MANA) return TRUE;
             return FALSE;
         }
         case TV_WAND:
         {
             if (k_ptr->sval == SV_WAND_ROCKETS) return TRUE;
+            if (k_ptr->sval == SV_WAND_DISINTEGRATE) return TRUE;
+            return FALSE;
+        }
+        case TV_STAFF:
+        {
+            if (k_ptr->sval == SV_STAFF_MSTORM) return TRUE;
             return FALSE;
         }
         case TV_RING:
@@ -4870,7 +4903,7 @@ static bool kind_is_good(int k_idx)
         case TV_HISSATSU_BOOK:
         case TV_HEX_BOOK:
         {
-            if (k_ptr->sval == SV_BOOK_MIN_GOOD) return one_in_(3); /* Third Spellbooks */
+            if (k_ptr->sval == SV_BOOK_MIN_GOOD) return TRUE; /* Third Spellbooks */
             if (k_ptr->sval >= SV_BOOK_MIN_GOOD + 1) return TRUE;   /* Fourth Spellbooks */
             return (FALSE);
         }
@@ -4878,62 +4911,62 @@ static bool kind_is_good(int k_idx)
         {
             switch (k_ptr->sval)
             {
-            case SV_POTION_RESISTANCE: return one_in_(5);
-            case SV_POTION_LIFE: return one_in_(5);
-            case SV_POTION_STAR_HEALING: return one_in_(5);
-            case SV_POTION_AUGMENTATION: return one_in_(10);
-        /*    case SV_POTION_RESTORE_MANA: return one_in_(5); */
+            case SV_POTION_RESISTANCE: return TRUE;
+            case SV_POTION_LIFE: return TRUE;
+            case SV_POTION_HEALING: return TRUE;
+            case SV_POTION_STAR_HEALING: return TRUE;
+            case SV_POTION_AUGMENTATION: return TRUE;
             case SV_POTION_INC_STR:
             case SV_POTION_INC_INT:
             case SV_POTION_INC_WIS:
             case SV_POTION_INC_DEX:
             case SV_POTION_INC_CON:
-            case SV_POTION_INC_CHR: return one_in_(5 + object_level / 5);
+            case SV_POTION_INC_CHR: return TRUE;
             }
             return FALSE;
         }
         case TV_SCROLL:
         {
-            if (k_ptr->sval == SV_SCROLL_ACQUIREMENT) return one_in_(5);
-            if (k_ptr->sval == SV_SCROLL_FOREST_CREATION) return one_in_(5);
-            if (k_ptr->sval == SV_SCROLL_WALL_CREATION) return one_in_(5);
-            if (k_ptr->sval == SV_SCROLL_VENGEANCE) return one_in_(5);
-            if (k_ptr->sval == SV_SCROLL_STAR_ACQUIREMENT) return one_in_(5);
-            if (k_ptr->sval == SV_SCROLL_STAR_DESTRUCTION) return one_in_(5);
-            if (k_ptr->sval == SV_SCROLL_GENOCIDE) return one_in_(7);
-            if (k_ptr->sval == SV_SCROLL_MASS_GENOCIDE) return one_in_(12);
-            if (k_ptr->sval == SV_SCROLL_ARTIFACT) return one_in_(50);
-            if (k_ptr->sval == SV_SCROLL_FIRE) return one_in_(7);
-            if (k_ptr->sval == SV_SCROLL_ICE) return one_in_(7);
-            if (k_ptr->sval == SV_SCROLL_CHAOS) return one_in_(7);
-            if (k_ptr->sval == SV_SCROLL_MANA) return one_in_(7);
+            if (k_ptr->sval == SV_SCROLL_ACQUIREMENT) return TRUE;
+            if (k_ptr->sval == SV_SCROLL_FOREST_CREATION) return TRUE;
+            if (k_ptr->sval == SV_SCROLL_WALL_CREATION) return TRUE;
+            if (k_ptr->sval == SV_SCROLL_VENGEANCE) return TRUE;
+            if (k_ptr->sval == SV_SCROLL_STAR_ACQUIREMENT) return TRUE;
+            if (k_ptr->sval == SV_SCROLL_STAR_DESTRUCTION) return TRUE;
+            if (k_ptr->sval == SV_SCROLL_GENOCIDE) return TRUE;
+            if (k_ptr->sval == SV_SCROLL_MASS_GENOCIDE) return TRUE;
+            /*if (k_ptr->sval == SV_SCROLL_ARTIFACT) return TRUE;*/
+            if (k_ptr->sval == SV_SCROLL_FIRE) return TRUE;
+            if (k_ptr->sval == SV_SCROLL_ICE) return TRUE;
+            if (k_ptr->sval == SV_SCROLL_CHAOS) return TRUE;
+            if (k_ptr->sval == SV_SCROLL_MANA) return TRUE;
             return FALSE;
         }
         case TV_WAND:
         {
-            if (k_ptr->sval == SV_WAND_ROCKETS) return one_in_(7);
-            if (k_ptr->sval == SV_WAND_DISINTEGRATE) return one_in_(7);
-            if (k_ptr->sval == SV_WAND_DRAGON_FIRE) return one_in_(7);
-            if (k_ptr->sval == SV_WAND_DRAGON_COLD) return one_in_(7);
-            if (k_ptr->sval == SV_WAND_DRAGON_BREATH) return one_in_(7);
-            if (k_ptr->sval == SV_WAND_STRIKING) return one_in_(7);
+            if (k_ptr->sval == SV_WAND_ROCKETS) return TRUE;
+            if (k_ptr->sval == SV_WAND_DISINTEGRATE) return TRUE;
+            if (k_ptr->sval == SV_WAND_DRAGON_FIRE) return TRUE;
+            if (k_ptr->sval == SV_WAND_DRAGON_COLD) return TRUE;
+            if (k_ptr->sval == SV_WAND_DRAGON_BREATH) return TRUE;
+            if (k_ptr->sval == SV_WAND_STRIKING) return TRUE;
             return FALSE;
         }
         case TV_ROD:
         {
-            if (k_ptr->sval == SV_ROD_MAPPING) return one_in_(7);
-            if (k_ptr->sval == SV_ROD_DETECTION) return one_in_(7);
-            if (k_ptr->sval == SV_ROD_HEALING) return one_in_(12);
-            if (k_ptr->sval == SV_ROD_RESTORATION) return one_in_(12);
-            if (k_ptr->sval == SV_ROD_HAVOC) return one_in_(20);
-            if (k_ptr->sval == SV_ROD_SPEED) return one_in_(20);
-            if (k_ptr->sval == SV_ROD_MANA_BALL) return one_in_(12);
+            if (k_ptr->sval == SV_ROD_MAPPING) return TRUE;
+            if (k_ptr->sval == SV_ROD_DETECTION) return TRUE;
+            if (k_ptr->sval == SV_ROD_HEALING) return TRUE;
+            if (k_ptr->sval == SV_ROD_RESTORATION) return TRUE;
+            if (k_ptr->sval == SV_ROD_HAVOC) return TRUE;
+            if (k_ptr->sval == SV_ROD_SPEED) return TRUE;
+            if (k_ptr->sval == SV_ROD_MANA_BALL) return TRUE;
             return FALSE;
         }
         case TV_STAFF:
         {
-            if (k_ptr->sval == SV_STAFF_HEALING) return one_in_(5);
-            if (k_ptr->sval == SV_STAFF_MSTORM) return one_in_(12);
+            if (k_ptr->sval == SV_STAFF_HEALING) return TRUE;
+            if (k_ptr->sval == SV_STAFF_MSTORM) return TRUE;
             return FALSE;
         }
         case TV_RING:
@@ -5023,21 +5056,32 @@ static bool _kind_is_misc(int k_idx) {
 }
 typedef struct {
     _kind_p hook;
-    int     weight;
-    u32b    reject;
+    int     base;
+    int     good;
+    int     great;
 } _kind_alloc_entry;
 static _kind_alloc_entry _kind_alloc_table[] = {
-    { _kind_is_weapon,       15, 0 },  
-    { _kind_is_body_armor,   11, 0 },
-    { _kind_is_other_armor,  17, 0 },
-    { _kind_is_device,       25, 0 },
-    { _kind_is_bow_ammo,      7, 0 },
-    { _kind_is_book,         11, 0 },
-    { _kind_is_jewelry,      10, 0 },
-    { _kind_is_misc,          4, AM_GOOD | AM_GREAT },
+    { _kind_is_weapon,       18,   0,   0 },  
+    { _kind_is_body_armor,   15,   0,   0 },
+    { _kind_is_other_armor,  20,   0,   0 },
+    { _kind_is_device,       25, -20, -10 },
+    { _kind_is_bow_ammo,      7,   0,   0 },
+    { _kind_is_book,          5,   5,  10 },
+    { _kind_is_jewelry,       5,   5,  10 },
+    { _kind_is_misc,          5,  -4,  -4 },
     { NULL, 0}
 };
-_kind_p _choose_obj_kind(u32b mode)
+static int _kind_alloc_weight(_kind_alloc_entry *entry, u32b mode)
+{
+    int w = 0;
+    w = entry->base;
+    if (mode & AM_GREAT)
+        w += entry->great;
+    else if (mode & AM_GOOD)
+        w += entry->good;
+    return MAX(0, w);
+}
+static _kind_p _choose_obj_kind(u32b mode)
 {
     int i;
     int tot = 0;
@@ -5053,8 +5097,7 @@ _kind_p _choose_obj_kind(u32b mode)
     for (i = 0; ; i++)
     {
         if (!_kind_alloc_table[i].hook) break;
-        if (_kind_alloc_table[i].reject & mode) continue;
-        tot += _kind_alloc_table[i].weight;
+        tot += _kind_alloc_weight(&_kind_alloc_table[i], mode);
     }
 
     if (tot > 0)
@@ -5064,8 +5107,7 @@ _kind_p _choose_obj_kind(u32b mode)
         for (i = 0; ; i++)
         {
             if (!_kind_alloc_table[i].hook) break;
-            if (_kind_alloc_table[i].reject & mode) continue;
-            j -= _kind_alloc_table[i].weight;
+            j -= _kind_alloc_weight(&_kind_alloc_table[i], mode);
             if (j < 0)
             {
                 _kind_hook1 = _kind_alloc_table[i].hook;
