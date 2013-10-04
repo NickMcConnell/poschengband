@@ -1848,7 +1848,6 @@ static bool _magic_accept(int k_idx)
     {
     case TV_WAND:
     case TV_STAFF:
-    case TV_ROD:
         if (k_info[k_idx].level < 20)
             return TRUE;
         break;

@@ -390,7 +390,7 @@ void _adrenaline_spell(int cmd, variant *res)
         break;
     case SPELL_CAST:
     {
-        int dur = spell_power(10 + randint1((p_ptr->lev * 3) / 2));
+        int dur = spell_power(15 + randint1(p_ptr->lev*3/2));
         bool heal = !IS_FAST() || !IS_HERO(); /* Prevent spamming this as a weak healing spell */
 
         set_stun(0, TRUE);
@@ -518,7 +518,7 @@ void _psycho_storm_spell(int cmd, variant *res)
         var_set_string(res, "Fires a large ball of pure mental energy.");
         break;
     case SPELL_INFO:
-        var_set_string(res, info_damage(10, spell_power(10), spell_power(p_ptr->lev * 7)));
+        var_set_string(res, info_damage(10, spell_power(10), spell_power(p_ptr->lev * 5)));
         break;
     case SPELL_CAST:
     {
@@ -526,7 +526,7 @@ void _psycho_storm_spell(int cmd, variant *res)
         var_set_bool(res, FALSE);
         if (!get_aim_dir(&dir)) return;
 
-        fire_ball(GF_PSI_STORM, dir, spell_power(p_ptr->lev * 7 + damroll(10, 10)), 4);
+        fire_ball(GF_PSI_STORM, dir, spell_power(p_ptr->lev * 5 + damroll(10, 10)), 4);
 
         var_set_bool(res, TRUE);
         break;
