@@ -1021,7 +1021,7 @@ static bool summon_specific_aux(int r_idx)
         {
             okay = (r_idx == MON_GREATER_KRAKEN 
                  || r_idx == MON_LESSER_KRAKEN 
-                 || r_idx == MON_SMALL_KRAKEN) ? TRUE : FALSE;
+                 /*|| r_idx == MON_SMALL_KRAKEN*/) ? TRUE : FALSE;
             break;
         }
         case SUMMON_VAMPIRE:

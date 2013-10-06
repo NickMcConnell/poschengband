@@ -46,48 +46,45 @@
 # lines may be used as are needed to specify all the flags and flags
 # are separated by the '|' symbol.
 
-# Version stamp (required)
+# Version stamp (required?)
 
 V:2.8.1
-
-# The Phial of Galadriel
 
 N:1:of Galadriel
 I:39:4:1
 W:30:1:10:10000
 P:0:1d1:0:0:0
 F:ACTIVATE | SEARCH | INSTA_ART
+E:LITE_AREA:10:15
+E:The phial wells with clear light...
 D:A small crystal phial, with the light of Earendil's Star contained inside.  
 D:Its light is imperishable, and near it darkness cannot endure.
-
-# The Star of Elendil
 
 N:2:of Elendil
 I:39:5:1
 W:50:25:5:32500
 P:0:1d1:0:0:0
 F:ACTIVATE | SEE_INVIS | HOLD_LIFE | INSTA_ART | SPEED
+E:LITE_MAP_AREA:30:25
+E:The star shines brightly...
 D:The shining Star of the West, a famed heirloom of Elendil's house.
-
-# The Arkenstone of Thrain -> JoJ
-# Was +2 WIS/DEX
 
 N:3:of Judgement
 I:39:6:3
 W:70:90:5:150000
 P:0:1d1:0:0:0
+E:JEWEL:50:30
+E:The Jewel flashes bright red!
 F:ACTIVATE | SEE_INVIS | HOLD_LIFE | RES_CONF | RES_CHAOS |
 F:INSTA_ART | SPEED | WIS | INT
-
-# The Amulet of Carlammas
 
 N:4:of Carlammas
 I:40:0:2
 W:50:30:3:60000
+E:PROT_EVIL:30:300
+E:The amulet lets out a shrill wail...
 F:CON | HIDE_TYPE | ACTIVATE | RES_FIRE | RES_FEAR
 D:A fiery circle of bronze, with mighty spells to ward off evil.
-
-# The Amulet of Ingwe
 
 N:5:of Ingwe
 I:40:0:3
@@ -97,8 +94,6 @@ F:SEE_INVIS | FREE_ACT | ACTIVATE |
 F:RES_ACID | RES_COLD | RES_ELEC |
 D:The ancient heirloom of Ingwe, high lord of the Vanyar, against whom nothing 
 D:of evil could stand. 
-
-# The Necklace of the Dwarves
 
 N:6:Necklace of the Dwarves
 I:40:0:3
@@ -110,31 +105,19 @@ D:Valinor, accenting a radiant Silmaril.  The sturdy spirits of Dwarvish
 D:craftsmen who labored long in mountain smithies lie within it still, and 
 D:as gossamer it rests upon the bearer.
 
-# The Incandescent Light of Yeduson
-# Thomas Alva Yeduson the "Wizard of Menlo Park"
-# patented 1,093 inventions.
-# inventor of the incandescent lightbulb
-# Default reward for The Dark Elven Lords Quest
-
-N:7:of Yeduson
+N:7:of Edison
 I:39:3:3
 W:40:20:5:20000
 P:0:1d1:0:0:0
 F:INSTA_ART | INFRA | SH_FIRE | SH_ELEC
-D:The Incandescent Light of Yeduson 
-D:Thomas Alva Yeduson the "Wizard of Menlo Park" 
-D:patented 1,093 inventions.  
-D:Inventor of the incandescent lightbulb.
-
-# The Ring of Barahir -> Frakir
+D:Thomas Edison, the "Wizard of Menlo Park," patented 1,093 
+D:invention including the incandescent lightbulb.
 
 N:8:'Frakir'
 I:45:0:1
 W:50:40:2:10000
 F:STR | INT | WIS | DEX | CON | CHR | STEALTH | HIDE_TYPE | SPEED
 F:RES_POIS | ACTIVATE | SEE_INVIS | SEARCH | WARNING |
-
-# The Ring of Tulkas
 
 N:9:of Tulkas
 I:45:0:4
@@ -202,6 +185,8 @@ F:SUST_INT | SUST_WIS | SUST_CHR |
 F:XTRA_POWER | XTRA_H_RES | 
 F:ESP_DEMON | ESP_UNDEAD | WEAPONMASTERY
 F:BRAND_FIRE | BRAND_COLD | BRAND_ELEC | BRAND_ACID
+E:ONE_RING:50:500
+E:The ring glows intensely black...
 D:"One Ring to rule them all, One Ring to find them, One Ring to bring 
 D:them all and in the darkness bind them."  Made of massive gold, and 
 D:set with runes in the foul speech of Mordor, Isildur's Bane possesses 
@@ -215,6 +200,8 @@ P:0:1d1:-15:-15:0
 F:STR | INT | WIS | DEX | CON | CHR | SPEED | HIDE_TYPE |
 F:ACTIVATE | CURSED | HEAVY_CURSE | PERMA_CURSE |
 F:AGGRAVATE | DRAIN_EXP | TY_CURSE |
+E:ONE_RING:50:500
+E:The ring glows intensely black...
 D:Adorned, showy gilding, 
 D:set with runes in the strange speech of Heheh, with power so great that it 
 D:inevitably twists and masters any earthly being who wears it.
@@ -227,6 +214,8 @@ F:WIS | CHR | ACTIVATE | TELEPATHY | INSTA_ART | FULL_NAME
 D:A shining white ball of unbreakable crystal, the ancient palantiri, 
 D:or 'far-watchers', were used by kings of Numenor and later by the Exiles 
 D:for rapid communication between distant lands. 
+E:LIST_UNIQUES:60:200
+E:Some strange places show up in your mind, and you see ...
 
 N:16:'Crimson'
 I:19:50:4
@@ -613,6 +602,8 @@ I:31:1:0
 W:10:3:5:30000
 P:1:0d0:0:0:10
 F:FREE_ACT | RES_LITE | SUST_CON | LITE | ACTIVATE
+E:BOLT_MISSILE:10:2:2
+E:Your gloves glow extremely brightly...
 D:These gloves glow so brightly as to light the way for their owner and cast 
 D:magical bolts with great frequency.
 
@@ -671,6 +662,8 @@ W:40:15:40:110000
 P:5:1d1:10:10:20
 F:DEX | HIDE_TYPE |
 F:FREE_ACT | RES_ACID | ACTIVATE | SHOW_MODS | XTRA_POWER
+E:ARROW:30:50:150
+E:Your cesti grows magical spikes...
 D:The hand-sheathing of Fingolfin, warrior-king of Elves and Men, who gave 
 D:Morgoth seven mighty wounds and pain that will last forever.
 
@@ -682,6 +675,8 @@ W:40:120:40:300000
 P:3:1d1:0:0:20
 F:SPEED |
 F:RES_NEXUS | ACTIVATE
+E:SPEED:30:200
+E:Your boots glow bright green...
 D:This wondrous pair of leather boots once sped Feanor, creator of the 
 D:Simarils and the mightiest of the Eldar, along the Grinding Ice and to 
 D:Middle Earth at last. 
@@ -950,8 +945,6 @@ D:again.  It glows with the essence of fire, its wearer is mighty in combat,
 D:and no creature of Sauron can withstand it.  It will never be stained or 
 D:broken even in defeat.
 
-# The Long Sword 'Anguirel' -> Werewindle
-
 N:84:'Werewindle'
 I:23:17:3
 W:20:40:130:120000
@@ -961,6 +954,8 @@ F:SLAY_EVIL | BRAND_ELEC | SLAY_DEMON | FREE_ACT | RES_ELEC |
 F:RES_LITE | LITE | SEE_INVIS | SHOW_MODS | ACTIVATE | SPEED |
 F:SUST_CON | SUST_STR | SUST_INT | SUST_WIS | RES_DARK |
 F:RES_DISEN
+E:ESCAPE:20:35
+
 
 # The Long Sword 'Elvagil'-> 'Chainsword'
 
@@ -1260,8 +1255,6 @@ D:With elemental powers whose struggles turn this weapon red and purest
 D:white, this shining reaper bears within it a power of going forth and 
 D:returning.
 
-# The Long Sword of the Dawn
-
 N:110:of the Dawn
 I:23:17:3
 W:40:120:130:250000
@@ -1270,6 +1263,7 @@ F:ACTIVATE | LITE | BRAND_FIRE | FREE_ACT | RES_FIRE | INFRA | RIDING |
 F:SLAY_EVIL | SLAY_DRAGON | SLAY_UNDEAD | SLAY_DEMON | VORPAL |
 F:CHR | SUST_CHR | RES_LITE | RES_BLIND | REGEN | SHOW_MODS |
 F:XTRA_RES_OR_POWER
+E:SUMMON_DAWN:40:750
 D:Forged in the farthest East by a race of mighty spellcasters, this 
 D:shiny pale sword gleams with the rays of rising sun as you invoke 
 D:its power of commanding legions of powerful immortal warriors...
@@ -1384,8 +1378,6 @@ F:SLAY_EVIL | RES_LITE | LITE | SEE_INVIS | ACTIVATE | SHOW_MODS
 D:The radiant golden staff of an Istari of legend, this wizard's companion 
 D:grants keen sight and the knowledge of many hidden things.
 
-# The Quarterstaff of Olorin -> Gandalf
-
 N:120:of Gandalf
 I:21:21:4
 W:30:50:40:140000
@@ -1394,6 +1386,8 @@ F:INT | WIS | CHR | HIDE_TYPE | SEARCH | BRAND_FIRE | FORCE_WEAPON |
 F:SLAY_EVIL | SLAY_TROLL | SLAY_ORC | LITE | DEC_MANA | XTRA_POWER |
 F:HOLD_LIFE | RES_FIRE | RES_NETHER | SEE_INVIS | ACTIVATE | SHOW_MODS
 F:REGEN | SLOW_DIGEST | RES_CONF | RES_BLIND | SPELL_CAP
+E:INVULNERABILITY:90:777
+E:"You cannot pass! I am a servant of the Secret Fire, wielder of the Flame of Anor."
 D:The staff of the great wizard Gandalf.  
 D:It is tall and sturdy, with rough-hewn runes that invoke the element of 
 D:Earth, and which strikes down all creatures who live in the shadow of 
@@ -1482,9 +1476,7 @@ F:STEALTH | DEX | RES_NETHER | RES_DISEN |
 F:RES_ACID | RES_ELEC | RES_FIRE | RES_COLD | ACTIVATE |
 F:SLAY_EVIL | SLAY_ANIMAL | SLAY_DEMON | SLAY_DRAGON |
 F:SEE_INVIS | REGEN | BLESSED | LITE | SHOW_MODS
-
-# The Multi-Hued Dragon Scale Mail 'Razorback'
-# Was (-2) INT | WIS | STEALTH | HIDE_TYPE, (-3) to hit, 30 pounds (?)
+E:ESCAPE:20:35
 
 N:129:'Razorback'
 I:38:6:0
@@ -1493,12 +1485,11 @@ P:40:2d4:-4:0:25
 F:RES_FIRE | RES_COLD | RES_POIS | RES_LITE | RES_DARK | RES_ACID |
 F:LITE | SEE_INVIS | AGGRAVATE | FREE_ACT | IM_ELEC |
 F:ACTIVATE
+E:STAR_BALL:30:1000
+E:Your armor is surrounded by lightning...
 D:A massive suit of heavy dragon scales deeply saturated with many colors.  
 D:It throbs with angry energies, and you feel the raw elemental might of 
 D:untamed Lightning as you put it on.
-
-# The Power Dragon Scale Mail 'Bladeturner'
-# Was (-3) DEX | HIDE_TYPE, (-4) to hit, 50 pounds (?)
 
 N:130:'Bladeturner'
 I:38:30:0
@@ -1510,6 +1501,7 @@ F:RES_NETHER | RES_NEXUS | RES_CHAOS | RES_LITE | RES_DARK |
 F:RES_SHARDS | RES_SOUND | RES_DISEN | RES_BLIND | RES_CONF |
 F:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD |
 F:ACTIVATE
+E:BLADETURNER:50:400
 D:A suit of adamant, set with scales of every color, surrounded in a nimbus 
 D:of perfectly untramelled yet inextricably intermingled and utterly mastered 
 D:powers elemental and ethereal.
@@ -1640,6 +1632,8 @@ P:0:10d5:0:0:-20
 F:HIDE_TYPE | BLOWS | VORPAL | VAMPIRIC | SLAY_HUMAN | SLAY_GOOD |
 F:SHOW_MODS | SPEED | ACTIVATE | RES_DISEN | NO_TELE |
 F:DRAIN_EXP | AGGRAVATE | RES_DARK | RES_NETHER | TY_CURSE |
+E:MURAMASA:1
+E:The Muramasa pulsates...
 
 N:145:of Xiaolong
 I:21:4:3
@@ -1753,6 +1747,7 @@ I:22:40:0
 W:10:150:30:10000
 P:0:1d1:0:0:0
 F:ACTIVATE | INSTA_ART
+E:FISHING:1
 
 #The Long Sword 'Gurenki'
 N:160:'Gurenki'
@@ -1810,6 +1805,7 @@ I:40:0:2
 W:30:80:3:100000
 F:INT | WIS | CHR | SEARCH | INFRA | SEE_INVIS | ACTIVATE |
 F:HIDE_TYPE | FULL_NAME 
+E:MITO_KOUMON:30:225
 
 N:167:'Tailbiter'
 I:23:16:1
@@ -1832,6 +1828,8 @@ I:21:4:3
 W:25:5:15:808
 P:0:1d2:-3:-7:6
 F:SEARCH | ACTIVATE | SHOW_MODS | HIDE_TYPE
+E:AGGRAVATE:1
+E:You beat your wooden clappers.
 
 N:170:'Matoi'
 I:21:7:3
@@ -2064,6 +2062,8 @@ I:22:30:2
 W:70:12:250:180000
 P:0:8d4:8:8:8
 F:ACTIVATE | SHOW_MODS
+E:BLOODY_MOON:30:3333
+E:Your scythe glows brightly!
 
 N:200:'Dasai'
 I:36:8:-10
@@ -2104,6 +2104,8 @@ W:20:10:60:50000
 P:4:0d0:0:0:0
 F:STR | CON | SUST_STR | SUST_CON |
 F:FREE_ACT | ACTIVATE
+E:DISPEL_EVIL_HERO:20:150
+E:You stamp your feet (as if you are in a ring.)
 
 N:205:of Mook
 I:35:3:0
@@ -2179,6 +2181,7 @@ W:35:40:70:125000
 P:0:1d7:8:8:8
 F:STR | WIS | BLOWS | TUNNEL | ACTIVATE | RES_ACID | RES_ELEC
 F:REGEN | FREE_ACT | BRAND_ELEC | BLESSED | XTRA_H_RES
+E:SUMMON_OCTOPUS:30:400
 
 N:214:of Fundin Bluecloak
 I:21:6:4
@@ -2214,6 +2217,8 @@ P:0:0d0:0:0:10
 F:STR | WIS | HIDE_TYPE |
 F:RES_CONF | RES_CHAOS | BLESSED | 
 F:SEE_INVIS | FREE_ACT | REGEN | HOLD_LIFE | ACTIVATE |
+E:SACRED_KNIGHTS:25
+E:Your amulet exhibits the truth...
 
 N:218:of the Hell
 I:40:0:-2
@@ -2497,6 +2502,8 @@ I:23:7:4
 W:50:7:30:150000
 P:0:1d7:7:17:17
 F:VAMPIRIC | SHOW_MODS | SPEED | DEX | INT | FREE_ACT | ACTIVATE
+E:STRAFING:10:3
+E:Your rapier glows a deep purple...
 
 N:249:of Saruman
 I:21:21:3
@@ -2520,6 +2527,8 @@ W:50:50:300:150000
 P:0:3d8:13:20:10
 F:STR | CON | CHR | RES_COLD | SLAY_EVIL | SLAY_UNDEAD
 F:SLAY_DEMON | BRAND_COLD | ACTIVATE
+E:SUMMON_KRAKEN:50:500
+E:Your club unleashes the rage of storms and sea!
 D:The mighty black stone club of the sea-god Aegir, crafted from 
 D:hot magma quarried from a volcano in the blackest depths of his 
 D:watery domain. Although a jovial soul in nature, Aegir is 
@@ -2565,6 +2574,8 @@ P:0:2d11:20:25:15
 F:ACTIVATE | SLAY_ANIMAL | SLAY_DEMON | SLAY_UNDEAD |
 F:FREE_ACT | RES_SOUND | HOLD_LIFE | SUST_STR | SUST_DEX |
 F:BLOWS | SPEED | STR | DEX | CON | WIS
+E:ENLARGE_WEAPON:40:555
+E:Your cudgel grows bigger ...
 
 N:256:of Zeus
 I:40:0:5
@@ -2618,6 +2629,8 @@ W:90:127:20:555555
 P:2:1d1:0:0:7
 F:SPEED | DEX | STEALTH | FREE_ACT | LEVITATION |
 F:RES_CHAOS | PERMA_CURSE | ACTIVATE | QUESTITEM
+E:HERMES:50:100
+E:Your boots shine.
 
 N:262:of Apollo
 I:19:70:5
@@ -2635,6 +2648,8 @@ P:0:0d0:12:18:0
 F:STR | DEX | CHR | STEALTH | XTRA_MIGHT |
 F:XTRA_SHOTS | SUST_STR | SUST_DEX | SUST_CHR | SEE_INVIS |
 F:RES_BLIND | PERMA_CURSE | ACTIVATE | QUESTITEM
+E:ARTEMIS:30:1000
+E:Your bow glows purple.
 D:This is the bow of Artemis, the virgin huntress and twin of Apollo.
 
 N:264:of Hephaestus
@@ -2646,6 +2661,8 @@ F:SPEED | KILL_EVIL | KILL_DRAGON | KILL_UNDEAD |
 F:KILL_DEMON | SLAY_HUMAN | SLAY_ANIMAL | SLAY_ORC | SLAY_TROLL | 
 F:SLAY_GIANT | BRAND_ACID | BRAND_COLD | BRAND_FIRE | BRAND_ELEC |
 F:VAMPIRIC | PERMA_CURSE | ACTIVATE | QUESTITEM
+E:ENCHANTMENT:50:200
+E:Your mighty hammer glows red hot!
 
 N:265:of Hera
 I:33:12:3
@@ -2661,6 +2678,8 @@ W:90:127:30:555555
 P:0:1d1:0:0:0
 F:WIS | CON | RES_TIME | REGEN | LITE |
 F:PERMA_CURSE | ACTIVATE | QUESTITEM
+E:DEMETER:50:100
+E:Your torch engulfs you in a purifying flame!
 
 N:267:of Aphrodite
 I:40:0:5
@@ -2693,6 +2712,8 @@ F:INT | ACTIVATE | EASY_SPELL | SPELL_CAP
 F:TELEPATHY | PERMA_CURSE | QUESTITEM | INSTA_ART
 D:It is a shriveled vestige of the once
 D:great Emperor Lich.
+E:EYE_VECNA:30:30
+E:The Eye burns painfully!
 
 N:270:'Cupid's Arrow'
 I:17:1:0
@@ -2716,6 +2737,8 @@ F:STR | DEX | DEC_WIS | SPEED | HIDE_TYPE | ACTIVATE
 F:SUST_STR | SUST_DEX | HOLD_LIFE | LEVITATION
 F:RES_FIRE | RES_POIS | RES_CONF | RES_SOUND | RES_NETHER | RES_FEAR
 F:NO_MAGIC | WEAPONMASTERY
+E:SPEED_ESSENTIA:25:111
+E:Your robe glows crimson...
 D:This robe is stained with the the blood of many fallen heros.
 D:So much death. So much destruction. What could cause such a thing?
 
@@ -2758,6 +2781,8 @@ I:34:5:4
 W:40:9:120:80000
 P:15:1d3:0:0:15
 F:STR | WIS | HOLD_LIFE | REFLECT | ACTIVATE
+E:GONG:20:10
+E:BOOOOOOOOOOOOOOOOOOONGGGGGGGGGGG!!!
 
 N:279:'Great Maul of Vice'
 I:21:8:2
@@ -2765,6 +2790,8 @@ W:60:88:700:500000
 P:0:8d8:8:8:8
 F:CON | CHR | VAMPIRIC | BRAND_ELEC | BRAND_POIS | ACTIVATE
 F:FREE_ACT | HOLD_LIFE | RES_NETHER | RES_NEXUS | RES_FEAR
+E:LIGHT_SPEED:40:888
+E:Your maul rends the fabric of space-time ...
 D:This curious object is the favorite of many a female of every 
 D:species. Those who find themselves in a proximity of one seem 
 D:to constantly lose cash, and it seems impossible to leave its presence.
@@ -2789,6 +2816,8 @@ I:39:11:0
 W:50:150:20:100000
 P:0:1d1:0:0:5
 F:ACTIVATE | FULL_NAME | INSTA_ART
+E:STONE_SKIN:25:100
+E:Your stone hums softly.
 D:At first glance, it appears to be just an ordinary rock.
 D:But as you grasp the stone it emits an earthly glow, and you
 D:begin to feel yourself in tune with the world around you.
@@ -2798,12 +2827,16 @@ I:39:12:3
 W:50:150:20:100000
 P:0:1d1:0:0:0
 F:ACTIVATE | FULL_NAME | HOLD_LIFE | LIFE | INSTA_ART
+E:RESTORING:50:500
+E:Your stone glows a pure white.
 
 N:284:& Sorcerer's Stone
 I:39:13:2
 W:50:150:20:100000
 P:0:1d1:0:0:0
 F:ACTIVATE | FULL_NAME | INT | INSTA_ART
+E:SPEED:25:100
+E:Your stone begins to vibrate rapidly.
 
 N:285:& Stone of Chaos
 I:39:14:0
@@ -2859,6 +2892,8 @@ I:40:0:3
 W:30:250:3:60000
 F:HIDE_TYPE | ACTIVATE | FULL_NAME
 F:WIS | CHR | RES_NETHER
+E:HOLY_GRAIL:30:12
+E:You drink from the holy grail!
 
 N:294:'Eternal Blade'
 I:23:31:2

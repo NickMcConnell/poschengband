@@ -502,7 +502,7 @@ static void do_cmd_wiz_hack_chris5(void)
             continue;
         }
         ct_tries++;
-        if (forge.tval == TV_BOOTS && forge.name2 == EGO_BOOTS_SPEED)
+        if (forge.name2 == EGO_WEAPON_DAEMON)
         /*if (forge.k_idx == 133)*/
         /*if (forge.tval >= TV_LIFE_BOOK && 3 == forge.sval && forge.tval != TV_ARCANE_BOOK)*/
         /*if (object_is_body_armour(&forge) && forge.name2)*/
@@ -514,7 +514,7 @@ static void do_cmd_wiz_hack_chris5(void)
             forge.ident |= (IDENT_MENTAL); 
             object_desc(buf, &forge, 0);
             msg_format("%s on Roll #%d", buf, ct_tries);
-            /* drop_near(&forge, -1, py, px); */
+            drop_near(&forge, -1, py, px);
         }
     }
 }

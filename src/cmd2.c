@@ -2405,7 +2405,8 @@ void do_cmd_walk(bool pickup)
         int tmp = 120 + p_ptr->lev*10 - wilderness[py][px].level + 5;
         if (tmp < 1) 
             tmp = 1;
-        if (((wilderness[py][px].level + 5) > (p_ptr->lev / 2)) && randint0(tmp) < (21-p_ptr->skills.stl))
+        if ( wilderness[py][px].level + 5 > p_ptr->lev / 2 
+          && randint0(tmp) < 21 - p_ptr->skills.stl )
         {
             /* Inform the player of his horrible fate :=) */
             msg_print("You are ambushed!");

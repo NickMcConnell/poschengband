@@ -19,7 +19,7 @@
 #define VER_MAJOR 3
 #define VER_MINOR 0
 #define VER_PATCH 0
-#define VER_EXTRA 0
+#define VER_EXTRA 2
 
 
 /*
@@ -571,18 +571,19 @@
 #define SPELL_FAIL            4
 #define SPELL_STOP            5
 #define SPELL_CONT            6
-#define SPELL_ENERGY        7
-#define SPELL_COST_EXTRA    8
-#define SPELL_GAIN_MUT        9        /* For Mutations */
-#define SPELL_LOSE_MUT        10        /* For Mutations */
-#define SPELL_MUT_DESC        11        /* For Mutations */
-#define SPELL_CALC_BONUS    12        /* Mutations, Singing, etc.  Called from calc_bonuses() */
+#define SPELL_ENERGY          7
+#define SPELL_COST_EXTRA      8
+#define SPELL_GAIN_MUT        9      /* For Mutations */
+#define SPELL_LOSE_MUT       10      /* For Mutations */
+#define SPELL_MUT_DESC       11      /* For Mutations */
+#define SPELL_CALC_BONUS     12      /* Mutations, Singing, etc.  Called from calc_bonuses() */
 #define SPELL_PROCESS        13      /* Randomly activating mutations */
-#define SPELL_COLOR            14      /* Terminal Color for display */
-#define SPELL_FAIL_MIN        15
-#define SPELL_SPOIL_NAME    16
-#define SPELL_SPOIL_DESC    17
-#define SPELL_HELP_DESC     18
+#define SPELL_COLOR          14      /* Terminal Color for display */
+#define SPELL_FAIL_MIN       15
+#define SPELL_SPOIL_NAME     16
+#define SPELL_SPOIL_DESC     17
+#define SPELL_HELP_DESC      18
+#define SPELL_VALUE          19      /* For valuing object activations */
 
 /*
  * Maximum number of "normal" pack slots, and the index of the "overflow"
@@ -2801,8 +2802,8 @@
 #define GF_WATER        14
 #define GF_LITE         15
 #define GF_DARK         16
-#define GF_LITE_WEAK    17
-#define GF_DARK_WEAK    18
+#define GF_LITE_WEAK    17  /* Only hurts monsters vulnerable to light ... */
+#define GF_DARK_WEAK    18  /* Only hurts monsters vulnerable to dark ... */
 #define GF_SHARDS       20
 #define GF_SOUND        21
 #define GF_CONFUSION    22
@@ -5470,65 +5471,73 @@ extern int PlayerUID;
 
 
 /*
- * Flags for wr_item()/rd_item()
+ * Fields for wr_item()/rd_item() stored in savefiles (byte).
  */
-#define SAVE_ITEM_PVAL         0x00000001
-#define SAVE_ITEM_DISCOUNT     0x00000002
-#define SAVE_ITEM_NUMBER       0x00000004
-#define SAVE_ITEM_NAME1        0x00000008
-#define SAVE_ITEM_NAME2        0x00000010
-#define SAVE_ITEM_TIMEOUT      0x00000020
-#define SAVE_ITEM_TO_H         0x00000040
-#define SAVE_ITEM_TO_D         0x00000080
-#define SAVE_ITEM_TO_A         0x00000100
-#define SAVE_ITEM_AC           0x00000200
-#define SAVE_ITEM_DD           0x00000400
-#define SAVE_ITEM_DS           0x00000800
-#define SAVE_ITEM_IDENT        0x00001000
-#define SAVE_ITEM_MARKED       0x00002000
-#define SAVE_ITEM_ART_FLAGS0   0x00004000
-#define SAVE_ITEM_ART_FLAGS1   0x00008000
-#define SAVE_ITEM_ART_FLAGS2   0x00010000
-#define SAVE_ITEM_ART_FLAGS3   0x00020000
-#define SAVE_ITEM_CURSE_FLAGS  0x00040000
-#define SAVE_ITEM_HELD_M_IDX   0x00080000
-#define SAVE_ITEM_XTRA1        0x00100000
-#define SAVE_ITEM_XTRA2        0x00200000
-#define SAVE_ITEM_XTRA3        0x00400000
-#define SAVE_ITEM_XTRA4        0x00800000
-#define SAVE_ITEM_XTRA5        0x01000000
-#define SAVE_ITEM_FEELING      0x02000000
-#define SAVE_ITEM_INSCRIPTION  0x04000000
-#define SAVE_ITEM_ART_NAME     0x08000000
-#define SAVE_ITEM_RUNE_FLAGS   0x10000000
-#define SAVE_ITEM_NAME3        0x20000000
-#define SAVE_ITEM_ART_FLAGS4   0x40000000
-#define SAVE_ITEM_ART_FLAGS5   0x80000000
-
+enum object_save_fields_e {
+    SAVE_ITEM_DONE = 0,
+    SAVE_ITEM_PVAL,
+    SAVE_ITEM_DISCOUNT,
+    SAVE_ITEM_NUMBER,
+    SAVE_ITEM_NAME1,
+    SAVE_ITEM_NAME2,
+    SAVE_ITEM_NAME3,
+    SAVE_ITEM_ART_NAME,
+    SAVE_ITEM_TIMEOUT,
+    SAVE_ITEM_COMBAT,
+    SAVE_ITEM_ARMOR,
+    SAVE_ITEM_DAMAGE_DICE,
+    SAVE_ITEM_IDENT,
+    SAVE_ITEM_MARKED,
+    SAVE_ITEM_FEELING,
+    SAVE_ITEM_INSCRIPTION,
+    SAVE_ITEM_ART_FLAGS_0,
+    SAVE_ITEM_ART_FLAGS_1,
+    SAVE_ITEM_ART_FLAGS_2,
+    SAVE_ITEM_ART_FLAGS_3,
+    SAVE_ITEM_ART_FLAGS_4,
+    SAVE_ITEM_ART_FLAGS_5,
+    SAVE_ITEM_ART_FLAGS_6,
+    SAVE_ITEM_ART_FLAGS_7,
+    SAVE_ITEM_ART_FLAGS_8,
+    SAVE_ITEM_ART_FLAGS_9,
+    SAVE_ITEM_CURSE_FLAGS,
+    SAVE_ITEM_RUNE_FLAGS,
+    SAVE_ITEM_HELD_M_IDX,
+    SAVE_ITEM_XTRA1,
+    SAVE_ITEM_XTRA2,
+    SAVE_ITEM_XTRA3,
+    SAVE_ITEM_XTRA4,
+    SAVE_ITEM_XTRA5,
+    SAVE_ITEM_ACTIVATION,
+};
 
 /*
- * Flags for wr_monster()/rd_monster()
+ * Fields for wr_monster()/rd_monster() stored in savefiles (byte).
  */
-#define SAVE_MON_AP_R_IDX     0x00000001
-#define SAVE_MON_SUB_ALIGN    0x00000002
-#define SAVE_MON_CSLEEP       0x00000004
-#define SAVE_MON_FAST         0x00000008
-#define SAVE_MON_SLOW         0x00000010
-#define SAVE_MON_STUNNED      0x00000020
-#define SAVE_MON_CONFUSED     0x00000040
-#define SAVE_MON_MONFEAR      0x00000080
-#define SAVE_MON_TARGET_Y     0x00000100
-#define SAVE_MON_TARGET_X     0x00000200
-#define SAVE_MON_INVULNER     0x00000400
-#define SAVE_MON_SMART        0x00000800
-#define SAVE_MON_EXP          0x00001000
-#define SAVE_MON_MFLAG2       0x00002000
-#define SAVE_MON_NICKNAME     0x00004000
-#define SAVE_MON_PARENT       0x00008000
-#define SAVE_MON_PACK_IDX     0x00010000
-#define SAVE_MON_AC              0x00020000
-#define SAVE_MON_MELEE          0x00040000
-
+enum mon_save_fields_e {
+    SAVE_MON_DONE = 0,
+    SAVE_MON_AP_R_IDX, 
+    SAVE_MON_SUB_ALIGN,
+    SAVE_MON_TIMER,
+    SAVE_MON_TARGET_Y,
+    SAVE_MON_TARGET_X,
+    SAVE_MON_SMART,
+    SAVE_MON_EXP,
+    SAVE_MON_MFLAG2,
+    SAVE_MON_NICKNAME,
+    SAVE_MON_PARENT,
+    SAVE_MON_PACK_IDX,
+    SAVE_MON_AC,
+    SAVE_MON_MELEE,
+    SAVE_MON_EGO_WHIP,
+    SAVE_MON_ANTI_MAGIC,
+    SAVE_MON_FORGOT_4,
+    SAVE_MON_FORGOT_5,
+    SAVE_MON_FORGOT_6,
+    SAVE_MON_SUMMON_CT,
+    SAVE_MON_DROP_CT,
+    SAVE_MON_STOLEN_CT,
+};
 
 /* Sub-alignment flags for neutral monsters */
 #define SUB_ALIGN_NEUTRAL 0x0000
@@ -5617,6 +5626,7 @@ extern int PlayerUID;
 #define MTIMED_MONFEAR  5 /* Monster is afraid */
 #define MTIMED_INVULNER 6 /* Monster is temporarily invulnerable */
 
+#define MTIMED_MAX      7
 #define MAX_MTIMED      7
 
 #define MON_CSLEEP(M_PTR)   ((M_PTR)->mtimed[MTIMED_CSLEEP])

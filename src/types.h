@@ -94,6 +94,15 @@ struct feature_type
     byte x_char[F_LIT_MAX];   /* Desired feature character */
 };
 
+struct effect_s
+{
+    s16b type;
+    byte level;
+    byte xxx;
+    s16b timeout;
+    s16b extra;
+};
+typedef struct effect_s effect_t;
 
 /*
  * Information about object "kinds", including player knowledge.
@@ -137,6 +146,8 @@ struct object_kind
     byte extra;            /* Something */
     byte max_level;        /* Level */
 
+    effect_t activation;
+    u32b     activation_msg;
 
     byte d_attr;        /* Default object attribute */
     byte d_char;        /* Default object character */
@@ -190,7 +201,9 @@ struct artifact_type
 
     s32b cost;            /* Artifact "cost" */
 
-    u32b flags[TR_FLAG_SIZE];       /* Artifact Flags */
+    u32b     flags[TR_FLAG_SIZE];       /* Artifact Flags */
+    effect_t activation;
+    u32b     activation_msg;
 
     u32b gen_flags;        /* flags for generate */
 
@@ -231,6 +244,7 @@ struct ego_item_type
     u32b flags[TR_FLAG_SIZE];    /* Ego-Item Flags */
 
     u32b gen_flags;        /* flags for generate */
+    effect_t activation;
 };
 
 /*
@@ -288,8 +302,8 @@ struct object_type
 
     byte xtra1;            /* Extra info type (now unused) */
     byte xtra2;            /* Extra info index */
-    byte xtra3;            /* Extra info */
-    s16b xtra4;            /* Extra info */
+    byte xtra3;            /* Extra info: Chests and Weaponsmith */
+    s16b xtra4;            /* Extra info: Lights, Capture, ... */
     s16b xtra5;            /* Extra info */
 
     s16b to_h;            /* Plusses to hit */
@@ -319,6 +333,7 @@ struct object_type
     s16b next_o_idx;    /* Next object in stack (if any) */
 
     s16b held_m_idx;    /* Monster holding us (if any) */
+    effect_t activation;
 };
 #define object_is_(O, T, S) ((O)->tval == (T) && (O)->sval == (S))
 
@@ -648,15 +663,10 @@ struct monster_type
     byte stolen_ct;
     u16b summon_ct;
 
-    /* Hack below this point ... TODO: Clean up timed monster effects
-       to use a linked list of { type; dur; extra; } or something similar.
-       BTW, none of what follows will survive a save/reload
-    */
     byte ego_whip_ct;
     byte ego_whip_pow;
     byte anti_magic_ct;
 
-    /* TODO: Pending a rewrite of monster effects as a dynamic list ...*/
     u32b forgot4;
     u32b forgot5;
     u32b forgot6;

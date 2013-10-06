@@ -38,7 +38,7 @@ W:F:&:10:60
 # Shallow Volcano
 W:F:$:9:40
 
-# Swanp
+# Swamp
 W:F:=:4:35
 
 # Town 1

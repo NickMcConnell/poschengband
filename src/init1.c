@@ -1910,6 +1910,25 @@ errr parse_k_info(char *buf, header *head)
     /* There better be a current k_ptr */
     else if (!k_ptr) return (3);
 
+    else if (buf[0] == 'E')
+    {
+        /* First E: line is required and defines the activation. */
+        if (!k_ptr->activation.type)
+        {
+            errr rc = effect_parse(buf + 2, &k_ptr->activation);
+            if (rc) 
+                return rc;
+        }
+        /* Second E: line is optional and describes the activation. */
+        else if (!k_ptr->activation_msg)
+        {
+            s = buf+2;
+            if (!add_text(&k_ptr->activation_msg, head, s, FALSE)) return (7);
+        }
+        else
+            return 1;
+    }
+
     /* Process 'D' for "Description" */
     else if (buf[0] == 'D')
     {
@@ -2146,6 +2165,25 @@ errr parse_a_info(char *buf, header *head)
     /* There better be a current a_ptr */
     else if (!a_ptr) return (3);
 
+    else if (buf[0] == 'E')
+    {
+        /* First E: line is required and defines the activation. */
+        if (!a_ptr->activation.type)
+        {
+            errr rc = effect_parse(buf + 2, &a_ptr->activation);
+            if (rc) 
+                return rc;
+        }
+        /* Second E: line is optional and describes the activation. */
+        else if (!a_ptr->activation_msg)
+        {
+            s = buf+2;
+            if (!add_text(&a_ptr->activation_msg, head, s, FALSE)) return (7);
+        }
+        else
+            return 1;
+    }
+
     /* Process 'D' for "Description" */
     else if (buf[0] == 'D')
     {
@@ -2346,7 +2384,12 @@ errr parse_e_info(char *buf, header *head)
 
     /* There better be a current e_ptr */
     else if (!e_ptr) return (3);
-
+    else if (buf[0] == 'E')
+    {
+        errr rc = effect_parse(buf + 2, &e_ptr->activation);
+        if (rc) 
+            return rc;
+    }
     /* W:MinDepth:MaxDepth:Rarity:Rating 
        W:30:*:32:50                    */
     else if (buf[0] == 'W')

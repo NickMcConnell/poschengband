@@ -821,7 +821,6 @@ extern void do_cmd_aim_wand(void);
 extern void do_cmd_use_staff(void);
 extern void do_cmd_zap_rod(void);
 extern void do_cmd_activate(void);
-extern int activation_fail_rate(object_type *o_ptr);
 extern void do_cmd_rerate_aux(void);
 extern int life_rating(void);
 extern void do_cmd_rerate(bool display);
@@ -837,6 +836,15 @@ extern bool device_known;
 extern bool device_noticed;
 extern int  device_extra_power;
 extern cptr do_device(int tval, int sval, int mode);
+
+extern effect_t obj_get_effect(object_type *o_ptr);
+extern cptr     obj_get_effect_msg(object_type *o_ptr);
+extern bool     obj_has_effect(object_type *o_ptr);
+extern int      effect_calc_fail_rate(effect_t *effect_ptr);
+extern bool     effect_try(effect_t *effect_ptr);
+extern bool     effect_use(effect_t *effect_ptr, int boost);
+extern errr     effect_parse(char *line, effect_t *effect);
+extern cptr     do_effect(effect_t *effect_ptr, int mode, int boost);
 
 
 /* do-spell.c */
@@ -858,6 +866,7 @@ extern cptr info_heal(int dice, int sides, int base);
 extern cptr info_radius(int rad);
 extern cptr info_power(int power);
 extern cptr info_delay(int base, int sides);
+extern cptr info_weight(int weight);
 extern bool cast_summon_greater_demon(void);
 
 /* dungeon.c */

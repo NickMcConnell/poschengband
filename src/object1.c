@@ -1092,16 +1092,6 @@ cptr item_activation(object_type *o_ptr)
             return "confuse monster every 15 turns";
 
         }
-        case ART_CAMMITHRIM:
-        {
-            return "magic missile (2d6) every 2 turns";
-
-        }
-        case ART_FINGOLFIN:
-        {
-            return "a magical arrow (150) every 90+d90 turns";
-
-        }
         case ART_HOLHENNETH:
         {
             return "detection every 55+d55 turns";
@@ -1495,15 +1485,15 @@ cptr item_activation(object_type *o_ptr)
  */
 bool screen_object(object_type *o_ptr, u32b mode)
 {
-    int                     i = 0, j, k;
-
+    int  i = 0, j, k;
     u32b flgs[TR_FLAG_SIZE];
-
-    char temp[70 * 20];
-    cptr            info[128];
+    char block1[70 * 20]; /* TODO: Rewrite me! */
+    char block2[70 * 20];
+    char block3[70 * 20];
+    cptr info[128]; /* Might point into blockX or be a static string */
     char o_name[MAX_NLEN];
     char replacement_name[MAX_NLEN];
-    int wid, hgt;
+    int  wid, hgt;
 
     int trivial_info = 0;
 
@@ -1513,34 +1503,34 @@ bool screen_object(object_type *o_ptr, u32b mode)
     /* Extract the description */
     if (object_is_device(o_ptr))
     {
-        char temp2[70 * 20];
+        char scratch[70 * 20];
         cptr res = do_device(o_ptr->tval, o_ptr->sval, SPELL_DESC);
-        strcpy(temp2, res);
+        strcpy(scratch, res);
         if (o_ptr->ident & IDENT_MENTAL)
         {
             res = do_device(o_ptr->tval, o_ptr->sval, SPELL_INFO);
             if (res && strlen(res))
             {   /* Here is a classic case where calling format() leads to bugs ... sigh */
-                strcat(temp2, "\nInfo: ");
-                strcat(temp2, res);
+                strcat(scratch, "\nInfo: ");
+                strcat(scratch, res);
             }   /* But format() here is fine ... Obvious, huh? */
             if (o_ptr->tval != TV_POTION)
             {
                 int fail = device_calc_fail_rate(o_ptr);
-                strcat(temp2, format("\nFail: %d.%d%%", fail/10, fail%10));    
+                strcat(scratch, format("\nFail: %d.%d%%", fail/10, fail%10));    
             }
         }
-        roff_to_buf(temp2, 77-15, temp, sizeof(temp));
-        for (j = 0; temp[j]; j += 1 + strlen(&temp[j]))
-        { info[i] = &temp[j]; i++;}
+        roff_to_buf(scratch, 77-15, block1, sizeof(block1));
+        for (j = 0; block1[j]; j += 1 + strlen(&block1[j]))
+        { info[i] = &block1[j]; i++;}
     }
     else
     {
         roff_to_buf(o_ptr->name1 ? (a_text + a_info[o_ptr->name1].text) :
                 (k_text + k_info[o_ptr->k_idx].text),
-                77 - 15, temp, sizeof(temp));
-        for (j = 0; temp[j]; j += 1 + strlen(&temp[j]))
-        { info[i] = &temp[j]; i++;}
+                77 - 15, block1, sizeof(block1));
+        for (j = 0; block1[j]; j += 1 + strlen(&block1[j]))
+        { info[i] = &block1[j]; i++;}
     }
     if ( p_ptr->prace == RACE_MON_POSSESSOR 
       && o_ptr->tval == TV_CORPSE 
@@ -1548,9 +1538,9 @@ bool screen_object(object_type *o_ptr, u32b mode)
       && (o_ptr->ident & IDENT_MENTAL) )
     {
         monster_race *r_ptr = &r_info[o_ptr->pval];
-        char          temp2[70*20];
+        char          scratch[70 * 20];
 
-        sprintf(temp2, "Body: %s\n \nStr : %+3d       Disarm : %d+%d\nInt : %+3d       Device : %d+%d\nWis : %+3d       Save   : %d+%d\nDex : %+3d       Stealth: %d+%d\nCon : %+3d       Search : %d/%d\nChr : %+3d       Melee  : %d+%d\nLife: %3d%%      Ranged : %d+%d\n \n \n",
+        sprintf(scratch, "Body: %s\n \nStr : %+3d       Disarm : %d+%d\nInt : %+3d       Device : %d+%d\nWis : %+3d       Save   : %d+%d\nDex : %+3d       Stealth: %d+%d\nCon : %+3d       Search : %d/%d\nChr : %+3d       Melee  : %d+%d\nLife: %3d%%      Ranged : %d+%d\n \n \n",
             b_name + b_info[r_ptr->body.body_idx].name,
             r_ptr->body.stats[A_STR], r_ptr->body.skills.dis, r_ptr->body.extra_skills.dis,
             r_ptr->body.stats[A_INT], r_ptr->body.skills.dev, r_ptr->body.extra_skills.dev,
@@ -1561,25 +1551,55 @@ bool screen_object(object_type *o_ptr, u32b mode)
             r_ptr->body.life, r_ptr->body.skills.thb, r_ptr->body.extra_skills.thb
         );
             
-        roff_to_buf(temp2, 77-15, temp, sizeof(temp));
-        for (j = 0; temp[j]; j += 1 + strlen(&temp[j]))
-        { info[i] = &temp[j]; i++;}
+        roff_to_buf(scratch, 77-15, block2, sizeof(block2));
+        for (j = 0; block2[j]; j += 1 + strlen(&block2[j]))
+        { info[i] = &block2[j]; i++;}
+    }
+    if (have_flag(flgs, TR_ACTIVATE))
+    {
+        char     scratch[70 * 20];
+        effect_t e = obj_get_effect(o_ptr);
+        cptr     res = do_effect(&e, SPELL_NAME, 0);
+
+        strcpy(scratch, " \nActivation: ");
+        strcat(scratch, res);
+
+        if (o_ptr->ident & IDENT_MENTAL)
+        {
+            /*res = do_effect(&e, SPELL_DESC, 0);
+            if (res && strlen(res))
+            {
+                strcat(scratch, " \n      Desc: ");
+                strcat(scratch, res);
+            }*/
+
+            res = do_effect(&e, SPELL_INFO, 0);
+            if (res && strlen(res))
+            {
+                strcat(scratch, "\n      Info: ");
+                strcat(scratch, res);
+            }
+            {
+                int fail = effect_calc_fail_rate(&e);
+                strcat(scratch, format("\n      Fail: %d.%d%%", fail/10, fail%10));    
+            }
+            if (e.timeout)
+            {
+                strcat(scratch, "\n   Timeout: ");
+                strcat(scratch, format("%d", e.timeout));
+            }
+        }
+        strcat(scratch, "\n ");
+
+        roff_to_buf(scratch, 77-15, block3, sizeof(block3));
+        for (j = 0; block3[j]; j += 1 + strlen(&block3[j]))
+        { info[i] = &block3[j]; i++;}
     }
 
     if (object_is_equipment(o_ptr))
     {
         /* Descriptions of a basic equipment is just a flavor */
         trivial_info = i;
-    }
-
-    /* Mega-Hack -- describe activation */
-    if (have_flag(flgs, TR_ACTIVATE))
-    {
-        info[i++] = "It can be activated for...";
-
-        info[i++] = item_activation(o_ptr);
-        info[i++] = "...if it is being worn.";
-
     }
 
     /* Figurines, a hack */
@@ -3406,7 +3426,8 @@ int show_equip(int target_item, int mode)
         if (!o_ptr) continue;
         if (mode & SHOW_FAIL_RATES)
         {
-            int fail = activation_fail_rate(o_ptr);
+            effect_t e = obj_get_effect(o_ptr);
+            int      fail = effect_calc_fail_rate(&e);
             sprintf(tmp_val, "Fail: %2d.%d%%", fail/10, fail%10);
             prt(tmp_val, j + 1, wid - 12);
         }

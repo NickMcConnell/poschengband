@@ -154,7 +154,7 @@ cptr info_radius(int rad)
 /*
  * Generate weight info string such as "max wgt 15"
  */
-static cptr info_weight(int weight)
+cptr info_weight(int weight)
 {
     return format("max wgt %d", weight/10);
 }

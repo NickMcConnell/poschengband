@@ -2982,6 +2982,8 @@ A:60/8
 P:40:2d4:-2:0:10
 F:RES_ACID |
 F:ACTIVATE | IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
+E:BREATHE_ACID:30:30:130
+E:You breathe acid.
 D:A suit of utterly black scales, against which no metal or wood can rest.
 
 N:401:Blue Dragon Scale Mail~
@@ -2992,6 +2994,8 @@ A:40/8
 P:40:2d4:-2:0:10
 F:RES_ELEC |
 F:ACTIVATE | IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
+E:BREATHE_ELEC:30:30:100
+E:You breathe lightning.
 D:A suit of scales as blue as sapphires, emitting eerie sparks and flashes as 
 D:you move about in it.
 
@@ -3003,6 +3007,8 @@ A:50/8
 P:40:2d4:-2:0:10
 F:RES_COLD |
 F:ACTIVATE | IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
+E:BREATHE_COLD:30:30:110
+E:You breathe frost.
 D:A suit of scales, coldly gleaming in frosty white.  A shiver runs down 
 D:through your spine even as you look at it.
 
@@ -3014,6 +3020,8 @@ A:80/8
 P:40:2d4:-2:0:10
 F:RES_FIRE |
 F:ACTIVATE | IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
+E:BREATHE_FIRE:30:50:200
+E:You breathe fire.
 D:A suit of scales, with all the reds of every fire ever lit.  The scar 
 D:tissue from an old burn aches as you put this armour on.
 
@@ -3025,9 +3033,8 @@ A:70/8
 P:40:2d4:-2:0:10
 F:RES_POIS |
 F:ACTIVATE | IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
-#D:$A suit of scales, glistening in sickly green, out from which falls the 
-#D:$skeleton of a rat who touched it and died in agony.
-#D:病的な緑に光る鱗鎧で、それに触れたネズミは苦痛に死んで白骨化する。
+E:BREATHE_POIS:30:40:150
+E:You breathe poison gas.
 D:A suit of scales, glistening in sickly green.
 
 N:405:Multi-Hued Dragon Scale Mail~
@@ -3038,6 +3045,7 @@ A:100/16
 P:40:2d4:-2:0:10
 F:RES_ACID | RES_ELEC | RES_FIRE | RES_COLD | RES_POIS
 F:ACTIVATE | IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
+E:BREATHE_ONE_MULTIHUED:40:70:250
 D:A suit of scales that throbs with angry energies; it takes all your energy 
 D:to master the Elements fighting an endless war trapped inside.
 
@@ -3049,6 +3057,7 @@ A:65/16
 P:40:2d4:-2:0:10
 F:RES_LITE | RES_DARK |
 F:ACTIVATE | IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
+E:BREATHE_ONE_SHINING:40:50:200
 
 N:407:Law Dragon Scale Mail~
 G:[:B
@@ -3058,6 +3067,7 @@ A:80/16
 P:40:2d4:-2:0:10
 F:RES_SOUND | RES_SHARDS |
 F:ACTIVATE | IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
+E:BREATHE_ONE_LAW:50:100:230
 D:A suit of scales in stern blue and silver.  You feel the slightest tremor 
 D:as you touch it, like massed trumpets heard and cyclones felt from afar.
 
@@ -3069,6 +3079,8 @@ A:55/8
 P:40:2d4:-2:0:10
 F:RES_CONF |
 F:ACTIVATE | IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
+E:BREATHE_CONF:30:40:120
+E:You breathe confusion.
 D:A suit of scales, gleaming in rich engraved bronze.  The more you look at 
 D:the the maze of whorls and lines that close inspection reveal on its 
 D:surface, the less sense you are able to make of them.
@@ -3081,6 +3093,8 @@ A:65/8
 P:40:2d4:-2:0:10
 F:RES_SOUND |
 F:ACTIVATE | IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
+E:BREATHE_SOUND:30:40:130
+E:You breathe sound.
 D:A suit of scales in mirror-like gold.  You hear nothing unusual as you 
 D:wear this armour, yet your ears ache as though in the midst of a 
 D:cacophony.
@@ -3093,6 +3107,7 @@ A:75/16
 P:40:2d4:-2:0:10
 F:RES_CHAOS | RES_DISEN |
 F:ACTIVATE | IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
+E:BREATHE_ONE_CHAOS:50:100:220
 D:A suit of scales.  Every shape, in every color imaginable, riot and 
 D:contend upon its surface as you stare in fascination.
 
@@ -3104,6 +3119,7 @@ A:90/16
 P:40:2d4:-2:0:10
 F:RES_CHAOS | RES_DISEN | RES_SOUND | RES_SHARDS |
 F:ACTIVATE | IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
+E:BREATHE_ONE_BALANCE:50:100:250
 D:A suit of scales.  Featureless grey to casual inspection, yet a closer 
 D:look reveals patterns within patterns of iridescence that throb with 
 D:leashed energies bound as though by chains of adamant.
@@ -3118,11 +3134,11 @@ F:RES_ACID | RES_FIRE | RES_COLD | RES_ELEC | RES_POIS |
 F:RES_NETHER | RES_NEXUS | RES_CHAOS | RES_LITE | RES_DARK |
 F:RES_SHARDS | RES_SOUND | RES_DISEN | RES_CONF |
 F:ACTIVATE | IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
+E:BREATHE_ELEMENTS:50:100:300
+E:You breathe the elements!
 D:A suit with scales of every color, surrounded in a nimbus of perfectly 
 D:untramelled yet inextricably intermingled and utterly mastered powers 
 D:elemental and ethereal.
-
-## PDSM has been restored to (almost) its former glory in Zangband
 
 N:413:& Dragon Helm~
 G:]:G
@@ -3984,6 +4000,7 @@ W:15:0:0:120:1000
 A:15/4
 P:0:1d1:0:0:0
 F:ACTIVATE
+E:CAPTURE_PET:15
 
 N:594:& Death Scythe~ 
 G:/:R
@@ -4334,6 +4351,7 @@ I:4:1:0
 W:15:0:60:3:1000
 A:15/2
 F:ACTIVATE
+E:RETURN_PETS:15:150
 
 N:653:Black Clothes
 G:(:D
