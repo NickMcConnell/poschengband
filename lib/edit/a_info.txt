@@ -81,8 +81,6 @@ E:The Jewel flashes bright red!
 N:4:of Carlammas
 I:40:0:2
 W:50:30:3:60000
-E:PROT_EVIL:30:300
-E:The amulet lets out a shrill wail...
 F:CON | HIDE_TYPE | ACTIVATE | RES_FIRE | RES_FEAR
 E:PROT_EVIL:30:300
 E:The amulet lets out a shrill wail...
@@ -499,7 +497,7 @@ I:32:5:2
 W:20:5:75:100000
 P:5:1d3:0:0:10
 F:INT | WIS | SEARCH | HIDE_TYPE | RES_BLIND | SEE_INVIS | ACTIVATE
-E:DETECTION:20:50
+E:DETECT_ALL:20:50
 E:Your helm glows bright white ... An image forms in your mind.
 D:A famous helm of forged iron granting extraordinary powers of mind and 
 D:awareness. 
@@ -606,7 +604,7 @@ P:6:0d0:0:0:20
 F:INT | WIS | CHR | HIDE_TYPE | SPEED | STEALTH |
 F:RES_ACID | RES_FIRE | RES_COLD | ACTIVATE |
 F:RES_DARK | RES_LITE | XTRA_H_RES
-E:RESTORE_LIFE:25:450
+E:RESTORE_EXP:25:450
 E:Your cloak glows a deep red...
 D:The opaque midnight folds, inset with a multitude of tiny diamonds, of 
 D:this cloak swirl around you and you feel a hint, a fragment of the 
@@ -2891,6 +2889,8 @@ W:30:15:110:60000
 P:0:2d1:10:12:0
 F:XTRA_MIGHT | ACTIVATE | HIDE_TYPE | SHOW_MODS
 F:STR | RES_CONF
+E:PIERCING_SHOT:30:100
+E:Your ballista glows black...
 
 N:272:of the Kamikaze Warrior
 I:36:2:2
@@ -2911,6 +2911,8 @@ W:85:150:100:80000
 P:0:0d0:25:25:0
 F:DEX | SPEED | SUST_DEX | IM_FIRE | RES_LITE | ACTIVATE
 F:INSTA_ART
+E:BEAM_LITE:50:15:300
+E:Your gun glows with blinding light...
 
 N:274:of the Ages
 I:45:0:4
@@ -2938,6 +2940,8 @@ I:30:6:3
 W:30:25:80:85000
 P:6:1d1:0:0:21
 F:STR | CON | DEC_STEALTH | RES_SHARDS | RES_CONF | RES_NEXUS | ACTIVATE
+E:EARTHQUAKE:30:35
+E:You stomp your foot down powerfully...
 
 N:278:'Gong'
 I:34:5:4

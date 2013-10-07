@@ -2817,7 +2817,8 @@ enum effect_e
     EFFECT_BOLT_MANA,
 
     /* Offense: Beams */
-    EFFECT_BEAM_LITE = 350,
+    EFFECT_BEAM_LITE_WEAK = 350,
+    EFFECT_BEAM_LITE,
 
     /* Offense: Balls */
     EFFECT_BALL_ACID = 400,
@@ -2886,6 +2887,7 @@ enum effect_e
     EFFECT_CONFUSE_MONSTERS,
     EFFECT_FISHING,
     EFFECT_AGGRAVATE,
+    EFFECT_PIERCING_SHOT,
 
     /* Specific Artifacts ... Try to minimize! */
     EFFECT_JEWEL = 1000,
@@ -3042,6 +3044,7 @@ static _effect_info_t _effect_info[] =
     {"BOLT_MANA", EFFECT_BOLT_MANA, 32},
 
     /* Offense: Beams */
+    {"BEAM_LITE_WEAK", EFFECT_BEAM_LITE_WEAK, 1},
     {"BEAM_LITE", EFFECT_BEAM_LITE, 16},
 
     /* Offense: Balls */
@@ -3112,6 +3115,7 @@ static _effect_info_t _effect_info[] =
     {"MURAMASA", EFFECT_MURAMASA, 0},
     {"FISHING", EFFECT_FISHING, 0},
     {"AGGRAVATE", EFFECT_AGGRAVATE, 1},
+    {"PIERCING_SHOT", EFFECT_PIERCING_SHOT, 0},
 
     /* Specific Artifacts ... Try to minimize! */
     {"JEWEL", EFFECT_JEWEL, 0},
@@ -4779,7 +4783,7 @@ cptr do_effect(effect_t *effect, int mode, int boost)
     }
 
     /* Offense: Beams */
-    case EFFECT_BEAM_LITE:
+    case EFFECT_BEAM_LITE_WEAK:
     {
         int dd = _extra(effect, 6);
         if (name) return "Beam of Light";
@@ -4791,6 +4795,22 @@ cptr do_effect(effect_t *effect, int mode, int boost)
             if (!get_aim_dir(&dir)) return NULL;
             msg_print("A line of blue shimmering light appears.");
             project_hook(GF_LITE_WEAK, dir, _BOOST(damroll(dd, 8)), PROJECT_BEAM | PROJECT_GRID | PROJECT_KILL);
+            device_noticed = TRUE;
+        }
+        break;
+    }
+    case EFFECT_BEAM_LITE:
+    {
+        int dam = _extra(effect, 50);
+        if (name) return "Beam of Light";
+        if (desc) return "It fires a powerful beam of light.";
+        if (info) return info_damage(0, 0, _BOOST(dam));
+        if (value) return format("%d", 10*dam);
+        if (cast)
+        {
+            if (!get_aim_dir(&dir)) return NULL;
+            msg_print("A line of pure white light appears.");
+            fire_beam(GF_LITE, dir, _BOOST(dam));
             device_noticed = TRUE;
         }
         break;
@@ -5787,6 +5807,21 @@ cptr do_effect(effect_t *effect, int mode, int boost)
         if (cast)
         {
             aggravate_monsters(0);
+            device_known = TRUE;
+        }
+        break;
+    case EFFECT_PIERCING_SHOT:
+        if (name) return "Piercing Shot";
+        if (desc) return "It shoots a bolt through multiple foes.";
+        if (value) return format("%d", 1500);
+        if (cast)
+        {
+            bool fired = FALSE;
+            msg_print("");
+            shoot_hack = SHOOT_PIERCE;
+            fired = do_cmd_fire();
+            shoot_hack = SHOOT_NONE;
+            if (!fired) return NULL;
             device_known = TRUE;
         }
         break;
