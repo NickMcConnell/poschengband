@@ -2954,7 +2954,7 @@ static int _choose_random(int bias)
     int i, n;
     int tot = 0;
     
-    if (one_in_(3)) bias = 0;
+/*  if (one_in_(3)) bias = 0; */
 
     for (i = 0; ; i++)
     {
