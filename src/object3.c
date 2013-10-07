@@ -39,88 +39,9 @@ static double _check_flag_and_score(u32b flgs[TR_FLAG_SIZE], u32b flg, u32b scor
 
 static s32b _activation_p(object_type *o_ptr)
 {
-    /* Wouldn't it be nice if we had a system for activations?  (Other than
-       gigantic switch statements, that is) ... Sigh */
     if (o_ptr->art_name && (have_flag(o_ptr->art_flags, TR_ACTIVATE)))
     {
-        switch (o_ptr->xtra2)
-        {
-        case ACT_WIZ_LITE: return 20000;
-        case ACT_SUNLIGHT: return 250;
-        case ACT_BO_MISS_1: return 250;
-        case ACT_BA_POIS_1: return 300;
-        case ACT_BO_ELEC_1: return 250;
-        case ACT_BO_ACID_1: return 250;
-        case ACT_BO_COLD_1: return 250;
-        case ACT_BO_FIRE_1: return 250;
-        case ACT_BA_COLD_1: return 750;
-        case ACT_BA_FIRE_1: return 1000;
-        case ACT_DRAIN_1: return 500;
-        case ACT_BA_COLD_2: return 1250;
-        case ACT_BA_ELEC_2: return 1500;
-        case ACT_DRAIN_2: return 750;
-        case ACT_VAMPIRE_1: return 1000;
-        case ACT_BO_MISS_2: return 1000;
-        case ACT_BA_FIRE_2: return 1750;
-        case ACT_BA_COLD_3: return 2500;
-        case ACT_BA_ELEC_3: return 2500;
-        case ACT_WHIRLWIND: return 7500;
-        case ACT_VAMPIRE_2: return 2500;
-        case ACT_CALL_CHAOS: return 5000;
-        case ACT_ROCKET: return 5000;
-        case ACT_DISP_EVIL: return 4000;
-        case ACT_DISP_GOOD: return 3500;
-        case ACT_BA_MISS_3: return 5000;
-        case ACT_CONFUSE: return 500;
-        case ACT_SLEEP: return 750;
-        case ACT_QUAKE: return 600;
-        case ACT_TERROR: return 2500;
-        case ACT_TELE_AWAY: return 2000;
-        case ACT_BANISH_EVIL: return 2000;
-        case ACT_GENOCIDE: return 10000;
-        case ACT_MASS_GENO: return 10000;
-        case ACT_CHARM_ANIMAL: return 7500;
-        case ACT_CHARM_UNDEAD: return 10000;
-        case ACT_CHARM_OTHER: return 10000;
-        case ACT_CHARM_ANIMALS: return 12500;
-        case ACT_CHARM_OTHERS: return 17500;
-        case ACT_SUMMON_ANIMAL: return 10000;
-        case ACT_SUMMON_PHANTOM: return 12000;
-        case ACT_SUMMON_ELEMENTAL: return 15000;
-        case ACT_SUMMON_DEMON: return 20000;
-        case ACT_SUMMON_UNDEAD: return 20000;
-        case ACT_CURE_LW: return 500;
-        case ACT_CURE_MW: return 750;
-        case ACT_CURE_POISON: return 1000;
-        case ACT_REST_LIFE: return 7500;
-        case ACT_REST_ALL: return 15000;
-        case ACT_CURE_700: return 10000;
-        case ACT_CURE_1000: return 15000;
-        case ACT_ESP: return 1500;
-        case ACT_BERSERK: return 800;
-        case ACT_PROT_EVIL: return 5000;
-        case ACT_RESIST_ALL: return 5000;
-        case ACT_SPEED: return 15000;
-        case ACT_XTRA_SPEED: return 25000;
-        case ACT_WRAITH: return 25000;
-        case ACT_INVULN: return 25000;
-        case ACT_LIGHT: return 150;
-        case ACT_MAP_LIGHT: return 500;
-        case ACT_DETECT_ALL: return 1000;
-        case ACT_DETECT_XTRA: return 12500;
-        case ACT_ID_FULL: return 10000;
-        case ACT_ID_PLAIN: return 1250;
-        case ACT_RUNE_EXPLO: return 4000;
-        case ACT_RUNE_PROT: return 10000;
-        case ACT_SATIATE: return 2000;
-        case ACT_DEST_DOOR: return 100;
-        case ACT_STONE_MUD: return 1000;
-        case ACT_RECHARGE: return 1000;
-        case ACT_ALCHEMY: return 10000;
-        case ACT_DIM_DOOR: return 10000;
-        case ACT_TELEPORT: return 2000;
-        case ACT_RECALL: return 7500;
-        }
+        /* TODO */
     }
     else if (object_is_fixed_artifact(o_ptr))
     {

@@ -342,7 +342,7 @@ W:25:9:270:40000
 P:16:1d4:-2:0:20
 F:INT | WIS | CON | HIDE_TYPE | XTRA_H_RES |
 F:RES_ACID | RES_POIS | RES_CONF | ACTIVATE
-E:DESTROY_TRAP_TOUCH:20:10
+E:DESTROY_TRAP:20:10
 E:Your armor glows bright red...
 D:A hauberk, leggings, and sleeves of interlocking steel rings, strategically 
 D:reinforced at vital locations with a second layer of chain.  Magics to 

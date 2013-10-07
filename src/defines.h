@@ -343,29 +343,6 @@
 #define USE_DEVICE           3       /* x> Harder devices x< Easier devices     */
 
 
-/* "Biases" for random artifact gen */
-
-#define BIAS_ELEC            1
-#define BIAS_POIS            2
-#define BIAS_FIRE            3
-#define BIAS_COLD            4
-#define BIAS_ACID            5
-#define BIAS_STR             6
-#define BIAS_INT             7
-#define BIAS_WIS             8
-#define BIAS_DEX             9
-#define BIAS_CON            10
-#define BIAS_CHR            11
-#define BIAS_CHAOS          12
-#define BIAS_PRIESTLY       13
-#define BIAS_NECROMANTIC    14
-#define BIAS_LAW            15
-#define BIAS_ROGUE          16
-#define BIAS_MAGE           17
-#define BIAS_WARRIOR        18
-#define BIAS_RANGER         19
-
-
 /*** Pet constants ***/
 
 
@@ -1588,89 +1565,6 @@
 #define ART_EMPEROR_QUYLTHULG 319
 #define ART_DESTROYER       320
 #define ART_ATLAS           321
-
-/* Activation effects for random artifacts */
-#define ACT_SUNLIGHT            1
-#define ACT_BO_MISS_1           2
-#define ACT_BA_POIS_1           3
-#define ACT_BO_ELEC_1           4
-#define ACT_BO_ACID_1           5
-#define ACT_BO_COLD_1           6
-#define ACT_BO_FIRE_1           7
-#define ACT_BA_COLD_1           8
-#define ACT_BA_FIRE_1           9
-#define ACT_DRAIN_1             10
-#define ACT_BA_COLD_2           11
-#define ACT_BA_ELEC_2           12
-#define ACT_DRAIN_2             13
-#define ACT_VAMPIRE_1           14
-#define ACT_BO_MISS_2           15
-#define ACT_BA_FIRE_2           16
-#define ACT_BA_COLD_3           17
-#define ACT_BA_ELEC_3           18
-#define ACT_WHIRLWIND           19
-#define ACT_VAMPIRE_2           20
-#define ACT_CALL_CHAOS          21
-#define ACT_ROCKET              22
-#define ACT_DISP_EVIL           23
-#define ACT_BA_MISS_3           24
-#define ACT_DISP_GOOD           25
-/* 26 - 50 unused */
-#define ACT_CONFUSE             51
-#define ACT_SLEEP               52
-#define ACT_QUAKE               53
-#define ACT_TERROR              54
-#define ACT_TELE_AWAY           55
-#define ACT_BANISH_EVIL         56
-#define ACT_GENOCIDE            57
-#define ACT_MASS_GENO           58
-/* 59 - 64 unused */
-#define ACT_CHARM_ANIMAL        65
-#define ACT_CHARM_UNDEAD        66
-#define ACT_CHARM_OTHER         67
-#define ACT_CHARM_ANIMALS       68
-#define ACT_CHARM_OTHERS        69
-#define ACT_SUMMON_ANIMAL       70
-#define ACT_SUMMON_PHANTOM      71
-#define ACT_SUMMON_ELEMENTAL    72
-#define ACT_SUMMON_DEMON        73
-#define ACT_SUMMON_UNDEAD       74
-/* 75 - 80 unused */
-#define ACT_CURE_LW             81
-#define ACT_CURE_MW             82
-#define ACT_CURE_POISON         83
-#define ACT_REST_LIFE           84
-#define ACT_REST_ALL            85
-#define ACT_CURE_700            86
-#define ACT_CURE_1000           87
-/* 88 - 90 unused */
-#define ACT_ESP                 91
-#define ACT_BERSERK             92
-#define ACT_PROT_EVIL           93
-#define ACT_RESIST_ALL          94
-#define ACT_SPEED               95
-#define ACT_XTRA_SPEED          96
-#define ACT_WRAITH              97
-#define ACT_INVULN              98
-/* 99 - 109 unused */
-#define ACT_WIZ_LITE            110
-#define ACT_LIGHT               111
-#define ACT_MAP_LIGHT           112
-#define ACT_DETECT_ALL          113
-#define ACT_DETECT_XTRA         114
-#define ACT_ID_FULL             115
-#define ACT_ID_PLAIN            116
-#define ACT_RUNE_EXPLO          117
-#define ACT_RUNE_PROT           118
-#define ACT_SATIATE             119
-#define ACT_DEST_DOOR           120
-#define ACT_STONE_MUD           121
-#define ACT_RECHARGE            122
-#define ACT_ALCHEMY             123
-#define ACT_DIM_DOOR            124
-#define ACT_TELEPORT            125
-#define ACT_RECALL              126
-/* 127 -> unused */
 
 /*** Object "tval" and "sval" codes ***/
 
@@ -5861,6 +5755,12 @@ enum mon_save_fields_e {
 #define EQUIP_BEGIN 24
 #define EQUIP_MAX_SLOTS (INVEN_TOTAL - EQUIP_BEGIN)
 
+/* All of the following enumeration values are persisted in
+   savefiles, so should not be changed. Add new options to
+   the bottom of the respective enum (just before the _MAX
+   entry, if present)
+*/
+
 enum slot_e {
     EQUIP_SLOT_NONE,
     EQUIP_SLOT_GLOVES,
@@ -6121,3 +6021,246 @@ enum ego_amulet_e {
     EGO_AMULET_DEVOTION,
     EGO_AMULET_TRICKERY,
 };
+
+enum effect_e
+{
+    EFFECT_NONE = 0,
+
+    /* Detection */
+    EFFECT_LITE_AREA = 1,
+    EFFECT_LITE_MAP_AREA,
+    EFFECT_ENLIGHTENMENT,
+    EFFECT_CLAIRVOYANCE,
+
+    EFFECT_DETECT_TRAPS,
+    EFFECT_DETECT_MONSTERS,
+    EFFECT_DETECT_OBJECTS,
+    EFFECT_DETECT_ALL,
+
+    /* Utility */
+    EFFECT_PHASE_DOOR = 50,
+    EFFECT_TELEPORT,
+    EFFECT_TELEPORT_AWAY,
+    EFFECT_STRAFING,
+    EFFECT_DIMENSION_DOOR,
+    EFFECT_ESCAPE,
+    EFFECT_RECALL,
+
+    EFFECT_STONE_TO_MUD,
+    EFFECT_EARTHQUAKE,
+    EFFECT_DESTRUCTION,
+    EFFECT_GENOCIDE,
+    EFFECT_MASS_GENOCIDE,
+
+    EFFECT_RECHARGING,
+    EFFECT_ENCHANTMENT,
+    EFFECT_IDENTIFY,
+    EFFECT_IDENTIFY_FULL,
+    EFFECT_PROBING,
+    EFFECT_RUNE_EXPLOSIVE,
+    EFFECT_RUNE_PROTECTION,
+
+    EFFECT_SATISFY_HUGER,
+    EFFECT_DESTROY_TRAP,
+    EFFECT_DESTROY_TRAPS,
+    EFFECT_WHIRLWIND_ATTACK,
+    EFFECT_LIST_UNIQUES,
+    EFFECT_LIST_ARTIFACTS,
+    EFFECT_BANISH_EVIL,
+    EFFECT_BANISH_ALL,
+    EFFECT_TELEKINESIS,
+    EFFECT_ALCHEMY,
+
+    /* Timed Buffs */
+    EFFECT_STONE_SKIN = 100,
+    EFFECT_RESIST_ACID,
+    EFFECT_RESIST_ELEC,
+    EFFECT_RESIST_FIRE,
+    EFFECT_RESIST_COLD,
+    EFFECT_RESIST_POIS,
+    EFFECT_RESISTANCE,
+    EFFECT_PROT_EVIL,
+    EFFECT_HOLY_GRAIL,
+    EFFECT_BLESS,
+    EFFECT_HEROISM,
+    EFFECT_BERSERK,
+    EFFECT_SPEED,
+    EFFECT_SPEED_HERO,
+    EFFECT_SPEED_HERO_BLESS,
+    EFFECT_SPEED_ESSENTIA,
+    EFFECT_LIGHT_SPEED,
+    EFFECT_ENLARGE_WEAPON,
+    EFFECT_TELEPATHY,
+    EFFECT_WRAITHFORM,
+    EFFECT_INVULNERABILITY,
+
+    /* Pets */
+    EFFECT_SUMMON_MONSTERS = 150,
+    EFFECT_SUMMON_HOUNDS,
+    EFFECT_SUMMON_ANTS,
+    EFFECT_SUMMON_HYDRAS,
+    EFFECT_SUMMON_OCTOPUS,
+    EFFECT_SUMMON_DAWN,
+    EFFECT_SUMMON_PHANTASMAL,
+    EFFECT_SUMMON_ELEMENTAL,
+    EFFECT_SUMMON_DRAGON,
+    EFFECT_SUMMON_UNDEAD,
+    EFFECT_SUMMON_DEMON,
+    EFFECT_SUMMON_CYBERDEMON,
+    EFFECT_SUMMON_ANGEL,
+    EFFECT_SUMMON_KRAKEN,
+
+    EFFECT_CHARM_ANIMAL = 175,
+    EFFECT_CHARM_DEMON,
+    EFFECT_CHARM_UNDEAD,
+
+    EFFECT_RETURN_PETS = 190,
+    EFFECT_CAPTURE_PET,
+
+    /* Healing and Recovery */
+    EFFECT_RESTORE_STATS = 200,
+    EFFECT_RESTORE_EXP,
+    EFFECT_RESTORING,
+    EFFECT_HEAL,
+    EFFECT_CURING,
+    EFFECT_HEAL_CURING,
+    EFFECT_HEAL_CURING_HERO,
+    EFFECT_RESTORE_MANA,
+    EFFECT_CURE_POIS,
+    EFFECT_CURE_FEAR,
+    EFFECT_CURE_FEAR_POIS,
+    EFFECT_REMOVE_CURSE,
+    EFFECT_REMOVE_ALL_CURSE,
+    EFFECT_CLARITY,
+
+    /* Offense: Bolts */
+    EFFECT_BOLT_MISSILE = 300,
+    EFFECT_BOLT_ACID,
+    EFFECT_BOLT_ELEC,
+    EFFECT_BOLT_FIRE,
+    EFFECT_BOLT_COLD,
+    EFFECT_BOLT_POIS,
+    EFFECT_BOLT_LITE,
+    EFFECT_BOLT_DARK,
+    EFFECT_BOLT_CONF,
+    EFFECT_BOLT_NETHER,
+    EFFECT_BOLT_NEXUS,
+    EFFECT_BOLT_SOUND,
+    EFFECT_BOLT_SHARDS,
+    EFFECT_BOLT_CHAOS,
+    EFFECT_BOLT_DISEN,
+    EFFECT_BOLT_TIME,
+    EFFECT_BOLT_WATER,
+    EFFECT_BOLT_MANA,
+
+    /* Offense: Beams */
+    EFFECT_BEAM_LITE_WEAK = 350,
+    EFFECT_BEAM_LITE,
+
+    /* Offense: Balls */
+    EFFECT_BALL_ACID = 400,
+    EFFECT_BALL_ELEC,
+    EFFECT_BALL_FIRE,
+    EFFECT_BALL_COLD,
+    EFFECT_BALL_POIS,
+    EFFECT_BALL_LITE,
+    EFFECT_BALL_DARK,
+    EFFECT_BALL_CONF,
+    EFFECT_BALL_NETHER,
+    EFFECT_BALL_NEXUS,
+    EFFECT_BALL_SOUND,
+    EFFECT_BALL_SHARDS,
+    EFFECT_BALL_CHAOS,
+    EFFECT_BALL_DISEN,
+    EFFECT_BALL_TIME,
+    EFFECT_BALL_WATER,
+    EFFECT_BALL_MANA,
+
+    /* Offense: Breaths */
+    EFFECT_BREATHE_ACID = 450,
+    EFFECT_BREATHE_ELEC,
+    EFFECT_BREATHE_FIRE,
+    EFFECT_BREATHE_COLD,
+    EFFECT_BREATHE_POIS,
+    EFFECT_BREATHE_LITE,
+    EFFECT_BREATHE_DARK,
+    EFFECT_BREATHE_CONF,
+    EFFECT_BREATHE_NETHER,
+    EFFECT_BREATHE_NEXUS,
+    EFFECT_BREATHE_SOUND,
+    EFFECT_BREATHE_SHARDS,
+    EFFECT_BREATHE_CHAOS,
+    EFFECT_BREATHE_DISEN,
+    EFFECT_BREATHE_TIME,
+    EFFECT_BREATHE_ONE_MULTIHUED, /* DSM with random breath types ... */
+    EFFECT_BREATHE_ONE_CHAOS,
+    EFFECT_BREATHE_ONE_LAW,
+    EFFECT_BREATHE_ONE_BALANCE,
+    EFFECT_BREATHE_ONE_SHINING,
+    EFFECT_BREATHE_ELEMENTS,
+
+    /* Offense: Other */
+    EFFECT_DISPEL_EVIL = 550,
+    EFFECT_DISPEL_EVIL_HERO,
+    EFFECT_DISPEL_GOOD,
+    EFFECT_DISPEL_LIFE,
+    EFFECT_DISPEL_DEMON,
+    EFFECT_DISPEL_UNDEAD,
+    EFFECT_DISPEL_MONSTERS,
+    EFFECT_DRAIN_LIFE,
+    EFFECT_STAR_BALL,
+    EFFECT_ROCKET,
+    EFFECT_MANA_STORM,
+    EFFECT_CONFUSING_LITE,
+    EFFECT_ARROW,
+
+    /* Misc */
+    EFFECT_POLY_SELF = 600,
+    EFFECT_ANIMATE_DEAD,
+    EFFECT_SCARE_MONSTERS,
+    EFFECT_SLEEP_MONSTERS,
+    EFFECT_SLOW_MONSTERS,
+    EFFECT_STASIS_MONSTERS,
+    EFFECT_CONFUSE_MONSTERS,
+    EFFECT_FISHING,
+    EFFECT_AGGRAVATE,
+    EFFECT_PIERCING_SHOT,
+
+    /* Specific Artifacts ... Try to minimize! */
+    EFFECT_JEWEL = 1000,
+    EFFECT_HERMES,
+    EFFECT_ARTEMIS,
+    EFFECT_DEMETER,
+    EFFECT_EYE_VECNA,
+    EFFECT_ONE_RING,
+    EFFECT_BLADETURNER,
+    EFFECT_MITO_KOUMON,
+    EFFECT_BLOODY_MOON,
+    EFFECT_SACRED_KNIGHTS,
+    EFFECT_GONG,
+    EFFECT_MURAMASA,
+
+    EFFECT_MAX
+};
+
+/* "Biases" for random artifact generation */
+#define BIAS_ELEC            0x00000001
+#define BIAS_POIS            0x00000002
+#define BIAS_FIRE            0x00000004
+#define BIAS_COLD            0x00000008
+#define BIAS_ACID            0x00000010
+#define BIAS_STR             0x00000020
+#define BIAS_INT             0x00000040
+#define BIAS_WIS             0x00000080
+#define BIAS_DEX             0x00000100
+#define BIAS_CON             0x00000200
+#define BIAS_CHR             0x00000400
+#define BIAS_CHAOS           0x00000800
+#define BIAS_PRIESTLY        0x00001000
+#define BIAS_NECROMANTIC     0x00002000
+#define BIAS_LAW             0x00004000
+#define BIAS_ROGUE           0x00008000
+#define BIAS_MAGE            0x00010000
+#define BIAS_WARRIOR         0x00020000
+#define BIAS_RANGER          0x00040000
+
