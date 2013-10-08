@@ -1140,8 +1140,6 @@ static bool is_autopick_aux(object_type *o_ptr, autopick_type *entry, cptr o_nam
             {
             case FEEL_AVERAGE:
             case FEEL_GOOD:
-            case FEEL_BROKEN:
-            case FEEL_CURSED:
                 /* It's nameless */
                 break;
 
