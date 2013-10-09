@@ -2651,6 +2651,9 @@ void panel_bounds_center(void)
 {
     int wid, hgt;
 
+    if (panel_lock)
+        return;
+
     /* Get size */
     get_screen_size(&wid, &hgt);
 
@@ -2877,6 +2880,8 @@ void verify_panel_aux(u32b options)
 
     /* Check for "no change" */
     if ((prow_min == panel_row_min) && (pcol_min == panel_col_min)) return;
+    if (panel_lock) 
+        return;
 
     /* Save the new panel info */
     panel_row_min = prow_min;

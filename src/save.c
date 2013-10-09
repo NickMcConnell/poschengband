@@ -1159,6 +1159,8 @@ static bool wr_savefile_new(savefile_ptr file)
 
     savefile_write_s32b(file, p_ptr->wilderness_x);
     savefile_write_s32b(file, p_ptr->wilderness_y);
+    savefile_write_s16b(file, p_ptr->wilderness_dx);
+    savefile_write_s16b(file, p_ptr->wilderness_dy);
     savefile_write_byte(file, p_ptr->wild_mode);
     savefile_write_byte(file, ambush_flag);
     savefile_write_s32b(file, max_wild_x);

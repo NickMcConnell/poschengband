@@ -41,29 +41,20 @@ W:F:$:9:40
 # Swamp
 W:F:=:4:35
 
-# Town 1
-W:E:1:1:0:1:1:Outpost
-W:J:1:1:0:1:1:辺境の地
+# Town 1 (7 is trees)
+W:E:1:7:0:1:1:Outpost
 
-# Town 2
-W:E:2:1:0:2:1:Telmora
-W:J:2:1:0:2:1:テルモラ
+# Town 2 (6 is grass)
+W:E:2:6:0:2:1:Telmora
 
 # Town 3
-W:E:3:1:0:3:1:Morivant
-W:J:3:1:0:3:1:モリバント
+W:E:3:6:0:3:1:Morivant
 
 # Town 4
 W:E:4:7:4:4:1:Angwil
-W:J:4:7:4:4:1:アングウィル
 
-# Town 5
+# Town 5 (11 is mountain)
 W:E:5:11:20:5:0:Zul
-W:J:5:11:30:5:0:ズル
-
-# Town 6
-#W:E:6:2:90:6:0:Wilderness
-#W:J:6:2:90:6:0:荒野
 
 # Grassland with road 
 W:F:*:6:3:0:1

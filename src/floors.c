@@ -1000,6 +1000,8 @@ void leave_floor(void)
         {
             p_ptr->wilderness_y = d_info[dungeon_type].dy;
             p_ptr->wilderness_x = d_info[dungeon_type].dx;
+            p_ptr->wilderness_dx = 0;
+            p_ptr->wilderness_dy = 0;
         }
         p_ptr->recall_dungeon = dungeon_type;
         dungeon_type = 0;

@@ -4155,6 +4155,7 @@ void update_flow(void)
             x = tx + ddx_ddd[d];
 
             /* Ignore player's grid */
+            if (!in_bounds(y, x)) continue;
             if (player_bold(y, x)) continue;
 
             c_ptr = &cave[y][x];

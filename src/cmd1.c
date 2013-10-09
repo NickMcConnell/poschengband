@@ -4548,6 +4548,10 @@ bool move_player_effect(int ny, int nx, u32b mpe_mode)
         lite_spot(ny, nx);
 
         /* Check for new panel (redraw map) */
+
+        if (!dun_level && !p_ptr->wild_mode)
+            wilderness_move_player(oy, ox);
+        
         verify_panel();
 
         if (mpe_mode & MPE_FORGET_FLOW)
@@ -4819,94 +4823,6 @@ void move_player(int dir, bool do_pickup, bool break_trap)
     bool shadow_strike = FALSE;
     bool oktomove = TRUE;
     bool do_past = FALSE;
-
-    /* Exit the area */
-    if (!dun_level && !p_ptr->wild_mode &&
-        ((x == 0) || (x == MAX_WID - 1) ||
-         (y == 0) || (y == MAX_HGT - 1)))
-    {
-        /* Can the player enter the grid? */
-        if (c_ptr->mimic && player_can_enter(c_ptr->mimic, 0))
-        {
-            /* Hack: move to new area */
-            if ((y == 0) && (x == 0))
-            {
-                p_ptr->wilderness_y--;
-                p_ptr->wilderness_x--;
-                p_ptr->oldpy = cur_hgt - 2;
-                p_ptr->oldpx = cur_wid - 2;
-                ambush_flag = FALSE;
-            }
-
-            else if ((y == 0) && (x == MAX_WID - 1))
-            {
-                p_ptr->wilderness_y--;
-                p_ptr->wilderness_x++;
-                p_ptr->oldpy = cur_hgt - 2;
-                p_ptr->oldpx = 1;
-                ambush_flag = FALSE;
-            }
-
-            else if ((y == MAX_HGT - 1) && (x == 0))
-            {
-                p_ptr->wilderness_y++;
-                p_ptr->wilderness_x--;
-                p_ptr->oldpy = 1;
-                p_ptr->oldpx = cur_wid - 2;
-                ambush_flag = FALSE;
-            }
-
-            else if ((y == MAX_HGT - 1) && (x == MAX_WID - 1))
-            {
-                p_ptr->wilderness_y++;
-                p_ptr->wilderness_x++;
-                p_ptr->oldpy = 1;
-                p_ptr->oldpx = 1;
-                ambush_flag = FALSE;
-            }
-
-            else if (y == 0)
-            {
-                p_ptr->wilderness_y--;
-                p_ptr->oldpy = cur_hgt - 2;
-                p_ptr->oldpx = x;
-                ambush_flag = FALSE;
-            }
-
-            else if (y == MAX_HGT - 1)
-            {
-                p_ptr->wilderness_y++;
-                p_ptr->oldpy = 1;
-                p_ptr->oldpx = x;
-                ambush_flag = FALSE;
-            }
-
-            else if (x == 0)
-            {
-                p_ptr->wilderness_x--;
-                p_ptr->oldpx = cur_wid - 2;
-                p_ptr->oldpy = y;
-                ambush_flag = FALSE;
-            }
-
-            else if (x == MAX_WID - 1)
-            {
-                p_ptr->wilderness_x++;
-                p_ptr->oldpx = 1;
-                p_ptr->oldpy = y;
-                ambush_flag = FALSE;
-            }
-
-            p_ptr->leaving = TRUE;
-            energy_use = 100;
-
-            return;
-        }
-
-        /* "Blocked" message appears later */
-        /* oktomove = FALSE; */
-        p_can_enter = FALSE;
-    }
 
     /* Get the monster */
     m_ptr = &m_list[c_ptr->m_idx];

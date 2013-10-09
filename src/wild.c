@@ -9,10 +9,286 @@
  * are included in all such copies.  Other copyrights may also apply.
  */
 
-/* Purpose: Wilderness generation */
+/* Purpose: Wilderness generation 
+ *
+ * CTK: Added infinitely scrolling wilderness support (hackish).
+ */
 
 #include "angband.h"
 
+s16b *_cave[MAX_HGT];
+
+static void _apply_glow(bool all)
+{
+    int y,x;
+    cave_type *c_ptr;
+    feature_type *f_ptr;
+
+    for (y = 0; y < cur_hgt; y++)
+    {
+        for (x = 0; x < cur_wid; x++)
+        {
+            /* Get the cave grid */
+            c_ptr = &cave[y][x];
+            if (all || (c_ptr->info & CAVE_TEMP))
+            {
+                if (is_daytime())
+                {
+                    /* Assume lit */
+                    c_ptr->info |= (CAVE_GLOW);
+
+                    /* Hack -- Memorize lit grids if allowed */
+                    if (view_perma_grids) c_ptr->info |= (CAVE_MARK);
+                }
+                else
+                {
+                    /* Feature code (applying "mimic" field) */
+                    f_ptr = &f_info[get_feat_mimic(c_ptr)];
+
+                    if (!is_mirror_grid(c_ptr) && !have_flag(f_ptr->flags, FF_QUEST_ENTER) &&
+                        !have_flag(f_ptr->flags, FF_ENTRANCE))
+                    {
+                        /* Assume dark */
+                        c_ptr->info &= ~(CAVE_GLOW);
+
+                        /* Darken "boring" features */
+                        if (!have_flag(f_ptr->flags, FF_REMEMBER))
+                        {
+                            /* Forget the grid */
+                            c_ptr->info &= ~(CAVE_MARK);
+                        }
+                    }
+                    else if (have_flag(f_ptr->flags, FF_ENTRANCE))
+                    {
+                        /* Assume lit */
+                        c_ptr->info |= (CAVE_GLOW);
+
+                        /* Hack -- Memorize lit grids if allowed */
+                        if (view_perma_grids) c_ptr->info |= (CAVE_MARK);
+                    }
+                }
+                if (!all)
+                    c_ptr->info &= ~CAVE_TEMP;
+            }
+        }
+    }
+}
+
+static void _scroll_grid(int src_y, int src_x, int dest_y, int dest_x)
+{
+    cave_type *src = &cave[src_y][src_x];
+    if (in_bounds(dest_y, dest_x))
+    {
+        cave_type *dest = &cave[dest_y][dest_x];
+        if (dest->m_idx)
+            delete_monster_idx(dest->m_idx);
+        if (dest->o_idx)
+            delete_object_idx(dest->o_idx);
+
+        *dest = *src;
+        WIPE(src, cave_type);
+        src->info |= CAVE_TEMP;  /* Mark for _apply_glow */
+
+        if (dest->m_idx)
+        {
+            m_list[dest->m_idx].fy = dest_y;
+            m_list[dest->m_idx].fx = dest_x;
+        }
+        if (dest->o_idx)
+        {
+            o_list[dest->o_idx].iy = dest_y;
+            o_list[dest->o_idx].ix = dest_x;
+        }
+    }
+    else
+    {
+        if (src->m_idx)
+            delete_monster_idx(src->m_idx);
+        if (src->o_idx)
+            delete_object_idx(src->o_idx);
+        WIPE(src, cave_type);
+        src->info |= CAVE_TEMP;  /* Mark for _apply_glow */
+    }
+}
+
+bool _scroll_panel(int dy, int dx)
+{
+    int y, x;
+    int wid, hgt;
+
+    get_screen_size(&wid, &hgt);
+
+    y = panel_row_min + dy;
+    x = panel_col_min + dx;
+
+    if (y > cur_hgt - hgt) y = cur_hgt - hgt;
+    if (y < 0) y = 0;
+
+    if (x > cur_wid - wid) x = cur_wid - wid;
+    if (x < 0) x = 0;
+
+    if (y != panel_row_min || x != panel_col_min)
+    {
+        panel_row_min = y;
+        panel_col_min = x;
+
+        panel_bounds_center();
+    /*  panel_lock = TRUE; */
+
+        p_ptr->update |= PU_MONSTERS;
+        p_ptr->redraw |= PR_MAP;
+        handle_stuff();
+        return TRUE;
+    }
+    return FALSE;
+}
+
+static void _scroll_cave(int dy, int dx)
+{
+    int y, x;
+
+    if (dy == 0 && dx == 0)
+        return;
+
+    if (dy <= 0 && dx <= 0)
+    {
+        for (y = 1; y < MAX_HGT - 1; y++)
+        {
+            for (x = 1; x < MAX_WID - 1; x++)
+                _scroll_grid(y, x, y + dy, x + dx);
+        }
+    }
+    else if (dy >= 0 && dx >= 0)
+    {
+        for (y = MAX_HGT - 2; y > 0 ; y--)
+        {
+            for (x = MAX_WID - 2; x > 0; x--)
+                _scroll_grid(y, x, y + dy, x + dx);
+        }
+    }
+    else if (dy > 0 && dx < 0)
+    {
+        for (y = MAX_HGT - 2; y > 0 ; y--)
+        {
+            for (x = 1; x < MAX_WID - 1; x++)
+                _scroll_grid(y, x, y + dy, x + dx);
+        }
+    }
+    else if (dy < 0 && dx > 0)
+    {
+        for (y = 1; y < MAX_HGT - 1; y++)
+        {
+            for (x = MAX_WID - 2; x > 0; x--)
+                _scroll_grid(y, x, y + dy, x + dx);
+        }
+    }
+    else
+    {
+        /* ooops! */
+    }
+
+    py += dy;
+    px += dx;
+
+/*  verify_panel_aux(PANEL_FORCE_CENTER); */
+    _scroll_panel(dy, dx);
+
+    p_ptr->update |= PU_DISTANCE;
+    p_ptr->redraw |= PR_MAP;
+    p_ptr->window |= PW_OVERHEAD | PW_DUNGEON;
+}
+
+static void generate_area(int y, int x, int dy, int dx);
+
+void wilderness_move_player(int old_y, int old_x)
+{
+    int old_qy = (old_y-1) / WILD_SCROLL_CY;
+    int old_qx = (old_x-1) / WILD_SCROLL_CX;
+    int qy = (py-1) / WILD_SCROLL_CY;
+    int qx = (px-1) / WILD_SCROLL_CX;
+    int wild_qx = qx + p_ptr->wilderness_dx;
+    int wild_qy = qy + p_ptr->wilderness_dy;
+    int dy = qy - old_qy;
+    int dx = qx - old_qx;
+    int x,y;
+
+    /* Hack: Player was placed on the edge of a wilderness tile. Force a scroll! 
+       TODO: Prevent this from happening in the first place! */
+    if (!dy && !dx)
+    {
+        if (qy == 3)
+            dy = 1;
+        if (qy == 0)
+            dy = -1;
+        if (qx == 3)
+            dx = 1;
+        if (qx == 0)
+            dx = -1;
+    }
+
+#ifdef _DEBUG
+    c_put_str(TERM_WHITE, format("P:%3d/%3d", px, py), 26, 0);
+    c_put_str(TERM_WHITE, format("W:%3d/%3d", p_ptr->wilderness_x, p_ptr->wilderness_y), 27, 0);
+    c_put_str(TERM_WHITE, format("D:%3d/%3d", p_ptr->wilderness_dx, p_ptr->wilderness_dy), 28, 0);
+    c_put_str(TERM_WHITE, format("O:%3d/%3d", old_qx, old_qy), 29, 0);
+    c_put_str(TERM_WHITE, format("Q:%3d/%3d", qx, qy), 30, 0);
+    c_put_str(TERM_WHITE, format("S:%3d/%3d", dx, dy), 31, 0);
+#endif
+
+    if (!dy && !dx)
+        return;
+
+    /* TODO: Check to make sure scrolling is allowed (e.g. at wilderness edge) */
+
+    _scroll_cave(-dy*WILD_SCROLL_CY, -dx*WILD_SCROLL_CX);
+    
+    p_ptr->wilderness_dy += dy;
+    p_ptr->wilderness_dx += dx;
+
+    /* Patch up player's wilderness coordinates. If they are standing on (X,Y)
+       then make sure wilderness_x and y reflect this. */
+    if (wild_qx >= 4)
+    {
+        p_ptr->wilderness_x++;
+        p_ptr->wilderness_dx -= 4;
+    }
+    else if (wild_qx < 0)
+    {
+        p_ptr->wilderness_x--;
+        p_ptr->wilderness_dx += 4;
+    }
+    if (wild_qy >= 4)
+    {
+        p_ptr->wilderness_y++;
+        p_ptr->wilderness_dy -= 4;
+    }
+    else if (wild_qy < 0)
+    {
+        p_ptr->wilderness_y--;
+        p_ptr->wilderness_dy += 4;
+    }
+
+    /* TODO: This is the lazy way to scroll in new wilderness info! */
+    for (x = -1; x <= 1; x++)
+    {
+        for (y = -1; y <= 1; y++)
+        {
+            generate_area(
+                p_ptr->wilderness_y + y, 
+                p_ptr->wilderness_x + x, 
+                (y*4 - p_ptr->wilderness_dy) * WILD_SCROLL_CY, 
+                (x*4 - p_ptr->wilderness_dx) * WILD_SCROLL_CX
+            );
+        }
+    }
+    _apply_glow(FALSE);
+
+#ifdef _DEBUG
+    c_put_str(TERM_WHITE, format("P:%3d/%3d", px, py), 26, 0);
+    c_put_str(TERM_WHITE, format("W:%3d/%3d", p_ptr->wilderness_x, p_ptr->wilderness_y), 27, 0);
+    c_put_str(TERM_WHITE, format("D:%3d/%3d", p_ptr->wilderness_dx, p_ptr->wilderness_dy), 28, 0);
+#endif
+}
 
 static void set_floor_and_wall_aux(s16b feat_type[100], feat_prob prob[DUNGEON_FEAT_PROB_NUM])
 {
@@ -78,7 +354,7 @@ static void perturb_point_mid(int x1, int x2, int x3, int x4,
     if (avg > depth_max) avg = depth_max;
 
     /* Set the new value. */
-    cave[ymid][xmid].feat = avg;
+    _cave[ymid][xmid] = avg;
 }
 
 
@@ -102,7 +378,7 @@ static void perturb_point_end(int x1, int x2, int x3,
     if (avg > depth_max) avg = depth_max;
 
     /* Set the new value. */
-    cave[ymid][xmid].feat = avg;
+    _cave[ymid][xmid] = avg;
 }
 
 
@@ -123,19 +399,19 @@ static void plasma_recursive(int x1, int y1, int x2, int y2,
     /* Are we done? */
     if (x1 + 1 == x2) return;
 
-    perturb_point_mid(cave[y1][x1].feat, cave[y2][x1].feat, cave[y1][x2].feat,
-        cave[y2][x2].feat, xmid, ymid, rough, depth_max);
+    perturb_point_mid(_cave[y1][x1], _cave[y2][x1], _cave[y1][x2],
+        _cave[y2][x2], xmid, ymid, rough, depth_max);
 
-    perturb_point_end(cave[y1][x1].feat, cave[y1][x2].feat, cave[ymid][xmid].feat,
+    perturb_point_end(_cave[y1][x1], _cave[y1][x2], _cave[ymid][xmid],
         xmid, y1, rough, depth_max);
 
-    perturb_point_end(cave[y1][x2].feat, cave[y2][x2].feat, cave[ymid][xmid].feat,
+    perturb_point_end(_cave[y1][x2], _cave[y2][x2], _cave[ymid][xmid],
         x2, ymid, rough, depth_max);
 
-    perturb_point_end(cave[y2][x2].feat, cave[y2][x1].feat, cave[ymid][xmid].feat,
+    perturb_point_end(_cave[y2][x2], _cave[y2][x1], _cave[ymid][xmid],
         xmid, y2, rough, depth_max);
 
-    perturb_point_end(cave[y2][x1].feat, cave[y1][x1].feat, cave[ymid][xmid].feat,
+    perturb_point_end(_cave[y2][x1], _cave[y1][x1], _cave[ymid][xmid],
         x1, ymid, rough, depth_max);
 
 
@@ -155,14 +431,11 @@ static void plasma_recursive(int x1, int y1, int x2, int y2,
 static s16b terrain_table[MAX_WILDERNESS][MAX_FEAT_IN_TERRAIN];
 
 
-static void generate_wilderness_area(int terrain, u32b seed, bool border, bool corner)
+static void generate_wilderness_area(int terrain, u32b seed)
 {
     int x1, y1;
     int table_size = sizeof(terrain_table[0]) / sizeof(s16b);
     int roughness = 1; /* The roughness of the level. */
-
-    /* Unused */
-    (void)border;
 
     /* The outer wall is easy */
     if (terrain == TERRAIN_EDGE)
@@ -172,7 +445,7 @@ static void generate_wilderness_area(int terrain, u32b seed, bool border, bool c
         {
             for (x1 = 0; x1 < MAX_WID; x1++)
             {
-                cave[y1][x1].feat = feat_permanent;
+                _cave[y1][x1] = feat_permanent;
             }
         }
 
@@ -187,15 +460,12 @@ static void generate_wilderness_area(int terrain, u32b seed, bool border, bool c
     /* Hack -- Induce consistant town layout */
     Rand_value = seed;
 
-    if (!corner)
+    /* Create level background */
+    for (y1 = 0; y1 < MAX_HGT; y1++)
     {
-        /* Create level background */
-        for (y1 = 0; y1 < MAX_HGT; y1++)
+        for (x1 = 0; x1 < MAX_WID; x1++)
         {
-            for (x1 = 0; x1 < MAX_WID; x1++)
-            {
-                cave[y1][x1].feat = table_size / 2;
-            }
+            _cave[y1][x1] = table_size / 2;
         }
     }
 
@@ -204,44 +474,35 @@ static void generate_wilderness_area(int terrain, u32b seed, bool border, bool c
      * ToDo: calculate the medium height of the adjacent
      * terrains for every corner.
      */
-    cave[1][1].feat = randint0(table_size);
-    cave[MAX_HGT-2][1].feat = randint0(table_size);
-    cave[1][MAX_WID-2].feat = randint0(table_size);
-    cave[MAX_HGT-2][MAX_WID-2].feat = randint0(table_size);
+    _cave[1][1] = randint0(table_size);
+    _cave[MAX_HGT-2][1] = randint0(table_size);
+    _cave[1][MAX_WID-2] = randint0(table_size);
+    _cave[MAX_HGT-2][MAX_WID-2] = randint0(table_size);
 
-    if (!corner)
+    /* Hack -- preserve four corners */
     {
-        /* Hack -- preserve four corners */
-        s16b north_west = cave[1][1].feat;
-        s16b south_west = cave[MAX_HGT - 2][1].feat;
-        s16b north_east = cave[1][MAX_WID - 2].feat;
-        s16b south_east = cave[MAX_HGT - 2][MAX_WID - 2].feat;
+        s16b north_west = _cave[1][1];
+        s16b south_west = _cave[MAX_HGT - 2][1];
+        s16b north_east = _cave[1][MAX_WID - 2];
+        s16b south_east = _cave[MAX_HGT - 2][MAX_WID - 2];
 
         /* x1, y1, x2, y2, num_depths, roughness */
         plasma_recursive(1, 1, MAX_WID-2, MAX_HGT-2, table_size-1, roughness);
 
         /* Hack -- copyback four corners */
-        cave[1][1].feat = north_west;
-        cave[MAX_HGT - 2][1].feat = south_west;
-        cave[1][MAX_WID - 2].feat = north_east;
-        cave[MAX_HGT - 2][MAX_WID - 2].feat = south_east;
+        _cave[1][1] = north_west;
+        _cave[MAX_HGT - 2][1] = south_west;
+        _cave[1][MAX_WID - 2] = north_east;
+        _cave[MAX_HGT - 2][MAX_WID - 2] = south_east;
 
         for (y1 = 1; y1 < MAX_HGT - 1; y1++)
         {
             for (x1 = 1; x1 < MAX_WID - 1; x1++)
             {
-                cave[y1][x1].feat = terrain_table[terrain][cave[y1][x1].feat];
+                _cave[y1][x1] = terrain_table[terrain][_cave[y1][x1]];
             }
         }
     }
-    else /* Hack -- only four corners */
-    {
-        cave[1][1].feat = terrain_table[terrain][cave[1][1].feat];
-        cave[MAX_HGT - 2][1].feat = terrain_table[terrain][cave[MAX_HGT - 2][1].feat];
-        cave[1][MAX_WID - 2].feat = terrain_table[terrain][cave[1][MAX_WID - 2].feat];
-        cave[MAX_HGT - 2][MAX_WID - 2].feat = terrain_table[terrain][cave[MAX_HGT - 2][MAX_WID - 2].feat];
-    }
-
     /* Use the complex RNG */
     Rand_quick = FALSE;
 }
@@ -258,59 +519,22 @@ static void generate_wilderness_area(int terrain, u32b seed, bool border, bool c
  * be generated (for initializing the border structure).
  * If corner is set then only the corners of the area are needed.
  */
-static void generate_area(int y, int x, bool border, bool corner)
+static void generate_area(int y, int x, int dy, int dx)
 {
     int x1, y1;
 
-    /* Number of the town (if any) */
-    p_ptr->town_num = wilderness[y][x].town;
+    if (abs(dy) >= MAX_HGT - 2) return;
+    if (abs(dx) >= MAX_WID - 2) return;
 
-    /* Set the base level */
-    base_level = wilderness[y][x].level;
-
-    /* Set the dungeon level */
-    dun_level = 0;
-
-    /* Set the monster generation level */
-    monster_level = base_level;
-
-    /* Set the object generation level */
-    object_level = base_level;
-
-
-    /* Create the town */
-    if (p_ptr->town_num)
-    {
-        /* Reset the buildings */
-        init_buildings();
-
-        /* Initialize the town */
-        if (border | corner)
-            init_flags = INIT_CREATE_DUNGEON | INIT_ONLY_FEATURES;
-        else
-            init_flags = INIT_CREATE_DUNGEON;
-
-        process_dungeon_file("t_info.txt", 0, 0, MAX_HGT, MAX_WID);
-
-        if (!corner && !border) p_ptr->visit |= (1L << (p_ptr->town_num - 1));
-    }
-    else
     {
         int terrain = wilderness[y][x].terrain;
         u32b seed = wilderness[y][x].seed;
 
-        generate_wilderness_area(terrain, seed, border, corner);
-    }
+        generate_wilderness_area(terrain, seed);
 
-    if (!corner && !wilderness[y][x].town)
-    {
-        /*
-         * Place roads in the wilderness
-         * ToDo: make the road a bit more interresting
-         */
-        if (wilderness[y][x].road)
+        if (wilderness[y][x].road && !wilderness[y][x].town)
         {
-            cave[MAX_HGT/2][MAX_WID/2].feat = feat_floor;
+            _cave[MAX_HGT/2][MAX_WID/2] = feat_floor;
 
             if (wilderness[y-1][x].road)
             {
@@ -318,17 +542,17 @@ static void generate_area(int y, int x, bool border, bool corner)
                 for (y1 = 1; y1 < MAX_HGT/2; y1++)
                 {
                     x1 = MAX_WID/2;
-                    cave[y1][x1].feat = feat_floor;
+                    _cave[y1][x1] = feat_floor;
                 }
             }
 
             if (wilderness[y+1][x].road)
             {
-                /* North road */
+                /* South road */
                 for (y1 = MAX_HGT/2; y1 < MAX_HGT - 1; y1++)
                 {
                     x1 = MAX_WID/2;
-                    cave[y1][x1].feat = feat_floor;
+                    _cave[y1][x1] = feat_floor;
                 }
             }
 
@@ -338,7 +562,7 @@ static void generate_area(int y, int x, bool border, bool corner)
                 for (x1 = MAX_WID/2; x1 < MAX_WID - 1; x1++)
                 {
                     y1 = MAX_HGT/2;
-                    cave[y1][x1].feat = feat_floor;
+                    _cave[y1][x1] = feat_floor;
                 }
             }
 
@@ -348,47 +572,80 @@ static void generate_area(int y, int x, bool border, bool corner)
                 for (x1 = 1; x1 < MAX_WID/2; x1++)
                 {
                     y1 = MAX_HGT/2;
-                    cave[y1][x1].feat = feat_floor;
+                    _cave[y1][x1] = feat_floor;
                 }
             }
         }
-    }
 
-    if (wilderness[y][x].entrance && !wilderness[y][x].town && (p_ptr->total_winner || !(d_info[wilderness[y][x].entrance].flags1 & DF1_WINNER)))
-    {
-        int dy, dx;
-        int which = wilderness[y][x].entrance;
-
-        /* Hack -- Use the "simple" RNG */
-        Rand_quick = TRUE;
-
-        /* Hack -- Induce consistant town layout */
-        Rand_value = wilderness[y][x].seed;
-
-        dy = rand_range(6, cur_hgt - 6);
-        dx = rand_range(6, cur_wid - 6);
-
-        if (dungeon_flags[which] & DUNGEON_NO_ENTRANCE)
+        /* Copy features from scratch buffer to true cave data, applying a delta for scrolling */
+        for (y1 = 1; y1 < MAX_HGT - 1; y1++)
         {
-            cave[dy][dx].feat = feat_mountain;
-        }
-        else
-        {
-            cave[dy][dx].feat = feat_entrance;
-            cave[dy][dx].special = which;
+            for (x1 = 1; x1 < MAX_WID - 1; x1++)
+            {
+                int y2 = y1 + dy;
+                int x2 = x1 + dx;
+
+                if (!in_bounds(y2, x2)) continue;
+                cave[y2][x2].feat = _cave[y1][x1];
+            }
         }
 
-        /* Use the complex RNG */
-        Rand_quick = FALSE;
+        /* Create the town on top of default terrain */
+        if (wilderness[y][x].town)
+        {
+            /* Hack: We assume only 1 town can be on the viewport at a time ... */
+            /* Pref files *require* p_ptr->town_num to be set!! */
+            p_ptr->town_num = wilderness[y][x].town;
+
+            /* Reset the buildings */
+            init_buildings();
+
+            /* Initialize the town */
+            init_flags = INIT_CREATE_DUNGEON;
+            init_dx = dx;
+            init_dy = dy;
+            process_dungeon_file("t_info.txt", 0, 0, MAX_HGT, MAX_WID);
+            init_flags = 0;
+            init_dx = 0;
+            init_dy = 0;
+
+            p_ptr->visit |= (1L << (p_ptr->town_num - 1));
+        }
+
+
+        /* Ah ... well, our _cave scratch buffer can't handle the stairs. */
+        if (wilderness[y][x].entrance && !wilderness[y][x].town && (p_ptr->total_winner || !(d_info[wilderness[y][x].entrance].flags1 & DF1_WINNER)))
+        {
+            int y2, x2;
+            int which = wilderness[y][x].entrance;
+
+            /* Hack -- Use the "simple" RNG */
+            Rand_quick = TRUE;
+
+            /* Hack -- Induce consistant town layout */
+            Rand_value = wilderness[y][x].seed;
+
+            y2 = rand_range(6, cur_hgt - 6) + dy;
+            x2 = rand_range(6, cur_wid - 6) + dx;
+
+            if (in_bounds(y2, x2))
+            {
+                if (dungeon_flags[which] & DUNGEON_NO_ENTRANCE)
+                {
+                    cave[dy][dx].feat = feat_mountain;
+                }
+                else
+                {
+                    cave[y2][x2].feat = feat_entrance;
+                    cave[y2][x2].special = which;
+                }
+            }
+            /* Use the complex RNG */
+            Rand_quick = FALSE;
+        }
+
     }
 }
-
-
-/*
- * Border of the wilderness area
- */
-static border_type border;
-
 
 /*
  * Build the wilderness area outside of the town.
@@ -411,163 +668,80 @@ void wilderness_gen(void)
 
     process_dungeon_file("w_info.txt", 0, 0, max_wild_y, max_wild_x);
 
-    x = p_ptr->wilderness_x;
-    y = p_ptr->wilderness_y;
-
     /* Prepare allocation table */
     get_mon_num_prep(get_monster_hook(), NULL);
 
-    /* North border */
-    generate_area(y - 1, x, TRUE, FALSE);
+    /* TODO: There might be multiple squares visible at the same time due to scrolling ... */
+    p_ptr->town_num = wilderness[p_ptr->wilderness_y][p_ptr->wilderness_x].town;
+    base_level = wilderness[p_ptr->wilderness_y][p_ptr->wilderness_x].level;
+    dun_level = 0;
+    monster_level = base_level;
+    object_level = base_level;
 
-    for (i = 1; i < MAX_WID - 1; i++)
+    /* The current cave[][] is a 4x4 viewport on a very large wilderness map.
+       Picture a "cursor" which you can slide about on the map and peer into 
+       the wilderness. Coordinates (wilderness_x and y) and offsets (wilderness_dx and dy) 
+       apply to this cursor. */
+
+/*
+p_ptr->wilderness_dy = 1;
+p_ptr->wilderness_dx = 1;
+*/
+    for (x = -1; x <= 1; x++)
     {
-        border.north[i] = cave[MAX_HGT - 2][i].feat;
+        for (y = -1; y <= 1; y++)
+        {
+            generate_area(
+                p_ptr->wilderness_y + y, 
+                p_ptr->wilderness_x + x, 
+                (y*4 - p_ptr->wilderness_dy) * WILD_SCROLL_CY, 
+                (x*4 - p_ptr->wilderness_dx) * WILD_SCROLL_CX
+            );
+        }
     }
-
-    /* South border */
-    generate_area(y + 1, x, TRUE, FALSE);
-
-    for (i = 1; i < MAX_WID - 1; i++)
-    {
-        border.south[i] = cave[1][i].feat;
-    }
-
-    /* West border */
-    generate_area(y, x - 1, TRUE, FALSE);
-
-    for (i = 1; i < MAX_HGT - 1; i++)
-    {
-        border.west[i] = cave[i][MAX_WID - 2].feat;
-    }
-
-    /* East border */
-    generate_area(y, x + 1, TRUE, FALSE);
-
-    for (i = 1; i < MAX_HGT - 1; i++)
-    {
-        border.east[i] = cave[i][1].feat;
-    }
-
-    /* North west corner */
-    generate_area(y - 1, x - 1, FALSE, TRUE);
-    border.north_west = cave[MAX_HGT - 2][MAX_WID - 2].feat;
-
-    /* North east corner */
-    generate_area(y - 1, x + 1, FALSE, TRUE);
-    border.north_east = cave[MAX_HGT - 2][1].feat;
-
-    /* South west corner */
-    generate_area(y + 1, x - 1, FALSE, TRUE);
-    border.south_west = cave[1][MAX_WID - 2].feat;
-
-    /* South east corner */
-    generate_area(y + 1, x + 1, FALSE, TRUE);
-    border.south_east = cave[1][1].feat;
-
-
-    /* Create terrain of the current area */
-    generate_area(y, x, FALSE, FALSE);
-
 
     /* Special boundary walls -- North */
     for (i = 0; i < MAX_WID; i++)
     {
         cave[0][i].feat = feat_permanent;
-        cave[0][i].mimic = border.north[i];
+        cave[0][i].mimic = feat_dark_pit;
     }
 
     /* Special boundary walls -- South */
     for (i = 0; i < MAX_WID; i++)
     {
         cave[MAX_HGT - 1][i].feat = feat_permanent;
-        cave[MAX_HGT - 1][i].mimic = border.south[i];
+        cave[MAX_HGT - 1][i].mimic = feat_dark_pit;
     }
 
     /* Special boundary walls -- West */
     for (i = 0; i < MAX_HGT; i++)
     {
         cave[i][0].feat = feat_permanent;
-        cave[i][0].mimic = border.west[i];
+        cave[i][0].mimic = feat_dark_pit;
     }
 
     /* Special boundary walls -- East */
     for (i = 0; i < MAX_HGT; i++)
     {
         cave[i][MAX_WID - 1].feat = feat_permanent;
-        cave[i][MAX_WID - 1].mimic = border.east[i];
+        cave[i][MAX_WID - 1].mimic = feat_dark_pit;
     }
-
-    /* North west corner */
-    cave[0][0].mimic = border.north_west;
-
-    /* North east corner */
-    cave[0][MAX_WID - 1].mimic = border.north_east;
-
-    /* South west corner */
-    cave[MAX_HGT - 1][0].mimic = border.south_west;
-
-    /* South east corner */
-    cave[MAX_HGT - 1][MAX_WID - 1].mimic = border.south_east;
 
     /* Light up or darken the area */
-    for (y = 0; y < cur_hgt; y++)
-    {
-        for (x = 0; x < cur_wid; x++)
-        {
-            /* Get the cave grid */
-            c_ptr = &cave[y][x];
+    _apply_glow(TRUE);
 
-            if (is_daytime())
-            {
-                /* Assume lit */
-                c_ptr->info |= (CAVE_GLOW);
-
-                /* Hack -- Memorize lit grids if allowed */
-                if (view_perma_grids) c_ptr->info |= (CAVE_MARK);
-            }
-            else
-            {
-                /* Feature code (applying "mimic" field) */
-                f_ptr = &f_info[get_feat_mimic(c_ptr)];
-
-                if (!is_mirror_grid(c_ptr) && !have_flag(f_ptr->flags, FF_QUEST_ENTER) &&
-                    !have_flag(f_ptr->flags, FF_ENTRANCE))
-                {
-                    /* Assume dark */
-                    c_ptr->info &= ~(CAVE_GLOW);
-
-                    /* Darken "boring" features */
-                    if (!have_flag(f_ptr->flags, FF_REMEMBER))
-                    {
-                        /* Forget the grid */
-                        c_ptr->info &= ~(CAVE_MARK);
-                    }
-                }
-                else if (have_flag(f_ptr->flags, FF_ENTRANCE))
-                {
-                    /* Assume lit */
-                    c_ptr->info |= (CAVE_GLOW);
-
-                    /* Hack -- Memorize lit grids if allowed */
-                    if (view_perma_grids) c_ptr->info |= (CAVE_MARK);
-                }
-            }
-        }
-    }
-
+    /* When teleporting from town to town, look for the building that offers the
+       teleport service to place the player */
     if (p_ptr->teleport_town)
     {
         for (y = 0; y < cur_hgt; y++)
         {
             for (x = 0; x < cur_wid; x++)
             {
-                /* Get the cave grid */
                 c_ptr = &cave[y][x];
 
-                /* Seeing true feature code (ignore mimic) */
                 f_ptr = &f_info[c_ptr->feat];
-
                 if (have_flag(f_ptr->flags, FF_BLDG))
                 {
                     if ((f_ptr->subtype == 4) || ((p_ptr->town_num == 1) && (f_ptr->subtype == 0)))
@@ -581,7 +755,7 @@ void wilderness_gen(void)
         }
         p_ptr->teleport_town = FALSE;
     }
-
+    /* When leaving the dungeon, look for the wilderness stairs to place the player */
     else if (p_ptr->leaving_dungeon)
     {
         for (y = 0; y < cur_hgt; y++)
@@ -606,6 +780,8 @@ void wilderness_gen(void)
     /* p_ptr->leaving_dungeon = FALSE;*/
 
     lim = (generate_encounter==TRUE)?40:MIN_M_ALLOC_TN;
+
+lim = 0;
 
     /* Make some residents */
     for (i = 0; i < lim; i++)
@@ -883,6 +1059,9 @@ errr init_wilderness(void)
     for (i = 1; i < max_wild_y; i++)
         wilderness[i] = wilderness[0] + i * max_wild_x;
 
+    for (i = 0; i < MAX_HGT; i++)
+        C_MAKE(_cave[i], MAX_WID, s16b);
+
     generate_encounter = FALSE;
 
     return 0;
@@ -1035,8 +1214,13 @@ bool change_wild_mode(void)
     if (p_ptr->wild_mode)
     {
         /* Save the location in the global map */
-        p_ptr->wilderness_x = px;
-        p_ptr->wilderness_y = py;
+        if (py != p_ptr->wilderness_y || px != p_ptr->wilderness_x)
+        {
+            p_ptr->wilderness_x = px;
+            p_ptr->wilderness_y = py;
+            p_ptr->wilderness_dx = 0;
+            p_ptr->wilderness_dy = 0;
+        }
 
         /* Give first move to the player */
         p_ptr->energy_need = 0;

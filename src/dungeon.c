@@ -2603,8 +2603,13 @@ void process_world_aux_movement(void)
 
                 if (p_ptr->wild_mode)
                 {
-                    p_ptr->wilderness_y = py;
-                    p_ptr->wilderness_x = px;
+                    if (py != p_ptr->wilderness_y || px != p_ptr->wilderness_x)
+                    {
+                        p_ptr->wilderness_y = py;
+                        p_ptr->wilderness_x = px;
+                        p_ptr->wilderness_dx = 0;
+                        p_ptr->wilderness_dy = 0;
+                    }
                 }
                 else
                 {
@@ -6073,6 +6078,8 @@ void play_game(bool new_game)
                     {
                         p_ptr->wilderness_y = 1;
                         p_ptr->wilderness_x = 1;
+                        p_ptr->wilderness_dx = 0;
+                        p_ptr->wilderness_dy = 0;
                         if (vanilla_town)
                         {
                             p_ptr->oldpy = 10;
@@ -6088,6 +6095,8 @@ void play_game(bool new_game)
                     {
                         p_ptr->wilderness_y = 48;
                         p_ptr->wilderness_x = 5;
+                        p_ptr->wilderness_dx = 0;
+                        p_ptr->wilderness_dy = 0;
                         p_ptr->oldpy = 33;
                         p_ptr->oldpx = 131;
                     }

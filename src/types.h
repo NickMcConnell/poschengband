@@ -1045,6 +1045,8 @@ struct player_type
 
     s32b wilderness_x;    /* Coordinates in the wilderness */
     s32b wilderness_y;
+    s16b wilderness_dx;   /* Offset of 4x4 viewport window */
+    s16b wilderness_dy;
     bool wild_mode;
 
     s32b mhp;            /* Max hit pts */

@@ -3830,16 +3830,20 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 
         for (*x = xmin, i = 0; ((*x < xmax) && (i < len)); (*x)++, s++, i++)
         {
+            int        x2 = *x + init_dx; /* Apply shift in order to support a scrolling wilderness */
+            int        y2 = *y + init_dy;
+            cave_type *c_ptr;
+            int        idx = s[0];
+            int        object_index = letter[idx].object;
+            int        monster_index = letter[idx].monster;
+            int        random = letter[idx].random;
+            int        artifact_index = letter[idx].artifact;
+            int        ego_index = letter[idx].ego;
+
+            if (!in_bounds(y2, x2)) continue;
+
             /* Access the grid */
-            cave_type *c_ptr = &cave[*y][*x];
-
-            int idx = s[0];
-
-            int object_index = letter[idx].object;
-            int monster_index = letter[idx].monster;
-            int random = letter[idx].random;
-            int artifact_index = letter[idx].artifact;
-            int ego_index = letter[idx].ego;
+            c_ptr = &cave[y2][x2];
 
             /* Lay down a floor */
             c_ptr->feat = conv_dungeon_feat(letter[idx].feature);
@@ -3855,7 +3859,7 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
             {
                 monster_level = base_level + monster_index;
 
-                place_monster(*y, *x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+                place_monster(y2, x2, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 
                 monster_level = base_level;
             }
@@ -3890,7 +3894,7 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
                 }
 
                 /* Place it */
-                place_monster_aux(0, *y, *x, monster_index, (PM_ALLOW_SLEEP | PM_NO_KAGE));
+                place_monster_aux(0, y2, x2, monster_index, (PM_ALLOW_SLEEP | PM_NO_KAGE));
                 if (clone)
                 {
                     /* clone */
@@ -3913,11 +3917,11 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
                  */
                 if (randint0(100) < 75)
                 {
-                    place_object(*y, *x, 0L);
+                    place_object(y2, x2, 0L);
                 }
                 else
                 {
-                    place_trap(*y, *x);
+                    place_trap(y2, x2);
                 }
 
                 object_level = base_level;
@@ -3928,18 +3932,18 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 
                 /* Create an out of deep object */
                 if (randint0(100) < 75)
-                    place_object(*y, *x, 0L);
+                    place_object(y2, x2, 0L);
                 else if (randint0(100) < 80)
-                    place_object(*y, *x, AM_GOOD);
+                    place_object(y2, x2, AM_GOOD);
                 else
-                    place_object(*y, *x, AM_GOOD | AM_GREAT);
+                    place_object(y2, x2, AM_GOOD | AM_GREAT);
 
                 object_level = base_level;
             }
             /* Random trap */
             else if (random & RANDOM_TRAP)
             {
-                place_trap(*y, *x);
+                place_trap(y2, x2);
             }
             /* Hidden trap (or door) */
             else if (letter[idx].trap)
@@ -3971,7 +3975,7 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
                 else
                     apply_magic(o_ptr, base_level, AM_NO_FIXED_ART | AM_GOOD);
 
-                drop_here(o_ptr, *y, *x);
+                drop_here(o_ptr, y2, x2);
             }
 
             /* Artifact */
@@ -3984,18 +3988,18 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
                     object_type *q_ptr = &forge;
 
                     object_prep(q_ptr, k_idx);
-                    drop_here(q_ptr, *y, *x);                
+                    drop_here(q_ptr, y2, x2);                
                 }
                 else if (a_info[artifact_index].cur_num)
                 {
                     object_type forge;
                     create_replacement_art(artifact_index, &forge);
-                    drop_here(&forge, *y, *x);
+                    drop_here(&forge, y2, x2);
                 }
                 else
                 {
                     /* Create the artifact */
-                    if (create_named_art(artifact_index, *y, *x))
+                    if (create_named_art(artifact_index, y2, x2))
                         a_info[artifact_index].cur_num = 1;
                 }
             }
@@ -4103,9 +4107,12 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
                 if (*x % SCREEN_WID) panels_x++;
                 cur_wid = panels_x * SCREEN_WID;
 
-                /* Assume illegal panel */
-                panel_row_min = cur_hgt;
-                panel_col_min = cur_wid;
+                /* Assume illegal panel ... Well, there goes 5 hours of my life!
+                if (!panel_lock)
+                {
+                    panel_row_min = cur_hgt;
+                    panel_col_min = cur_wid;
+                } */
 
                 /* Place player in a quest level */
                 if (p_ptr->inside_quest)

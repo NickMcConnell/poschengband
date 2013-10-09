@@ -73,6 +73,12 @@
  */
 #define MAX_WID         198
 
+/*
+ * Implement continuous wilderness scrolling (as a huge hack) by dividing
+ * each wilderness square into a 4x4 grid (excluding the boundary sqaures).
+ */
+#define WILD_SCROLL_CY  16   /* (MAX_HGT-2)/4 ... but this better be a whole number! */
+#define WILD_SCROLL_CX  49   /* (MAX_WID-2)/4 ... but this better be a whole number! */
 
 /*
  * Quest constants
