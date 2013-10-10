@@ -4547,11 +4547,7 @@ bool move_player_effect(int ny, int nx, u32b mpe_mode)
         /* Redraw new spot */
         lite_spot(ny, nx);
 
-        /* Check for new panel (redraw map) */
-
-        if (!dun_level && !p_ptr->wild_mode)
-            wilderness_move_player(oy, ox);
-        
+        /* Check for new panel (redraw map) */      
         verify_panel();
 
         if (mpe_mode & MPE_FORGET_FLOW)
@@ -4578,6 +4574,9 @@ bool move_player_effect(int ny, int nx, u32b mpe_mode)
                 class_ptr->move_player();
             if (race_ptr->move_player)
                 race_ptr->move_player();
+
+            if (!dun_level && !p_ptr->wild_mode)
+                wilderness_move_player(oy, ox);
         }
 
         /* Window stuff */
@@ -5203,6 +5202,8 @@ void move_player(int dir, bool do_pickup, bool break_trap)
             if (ddx[dir] > 0)  p_ptr->oldpx = 1;
             if (ddx[dir] < 0)  p_ptr->oldpx = MAX_WID - 2;
             if (ddx[dir] == 0) p_ptr->oldpx = MAX_WID / 2;
+            p_ptr->wilderness_dx = 0;
+            p_ptr->wilderness_dy = 0;
         }
 
         if (p_can_kill_walls)

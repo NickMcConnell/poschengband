@@ -3642,6 +3642,7 @@ void update_view(void)
     /* Scan south-east */
     for (d = 1; d <= z; d++)
     {
+        if (!in_bounds(y+d, x+d)) break;
         c_ptr = &cave[y+d][x+d];
         c_ptr->info |= (CAVE_XTRA);
         cave_view_hack(c_ptr, y+d, x+d);
@@ -3651,6 +3652,7 @@ void update_view(void)
     /* Scan south-west */
     for (d = 1; d <= z; d++)
     {
+        if (!in_bounds(y+d, x-d)) break;
         c_ptr = &cave[y+d][x-d];
         c_ptr->info |= (CAVE_XTRA);
         cave_view_hack(c_ptr, y+d, x-d);
@@ -3660,6 +3662,7 @@ void update_view(void)
     /* Scan north-east */
     for (d = 1; d <= z; d++)
     {
+        if (!in_bounds(y-d, x+d)) break;
         c_ptr = &cave[y-d][x+d];
         c_ptr->info |= (CAVE_XTRA);
         cave_view_hack(c_ptr, y-d, x+d);
@@ -3669,6 +3672,7 @@ void update_view(void)
     /* Scan north-west */
     for (d = 1; d <= z; d++)
     {
+        if (!in_bounds(y-d, x-d)) break;
         c_ptr = &cave[y-d][x-d];
         c_ptr->info |= (CAVE_XTRA);
         cave_view_hack(c_ptr, y-d, x-d);
@@ -3681,6 +3685,7 @@ void update_view(void)
     /* Scan south */
     for (d = 1; d <= full; d++)
     {
+        if (!in_bounds(y+d, x)) break;
         c_ptr = &cave[y+d][x];
         c_ptr->info |= (CAVE_XTRA);
         cave_view_hack(c_ptr, y+d, x);
@@ -3693,6 +3698,7 @@ void update_view(void)
     /* Scan north */
     for (d = 1; d <= full; d++)
     {
+        if (!in_bounds(y-d, x)) break;
         c_ptr = &cave[y-d][x];
         c_ptr->info |= (CAVE_XTRA);
         cave_view_hack(c_ptr, y-d, x);
@@ -3705,6 +3711,7 @@ void update_view(void)
     /* Scan east */
     for (d = 1; d <= full; d++)
     {
+        if (!in_bounds(y, x+d)) break;
         c_ptr = &cave[y][x+d];
         c_ptr->info |= (CAVE_XTRA);
         cave_view_hack(c_ptr, y, x+d);
@@ -3717,6 +3724,7 @@ void update_view(void)
     /* Scan west */
     for (d = 1; d <= full; d++)
     {
+        if (!in_bounds(y, x-d)) break;
         c_ptr = &cave[y][x-d];
         c_ptr->info |= (CAVE_XTRA);
         cave_view_hack(c_ptr, y, x-d);

@@ -10,13 +10,13 @@
 ############### Additional default terrain settings ###############
 
 # Default for castle reward
-F:!:FLOOR:3
+F:!:FLOOR:0
 
 # Default for inn reward
-F:@:FLOOR:3
+F:@:FLOOR:0
 
 # Default for Quest 1 = entrance is tree
-F:z:TREE:3
+F:z:TREE:0
 
 # Default for Quest 25 = entrance is stone
 F:x:PERMANENT:3
@@ -25,10 +25,10 @@ F:x:PERMANENT:3
 F:w:PERMANENT:3
 
 # Default for Quest 27 = entrance is grass
-F:v:GRASS:3
+F:v:GRASS:0
 
 # Default for Quest 31 = entrance is grass
-F:s:GRASS:3
+F:s:GRASS:0
 
 # Default for Quest 32 = entrance is stone
 F:r:PERMANENT:3

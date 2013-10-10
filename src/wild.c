@@ -15,8 +15,110 @@
  */
 
 #include "angband.h"
+#include <assert.h>
 
 s16b *_cave[MAX_HGT];
+
+/* Boundary grids of cave[][] must be permanent walls mimicking the correct features.
+   We set this up after generation or scrolling. But prior to scrolling, we need
+   to undo this hack since a boundary grid will (probably) scroll into the interior
+   of the viewport. Failure to mark boundaries as permanent causes numerous catastrophic
+   access violations as a lot (most) code never checks in_bounds() before accessing
+   the cave ... sigh. */
+static void _set_boundary(void)
+{
+    int i;
+    /* Special boundary walls -- North */
+    for (i = 0; i < MAX_WID; i++)
+    {
+        cave[0][i].mimic = cave[0][i].feat;
+        cave[0][i].feat = feat_permanent;
+    }
+
+    /* Special boundary walls -- South */
+    for (i = 0; i < MAX_WID; i++)
+    {
+        cave[MAX_HGT - 1][i].mimic = cave[MAX_HGT - 1][i].feat;
+        cave[MAX_HGT - 1][i].feat = feat_permanent;
+    }
+
+    /* Special boundary walls -- West */
+    for (i = 1; i < MAX_HGT - 1; i++)
+    {
+        cave[i][0].mimic = cave[i][0].feat;
+        cave[i][0].feat = feat_permanent;
+    }
+
+    /* Special boundary walls -- East */
+    for (i = 1; i < MAX_HGT - 1; i++)
+    {
+        cave[i][MAX_WID - 1].mimic = cave[i][MAX_WID - 1].feat;
+        cave[i][MAX_WID - 1].feat = feat_permanent;
+    }
+}
+static void _unset_boundary(void)
+{
+    int i;
+    /* Special boundary walls -- North */
+    for (i = 0; i < MAX_WID; i++)
+    {
+        cave[0][i].feat = cave[0][i].mimic;
+        cave[0][i].mimic = 0;
+    }
+
+    /* Special boundary walls -- South */
+    for (i = 0; i < MAX_WID; i++)
+    {
+        cave[MAX_HGT - 1][i].feat = cave[MAX_HGT - 1][i].mimic;
+        cave[MAX_HGT - 1][i].mimic = 0;
+    }
+
+    /* Special boundary walls -- West */
+    for (i = 1; i < MAX_HGT - 1; i++)
+    {
+        cave[i][0].feat = cave[i][0].mimic;
+        cave[i][0].mimic = 0;
+    }
+
+    /* Special boundary walls -- East */
+    for (i = 1; i < MAX_HGT - 1; i++)
+    {
+        cave[i][MAX_WID - 1].feat = cave[i][MAX_WID - 1].mimic;
+        cave[i][MAX_WID - 1].mimic = 0;
+    }
+}
+static bool _scroll_panel(int dy, int dx)
+{
+    int y, x;
+    int wid, hgt;
+
+    get_screen_size(&wid, &hgt);
+
+    y = panel_row_min + dy;
+    x = panel_col_min + dx;
+
+    if (y > cur_hgt - hgt) y = cur_hgt - hgt;
+    if (y < 0) y = 0;
+
+    if (x > cur_wid - wid) x = cur_wid - wid;
+    if (x < 0) x = 0;
+
+    if (y != panel_row_min || x != panel_col_min)
+    {
+        panel_row_min = y;
+        panel_col_min = x;
+
+        panel_bounds_center();
+    /*  panel_lock = TRUE; */
+
+        p_ptr->update |= PU_MONSTERS;
+        p_ptr->redraw |= PR_MAP;
+
+    /*  Don't: handle_stuff(); as this clears CAVE_TEMP flags! */
+        return TRUE;
+    }
+    return FALSE;
+}
 
 static void _apply_glow(bool all)
 {
@@ -24,9 +126,9 @@ static void _apply_glow(bool all)
     cave_type *c_ptr;
     feature_type *f_ptr;
 
-    for (y = 0; y < cur_hgt; y++)
+    for (y = 0; y < MAX_HGT; y++)
     {
-        for (x = 0; x < cur_wid; x++)
+        for (x = 0; x < MAX_WID ; x++)
         {
             /* Get the cave grid */
             c_ptr = &cave[y][x];
@@ -77,7 +179,8 @@ static void _apply_glow(bool all)
 static void _scroll_grid(int src_y, int src_x, int dest_y, int dest_x)
 {
     cave_type *src = &cave[src_y][src_x];
-    if (in_bounds(dest_y, dest_x))
+    assert(!(src->info & CAVE_TEMP));
+    if (in_bounds2(dest_y, dest_x))
     {
         cave_type *dest = &cave[dest_y][dest_x];
         if (dest->m_idx)
@@ -111,74 +214,46 @@ static void _scroll_grid(int src_y, int src_x, int dest_y, int dest_x)
     }
 }
 
-bool _scroll_panel(int dy, int dx)
-{
-    int y, x;
-    int wid, hgt;
-
-    get_screen_size(&wid, &hgt);
-
-    y = panel_row_min + dy;
-    x = panel_col_min + dx;
-
-    if (y > cur_hgt - hgt) y = cur_hgt - hgt;
-    if (y < 0) y = 0;
-
-    if (x > cur_wid - wid) x = cur_wid - wid;
-    if (x < 0) x = 0;
-
-    if (y != panel_row_min || x != panel_col_min)
-    {
-        panel_row_min = y;
-        panel_col_min = x;
-
-        panel_bounds_center();
-    /*  panel_lock = TRUE; */
-
-        p_ptr->update |= PU_MONSTERS;
-        p_ptr->redraw |= PR_MAP;
-        handle_stuff();
-        return TRUE;
-    }
-    return FALSE;
-}
-
 static void _scroll_cave(int dy, int dx)
 {
     int y, x;
+
+#if _DEBUG
+/*  msg_format("Scoll Cave (%d,%d)", dx, dy);*/
+#endif
 
     if (dy == 0 && dx == 0)
         return;
 
     if (dy <= 0 && dx <= 0)
     {
-        for (y = 1; y < MAX_HGT - 1; y++)
+        for (y = 0; y < MAX_HGT; y++)
         {
-            for (x = 1; x < MAX_WID - 1; x++)
+            for (x = 0; x < MAX_WID; x++)
                 _scroll_grid(y, x, y + dy, x + dx);
         }
     }
     else if (dy >= 0 && dx >= 0)
     {
-        for (y = MAX_HGT - 2; y > 0 ; y--)
+        for (y = MAX_HGT - 1; y >= 0 ; y--)
         {
-            for (x = MAX_WID - 2; x > 0; x--)
+            for (x = MAX_WID - 1; x >= 0; x--)
                 _scroll_grid(y, x, y + dy, x + dx);
         }
     }
     else if (dy > 0 && dx < 0)
     {
-        for (y = MAX_HGT - 2; y > 0 ; y--)
+        for (y = MAX_HGT - 1; y >= 0 ; y--)
         {
-            for (x = 1; x < MAX_WID - 1; x++)
+            for (x = 0; x < MAX_WID; x++)
                 _scroll_grid(y, x, y + dy, x + dx);
         }
     }
     else if (dy < 0 && dx > 0)
     {
-        for (y = 1; y < MAX_HGT - 1; y++)
+        for (y = 0; y < MAX_HGT; y++)
         {
-            for (x = MAX_WID - 2; x > 0; x--)
+            for (x = MAX_WID - 1; x >= 0; x--)
                 _scroll_grid(y, x, y + dy, x + dx);
         }
     }
@@ -190,43 +265,58 @@ static void _scroll_cave(int dy, int dx)
     py += dy;
     px += dx;
 
-/*  verify_panel_aux(PANEL_FORCE_CENTER); */
-    _scroll_panel(dy, dx);
+    if (center_player && (center_running || !running))
+    {
+        /* Note: This is jerky if the panel is too big, but
+           that is not our fault! Rather, the auto-center option
+           fails to actually center the player as they approach
+           the boundary of the cave. Shrink your display window
+           enough and you will gain a very smooth scrolling experience! */
+        verify_panel_aux(PANEL_FORCE_CENTER);
+    }
+    else
+        _scroll_panel(dy, dx);
 
     p_ptr->update |= PU_DISTANCE;
     p_ptr->redraw |= PR_MAP;
     p_ptr->window |= PW_OVERHEAD | PW_DUNGEON;
 }
 
-static void generate_area(int y, int x, int dy, int dx);
+static void generate_area(int y, int x, int dy, int dx, int options);
 
 void wilderness_move_player(int old_y, int old_x)
 {
-    int old_qy = (old_y-1) / WILD_SCROLL_CY;
+    int old_qy = (old_y-1) / WILD_SCROLL_CY; /* q is for "quadrant" and is a misnomer ... */
     int old_qx = (old_x-1) / WILD_SCROLL_CX;
     int qy = (py-1) / WILD_SCROLL_CY;
     int qx = (px-1) / WILD_SCROLL_CX;
-    int wild_qx = qx + p_ptr->wilderness_dx;
+    int wild_qx = qx + p_ptr->wilderness_dx; /* Which "quadrant" of the current wilderness tile? */
     int wild_qy = qy + p_ptr->wilderness_dy;
     int dy = qy - old_qy;
     int dx = qx - old_qx;
     int x,y;
 
-    /* Hack: Player was placed on the edge of a wilderness tile. Force a scroll! 
-       TODO: Prevent this from happening in the first place! */
-    if (!dy && !dx)
-    {
-        if (qy == 3)
-            dy = 1;
-        if (qy == 0)
-            dy = -1;
-        if (qx == 3)
-            dx = 1;
-        if (qx == 0)
-            dx = -1;
-    }
+    /* There are several ways we could scroll:
+       [1] Use (dx,dy) calculated above (i.e. on every "quadrant" change).
+       [2] Only scroll when the user hits a boundary "quadrant".
+
+       Let's try [2] but I left the code in for [1] for easy reversion.
+       Note that [1] allows "back and forth" "scroll scumming" for 
+       wilderness encounters while [2] would require extensive movement, 
+       so is probably to be preferred. */
+    dy = 0;
+    dx = 0;
+    if (qy == 3)
+        dy = 1;
+    if (qy == 0)
+        dy = -1;
+    if (qx == 3)
+        dx = 1;
+    if (qx == 0)
+        dx = -1;
 
 #ifdef _DEBUG
+    /* Because I am so easily confused :( */
     c_put_str(TERM_WHITE, format("P:%3d/%3d", px, py), 26, 0);
     c_put_str(TERM_WHITE, format("W:%3d/%3d", p_ptr->wilderness_x, p_ptr->wilderness_y), 27, 0);
     c_put_str(TERM_WHITE, format("D:%3d/%3d", p_ptr->wilderness_dx, p_ptr->wilderness_dy), 28, 0);
@@ -238,8 +328,7 @@ void wilderness_move_player(int old_y, int old_x)
     if (!dy && !dx)
         return;
 
-    /* TODO: Check to make sure scrolling is allowed (e.g. at wilderness edge) */
-
+    _unset_boundary();
     _scroll_cave(-dy*WILD_SCROLL_CY, -dx*WILD_SCROLL_CX);
     
     p_ptr->wilderness_dy += dy;
@@ -268,7 +357,9 @@ void wilderness_move_player(int old_y, int old_x)
         p_ptr->wilderness_dy += 4;
     }
 
-    /* TODO: This is the lazy way to scroll in new wilderness info! */
+    /* TODO: This is the lazy way to scroll in new wilderness info! 
+       Also, we will need better info to generate "encounters" (Coming Soon!)
+     */
     for (x = -1; x <= 1; x++)
     {
         for (y = -1; y <= 1; y++)
@@ -277,11 +368,16 @@ void wilderness_move_player(int old_y, int old_x)
                 p_ptr->wilderness_y + y, 
                 p_ptr->wilderness_x + x, 
                 (y*4 - p_ptr->wilderness_dy) * WILD_SCROLL_CY, 
-                (x*4 - p_ptr->wilderness_dx) * WILD_SCROLL_CX
+                (x*4 - p_ptr->wilderness_dx) * WILD_SCROLL_CX,
+                INIT_ONLY_FEATURES
             );
         }
     }
     _apply_glow(FALSE);
+    _set_boundary();
+
+    if (disturb_panel) disturb(0, 0);
+    handle_stuff();  /* Is this necessary?? */
 
 #ifdef _DEBUG
     c_put_str(TERM_WHITE, format("P:%3d/%3d", px, py), 26, 0);
@@ -469,40 +565,17 @@ static void generate_wilderness_area(int terrain, u32b seed)
         }
     }
 
-    /*
-     * Initialize the four corners
-     * ToDo: calculate the medium height of the adjacent
-     * terrains for every corner.
-     */
-    _cave[1][1] = randint0(table_size);
-    _cave[MAX_HGT-2][1] = randint0(table_size);
-    _cave[1][MAX_WID-2] = randint0(table_size);
-    _cave[MAX_HGT-2][MAX_WID-2] = randint0(table_size);
+    /* x1, y1, x2, y2, num_depths, roughness */
+    plasma_recursive(0, 0, MAX_WID-1, MAX_HGT-1, table_size-1, roughness);
 
-    /* Hack -- preserve four corners */
+    for (y1 = 0; y1 < MAX_HGT; y1++)
     {
-        s16b north_west = _cave[1][1];
-        s16b south_west = _cave[MAX_HGT - 2][1];
-        s16b north_east = _cave[1][MAX_WID - 2];
-        s16b south_east = _cave[MAX_HGT - 2][MAX_WID - 2];
-
-        /* x1, y1, x2, y2, num_depths, roughness */
-        plasma_recursive(1, 1, MAX_WID-2, MAX_HGT-2, table_size-1, roughness);
-
-        /* Hack -- copyback four corners */
-        _cave[1][1] = north_west;
-        _cave[MAX_HGT - 2][1] = south_west;
-        _cave[1][MAX_WID - 2] = north_east;
-        _cave[MAX_HGT - 2][MAX_WID - 2] = south_east;
-
-        for (y1 = 1; y1 < MAX_HGT - 1; y1++)
+        for (x1 = 0; x1 < MAX_WID; x1++)
         {
-            for (x1 = 1; x1 < MAX_WID - 1; x1++)
-            {
-                _cave[y1][x1] = terrain_table[terrain][_cave[y1][x1]];
-            }
+            _cave[y1][x1] = terrain_table[terrain][_cave[y1][x1]];
         }
     }
+
     /* Use the complex RNG */
     Rand_quick = FALSE;
 }
@@ -519,12 +592,12 @@ static void generate_wilderness_area(int terrain, u32b seed)
  * be generated (for initializing the border structure).
  * If corner is set then only the corners of the area are needed.
  */
-static void generate_area(int y, int x, int dy, int dx)
+static void generate_area(int y, int x, int dy, int dx, int options)
 {
     int x1, y1;
 
-    if (abs(dy) >= MAX_HGT - 2) return;
-    if (abs(dx) >= MAX_WID - 2) return;
+    if (abs(dy) >= MAX_HGT - 1) return;
+    if (abs(dx) >= MAX_WID - 1) return;
 
     {
         int terrain = wilderness[y][x].terrain;
@@ -539,7 +612,7 @@ static void generate_area(int y, int x, int dy, int dx)
             if (wilderness[y-1][x].road)
             {
                 /* North road */
-                for (y1 = 1; y1 < MAX_HGT/2; y1++)
+                for (y1 = 0; y1 < MAX_HGT/2; y1++)
                 {
                     x1 = MAX_WID/2;
                     _cave[y1][x1] = feat_floor;
@@ -549,7 +622,7 @@ static void generate_area(int y, int x, int dy, int dx)
             if (wilderness[y+1][x].road)
             {
                 /* South road */
-                for (y1 = MAX_HGT/2; y1 < MAX_HGT - 1; y1++)
+                for (y1 = MAX_HGT/2; y1 < MAX_HGT; y1++)
                 {
                     x1 = MAX_WID/2;
                     _cave[y1][x1] = feat_floor;
@@ -559,7 +632,7 @@ static void generate_area(int y, int x, int dy, int dx)
             if (wilderness[y][x+1].road)
             {
                 /* East road */
-                for (x1 = MAX_WID/2; x1 < MAX_WID - 1; x1++)
+                for (x1 = MAX_WID/2; x1 < MAX_WID; x1++)
                 {
                     y1 = MAX_HGT/2;
                     _cave[y1][x1] = feat_floor;
@@ -569,7 +642,7 @@ static void generate_area(int y, int x, int dy, int dx)
             if (wilderness[y][x-1].road)
             {
                 /* West road */
-                for (x1 = 1; x1 < MAX_WID/2; x1++)
+                for (x1 = 0; x1 < MAX_WID/2; x1++)
                 {
                     y1 = MAX_HGT/2;
                     _cave[y1][x1] = feat_floor;
@@ -578,14 +651,14 @@ static void generate_area(int y, int x, int dy, int dx)
         }
 
         /* Copy features from scratch buffer to true cave data, applying a delta for scrolling */
-        for (y1 = 1; y1 < MAX_HGT - 1; y1++)
+        for (y1 = 0; y1 < MAX_HGT; y1++)
         {
-            for (x1 = 1; x1 < MAX_WID - 1; x1++)
+            for (x1 = 0; x1 < MAX_WID; x1++)
             {
                 int y2 = y1 + dy;
                 int x2 = x1 + dx;
 
-                if (!in_bounds(y2, x2)) continue;
+                if (!in_bounds2(y2, x2)) continue;
                 cave[y2][x2].feat = _cave[y1][x1];
             }
         }
@@ -601,7 +674,7 @@ static void generate_area(int y, int x, int dy, int dx)
             init_buildings();
 
             /* Initialize the town */
-            init_flags = INIT_CREATE_DUNGEON;
+            init_flags = INIT_CREATE_DUNGEON | options;
             init_dx = dx;
             init_dy = dy;
             process_dungeon_file("t_info.txt", 0, 0, MAX_HGT, MAX_WID);
@@ -682,11 +755,6 @@ void wilderness_gen(void)
        Picture a "cursor" which you can slide about on the map and peer into 
        the wilderness. Coordinates (wilderness_x and y) and offsets (wilderness_dx and dy) 
        apply to this cursor. */
-
-/*
-p_ptr->wilderness_dy = 1;
-p_ptr->wilderness_dx = 1;
-*/
     for (x = -1; x <= 1; x++)
     {
         for (y = -1; y <= 1; y++)
@@ -695,41 +763,13 @@ p_ptr->wilderness_dx = 1;
                 p_ptr->wilderness_y + y, 
                 p_ptr->wilderness_x + x, 
                 (y*4 - p_ptr->wilderness_dy) * WILD_SCROLL_CY, 
-                (x*4 - p_ptr->wilderness_dx) * WILD_SCROLL_CX
+                (x*4 - p_ptr->wilderness_dx) * WILD_SCROLL_CX,
+                0
             );
         }
     }
-
-    /* Special boundary walls -- North */
-    for (i = 0; i < MAX_WID; i++)
-    {
-        cave[0][i].feat = feat_permanent;
-        cave[0][i].mimic = feat_dark_pit;
-    }
-
-    /* Special boundary walls -- South */
-    for (i = 0; i < MAX_WID; i++)
-    {
-        cave[MAX_HGT - 1][i].feat = feat_permanent;
-        cave[MAX_HGT - 1][i].mimic = feat_dark_pit;
-    }
-
-    /* Special boundary walls -- West */
-    for (i = 0; i < MAX_HGT; i++)
-    {
-        cave[i][0].feat = feat_permanent;
-        cave[i][0].mimic = feat_dark_pit;
-    }
-
-    /* Special boundary walls -- East */
-    for (i = 0; i < MAX_HGT; i++)
-    {
-        cave[i][MAX_WID - 1].feat = feat_permanent;
-        cave[i][MAX_WID - 1].mimic = feat_dark_pit;
-    }
-
-    /* Light up or darken the area */
     _apply_glow(TRUE);
+    _set_boundary();
 
     /* When teleporting from town to town, look for the building that offers the
        teleport service to place the player */
@@ -807,6 +847,11 @@ lim = 0;
         if (quest[i].status == QUEST_STATUS_REWARDED)
             quest[i].status = QUEST_STATUS_FINISHED;
     }
+
+    /* Hack: Force scroll after wilderness travel since we are typically
+       placed in a boundary "quadrant" */
+    verify_panel();
+    wilderness_move_player(p_ptr->oldpy, p_ptr->oldpx);
 }
 
 

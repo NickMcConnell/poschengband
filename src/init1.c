@@ -3848,8 +3848,12 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
             /* Lay down a floor */
             c_ptr->feat = conv_dungeon_feat(letter[idx].feature);
 
-            /* Only the features */
-            if (init_flags & INIT_ONLY_FEATURES) continue;
+            /* Only the features ... Scrolling wilderness should still "know" the town! */
+            if (init_flags & INIT_ONLY_FEATURES)
+            {
+                c_ptr->info |= letter[idx].cave_info;
+                continue;
+            }
 
             /* Cave info */
             c_ptr->info = letter[idx].cave_info;
