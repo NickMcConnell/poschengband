@@ -374,6 +374,7 @@ int wilderness_level(int x, int y)
     return total / ct;
 }
 
+static void _generate_cave(const rect_t *valid);
 static void _generate_area(int x, int y, int dx, int dy, int options);
 static void _generate_encounters(int x, int y, const rect_t *r, const rect_t *exclude);
 bool wilderness_scroll_lock = FALSE;
@@ -390,7 +391,6 @@ void wilderness_move_player(int old_x, int old_y)
     int     dy = qy - old_qy;
     rect_t  viewport;
     rect_t  valid;
-    int     x, y;
     bool    do_disturb = FALSE;
 
     /* There are several ways we could scroll:
@@ -421,6 +421,7 @@ void wilderness_move_player(int old_x, int old_y)
     c_put_str(TERM_WHITE, format("Q:%3d/%3d", qx, qy), 30, 0);
     c_put_str(TERM_WHITE, format("S:%3d/%3d", dx, dy), 31, 0);
     c_put_str(TERM_WHITE, format("L:%3d", wilderness_level(p_ptr->wilderness_x, p_ptr->wilderness_y)), 32, 0);
+    c_put_str(TERM_WHITE, format("T:%3d", p_ptr->town_num), 33, 0);
 #endif
 
     if (!dx && !dy)
@@ -470,28 +471,10 @@ void wilderness_move_player(int old_x, int old_y)
     }
 
     /* Scroll in new wilderness info with appropriate monsters! */
-    /* All rectangles express cave coordinates */
     viewport = rect_create(0, 0, MAX_WID, MAX_HGT);
     valid = rect_translate(&viewport, -dx*WILD_SCROLL_CX, -dy*WILD_SCROLL_CY);
     valid = rect_intersect(&viewport, &valid);
-    for (x = -1; x <= 1; x++)
-    {
-        for (y = -1; y <= 1; y++)
-        {
-            int     wild_x = p_ptr->wilderness_x + x;
-            int     wild_y = p_ptr->wilderness_y + y;
-            int     dx = (x*3 - p_ptr->wilderness_dx) * WILD_SCROLL_CX;
-            int     dy = (y*3 - p_ptr->wilderness_dy) * WILD_SCROLL_CY;
-            rect_t  tile = rect_translate(&viewport, dx, dy);
-            rect_t  r = rect_intersect(&viewport, &tile);
-
-            if (!rect_is_valid(&r)) continue;
-            if (rect_contains(&valid, &r)) continue;
-            _generate_area(wild_x, wild_y, dx, dy, INIT_SCROLL_WILDERNESS);
-            _generate_encounters(wild_x, wild_y, &r, &valid);
-        }
-    }
-    _apply_glow(FALSE);
+    _generate_cave(&valid);
     _set_boundary();
 
     if (do_disturb) disturb(0, 0);
@@ -502,6 +485,7 @@ void wilderness_move_player(int old_x, int old_y)
     c_put_str(TERM_WHITE, format("W:%3d/%3d", p_ptr->wilderness_x, p_ptr->wilderness_y), 27, 0);
     c_put_str(TERM_WHITE, format("D:%3d/%3d", p_ptr->wilderness_dx, p_ptr->wilderness_dy), 28, 0);
     c_put_str(TERM_WHITE, format("L:%3d", wilderness_level(p_ptr->wilderness_x, p_ptr->wilderness_y)), 32, 0);
+    c_put_str(TERM_WHITE, format("T:%3d", p_ptr->town_num), 33, 0);
 #endif
 }
 
@@ -555,6 +539,48 @@ static void _generate_encounters(int x, int y, const rect_t *r, const rect_t *ex
             }
         }
     }
+}
+
+/* The current cave[][] is a 3x3 viewport on a very large wilderness map.
+   Picture a "cursor" which you can slide about on the map and peer into 
+   the wilderness. Coordinates (wilderness_x and y) and offsets (wilderness_dx and dy) 
+   apply to this cursor. 
+   
+   This routine will fill in the cave for both an initial level generation (valid == NULL)
+   and a scroll operation (in which case valid indicates the portion of the cave[][] that
+   is correctly filled in). */
+void _generate_cave(const rect_t *valid)
+{
+    rect_t viewport = rect_create(0, 0, MAX_WID, MAX_HGT);
+    int x, y;
+
+    p_ptr->town_num = 0;
+    for (x = -1; x <= 1; x++)
+    {
+        for (y = -1; y <= 1; y++)
+        {
+            int     wild_x = p_ptr->wilderness_x + x;
+            int     wild_y = p_ptr->wilderness_y + y;
+            int     dx = (x*3 - p_ptr->wilderness_dx) * WILD_SCROLL_CX;
+            int     dy = (y*3 - p_ptr->wilderness_dy) * WILD_SCROLL_CY;
+            rect_t  tile = rect_translate(&viewport, dx, dy);
+            rect_t  r = rect_intersect(&viewport, &tile);
+
+            if (!rect_is_valid(&r)) continue;
+
+            if (wilderness[wild_y][wild_x].town)
+            {
+                p_ptr->town_num = wilderness[wild_y][wild_x].town;
+                p_ptr->visit |= (1L << (p_ptr->town_num - 1));
+            }
+
+            if (valid && rect_contains(valid, &r)) continue;
+
+            _generate_area(wild_x, wild_y, dx, dy, valid ? INIT_SCROLL_WILDERNESS : 0);
+            _generate_encounters(wild_x, wild_y, &r, valid);
+        }
+    }
+    _apply_glow(!valid);
 }
 
 static void set_floor_and_wall_aux(s16b feat_type[100], feat_prob prob[DUNGEON_FEAT_PROB_NUM])
@@ -836,10 +862,6 @@ static void _generate_area(int x, int y, int dx, int dy, int options)
         /* Create the town on top of default terrain */
         if (wilderness[y][x].town)
         {
-            /* Hack: We assume only 1 town can be on the viewport at a time ... */
-            /* Pref files *require* p_ptr->town_num to be set!! */
-            p_ptr->town_num = wilderness[y][x].town;
-
             /* Reset the buildings */
             init_buildings();
 
@@ -851,8 +873,6 @@ static void _generate_area(int x, int y, int dx, int dy, int options)
             init_flags = 0;
             init_dx = 0;
             init_dy = 0;
-
-            p_ptr->visit |= (1L << (p_ptr->town_num - 1));
         }
 
 
@@ -898,7 +918,6 @@ void wilderness_gen(void)
     int           i, y, x;
     cave_type    *c_ptr;
     feature_type *f_ptr;
-    rect_t        viewport;
 
     /* Big town */
     cur_hgt = MAX_HGT;
@@ -916,27 +935,7 @@ void wilderness_gen(void)
         ambush_flag = TRUE;
     generate_encounter = FALSE;
 
-    /* The current cave[][] is a 3x3 viewport on a very large wilderness map.
-       Picture a "cursor" which you can slide about on the map and peer into 
-       the wilderness. Coordinates (wilderness_x and y) and offsets (wilderness_dx and dy) 
-       apply to this cursor. */
-    viewport = rect_create(0, 0, MAX_WID, MAX_HGT);
-    for (x = -1; x <= 1; x++)
-    {
-        for (y = -1; y <= 1; y++)
-        {
-            int     wild_x = p_ptr->wilderness_x + x;
-            int     wild_y = p_ptr->wilderness_y + y;
-            int     dx = (x*3 - p_ptr->wilderness_dx) * WILD_SCROLL_CX;
-            int     dy = (y*3 - p_ptr->wilderness_dy) * WILD_SCROLL_CY;
-            rect_t  tile = rect_translate(&viewport, dx, dy);
-            rect_t  r = rect_intersect(&viewport, &tile);
-
-            _generate_area(wild_x, wild_y, dx, dy, 0);
-            _generate_encounters(wild_x, wild_y, &r, NULL);
-        }
-    }
-    _apply_glow(TRUE);
+    _generate_cave(NULL);
     _set_boundary();
 
     /* When teleporting from town to town, look for the building that offers the

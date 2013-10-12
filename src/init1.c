@@ -3840,7 +3840,7 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
             int        artifact_index = letter[idx].artifact;
             int        ego_index = letter[idx].ego;
 
-            if (!in_bounds(y2, x2)) continue;
+            if (!in_bounds2(y2, x2)) continue;
 
             /* Access the grid */
             c_ptr = &cave[y2][x2];
@@ -3848,7 +3848,11 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
             /* Lay down a floor */
             c_ptr->feat = conv_dungeon_feat(letter[idx].feature);
 
-            /* Only the features ... Scrolling wilderness should still "know" the town! */
+            /* Terrain special (e.g. Quest Number) */
+            c_ptr->special = letter[idx].special;
+
+            /* Only the features ... Scrolling wilderness should still "know" the town,
+               and its quests! */
             if (init_flags & INIT_SCROLL_WILDERNESS)
             {
                 c_ptr->info |= letter[idx].cave_info;
@@ -4007,9 +4011,6 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
                         a_info[artifact_index].cur_num = 1;
                 }
             }
-
-            /* Terrain special */
-            c_ptr->special = letter[idx].special;
         }
 
         (*y)++;
@@ -4112,6 +4113,8 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
                 cur_wid = panels_x * SCREEN_WID;
 
                 /* Assume illegal panel ... Well, there goes 5 hours of my life!
+                   Don't do this ... We might be reloading a town as a result of
+                   wilderness scrolling!
                 if (!panel_lock)
                 {
                     panel_row_min = cur_hgt;
@@ -4129,14 +4132,14 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
                     y = atoi(zz[0]);
                     x = atoi(zz[1]);
 
-                    py = y;
-                    px = x;
+                    py = y + init_dy;
+                    px = x + init_dx;
                 }
                 /* Place player in the town */
                 else if (!p_ptr->oldpx && !p_ptr->oldpy)
                 {
-                    p_ptr->oldpy = atoi(zz[0]);
-                    p_ptr->oldpx = atoi(zz[1]);
+                    p_ptr->oldpy = atoi(zz[0]) + init_dy;
+                    p_ptr->oldpx = atoi(zz[1]) + init_dx;
                 }
             }
         }
