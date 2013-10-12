@@ -375,7 +375,6 @@ extern bool closing_flag;
 extern s16b panel_row_min, panel_row_max;
 extern s16b panel_col_min, panel_col_max;
 extern s16b panel_col_prt, panel_row_prt;
-extern bool panel_lock; /* TEMP for testing */
 extern int py;
 extern int px;
 extern s16b target_who;
@@ -1004,8 +1003,9 @@ extern void output_monster_spoiler(int r_idx, void (*roff_func)(byte attr, cptr 
 extern void create_name(int type, char *name);
 extern bool mon_hook_dungeon(int r_idx);
 
+extern monster_hook_type get_wilderness_monster_hook(int x, int y);
 extern monster_hook_type get_monster_hook(void);
-extern monster_hook_type get_monster_hook2(int y, int x);
+extern monster_hook_type get_monster_hook2(int y, int x); /* x, y is standard!!! */
 extern void set_friendly(monster_type *m_ptr);
 extern void set_pet(monster_type *m_ptr);
 extern void set_hostile(monster_type *m_ptr);
@@ -1852,7 +1852,8 @@ extern bool object_can_activate(object_type *o_ptr);
 extern void set_floor_and_wall(byte type);
 extern void wilderness_gen(void);
 extern void wilderness_gen_small(void);
-extern void wilderness_move_player(int old_y, int old_x);
+extern void wilderness_move_player(int old_x, int old_y);
+extern int  wilderness_level(int x, int y);
 extern errr init_wilderness(void);
 extern void init_wilderness_terrains(void);
 extern void seed_wilderness(void);

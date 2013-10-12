@@ -1396,17 +1396,17 @@ msg_print("An infernal sound echoed.");
                     exp_gain += 60;
                 else if (cur_exp < SPELL_EXP_SKILLED)
                 {
-                    if ((dun_level > 4) && ((dun_level + 10) > p_ptr->lev))
+                    if ((MAX(base_level, dun_level) > 4) && ((MAX(base_level, dun_level) + 10) > p_ptr->lev))
                         exp_gain = 8;
                 }
                 else if (cur_exp < SPELL_EXP_EXPERT)
                 {
-                    if (((dun_level + 5) > p_ptr->lev) && ((dun_level + 5) > s_ptr->slevel))
+                    if (((MAX(base_level, dun_level) + 5) > p_ptr->lev) && ((MAX(base_level, dun_level) + 5) > s_ptr->slevel))
                         exp_gain = 2;
                 }
                 else if ((cur_exp < SPELL_EXP_MASTER) && !increment)
                 {
-                    if (((dun_level + 5) > p_ptr->lev) && (dun_level > s_ptr->slevel))
+                    if (((MAX(base_level, dun_level) + 5) > p_ptr->lev) && (MAX(base_level, dun_level) > s_ptr->slevel))
                         exp_gain = 1;
                 }
                 p_ptr->spell_exp[(increment ? 32 : 0) + spell] += exp_gain;

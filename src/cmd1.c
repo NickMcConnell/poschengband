@@ -4576,7 +4576,7 @@ bool move_player_effect(int ny, int nx, u32b mpe_mode)
                 race_ptr->move_player();
 
             if (!dun_level && !p_ptr->wild_mode)
-                wilderness_move_player(oy, ox);
+                wilderness_move_player(ox, oy);
         }
 
         /* Window stuff */

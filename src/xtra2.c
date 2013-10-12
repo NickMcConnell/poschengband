@@ -798,7 +798,7 @@ bool get_monster_drop(int m_idx, object_type *o_ptr)
     }
 
     coin_type = force_coin;
-    object_level = (dun_level + r_ptr->level) / 2;
+    object_level = (MAX(base_level, dun_level) + r_ptr->level) / 2;
     object_wipe(o_ptr);
 
     if (do_gold && (!do_item || (randint0(100) < 50)))
@@ -2083,14 +2083,6 @@ static void get_exp_from_mon(int dam, monster_type *m_ptr)
         }
     }
 
-    /* Wilderness Penalty */
-    if ( !dun_level 
-      && !p_ptr->inside_quest  /* Paranoia ... but I had dun_level == 0 inside a town quest once. I'm not sure what happened ... */
-      && (!(r_ptr->flags8 & RF8_WILD_ONLY) || !(r_ptr->flags1 & RF1_UNIQUE)) )
-    {
-        s64b_RSHIFT(new_exp, new_exp_frac, 3);
-    }
-
     /* Farming Summoners for xp is now biffed! */
     if (m_ptr->parent_m_idx)
     {
@@ -2651,10 +2643,6 @@ void panel_bounds_center(void)
 {
     int wid, hgt;
 
-    if (panel_lock)
-        return;
-
-    /* Get size */
     get_screen_size(&wid, &hgt);
 
     panel_row_max = panel_row_min + hgt - 1;
@@ -2880,8 +2868,6 @@ void verify_panel_aux(u32b options)
 
     /* Check for "no change" */
     if ((prow_min == panel_row_min) && (pcol_min == panel_col_min)) return;
-    if (panel_lock) 
-        return;
 
     /* Save the new panel info */
     panel_row_min = prow_min;

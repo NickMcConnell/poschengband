@@ -75,10 +75,10 @@
 
 /*
  * Implement continuous wilderness scrolling (as a huge hack) by dividing
- * each wilderness square into a 4x4 grid (excluding the boundary sqaures).
+ * each wilderness square into a 3x3 grid (excluding the boundary sqaures).
  */
-#define WILD_SCROLL_CY  16   /* (MAX_HGT-2)/4 ... but this better be a whole number! */
-#define WILD_SCROLL_CX  49   /* (MAX_WID-2)/4 ... but this better be a whole number! */
+#define WILD_SCROLL_CY  (MAX_HGT/3)
+#define WILD_SCROLL_CX  (MAX_WID/3)
 
 /*
  * Quest constants
@@ -4448,7 +4448,7 @@ extern int PlayerUID;
 #define INIT_SHOW_TEXT          0x01
 #define INIT_ASSIGN             0x02
 #define INIT_CREATE_DUNGEON     0x04
-#define INIT_ONLY_FEATURES      0x08
+#define INIT_SCROLL_WILDERNESS  0x08
 #define INIT_ONLY_BUILDINGS     0x10
 
 /*
