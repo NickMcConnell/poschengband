@@ -3199,7 +3199,7 @@ static void process_world(void)
     /*** Process the monsters ***/
 
     /* Check for creature generation. */
-    if (!p_ptr->inside_arena && !p_ptr->inside_quest && !p_ptr->inside_battle)
+    if (!p_ptr->inside_arena && !p_ptr->inside_quest && !p_ptr->inside_battle && dun_level)
     {
         int chance = d_info[dungeon_type].max_m_alloc_chance;
 

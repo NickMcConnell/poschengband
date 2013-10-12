@@ -1853,6 +1853,7 @@ extern void set_floor_and_wall(byte type);
 extern void wilderness_gen(void);
 extern void wilderness_gen_small(void);
 extern void wilderness_move_player(int old_x, int old_y);
+extern bool wilderness_scroll_lock;
 extern int  wilderness_level(int x, int y);
 extern errr init_wilderness(void);
 extern void init_wilderness_terrains(void);

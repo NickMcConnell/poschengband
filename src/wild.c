@@ -283,7 +283,7 @@ static void _scroll_cave(int dx, int dy)
 {
     int x, y;
 
-#if 0
+#if _DEBUG
     msg_format("Scoll Cave (%d,%d)", dx, dy);
 #endif
 
@@ -376,6 +376,7 @@ int wilderness_level(int x, int y)
 
 static void _generate_area(int x, int y, int dx, int dy, int options);
 static void _generate_encounters(int x, int y, const rect_t *r, const rect_t *exclude);
+bool wilderness_scroll_lock = FALSE;
 
 void wilderness_move_player(int old_x, int old_y)
 {
@@ -424,6 +425,16 @@ void wilderness_move_player(int old_x, int old_y)
 
     if (!dx && !dy)
         return;
+
+    /* Some code might not be prepared for _scroll_cave ... For example, rush attacks build a path, 
+       and then repeatedly move the player. */
+    if (wilderness_scroll_lock)
+    {
+    #if _DEBUG
+        msg_format("Skip Scroll (%d,%d)", dx, dy);
+    #endif
+        return;
+    }
 
     _unset_boundary();
     _scroll_cave(-dx*WILD_SCROLL_CX, -dy*WILD_SCROLL_CY);
@@ -1426,7 +1437,7 @@ bool change_wild_mode(void)
         if (m_ptr->cdis > MAX_SIGHT) continue;
         if (!is_hostile(m_ptr)) continue;
         /*if (r_info[m_ptr->r_idx].level < p_ptr->lev - 10) continue;*/
-        msg_print("You cannot enter global map, since there is some monsters nearby!");
+        msg_print("You cannot enter the global map since there are some monsters nearby!");
         energy_use = 0;
         return FALSE;
     }

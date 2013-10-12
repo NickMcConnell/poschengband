@@ -434,6 +434,7 @@ void teleport_player(int dis, u32b mode)
     int ox = px;
 
     if (!teleport_player_aux(dis, mode)) return;
+    if (!dun_level) return; /* Wilderness scrolling ... */
 
     /* Monsters with teleport ability may follow the player */
     for (xx = -2; xx < 3; xx++)

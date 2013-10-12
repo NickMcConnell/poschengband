@@ -2878,10 +2878,10 @@ static bool build_type7(void)
     x = v_ptr->wid;
     y = v_ptr->hgt;
 
-    /* Some huge vault cannot be ratated to fit in the dungeon */
+    /* Some huge vault cannot be rotated to fit in the dungeon */
     if (x+2 > cur_hgt-2)
     {
-        /* Forbid 90 or 270 degree ratation */
+        /* Forbid 90 or 270 degree rotation */
         transno &= ~1;
     }
 
