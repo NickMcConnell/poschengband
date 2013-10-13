@@ -515,20 +515,18 @@ struct monster_race
  * Information about "vault generation"
  */
 
-typedef struct vault_type vault_type;
-
-struct vault_type
+struct room_template_s
 {
-    u32b name;            /* Name (offset) */
-    u32b text;            /* Text (offset) */
-
-    byte typ;            /* Vault type */
-
-    byte rat;            /* Vault rating */
-
-    byte hgt;            /* Vault height */
-    byte wid;            /* Vault width */
+    u32b name;
+    u32b text;
+    byte type;
+    byte subtype;
+    byte rarity;
+    byte height;
+    byte width;
 };
+
+typedef struct room_template_s room_template_t;
 
 
 /*

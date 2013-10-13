@@ -2572,21 +2572,6 @@ void update_lite(void)
     int i, x, y, min_x, max_x, min_y, max_y;
     int p = p_ptr->cur_lite;
     cave_type *c_ptr;
-
-    /*** Special case ***/
-
-#if 0
-    /* Hack -- Player has no lite */
-    if (p <= 0)
-    {
-        /* Forget the old lite */
-        /* forget_lite(); Perhaps don't need? */
-
-        /* Add it to later visual update */
-        cave_redraw_later(&cave[py][px], py, px);
-    }
-#endif
-
     /*** Save the old "lite" grids for later ***/
 
     /* Clear them all */

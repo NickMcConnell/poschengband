@@ -455,9 +455,9 @@ extern player_sex *sp_ptr;
 extern player_seikaku *ap_ptr;
 extern player_magic *mp_ptr;
 extern birther previous_char;
-extern vault_type *v_info;
-extern char *v_name;
-extern char *v_text;
+extern room_template_t *room_info;
+extern char *room_name;
+extern char *room_text;
 extern player_magic *m_info;
 extern feature_type *f_info;
 extern char *f_name;
@@ -514,7 +514,7 @@ extern byte num_random_quests;
 extern u16b max_r_idx;
 extern u16b max_b_idx;
 extern u16b max_k_idx;
-extern u16b max_v_idx;
+extern u16b max_room_idx;
 extern u16b max_f_idx;
 extern u16b max_a_idx;
 extern u16b max_e_idx;
@@ -1031,6 +1031,8 @@ extern void delete_monster_idx(int i);
 extern void delete_monster(int y, int x);
 extern void compact_monsters(int size);
 extern void wipe_m_list(void);
+
+extern bool mon_is_type(int r_idx, int type); /* Uses the various SUMMON_* constants */
 
 extern s16b pack_info_pop(void);
 extern void pack_info_push(int idx);

@@ -1460,7 +1460,6 @@ void py_pickup_aux(int o_idx)
             quest[i].status = QUEST_STATUS_COMPLETED;
             quest[i].complev = (byte)p_ptr->lev;
             msg_print("You completed your quest!");
-
             msg_print(NULL);
         }
     }

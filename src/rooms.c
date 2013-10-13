@@ -2544,7 +2544,7 @@ static bool build_type6(void)
 
 
 /* coordinate translation code */
-static void coord_trans(int *x, int *y, int xoffset, int yoffset, int transno)
+void coord_trans(int *x, int *y, int xoffset, int yoffset, int transno)
 {
     int i;
     int temp;
@@ -2581,7 +2581,7 @@ static void coord_trans(int *x, int *y, int xoffset, int yoffset, int transno)
 /*
  * Hack -- fill in "vault" rooms
  */
-static void build_vault(int yval, int xval, int ymax, int xmax, cptr data,
+void build_room_template(int yval, int xval, int ymax, int xmax, cptr data,
         int xoffset, int yoffset, int transno)
 {
     int dx, dy, x, y, i, j;
@@ -2619,6 +2619,7 @@ static void build_vault(int yval, int xval, int ymax, int xmax, cptr data,
 
             /* Hack -- skip "non-grids" */
             if (*t == ' ') continue;
+            if (!in_bounds2(y, x)) continue;
 
             /* Access the grid */
             c_ptr = &cave[y][x];
@@ -2769,6 +2770,7 @@ static void build_vault(int yval, int xval, int ymax, int xmax, cptr data,
 
             /* Hack -- skip "non-grids" */
             if (*t == ' ') continue;
+            if (!in_bounds(y, x)) continue;
 
             /* Analyze the symbol */
             switch (*t)
@@ -2838,36 +2840,49 @@ static void build_vault(int yval, int xval, int ymax, int xmax, cptr data,
     }
 }
 
-
-/*
- * Type 7 -- simple vaults (see "v_info.txt")
- */
-static bool build_type7(void)
+room_template_t *choose_room_template(int type, int subtype)
 {
-    vault_type *v_ptr;
-    int dummy;
-    int x, y;
-    int xval, yval;
-    int xoffset, yoffset;
-    int transno;
+    int total = 0;
+    int i, n;
 
-    /* Pick a lesser vault */
-    for (dummy = 0; dummy < SAFE_MAX_ATTEMPTS; dummy++)
+    for (i = 0; i < max_room_idx; i++)
     {
-        /* Access a random vault record */
-        v_ptr = &v_info[randint0(max_v_idx)];
-
-        /* Accept the first lesser vault */
-        if (v_ptr->typ == 7) break;
+        room_template_t *room_ptr = &room_info[i];
+        if (room_ptr->type != type || room_ptr->subtype != subtype) continue;
+        total += room_ptr->rarity;
     }
 
-    /* No lesser vault found */
-    if (dummy >= SAFE_MAX_ATTEMPTS)
+    if (!total)
+        return NULL;
+
+    n = randint1(total);
+    for (i = 0; i < max_room_idx; i++)
+    {
+        room_template_t *room_ptr = &room_info[i];
+        if (room_ptr->type != type || room_ptr->subtype != subtype) continue;
+        n -= room_ptr->rarity;
+        if (n <= 0)
+            return room_ptr;
+    }
+
+    return NULL;
+}
+
+static bool build_vault(int subtype)
+{
+    room_template_t *v_ptr;
+    int x, y;
+    int xval, yval;
+    int xoffset = 0;
+    int yoffset = 0;
+    int transno;
+
+    /* Pick a vault */
+    v_ptr = choose_room_template(ROOM_VAULT, subtype);
+    if (!v_ptr)
     {
         if (cheat_room)
-        {
-            msg_print("Warning! Could not place lesser vault!");
-        }
+            msg_print("Warning! Could not choose vault!");
         return FALSE;
     }
 
@@ -2875,8 +2890,8 @@ static bool build_type7(void)
     transno = randint0(8);
 
     /* calculate offsets */
-    x = v_ptr->wid;
-    y = v_ptr->hgt;
+    x = v_ptr->width;
+    y = v_ptr->height;
 
     /* Some huge vault cannot be rotated to fit in the dungeon */
     if (x+2 > cur_hgt-2)
@@ -2886,131 +2901,31 @@ static bool build_type7(void)
     }
 
     coord_trans(&x, &y, 0, 0, transno);
+    if (x < 0) xoffset = -x - 1;
+    if (y < 0) yoffset = -y - 1;
 
-    if (x < 0)
-    {
-        xoffset = -x - 1;
-    }
-    else
-    {
-        xoffset = 0;
-    }
-
-    if (y < 0)
-    {
-        yoffset = -y - 1;
-    }
-    else
-    {
-        yoffset = 0;
-    }
-
-    /* Find and reserve some space in the dungeon.  Get center of room. */
-    if (!find_space(&yval, &xval, abs(y), abs(x))) return FALSE;
-
-#ifdef FORCE_V_IDX
-    v_ptr = &v_info[2];
-#endif
-
-    /* Message */
-    if (cheat_room) msg_format("Lesser vault (%s)", v_name + v_ptr->name);
-
-    /* Hack -- Build the vault */
-    build_vault(yval, xval, v_ptr->hgt, v_ptr->wid,
-            v_text + v_ptr->text, xoffset, yoffset, transno);
-
-    return TRUE;
-}
-
-
-/*
- * Type 8 -- greater vaults (see "v_info.txt")
- */
-static bool build_type8(void)
-{
-    vault_type *v_ptr;
-    int dummy;
-    int xval, yval;
-    int x, y;
-    int transno;
-    int xoffset, yoffset;
-
-    /* Pick a greater vault */
-    for (dummy = 0; dummy < SAFE_MAX_ATTEMPTS; dummy++)
-    {
-        /* Access a random vault record */
-        v_ptr = &v_info[randint0(max_v_idx)];
-
-        /* Accept the first greater vault */
-        if (v_ptr->typ == 8) break;
-    }
-
-    /* No greater vault found */
-    if (dummy >= SAFE_MAX_ATTEMPTS)
+    /* Find and reserve some space in the dungeon.  Get center of room.
+     * Hack -- Prepare a bit larger space (+2, +2) to 
+     * prevent generation of vaults with no-entrance. */
+    if (!find_space(&yval, &xval, abs(y) + 2, abs(x) + 2))
     {
         if (cheat_room)
-        {
-            msg_print("Warning! Could not place greater vault!");
-        }
+            msg_format("Warning! %s vault would not fit!", room_name + v_ptr->name);
         return FALSE;
     }
 
-    /* pick type of transformation (0-7) */
-    transno = randint0(8);
-
-    /* calculate offsets */
-    x = v_ptr->wid;
-    y = v_ptr->hgt;
-
-    /* Some huge vault cannot be ratated to fit in the dungeon */
-    if (x+2 > cur_hgt-2)
-    {
-        /* Forbid 90 or 270 degree ratation */
-        transno &= ~1;
-    }
-
-    coord_trans(&x, &y, 0, 0, transno);
-
-    if (x < 0)
-    {
-        xoffset = - x - 1;
-    }
-    else
-    {
-        xoffset = 0;
-    }
-
-    if (y < 0)
-    {
-        yoffset = - y - 1;
-    }
-    else
-    {
-        yoffset = 0;
-    }
-
-    /*
-     * Try to allocate space for room.  If fails, exit
-     *
-     * Hack -- Prepare a bit larger space (+2, +2) to 
-     * prevent generation of vaults with no-entrance.
-     */
-    /* Find and reserve some space in the dungeon.  Get center of room. */
-    if (!find_space(&yval, &xval, abs(y) + 2, abs(x) + 2)) return FALSE;
-
-#ifdef FORCE_V_IDX
-    v_ptr = &v_info[76 + randint1(3)];
-#endif
-
     /* Message */
-    if (cheat_room) msg_format("Greater vault (%s)", v_name + v_ptr->name);
+    if (cheat_room) msg_format("Vault (%s)", room_name + v_ptr->name);
 
     /* Hack -- Build the vault */
-    build_vault(yval, xval, v_ptr->hgt, v_ptr->wid,
-            v_text + v_ptr->text, xoffset, yoffset, transno);
+    build_room_template(yval, xval, v_ptr->height, v_ptr->width,
+            room_text + v_ptr->text, xoffset, yoffset, transno);
 
     return TRUE;
 }
+
+static bool build_lesser_vault(void) { return build_vault(VAULT_LESSER); }
+static bool build_greater_vault(void) { return build_vault(VAULT_GREATER); }
 
 /*
  * Structure to hold all "fill" data
@@ -6236,8 +6151,8 @@ static bool room_build(int typ)
     case ROOM_T_INNER_FEAT:    return build_type4();
     case ROOM_T_NEST:          return build_type5();
     case ROOM_T_PIT:           return build_type6();
-    case ROOM_T_LESSER_VAULT:  return build_type7();
-    case ROOM_T_GREATER_VAULT: return build_type8();
+    case ROOM_T_LESSER_VAULT:  return build_lesser_vault();
+    case ROOM_T_GREATER_VAULT: return build_greater_vault();
     case ROOM_T_FRACAVE:       return build_type9();
     case ROOM_T_RANDOM_VAULT:  return build_type10();
     case ROOM_T_OVAL:          return build_type11();

@@ -1,7 +1,7 @@
 # File: v_info.txt
+# TODO: v_info should be renamed to room_info ... -CTK
 
-
-# This file is used to initialize the "lib/raw/v_info.raw" file, which is
+#This file is used to initialize the "lib/raw/v_info.raw" file, which is
 # used to initialize the "vault template" information for the Angband game.
 
 # Do not modify this file unless you know exactly what you are doing,
@@ -11,26 +11,33 @@
 
 # Note that the "spacing" in the "description" lines is very important!
 
-
 # New vault types added for Zangband -TY
+
+# File format changed for PosChengband. Width and Height are calculated. Room
+# type/subtype is a text description (e.g. VAULT:LESSER). New room types for 
+# non-vault regular dungeon rooms (idea from Vanilla) and also for wilderness 
+# encounters. Vault choice now based on type and rarity. Rooms may be themed. 
+# I also tried to attribute individual vaults to their original authors where
+# possible. Please let me know if I missed anyone, or made any mistakes.
+# -CTK
 
 # === Understanding v_info.txt ===
 
-# N:serial number:vault name
-# X:room type:rating:rows:columns
+# N:serial number:name
+# X:type:subtype:rarity
+# T:MONSTER:theme (Coming Soon!)
+# T:OBJECT:theme (Coming Soon!)
 # D:lines giving full layout of vault using symbols below
 
 # 'N' indicates the beginning of an entry. The serial number must
 # increase for each new vault.
 
-# 'X' is for extra information - room type, rating, rows, and
-# columns. Lesser vaults are room type 7 and have a maximum x-y size
-# of 33x22 (despite what the file claims); greater vaults are room
-# type 8 and have a maximum size of 66x44.
+# 'X' is for extra information - room type, subtype and rarity.
+# Wilderness "rooms" use terrain values for subtype.
 
-# 'D' lines describe the layout of the vault. Lines must be added
-# with spaces to fill the dimensions specified. Vaults are described
-# with the following symbols:
+# 'D' lines describe the layout of the room. Lines must be added
+# with spaces to fill square dimension. The following symbols are
+# allowed:
 
 #    % - outside of the vault, where corridors may be connected
 #    # - granite
@@ -48,16 +55,17 @@
 #    8 - monster up to 40 levels OOD and treasure up to 20 levels OOD
 #    , - monster up to 3 levels OOD and/or treasure up to 7 levels OOD
 
+# Add new symbols (local to current template) with F:... (Coming Soon!)
+
 # Version stamp (required)
 
-V:2.8.1
+V:3.0.0
 
 
-### Simple Vaults (type 7) -- maximum size 44x22 ###
-
+### Simple Vaults -- maximum size 44x22 ###
 
 N:0:Lesser vault (round)
-X:7:5:12:20
+X:VAULT:LESSER:5
 D:       %%%%%%       
 D:    %%%..##..%%%    
 D:  %%....####....%%  
@@ -73,7 +81,7 @@ D:       %%%%%%
 
 
 N:1:Lesser vault (octagon)
-X:7:5:14:20
+X:VAULT:LESSER:5
 D:   %%%%%%%%%%%%%%   
 D:  %%.##########.%%  
 D: %%..#..,,,,..#..%% 
@@ -91,7 +99,7 @@ D:   %%%%%%%%%%%%%%
 
 
 N:2:Lesser vault (octagon)
-X:7:5:12:20
+X:VAULT:LESSER:5
 D:    %%%%%%%%%%%%    
 D: %%%%..........%%%% 
 D: %...###+##+###...% 
@@ -107,7 +115,7 @@ D:    %%%%%%%%%%%%
 
 
 N:3:Lesser vault (square)
-X:7:5:12:20
+X:VAULT:LESSER:5
 D:%%%%%%%%%%%%%%%%%%%%
 D:%*.......&........*%
 D:%.################.%
@@ -123,7 +131,7 @@ D:%%%%%%%%%%%%%%%%%%%%
 
 
 N:4:Lesser vault (diagonal)
-X:7:5:12:20
+X:VAULT:LESSER:5
 D:%%%%%%%%%%%%%%%%%   
 D:%,,,##,,,,##....%%  
 D:%,,,,##,,,,##....%% 
@@ -139,7 +147,7 @@ D:   %%%%%%%%%%%%%%%%%
 
 
 N:5:Lesser vault (diagonal)
-X:7:5:12:20
+X:VAULT:LESSER:5
 D:   %%%%%%%%%%%%%%%%%
 D:  %%....##,,,,##,,,%
 D: %%....##,,,,##,,,,%
@@ -155,7 +163,7 @@ D:%%%%%%%%%%%%%%%%%
 
 
 N:6:Lesser vault (square)
-X:7:5:12:20
+X:VAULT:LESSER:5
 D:%%%%%%%%%%%%%%%%%%%%
 D:%,################,%
 D:%^#.*...&..,....,#^%
@@ -169,8 +177,10 @@ D:%^#..&......*....#^%
 D:%,################,%
 D:%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:7:Lesser vault (spiral)
-X:7:5:19:21
+X:VAULT:LESSER:5
 D:%%%%%%%%%%%%%%%%%%%%%
 D:%...................%
 D:%.+################.%
@@ -191,8 +201,10 @@ D:%.################+.%
 D:%...................%
 D:%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:8:Lesser vault (layers)
-X:7:5:21:21
+X:VAULT:LESSER:5
 D:%%%%%%%%%%%%%%%%%%%%%
 D:%...................%
 D:%.########+########.%
@@ -215,8 +227,10 @@ D:%.#################.%
 D:%...................%
 D:%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:9:Lesser vault (bank)
-X:7:7:9:21
+X:VAULT:LESSER:7
 D:%%%%%%%%%%%%%%%%%%%%%
 D:%...................%
 D:%.&XXXXXXXXXXXXXXXXX%
@@ -227,8 +241,10 @@ D:%.&XXXXXXXXXXXXXXXXX%
 D:%...................%
 D:%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:10:Lesser vault (mine)
-X:7:7:9:21
+X:VAULT:LESSER:7
 D:%%%%%%%%%%%%%%%%%%%%%
 D:%...................%
 D:%.XXXXXXXXXXXXXXXXXX%
@@ -239,8 +255,10 @@ D:%.XXXXXXXXXXXXXXXXXX%
 D:%...................%
 D:%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:11:Lesser vault (maze)
-X:7:5:22:22
+X:VAULT:LESSER:5
 D:%%%%%%%%%%%%%%%%%%%%%%
 D:%.XXXXXXX............%
 D:%.XX,,.XXXXXXXXXXXXX.%
@@ -264,8 +282,10 @@ D:%.XX^XXXXXX..X*X,XXX.%
 D:%........XXXXXXXXXXX.%
 D:%%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:12:Lesser vault (prison)
-X:7:10:15:35
+X:VAULT:LESSER:10
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%.+..&..+..&..+..&..+..&..+..&..+.%
 D:%.###.#####.#####.#####.#####.###.%
@@ -282,8 +302,10 @@ D:%.###.#####.#####.#####.#####.###.%
 D:%&+..&..+..&..+..&..+..&..+..&..+.%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:13:Lesser vault (camp)
-X:7:10:15:37
+X:VAULT:LESSER:10
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%...................................%
 D:%.####^^^^^^^^^^^^^^^^^^^^^^^^^####.%
@@ -300,8 +322,10 @@ D:%.####^^^^^^^^^^^^^^^^^^^^^^^^^####.%
 D:%...................................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:14:Lesser vault (serpent)
-X:7:10:17:32
+X:VAULT:LESSER:10
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%..............................%
 D:%..##########################..%
@@ -320,8 +344,10 @@ D:%..##########################..%
 D:%..............................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:15:Lesser vault (zelazny)
-X:7:5:18:19
+X:VAULT:LESSER:5
 D:%%%%%%%%%%%%%%%%%%%
 D:%.................%
 D:%.###############.%
@@ -341,8 +367,10 @@ D:%.###############.%
 D:%.................%
 D:%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:16:Lesser vault (overlap)
-X:7:5:12:18
+X:VAULT:LESSER:5
 D:%%%%%%%%%%%%%%%%%%
 D:%................%
 D:%.##########.....%
@@ -356,8 +384,10 @@ D:%.....##########.%
 D:%................%
 D:%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:17:Lesser vault (celtic)
-X:7:5:17:21
+X:VAULT:LESSER:5
 D:%%%%%%%%%%%%%%%%%%%%%
 D:%...................%
 D:%.#####..#+#..#####.%
@@ -376,9 +406,10 @@ D:%.#####..#+#..#####.%
 D:%...................%
 D:%%%%%%%%%%%%%%%%%%%%%
 
-
+# Topi Ylinen
+#
 N:18:Lesser vault (mirror)
-X:7:5:17:19
+X:VAULT:LESSER:5
 D:%%%%%%%%%%%%%%%%%%%
 D:%.................%
 D:%.-$$$$$$$$$$$$$-.%
@@ -398,8 +429,10 @@ D:%.................%
 D:%%%%%%%%%%%%%%%%%%%
 
 
+# Topi Ylinen
+#
 N:19:Lesser vault (tower)
-X:7:5:18:15
+X:VAULT:LESSER:5
 D:%%%%%%%%%%%%%%%
 D:%.............%
 D:%..XXX...XXX..%
@@ -420,10 +453,10 @@ D:%...&.....&...%
 D:%%%%%%%%%%%%%%%
 
 
-### Greater vaults (type 8) -- maximum size 66x44 ###
+### Greater vaults -- maximum size 66x44 ###
 
 N:20:Greater vault (huge)
-X:8:45:17:39
+X:VAULT:GREATER:45
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
 D:%+&#8#&#8#&#8#&#8#&#8#&#8#&#8#&#8#&#8X%
@@ -444,7 +477,7 @@ D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 N:21:Greater vault (large)
-X:8:35:18:40
+X:VAULT:GREATER:35
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
 D:%X,#,#,#,#,#,#,#,#*@@*#,#,#,#,#,#,#,#,X%
@@ -466,7 +499,7 @@ D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 N:22:Greater vault (butterfly)
-X:8:25:18:40
+X:VAULT:GREATER:25
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
 D:%X*9..&XX***++^^^^^^^^^^^^++***XX&..*9X%
@@ -487,9 +520,10 @@ D:%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-
+# Topi Ylinen
+#
 N:23:Greater vault (castle)
-X:8:35:27:27
+X:VAULT:GREATER:35
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%.........................%
 D:%..XXXXX..XXX+XXX..XXXXX..%
@@ -518,8 +552,10 @@ D:%..XXXXX..XX^^^XX..XXXXX..%
 D:%.........................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:24:Greater vault (chambers)
-X:8:25:15:40
+X:VAULT:GREATER:25
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%&+.^..^..^..^..^..^..^..^..^..^..^..+&%
 D:%+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX+%
@@ -536,8 +572,10 @@ D:%+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX+%
 D:%&+..^..^..^..^..^..^..^..^..^..^..^.+&%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:25:Greater vault (Sierpinski)
-X:8:35:28:39
+X:VAULT:GREATER:35
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%..................X..................%
 D:%.................XXX.................%
@@ -568,7 +606,7 @@ D:%.........&.................&.........%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 N:26:Greater vault (swastika)
-X:8:25:23:29
+X:VAULT:GREATER:25
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%....^^^^^^^^^^^^^^^^^^^^^..%
 D:%^^^^^###################^..%
@@ -593,8 +631,10 @@ D:%..^###################^^^^^%
 D:%..^^^^^^^^^^^^^^^^^^^^^....%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:27:Greater vault (great spiral)
-X:8:40:39:39
+X:VAULT:GREATER:40
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%.....................................%
 D:%.X+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.%
@@ -635,8 +675,10 @@ D:%.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX+X.%
 D:%.....................................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:28:Greater vault (greater castle)
-X:8:40:25:51
+X:VAULT:GREATER:40
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%.................................................%
 D:%...XXXXXX...............................XXXXXX...%
@@ -663,8 +705,10 @@ D:%...XXXXXX...........XXXX+XXXX...........XXXXXX...%
 D:%.................................................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:29:Lesser vault (x-factor)
-X:8:25:25:26
+X:VAULT:GREATER:25
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%^^^^^^^^^^^^^^^^^^^^^^^^%
 D:%^##########++##########^%
@@ -692,8 +736,10 @@ D:%^^^^^^^^^^^^^^^^^^^^^^^^%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+# Topi Ylinen
+#
 N:30:Greater vault (university)
-X:8:30:29:38
+X:VAULT:GREATER:30
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%....................................%
 D:%.##################################.%
@@ -724,8 +770,10 @@ D:%.##################################.%
 D:%....................................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:31:Greater vault (nethack castle (almost))
-X:8:35:19:62
+X:VAULT:GREATER:35
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%............................................................%
 D:%.XXXXXXX............................................XXXXXXX.%
@@ -746,8 +794,10 @@ D:%.XXXXXXX............................................XXXXXXX.%
 D:%............................................................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:32:Greater vault (another nethack-style castle)
-X:8:30:18:52
+X:VAULT:GREATER:30
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%..................................................%
 D:%.XXXXX......................................XXXXX.%
@@ -767,8 +817,10 @@ D:%.XXXXX......................................XXXXX.%
 D:%..................................................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:33:Lesser vault (nethack-style tower)
-X:7:5:15:19
+X:VAULT:LESSER:5
 D:%%%%%%%%%%%%%%%%%%%
 D:%.................%
 D:%...###.###.###...%
@@ -785,9 +837,10 @@ D:%...###.###.###...%
 D:%.................%
 D:%%%%%%%%%%%%%%%%%%%
 
-
+# Topi Ylinen
+#
 N:34:Lesser vault (nethack, rooms)
-X:7:5:14:27
+X:VAULT:LESSER:5
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%.........................%
 D:%.#+#####################.%
@@ -803,8 +856,10 @@ D:%.#######################.%
 D:%.........................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:35:Lesser vault (nethack city)
-X:7:9:17:33
+X:VAULT:LESSER:9
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%...............................%
 D:%.############.....############.%
@@ -823,8 +878,10 @@ D:%.############.######.#########.%
 D:%...............................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:36:Greater vault (nethack, large city)
-X:8:25:21:54
+X:VAULT:GREATER:25
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%....................................................%
 D:%.##################################################.%
@@ -847,8 +904,10 @@ D:%.##################################################.%
 D:%....................................................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:37:Lesser vault (nethack, tiny castle)
-X:7:5:14:34
+X:VAULT:LESSER:5
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%................................%
 D:%.#####....................#####.%
@@ -864,8 +923,10 @@ D:%.#####....................#####.%
 D:%................................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:38:Greater vault (nethack mirror)
-X:8:25:22:41
+X:VAULT:GREATER:25
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%.......................................%
 D:%...............XXXX+XXXX...............%
@@ -889,8 +950,10 @@ D:%...............XXXX+XXXX...............%
 D:%.......................................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:39:Greater vault (nethack tomb)
-X:8:25:13:57
+X:VAULT:GREATER:25
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%.......................................................%
 D:%..........XXXXX.XXXXX.XXXXX.XXXXX.XXXXX................%
@@ -905,8 +968,10 @@ D:%..........XXXXX.XXXXX.XXXXX.XXXXX.XXXXX................%
 D:%.......................................................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:40:Greater vault (nethack hell level #1)
-X:8:30:17:55
+X:VAULT:GREATER:30
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%.....................................................%
 D:%.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.%
@@ -925,8 +990,10 @@ D:%.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.%
 D:%.....................................................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:41:Greater vault (nethack hell level #2)
-X:8:30:15:54
+X:VAULT:GREATER:30
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%....................................................%
 D:%.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX...%
@@ -943,8 +1010,10 @@ D:%.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX...%
 D:%....................................................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:42:Greater vault (nethack hell level #3)
-X:8:30:17:55
+X:VAULT:GREATER:30
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%.....................................................%
 D:%...XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.........%
@@ -963,8 +1032,10 @@ D:%...XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.........%
 D:%.....................................................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:43:Lesser vault (easter egg)
-X:7:5:14:19
+X:VAULT:LESSER:5
 D:%%%%%%%%%%%%%%%%%%%
 D:%.................%
 D:%.###############.%
@@ -980,8 +1051,10 @@ D:%.###############.%
 D:%.................%
 D:%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:44:Greater vault (nethack samurai castle)
-X:8:35:20:59
+X:VAULT:GREATER:35
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%.........................................................%
 D:%.XXXXX.............................................XXXXX.%
@@ -1003,8 +1076,10 @@ D:%.XXXXX.............................................XXXXX.%
 D:%.........................................................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:45:Greater vault (nethack samurai castle #2)
-X:8:35:20:61
+X:VAULT:GREATER:35
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%...........................................................%
 D:%.XXXXXXXXXXXXX...............................XXXXXXXXXXXXX.%
@@ -1026,8 +1101,10 @@ D:%.XXXXXXXXXXXXX...............................XXXXXXXXXXXXX.%
 D:%...........................................................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:46:Greater vault (nethack spiral)
-X:8:30:19:38
+X:VAULT:GREATER:30
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%.........XXXXXXXXX+XXXXXXXXX........%
 D:%......XXXX^^^^^^^^^^^^^^^^^XXXX.....%
@@ -1048,9 +1125,10 @@ D:%......XXXX,,,,,,,,,,,,,,,,,XXXX.....%
 D:%.........XXXXXXXXXXXXXXXXXXX........%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
+# Topi Ylinen
+#
 N:47:Greater vault (nethack building)
-X:8:30:16:41
+X:VAULT:GREATER:30
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%...XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
 D:%...X^^^^^^^^^^^^^^^^X**@**X**@**X**@**X%
@@ -1068,8 +1146,10 @@ D:%...X^^^^^^^^^^^^^^^^X**@**X**@**X**@**X%
 D:%...XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:48:Lesser vault (nethack, spiral rooms)
-X:7:5:13:32
+X:VAULT:LESSER:5
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%..............................%
 D:%....#######################...%
@@ -1084,8 +1164,10 @@ D:%....#######################...%
 D:%..............................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:49:Greater vault (nethack building)
-X:8:30:17:54
+X:VAULT:GREATER:30
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%....................................................%
 D:%........XXXXXXXXXXXXX.................XXXXXXXXXXXXX.%
@@ -1104,8 +1186,10 @@ D:%........XXXXXXXXXXXXX.................XXXXXXXXXXXXX.%
 D:%....................................................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:50:Lesser vault (nethack, head)
-X:7:7:17:29
+X:VAULT:LESSER:7
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%........###########........%
 D:%...#####################...%
@@ -1125,8 +1209,10 @@ D:%........###########........%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+# Topi Ylinen
+#
 N:51:Lesser vault (maze of rooms)
-X:7:10:16:32
+X:VAULT:LESSER:10
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%..............................%
 D:%.#+##########################.%
@@ -1144,8 +1230,10 @@ D:%.##########################+#.%
 D:%..............................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:52:Lesser vault (tetris tiles)
-X:7:5:20:13
+X:VAULT:LESSER:5
 D:%%%%%%%%%%%%%
 D:%..#######..%
 D:%..#**#**#..%
@@ -1167,8 +1255,10 @@ D:%..###.###..%
 D:%...........%
 D:%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:53:Lesser vault (hospital ward)
-X:7:5:14:20
+X:VAULT:LESSER:5
 D:%%%%%%%%%%%%%%%%%%%%
 D:%..................%
 D:%.################.%
@@ -1184,8 +1274,10 @@ D:%.################.%
 D:%..................%
 D:%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:54:Lesser vault (lesser crypt)
-X:7:5:13:26
+X:VAULT:LESSER:5
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%................###.....%
 D:%................#,#.....%
@@ -1201,8 +1293,10 @@ D:%................###.....%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+# Topi Ylinen
+#
 N:55:Lesser vault (arena)
-X:7:5:15:17
+X:VAULT:LESSER:5
 D:%%%%%%%%%%%%%%%%%
 D:%...............%
 D:%.-$$$$$$$$$$$-.%
@@ -1219,8 +1313,10 @@ D:%.-$$$$$$$$$$$-.%
 D:%...............%
 D:%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:56:Lesser vault (monster wc)
-X:7:5:12:12
+X:VAULT:LESSER:5
 D:%%%%%%%%%%%%
 D:%..#######.%
 D:%..#.&&&&#.%
@@ -1234,8 +1330,10 @@ D:%..#+#####.%
 D:%..........%
 D:%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:57:Lesser vault ('not' 'and')
-X:7:5:11:15
+X:VAULT:LESSER:5
 D:%%%%%%%%%%%%%%%
 D:%.............%
 D:%..#########..%
@@ -1248,8 +1346,10 @@ D:%..#########..%
 D:%.............%
 D:%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:58:Lesser vault (brain's lair)
-X:7:5:18:17
+X:VAULT:LESSER:5
 D:%%%%%%%%%%%%%%%%%
 D:%...............%
 D:%.#############.%
@@ -1269,8 +1369,10 @@ D:%.#############.%
 D:%...............%
 D:%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:59:Lesser vault (yin-yang)
-X:7:5:17:16
+X:VAULT:LESSER:5
 D:%%%%%%%%%%%%%%%%
 D:%..............%
 D:%.#+##########.%
@@ -1289,8 +1391,10 @@ D:%.##########+#.%
 D:%..............%
 D:%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:60:Greater vault (der el bahri)
-X:8:35:28:45
+X:VAULT:GREATER:35
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.%
 D:%.X***X,,X^^^^^^^^X9988899X^^^^^^^^+******X.%
@@ -1320,8 +1424,10 @@ D:%.X.................X.^.X.................X.%
 D:%...........................................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:61:Lesser vault (der el bahri sanctuary)
-X:7:5:12:22
+X:VAULT:LESSER:5
 D:%%%%%%%%%%%%%%%%%%%%%%
 D:%....................%
 D:%..........###.......%
@@ -1335,8 +1441,10 @@ D:%......###...........%
 D:%....................%
 D:%%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:62:Greater vault (hypostyle of ramses III)
-X:8:40:38:34
+X:VAULT:GREATER:40
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.%
 D:%.X888888+*******X*******+88888X.%
@@ -1376,8 +1484,10 @@ D:%.XXXXXXXXXXXXXX+++XXXXXXXXXXXXX.%
 D:%................................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:63:Lesser vault (amada temple)
-X:7:10:15:30
+X:VAULT:LESSER:10
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%............................%
 D:%.######################.....%
@@ -1394,8 +1504,10 @@ D:%.######################.....%
 D:%............................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:64:Lesser vault (amenhotep I)
-X:7:10:18:34
+X:VAULT:LESSER:10
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%................................%
 D:%...............######...........%
@@ -1415,8 +1527,10 @@ D:%...............######...........%
 D:%................................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:65:Lesser vault (hathor chapel)
-X:7:10:21:19
+X:VAULT:LESSER:10
 D:%%%%%%%%%%%%%%%%%%%
 D:%.................%
 D:%......##+###.....%
@@ -1440,8 +1554,10 @@ D:%.....#######.....%
 D:%%%%%%%%%%%%%%%%%%%
 
 
+# Topi Ylinen
+#
 N:66:Lesser vault (osiris halls)
-X:7:10:17:34
+X:VAULT:LESSER:10
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%................................%
 D:%.###########################....%
@@ -1460,8 +1576,10 @@ D:%.##############################.%
 D:%................................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:67:Lesser vault (temple of sety)
-X:7:10:22:25
+X:VAULT:LESSER:10
 D:%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%.##########+##########.%
 D:%.#,,,,,,,#^^^#,,,,,,,#.%
@@ -1486,8 +1604,10 @@ D:%.......................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+# Topi Ylinen
+#
 N:68:Lesser vault (temple at abydos)
-X:7:10:21:23
+X:VAULT:LESSER:10
 D:%%%%%%%%%%%%%%%%%%%%%%%
 D:%^^^^^^^^^^^^^^^^^^^^^%
 D:%^#+#+#####+#####+#+#^%
@@ -1511,8 +1631,10 @@ D:%^^^^^^^^^^^^^^^^^^^^^%
 D:%%%%%%%%%%%%%%%%%%%%%%%
 
 
+# Topi Ylinen
+#
 N:69:Greater vault (Spiral castle)
-X:8:35:31:25
+X:VAULT:GREATER:35
 D:%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%.......................%
 D:%.XXXXX...........XXXXX.%
@@ -1546,8 +1668,10 @@ D:%.......................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+# Topi Ylinen
+#
 N:70:Lesser vault (temple of dendereh)
-X:7:10:20:22
+X:VAULT:LESSER:10
 D:%%%%%%%%%%%%%%%%%%%%%%
 D:%....................%
 D:%.##################.%
@@ -1570,8 +1694,10 @@ D:%....................%
 D:%%%%%%%%%%%%%%%%%%%%%%
 
 
+# Topi Ylinen
+#
 N:71:Greater vault (Karnak, part I)
-X:8:35:24:44
+X:VAULT:GREATER:35
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.%
 D:%.X*****+^+^^^^+^^^X,,,X***X***X***X,****X.%
@@ -1597,8 +1723,10 @@ D:%.XXXXXXXXXXXXXXXX+XXXXXXXXXXXXXXXXXXXXXXX.%
 D:%..........................................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:72:Lesser vault (Karnak, part II)
-X:7:10:20:29
+X:VAULT:LESSER:10
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%...........................%
 D:%.###+######################%
@@ -1620,8 +1748,10 @@ D:%...##########+##########...%
 D:%...........................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:73:Greater vault (mortuary temple of sety)
-X:8:35:25:34
+X:VAULT:GREATER:35
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%................................%
 D:%.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.%
@@ -1648,8 +1778,10 @@ D:%.XXXXXXXXXXXXXX+XXXXXXXXXXX+XXX.%
 D:%................................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:74:Lesser vault (edfu)
-X:7:5:15:15
+X:VAULT:LESSER:5
 D:%%%%%%%%%%%%%%%
 D:%.............%
 D:%.###########.%
@@ -1666,8 +1798,10 @@ D:%.#####^#####.%
 D:%.............%
 D:%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:75:Greater vault (kom ombo)
-X:8:40:36:30
+X:VAULT:GREATER:40
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%.XXXXXXXXXXXXXXXXXXXXXXXXXX.%
 D:%.X****X,99,X9889X,99,X****X.%
@@ -1705,8 +1839,10 @@ D:%.XXXXXXXXX+XXXXXX+XXXXXXXXX.%
 D:%............................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Topi Ylinen
+#
 N:76:Lesser vault (belvoir keep)
-X:7:5:19:21
+X:VAULT:LESSER:5
 D:%%%%%%%%%%%%%%%%%%%%%
 D:%...................%
 D:%.###...........###.%
@@ -1727,8 +1863,10 @@ D:%.......#####.......%
 D:%...................%
 D:%%%%%%%%%%%%%%%%%%%%%
 
-N:77:Lesser vault (Pattern)
-X:8:30:31:47
+# Topi Ylinen
+#
+N:77:Lesser vault (ragged spiral)
+X:VAULT:GREATER:30
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.%
 D:%X@&+.............................+&@X,,,,,,X.%
@@ -1762,8 +1900,10 @@ D:%.............................................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-N:78:Greater vault (Pattern 2)
-X:8:30:29:45
+# Topi Ylinen
+#
+N:78:Greater vault (alternating spiral)
+X:VAULT:GREATER:30
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
 D:%X8+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^+8X%
@@ -1795,9 +1935,10 @@ D:%...........................................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-
-N:79:Greater vault (Pattern 2)
-X:8:30:30:42
+# Topi Ylinen
+#
+N:79:Greater vault (wandering)
+X:VAULT:GREATER:30
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
 D:%.X9+^^^^^^^^^^^^^^^^^+,,,,,,,,,,,,,,,+8X%
@@ -1841,8 +1982,10 @@ D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # As a final note, due to the size of most of these vaults, they are
 # less likely to be generated in the dungeons of Angband.
 
+# Chris Weisiger
+#
 N:80:Rock-Hard
-X:7:10:11:20
+X:VAULT:LESSER:10
 D:%%%%%%%%%%%%%%%%%%%%
 D:%..................%
 D:%.#^############^#.%
@@ -1855,8 +1998,10 @@ D:%.#####^####^#####.%
 D:%..................%
 D:%%%%%%%%%%%%%%%%%%%%
 
+# Chris Weisiger
+#
 N:81:Planet X
-X:7:10:13:15
+X:VAULT:LESSER:10
 D:%%%%%%%%%%%%%%%
 D:%.............%
 D:%.XXXXX#XXXXX.%
@@ -1872,16 +2017,20 @@ D:%.............%
 D:%%%%%%%%%%%%%%%
 
 
+# Chris Weisiger
+#
 N:82:Miniature Cell
-X:7:25:5:5
+X:VAULT:LESSER:25
 D:%%%%%
 D:%#8#%
 D:%888%
 D:%#8#%
 D:%%%%%
 
+# Chris Weisiger
+#
 N:83:LV (Turnabout)
-X:7:10:12:15
+X:VAULT:LESSER:10
 D:###############
 D:#.............#
 D:#.###########.#
@@ -1895,8 +2044,10 @@ D:#.#####^#####.#
 D:#.............#
 D:###############
 
+# Chris Weisiger
+#
 N:84:Lesser Vault (Rooms)
-X:7:10:13:19
+X:VAULT:LESSER:10
 D:%%%%%%%%%%%%%%%%%%%
 D:%.................%
 D:%.###############.%
@@ -1911,8 +2062,10 @@ D:%.###############.%
 D:%.................%
 D:%%%%%%%%%%%%%%%%%%%
 
+# Chris Weisiger
+#
 N:85:Lesser Vault (Cross)
-X:7:10:13:20
+X:VAULT:LESSER:10
 D:%%%%%%%%%%%%%%%%%%%%
 D:%########++########%
 D:%#*....*#..#*....*#%
@@ -1927,8 +2080,10 @@ D:%#*....*#..#*....*#%
 D:%########++########%
 D:%%%%%%%%%%%%%%%%%%%%
 
+# Chris Weisiger
+#
 N:86:Lesser Vault (Central)
-X:7:12:10:12
+X:VAULT:LESSER:12
 D:############
 D:#,#^^^^^^#,#
 D:##+######+##
@@ -1940,8 +2095,10 @@ D:##+######+##
 D:#,#^^^^^^#,#
 D:############
 
+# Chris Weisiger
+#
 N:87:Lesser Vault (Camouflaged)
-X:7:10:9:12
+X:VAULT:LESSER:10
 D:%%%%%%%%%%%%
 D:%XXXXXXXXXX%
 D:%#,,,,,,,,X%
@@ -1952,11 +2109,10 @@ D:%#,,,,,,,,X%
 D:%XXXXXXXXXX%
 D:%%%%%%%%%%%%
 
-
-#Greater Vaults (denoted by "8" in X: line)
-
+# Chris Weisiger
+#
 N:88:Greater Vault (Twisted Cube)
-X:8:20:24:41
+X:VAULT:GREATER:20
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%.......................................%
 D:%.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.....%
@@ -1982,8 +2138,10 @@ D:%.....XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.%
 D:%.......................................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Chris Weisiger
+#
 N:89:The Reward is Worth It
-X:8:20:16:63
+X:VAULT:GREATER:20
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%XXXXXXXXXXXXXXX##XXXXXXXXXXXXX#XXXXXXXXXXXXX##XXXXXXXXXXXXXXX%
 D:%X@@@@@@@@@@@.XX88XX.......,,,X^X,,,.......XX88XX.@@@@@@@@@@@X%
@@ -2001,8 +2159,10 @@ D:%X,,,,,,X#@@@@@@@@@@@@@@XXX&&&&&&&&&XXX@@@@@@@@@@@@@@#X,,,,,,X%
 D:%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Chris Weisiger
+#
 N:90:The I in the Storm
-X:8:40:25:41
+X:VAULT:GREATER:40
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%XXXXXXXXXXXXXXXXXXX#XXXXXXXXXXXXXXXXXXX%
 D:%X&&..^..#9X..^^^^^^^^^^^^^..X9#..^..&&X%
@@ -2029,8 +2189,10 @@ D:%X&&..^..#9X..^^^^^^^^^^^^^..X9#..^..&&X%
 D:%XXXXXXXXXXXXXXXXXXX#XXXXXXXXXXXXXXXXXXX%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Chris Weisiger
+#
 N:91:The Bank From Hell
-X:8:30:20:31
+X:VAULT:GREATER:30
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%XXXXXXXXXXXXXX+XXXXXXXXXXXXXX%
 D:%X.&.&.&.&.&.#...#.&.&.&.&.&.X%
@@ -2052,8 +2214,10 @@ D:%X.@.@.@.@.@.@.@.@.@.@.@.@.@.X%
 D:%XXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Chris Weisiger
+#
 N:92:Target Practice
-X:8:20:20:61
+X:VAULT:GREATER:20
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
 D:%X@........................................................#%
@@ -2075,8 +2239,10 @@ D:%X@........................................................#%
 D:%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Chris Weisiger
+#
 N:93:Snake Maze
-X:8:15:21:23
+X:VAULT:GREATER:15
 D:%%%%%%%%%%%%%%%%%%%%%%%
 D:%.....................%
 D:%.XXXXXXXXX+XXXXXXXXX.%
@@ -2099,8 +2265,10 @@ D:%.X+XXXXXXXXXXXXXXXXX.%
 D:%.....................%
 D:%%%%%%%%%%%%%%%%%%%%%%%
 
+# Chris Weisiger
+#
 N:94:Roundabouts One
-X:8:15:21:43
+X:VAULT:GREATER:15
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
 D:%X^^^^^^^^^^^^^^^^#&^^^&^^^^^^^^^^^^^&^,,X%
@@ -2123,8 +2291,10 @@ D:%X,,^&^^^^^^^^^^^^^&^^^&#^^^^^^^^^^^^^^^^X%
 D:%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Chris Weisiger
+#
 N:95:Roundabout Two
-X:8:25:25:40
+X:VAULT:GREATER:25
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
 D:%#^X.^^+X@XX.+X^^^^^+.X...X8#@&*X*****X%
@@ -2151,8 +2321,10 @@ D:%#^X.^^+X@XX.+X^^^^^+.X...X8#@&*X*****X%
 D:%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Chris Weisiger
+#
 N:96:Roundabout Three
-X:8:30:20:97
+X:VAULT:GREATER:30
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
 D:%X,&,,,,,,,,,,,^^^^^^^^^^......XX.#X.XXX.......X.X.......XXX.X#.XX......^^^^^^^^^^,,,,,,,,,,,&,X%
@@ -2174,8 +2346,10 @@ D:%X,&,,,,,,,,,,,^^^^^^^^^^......XX.#X.XXX.......X.X.......XXX.X#.XX......^^^^^^
 D:%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Chris Weisiger
+#
 N:97:Modified Greater Vault (Huge)
-X:8:45:17:39
+X:VAULT:GREATER:45
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
 D:%#8#8#8#8#8#8#8#8#8#8#8#8#8#8#8#8#8#8X%
@@ -2194,8 +2368,10 @@ D:%X8#8#8#8#8#8#8#8#8#8#8#8#8#8#8#8#8#8#%
 D:%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Chris Weisiger
+#
 N:98:Mirrored Quartet
-X:8:20:21:49
+X:VAULT:GREATER:20
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
 D:%X89@@@XXX,,,,XXX....^^^^^^^....XXX,,,,XXX@@@98X%
@@ -2218,8 +2394,10 @@ D:%X89@@@XXX,,,,XXX**..^^^^^^^..**XXX,,,,XXX@@@98X%
 D:%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Chris Weisiger
+#
 N:99:Jigsaw
-X:8:25:16:49
+X:VAULT:GREATER:25
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%...............................................%
 D:%.#############################################.%
@@ -2237,8 +2415,10 @@ D:%.#############################################.%
 D:%...............................................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Chris Weisiger
+#
 N:100:Hellpit
-X:8:20:19:60
+X:VAULT:GREATER:20
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%..........................................................%
 D:%.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.%
@@ -2259,8 +2439,10 @@ D:%.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.%
 D:%..........................................................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Chris Weisiger
+#
 N:101:Funnel
-X:8:15:21:23
+X:VAULT:GREATER:15
 D:%%%%%%%%%%%%%%%%%%%%%%%
 D:%XXXXXXXXXXXXXXXXXXXXX%
 D:%X&&&...........***X.#%
@@ -2283,8 +2465,10 @@ D:%X***.............&&&X%
 D:%XXXXXXXXXXXXXXXXXXXXX%
 D:%%%%%%%%%%%%%%%%%%%%%%%
 
+# Chris Weisiger
+#
 N:102:False Wall
-X:8:20:15:64
+X:VAULT:GREATER:20
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%X+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX+X%
 D:%X^+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^+^X%
@@ -2301,8 +2485,10 @@ D:%X^+*&*@*&*@*&*@*&*@*&*@*&X&@&@88&@&@X&*@*&*@*&*@*&*@*&*@*&*+^X%
 D:%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Chris Weisiger
+#
 N:103:Greater Vault (Divisi)
-X:8:35:31:55
+X:VAULT:GREATER:35
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%.....................................................%
 D:%.#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#.%
@@ -2335,8 +2521,10 @@ D:%.#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#.%
 D:%.....................................................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Chris Weisiger
+#
 N:104:Darwinism
-X:8:25:16:33
+X:VAULT:GREATER:25
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%...............................%
 D:%...............................%
@@ -2354,8 +2542,10 @@ D:%.......##.............##.......%
 D:%...............................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Chris Weisiger
+#
 N:105:Cyclone
-X:8:40:23:91
+X:VAULT:GREATER:40
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
 D:%XXXX^^^^^^^^^XXX^^^^^^^^^XXX^^^#XXX8.X.&.X.&.X..*X+^.^.^.^.^.^..XX*^.^.^.^.^.^.^.^.^.^#8X%
@@ -2380,8 +2570,10 @@ D:%XXXX^^^^^^^^^XXX^^^^^^^^^XXX^^^#XXX8.X.&.X.&.X..*X+^.^.^.^.^.^..XX*^.^.^.^.^.
 D:%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Chris Weisiger
+#
 N:106:Curlicues One
-X:8:15:23:44
+X:VAULT:GREATER:15
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
 D:%X^^^^^^^^^^^^^^^^^^^^^^^^^^^^^#8X^^^^^^^^X%
@@ -2406,8 +2598,10 @@ D:%X^^^^^^^^^^^^^^^^^^^^^^^^^^^^^#8X^^^^^^^^X%
 D:%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Chris Weisiger
+#
 N:107:Concentricity
-X:8:20:19:76
+X:VAULT:GREATER:20
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%XXXXXXXXXXXXXX##XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX##XXXXXXXXXXXXXX%
 D:%X88XXX99XXXXXXX**###^^XXX99###^^XXX8888XXX^^###99XXX^^###**XXXXXXX99XXX88X%
@@ -2428,8 +2622,10 @@ D:%X88XXX99XXXXXXX**###^^XXX99###^^XXX8888XXX^^###99XXX^^###**XXXXXXX99XXX88X%
 D:%XXXXXXXXXXXXXX##XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX##XXXXXXXXXXXXXX%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Chris Weisiger
+#
 N:108:Castle Death
-X:8:35:20:60
+X:VAULT:GREATER:35
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
 D:%X,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,+XX....+XX...X****X%
@@ -2451,8 +2647,10 @@ D:%X,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,+XX....+XX...X****X%
 D:%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Chris Weisiger
+#
 N:109:Bubbles
-X:8:35:25:41
+X:VAULT:GREATER:35
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%XXX#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
 D:%X8X#X8XXX8XXX8XXX8XXX8XXX8XXX8XXX8XXX8X%
@@ -2479,12 +2677,10 @@ D:%X8XXX8XXX8XXX8XXX8XXX8XXX8XXX8XXX8XXX8X%
 D:%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-# *Greater Vaults* Almost impossible to generate, require Zangband,
-# with the Pattern enabled. Not sure which version first had Pattern
-# vaults, probably around 2.1.1.
-
+# Chris Weisiger
+#
 N:110:*Greater Vault* (Absolutely Huge)
-X:8:50:41:82
+X:VAULT:GREATER:50
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%................................................................................%
 D:%.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.%
@@ -2527,8 +2723,10 @@ D:%.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 D:%................................................................................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Chris Weisiger
+#
 N:111:*Greater Vault* (Titanic)
-X:8:50:43:99
+X:VAULT:GREATER:50
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%.................................................................................................%
 D:%.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.%
@@ -2573,8 +2771,10 @@ D:%.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 D:%.................................................................................................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Chris Weisiger
+#
 N:112:*Greater Vault* (Subdivisions)
-X:8:50:45:81
+X:VAULT:GREATER:50
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%...............................................................................%
 D:%.#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#X#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#.%
@@ -2621,8 +2821,10 @@ D:%.#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#X#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 D:%...............................................................................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Chris Weisiger
+#
 N:113:*Greater Vault* (Divided)
-X:8:50:45:81
+X:VAULT:GREATER:50
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
 D:%XdcbadcbadcbadcbadcbadcbadcbadcbadcbaXXXabcdabcdabcdabcdabcdabcdabcdabcdabcdabX%
@@ -2669,8 +2871,10 @@ D:%X888XXXX#9999999..X..,,X..............X#X..............X,,..X..9999999#XXXX88
 D:%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Chris Weisiger
+#
 N:114:Lesser Vault (Interlock)
-X:7:20:17:12
+X:VAULT:LESSER:20
 D:%%%%%%%%%%%%%%%%%
 D:%......^^^......%
 D:%.######+######.%
@@ -2685,7 +2889,7 @@ D:%.^^^.......^^^.%
 D:%%%%%%%%%%%%%%%%%
 
 N:115:Black market
-X:7:5:9:13
+X:VAULT:LESSER:5
 D:%%%%%%%%%%%%%
 D:%...........%
 D:%.XXXXSXXXX.%
@@ -2697,7 +2901,7 @@ D:%...........%
 D:%%%%%%%%%%%%%
 
 N:116:Black market2
-X:7:5:9:13
+X:VAULT:LESSER:5
 D:%%%%%%%%%%%%%
 D:%...........%
 D:%.XXXXXXXXX.%
@@ -2709,7 +2913,7 @@ D:%...........%
 D:%%%%%%%%%%%%%
 
 N:117:Black market3
-X:7:5:9:13
+X:VAULT:LESSER:5
 D:%%%%%%%%%%%%%
 D:%...........%
 D:%.XXXX'XXXX.%
@@ -2723,7 +2927,7 @@ D:%%%%%%%%%%%%%
 # Eric Bock
 #
 N:118:Lesser vault (star)
-X:7:25:15:23
+X:VAULT:LESSER:25
 D:    %%  %%%%%%%  %%    
 D:   %..% %..&..% %..%   
 D:  %&..&%#&...&#%&..&%  
@@ -2743,7 +2947,7 @@ D:    %%  %%%%%%%  %%
 # Eric Bock
 #
 N:119:Pattern vault (grand quartet)
-X:8:50:44:62
+X:VAULT:GREATER:50
 D: %%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%% 
 D:%%.X,9,,,,+^^^^^^&&&@@&&&^^^^^^^^^^^^&&&@@&&&^^^^^^+,,,,9,X.%%
 D:%..X,,,,9,XXXXXXXXXXXXXXXXXXXX++XXXXXXXXXXXXXXXXXXXX,9,,,,X..%
@@ -2790,7 +2994,7 @@ D: %.....................&&&&&@@XX@@&&&&&.....................%
 D: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%XX%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
 N:120:Sphere
-X:8:25:25:47
+X:VAULT:GREATER:25
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%.............................................%
 D:%......XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX......%
@@ -2818,8 +3022,7 @@ D:%.............................................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 N:121:Hourglass
-X:8:24:37:27
-
+X:VAULT:GREATER:24
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%.........................%
 D:%.......XXXXX+XXXXX.......%
@@ -2859,8 +3062,7 @@ D:%.........................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 N:122:Symmet
-X:8:20:23:29
-
+X:VAULT:GREATER:20
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%...........................%
 D:%....XXXXXXXXX+XXXXXXXXX....%
@@ -2886,8 +3088,7 @@ D:%...........................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 N:123:Workaround
-X:7:14:19:21
-
+X:VAULT:LESSER:14
 D:%%%%%%%%%%%%%%%%%%%%%
 D:%...................%
 D:%.XX..XXXXXXXXX..XX.%
@@ -2909,8 +3110,7 @@ D:%...................%
 D:%%%%%%%%%%%%%%%%%%%%%
 
 N:124:Crown
-X:7:12:19:28
-
+X:VAULT:LESSER:12
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%..........................%
 D:%.....XXXXXXXXXXXXXXXX.....%
@@ -2932,8 +3132,7 @@ D:%..........................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 N:125:Interstices
-X:8:22:19:45
-
+X:VAULT:GREATER:22
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%...........................................%
 D:%.......XXXXXXXXXXXX^^^^^XXXXXXXXXXXX.......%
@@ -2955,8 +3154,7 @@ D:%...........................................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 N:126:Mazer
-X:8:26:35:31
-
+X:VAULT:GREATER:26
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%.............................%
 D:%........XXXXXX+XXXXXX........%
@@ -2994,8 +3192,7 @@ D:%.............................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 N:127:Orb
-X:8:16:27:27
-
+X:VAULT:GREATER:16
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%
 D:%.........................%
 D:%.........$YYYYY$.........%
@@ -3025,8 +3222,7 @@ D:%.........................%
 D:%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 N:128:X^2
-X:7:8:13:15
-
+X:VAULT:LESSER:8
 D:%%%%%%%%%%%%%%%
 D:%.............%
 D:%.#####.#####.%
@@ -3040,3 +3236,47 @@ D:%.#9,,#.#,,9#.%
 D:%.#####.#####.%
 D:%.............%
 D:%%%%%%%%%%%%%%%
+
+
+######################################################################
+# PosChengband
+
+N:129:Hermit's House
+X:WILD:GRASS:1
+#T:MONSTER:p
+D:##############+###
+D:#..........#.....#
+D:#..........#.....#
+D:#..........#.....#
+D:#..........###+###
+D:#..........#.....#
+D:#..........#..9..#
+D:#..........#.....#
+D:#..........+.....#
+D:########+#########
+
+# PosChengband
+######################################################################
+
+
+######################################################################
+#    % - outside of the vault, where corridors may be connected
+#    # - granite
+#    $ - glass wall
+#    X - impenetrable rock
+#    Y - impenetrable glass wall
+#    * - treasure or trap
+#    + - secret door
+#    - - secret glass door
+#    ' - curtain
+#    ^ - trap
+#    S - BM Entrance
+#    p,a,b,c,d,P,B,A all reserved for The Pattern
+#    & - monster up to 5 levels out of depth (OOD)
+#    @ - monster up to 11 levels OOD
+#    9 - monster up to 9 levels OOD and treasure up to 7 levels OOD
+#    8 - monster up to 40 levels OOD and treasure up to 20 levels OOD
+#    , - monster up to 3 levels OOD and/or treasure up to 7 levels OOD
+#
+# "F:<letter>:<terrain>:<cave_info>:<monster>:<object>:<ego>:<artifact>:<trap>:<special>"
+######################################################################

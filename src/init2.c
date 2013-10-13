@@ -350,7 +350,7 @@ cptr err_str[PARSE_ERROR_MAX] =
 /*
  * File headers
  */
-header v_head;
+header room_head;
 header f_head;
 header k_head;
 header a_head;
@@ -850,17 +850,17 @@ static errr init_d_info(void)
 errr init_v_info(void)
 {
     /* Init the header */
-    init_header(&v_head, max_v_idx, sizeof(vault_type));
+    init_header(&room_head, max_room_idx, sizeof(room_template_t));
 
 #ifdef ALLOW_TEMPLATES
 
     /* Save a pointer to the parsing function */
-    v_head.parse_info_txt = parse_v_info;
+    room_head.parse_info_txt = parse_v_info;
 
 #endif /* ALLOW_TEMPLATES */
 
-    return init_info("v_info", &v_head,
-             (void*)&v_info, &v_name, &v_text, NULL);
+    return init_info("v_info", &room_head,
+             (void*)&room_info, &room_name, &room_text, NULL);
 }
 
 
@@ -2523,6 +2523,6 @@ cptr get_check_sum(void)
               d_head.v_extra, 
               m_head.v_extra, 
               s_head.v_extra, 
-              v_head.v_extra);
+              room_head.v_extra);
 }
 

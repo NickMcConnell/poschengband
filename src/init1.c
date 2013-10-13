@@ -11,6 +11,7 @@
 /* Purpose: Initialization (part 1) -BEN- */
 
 #include "angband.h"
+#include "rooms.h"
 
 /*
  * This file is used to initialize various variables and arrays for the
@@ -1124,7 +1125,7 @@ errr parse_v_info(char *buf, header *head)
     char *s;
 
     /* Current entry */
-    static vault_type *v_ptr = NULL;
+    static room_template_t *room_ptr = NULL;
 
     /* Process 'N' for "New/Number/Name" */
     if (buf[0] == 'N')
@@ -1154,39 +1155,65 @@ errr parse_v_info(char *buf, header *head)
         error_idx = i;
 
         /* Point at the "info" */
-        v_ptr = &v_info[i];
+        room_ptr = &room_info[i];
+        WIPE(room_ptr, room_template_t);
 
         /* Store the name */
-        if (!add_name(&v_ptr->name, head, s)) return (7);
+        if (!add_name(&room_ptr->name, head, s)) return (7);
     }
 
     /* There better be a current v_ptr */
-    else if (!v_ptr) return (3);
+    else if (!room_ptr) return (3);
 
     /* Process 'D' for "Description" */
     else if (buf[0] == 'D')
     {
         /* Acquire the text */
         s = buf+2;
+        room_ptr->height++;
+        room_ptr->width = MAX(room_ptr->width, strlen(s));
 
         /* Store the text */
-        if (!add_text(&v_ptr->text, head, s, FALSE)) return (7);
+        if (!add_text(&room_ptr->text, head, s, FALSE)) return (7);
     }
-
-    /* Process 'X' for "Extra info" (one line only) */
+    /* X:Type:Subtype:Rarity */
     else if (buf[0] == 'X')
     {
-        int typ, rat, hgt, wid;
+        char *zz[10];
+        int   num = tokenize(buf + 2, 10, zz, 0);
 
-        /* Scan for the values */
-        if (4 != sscanf(buf+2, "%d:%d:%d:%d",
-            &typ, &rat, &hgt, &wid)) return (1);
+        if (num < 3) return PARSE_ERROR_TOO_FEW_ARGUMENTS;
 
-        /* Save the values */
-        v_ptr->typ = typ;
-        v_ptr->rat = rat;
-        v_ptr->hgt = hgt;
-        v_ptr->wid = wid;
+        if (streq(zz[0], "VAULT"))
+        {
+            room_ptr->type = ROOM_VAULT;
+            if (streq(zz[1], "LESSER"))
+                room_ptr->subtype = VAULT_LESSER;
+            else if (streq(zz[1], "GREATER"))
+                room_ptr->subtype = VAULT_GREATER;
+        }
+        else if (streq(zz[0], "WILD"))
+        {   /* Same order as TERRAIN_* in defines.h and TERRAIN_EDGE is not be supported */
+            static cptr types[] = { "EDGE XXXX", "TOWN", "DEEP_WATER", "SHALLOW_WATER",
+                                    "SWAMP", "DIRT", "GRASS", "TREES", "DESERT",
+                                    "SHALLOW_LAVA", "MOUNTAIN", 0 };
+            int j;
+            room_ptr->type = ROOM_WILDERNESS;
+            for (j = 0; ; j++)
+            {
+                if (!types[j]) break;
+                if (streq(types[j], zz[1]))
+                {
+                    room_ptr->subtype = j;
+                    break;
+                }
+            }
+        }
+
+        if (!room_ptr->type) return 1;
+        if (!room_ptr->subtype) return 1;
+
+        room_ptr->rarity = atoi(zz[2]);
     }
 
     /* Oops */
@@ -4171,7 +4198,7 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
             }
 
             /* Maximum r_idx */
-            else if (zz[0][0] == 'R')
+            else if (streq(zz[0], "R"))
             {
                 max_r_idx = atoi(zz[1]);
             }
@@ -4187,9 +4214,9 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
             }
 
             /* Maximum v_idx */
-            else if (zz[0][0] == 'V')
+            else if (streq(zz[0], "ROOMS"))
             {
-                max_v_idx = atoi(zz[1]);
+                max_room_idx = atoi(zz[1]);
             }
 
             /* Maximum f_idx */

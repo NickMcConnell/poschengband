@@ -974,19 +974,21 @@
 
 /*
  * Wilderness terrains
+ * Note: parse_v_info in init1.c relies on the order below for parsing external files!
+ * Note: room_template_t subtype uses these terrain values for generating appropriate wilderness encounters.
  */
 #define TERRAIN_EDGE             0 /* Edge of the World */
-#define TERRAIN_TOWN             1 /* Town */
-#define TERRAIN_DEEP_WATER       2 /* Deep water */
-#define TERRAIN_SHALLOW_WATER    3 /* Shallow water */
-#define TERRAIN_SWAMP            4 /* Swamp */
-#define TERRAIN_DIRT             5 /* Dirt */
-#define TERRAIN_GRASS            6 /* Grass */
-#define TERRAIN_TREES            7 /* Trees */
-#define TERRAIN_DESERT           8 /* Desert */
-#define TERRAIN_SHALLOW_LAVA     9 /* Shallow lava */
-#define TERRAIN_DEEP_LAVA       10 /* Deep lava */
-#define TERRAIN_MOUNTAIN        11 /* Mountain */
+#define TERRAIN_TOWN             1
+#define TERRAIN_DEEP_WATER       2
+#define TERRAIN_SHALLOW_WATER    3
+#define TERRAIN_SWAMP            4
+#define TERRAIN_DIRT             5
+#define TERRAIN_GRASS            6
+#define TERRAIN_TREES            7
+#define TERRAIN_DESERT           8
+#define TERRAIN_SHALLOW_LAVA     9
+#define TERRAIN_DEEP_LAVA       10
+#define TERRAIN_MOUNTAIN        11
 
 #define MAX_WILDERNESS          12 /* Maximum wilderness index */
 
