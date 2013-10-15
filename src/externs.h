@@ -892,6 +892,9 @@ extern void process_world_aux_movement(void);  /* yuk!  refactor the recall code
 extern void safe_setuid_drop(void);
 extern void safe_setuid_grab(void);
 extern s16b tokenize(char *buf, s16b num, char **tokens, int mode);
+extern int string_split(char *buf, char **tokens, int max, cptr delim);
+extern int parse_args(char *buf, char **name, char **args, int max);
+extern void trim_tokens(char **tokens, int ct);
 extern void display_player(int mode);
 extern errr make_character_dump(FILE *fff);
 extern errr file_character(cptr name);

@@ -2608,84 +2608,83 @@
 
 /*
  * Legal restrictions for "summon_specific()"
+ * Note: _summon_specific_types in init1.c relies on the exact order below for parsing.
+ * Exact numeric values are saved in v_info.raw so don't change/remove/reorder.
  */
-#define SUMMON_ANT                  11
-#define SUMMON_SPIDER               12
-#define SUMMON_HOUND                13
-#define SUMMON_HYDRA                14
-#define SUMMON_ANGEL                15
-#define SUMMON_DEMON                16
-#define SUMMON_UNDEAD               17
-#define SUMMON_DRAGON               18
-#define SUMMON_HI_UNDEAD            21
-#define SUMMON_HI_DRAGON            22
-#define SUMMON_HI_DEMON             23
-#define SUMMON_AMBERITES            31
-#define SUMMON_UNIQUE               32
-#define SUMMON_BIZARRE1             33
-#define SUMMON_BIZARRE2             34
-#define SUMMON_BIZARRE3             35
-#define SUMMON_BIZARRE4             36
-#define SUMMON_BIZARRE5             37
-#define SUMMON_BIZARRE6             38
-#define SUMMON_CYBER                39
-#define SUMMON_KIN                  40
-#define SUMMON_DAWN                 41
-#define SUMMON_ANIMAL               42
-#define SUMMON_ANIMAL_RANGER        43
-/*#define SUMMON_HI_UNDEAD_NO_UNIQUES 44*/
-/*#define SUMMON_HI_DRAGON_NO_UNIQUES 45*/
-/*#define SUMMON_NO_UNIQUES           46*/
-#define SUMMON_PHANTOM              47
-/*#define SUMMON_ELEMENTAL_NO_UNIQUES 48*/
-#define SUMMON_BLUE_HORROR          49
-#define SUMMON_LIVING               50
-#define SUMMON_HI_DRAGON_LIVING     51
-#define SUMMON_GOLEM                52
-#define SUMMON_ELEMENTAL            53
-#define SUMMON_VORTEX               54
-#define SUMMON_HYBRID               55
-#define SUMMON_BIRD                 56
-/*#define SUMMON_AQUATIC_NO_UNIQUES   57*/
-#define SUMMON_KAMIKAZE             58
-#define SUMMON_KAMIKAZE_LIVING      59
-#define SUMMON_MANES                60
-#define SUMMON_LOUSE                61
-#define SUMMON_GUARDIANS            62
-#define SUMMON_KNIGHTS              63
-#define SUMMON_EAGLES               64
-#define SUMMON_PIRANHAS             65
-#define SUMMON_ARMAGE_GOOD          66
-#define SUMMON_ARMAGE_EVIL          67
-#define SUMMON_SOFTWARE_BUG         68
-#define SUMMON_OLYMPIANS            69
-#define SUMMON_RAT                    70
-#define SUMMON_BAT                    71
-#define SUMMON_WOLF                    72
-#define SUMMON_DREAD                73
-#define SUMMON_ZOMBIE                74
-#define SUMMON_SKELETON                75
-#define SUMMON_GHOST                76
-#define SUMMON_VAMPIRE                77
-#define SUMMON_WIGHT                78
-#define SUMMON_LICH                    79
-#define SUMMON_KRAKEN                80
-#define SUMMON_THIEF                81
-#define SUMMON_ENT                  82
-#define SUMMON_CAMELOT              83
-#define SUMMON_NIGHTMARE            84
-#define SUMMON_YEEK                 85
-#define SUMMON_ORC                  86
-#define SUMMON_DARK_ELF             87
-#define SUMMON_GIANT                88
-#define SUMMON_UNDEAD_SUMMONER      89
-#define SUMMON_MATURE_DRAGON        90
-#define SUMMON_DRAGON_SUMMONER      91
-#define SUMMON_CLUBBER_DEMON        92
-#define SUMMON_BALROG               93
-#define SUMMON_DEMON_SUMMONER       94
-#define SUMMON_ULTIMATE             95
-
+enum summon_specific_e {
+    SUMMON_ANT = 1,
+    SUMMON_SPIDER,
+    SUMMON_HOUND,
+    SUMMON_HYDRA,
+    SUMMON_ANGEL,
+    SUMMON_DEMON,
+    SUMMON_UNDEAD,
+    SUMMON_DRAGON,
+    SUMMON_HI_UNDEAD,
+    SUMMON_HI_DRAGON,
+    SUMMON_HI_DEMON,
+    SUMMON_AMBERITES,
+    SUMMON_UNIQUE,
+    SUMMON_BIZARRE1,
+    SUMMON_BIZARRE2,
+    SUMMON_BIZARRE3,
+    SUMMON_BIZARRE4,
+    SUMMON_BIZARRE5,
+    SUMMON_BIZARRE6,
+    SUMMON_CYBER,
+    SUMMON_KIN,
+    SUMMON_DAWN,
+    SUMMON_ANIMAL,
+    SUMMON_ANIMAL_RANGER,
+    SUMMON_PHANTOM,
+    SUMMON_BLUE_HORROR,
+    SUMMON_LIVING,
+    SUMMON_HI_DRAGON_LIVING,
+    SUMMON_GOLEM,
+    SUMMON_ELEMENTAL,
+    SUMMON_VORTEX,
+    SUMMON_HYBRID,
+    SUMMON_BIRD,
+    SUMMON_KAMIKAZE,
+    SUMMON_KAMIKAZE_LIVING,
+    SUMMON_MANES,
+    SUMMON_LOUSE,
+    SUMMON_GUARDIANS,
+    SUMMON_KNIGHTS,
+    SUMMON_EAGLES,
+    SUMMON_PIRANHAS,
+    SUMMON_ARMAGE_GOOD,
+    SUMMON_ARMAGE_EVIL,
+    SUMMON_SOFTWARE_BUG,
+    SUMMON_OLYMPIANS,
+    SUMMON_RAT,
+    SUMMON_BAT,
+    SUMMON_WOLF,
+    SUMMON_DREAD,
+    SUMMON_ZOMBIE,
+    SUMMON_SKELETON,
+    SUMMON_GHOST,
+    SUMMON_VAMPIRE,
+    SUMMON_WIGHT,
+    SUMMON_LICH,
+    SUMMON_KRAKEN,
+    SUMMON_THIEF,
+    SUMMON_ENT,
+    SUMMON_CAMELOT,
+    SUMMON_NIGHTMARE,
+    SUMMON_YEEK,
+    SUMMON_ORC,
+    SUMMON_DARK_ELF,
+    SUMMON_GIANT,
+    SUMMON_UNDEAD_SUMMONER,
+    SUMMON_MATURE_DRAGON,
+    SUMMON_DRAGON_SUMMONER,
+    SUMMON_CLUBBER_DEMON,
+    SUMMON_BALROG,
+    SUMMON_DEMON_SUMMONER,
+    SUMMON_ULTIMATE,
+    SUMMON_HUMAN,
+};
 
 /*
  * Spell types used by project(), and related functions.

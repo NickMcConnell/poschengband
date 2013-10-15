@@ -2396,7 +2396,6 @@ void init_angband(void)
 
     if (init_misc()) quit("Cannot initialize misc. values");
 
-
     /* Initialize feature info */
     note("[Initializing arrays... (features)]");
     if (init_f_info()) quit("Cannot initialize features");

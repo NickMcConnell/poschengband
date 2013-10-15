@@ -1115,6 +1115,381 @@ errr init_info_txt(FILE *fp, char *buf, header *head,
     return (0);
 }
 
+/* Same order as summon_specific_e in defines.h 
+   These are legal monster types for the MON() directive when
+   specifying room_grid_t
+ */
+static const char *_summon_specific_types[] = {
+    "XXX",
+    "ANT",
+    "SPIDER",
+    "HOUND",
+    "HYDRA",
+    "ANGEL",
+    "DEMON",
+    "UNDEAD",
+    "DRAGON",
+    "HI_UNDEAD",
+    "HI_DRAGON",
+    "HI_DEMON",
+    "AMBERITES",
+    "UNIQUE",
+    "BIZARRE1",
+    "BIZARRE2",
+    "BIZARRE3",
+    "BIZARRE4",
+    "BIZARRE5",
+    "BIZARRE6",
+    "CYBER",
+    "KIN",
+    "DAWN",
+    "ANIMAL",
+    "ANIMAL_RANGER",
+    "PHANTOM",
+    "BLUE_HORROR",
+    "LIVING",
+    "HI_DRAGON_LIVING",
+    "GOLEM",
+    "ELEMENTAL",
+    "VORTEX",
+    "HYBRID",
+    "BIRD",
+    "KAMIKAZE",
+    "KAMIKAZE_LIVING",
+    "MANES",
+    "LOUSE",
+    "GUARDIANS",
+    "KNIGHTS",
+    "EAGLES",
+    "PIRANHAS",
+    "ARMAGE_GOOD",
+    "ARMAGE_EVIL",
+    "SOFTWARE_BUG",
+    "OLYMPIANS",
+    "RAT",
+    "BAT",
+    "WOLF",
+    "DREAD",
+    "ZOMBIE",
+    "SKELETON",
+    "GHOST",
+    "VAMPIRE",
+    "WIGHT",
+    "LICH",
+    "KRAKEN",
+    "THIEF",
+    "ENT",
+    "CAMELOT",
+    "NIGHTMARE",
+    "YEEK",
+    "ORC",
+    "DARK_ELF",
+    "GIANT",
+    "UNDEAD_SUMMONER",
+    "MATURE_DRAGON",
+    "DRAGON_SUMMONER",
+    "CLUBBER_DEMON",
+    "BALROG",
+    "DEMON_SUMMONER",
+    "ULTIMATE",
+    "HUMAN",
+    0,
+};
+
+/* MON(DRAGON, 20)  Any dragon, 20 levels OoD
+   MON(*, 40)       Any monster, 40 levels OoD
+   MON(441, CLONED) A Gachapin Clone
+   MON(442)         A Black Knight */
+static errr _parse_room_grid_monster(char **args, int arg_ct, room_grid_t *grid_ptr)
+{
+    switch (arg_ct)
+    {
+    case 2:
+        if (streq(args[1], "CLONED"))
+            grid_ptr->flags |= ROOM_GRID_MON_CLONED;
+        else
+            grid_ptr->monster_level = atoi(args[1]);
+
+    case 1:
+        if (streq(args[0], "*"))
+        {
+            grid_ptr->flags |= ROOM_GRID_MON_RANDOM;
+        }
+        else
+        {
+            int i;
+            for (i = 0; ; i++)
+            {
+                if (!_summon_specific_types[i])
+                {
+                    grid_ptr->monster = atoi(args[0]);
+                    break;
+                }
+                if (streq(args[0], _summon_specific_types[i]))
+                {
+                    grid_ptr->monster = i;
+                    grid_ptr->flags |= ROOM_GRID_MON_TYPE;
+                    break;
+                }
+            }
+        }
+        break;
+
+    default:
+        return PARSE_ERROR_TOO_FEW_ARGUMENTS;
+    }
+    return 0;
+}
+
+struct _object_type_s
+{
+    cptr name;
+    int  tval;
+};
+typedef struct _object_type_s _object_type_t;
+
+/* Use the following keywords in OBJ(), EGO() and ART() directives 
+   to force a random object of the indicated tval. 
+   Regexp: \#define TV_{[A-Z_0-9]+}[ ]+[0-9]+ -> { "\1", TV_\1 }, */
+static _object_type_t _object_types[] = 
+{
+    { "CHEST",              TV_CHEST },
+    { "SHOT",               TV_SHOT },
+    { "ARROW",              TV_ARROW },
+    { "BOLT",               TV_BOLT },
+    { "BOW",                TV_BOW },
+    { "DIGGING",            TV_DIGGING },
+    { "HAFTED",             TV_HAFTED },
+    { "POLEARM",            TV_POLEARM },
+    { "SWORD",              TV_SWORD },
+    { "BOOTS",              TV_BOOTS },
+    { "GLOVES",             TV_GLOVES },
+    { "HELM",               TV_HELM },
+    { "CROWN",              TV_CROWN },
+    { "SHIELD",             TV_SHIELD },
+    { "CLOAK",              TV_CLOAK },
+    { "SOFT_ARMOR",         TV_SOFT_ARMOR },
+    { "HARD_ARMOR",         TV_HARD_ARMOR },
+    { "DRAG_ARMOR",         TV_DRAG_ARMOR },
+    { "LITE",               TV_LITE },
+    { "AMULET",             TV_AMULET },
+    { "RING",               TV_RING },
+    { "STAFF",              TV_STAFF },
+    { "WAND",               TV_WAND },
+    { "ROD",                TV_ROD },
+    { "SCROLL",             TV_SCROLL },
+    { "POTION",             TV_POTION },
+    { "FOOD",               TV_FOOD },
+    { "LIFE_BOOK",          TV_LIFE_BOOK },
+    { "SORCERY_BOOK",       TV_SORCERY_BOOK },
+    { "NATURE_BOOK",        TV_NATURE_BOOK },
+    { "CHAOS_BOOK",         TV_CHAOS_BOOK },
+    { "DEATH_BOOK",         TV_DEATH_BOOK },
+    { "TRUMP_BOOK",         TV_TRUMP_BOOK },
+    { "ARCANE_BOOK",        TV_ARCANE_BOOK },
+    { "CRAFT_BOOK",         TV_CRAFT_BOOK },
+    { "DAEMON_BOOK",        TV_DAEMON_BOOK },
+    { "CRUSADE_BOOK",       TV_CRUSADE_BOOK },
+    { "NECROMANCY_BOOK",    TV_NECROMANCY_BOOK },
+    { "ARMAGEDDON_BOOK",    TV_ARMAGEDDON_BOOK },
+    { "MUSIC_BOOK",         TV_MUSIC_BOOK },
+    { "HISSATSU_BOOK",      TV_HISSATSU_BOOK },
+    { "HEX_BOOK",           TV_HEX_BOOK },
+    { "RAGE_BOOK",          TV_RAGE_BOOK },
+    { "BURGLARY_BOOK",      TV_BURGLARY_BOOK },
+    { "GOLD",               TV_GOLD },
+    { 0, 0 }
+};
+
+/* OBJ(*)         Any object
+   OBJ(*, 7)      Any monster, 7 levels OoD
+   OBJ(242)       Potion of Healing
+   OBJ(POTION)    Any potion                   */
+static errr _parse_room_grid_object(char **args, int arg_ct, room_grid_t *grid_ptr)
+{
+    switch (arg_ct)
+    {
+    case 2:
+        grid_ptr->object_level = atoi(args[1]);
+
+    case 1:
+        if (streq(args[0], "*"))
+        {
+            grid_ptr->flags |= ROOM_GRID_OBJ_RANDOM;
+        }
+        else
+        {
+            int i;
+            for (i = 0; ; i++)
+            {
+                if (!_object_types[i].name)
+                {
+                    grid_ptr->object = atoi(args[0]);
+                    break;
+                }
+                if (streq(args[0], _object_types[i].name))
+                {
+                    grid_ptr->object = _object_types[i].tval;
+                    grid_ptr->flags |= ROOM_GRID_OBJ_TVAL;
+                    break;
+                }
+            }
+        }
+        break;
+
+    default:
+        return PARSE_ERROR_TOO_FEW_ARGUMENTS;
+    }
+    return 0;
+}
+
+/* OBJ(RING):EGO(306)      Ring of Speed
+   OBJ(RING):EGO(*)        Any ego ring
+   OBJ(CLOAK, 20):EGO(*)   Any ego cloak generated 20 levels OoD
+   OBJ(RING, 50):EGO(306)  Ring of Speed generated 50 level OoD */
+static errr _parse_room_grid_ego(char **args, int arg_ct, room_grid_t *grid_ptr)
+{
+    switch (arg_ct)
+    {
+    case 1:
+        if (streq(args[0], "*"))
+        {
+            grid_ptr->flags |= ROOM_GRID_EGO_RANDOM;
+        }
+        else
+        {
+            grid_ptr->extra = atoi(args[0]);
+            grid_ptr->flags |= ROOM_GRID_OBJ_EGO;
+        }
+        break;
+
+    default:
+        return PARSE_ERROR_TOO_FEW_ARGUMENTS;
+    }
+    return 0;
+}
+
+/* OBJ(CLOAK, 20):ART(*)   Rand-art cloak generated 20 levels OoD
+   ART(6)                  Necklace of the Dwarves (a_idx = 6) */
+static errr _parse_room_grid_artifact(char **args, int arg_ct, room_grid_t *grid_ptr)
+{
+    switch (arg_ct)
+    {
+    case 1:
+        if (streq(args[0], "*"))
+        {
+            grid_ptr->flags |= ROOM_GRID_ART_RANDOM;
+        }
+        else
+        {
+            grid_ptr->object = atoi(args[0]);
+            grid_ptr->flags |= ROOM_GRID_OBJ_ARTIFACT;
+        }
+        break;
+
+    default:
+        return PARSE_ERROR_TOO_FEW_ARGUMENTS;
+    }
+    return 0;
+}
+
+/* GRANITE
+   FLOOR(ROOM | ICKY | GLOW) */
+static errr _parse_room_grid_feature(char* name, char **args, int arg_ct, room_grid_t *grid_ptr)
+{
+    s16b feat = f_tag_to_index(name);
+
+    if (feat < 0) return PARSE_ERROR_GENERIC;
+    grid_ptr->cave_feat = feat;
+
+    if (arg_ct > 1) return PARSE_ERROR_TOO_FEW_ARGUMENTS;
+    if (arg_ct == 1)
+    {
+        char *flags[10];
+        int   flag_ct = string_split(args[0], flags, 10, "|");
+        int   i;
+                
+        trim_tokens(flags, flag_ct);
+        for (i = 0; i < flag_ct; i++)
+        {
+            char* flag = flags[i];
+            
+            if (streq(flag, "ROOM"))
+                grid_ptr->cave_info |= CAVE_ROOM;
+            else if (streq(flag, "ICKY"))
+                grid_ptr->cave_info |= CAVE_ICKY;
+            else if (streq(flag, "GLOW"))
+                grid_ptr->cave_info |= CAVE_GLOW;
+            else if (streq(flag, "MARK"))
+                grid_ptr->cave_info |= CAVE_MARK;
+            else
+                return PARSE_ERROR_INVALID_FLAG;
+        }
+    }
+    return 0;
+}
+
+/* D:FLOOR(ROOM|ICKY):MON(DRAGON, 20):EGO(*) 
+   Room Grids are designed to replace old dungeon_grid F: lines
+   but I haven't got around to replacing those just yet. */
+errr parse_room_grid(char *buf, room_grid_t *grid_ptr)
+{
+    errr  result = 0;
+    char *commands[10];
+    int   command_ct = string_split(buf, commands, 10, ":");
+    int   i;
+
+    WIPE(grid_ptr, room_grid_t);
+
+    /* First command is the "letter" for this room grid */
+    if (command_ct < 2) return PARSE_ERROR_TOO_FEW_ARGUMENTS;
+    if (strlen(commands[0]) != 1) return PARSE_ERROR_GENERIC;
+    grid_ptr->letter = commands[0][0];
+    
+    /* Remaining commands are name(args) directives in any order */
+    for (i = 1; i < command_ct; i++)
+    {
+        char *command = commands[i];
+        char *name;
+        char *args[10];
+        int   arg_ct = parse_args(command, &name, args, 10);
+
+        if (arg_ct < 0) return PARSE_ERROR_GENERIC;
+
+        if (streq(name, "MON"))
+        {
+            result = _parse_room_grid_monster(args, arg_ct, grid_ptr);
+            if (result) break;
+        }
+        else if (streq(name, "OBJ"))
+        {
+            result = _parse_room_grid_object(args, arg_ct, grid_ptr);
+            if (result) break;
+        }
+        else if (streq(name, "EGO"))
+        {
+            result = _parse_room_grid_ego(args, arg_ct, grid_ptr);
+            if (result) break;
+        }
+        else if (streq(name, "ART"))
+        {
+            result = _parse_room_grid_artifact(args, arg_ct, grid_ptr);
+            if (result) break;
+        }
+        else if (streq(name, "TRAP"))
+        {
+            /* TODO */
+            return PARSE_ERROR_GENERIC;
+        }
+        else
+        {
+            result = _parse_room_grid_feature(name, args, arg_ct, grid_ptr);
+            if (result) break;
+        }
+    }
+
+    return result;
+}
 
 /*
  * Initialize the "v_info" array, by parsing an ascii "template" file
@@ -1170,11 +1545,26 @@ errr parse_v_info(char *buf, header *head)
     {
         /* Acquire the text */
         s = buf+2;
+        
+        /* Calculate room dimensions automagically */
         room_ptr->height++;
-        room_ptr->width = MAX(room_ptr->width, strlen(s));
+        if (!room_ptr->width)
+            room_ptr->width = strlen(s);
+        else if (strlen(s) != room_ptr->width) 
+            return 1;
 
         /* Store the text */
         if (!add_text(&room_ptr->text, head, s, FALSE)) return (7);
+    }
+    else if (buf[0] == 'F')
+    {
+        int j;
+        for (j = 0; j < ROOM_MAX_LETTERS; j++)
+        {
+            if (!room_ptr->letters[j].letter)
+                return parse_room_grid(buf + 2, &room_ptr->letters[j]);
+        }
+        return PARSE_ERROR_GENERIC; /* Too many letters */
     }
     /* X:Type:Subtype:Rarity */
     else if (buf[0] == 'X')

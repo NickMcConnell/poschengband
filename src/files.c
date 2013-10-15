@@ -107,7 +107,6 @@ void safe_setuid_grab(void)
 
 }
 
-
 /*
  * Extract the first few "tokens" from a buffer
  *
@@ -183,6 +182,93 @@ s16b tokenize(char *buf, s16b num, char **tokens, int mode)
 
     /* Number found */
     return (i);
+}
+
+/* tokenize, but with user supplied delimiters and no special backslash/quote handling */
+int string_split(char *buf, char **tokens, int max, cptr delim)
+{
+    int i = 0;
+    char *s = buf;
+
+    /* inch-worm alogorithm: s marks the start of the current token
+       while t scans ahead for the next delimiter. buf is destroyed. */
+    while (i < max - 1)
+    {
+        char *t;
+
+        for (t = s; *t; t++)
+        {
+            if (strchr(delim, *t)) break;
+        }
+
+        if (!*t) break;
+        *t++ = '\0';
+        tokens[i++] = s;
+        s = t;
+    }
+
+    tokens[i++] = s;
+    return i;
+}
+
+void trim_tokens(char **tokens, int ct)
+{
+    int i;
+    for (i = 0; i < ct; i++)
+    {
+        char *s = tokens[i];
+        char *t = s + strlen(s) - 1;
+
+        while (*s && *s == ' ')
+            s++;
+
+        while (*t && *t == ' ' && t > s)
+            t--;
+
+        t++;
+        *t = '\0';
+        tokens[i] = s;
+    }
+}
+
+/* Name(arg1, arg2, arg3) */
+int parse_args(char *buf, char **name, char **args, int max)
+{
+    char *s = buf;
+    char *t;
+    int   ct = 0;
+    
+    for (t = s; *t; t++)
+    {
+        if (*t == '(') break;
+    }
+
+    if (!*t)
+    {
+        *name = s;
+        return 0;
+    }
+
+    *t++ = '\0';
+    *name = s;
+    s = t;
+
+    for (t = s; *t; t++)
+    {
+        if (*t == ')') break;
+    }
+
+    if (!*t)
+    {
+        /* Parse error ... */
+        return -1;
+    }
+
+    *t++ = '\0';
+    ct = string_split(s, args, max, ",");
+
+    trim_tokens(args, ct);
+    return ct;
 }
 
 

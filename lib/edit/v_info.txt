@@ -1,7 +1,7 @@
 # File: v_info.txt
 # TODO: v_info should be renamed to room_info ... -CTK
 
-#This file is used to initialize the "lib/raw/v_info.raw" file, which is
+# This file is used to initialize the "lib/raw/v_info.raw" file, which is
 # used to initialize the "vault template" information for the Angband game.
 
 # Do not modify this file unless you know exactly what you are doing,
@@ -3241,16 +3241,20 @@ D:%%%%%%%%%%%%%%%
 ######################################################################
 # PosChengband
 
+
 N:129:Hermit's House
 X:WILD:GRASS:1
-#T:MONSTER:p
-D:##############+###
-D:#..........#.....#
+F:p:FLOOR(ROOM):MON(HUMAN, 10):OBJ(*, 5)
+F:,:FLOOR(ROOM):OBJ(FOOD)
+F:!:FLOOR(ROOM):OBJ(POTION)
+F:$:FLOOR(ROOM):OBJ(GOLD)
+D:##################
+D:#..........#,...!#
 D:#..........#.....#
 D:#..........#.....#
 D:#..........###+###
 D:#..........#.....#
-D:#..........#..9..#
+D:#..........#..p..#
 D:#..........#.....#
 D:#..........+.....#
 D:########+#########
@@ -3278,5 +3282,4 @@ D:########+#########
 #    8 - monster up to 40 levels OOD and treasure up to 20 levels OOD
 #    , - monster up to 3 levels OOD and/or treasure up to 7 levels OOD
 #
-# "F:<letter>:<terrain>:<cave_info>:<monster>:<object>:<ego>:<artifact>:<trap>:<special>"
 ######################################################################

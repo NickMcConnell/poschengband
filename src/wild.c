@@ -513,11 +513,9 @@ static void _build_room(const room_template_t *room_ptr, const rect_t *r)
     assert(r->cx == room_ptr->width);
     assert(r->cy == room_ptr->height);
     build_room_template(
+        room_ptr, 
         r->y + room_ptr->height/2, /* expects the *center* of the rect ... sigh */
         r->x + room_ptr->width/2, 
-        room_ptr->height, 
-        room_ptr->width,
-        room_text + room_ptr->text, 
         0, 
         0, 
         0
@@ -542,7 +540,7 @@ static void _generate_encounters(int x, int y, const rect_t *r, const rect_t *ex
     object_level = base_level;
 
     /* Special Encounter */
-    if (!wilderness[y][x].town && !wilderness[y][x].road && one_in_(5))
+    if (!wilderness[y][x].town && !wilderness[y][x].road && one_in_(1))
     {
         room_template_t *room_ptr = choose_room_template(ROOM_WILDERNESS, wilderness[y][x].terrain);
         if (room_ptr)
@@ -603,6 +601,11 @@ static void _generate_encounters(int x, int y, const rect_t *r, const rect_t *ex
         ct++;
     if (!ct)
         return;
+
+    get_mon_num_prep(get_wilderness_monster_hook(x, y), NULL); /* _build_room probably trashed the allocation table! */
+    base_level = wilderness_level(x, y);
+    monster_level = base_level;
+    object_level = base_level;
 
     for (i = 0; i < ct; i++)
     {

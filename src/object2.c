@@ -5025,7 +5025,7 @@ static _kind_alloc_entry _kind_alloc_table[] = {
     { _kind_is_bow_ammo,      7,   0,   0 },
     { _kind_is_book,          5,   5,  10 },
     { _kind_is_jewelry,       5,   5,  10 },
-    { _kind_is_misc,          5,  -4,  -4 },
+    { _kind_is_misc,          5,  -5,  -5 },
     { NULL, 0}
 };
 static int _kind_alloc_weight(_kind_alloc_entry *entry, u32b mode)

@@ -902,6 +902,9 @@ bool mon_is_type(int r_idx, int type)
     case SUMMON_OLYMPIANS:
         if (r_ptr->flags3 & (RF3_OLYMPIAN)) return TRUE;
         break;
+    case SUMMON_HUMAN:
+        if (r_ptr->flags2 & RF2_HUMAN) return TRUE;
+        break;
     case SUMMON_CAMELOT:
         if ((r_ptr->flags2 & RF2_CAMELOT) && (r_ptr->flags2 & RF2_KNIGHT)) return TRUE;
         break;
