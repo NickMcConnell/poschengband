@@ -1132,7 +1132,7 @@ static const char *_summon_specific_types[] = {
     "HI_UNDEAD",
     "HI_DRAGON",
     "HI_DEMON",
-    "AMBERITES",
+    "AMBERITE",
     "UNIQUE",
     "BIZARRE1",
     "BIZARRE2",
@@ -1158,14 +1158,14 @@ static const char *_summon_specific_types[] = {
     "KAMIKAZE_LIVING",
     "MANES",
     "LOUSE",
-    "GUARDIANS",
-    "KNIGHTS",
-    "EAGLES",
-    "PIRANHAS",
+    "GUARDIAN",
+    "KNIGHT",
+    "EAGLE",
+    "PIRANHA",
     "ARMAGE_GOOD",
     "ARMAGE_EVIL",
     "SOFTWARE_BUG",
-    "OLYMPIANS",
+    "OLYMPIAN",
     "RAT",
     "BAT",
     "WOLF",
@@ -1193,6 +1193,7 @@ static const char *_summon_specific_types[] = {
     "DEMON_SUMMONER",
     "ULTIMATE",
     "HUMAN",
+    "HORSE",
     0,
 };
 
@@ -1223,6 +1224,7 @@ static errr _parse_room_grid_monster(char **args, int arg_ct, room_grid_t *grid_
                 if (!_summon_specific_types[i])
                 {
                     grid_ptr->monster = atoi(args[0]);
+                    if (!grid_ptr->monster) return PARSE_ERROR_GENERIC;
                     break;
                 }
                 if (streq(args[0], _summon_specific_types[i]))
@@ -1244,7 +1246,7 @@ static errr _parse_room_grid_monster(char **args, int arg_ct, room_grid_t *grid_
 struct _object_type_s
 {
     cptr name;
-    int  tval;
+    int  type;
 };
 typedef struct _object_type_s _object_type_t;
 
@@ -1298,6 +1300,14 @@ static _object_type_t _object_types[] =
     { "RAGE_BOOK",          TV_RAGE_BOOK },
     { "BURGLARY_BOOK",      TV_BURGLARY_BOOK },
     { "GOLD",               TV_GOLD },
+    { "DEVICE",             OBJ_TYPE_DEVICE },
+    { "JEWELRY",            OBJ_TYPE_JEWELRY },
+    { "BOOK",               OBJ_TYPE_BOOK },
+    { "BODY_ARMOR",         OBJ_TYPE_BODY_ARMOR },
+    { "OTHER_ARMOR",        OBJ_TYPE_OTHER_ARMOR },
+    { "WEAPON",             OBJ_TYPE_WEAPON },
+    { "BOW_AMMO",           OBJ_TYPE_BOW_AMMO },
+    { "MISC",               OBJ_TYPE_MISC },
     { 0, 0 }
 };
 
@@ -1325,12 +1335,13 @@ static errr _parse_room_grid_object(char **args, int arg_ct, room_grid_t *grid_p
                 if (!_object_types[i].name)
                 {
                     grid_ptr->object = atoi(args[0]);
+                    if (!grid_ptr->object) return PARSE_ERROR_GENERIC;
                     break;
                 }
                 if (streq(args[0], _object_types[i].name))
                 {
-                    grid_ptr->object = _object_types[i].tval;
-                    grid_ptr->flags |= ROOM_GRID_OBJ_TVAL;
+                    grid_ptr->object = _object_types[i].type;
+                    grid_ptr->flags |= ROOM_GRID_OBJ_TYPE;
                     break;
                 }
             }
@@ -1359,6 +1370,7 @@ static errr _parse_room_grid_ego(char **args, int arg_ct, room_grid_t *grid_ptr)
         else
         {
             grid_ptr->extra = atoi(args[0]);
+            if (!grid_ptr->extra) return PARSE_ERROR_GENERIC;
             grid_ptr->flags |= ROOM_GRID_OBJ_EGO;
         }
         break;
@@ -1383,6 +1395,7 @@ static errr _parse_room_grid_artifact(char **args, int arg_ct, room_grid_t *grid
         else
         {
             grid_ptr->object = atoi(args[0]);
+            if (!grid_ptr->object) return PARSE_ERROR_GENERIC;
             grid_ptr->flags |= ROOM_GRID_OBJ_ARTIFACT;
         }
         break;
@@ -1491,6 +1504,33 @@ errr parse_room_grid(char *buf, room_grid_t *grid_ptr)
     return result;
 }
 
+static errr _parse_room_flags(char* buf, room_template_t *room_ptr)
+{
+    char *flags[10];
+    int   flag_ct = string_split(buf, flags, 10, "|");
+    int   i;
+                
+    trim_tokens(flags, flag_ct);
+    for (i = 0; i < flag_ct; i++)
+    {
+        char* flag = flags[i];
+            
+        if (streq(flag, "GOOD"))
+            room_ptr->flags |= ROOM_THEME_GOOD;
+        else if (streq(flag, "EVIL"))
+            room_ptr->flags |= ROOM_THEME_EVIL;
+        else if (streq(flag, "FRIENDLY"))
+            room_ptr->flags |= ROOM_THEME_FRIENDLY;
+        else if (streq(flag, "NIGHT"))
+            room_ptr->flags |= ROOM_THEME_NIGHT;
+        else if (streq(flag, "DAY"))
+            room_ptr->flags |= ROOM_THEME_DAY;
+        else
+            return PARSE_ERROR_INVALID_FLAG;
+    }
+    return 0;
+}
+
 /*
  * Initialize the "v_info" array, by parsing an ascii "template" file
  */
@@ -1502,7 +1542,7 @@ errr parse_v_info(char *buf, header *head)
     /* Current entry */
     static room_template_t *room_ptr = NULL;
 
-    /* Process 'N' for "New/Number/Name" */
+    /* N:<idx>:Name */
     if (buf[0] == 'N')
     {
         /* Find the colon before the name */
@@ -1515,13 +1555,13 @@ errr parse_v_info(char *buf, header *head)
         *s++ = '\0';
 
         /* Paranoia -- require a name */
-        if (!*s) return (1);
+        if (!*s) return PARSE_ERROR_GENERIC;
 
         /* Get the index */
         i = atoi(buf+2);
 
         /* Verify information */
-        if (i <= error_idx) return (4);
+        if (i <= error_idx) return PARSE_ERROR_NON_SEQUENTIAL_RECORDS;
 
         /* Verify information */
         if (i >= head->info_num) return (2);
@@ -1534,45 +1574,19 @@ errr parse_v_info(char *buf, header *head)
         WIPE(room_ptr, room_template_t);
 
         /* Store the name */
-        if (!add_name(&room_ptr->name, head, s)) return (7);
+        if (!add_name(&room_ptr->name, head, s)) return PARSE_ERROR_OUT_OF_MEMORY;
     }
 
-    /* There better be a current v_ptr */
-    else if (!room_ptr) return (3);
+    /* There better be a current room_ptr */
+    else if (!room_ptr) return PARSE_ERROR_MISSING_RECORD_HEADER;
 
-    /* Process 'D' for "Description" */
-    else if (buf[0] == 'D')
-    {
-        /* Acquire the text */
-        s = buf+2;
-        
-        /* Calculate room dimensions automagically */
-        room_ptr->height++;
-        if (!room_ptr->width)
-            room_ptr->width = strlen(s);
-        else if (strlen(s) != room_ptr->width) 
-            return 1;
-
-        /* Store the text */
-        if (!add_text(&room_ptr->text, head, s, FALSE)) return (7);
-    }
-    else if (buf[0] == 'F')
-    {
-        int j;
-        for (j = 0; j < ROOM_MAX_LETTERS; j++)
-        {
-            if (!room_ptr->letters[j].letter)
-                return parse_room_grid(buf + 2, &room_ptr->letters[j]);
-        }
-        return PARSE_ERROR_GENERIC; /* Too many letters */
-    }
-    /* X:Type:Subtype:Rarity */
-    else if (buf[0] == 'X')
+    /* T:Type:Subtype[:Flags] */
+    else if (buf[0] == 'T')
     {
         char *zz[10];
         int   num = tokenize(buf + 2, 10, zz, 0);
 
-        if (num < 3) return PARSE_ERROR_TOO_FEW_ARGUMENTS;
+        if (num < 2 || num > 3) return PARSE_ERROR_TOO_FEW_ARGUMENTS;
 
         if (streq(zz[0], "VAULT"))
         {
@@ -1600,17 +1614,60 @@ errr parse_v_info(char *buf, header *head)
             }
         }
 
-        if (!room_ptr->type) return 1;
-        if (!room_ptr->subtype) return 1;
+        if (!room_ptr->type) return PARSE_ERROR_GENERIC;
+        if (!room_ptr->subtype) return PARSE_ERROR_GENERIC;
 
-        room_ptr->rarity = atoi(zz[2]);
+        if (num == 3)
+        {
+            errr rc = _parse_room_flags(zz[2], room_ptr);
+            if (rc) return rc;
+        }
     }
 
+    /* W:Level:Rarity */
+    else if (buf[0] == 'W')
+    {
+        char *zz[10];
+        int   num = tokenize(buf + 2, 10, zz, 0);
+
+        if (num != 2) return PARSE_ERROR_TOO_FEW_ARGUMENTS;
+        room_ptr->level = atoi(zz[0]);
+        room_ptr->rarity = atoi(zz[1]);
+    }
+
+    /* Process custom 'L'etters */
+    else if (buf[0] == 'L')
+    {
+        int j;
+        for (j = 0; j < ROOM_MAX_LETTERS; j++)
+        {
+            if (!room_ptr->letters[j].letter)
+                return parse_room_grid(buf + 2, &room_ptr->letters[j]);
+        }
+        return PARSE_ERROR_GENERIC; /* Too many letters */
+    }
+
+    /* Process 'M'ap lines */
+    else if (buf[0] == 'M')
+    {
+        /* Acquire the text */
+        s = buf+2;
+        
+        /* Calculate room dimensions automagically */
+        room_ptr->height++;
+        if (!room_ptr->width)
+            room_ptr->width = strlen(s);
+        else if (strlen(s) != room_ptr->width) 
+            return PARSE_ERROR_GENERIC;
+
+        /* Store the text */
+        if (!add_text(&room_ptr->text, head, s, FALSE)) return PARSE_ERROR_OUT_OF_MEMORY;
+    }
     /* Oops */
-    else    return (6);
+    else    return PARSE_ERROR_UNDEFINED_DIRECTIVE;
 
     /* Success */
-    return (0);
+    return 0;
 }
 
 

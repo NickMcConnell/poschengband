@@ -4945,7 +4945,7 @@ static bool _kind_hook(int k_idx) {
         return FALSE;
     return TRUE;
 }
-static bool _kind_is_device(int k_idx) { 
+bool kind_is_device(int k_idx) { 
     switch (k_info[k_idx].tval)
     {
     case TV_POTION: case TV_SCROLL: case TV_WAND: case TV_ROD: case TV_STAFF:
@@ -4953,7 +4953,7 @@ static bool _kind_is_device(int k_idx) {
     }
     return FALSE;
 }
-static bool _kind_is_jewelry(int k_idx) { 
+bool kind_is_jewelry(int k_idx) { 
     switch (k_info[k_idx].tval)
     {
     case TV_RING: case TV_AMULET:
@@ -4961,12 +4961,12 @@ static bool _kind_is_jewelry(int k_idx) {
     }
     return FALSE;
 }
-static bool _kind_is_book(int k_idx) { 
+bool kind_is_book(int k_idx) { 
     if (TV_LIFE_BOOK <= k_info[k_idx].tval && k_info[k_idx].tval <= TV_BURGLARY_BOOK)
         return TRUE;
     return FALSE;
 }
-static bool _kind_is_body_armor(int k_idx) { 
+bool kind_is_body_armor(int k_idx) { 
     switch (k_info[k_idx].tval)
     {
     case TV_SOFT_ARMOR: case TV_HARD_ARMOR: case TV_DRAG_ARMOR:
@@ -4975,7 +4975,7 @@ static bool _kind_is_body_armor(int k_idx) {
     }
     return FALSE;
 }
-static bool _kind_is_other_armor(int k_idx) { 
+bool kind_is_other_armor(int k_idx) { 
     switch (k_info[k_idx].tval)
     {
     case TV_BOOTS: case TV_GLOVES: 
@@ -4984,24 +4984,24 @@ static bool _kind_is_other_armor(int k_idx) {
     }
     return FALSE;
 }
-static bool _kind_is_armor(int k_idx) { 
+bool kind_is_armor(int k_idx) { 
     if (TV_ARMOR_BEGIN <= k_info[k_idx].tval && k_info[k_idx].tval <= TV_ARMOR_END)
         return TRUE;
     return FALSE;
 }
-static bool _kind_is_weapon(int k_idx) { 
+bool kind_is_weapon(int k_idx) { 
     if (TV_DIGGING <= k_info[k_idx].tval && k_info[k_idx].tval <= TV_WEAPON_END)
         return TRUE;
     return FALSE;
 }
-static bool _kind_is_bow_ammo(int k_idx) { 
+bool kind_is_bow_ammo(int k_idx) { 
     if (k_info[k_idx].tval == TV_BOW)
         return TRUE;
     if (TV_MISSILE_BEGIN <= k_info[k_idx].tval && k_info[k_idx].tval <= TV_MISSILE_END)
         return TRUE;
     return FALSE;
 }
-static bool _kind_is_misc(int k_idx) { 
+bool kind_is_misc(int k_idx) { 
     switch (k_info[k_idx].tval)
     {
     case TV_SKELETON: case TV_BOTTLE: case TV_JUNK: case TV_WHISTLE:
@@ -5018,14 +5018,14 @@ typedef struct {
     int     great;
 } _kind_alloc_entry;
 static _kind_alloc_entry _kind_alloc_table[] = {
-    { _kind_is_weapon,       18,   0,   0 },  
-    { _kind_is_body_armor,   15,   0,   0 },
-    { _kind_is_other_armor,  20,   0,   0 },
-    { _kind_is_device,       25, -20, -10 },
-    { _kind_is_bow_ammo,      7,   0,   0 },
-    { _kind_is_book,          5,   5,  10 },
-    { _kind_is_jewelry,       5,   5,  10 },
-    { _kind_is_misc,          5,  -5,  -5 },
+    { kind_is_weapon,       18,   0,   0 },  
+    { kind_is_body_armor,   15,   0,   0 },
+    { kind_is_other_armor,  20,   0,   0 },
+    { kind_is_device,       25, -20, -10 },
+    { kind_is_bow_ammo,      7,   0,   0 },
+    { kind_is_book,          5,   5,  10 },
+    { kind_is_jewelry,       5,   5,  10 },
+    { kind_is_misc,          5,  -5,  -5 },
     { NULL, 0}
 };
 static int _kind_alloc_weight(_kind_alloc_entry *entry, u32b mode)

@@ -4817,7 +4817,7 @@ int activate_hi_summon(int y, int x, bool can_pet)
                 break;
             case 17:
                 if (can_pet) break;
-                count += summon_specific((pet ? -1 : 0), y, x, summon_lev, SUMMON_AMBERITES, (mode | PM_ALLOW_UNIQUE));
+                count += summon_specific((pet ? -1 : 0), y, x, summon_lev, SUMMON_AMBERITE, (mode | PM_ALLOW_UNIQUE));
                 break;
             case 18: case 19:
                 if (can_pet) break;

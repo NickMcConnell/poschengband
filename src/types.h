@@ -516,19 +516,19 @@ struct monster_race
  * This includes support for user defined "letters" in the template file
  * as well as built in predefined "letters" (for historical reasons).
  *
- * Sample syntax for the Parser:
- * F:9:FLOOR(ROOM):OBJ(*, 7):MON(*, 9)  i.e., Random object 7 levels OoD and random monster 9 levels OoD
- * F:9:FLOOR(ROOM):MON(*, 9):OBJ(*, 7)  i.e., order of named directives does not matter
- * F:D:FLOOR(ROOM | ICKY):MON(DRAGON, 20):OBJ(SWORD, 20):EGO(*)
- * F:%:GRANITE(ROOM)
- * F:#:GRANITE
- * F:=:FLOOR(ROOM | ICKY):OBJ(RING, 50):EGO(306)  i.e., ring of speed on a "vault" tile generated 50 level OoD!!!
+ * Sample syntax for the Parser for room_grid_t:
+ * L:9:FLOOR(ROOM):OBJ(*, 7):MON(*, 9)  i.e., Random object 7 levels OoD and random monster 9 levels OoD
+ * L:9:FLOOR(ROOM):MON(*, 9):OBJ(*, 7)  i.e., order of named directives does not matter
+ * L:D:FLOOR(ROOM | ICKY):MON(DRAGON, 20):OBJ(SWORD, 20):EGO(*)
+ * L:%:GRANITE(ROOM)
+ * L:#:GRANITE
+ * L:=:FLOOR(ROOM | ICKY):OBJ(RING, 50):EGO(306)  i.e., ring of speed on a "vault" tile generated 50 level OoD!!!
  */
 
 #define ROOM_GRID_MON_CLONED   0x00000001  /* hack for The Cloning Pits */
 #define ROOM_GRID_MON_TYPE     0x00000002  /* monster is SUMMON_* rather than a specific r_idx */
 #define ROOM_GRID_MON_RANDOM   0x00000004
-#define ROOM_GRID_OBJ_TVAL     0x00000008  /* object is TV_* rather than a specific k_idx */
+#define ROOM_GRID_OBJ_TYPE     0x00000008  /* object is TV_* or OBJ_TYPE_* rather than a specific k_idx */
 #define ROOM_GRID_OBJ_ARTIFACT 0x00000010  /* object is a_idx (which implies k_idx) */
 #define ROOM_GRID_OBJ_EGO      0x00000020  /* named ego using extra for type */
 #define ROOM_GRID_OBJ_RANDOM   0x00000040  /* object is completely random */
@@ -537,17 +537,40 @@ struct monster_race
 #define ROOM_GRID_TRAP_RANDOM  0x00000200  /* this may override object info */
 #define ROOM_GRID_SPECIAL      0x00000400  /* use extra for cave.special field */
 
-#define ROOM_MAX_LETTERS       5
+#define ROOM_THEME_GOOD        0x00000001
+#define ROOM_THEME_EVIL        0x00000002
+#define ROOM_THEME_FRIENDLY    0x00000004
+#define ROOM_THEME_NIGHT       0x00000008  /* Useful for wilderness graveyards where monsters only spawn at night */
+#define ROOM_THEME_DAY         0x00000010
+
+#define ROOM_MAX_LETTERS       10
+
+enum obj_types_e                           /* OBJ(DEVICE), etc */
+{
+    OBJ_TYPE_TVAL_MAX = 255,
+    OBJ_TYPE_DEVICE,            
+    OBJ_TYPE_JEWELRY,
+    OBJ_TYPE_BOOK,
+    OBJ_TYPE_BODY_ARMOR,
+    OBJ_TYPE_OTHER_ARMOR,
+    OBJ_TYPE_WEAPON,
+    OBJ_TYPE_BOW_AMMO,
+    OBJ_TYPE_MISC,
+};
 
 struct room_grid_s
 {
     s16b cave_feat;
     s16b cave_trap;
+    
     u16b cave_info;
     s16b monster;
+    
     s16b object;
     s16b extra;
+    
     u32b flags;
+    
     byte letter;
     byte monster_level;
     byte object_level;
@@ -558,9 +581,14 @@ typedef struct room_grid_s room_grid_t;
 struct room_template_s
 {
     u32b name;
+    
     u32b text;
+    
     byte type;
     byte subtype;
+    u16b flags;
+    
+    byte level;
     byte rarity;
     byte height;
     byte width;

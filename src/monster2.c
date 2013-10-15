@@ -896,14 +896,17 @@ bool mon_is_type(int r_idx, int type)
     case SUMMON_HI_DEMON:
         if (strchr("UHB", r_ptr->d_char) && (r_ptr->flags3 & RF3_DEMON)) return TRUE;
         break;
-    case SUMMON_AMBERITES:
+    case SUMMON_AMBERITE:
         if (r_ptr->flags3 & (RF3_AMBERITE)) return TRUE;
         break;
-    case SUMMON_OLYMPIANS:
+    case SUMMON_OLYMPIAN:
         if (r_ptr->flags3 & (RF3_OLYMPIAN)) return TRUE;
         break;
     case SUMMON_HUMAN:
         if (r_ptr->flags2 & RF2_HUMAN) return TRUE;
+        break;
+    case SUMMON_HORSE:
+        if (r_ptr->d_char == 'q' && (r_ptr->flags7 & RF7_RIDING)) return TRUE;
         break;
     case SUMMON_CAMELOT:
         if ((r_ptr->flags2 & RF2_CAMELOT) && (r_ptr->flags2 & RF2_KNIGHT)) return TRUE;
@@ -1045,21 +1048,21 @@ bool mon_is_type(int r_idx, int type)
     case SUMMON_SOFTWARE_BUG:
         if (r_idx == MON_SOFTWARE_BUG) return TRUE;
         break;
-    case SUMMON_GUARDIANS:
+    case SUMMON_GUARDIAN:
         if (r_ptr->flags7 & RF7_GUARDIAN) return TRUE;
         break;
-    case SUMMON_KNIGHTS:
+    case SUMMON_KNIGHT:
         if ( r_idx == MON_NOV_PALADIN || r_idx == MON_NOV_PALADIN_G || r_idx == MON_PALADIN 
           || r_idx == MON_W_KNIGHT || r_idx == MON_ULTRA_PALADIN || r_idx == MON_KNI_TEMPLAR )
         {
             return TRUE;
         }
         break;
-    case SUMMON_EAGLES:
+    case SUMMON_EAGLE:
         if (r_ptr->d_char == 'B' && (r_ptr->flags8 & RF8_WILD_MOUNTAIN) && (r_ptr->flags8 & RF8_WILD_ONLY))
             return TRUE;
         break;
-    case SUMMON_PIRANHAS:
+    case SUMMON_PIRANHA:
         if (r_idx == MON_PIRANHA || r_idx == MON_GIANT_PIRANHA) return TRUE;
         break;
     case SUMMON_ARMAGE_GOOD:
@@ -1304,7 +1307,7 @@ errr get_mon_num_prep(monster_hook_type monster_hook,
             continue;
 
         if (!p_ptr->inside_battle && !chameleon_change_m_idx &&
-            summon_specific_type != SUMMON_GUARDIANS)
+            summon_specific_type != SUMMON_GUARDIAN)
         {
             /* Hack -- don't create questors */
             if (r_ptr->flags1 & RF1_QUESTOR)

@@ -543,6 +543,9 @@ static void _generate_encounters(int x, int y, const rect_t *r, const rect_t *ex
     if (!wilderness[y][x].town && !wilderness[y][x].road && one_in_(1))
     {
         room_template_t *room_ptr = choose_room_template(ROOM_WILDERNESS, wilderness[y][x].terrain);
+#ifdef _DEBUG    
+        room_ptr = &room_info[130]; /* Testing new design */
+#endif
         if (room_ptr)
         {
             rect_t room_rect, quad_rect;
@@ -560,8 +563,8 @@ static void _generate_encounters(int x, int y, const rect_t *r, const rect_t *ex
 
                 /* TODO: Coordinate transforms */
 
-                x2 = quad_rect.x + 2 + randint0(r->cx - room_ptr->width - 4);
-                y2 = quad_rect.y + 1 + randint0(r->cy - room_ptr->height - 2);
+                x2 = quad_rect.x + 2 + randint0(quad_rect.cx - room_ptr->width - 4);
+                y2 = quad_rect.y + 1 + randint0(quad_rect.cy - room_ptr->height - 2);
 
                 room_rect = rect_create(x2, y2, room_ptr->width, room_ptr->height);
 

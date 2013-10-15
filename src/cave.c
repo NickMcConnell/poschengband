@@ -4876,7 +4876,7 @@ void hit_mon_trap(int y, int x, int m_idx)
                     num = 1 + p_ptr->lev/10;
                     for (i = 0; i < num; i++)
                     {
-                        summon_specific(0, y, x, p_ptr->lev * 2, SUMMON_PIRANHAS, (PM_ALLOW_GROUP | PM_FORCE_PET));
+                        summon_specific(0, y, x, p_ptr->lev * 2, SUMMON_PIRANHA, (PM_ALLOW_GROUP | PM_FORCE_PET));
                     }
                     break;
                 }

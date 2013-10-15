@@ -6933,7 +6933,7 @@ static cptr do_crusade_spell(int spell, int mode)
                         if (cave_empty_bold2(my, mx)) break;
                     }
                     if (attempt < 0) continue;
-                    summon_specific(-1, my, mx, plev, SUMMON_KNIGHTS, (PM_ALLOW_GROUP | PM_FORCE_PET | PM_HASTE));
+                    summon_specific(-1, my, mx, plev, SUMMON_KNIGHT, (PM_ALLOW_GROUP | PM_FORCE_PET | PM_HASTE));
                 }
                 set_hero(randint1(base) + base, FALSE);
                 set_blessed(randint1(base) + base, FALSE);

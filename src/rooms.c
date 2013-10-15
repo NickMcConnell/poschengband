@@ -2577,13 +2577,24 @@ void coord_trans(int *x, int *y, int xoffset, int yoffset, int transno)
     *y += yoffset;
 }
 
-static int _tval_hack = 0;
-static bool _kind_is_tval(int k_idx)
+static int _obj_kind_hack = 0;
+static bool _obj_kind_hook(int k_idx)
 {
-    return k_info[k_idx].tval == _tval_hack;
+    switch (_obj_kind_hack)
+    {
+    case OBJ_TYPE_DEVICE:       return kind_is_device(k_idx);
+    case OBJ_TYPE_JEWELRY:      return kind_is_jewelry(k_idx);
+    case OBJ_TYPE_BOOK:         return kind_is_book(k_idx);
+    case OBJ_TYPE_BODY_ARMOR:   return kind_is_body_armor(k_idx);
+    case OBJ_TYPE_OTHER_ARMOR:  return kind_is_other_armor(k_idx);
+    case OBJ_TYPE_WEAPON:       return kind_is_weapon(k_idx);
+    case OBJ_TYPE_BOW_AMMO:     return kind_is_bow_ammo(k_idx);
+    case OBJ_TYPE_MISC:         return kind_is_misc(k_idx);
+    default:                    return k_info[k_idx].tval == _obj_kind_hack;
+    }
 }
 
-static void _apply_room_grid1(int x, int y, const room_grid_t *grid_ptr)
+static void _apply_room_grid1(int x, int y, const room_grid_t *grid_ptr, u16b room_flags)
 {
     cave_type *c_ptr = &cave[y][x];
     bool       trapped = FALSE;
@@ -2638,14 +2649,14 @@ static void _apply_room_grid1(int x, int y, const room_grid_t *grid_ptr)
     }
     else if (grid_ptr->flags & ROOM_GRID_OBJ_RANDOM)
     {
-        int mode = AM_NO_FIXED_ART | AM_GOOD;
+        int mode = 0;
         if (grid_ptr->flags & ROOM_GRID_ART_RANDOM)
-            mode |= AM_GREAT | AM_SPECIAL;
+            mode = AM_GOOD | AM_GREAT | AM_SPECIAL | AM_NO_FIXED_ART;
         else if (grid_ptr->flags & ROOM_GRID_EGO_RANDOM)
-            mode |= AM_GREAT;
+            mode = AM_GOOD | AM_GREAT | AM_NO_FIXED_ART;
         place_object(y, x, mode);
     }
-    else if ((grid_ptr->flags & ROOM_GRID_OBJ_TVAL) && grid_ptr->object == TV_GOLD)
+    else if ((grid_ptr->flags & ROOM_GRID_OBJ_TYPE) && grid_ptr->object == TV_GOLD)
     {
         object_type forge;
         if (make_gold(&forge))
@@ -2655,10 +2666,10 @@ static void _apply_room_grid1(int x, int y, const room_grid_t *grid_ptr)
     {
         int k_idx;
 
-        if (grid_ptr->flags & ROOM_GRID_OBJ_TVAL)
+        if (grid_ptr->flags & ROOM_GRID_OBJ_TYPE)
         {
-            _tval_hack = grid_ptr->object;
-            get_obj_num_hook = _kind_is_tval;
+            _obj_kind_hack = grid_ptr->object;
+            get_obj_num_hook = _obj_kind_hook;
             get_obj_num_prep();
             k_idx = get_obj_num(object_level);
             get_obj_num_hook = NULL;
@@ -2669,60 +2680,114 @@ static void _apply_room_grid1(int x, int y, const room_grid_t *grid_ptr)
 
         if (k_idx)
         {
-            int         mode = AM_NO_FIXED_ART | AM_GOOD;
+            int         mode = 0;
             object_type forge;
 
             if (grid_ptr->flags & ROOM_GRID_ART_RANDOM)
             {
-                mode |= AM_GREAT | AM_SPECIAL;
+                mode = AM_GOOD | AM_GREAT | AM_SPECIAL | AM_NO_FIXED_ART;
             }
             else if (grid_ptr->flags & ROOM_GRID_EGO_RANDOM)
             {
-                mode |= AM_GREAT;
+                mode = AM_GOOD | AM_GREAT | AM_NO_FIXED_ART;
             }
             else if (grid_ptr->flags & ROOM_GRID_OBJ_EGO)
             {
-                mode |= AM_FORCE_EGO;
+                mode |= AM_GOOD | AM_GREAT | AM_FORCE_EGO;
                 apply_magic_ego = grid_ptr->extra;
             }
 
             object_prep(&forge, k_idx);
             apply_magic(&forge, object_level, mode);
+            if (k_info[k_idx].gen_flags & TRG_STACK)
+                mass_produce(&forge);
             drop_here(&forge, y, x);
         }
     }
     object_level = base_level;
 }
 
-static int _summon_kind_hack = 0;
-static bool _summon_kind_hook(int r_idx)
+static const room_grid_t *_room_grid_hack = 0;
+static u16b _room_flags_hack = 0;
+static bool _room_grid_mon_hook(int r_idx)
 {
-    return mon_is_type(r_idx, _summon_kind_hack);
+    if (_room_flags_hack & ROOM_THEME_GOOD)
+    {
+        if (r_info[r_idx].flags3 & RF3_EVIL)
+            return FALSE;
+    }
+
+    if (_room_flags_hack & ROOM_THEME_EVIL)
+    {
+        if (r_info[r_idx].flags3 & RF3_GOOD)
+            return FALSE;
+    }
+
+    if (_room_grid_hack->flags & ROOM_GRID_MON_TYPE)
+    {
+        if (!mon_is_type(r_idx, _room_grid_hack->monster))
+            return FALSE;
+    }
+    else if (_room_grid_hack->flags & ROOM_GRID_MON_RANDOM)
+    {
+        monster_hook_type hook = get_monster_hook();
+        if (hook && !hook(r_idx))
+            return FALSE;
+    }
+    return TRUE;
 }
 
 
-static void _apply_room_grid2(int x, int y, const room_grid_t *grid_ptr)
+static void _apply_room_grid2(int x, int y, const room_grid_t *grid_ptr, u16b room_flags)
 {
     int mode = PM_ALLOW_SLEEP | PM_ALLOW_GROUP;
 
-    monster_level = base_level + grid_ptr->monster_level;
-    if (grid_ptr->flags & ROOM_GRID_MON_TYPE)
+    /* Monsters are allocated on pass 2 to handle group placement, 
+       which requires the terrain to be properly laid out. Note that 
+       quest files (process_dungeon_file) are broken in this respect. */
+
+
+    if (!(room_flags & ROOM_GRID_MON_RANDOM) && !grid_ptr->monster)
+        return;
+
+    /* The NIGHT theme is designed for wilderness cemeteries and 
+       such, which should be populated with foul undead, but only
+       in the deep, dark hours of night! */
+    if ((room_flags & ROOM_THEME_NIGHT) && !dun_level && !p_ptr->inside_quest)
+    {
+        int day, hour, min;
+        extract_day_hour_min(&day, &hour, &min);
+        if (hour > 3 && hour < 22)
+            return;
+    }
+
+    /* Added for symmetry with ROOM_THEME_NIGHT ... any ideas? */
+    if ((room_flags & ROOM_THEME_DAY) && !dun_level && !p_ptr->inside_quest)
+    {
+        int day, hour, min;
+        extract_day_hour_min(&day, &hour, &min);
+        if (hour < 8 || hour > 18)
+            return;
+    }
+
+    if (room_flags & ROOM_THEME_FRIENDLY)
+        mode |= PM_FORCE_FRIENDLY;
+
+    if (grid_ptr->flags & (ROOM_GRID_MON_TYPE | ROOM_GRID_MON_RANDOM))
     {
         int r_idx;
-        _summon_kind_hack = grid_ptr->monster;
-        get_mon_num_prep(_summon_kind_hook, get_monster_hook2(y, x));
+        monster_level = base_level + grid_ptr->monster_level;
+        _room_grid_hack = grid_ptr;
+        _room_flags_hack = room_flags;
+        get_mon_num_prep(_room_grid_mon_hook, get_monster_hook2(y, x));
         r_idx = get_mon_num(monster_level);
         place_monster_aux(0, y, x, r_idx, mode);
-    }
-    else if (grid_ptr->flags & ROOM_GRID_MON_RANDOM)
-    {
-        place_monster(y, x, mode);
+        monster_level = base_level;
     }
     else if (grid_ptr->monster)
     {
         place_monster_aux(0, y, x, grid_ptr->monster, mode | PM_NO_KAGE);
     }
-    monster_level = base_level;
 
     /* TODO: Letters in quest files need extra handling for cloned uniques,
        as well as resurrecting uniques already slain. See process_dungeon_file_aux
@@ -2799,7 +2864,7 @@ void build_room_template(const room_template_t *room_ptr, int yval, int xval, in
             grid_ptr = _find_room_grid(room_ptr, *t);
             if (grid_ptr)
             {
-                _apply_room_grid1(x, y, grid_ptr);
+                _apply_room_grid1(x, y, grid_ptr, room_ptr->flags);
                 continue;
             }
 
@@ -2953,7 +3018,7 @@ void build_room_template(const room_template_t *room_ptr, int yval, int xval, in
             grid_ptr = _find_room_grid(room_ptr, *t);
             if (grid_ptr)
             {
-                _apply_room_grid2(x, y, grid_ptr);
+                _apply_room_grid2(x, y, grid_ptr, room_ptr->flags);
                 continue;
             }
 

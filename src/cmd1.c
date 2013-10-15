@@ -2062,7 +2062,7 @@ static void hit_trap(bool break_trap)
             num = 1 + dun_level/20;
             for (i = 0; i < num; i++)
             {
-                (void)summon_specific(0, y, x, dun_level, SUMMON_PIRANHAS, (PM_ALLOW_GROUP | PM_NO_PET));
+                (void)summon_specific(0, y, x, dun_level, SUMMON_PIRANHA, (PM_ALLOW_GROUP | PM_NO_PET));
             }
             break;
         }
