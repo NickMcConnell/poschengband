@@ -2668,6 +2668,9 @@ static void _apply_room_grid1(int x, int y, const room_grid_t *grid_ptr, u16b ro
 
         if (grid_ptr->flags & ROOM_GRID_OBJ_TYPE)
         {
+            if (grid_ptr->object == TV_JUNK)
+                object_level = 1;
+
             _obj_kind_hack = grid_ptr->object;
             get_obj_num_hook = _obj_kind_hook;
             get_obj_num_prep();
@@ -2747,7 +2750,7 @@ static void _apply_room_grid2(int x, int y, const room_grid_t *grid_ptr, u16b ro
        quest files (process_dungeon_file) are broken in this respect. */
 
 
-    if (!(room_flags & ROOM_GRID_MON_RANDOM) && !grid_ptr->monster)
+    if (!(grid_ptr->flags & ROOM_GRID_MON_RANDOM) && !grid_ptr->monster)
         return;
 
     /* The NIGHT theme is designed for wilderness cemeteries and 
@@ -3098,8 +3101,11 @@ room_template_t *choose_room_template(int type, int subtype)
     for (i = 0; i < max_room_idx; i++)
     {
         room_template_t *room_ptr = &room_info[i];
+        if (!ironman_rooms && room_ptr->level < base_level) continue;  /* Note: dun_level is 0 for wilderness encounters! */
+        if (room_ptr->max_level && room_ptr->max_level < base_level) continue;
         if (room_ptr->type != type || room_ptr->subtype != subtype) continue;
-        total += room_ptr->rarity;
+        if (!room_ptr->rarity) continue;
+        total += 1000 / room_ptr->rarity;
     }
 
     if (!total)
@@ -3109,8 +3115,11 @@ room_template_t *choose_room_template(int type, int subtype)
     for (i = 0; i < max_room_idx; i++)
     {
         room_template_t *room_ptr = &room_info[i];
+        if (!ironman_rooms && room_ptr->level < base_level) continue;  /* Note: dun_level is 0 for wilderness encounters! */
+        if (room_ptr->max_level && room_ptr->max_level < base_level) continue;
         if (room_ptr->type != type || room_ptr->subtype != subtype) continue;
-        n -= room_ptr->rarity;
+        if (!room_ptr->rarity) continue;
+        n -= 1000 / room_ptr->rarity;
         if (n <= 0)
             return room_ptr;
     }

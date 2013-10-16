@@ -1255,6 +1255,7 @@ typedef struct _object_type_s _object_type_t;
    Regexp: \#define TV_{[A-Z_0-9]+}[ ]+[0-9]+ -> { "\1", TV_\1 }, */
 static _object_type_t _object_types[] = 
 {
+    { "JUNK",               TV_JUNK },
     { "CHEST",              TV_CHEST },
     { "SHOT",               TV_SHOT },
     { "ARROW",              TV_ARROW },
@@ -1624,15 +1625,19 @@ errr parse_v_info(char *buf, header *head)
         }
     }
 
-    /* W:Level:Rarity */
+    /* W:Level:MaxLevel:Rarity */
     else if (buf[0] == 'W')
     {
         char *zz[10];
         int   num = tokenize(buf + 2, 10, zz, 0);
 
-        if (num != 2) return PARSE_ERROR_TOO_FEW_ARGUMENTS;
+        if (num != 3) return PARSE_ERROR_TOO_FEW_ARGUMENTS;
         room_ptr->level = atoi(zz[0]);
-        room_ptr->rarity = atoi(zz[1]);
+        if (streq(zz[1], "*"))
+            room_ptr->max_level = 0;
+        else
+            room_ptr->max_level = atoi(zz[1]);
+        room_ptr->rarity = atoi(zz[2]);
     }
 
     /* Process custom 'L'etters */

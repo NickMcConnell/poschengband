@@ -581,18 +581,19 @@ typedef struct room_grid_s room_grid_t;
 struct room_template_s
 {
     u32b name;
-    
-    u32b text;
-    
-    byte type;
-    byte subtype;
-    u16b flags;
-    
+
     byte level;
+    byte max_level;
     byte rarity;
+    byte type;
+
+    u16b subtype;
+    u16b flags;    
+
     byte height;
     byte width;
 
+    u32b text;
     room_grid_t letters[ROOM_MAX_LETTERS];
 };
 

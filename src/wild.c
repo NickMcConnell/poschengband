@@ -540,10 +540,10 @@ static void _generate_encounters(int x, int y, const rect_t *r, const rect_t *ex
     object_level = base_level;
 
     /* Special Encounter */
-    if (!wilderness[y][x].town && !wilderness[y][x].road && one_in_(1))
+    if (!wilderness[y][x].town && !wilderness[y][x].road && one_in_(5))
     {
         room_template_t *room_ptr = choose_room_template(ROOM_WILDERNESS, wilderness[y][x].terrain);
-#ifdef _DEBUG    
+#if 0
         room_ptr = &room_info[130]; /* Testing new design */
 #endif
         if (room_ptr)
