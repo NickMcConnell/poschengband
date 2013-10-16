@@ -215,7 +215,9 @@ static void _apply_glow(bool all)
                 {
                     if (!(c_ptr->info & CAVE_ROOM))
                         c_ptr->info |= CAVE_GLOW;
-                    /*if (view_perma_grids) c_ptr->info |= CAVE_MARK;*/
+
+                    /* ?? */
+                    if (view_perma_grids) c_ptr->info |= CAVE_MARK;
                 }
                 else
                 {
@@ -558,12 +560,15 @@ static void _generate_encounters(int x, int y, const rect_t *r, const rect_t *ex
     monster_level = base_level;
     object_level = base_level;
 
-    /* Special Encounter */
-    if (!wilderness[y][x].town && !wilderness[y][x].road && one_in_(5))
+    /* Special Encounter? */
+    if ( !wilderness[y][x].town 
+      && !wilderness[y][x].road 
+      && !wilderness[y][x].entrance 
+      && one_in_(7))
     {
         room_template_t *room_ptr = choose_room_template(ROOM_WILDERNESS, _encounter_terrain_type(x, y));
 #if 0
-        room_ptr = &room_info[130]; /* Testing new design */
+        room_ptr = &room_info[170]; /* Testing new design */
 #endif
         if (room_ptr)
         {
@@ -1072,7 +1077,7 @@ void wilderness_gen(void)
         p_ptr->teleport_town = FALSE;
     }
     /* When leaving the dungeon, look for the wilderness stairs to place the player */
-    else if (p_ptr->leaving_dungeon)
+    else if (p_ptr->leaving_dungeon && !(d_info[p_ptr->leaving_dungeon].flags1 & DF1_RANDOM))
     {
         for (y = 0; y < cur_hgt; y++)
         {
@@ -1310,6 +1315,7 @@ errr parse_line_wilderness(char *buf, int ymin, int xmin, int ymax, int xmax, in
     for (i = 1; i < max_d_idx; i++)
     {
         if (!d_info[i].maxdepth) continue;
+        if (d_info[i].flags1 & DF1_RANDOM) continue;
         wilderness[d_info[i].dy][d_info[i].dx].entrance = i;
         if (!wilderness[d_info[i].dy][d_info[i].dx].town)
             wilderness[d_info[i].dy][d_info[i].dx].level = d_info[i].mindepth;

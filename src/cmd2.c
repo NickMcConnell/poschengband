@@ -150,6 +150,12 @@ void do_cmd_go_up(void)
         /* Get out from current dungeon */
         if (dun_level - up_num < d_info[dungeon_type].mindepth)
             up_num = dun_level;
+
+        if (d_info[dungeon_type].flags1 & DF1_RANDOM)
+        {
+            up_num = dun_level;
+            prepare_change_floor_mode(CFM_NO_RETURN);
+        }
     }
 
     /* Success */
@@ -239,7 +245,10 @@ void do_cmd_go_down(void)
             }
             if (!max_dlv[target_dungeon])
             {
-                msg_format("There is the entrance of %s (Danger level: %d)", d_name+d_info[target_dungeon].name, d_info[target_dungeon].mindepth);
+                if (d_info[target_dungeon].flags1 & DF1_RANDOM)
+                    msg_format("There is the entrance of %s (Danger level: ??)", d_name+d_info[target_dungeon].name);
+                else
+                    msg_format("There is the entrance of %s (Danger level: %d)", d_name+d_info[target_dungeon].name, d_info[target_dungeon].mindepth);
                 if (!get_check("Do you really get in this dungeon? ")) return;
             }
 
@@ -305,8 +314,11 @@ void do_cmd_go_down(void)
             }
             else
             {
-                /* Create a way back */
-                if (p_ptr->enter_dungeon && down_num >= 20 && one_in_(14))
+                /* Create a way back ... maybe */
+                if ( p_ptr->enter_dungeon 
+                  && down_num >= 20  
+                  && !(d_info[dungeon_type].flags1 & DF1_RANDOM) 
+                  && one_in_(14) )
                 {
                     /* Hack:  No stair scum */
                     msg_print("The stairs collapse behind you! You are trapped!!");

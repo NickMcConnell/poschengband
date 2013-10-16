@@ -18,15 +18,13 @@
 # type/subtype is a text description (e.g. VAULT:LESSER). New room types for 
 # non-vault regular dungeon rooms (idea from Vanilla) and also for wilderness 
 # encounters. Vault choice now based on type and rarity. Support custom "letters". 
-# I also tried to attribute individual vaults to their original authors where
-# possible. Please let me know if I missed anyone, or made any mistakes.
 # -CTK (10/2013)
 
 # === Understanding v_info.txt ===
 
 # N:serial number:name
 # T:type:subtype[:theme]
-# W:level:rarity
+# W:level:max_level:rarity
 # L:<letter>:<Directives>+
 # M:lines giving map of vault using symbols below or specified in F: lines
 
@@ -34,7 +32,7 @@
 # increase for each new vault.
 
 # 'T' is for type information - room type, subtype and any theme options.
-# Wilderness "rooms" use terrain values for subtype.
+# Wilderness "rooms" use terrain values for subtype (see below).
 
 # 'W' is for "when" the room should show up - level and rarity. Rooms
 # will *never* be generated below the indicated level.
@@ -69,8 +67,15 @@
 
 V:3.0.0
 
-
-### Simple Vaults -- maximum size 44x22 ###
+######################################################################
+# Vaults
+#
+# Type:    VAULT
+# Subtype: LESSER | GREATER
+#
+# I tried to attribute individual vaults to their original authors where
+# possible. Please let me know if I missed anyone, or made any mistakes.
+#
 
 N:0:Lesser vault (round)
 T:VAULT:LESSER
@@ -479,9 +484,6 @@ M:%..X^^^*^^^X..%
 M:%.##+#####+##.%
 M:%...&.....&...%
 M:%%%%%%%%%%%%%%%
-
-
-### Greater vaults -- maximum size 66x44 ###
 
 N:20:Greater vault (huge)
 T:VAULT:GREATER
@@ -3376,13 +3378,21 @@ M:%%%%%%%%%%%%%%%
 
 
 ######################################################################
-# PosChengband
+# PosChengband Wilderness Encounters
+#
+# Type:    WILD
+# Subtype: GRASS | WATER | SWAMP | TREES | LAVA | MOUNTAIN
 #
 # Wilderness Encounters must fit snugly inside a single scroll tile
 # now that the wilderness allows infinite exploration. The current
 # scroll tile is 66x22 but the available space is 62x20.
+#
 
-N:129:Hermit's House
+################################
+# Grass/Dirt/Desert Encounters #
+################################
+
+N:150:Hermit's House
 T:WILD:GRASS
 W:1:*:2
 L:_:GRASS
@@ -3402,7 +3412,7 @@ M:      #..........#.....#
 M:      #..........+.....#
 M:      ##################
 
-N:130:Ruined Home
+N:151:Ruined Home
 T:WILD:GRASS
 W:1:*:1
 L:,:GRASS
@@ -3422,7 +3432,7 @@ M:     ,,.TT.......#.T,..%
 M:     ,#........~.,TTT..%
 M:      ##   ##%%,,..T#%%,
 
-N:131:Knight's Stronghold
+N:152:Knight's Stronghold
 T:WILD:GRASS:GOOD
 W:20:*:32
 L:.:DIRT(ROOM)
@@ -3452,6 +3462,36 @@ M:#qq#            #################            #qq#
 M:#qq#                                         #qq#
 M:####                                         ####
 
+#####################
+# Forest Encounters #
+#####################
+
+N:160:Random Forest Level
+T:WILD:TREES
+W:20:*:8
+L:>:ENTRANCE(GLOW | MARK, 26)
+M:>
+
+###################
+# Lava Encounters #
+###################
+
+N:170:Random Volcano Level
+T:WILD:LAVA
+W:40:*:8
+L:>:ENTRANCE(GLOW | MARK, 27)
+L:~:DEEP_LAVA(GLOW)
+L:.:SHALLOW_LAVA(GLOW)
+L:^:MOUNTAIN
+M:  ^^^^^  
+M: ^^...^^ 
+M:^^..~..^^
+M:^..~>~..^
+M:^^..~..^^
+M: ^^...^^ 
+M:  ^^^^^  
+
+
 #N:?:Orc Camp
 #N:?:Thieve's Hideout
 #N:?:Army Camp
@@ -3459,7 +3499,33 @@ M:####                                         ####
 #N:?:Ruined Castle
 #N:?:Crypt
 #N:?:Graveyard
+#Temple
 
-# PosChengband
 ######################################################################
+# PosChengband Rooms
+#
+# Type:    ROOM
+# Subtype: ...
+#
+# The idea of scripted rooms was borrowed from Vanilla Angband.
+#
 
+N:400:Kennel
+T:ROOM:NORMAL
+W:10:*:1
+L:C:FLOOR(ROOM):MON(HOUND, 5)
+M:%%%%%%%%%%%%%%%%%%%%%
+M:%...................%
+M:%.#################.%
+M:%.#C#C#C#C#C#C#C#C#.%
+M:%.#+#+#+#+#+#+#+#+#.%
+M:%.+...............#.%
+M:%.#+#+#+#+#+#+#+#+#.%
+M:%.#C#C#C#C#C#C#C#C#.%
+M:%.#################.%
+M:%...................%
+M:%%%%%%%%%%%%%%%%%%%%%
+
+# TODO
+# Library, Prison (prisoners s/b friendly), Altar, Temple, Vault (Gold only)
+# Zoo

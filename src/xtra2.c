@@ -3929,7 +3929,10 @@ static int target_set_aux(int y, int x, int mode, cptr info)
         }
         else if (have_flag(f_ptr->flags, FF_ENTRANCE))
         {
-            name = format("%s(level %d)", d_text + d_info[c_ptr->special].text, d_info[c_ptr->special].mindepth);
+            if (d_info[c_ptr->special].flags1 & DF1_RANDOM)
+                name = format("%s(level ??)", d_text + d_info[c_ptr->special].text);
+            else
+                name = format("%s(level %d)", d_text + d_info[c_ptr->special].text, d_info[c_ptr->special].mindepth);
         }
         else if (have_flag(f_ptr->flags, FF_TOWN))
         {

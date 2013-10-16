@@ -304,3 +304,24 @@ L:FLOOR:100:FLOOR:0:FLOOR:0:8
 A:PERMANENT:100:MOUNTAIN_WALL:0:GRANITE:0:PERMANENT:GRANITE:NONE:NONE
 F:NO_VAULT | BIG
 F:FINAL_GUARDIAN_1110 | FINAL_OBJECT_205
+
+##################################################################
+# Random Dungeons for Wilderness Encounters                      #
+# Player gets a single level in the range [min, max] upon entry. #
+##################################################################
+
+N:26:Random Forest
+D:a path into an unkown forest
+W:25:50:5:3:14:160:75:20:0x0001:0x0052
+L:GRASS:85:FLOWER:5:SHALLOW_WATER:10:15
+A:TREE:90:GRANITE:10:GRANITE:0:BRAKE:TREE:GRANITE:BRAKE
+F:NO_DOORS | WATER_RIVER | MONSTER_DIV_15 | RANDOM
+M:ANIMAL | R_CHAR_SJZ# | WILD_WOOD
+
+N:27:Random Lava
+D:a hole to the center of an unkown volcano
+W:50:90:18:3:14:160:80:30:0x01bf:0x02fd
+L:DIRT:40:SHALLOW_LAVA:40:DEEP_LAVA:20:0
+A:GRANITE:90:DARK_PIT:10:GRANITE:0:GRANITE:GRANITE:DARK_PIT:QUARTZ_VEIN
+F:CAVE | MONSTER_DIV_0 | CAVERN | LAKE_LAVA | LAVA_RIVER | DESTROY | RANDOM
+M:IM_FIRE | CAN_FLY | WILD_VOLCANO

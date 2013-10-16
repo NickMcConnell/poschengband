@@ -805,6 +805,7 @@ int choose_dungeon(cptr note, int y, int x)
         bool seiha = FALSE;
 
         if (!d_info[i].maxdepth) continue;
+        if (d_info[i].flags1 & DF1_RANDOM) continue;
         if (!max_dlv[i]) continue;
         if (d_info[i].final_guardian)
         {
@@ -868,7 +869,11 @@ bool recall_player(int turns)
         return TRUE;
     }
 
-    if (dun_level && (max_dlv[dungeon_type] > dun_level) && !p_ptr->inside_quest && !p_ptr->word_recall)
+    if ( dun_level 
+      && !(d_info[dungeon_type].flags1 & DF1_RANDOM)
+      && !p_ptr->inside_quest 
+      && !p_ptr->word_recall
+      && max_dlv[dungeon_type] > dun_level )
     {
         if (get_check("Reset recall depth? "))
         {

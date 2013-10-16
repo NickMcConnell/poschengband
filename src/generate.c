@@ -193,6 +193,9 @@ static bool alloc_stairs(int feat, int num, int walls)
     {
         int q_idx = quest_number(dun_level);
 
+        /* No downstairs on random wilderness entrances */
+        if (d_info[dungeon_type].flags1 & DF1_RANDOM) return TRUE;
+
         /* No downstairs on quest levels */
         if (dun_level > 1 && q_idx)
         {

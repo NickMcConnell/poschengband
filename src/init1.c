@@ -870,7 +870,7 @@ static cptr d_info_flags1[] =
     "GLASS_DOOR",
     "CAVE",
     "CAVERN",
-    "XXX",
+    "RANDOM",
     "XXX",
     "XXX",
     "XXX",
@@ -1416,8 +1416,13 @@ static errr _parse_room_grid_feature(char* name, char **args, int arg_ct, room_g
     if (feat < 0) return PARSE_ERROR_GENERIC;
     grid_ptr->cave_feat = feat;
 
-    if (arg_ct > 1) return PARSE_ERROR_TOO_FEW_ARGUMENTS;
-    if (arg_ct == 1)
+    if (arg_ct > 2) return PARSE_ERROR_TOO_FEW_ARGUMENTS;
+    if (arg_ct >= 2)
+    {
+        grid_ptr->flags |= ROOM_GRID_SPECIAL;
+        grid_ptr->extra = atoi(args[1]);
+    }
+    if (arg_ct >= 1)
     {
         char *flags[10];
         int   flag_ct = string_split(args[0], flags, 10, "|");
@@ -1596,6 +1601,13 @@ errr parse_v_info(char *buf, header *head)
                 room_ptr->subtype = VAULT_LESSER;
             else if (streq(zz[1], "GREATER"))
                 room_ptr->subtype = VAULT_GREATER;
+
+            if (!room_ptr->subtype) return PARSE_ERROR_GENERIC;
+        }
+        else if (streq(zz[0], "ROOM"))
+        {   
+            room_ptr->type = ROOM_NORMAL;
+            room_ptr->subtype = 0; /* TODO */
         }
         else if (streq(zz[0], "WILD"))
         {   
@@ -1619,10 +1631,11 @@ errr parse_v_info(char *buf, header *head)
                     break;
                 }
             }
+
+            if (!room_ptr->subtype) return PARSE_ERROR_GENERIC;
         }
 
         if (!room_ptr->type) return PARSE_ERROR_GENERIC;
-        if (!room_ptr->subtype) return PARSE_ERROR_GENERIC;
 
         if (num == 3)
         {

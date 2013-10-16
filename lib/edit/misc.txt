@@ -22,7 +22,7 @@ M:B:100
 M:K:748
 
 # Maximum number of rooms in v_info.txt
-M:ROOMS:255
+M:ROOMS:500
 
 # Maximum number of terrain features in f_info.txt
 M:F:255

@@ -5141,7 +5141,9 @@ static void dungeon(bool load_game)
 
 
     /* Track maximum dungeon level (if not in quest -KMW-) */
-    if ((max_dlv[dungeon_type] < dun_level) && !p_ptr->inside_quest)
+    if ( max_dlv[dungeon_type] < dun_level 
+      && !p_ptr->inside_quest
+      && !(d_info[dungeon_type].flags1 & DF1_RANDOM) )
     {
         max_dlv[dungeon_type] = dun_level;
     }
@@ -5255,7 +5257,7 @@ static void dungeon(bool load_game)
         p_ptr->energy_need = 0;
 
     /* Not leaving dungeon */
-    p_ptr->leaving_dungeon = FALSE;
+    p_ptr->leaving_dungeon = 0;
 
     /* Initialize monster process */
     mproc_init();
