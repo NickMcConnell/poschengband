@@ -1598,18 +1598,24 @@ errr parse_v_info(char *buf, header *head)
                 room_ptr->subtype = VAULT_GREATER;
         }
         else if (streq(zz[0], "WILD"))
-        {   /* Same order as TERRAIN_* in defines.h and TERRAIN_EDGE is not be supported */
-            static cptr types[] = { "EDGE XXXX", "TOWN", "DEEP_WATER", "SHALLOW_WATER",
-                                    "SWAMP", "DIRT", "GRASS", "TREES", "DESERT",
-                                    "SHALLOW_LAVA", "MOUNTAIN", 0 };
+        {   
+            static struct { cptr name; int type; } types[] = {
+                {"WATER",    TERRAIN_DEEP_WATER}, /* TERRAIN_SHALLOW_WATER */
+                {"SWAMP",    TERRAIN_SWAMP},
+                {"GRASS",    TERRAIN_GRASS},      /* TERRAIN_DIRT, TERRAIN_DESERT */
+                {"TREES",    TERRAIN_TREES},
+                {"LAVA",     TERRAIN_DEEP_LAVA},  /* TERRAIN_SHALLOW_LAVA */
+                {"MOUNTAIN", TERRAIN_MOUNTAIN},
+                { 0, 0 }
+            };
             int j;
             room_ptr->type = ROOM_WILDERNESS;
             for (j = 0; ; j++)
             {
-                if (!types[j]) break;
-                if (streq(types[j], zz[1]))
+                if (!types[j].name) break;
+                if (streq(types[j].name, zz[1]))
                 {
-                    room_ptr->subtype = j;
+                    room_ptr->subtype = types[j].type;
                     break;
                 }
             }

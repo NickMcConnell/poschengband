@@ -1,6 +1,7 @@
 # File: v_info.txt
 # TODO: v_info should be renamed to room_info ... -CTK
 
+
 # This file is used to initialize the "lib/raw/v_info.raw" file, which is
 # used to initialize the "vault template" information for the Angband game.
 

@@ -523,6 +523,25 @@ static void _build_room(const room_template_t *room_ptr, const rect_t *r)
     _wipe_generate_cave_flags(r);
 }
 
+static int _encounter_terrain_type(int x, int y)
+{
+    int result = wilderness[y][x].terrain;
+    switch (result)
+    {
+    case TERRAIN_SHALLOW_LAVA:
+        result = TERRAIN_DEEP_LAVA;
+        break;
+    case TERRAIN_SHALLOW_WATER:
+        result = TERRAIN_DEEP_WATER;
+        break;
+    case TERRAIN_DIRT:
+    case TERRAIN_DESERT:
+        result = TERRAIN_GRASS;
+        break;
+    }
+    return result;
+}
+
 static void _generate_encounters(int x, int y, const rect_t *r, const rect_t *exclude)
 {
     int    ct, prob, i, x2, y2, r_idx, j;
@@ -542,7 +561,7 @@ static void _generate_encounters(int x, int y, const rect_t *r, const rect_t *ex
     /* Special Encounter */
     if (!wilderness[y][x].town && !wilderness[y][x].road && one_in_(5))
     {
-        room_template_t *room_ptr = choose_room_template(ROOM_WILDERNESS, wilderness[y][x].terrain);
+        room_template_t *room_ptr = choose_room_template(ROOM_WILDERNESS, _encounter_terrain_type(x, y));
 #if 0
         room_ptr = &room_info[130]; /* Testing new design */
 #endif
