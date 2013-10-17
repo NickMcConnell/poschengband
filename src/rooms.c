@@ -2603,7 +2603,7 @@ static void _apply_room_grid1(int x, int y, const room_grid_t *grid_ptr, u16b ro
     if (grid_ptr->cave_feat)
     {
         c_ptr->feat = conv_dungeon_feat(grid_ptr->cave_feat);
-        c_ptr->info = grid_ptr->cave_info;
+        c_ptr->info = (c_ptr->info & (CAVE_MASK | CAVE_TEMP)) | grid_ptr->cave_info;
 
         if (grid_ptr->flags & ROOM_GRID_SPECIAL)
             c_ptr->special = grid_ptr->extra;

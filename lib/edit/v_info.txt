@@ -3388,9 +3388,9 @@ M:%%%%%%%%%%%%%%%
 # scroll tile is 66x22 but the available space is 62x20.
 #
 
-################################
-# Grass/Dirt/Desert Encounters #
-################################
+####################
+# Grass Encounters #
+####################
 
 N:150:Hermit's House
 T:WILD:GRASS
@@ -3462,21 +3462,11 @@ M:#qq#            #################            #qq#
 M:#qq#                                         #qq#
 M:####                                         ####
 
-#####################
-# Forest Encounters #
-#####################
-
-N:160:Random Forest Level
-T:WILD:TREES
-W:20:*:8
-L:>:ENTRANCE(GLOW | MARK, 26)
-M:>
-
 ###################
 # Lava Encounters #
 ###################
 
-N:170:Random Volcano Level
+N:160:Random Volcano Level
 T:WILD:LAVA
 W:40:*:8
 L:>:ENTRANCE(GLOW | MARK, 27)
@@ -3491,6 +3481,46 @@ M:^^..~..^^
 M: ^^...^^ 
 M:  ^^^^^  
 
+#######################
+# Mountain Encounters #
+#######################
+
+N:170:Random Mountain Level
+T:WILD:MOUNTAIN
+W:40:*:8
+L:>:ENTRANCE(GLOW | MARK, 28)
+M:>
+
+####################
+# Swamp Encounters #
+####################
+
+#####################
+# Forest Encounters #
+#####################
+
+N:190:Random Forest Level
+T:WILD:TREES
+W:20:*:8
+L:>:ENTRANCE(GLOW | MARK, 26)
+M:>
+
+####################
+# Water Encounters #
+####################
+
+N:200:Random Sea Level
+T:WILD:WATER
+W:40:*:8
+L:>:ENTRANCE(GLOW | MARK, 29)
+L:~:DEEP_WATER
+L:_:SHALLOW_WATER
+M:__~__~___
+M:_~_~__~_~
+M:~_~_~~_~_
+M:_~~~>~~__
+M:~__~~~__~
+M:_~~___~~_
 
 #N:?:Orc Camp
 #N:?:Thieve's Hideout

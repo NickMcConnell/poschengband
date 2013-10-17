@@ -246,10 +246,10 @@ void do_cmd_go_down(void)
             if (!max_dlv[target_dungeon])
             {
                 if (d_info[target_dungeon].flags1 & DF1_RANDOM)
-                    msg_format("There is the entrance of %s (Danger level: ??)", d_name+d_info[target_dungeon].name);
+                    msg_format("This is the entrance of %s (Danger level: ??)", d_name+d_info[target_dungeon].name);
                 else
-                    msg_format("There is the entrance of %s (Danger level: %d)", d_name+d_info[target_dungeon].name, d_info[target_dungeon].mindepth);
-                if (!get_check("Do you really get in this dungeon? ")) return;
+                    msg_format("This is the entrance of %s (Danger level: %d)", d_name+d_info[target_dungeon].name, d_info[target_dungeon].mindepth);
+                if (!get_check("Do you really go into this dungeon? ")) return;
             }
 
             /* Save old player position */

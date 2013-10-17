@@ -1132,7 +1132,9 @@ void change_floor(void)
         !(change_floor_mode & CFM_FIRST_FLOOR))
     {
         /* Create cave */
+        hack_mind = FALSE;
         generate_cave();
+        hack_mind = TRUE;
 
         /* Paranoia -- No new saved floor */
         new_floor_id = 0;
@@ -1332,7 +1334,9 @@ void change_floor(void)
             else
             {
                 /* Newly create cave */
+                hack_mind = FALSE;
                 generate_cave();
+                hack_mind = TRUE;
             }
 
             /* Record last visit turn */

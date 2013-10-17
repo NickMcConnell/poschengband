@@ -215,6 +215,10 @@ static void _apply_glow(bool all)
                 {
                     if (!(c_ptr->info & CAVE_ROOM))
                         c_ptr->info |= CAVE_GLOW;
+                    else
+                    {
+                        bool foo = c_ptr->info & CAVE_ROOM;
+                    }
 
                     /* ?? */
                     if (view_perma_grids) c_ptr->info |= CAVE_MARK;
@@ -564,11 +568,11 @@ static void _generate_encounters(int x, int y, const rect_t *r, const rect_t *ex
     if ( !wilderness[y][x].town 
       && !wilderness[y][x].road 
       && !wilderness[y][x].entrance 
-      && one_in_(7))
+      && one_in_(1 /*7*/))
     {
         room_template_t *room_ptr = choose_room_template(ROOM_WILDERNESS, _encounter_terrain_type(x, y));
-#if 0
-        room_ptr = &room_info[170]; /* Testing new design */
+#if 1
+        room_ptr = &room_info[200]; /* Testing new design */
 #endif
         if (room_ptr)
         {
