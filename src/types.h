@@ -525,17 +525,23 @@ struct monster_race
  * L:=:FLOOR(ROOM | ICKY):OBJ(RING, 50):EGO(306)  i.e., ring of speed on a "vault" tile generated 50 level OoD!!!
  */
 
-#define ROOM_GRID_MON_CLONED   0x00000001  /* hack for The Cloning Pits */
-#define ROOM_GRID_MON_TYPE     0x00000002  /* monster is SUMMON_* rather than a specific r_idx */
-#define ROOM_GRID_MON_RANDOM   0x00000004
-#define ROOM_GRID_OBJ_TYPE     0x00000008  /* object is TV_* or OBJ_TYPE_* rather than a specific k_idx */
-#define ROOM_GRID_OBJ_ARTIFACT 0x00000010  /* object is a_idx (which implies k_idx) */
-#define ROOM_GRID_OBJ_EGO      0x00000020  /* named ego using extra for type */
-#define ROOM_GRID_OBJ_RANDOM   0x00000040  /* object is completely random */
-#define ROOM_GRID_EGO_RANDOM   0x00000080  /* object is either k_idx or tval, but make it an ego */
-#define ROOM_GRID_ART_RANDOM   0x00000100  /* object is either k_idx or tval, but make it a rand art */
-#define ROOM_GRID_TRAP_RANDOM  0x00000200  /* this may override object info */
-#define ROOM_GRID_SPECIAL      0x00000400  /* use extra for cave.special field */
+#define ROOM_GRID_MON_CLONED    0x00000001  /* hack for The Cloning Pits */
+#define ROOM_GRID_MON_TYPE      0x00000002  /* monster is SUMMON_* rather than a specific r_idx */
+#define ROOM_GRID_MON_RANDOM    0x00000004
+#define ROOM_GRID_OBJ_TYPE      0x00000008  /* object is TV_* or OBJ_TYPE_* rather than a specific k_idx */
+#define ROOM_GRID_OBJ_ARTIFACT  0x00000010  /* object is a_idx (which implies k_idx) */
+#define ROOM_GRID_OBJ_EGO       0x00000020  /* named ego using extra for type */
+#define ROOM_GRID_OBJ_RANDOM    0x00000040  /* object is completely random */
+#define ROOM_GRID_EGO_RANDOM    0x00000080  /* object is either k_idx or tval, but make it an ego */
+#define ROOM_GRID_ART_RANDOM    0x00000100  /* object is either k_idx or tval, but make it a rand art */
+#define ROOM_GRID_TRAP_RANDOM   0x00000200  /* this may override object info */
+#define ROOM_GRID_SPECIAL       0x00000400  /* use extra for cave.special field */
+#define ROOM_GRID_MON_NO_GROUP  0x00000800
+#define ROOM_GRID_MON_NO_SLEEP  0x00001000
+#define ROOM_GRID_MON_NO_UNIQUE 0x00002000
+#define ROOM_GRID_MON_FRIENDLY  0x00004000
+#define ROOM_GRID_MON_HASTE     0x00008000
+
 
 #define ROOM_THEME_GOOD        0x00000001
 #define ROOM_THEME_EVIL        0x00000002

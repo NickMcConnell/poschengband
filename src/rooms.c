@@ -37,7 +37,7 @@ static room_info_type room_info_normal[ROOM_T_MAX] =
     /* Depth */
     /*  0  10  20  30  40  50  60  70  80  90 100  min limit */
 
-    {{999,900,800,700,600,500,400,300,200,100,  0},  0}, /*NORMAL   */
+    {{900,800,700,600,500,400,300,200,100,100,100},  0}, /*NORMAL   */
     {{  1, 10, 20, 30, 40, 50, 60, 70, 80, 90,100},  1}, /*OVERLAP  */
     {{  1, 10, 20, 30, 40, 50, 60, 70, 80, 90,100},  3}, /*CROSS    */
     {{  1, 10, 20, 30, 40, 50, 60, 70, 80, 90,100},  3}, /*INNER_F  */
@@ -45,13 +45,15 @@ static room_info_type room_info_normal[ROOM_T_MAX] =
     {{  0,  1,  1,  2,  3,  4,  6,  8, 10, 13, 16}, 10}, /*PIT      */
     {{  0,  0,  1,  1,  2,  2,  3,  5,  6,  8, 10}, 30}, /*LESSER_V */
     {{  0,  0,  0,  0,  1,  2,  2,  2,  3,  3,  4}, 40}, /*GREATER_V*/
-    {{  0,100,200,300,400,500,600,700,800,900,999}, 10}, /*FRACAVE  */
+    {{  0,100,150,200,250,300,350,400,450,450,450}, 10}, /*FRACAVE  */
     {{  0,  1,  1,  1,  1,  1,  1,  1,  1,  2,  2}, 10}, /*RANDOM_V */
     {{  0,  4,  8, 12, 16, 20, 24, 28, 32, 36, 40},  3}, /*OVAL     */
     {{  1,  6, 12, 18, 24, 30, 36, 42, 48, 54, 60}, 10}, /*CRYPT    */
     {{  0,  0,  1,  1,  1,  2,  3,  4,  5,  6,  8}, 20}, /*TRAP_PIT */
     {{  0,  0,  1,  1,  1,  2,  3,  4,  5,  6,  8}, 20}, /*TRAP     */
     {{  0,  0,  0,  0,  1,  1,  1,  2,  2,  2,  2}, 40}, /*GLASS    */
+    {{  0, 30, 60, 90,120,150,180,210,240,270,300}, 10}, /*TEMPLATE  */
+  /*{{100,100,150,200,250,300,350,400,450,450,450},  0}, TEMPLATE */
 };
 
 /* Build rooms in descending order of difficulty. */
@@ -59,6 +61,7 @@ static byte room_build_order[ROOM_T_MAX] = {
     ROOM_T_GREATER_VAULT,
     ROOM_T_RANDOM_VAULT,
     ROOM_T_LESSER_VAULT,
+    ROOM_T_TEMPLATE,
     ROOM_T_TRAP_PIT,
     ROOM_T_PIT,
     ROOM_T_NEST,
@@ -476,6 +479,65 @@ static bool find_space(int *y, int *x, int height, int width)
  *  14 -- trapped room
  */
 
+static bool build_room_template(int type, int subtype)
+{
+    room_template_t *v_ptr;
+    int x, y;
+    int xval, yval;
+    int xoffset = 0;
+    int yoffset = 0;
+    int transno;
+
+    /* Pick a room template */
+    v_ptr = choose_room_template(type, subtype);
+    if (!v_ptr) return FALSE;
+
+    /* pick type of transformation (0-7) */
+    if (type == ROOM_VAULT)
+        transno = randint0(8);
+    else
+    {
+        int n = randint0(100);
+        if (n < 45)
+            transno = 0;
+        else if (n < 90)
+            transno = 2;
+        else if (n < 95)
+            transno = 1;
+        else
+            transno = 3;
+
+        if (one_in_(2))
+            transno |= 0x04;
+    }
+
+    /* calculate offsets */
+    x = v_ptr->width;
+    y = v_ptr->height;
+
+    /* Some huge vault cannot be rotated to fit in the dungeon */
+    if (x+2 > cur_hgt-2)
+    {
+        /* Forbid 90 or 270 degree rotation */
+        transno &= ~1;
+    }
+
+    coord_trans(&x, &y, 0, 0, transno);
+    if (x < 0) xoffset = -x - 1;
+    if (y < 0) yoffset = -y - 1;
+
+    /* Find and reserve some space in the dungeon.  Get center of room.
+     * Hack -- Prepare a bit larger space (+2, +2) to 
+     * prevent generation of vaults with no-entrance. */
+    if (!find_space(&yval, &xval, abs(y) + 2, abs(x) + 2))
+        return FALSE;
+
+    /* Message */
+    if (cheat_room) msg_format("%s", room_name + v_ptr->name);
+
+    build_room_template_aux(v_ptr, yval, xval, xoffset, yoffset, transno);
+    return TRUE;
+}
 
 /*
  * Type 1 -- normal rectangular rooms
@@ -2654,6 +2716,8 @@ static void _apply_room_grid1(int x, int y, const room_grid_t *grid_ptr, u16b ro
             mode = AM_GOOD | AM_GREAT | AM_SPECIAL | AM_NO_FIXED_ART;
         else if (grid_ptr->flags & ROOM_GRID_EGO_RANDOM)
             mode = AM_GOOD | AM_GREAT | AM_NO_FIXED_ART;
+        else if (grid_ptr->object_level)
+            mode = AM_GOOD;
         place_object(y, x, mode);
     }
     else if ((grid_ptr->flags & ROOM_GRID_OBJ_TYPE) && grid_ptr->object == TV_GOLD)
@@ -2699,6 +2763,8 @@ static void _apply_room_grid1(int x, int y, const room_grid_t *grid_ptr, u16b ro
                 mode |= AM_GOOD | AM_GREAT | AM_FORCE_EGO;
                 apply_magic_ego = grid_ptr->extra;
             }
+            else if (grid_ptr->object_level)
+                mode = AM_GOOD;
 
             object_prep(&forge, k_idx);
             apply_magic(&forge, object_level, mode);
@@ -2743,7 +2809,21 @@ static bool _room_grid_mon_hook(int r_idx)
 
 static void _apply_room_grid2(int x, int y, const room_grid_t *grid_ptr, u16b room_flags)
 {
-    int mode = PM_ALLOW_SLEEP | PM_ALLOW_GROUP;
+    int mode = 0;
+
+    if (!(grid_ptr->flags & ROOM_GRID_MON_NO_GROUP))
+        mode |= PM_ALLOW_GROUP;
+    if (!(grid_ptr->flags & ROOM_GRID_MON_NO_SLEEP))
+        mode |= PM_ALLOW_SLEEP;
+    if (!(grid_ptr->flags & ROOM_GRID_MON_NO_UNIQUE))
+        mode |= PM_ALLOW_UNIQUE;
+    if (grid_ptr->flags & ROOM_GRID_MON_HASTE)
+        mode |= PM_HASTE;
+
+    if (grid_ptr->flags & ROOM_GRID_MON_FRIENDLY)
+        mode |= PM_FORCE_FRIENDLY;
+    if (room_flags & ROOM_THEME_FRIENDLY)
+        mode |= PM_FORCE_FRIENDLY;
 
     /* Monsters are allocated on pass 2 to handle group placement, 
        which requires the terrain to be properly laid out. Note that 
@@ -2772,9 +2852,6 @@ static void _apply_room_grid2(int x, int y, const room_grid_t *grid_ptr, u16b ro
         if (hour < 8 || hour > 18)
             return;
     }
-
-    if (room_flags & ROOM_THEME_FRIENDLY)
-        mode |= PM_FORCE_FRIENDLY;
 
     if (grid_ptr->flags & (ROOM_GRID_MON_TYPE | ROOM_GRID_MON_RANDOM))
     {
@@ -2812,7 +2889,7 @@ static const room_grid_t *_find_room_grid(const room_template_t *room_ptr, char 
  * Build Rooms from Templates (e.g. Vaults)
  * TODO: Can we clean up the interface a bit?
  */
-void build_room_template(const room_template_t *room_ptr, int yval, int xval, int xoffset, int yoffset, int transno)
+void build_room_template_aux(const room_template_t *room_ptr, int yval, int xval, int xoffset, int yoffset, int transno)
 {
     int dx, dy, x, y, i, j;
 
@@ -2921,10 +2998,10 @@ void build_room_template(const room_template_t *room_ptr, int yval, int xval, in
 
                 /* Secret doors */
             case '+':
-                if (room_ptr->type == ROOM_VAULT)
-                    place_secret_door(y, x, DOOR_DEFAULT);
-                else
+                if (room_ptr->type == ROOM_WILDERNESS)
                     place_locked_door(y, x);
+                else
+                    place_secret_door(y, x, DOOR_DEFAULT);
                 break;
 
                 /* Secret glass doors */
@@ -3101,7 +3178,7 @@ room_template_t *choose_room_template(int type, int subtype)
     for (i = 0; i < max_room_idx; i++)
     {
         room_template_t *room_ptr = &room_info[i];
-        if (!ironman_rooms && room_ptr->level < base_level) continue;  /* Note: dun_level is 0 for wilderness encounters! */
+        if (!ironman_rooms && base_level < room_ptr->level) continue;  /* Note: dun_level is 0 for wilderness encounters! */
         if (room_ptr->max_level && room_ptr->max_level < base_level) continue;
         if (room_ptr->type != type || room_ptr->subtype != subtype) continue;
         if (!room_ptr->rarity) continue;
@@ -3115,7 +3192,7 @@ room_template_t *choose_room_template(int type, int subtype)
     for (i = 0; i < max_room_idx; i++)
     {
         room_template_t *room_ptr = &room_info[i];
-        if (!ironman_rooms && room_ptr->level < base_level) continue;  /* Note: dun_level is 0 for wilderness encounters! */
+        if (!ironman_rooms && base_level < room_ptr->level) continue;  /* Note: dun_level is 0 for wilderness encounters! */
         if (room_ptr->max_level && room_ptr->max_level < base_level) continue;
         if (room_ptr->type != type || room_ptr->subtype != subtype) continue;
         if (!room_ptr->rarity) continue;
@@ -3126,62 +3203,6 @@ room_template_t *choose_room_template(int type, int subtype)
 
     return NULL;
 }
-
-static bool build_vault(int subtype)
-{
-    room_template_t *v_ptr;
-    int x, y;
-    int xval, yval;
-    int xoffset = 0;
-    int yoffset = 0;
-    int transno;
-
-    /* Pick a vault */
-    v_ptr = choose_room_template(ROOM_VAULT, subtype);
-    if (!v_ptr)
-    {
-        if (cheat_room)
-            msg_print("Warning! Could not choose vault!");
-        return FALSE;
-    }
-
-    /* pick type of transformation (0-7) */
-    transno = randint0(8);
-
-    /* calculate offsets */
-    x = v_ptr->width;
-    y = v_ptr->height;
-
-    /* Some huge vault cannot be rotated to fit in the dungeon */
-    if (x+2 > cur_hgt-2)
-    {
-        /* Forbid 90 or 270 degree rotation */
-        transno &= ~1;
-    }
-
-    coord_trans(&x, &y, 0, 0, transno);
-    if (x < 0) xoffset = -x - 1;
-    if (y < 0) yoffset = -y - 1;
-
-    /* Find and reserve some space in the dungeon.  Get center of room.
-     * Hack -- Prepare a bit larger space (+2, +2) to 
-     * prevent generation of vaults with no-entrance. */
-    if (!find_space(&yval, &xval, abs(y) + 2, abs(x) + 2))
-    {
-        if (cheat_room)
-            msg_format("Warning! %s vault would not fit!", room_name + v_ptr->name);
-        return FALSE;
-    }
-
-    /* Message */
-    if (cheat_room) msg_format("Vault (%s)", room_name + v_ptr->name);
-
-    build_room_template(v_ptr, yval, xval, xoffset, yoffset, transno);
-    return TRUE;
-}
-
-static bool build_lesser_vault(void) { return build_vault(VAULT_LESSER); }
-static bool build_greater_vault(void) { return build_vault(VAULT_GREATER); }
 
 /*
  * Structure to hold all "fill" data
@@ -6396,26 +6417,31 @@ static bool room_build(int typ)
 {
     if (dungeon_type == DUNGEON_ARENA)
         return build_type16();
-    
+
     /* Build a room */
     switch (typ)
     {
     /* Build an appropriate room */
     case ROOM_T_NORMAL:        return build_type1();
-    case ROOM_T_OVERLAP:       return build_type2();
-    case ROOM_T_CROSS:         return build_type3();
-    case ROOM_T_INNER_FEAT:    return build_type4();
     case ROOM_T_NEST:          return build_type5();
     case ROOM_T_PIT:           return build_type6();
-    case ROOM_T_LESSER_VAULT:  return build_lesser_vault();
-    case ROOM_T_GREATER_VAULT: return build_greater_vault();
     case ROOM_T_FRACAVE:       return build_type9();
     case ROOM_T_RANDOM_VAULT:  return build_type10();
-    case ROOM_T_OVAL:          return build_type11();
-    case ROOM_T_CRYPT:         return build_type12();
     case ROOM_T_TRAP_PIT:      return build_type13();
     case ROOM_T_TRAP:          return build_type14();
     case ROOM_T_GLASS:         return build_type15();
+
+    /* I think rooms should be specified with templates where possible ... */
+    case ROOM_T_OVERLAP:       /*return build_type2();*/
+    case ROOM_T_CROSS:         /*return build_type3();*/
+    case ROOM_T_INNER_FEAT:    /*return build_type4();*/
+    case ROOM_T_OVAL:          /*return build_type11();*/
+    case ROOM_T_CRYPT:         /*return build_type12();*/
+    case ROOM_T_TEMPLATE:      return build_room_template(ROOM_NORMAL, 0);
+
+    /* Of course, vaults have always been templates! */
+    case ROOM_T_LESSER_VAULT:  return build_room_template(ROOM_VAULT, VAULT_LESSER);
+    case ROOM_T_GREATER_VAULT: return build_room_template(ROOM_VAULT, VAULT_GREATER);
     }
 
     /* Paranoia */

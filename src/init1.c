@@ -1197,48 +1197,73 @@ static const char *_summon_specific_types[] = {
     0,
 };
 
-/* MON(DRAGON, 20)  Any dragon, 20 levels OoD
-   MON(*, 40)       Any monster, 40 levels OoD
-   MON(441, CLONED) A Gachapin Clone
-   MON(442)         A Black Knight */
+/* MON(DRAGON, 20)                Any dragon, 20 levels OoD
+   MON(*, 40)                     Any monster, 40 levels OoD
+   MON(ORC | NO_GROUP | HASTED)   A hasted orc loner at current depth
+   MON(441 | CLONED)              A Gachapin Clone
+   MON(442)                       A Black Knight */
 static errr _parse_room_grid_monster(char **args, int arg_ct, room_grid_t *grid_ptr)
 {
-    switch (arg_ct)
-    {
-    case 2:
-        if (streq(args[1], "CLONED"))
-            grid_ptr->flags |= ROOM_GRID_MON_CLONED;
-        else
-            grid_ptr->monster_level = atoi(args[1]);
+    if (arg_ct < 1 || arg_ct > 2) return PARSE_ERROR_TOO_FEW_ARGUMENTS;
 
-    case 1:
-        if (streq(args[0], "*"))
+    if (arg_ct >= 2)
+    {
+        grid_ptr->monster_level = atoi(args[1]);
+    }
+    if (arg_ct >= 1)
+    {
+        char *flags[10];
+        int   flag_ct = string_split(args[0], flags, 10, "|");
+        int   i;
+                
+        trim_tokens(flags, flag_ct);
+        for (i = 0; i < flag_ct; i++)
         {
-            grid_ptr->flags |= ROOM_GRID_MON_RANDOM;
-        }
-        else
-        {
-            int i;
-            for (i = 0; ; i++)
+            char* flag = flags[i];
+            if (streq(flag, "*"))
             {
-                if (!_summon_specific_types[i])
+                grid_ptr->flags |= ROOM_GRID_MON_RANDOM;
+            }
+            else if (streq(flag, "NO_GROUP"))
+            {
+                grid_ptr->flags |= ROOM_GRID_MON_NO_GROUP;
+            }
+            else if (streq(flag, "NO_SLEEP"))
+            {
+                grid_ptr->flags |= ROOM_GRID_MON_NO_SLEEP;
+            }
+            else if (streq(flag, "NO_UNIQUE"))
+            {
+                grid_ptr->flags |= ROOM_GRID_MON_NO_UNIQUE;
+            }
+            else if (streq(flag, "FRIENDLY"))
+            {
+                grid_ptr->flags |= ROOM_GRID_MON_FRIENDLY;
+            }
+            else if (streq(flag, "HASTE"))
+            {
+                grid_ptr->flags |= ROOM_GRID_MON_HASTE;
+            }
+            else
+            {
+                int i;
+                for (i = 0; ; i++)
                 {
-                    grid_ptr->monster = atoi(args[0]);
-                    if (!grid_ptr->monster) return PARSE_ERROR_GENERIC;
-                    break;
-                }
-                if (streq(args[0], _summon_specific_types[i]))
-                {
-                    grid_ptr->monster = i;
-                    grid_ptr->flags |= ROOM_GRID_MON_TYPE;
-                    break;
+                    if (!_summon_specific_types[i])
+                    {
+                        grid_ptr->monster = atoi(flag);
+                        if (!grid_ptr->monster) return PARSE_ERROR_GENERIC;
+                        break;
+                    }
+                    if (streq(flag, _summon_specific_types[i]))
+                    {
+                        grid_ptr->monster = i;
+                        grid_ptr->flags |= ROOM_GRID_MON_TYPE;
+                        break;
+                    }
                 }
             }
         }
-        break;
-
-    default:
-        return PARSE_ERROR_TOO_FEW_ARGUMENTS;
     }
     return 0;
 }
@@ -1256,6 +1281,7 @@ typedef struct _object_type_s _object_type_t;
 static _object_type_t _object_types[] = 
 {
     { "JUNK",               TV_JUNK },
+    { "STATUE",             TV_STATUE },
     { "CHEST",              TV_CHEST },
     { "SHOT",               TV_SHOT },
     { "ARROW",              TV_ARROW },

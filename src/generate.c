@@ -1573,7 +1573,7 @@ void generate_cave(void)
     p_ptr->enter_dungeon = FALSE;
     wipe_generate_cave_flags();
 
-#if 0
+#if 1
     {
         int i;
         int lvl = 0, ct = 0, uniques = 0;
