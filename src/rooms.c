@@ -41,18 +41,18 @@ static room_info_type room_info_normal[ROOM_T_MAX] =
     {{  1, 10, 20, 30, 40, 50, 60, 70, 80, 90,100},  1}, /*OVERLAP  */
     {{  1, 10, 20, 30, 40, 50, 60, 70, 80, 90,100},  3}, /*CROSS    */
     {{  1, 10, 20, 30, 40, 50, 60, 70, 80, 90,100},  3}, /*INNER_F  */
-    {{  0,  1,  1,  1,  3,  4,  6,  8, 10, 13, 16}, 10}, /*NEST     */
-    {{  0,  1,  1,  2,  3,  4,  6,  8, 10, 13, 16}, 10}, /*PIT      */
-    {{  0,  0,  1,  1,  2,  2,  3,  5,  6,  8, 10}, 30}, /*LESSER_V */
-    {{  0,  0,  0,  0,  1,  2,  2,  2,  3,  3,  4}, 40}, /*GREATER_V*/
-    {{  0,100,150,200,250,300,350,400,450,450,450}, 10}, /*FRACAVE  */
+    {{  0,  1,  1,  1,  3,  4,  6,  8,  8,  8,  8}, 10}, /*NEST     */
+    {{  0,  1,  1,  2,  3,  4,  6,  8,  8,  8,  8}, 10}, /*PIT      */
+    {{  0,  0,  2,  2,  4,  4,  6, 10, 12, 16, 20}, 30}, /*LESSER_V */
+    {{  0,  0,  0,  0,  2,  4,  4,  4,  6,  6,  8}, 40}, /*GREATER_V*/
+    {{  0,200,300,400,500,600,700,800,900,900,900}, 10}, /*FRACAVE  */
     {{  0,  1,  1,  1,  1,  1,  1,  1,  1,  2,  2}, 10}, /*RANDOM_V */
     {{  0,  4,  8, 12, 16, 20, 24, 28, 32, 36, 40},  3}, /*OVAL     */
     {{  1,  6, 12, 18, 24, 30, 36, 42, 48, 54, 60}, 10}, /*CRYPT    */
     {{  0,  0,  1,  1,  1,  2,  3,  4,  5,  6,  8}, 20}, /*TRAP_PIT */
     {{  0,  0,  1,  1,  1,  2,  3,  4,  5,  6,  8}, 20}, /*TRAP     */
     {{  0,  0,  0,  0,  1,  1,  1,  2,  2,  2,  2}, 40}, /*GLASS    */
-    {{  0, 30, 60, 90,120,150,180,210,240,270,300}, 10}, /*TEMPLATE  */
+    {{  1, 10, 20, 30, 40, 50, 60, 70, 80, 90,100}, 10}, /*TEMPLATE  */
   /*{{100,100,150,200,250,300,350,400,450,450,450},  0}, TEMPLATE */
 };
 
@@ -555,29 +555,17 @@ static bool build_type1(void)
         one_in_((d_info[dungeon_type].flags1 & DF1_NO_CAVE) ? 48 : 512);
 
     /* Pick a room size */
-    y1 = randint1(4);
-    x1 = randint1(11);
-    y2 = randint1(3);
-    x2 = randint1(11);
+    y1 = 1+randint1(4);
+    x1 = 2+randint1(11);
+    y2 = 1+randint1(3);
+    x2 = 2+randint1(11);
 
     xsize = x1 + x2 + 1;
     ysize = y1 + y2 + 1;
 
     /* Find and reserve some space in the dungeon.  Get center of room. */
     if (!find_space(&yval, &xval, ysize + 2, xsize + 2))
-    {
-        /* Limit to the minimum room size, and retry */
-        y1 = 1;
-        x1 = 1;
-        y2 = 1;
-        x2 = 1;
-
-        xsize = x1 + x2 + 1;
-        ysize = y1 + y2 + 1;
-
-        /* Find and reserve some space in the dungeon.  Get center of room. */
-        if (!find_space(&yval, &xval, ysize + 2, xsize + 2)) return FALSE;
-    }
+        return FALSE;
 
     /* Choose lite or dark */
     light = ((dun_level <= randint1(25)) && !(d_info[dungeon_type].flags1 & DF1_DARKNESS));
@@ -6421,25 +6409,26 @@ static bool room_build(int typ)
     /* Build a room */
     switch (typ)
     {
-    /* Build an appropriate room */
-    case ROOM_T_NORMAL:        return build_type1();
+    case ROOM_T_FRACAVE:       return build_type9();
+    case ROOM_T_NORMAL:        return one_in_(3) ? build_type2() : build_type1();
+
     case ROOM_T_NEST:          return build_type5();
     case ROOM_T_PIT:           return build_type6();
-    case ROOM_T_FRACAVE:       return build_type9();
-    case ROOM_T_RANDOM_VAULT:  return build_type10();
     case ROOM_T_TRAP_PIT:      return build_type13();
     case ROOM_T_TRAP:          return build_type14();
     case ROOM_T_GLASS:         return build_type15();
+    case ROOM_T_CRYPT:         return build_type12();
+
 
     /* I think rooms should be specified with templates where possible ... */
     case ROOM_T_OVERLAP:       /*return build_type2();*/
     case ROOM_T_CROSS:         /*return build_type3();*/
     case ROOM_T_INNER_FEAT:    /*return build_type4();*/
     case ROOM_T_OVAL:          /*return build_type11();*/
-    case ROOM_T_CRYPT:         /*return build_type12();*/
     case ROOM_T_TEMPLATE:      return build_room_template(ROOM_NORMAL, 0);
 
     /* Of course, vaults have always been templates! */
+    case ROOM_T_RANDOM_VAULT:  /*return build_type10();*/
     case ROOM_T_LESSER_VAULT:  return build_room_template(ROOM_VAULT, VAULT_LESSER);
     case ROOM_T_GREATER_VAULT: return build_room_template(ROOM_VAULT, VAULT_GREATER);
     }
@@ -6471,7 +6460,7 @@ bool generate_rooms(void)
     s16b room_num[ROOM_T_MAX];
 
     /* Limit number of rooms */
-    int dun_rooms = DUN_ROOMS_MAX * area_size / 100;
+    int dun_rooms = rand_range(10, 25) * area_size / 100;
 
     /* Assume normal cave */
     room_info_type *room_info_ptr = room_info_normal;
@@ -6555,7 +6544,7 @@ bool generate_rooms(void)
      * Prepare the number of rooms, of all types, we should build
      * on this level.
      */
-    for (i = dun_rooms; i > 0; i--)
+    for (i = DUN_ROOMS_MAX; i > 0; i--)
     {
         int room_type;
         int rand = randint0(total_prob);
@@ -6572,26 +6561,6 @@ bool generate_rooms(void)
 
         /* Increase the number of rooms of that type we should build. */
         room_num[room_type]++;
-
-        switch (room_type)
-        {
-        case ROOM_T_NEST:
-        case ROOM_T_PIT:
-        case ROOM_T_LESSER_VAULT:
-        case ROOM_T_TRAP_PIT:
-        case ROOM_T_GLASS:
-
-            /* Large room */
-            i -= 2;
-            break;
-
-        case ROOM_T_GREATER_VAULT:
-        case ROOM_T_RANDOM_VAULT:
-
-            /* Largest room */
-            i -= 3;
-            break;
-        }
     }
 
     /*
@@ -6603,7 +6572,7 @@ bool generate_rooms(void)
         /* Assume no remaining rooms */
         remain = FALSE;
 
-        for (i = 0; i < ROOM_T_MAX; i++)
+        for (i = 0; i < ROOM_T_MAX && rooms_built < dun_rooms; i++)
         {
             /* What type of room are we building now? */
             int room_type = room_build_order[i];
@@ -6648,7 +6617,7 @@ bool generate_rooms(void)
 
     if (cheat_room)
     {
-        msg_format("Number of Rooms: %d", rooms_built);
+        msg_format("Number of Rooms: %d (%d)", rooms_built, dun_rooms);
     }
 
     return TRUE;

@@ -1573,7 +1573,27 @@ void generate_cave(void)
     p_ptr->enter_dungeon = FALSE;
     wipe_generate_cave_flags();
 
-#if 1
+#ifdef _DEBUG
+    (void)detect_monsters_invis(255);
+    (void)detect_monsters_normal(255);
+    wiz_lite(FALSE);
+    {
+        int i, ct = 0;
+        char buf[MAX_NLEN];
+        for (i = 0; i < max_o_idx; i++)
+        {
+            if (!o_list[i].k_idx) continue;
+            ct++;
+            identify_item(&o_list[i]);
+            o_list[i].ident |= IDENT_MENTAL;
+            if (o_list[i].name1 || o_list[i].name2)
+            {
+                object_desc(buf, &o_list[i], 0);
+                msg_print(buf);
+            }
+        }
+        msg_format("Objects=%d", ct);
+    }
     {
         int i;
         int lvl = 0, ct = 0, uniques = 0;

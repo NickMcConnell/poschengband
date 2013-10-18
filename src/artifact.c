@@ -1974,7 +1974,7 @@ s32b create_artifact(object_type *o_ptr, u32b mode)
 
     powers = randint1(5) + 1;
 
-    while (one_in_(powers) || one_in_(7 * 90/MAX(object_level, 1)) || one_in_(10 * 70/MAX(object_level, 1)))
+    while (one_in_(powers) || one_in_(7 * 90/MAX(MIN(127, object_level), 1)) || one_in_(10 * 70/MAX(MIN(127, object_level), 1)))
         powers++;
 
     if (one_in_(WEIRD_LUCK))
