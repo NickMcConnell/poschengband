@@ -1115,6 +1115,36 @@ errr init_info_txt(FILE *fp, char *buf, header *head,
     return (0);
 }
 
+static bool _is_digit(char c)
+{
+    if ('0' <= c && c <= '9')
+        return TRUE;
+    return FALSE;
+}
+
+static bool _is_numeric(const char *token) /* [0-9]+ */
+{
+    const char *c = token;
+    if (!*c) return FALSE;
+    if (!_is_digit(*c)) return FALSE;
+    for (c++; *c; c++)
+    {
+        if (!_is_digit(*c)) return FALSE;
+    }
+    return TRUE;
+}
+
+static bool _is_d_char(const char *token)
+{
+    int i;
+    if (strlen(token) != 1) return FALSE;
+    for (i = 0; i < max_r_idx; i++)
+    {
+        if (token[0] == r_info[i].d_char) return TRUE;
+    }
+    return FALSE;
+}
+
 /* Same order as summon_specific_e in defines.h 
    These are legal monster types for the MON() directive when
    specifying room_grid_t
@@ -1226,6 +1256,16 @@ static errr _parse_room_grid_monster(char **args, int arg_ct, room_grid_t *grid_
             {
                 grid_ptr->flags |= ROOM_GRID_MON_RANDOM;
             }
+            else if (_is_numeric(flag))
+            {
+                grid_ptr->monster = atoi(flag);
+                if (!grid_ptr->monster) return PARSE_ERROR_GENERIC;
+            }
+            else if (_is_d_char(flag))
+            {
+                grid_ptr->flags |= ROOM_GRID_MON_CHAR;
+                grid_ptr->monster = flag[0];
+            }
             else if (streq(flag, "NO_GROUP"))
             {
                 grid_ptr->flags |= ROOM_GRID_MON_NO_GROUP;
@@ -1252,15 +1292,11 @@ static errr _parse_room_grid_monster(char **args, int arg_ct, room_grid_t *grid_
                 for (i = 0; ; i++)
                 {
                     if (!_summon_specific_types[i])
-                    {
-                        grid_ptr->monster = atoi(flag);
-                        if (!grid_ptr->monster) return PARSE_ERROR_GENERIC;
-                        break;
-                    }
+                        return PARSE_ERROR_GENERIC;
                     if (streq(flag, _summon_specific_types[i]))
                     {
-                        grid_ptr->monster = i;
                         grid_ptr->flags |= ROOM_GRID_MON_TYPE;
+                        grid_ptr->monster = i;
                         break;
                     }
                 }

@@ -1865,6 +1865,7 @@ extern bool object_can_activate(object_type *o_ptr);
 /* wild.c */
 extern void set_floor_and_wall(byte type);
 extern void wilderness_gen(void);
+extern monster_hook_type wilderness_mon_hook;
 extern void wilderness_gen_small(void);
 extern void wilderness_move_player(int old_x, int old_y);
 extern bool wilderness_scroll_lock;

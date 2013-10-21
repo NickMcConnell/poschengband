@@ -18,6 +18,8 @@
 #include "rooms.h"
 #include <assert.h>
 
+monster_hook_type wilderness_mon_hook = NULL;
+
 /* Trivial rectangle utility to make code a bit more readable */
 struct rect_s
 {
@@ -512,6 +514,8 @@ static void _wipe_generate_cave_flags(const rect_t *r)
 
 static void _build_room(const room_template_t *room_ptr, const rect_t *r)
 {
+    int transno = 0;
+
     assert(r->cx == room_ptr->width);
     assert(r->cy == room_ptr->height);
     build_room_template_aux(
@@ -519,8 +523,8 @@ static void _build_room(const room_template_t *room_ptr, const rect_t *r)
         r->y + room_ptr->height/2, /* expects the *center* of the rect ... sigh */
         r->x + room_ptr->width/2, 
         0, 
-        0, 
-        0
+        0,
+        transno
     );
     _wipe_generate_cave_flags(r);
 }
@@ -555,7 +559,8 @@ static void _generate_encounters(int x, int y, const rect_t *r, const rect_t *ex
     if (r->cx < 10 || r->cy < 10)
         return;
 
-    get_mon_num_prep(get_wilderness_monster_hook(x, y), NULL);
+    wilderness_mon_hook = get_wilderness_monster_hook(x, y);
+    get_mon_num_prep(wilderness_mon_hook, NULL);
     base_level = wilderness_level(x, y);
     monster_level = base_level;
     object_level = base_level;
@@ -568,7 +573,7 @@ static void _generate_encounters(int x, int y, const rect_t *r, const rect_t *ex
     {
         room_template_t *room_ptr = choose_room_template(ROOM_WILDERNESS, _encounter_terrain_type(x, y));
 #if 0
-        room_ptr = &room_info[200]; /* Testing new design */
+        room_ptr = &room_info[153]; /* Testing new design */
 #endif
         if (room_ptr)
         {
@@ -618,6 +623,7 @@ static void _generate_encounters(int x, int y, const rect_t *r, const rect_t *ex
             }        
         }
     }
+    wilderness_mon_hook = NULL;
 
     /* Random Monsters */
     ct = ambush_flag ? 40 : 4;
@@ -629,7 +635,8 @@ static void _generate_encounters(int x, int y, const rect_t *r, const rect_t *ex
     if (!ct)
         return;
 
-    get_mon_num_prep(get_wilderness_monster_hook(x, y), NULL); /* _build_room probably trashed the allocation table! */
+    wilderness_mon_hook = get_wilderness_monster_hook(x, y);
+    get_mon_num_prep(wilderness_mon_hook, NULL);
     base_level = wilderness_level(x, y);
     monster_level = base_level;
     object_level = base_level;
@@ -650,6 +657,8 @@ static void _generate_encounters(int x, int y, const rect_t *r, const rect_t *ex
             }
         }
     }
+
+    wilderness_mon_hook = NULL;
 }
 
 /* The current cave[][] is a 3x3 viewport on a very large wilderness map.

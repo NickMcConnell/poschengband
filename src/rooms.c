@@ -2799,9 +2799,18 @@ static bool _room_grid_mon_hook(int r_idx)
         if (!mon_is_type(r_idx, _room_grid_hack->monster))
             return FALSE;
     }
+    else if (_room_grid_hack->flags & ROOM_GRID_MON_CHAR)
+    {
+        if (_room_grid_hack->monster != r_info[r_idx].d_char)
+            return FALSE;
+    }
     else if (_room_grid_hack->flags & ROOM_GRID_MON_RANDOM)
     {
-        monster_hook_type hook = get_monster_hook();
+        monster_hook_type hook;
+        if (!dun_level && wilderness_mon_hook) /* Hack: get_monster_hook() often returns the incorrect terrain hook for a scrolled wilderness tile.*/
+            hook = wilderness_mon_hook;
+        else
+            hook = get_monster_hook();
         if (hook && !hook(r_idx))
             return FALSE;
     }
@@ -2892,7 +2901,7 @@ static void _init_formation(const room_template_t *room_ptr, int x, int y)
 
     monster_level = base_level + grid_ptr->monster_level;
 
-    if (grid_ptr->flags & ROOM_GRID_MON_TYPE)
+    if (grid_ptr->flags & (ROOM_GRID_MON_TYPE | ROOM_GRID_MON_CHAR))
     {
         _room_grid_hack = grid_ptr;
         _room_flags_hack = room_ptr->flags;
@@ -2900,7 +2909,9 @@ static void _init_formation(const room_template_t *room_ptr, int x, int y)
     }    
     else if (grid_ptr->flags & ROOM_GRID_MON_RANDOM)
     {
-        if (one_in_(2))
+        int n = randint0(100);
+        if (!dun_level) n = 99; /* Hack: Most nests/pits won't allocate on the surface! */
+        if (n < 5)
         {
             int which = pick_vault_type(nest_types, d_info[dungeon_type].nest);
 
@@ -2911,7 +2922,7 @@ static void _init_formation(const room_template_t *room_ptr, int x, int y)
 
             get_mon_num_prep(nest_types[which].hook_func, NULL);
         }
-        else
+        else if (n < 30)
         {
             int which = pick_vault_type(pit_types, d_info[dungeon_type].pit);
 
@@ -2921,6 +2932,39 @@ static void _init_formation(const room_template_t *room_ptr, int x, int y)
                 pit_types[which].prep_func();
 
             get_mon_num_prep(pit_types[which].hook_func, NULL);
+        }
+        else if (n < 50)
+        {
+            room_grid_t grid;
+            grid.flags = ROOM_GRID_MON_TYPE;
+
+            switch (randint1(5))
+            {
+            case 1: grid.monster = SUMMON_KAMIKAZE; break;
+            case 2: grid.monster = SUMMON_KNIGHT; break;
+            case 3: grid.monster = SUMMON_HUMAN; break;
+            case 4: grid.monster = SUMMON_DRAGON; break;
+            case 5: grid.monster = SUMMON_THIEF; break;
+            }
+            _room_grid_hack = &grid;
+            _room_flags_hack = room_ptr->flags;
+            get_mon_num_prep(_room_grid_mon_hook, get_monster_hook2(y, x));
+        }
+        else 
+        {
+            room_grid_t grid;
+            int r_idx;
+
+            _room_grid_hack = &grid;
+            _room_flags_hack = room_ptr->flags;
+
+            grid.flags = ROOM_GRID_MON_RANDOM;
+            get_mon_num_prep(_room_grid_mon_hook, get_monster_hook2(y, x));
+            r_idx = get_mon_num(monster_level);
+
+            grid.flags = ROOM_GRID_MON_CHAR;
+            grid.monster = r_info[r_idx].d_char;
+            get_mon_num_prep(_room_grid_mon_hook, get_monster_hook2(y, x));
         }
     }
 
@@ -3026,11 +3070,15 @@ void build_room_template_aux(const room_template_t *room_ptr, int yval, int xval
             c_ptr->mimic = 0;
 
             grid_ptr = _find_room_grid(room_ptr, *t);
+            if (!grid_ptr && (room_ptr->flags & ROOM_THEME_FORMATION) && '0' <= *t && *t <= '9')
+                grid_ptr = _find_room_grid(room_ptr, '.'); /* TODO ... */
+
             if (grid_ptr)
             {
                 _apply_room_grid1(x, y, grid_ptr, room_ptr->flags);
                 continue;
             }
+
 
             /* Part of a vault? */
             if (room_ptr->type == ROOM_VAULT)
@@ -3288,7 +3336,7 @@ room_template_t *choose_room_template(int type, int subtype)
     int i, n;
 
 #if 0
-    return &room_info[442];
+    return &room_info[444];
 #endif
 
     for (i = 0; i < max_room_idx; i++)
@@ -6540,18 +6588,17 @@ static bool room_build(int typ)
     case ROOM_T_FRACAVE:       return build_type9();
     case ROOM_T_NORMAL:        return one_in_(3) ? build_type2() : build_type1();
 
-    case ROOM_T_NEST:          return build_type5();
-    case ROOM_T_PIT:           return build_type6();
     case ROOM_T_TRAP_PIT:      return build_type13();
     case ROOM_T_TRAP:          return build_type14();
-    case ROOM_T_GLASS:         return build_type15();
     case ROOM_T_CRYPT:         return build_type12();
 
-
     /* I think rooms should be specified with templates where possible ... */
+    case ROOM_T_GLASS:         /*return build_type15(); I never liked these ... */
     case ROOM_T_OVERLAP:       /*return build_type2();*/
     case ROOM_T_CROSS:         /*return build_type3();*/
     case ROOM_T_INNER_FEAT:    /*return build_type4();*/
+    case ROOM_T_NEST:          /*return build_type5(); ROOM_THEME_FORMATION*/
+    case ROOM_T_PIT:           /*return build_type6(); ROOM_THEME_FORMATION*/
     case ROOM_T_OVAL:          /*return build_type11();*/
     case ROOM_T_TEMPLATE:      return build_room_template(ROOM_NORMAL, 0);
 
