@@ -2685,6 +2685,8 @@ enum summon_specific_e {
     SUMMON_ULTIMATE,
     SUMMON_HUMAN,
     SUMMON_HORSE,
+    SUMMON_MAGICAL,
+    SUMMON_TROLL,
 };
 
 /*

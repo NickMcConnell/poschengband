@@ -1574,9 +1574,8 @@ void generate_cave(void)
     wipe_generate_cave_flags();
 
 #ifdef _DEBUG
-    (void)detect_monsters_invis(255);
-    (void)detect_monsters_normal(255);
     wiz_lite(FALSE);
+    detect_all(255);
     {
         int i, ct = 0;
         char buf[MAX_NLEN];

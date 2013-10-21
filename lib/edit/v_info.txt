@@ -3575,58 +3575,25 @@ M:%.M..##.M..##...%%
 M:%%%%%%%%%%%%%%%%%   
 
 N:402:Zelazny
-T:ROOM:NORMAL
+T:ROOM:NORMAL:NO_ROTATE
 W:1:*:8
 L:M:FLOOR(ROOM):MON(*)
-M:%%%%%%%%%%%%%%%%%%%
-M:%.................%
-M:%.###############.%
-M:%.+...........M.#.%
-M:%.###########...#.%
-M:%.##########...##.%
-M:%.#########...###.%
-M:%.########...####.%
-M:%.#######...#####.%
-M:%.######.M.######.%
-M:%.#####...#######.%
-M:%.####...########.%
-M:%.###...#########.%
-M:%.##...##########.%
-M:%.#..M..........+.%
-M:%.###############.%
-M:%.................%
-M:%%%%%%%%%%%%%%%%%%%
+M:%%%%%%%%%%%%%%%% 
+M:%............M.% 
+M:%###########...% 
+M:###########...###
+M:##########...####
+M:#########...#####
+M:########...######
+M:#######.M.#######
+M:######...########
+M:#####...#########
+M:####...##########
+M: %#...##########%
+M: %..M...........%
+M: %%%%%%%%%%%%%%%%
 
-N:403:Raided Vault (Bubbles)
-T:ROOM:NORMAL
-W:40:*:128
-L:M:FLOOR(ROOM):MON(*, 10)
-L:~:FLOOR(ROOM):OBJ(JUNK)
-M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-M:%XXX.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
-M:%X~X.X~XXX~XXX~XXX~XXX~XXX~XXX~XXX~XXX~X%
-M:%XX..XX..XX..XX..XX..XX..XX..XX..XX...XX%
-M:%XX....M..X...M...X.......X....M......XX%
-M:%XXX.XXX.XXX.XXX.XXX.XXX.XXX.XXX.XXX.XXX%
-M:%X~XXX~X.X~X.X~X.X~X.X~X.X~X.X~X.X~X.X~X%
-M:%XX..XX..XX..XX..XX..XX..XX..XX..XX...XX%
-M:%XX....M..X...X.......X.....M.X...X....X%
-M:%XXX.XXX.XXX.XXX.XXX.XXX.XXX.XXX.XXX.XXX%
-M:%X~X.X~XXX~X.X~XXX~XXX~XXX~XXX~XXX~X.X~X%
-M:%XX..XX..XX..XX..XX..XX..XX..XX..XX...XX%
-M:%XX...X.......X......M............X.M.XX%
-M:%XXX.XXX.XXX.XXX.XXX.XXX.XXX.XXX.XXX.XXX%
-M:%X~X.X~X.X~X.X~XXX~XXX~XXX~XXX~X.X~X.X~X%
-M:%XX..XX..XX..XX..XX..XX..XX..XX..XX...XX%
-M:%XX.......X....M................M.X...XX%
-M:%XXX.XXX.XXX.XXX.XXX.XXX.XXX.XXX.XXX.XXX%
-M:%X~XXX~XXX~XXX~XXX~XXX~XXX~XXX~XXX~X.X~X%
-M:%XX..XX..XX..XX..XX..XX..XX..XX..XX...XX%
-M:%.......M...M..............M....M.X.M.XX%
-M:%XX..XX..XX..XX..XX..XX..XX..XX..XX...XX%
-M:%X~XXX~XXX~XXX~XXX~XXX~XXX~XXX~XXX.XXX~X%
-M:%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
-M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# sequence gap
 
 N:404:Psyche!
 T:ROOM:NORMAL
@@ -4237,13 +4204,13 @@ M:%.#####################.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:438:Island of Despair I
+N:438:Island of Despair
 T:ROOM:NORMAL
 W:30:*:32
 L:,:DIRT(ROOM)
 L:_:SHALLOW_WATER(ROOM)
 L:~:DEEP_WATER(ROOM)
-L:M:DIRT(ROOM):MON(* | NO_GROUP, 4):OBJ(*)
+L:M:DIRT(ROOM):MON(MAGICAL | NO_GROUP | NO_SLEEP, 20):OBJ(*)
 M:       %%%%%%%       
 M:     %%%.....%%%     
 M:    %%...._....%%    
@@ -4251,9 +4218,9 @@ M:   %%....___....%%
 M:  %%...._____....%%  
 M: %%....__~~~__....%% 
 M:%%....__~~,~~__....%%
-M:%....__~~,M,~~__....%
-M:%....__~,MMM,~__....%
-M:%....._~~,M,~~_.....%
+M:%....__~~,,,~~__....%
+M:%....__~,,M,,~__....%
+M:%....._~~,,,~~_.....%
 M:%%....__~~,~~__....%%
 M: %%....__~~~__....%% 
 M:  %%...._____....%%  
@@ -4262,31 +4229,7 @@ M:    %%...._....%%
 M:     %%%.....%%%     
 M:       %%%%%%%       
 
-N:439:Island of Despair II
-T:ROOM:NORMAL
-W:30:*:64
-L:_:SHALLOW_WATER(ROOM)
-L:~:DEEP_WATER(ROOM)
-L:M:DIRT(ROOM):MON(* | NO_GROUP, 20):OBJ(*, 5)
-M:       %%%%%%%       
-M:     %%%.....%%%     
-M:    %%...._....%%    
-M:   %%....___....%%   
-M:  %%...._____....%%  
-M: %%....__~~~__....%% 
-M:%%....__~~M~~__....%%
-M:%....__~~MMM~~__....%
-M:%....__~MMMMM~__....%
-M:%....._~~MMM~~_.....%
-M:%%....__~~M~~__....%%
-M: %%....__~~~__....%% 
-M:  %%...._____....%%  
-M:   %%....___....%%   
-M:    %%...._....%%    
-M:     %%%.....%%%     
-M:       %%%%%%%       
-
-N:440:A Cruel Lesson
+N:439:A Cruel Lesson
 T:ROOM:NORMAL
 W:20:60:32
 L:~:DARK_PIT(ROOM)
@@ -4309,6 +4252,62 @@ M:   %%...........%%
 M:    %%.........%%    
 M:     %%%.....%%%     
 M:       %%%%%%%       
+
+N:440:Showcase
+T:ROOM:NORMAL
+W:20:*:32
+L:M:FLOOR(ROOM):MON(*, 10)
+L:G:GLASS_WALL
+M:%%%%%%%%%%%%%%%%%%%%%%%%%
+M:%.......................%
+M:%.#####################.%
+M:%.#M#M#M#M#M#M#M#M#M#M#.%
+M:%.#G#G#G#G#G#G#G#G#G#G#.%
+M:%.......................%
+M:%.#G#G#G#G#G#G#G#G#G#G#.%
+M:%.#M#M#M#M#M#M#M#M#M#M#.%
+M:%.#####################.%
+M:%.......................%
+M:%%%%%%%%%%%%%%%%%%%%%%%%%
+
+N:441:Monster Pit
+T:ROOM:NORMAL:FORMATION
+W:10:30:32
+L:0:MON(*, 5)
+M:%%%%%%%%%%%%%%%%%%%%%%%%%
+M:%.......................%
+M:%.#####################.%
+M:%.#7777777777777777777#.%
+M:%.#7665544322234455667#.%
+M:%.+7665544310134455667#.%
+M:%.#7665544322234455667#.%
+M:%.#7777777777777777777#.%
+M:%.#####################.%
+M:%.......................%
+M:%%%%%%%%%%%%%%%%%%%%%%%%%
+
+N:442:Monster Wedge
+T:ROOM:NORMAL:FORMATION
+W:10:30:64
+L:0:MON(*, 5)
+M:%%%%%%%%%%%%%%%%%%%%%%%%%%%
+M:%.........................%
+M:%.#.........#+#.........#.%
+M:%.#........##9##........#.%
+M:%.#.......##989##.......#.%
+M:%.#......##98789##......#.%
+M:%.#.....##9876789##.....#.%
+M:%.#....##987656789##....#.%
+M:%.#...##98765456789##...#.%
+M:%.#..##9876543456789##..#.%
+M:%.#.##987654323456789##.#.%
+M:%.###98765432123456789###.%
+M:%.##9876543210123456789##.%
+M:%.#987654321000123456789#.%
+M:%.#######################.%
+M:%.........................%
+M:%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 #sequence gap
 
@@ -4402,7 +4401,7 @@ M:       %%%%%%%
 
 N:454:Statuary
 T:ROOM:NORMAL
-W:10:*:4
+W:10:*:16
 L:`:FLOOR(ROOM):OBJ(STATUE)
 M:       %%%%%%%       
 M:     ###.....###     
@@ -4479,9 +4478,10 @@ M:       %%%
 N:458:Satanic Ritual
 T:ROOM:NORMAL:EVIL
 W:50:*:32
-L:M:SHALLOW_LAVA(ROOM):MON(HI_DEMON | NO_GROUP, 50):OBJ(*, 20):EGO(*)
-L:p:FLOOR(ROOM):MON(HUMAN | NO_GROUP, 10)
-L:~:DEEP_LAVA(GLOW)
+L:.:FLOOR(ROOM|ICKY)
+L:M:SHALLOW_LAVA(ROOM|ICKY):MON(HI_DEMON|NO_GROUP|NO_SLEEP, 50):OBJ(*, 20):EGO(*)
+L:p:FLOOR(ROOM|ICKY):MON(HUMAN|NO_GROUP|NO_SLEEP, 10)
+L:~:DEEP_LAVA(ROOM|GLOW|ICKY)
 M:       %%%       
 M:     %%%.%%%     
 M:    %%.....%%    
@@ -4501,8 +4501,9 @@ M:       %%%
 N:459:Sacred Ritual
 T:ROOM:NORMAL:GOOD
 W:50:*:32
-L:M:FLOOR(ROOM):MON(ANGEL | NO_GROUP, 50):OBJ(*, 20):EGO(*)
-L:p:FLOOR(ROOM):MON(HUMAN | NO_GROUP, 15)
+L:.:FLOOR(ROOM|ICKY)
+L:M:FLOOR(ROOM|ICKY):MON(ANGEL|NO_GROUP|NO_SLEEP, 50):OBJ(*, 20):EGO(*)
+L:p:FLOOR(ROOM|ICKY):MON(HUMAN|NO_GROUP|NO_SLEEP, 15)
 L:~:FLOOR
 M:       %%%       
 M:     %%%.%%%     
@@ -4521,11 +4522,12 @@ M:     %%%.%%%
 M:       %%%       
 
 N:460:Natural Ritual
-T:ROOM:NORMAL:GOOD|EVIL
+T:ROOM:NORMAL:GOOD
 W:50:*:32
-L:M:GRASS(ROOM):MON(ENT):OBJ(*, 20):EGO(*)
-L:p:FLOOR(ROOM):MON(HUMAN | NO_GROUP, 15)
-L:~:GRASS
+L:.:TREE(ROOM|ICKY)
+L:M:GRASS(ROOM|ICKY):MON(ENT|NO_SLEEP):OBJ(*, 20):EGO(*)
+L:p:GRASS(ROOM|ICKY):MON(HUMAN|NO_GROUP|NO_SLEEP, 15)
+L:~:GRASS(ROOM|ICKY)
 M:       %%%       
 M:     %%%.%%%     
 M:    %%.....%%    
@@ -4545,9 +4547,10 @@ M:       %%%
 N:461:Poseidon's Ritual
 T:ROOM:NORMAL:EVIL
 W:50:*:32
-L:M:SHALLOW_WATER(ROOM):MON(KRAKEN):OBJ(*, 20):EGO(*)
-L:p:FLOOR(ROOM):MON(HUMAN | NO_GROUP, 15)
-L:~:DEEP_WATER
+L:.:FLOOR(ROOM|ICKY)
+L:M:SHALLOW_WATER(ROOM|ICKY):MON(KRAKEN|NO_SLEEP):OBJ(*, 20):EGO(*)
+L:p:SHALLOW_WATER(ROOM|ICKY):MON(HUMAN|NO_GROUP|NO_SLEEP, 15)
+L:~:DEEP_WATER(ROOM|ICKY)
 M:       %%%       
 M:     %%%.%%%     
 M:    %%.....%%    
@@ -4763,3 +4766,49 @@ M:%#########+#########%
 M:%.........M.........%
 M:%...................%
 M:%%%%%%%%%%%%%%%%%%%%%
+
+
+N:474:Divided III
+T:ROOM:NORMAL
+W:10:*:4
+L:M:FLOOR(ROOM):MON(*)
+M:%%%%%%%%%%%%%%%%%%%%%
+M:%.........#.........%
+M:%...M.....#.....M...%
+M:%#########+#########%
+M:%...M.....#.....M...%
+M:%.........#.........%
+M:%%%%%%%%%%%%%%%%%%%%%
+
+N:475:Divided IV
+T:ROOM:NORMAL
+W:30:*:32
+L:M:FLOOR(ROOM):MON(*, 10):OBJ(*)
+L:N:FLOOR(ROOM):MON(*, 20):OBJ(*, 5):EGO(*)
+M:%%%%%%%%%%%%%%%%%%%%%
+M:%.........#.........%
+M:%...M....###....M...%
+M:%#########N#########%
+M:%...M....###....M...%
+M:%.........#.........%
+M:%%%%%%%%%%%%%%%%%%%%%
+
+
+N:476:Complementarity
+T:ROOM:NORMAL
+W:20:*:4
+L:M:FLOOR(ROOM):MON(*, 5)
+L:$:FLOOR(ROOM):OBJ(*, 2)
+M:%%%%%%%%%%%%%%%%%%%
+M:%.................%
+M:%.#############+#.%
+M:%.#..........M#.#.%
+M:%.#........M.$#.#.%
+M:%.#..........M#.#.%
+M:%.#+###########+#.%
+M:%.#.#M..........#.%
+M:%.#.#$.M........#.%
+M:%.#.#M..........#.%
+M:%.#+#############.%
+M:%.................%
+M:%%%%%%%%%%%%%%%%%%%

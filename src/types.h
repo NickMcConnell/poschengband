@@ -548,6 +548,8 @@ struct monster_race
 #define ROOM_THEME_FRIENDLY    0x00000004
 #define ROOM_THEME_NIGHT       0x00000008  /* Useful for wilderness graveyards where monsters only spawn at night */
 #define ROOM_THEME_DAY         0x00000010
+#define ROOM_THEME_FORMATION   0x00000020  /* Hack (see source for details): Allows monster formations. */
+#define ROOM_NO_ROTATE         0x80000000
 
 #define ROOM_MAX_LETTERS       10
 

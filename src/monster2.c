@@ -856,6 +856,9 @@ bool mon_is_type(int r_idx, int type)
     case SUMMON_ORC:
         if (r_ptr->d_char == 'o') return TRUE;
         break;
+    case SUMMON_TROLL:
+        if (r_ptr->d_char == 'T') return TRUE;
+        break;
     case SUMMON_YEEK:
         if (r_ptr->d_char == 'y') return TRUE;
         break;
@@ -1075,6 +1078,8 @@ bool mon_is_type(int r_idx, int type)
             return TRUE;
         }
         break;
+    case SUMMON_MAGICAL:
+        return monster_magical(r_ptr);
     }
     return FALSE;
 }
