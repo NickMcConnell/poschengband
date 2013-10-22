@@ -11,8 +11,8 @@
  */
 
 #include "angband.h"
-
-
+#include "int-map.h"
+#include <assert.h>
 
 /*
  * Display inventory
@@ -1425,6 +1425,156 @@ void do_cmd_query_symbol(void)
 
     /* Re-display the identity */
     prt(buf, 0, 0);
+}
+
+struct _mon_list_info_s 
+{
+    int r_idx;
+    int ct_total;
+    int ct_awake;
+    int ct_los;
+};
+
+typedef struct _mon_list_info_s _mon_list_info_t;
+typedef _mon_list_info_t *_mon_list_info_ptr;
+
+static void _free_mon_list_info(vptr v)
+{
+    _mon_list_info_ptr ptr = (_mon_list_info_ptr)v;
+    free(ptr);
+}
+
+static bool _compare_r_level(vptr u, vptr v, int a, int b)
+{
+    int *order = (int*)u;
+    int left = order[a];
+    int right = order[b];
+    return r_info[left].level >= r_info[right].level;
+}
+
+static void _swap_int(vptr u, vptr v, int a, int b)
+{
+    int *order = (int*)u;
+    int tmp = order[a];
+    order[a] = order[b];
+    order[b] = tmp;
+}
+
+/* Idea borrowed from Vanilla 3.5, but recoded from scratch ... */
+void do_cmd_list_monsters(void)
+{
+    int         i, ct_types, ct_total = 0;
+    int_map_ptr info = int_map_alloc(_free_mon_list_info);
+    
+    /* Collect */
+    for (i = 0; i < max_m_idx; i++)
+    {
+        const monster_type *m_ptr = &m_list[i];
+        _mon_list_info_ptr  info_ptr;
+        
+        if (!m_ptr->r_idx) continue;
+        if (!m_ptr->ml) continue;
+
+        info_ptr = int_map_find(info, m_ptr->r_idx);
+        if (!info_ptr)
+        {
+            info_ptr = malloc(sizeof(_mon_list_info_t));
+            info_ptr->r_idx = m_ptr->r_idx;
+            info_ptr->ct_total = 0;
+            info_ptr->ct_awake = 0;
+            info_ptr->ct_los = 0;
+            
+            int_map_add(info, m_ptr->r_idx, info_ptr);
+        }
+
+        assert(info_ptr);
+        info_ptr->ct_total++;
+        ct_total++;
+
+        if (!MON_CSLEEP(m_ptr)) info_ptr->ct_awake++;
+        if (projectable(py, px, m_ptr->fy, m_ptr->fx)) info_ptr->ct_los++;
+    }
+    
+    ct_types = int_map_count(info);
+    if (ct_types)
+    {
+        int_map_iter_ptr  iter;
+        int              *order;
+        int               cx, cy, row = 1, col;
+
+        /* Sort */
+        order = C_MAKE(order, ct_types, int);
+
+        i = 0;
+        for (iter = int_map_iter_alloc(info); 
+                int_map_iter_is_valid(iter); 
+                int_map_iter_next(iter))
+        {
+            _mon_list_info_ptr info_ptr = int_map_iter_current(iter);
+            order[i++] = info_ptr->r_idx;
+        }
+        int_map_iter_free(iter);
+
+        ang_sort_comp = _compare_r_level;
+        ang_sort_swap = _swap_int;
+        ang_sort(order, NULL, ct_types);
+
+        /* Display */
+        Term_get_size(&cx, &cy);
+        col = cx - 52;
+        screen_save();
+        c_prt(TERM_WHITE, format("You see %d monsters", ct_total), 0, col);
+        for (i = 0; i < ct_types; i++)
+        {
+            int                 r_idx = order[i];
+            const monster_race *r_ptr = &r_info[r_idx];
+            byte                attr = TERM_WHITE;
+            _mon_list_info_ptr  info_ptr = int_map_find(info, r_idx);
+            char                buf[100];
+
+            assert(info_ptr);
+
+            Term_erase(col - 1, row, 53);
+
+            if (row >= cy - 2) 
+            {
+                c_prt(TERM_YELLOW, "...", row++, col+2);
+                break;
+            }
+
+            if (r_ptr->flags1 & RF1_UNIQUE)
+                attr = TERM_VIOLET;
+            else if (r_ptr->level > base_level)
+                attr = TERM_RED;                
+            else if (!info_ptr->ct_awake)
+                attr = TERM_L_UMBER;
+
+            if (info_ptr->ct_total == 1)
+                sprintf(buf, "%s", r_name + r_ptr->name);
+            else if (!info_ptr->ct_awake)
+                sprintf(buf, "%s (%d sleeping)", r_name + r_ptr->name, info_ptr->ct_total);
+            else if (info_ptr->ct_awake == info_ptr->ct_total)
+                sprintf(buf, "%s (%d awake)", r_name + r_ptr->name, info_ptr->ct_total);
+            else
+                sprintf(buf, "%s (%d awake, %d sleeping)", r_name + r_ptr->name, 
+                    info_ptr->ct_awake, info_ptr->ct_total - info_ptr->ct_awake);
+
+            Term_queue_bigchar(col, row, r_ptr->x_attr, r_ptr->x_char, 0, 0);
+            c_put_str(attr, format(" %-50.50s", buf), row++, col+1);
+        }
+        Term_erase(col - 1, row, 53);
+        c_prt(TERM_YELLOW, "Hit any key.", row, col+2);
+        (void)inkey();
+        prt("", 0, 0);
+
+        screen_load();
+
+        C_KILL(order, ct_types, int);
+    }
+    else
+        msg_print("You see no visible monsters.");
+
+    int_map_free(info);
 }
 
 

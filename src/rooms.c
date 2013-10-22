@@ -6640,6 +6640,10 @@ bool generate_rooms(void)
     /* Assume normal cave */
     room_info_type *room_info_ptr = room_info_normal;
 
+    if (dun_rooms < 5)
+        dun_rooms = 5;
+
+
     /*
      * Initialize probability list.
      */

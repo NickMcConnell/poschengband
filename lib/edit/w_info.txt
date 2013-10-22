@@ -12,10 +12,10 @@
 W:F:#:0
 
 # Grass
-W:F:.:6:5
+W:F:.:6:10
 
 # Dirt
-W:F:,:5:15
+W:F:,:5:20
 
 # Desert
 W:F:D:8:30
@@ -60,13 +60,13 @@ W:E:4:7:4:4:1:Angwil
 W:E:5:11:20:5:0:Zul
 
 # Grassland with road 
-W:F:*:6:3:0:1
+W:F:*:6:7:0:1
 
 # Dirt with road
-W:F:!:5:8:0:1
+W:F:!:5:15:0:1
 
 # Forest with road
-W:F:+:7:15:0:1
+W:F:+:7:25:0:1
 
 
 # Wilderness layout

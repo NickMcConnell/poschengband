@@ -3979,7 +3979,11 @@ static int target_set_aux(int y, int x, int mode, cptr info)
         }
 
         /* Display a message */
-        if (p_ptr->wizard)
+        if (p_ptr->wild_mode && TRUE) /* TODO: I may want to hide this info later ... */
+        {
+            sprintf(out_val, "%s%s%s%s [%s] L%d", s1, s2, s3, name, info, wilderness_level(x, y));
+        }
+        else if (p_ptr->wizard)
         {
             char f_idx_str[32];
             if (c_ptr->mimic) sprintf(f_idx_str, "%d/%d", c_ptr->feat, c_ptr->mimic);

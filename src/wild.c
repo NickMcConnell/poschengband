@@ -215,11 +215,17 @@ static void _apply_glow(bool all)
                 f_ptr = &f_info[get_feat_mimic(c_ptr)];
                 if (is_daytime())
                 {
-                    if (!(c_ptr->info & CAVE_ROOM))
+                    if ( (c_ptr->info & CAVE_ROOM) 
+                      && !have_flag(f_ptr->flags, FF_WALL)
+                      && !have_flag(f_ptr->flags, FF_DOOR) )
+                    {
+                        /* TODO */
+                    }
+                    else
+                    {
                         c_ptr->info |= CAVE_GLOW;
-
-                    /* ?? */
-                    if (view_perma_grids) c_ptr->info |= CAVE_MARK;
+                        if (view_perma_grids) c_ptr->info |= CAVE_MARK;
+                    }
                 }
                 else
                 {
@@ -288,7 +294,7 @@ static void _scroll_cave(int dx, int dy)
 {
     int x, y;
 
-#if _DEBUG
+#if 0
     msg_format("Scoll Cave (%d,%d)", dx, dy);
 #endif
 
@@ -568,8 +574,8 @@ static void _generate_encounters(int x, int y, const rect_t *r, const rect_t *ex
     /* Special Encounter? */
     if ( !wilderness[y][x].town 
       && !wilderness[y][x].road 
-      && !wilderness[y][x].entrance 
-      && one_in_(7))
+      && !wilderness[y][x].entrance
+      && one_in_(15))
     {
         room_template_t *room_ptr = choose_room_template(ROOM_WILDERNESS, _encounter_terrain_type(x, y));
 #if 0
@@ -619,6 +625,8 @@ static void _generate_encounters(int x, int y, const rect_t *r, const rect_t *ex
                 }
 
                 _build_room(room_ptr, &room_rect);
+                msg_print("You've stumbled onto something interesting ...");
+                disturb(0, 0);
                 break;
             }        
         }

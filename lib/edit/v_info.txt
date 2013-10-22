@@ -3462,7 +3462,7 @@ M:####                                         ####
 
 N:153:Thieve's Hideout
 T:WILD:GRASS:FORMATION
-W:1:*:2
+W:1:*:16
 L:.:DIRT(ROOM)
 L:0:DIRT(ROOM):MON(THIEF, 5):OBJ(GOLD)
 L:$:DIRT(ROOM):OBJ(GOLD)

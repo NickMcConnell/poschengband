@@ -4204,6 +4204,10 @@ static void process_command(void)
             break;
         }
 
+        case '[':
+            do_cmd_list_monsters();
+            break;
+
         /* Target monster or location */
         case '*':
         {
@@ -5083,7 +5087,8 @@ static void dungeon(bool load_game)
     int quest_num = 0;
 
     /* Set the base level */
-    base_level = dun_level;
+    if (dun_level)
+        base_level = dun_level;
 
     /* Reset various flags */
     hack_mind = FALSE;

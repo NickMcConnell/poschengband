@@ -290,12 +290,13 @@ void _character_armor_spell(int cmd, variant *res)
         break;
     case SPELL_CAST:
     {
-        set_shield(spell_power(p_ptr->lev), FALSE);
-        if (p_ptr->lev > 14) set_oppose_acid(spell_power(p_ptr->lev), FALSE);
-        if (p_ptr->lev > 19) set_oppose_fire(spell_power(p_ptr->lev), FALSE);
-        if (p_ptr->lev > 24) set_oppose_cold(spell_power(p_ptr->lev), FALSE);
-        if (p_ptr->lev > 29) set_oppose_elec(spell_power(p_ptr->lev), FALSE);
-        if (p_ptr->lev > 34) set_oppose_pois(spell_power(p_ptr->lev), FALSE);
+        int dur = spell_power(p_ptr->lev + randint1(p_ptr->lev));
+        set_shield(dur, FALSE);
+        if (p_ptr->lev > 14) set_oppose_acid(dur, FALSE);
+        if (p_ptr->lev > 19) set_oppose_fire(dur, FALSE);
+        if (p_ptr->lev > 24) set_oppose_cold(dur, FALSE);
+        if (p_ptr->lev > 29) set_oppose_elec(dur, FALSE);
+        if (p_ptr->lev > 34) set_oppose_pois(dur, FALSE);
         var_set_bool(res, TRUE);
         break;
     }
@@ -549,8 +550,8 @@ static spell_info _spells[] =
     { 7,   6,  35, _major_displacement_spell},
     { 9,   7,  50, _domination_spell},
     { 11,  7,  30, _pulverise_spell},
-    { 13, 12,  50, _character_armor_spell},
-    { 15, 12,  60, _psychometry_spell},
+    { 13, 12,  50, _psychometry_spell},
+    { 15, 12,  60, _character_armor_spell},
     { 18, 10,  45, _mind_wave_spell},
     { 23, 15,  50, _adrenaline_spell},
     { 26, 28,  60, _telekinesis_spell},
