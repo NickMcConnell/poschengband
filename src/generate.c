@@ -1612,7 +1612,7 @@ void generate_cave(void)
         msg_format("DL=%d, Monsters=%d, <ML>= %d, Uniques=%d", dun_level, ct, lvl/MAX(ct, 1), uniques);
     }
 
-    if (1)
+    if (0)
     {
         str_map_ptr      map = str_map_alloc(0);
         str_map_iter_ptr iter;

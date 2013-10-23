@@ -2864,7 +2864,7 @@ static void _apply_room_grid2(int x, int y, const room_grid_t *grid_ptr, u16b ro
             return;
     }
 
-    if (grid_ptr->flags & (ROOM_GRID_MON_TYPE | ROOM_GRID_MON_RANDOM))
+    if (grid_ptr->flags & (ROOM_GRID_MON_TYPE | ROOM_GRID_MON_RANDOM | ROOM_GRID_MON_CHAR))
     {
         int r_idx;
         monster_level = base_level + grid_ptr->monster_level;
@@ -3336,7 +3336,7 @@ room_template_t *choose_room_template(int type, int subtype)
     int i, n;
 
 #if 0
-    return &room_info[427];
+    return &room_info[488];
 #endif
 
     for (i = 0; i < max_room_idx; i++)
