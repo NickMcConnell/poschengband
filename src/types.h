@@ -546,13 +546,13 @@ struct monster_race
 #define ROOM_GRID_SPECIAL       0x20000000  /* use extra for cave.special field */
 
 
-#define ROOM_THEME_GOOD        0x00000001
-#define ROOM_THEME_EVIL        0x00000002
-#define ROOM_THEME_FRIENDLY    0x00000004
-#define ROOM_THEME_NIGHT       0x00000008  /* Useful for wilderness graveyards where monsters only spawn at night */
-#define ROOM_THEME_DAY         0x00000010
-#define ROOM_THEME_FORMATION   0x00000020  /* Hack (see source for details): Allows monster formations. */
-#define ROOM_NO_ROTATE         0x80000000
+#define ROOM_THEME_GOOD        0x0001
+#define ROOM_THEME_EVIL        0x0002
+#define ROOM_THEME_FRIENDLY    0x0004
+#define ROOM_THEME_NIGHT       0x0008  /* Useful for wilderness graveyards where monsters only spawn at night */
+#define ROOM_THEME_DAY         0x0010
+#define ROOM_THEME_FORMATION   0x0020  /* Hack (see source for details): Allows monster formations. */
+#define ROOM_NO_ROTATE         0x8000
 
 #define ROOM_MAX_LETTERS       10
 

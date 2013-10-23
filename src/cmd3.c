@@ -1438,12 +1438,6 @@ struct _mon_list_info_s
 typedef struct _mon_list_info_s _mon_list_info_t;
 typedef _mon_list_info_t *_mon_list_info_ptr;
 
-static void _free_mon_list_info(vptr v)
-{
-    _mon_list_info_ptr ptr = (_mon_list_info_ptr)v;
-    free(ptr);
-}
-
 static bool _compare_r_level(vptr u, vptr v, int a, int b)
 {
     int *order = (int*)u;
@@ -1464,7 +1458,7 @@ static void _swap_int(vptr u, vptr v, int a, int b)
 void do_cmd_list_monsters(void)
 {
     int         i, ct_types, ct_total = 0;
-    int_map_ptr info = int_map_alloc(_free_mon_list_info);
+    int_map_ptr info = int_map_alloc(free);
     
     /* Collect */
     for (i = 0; i < max_m_idx; i++)
@@ -1523,7 +1517,7 @@ void do_cmd_list_monsters(void)
         Term_get_size(&cx, &cy);
         col = cx - 52;
         screen_save();
-        c_prt(TERM_WHITE, format("You see %d monsters", ct_total), 0, col);
+        c_prt(TERM_WHITE, format("You see %d monster%s", ct_total, ct_total != 1 ? "s" : ""), 0, col);
         for (i = 0; i < ct_types; i++)
         {
             int                 r_idx = order[i];
@@ -1564,7 +1558,7 @@ void do_cmd_list_monsters(void)
         }
         Term_erase(col - 1, row, 53);
         c_prt(TERM_YELLOW, "Hit any key.", row, col+2);
-        (void)inkey();
+        inkey();
         prt("", 0, 0);
 
         screen_load();

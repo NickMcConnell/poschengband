@@ -23,6 +23,7 @@ extern int_map_iter_ptr int_map_iter_alloc(int_map_ptr map);
 extern void             int_map_iter_free(int_map_iter_ptr iter);
 extern int              int_map_iter_is_valid(int_map_iter_ptr iter);
 extern vptr             int_map_iter_current(int_map_iter_ptr iter);
+extern int              int_map_iter_current_key(int_map_iter_ptr iter);
 extern void             int_map_iter_next(int_map_iter_ptr iter);
 
 #endif

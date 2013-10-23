@@ -315,6 +315,12 @@ vptr int_map_iter_current(int_map_iter_ptr iter)
     return iter->node->val;
 }
 
+int int_map_iter_current_key(int_map_iter_ptr iter)
+{
+    assert(int_map_iter_is_valid(iter));
+    return iter->node->key;
+}
+
 void int_map_iter_next(int_map_iter_ptr iter)
 {
     assert(int_map_iter_is_valid(iter));

@@ -1488,7 +1488,10 @@ static int wiz_create_itemtype(void)
                 strip_name(buf, i);
 
                 /* Print it */
-                prt(format("[%c] %s (L%d)", ch, buf, lvl), row, col);
+                if (k_ptr->max_level)
+                    prt(format("[%c] %s (L%d-%d)", ch, buf, lvl, k_ptr->max_level), row, col);
+                else
+                    prt(format("[%c] %s (L%d-*)", ch, buf, lvl), row, col);
 
                 /* Remember the object index */
                 choice[num++] = i;

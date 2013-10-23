@@ -101,6 +101,7 @@
 #include "angband.h"
 #include "generate.h"
 #include "grid.h"
+#include "str-map.h"
 #include "rooms.h"
 #include "streams.h"
 
@@ -1609,6 +1610,34 @@ void generate_cave(void)
                 uniques++;
         }
         msg_format("DL=%d, Monsters=%d, <ML>= %d, Uniques=%d", dun_level, ct, lvl/MAX(ct, 1), uniques);
+    }
+
+    if (1)
+    {
+        str_map_ptr      map = str_map_alloc(0);
+        str_map_iter_ptr iter;
+        const int        max = 1000;
+        int              i;
+
+        for (i = 0; i < max; i++)
+        {
+            room_template_t *room_ptr = choose_room_template(ROOM_NORMAL, 0);
+            cptr             name = room_name + room_ptr->name;
+            int              ct = (int)str_map_find(map, name);
+            
+            ct++;
+            str_map_add(map, name, (vptr)ct);
+        }
+
+        for (iter = str_map_iter_alloc(map); str_map_iter_is_valid(iter); str_map_iter_next(iter))
+        {
+            cptr name = str_map_iter_current_key(iter);
+            int  ct = (int)str_map_iter_current(iter);
+
+            msg_format("%30.30s %d", name, ct);
+        }
+        str_map_iter_free(iter);
+        str_map_free(map);
     }
 #endif
 

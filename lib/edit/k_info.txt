@@ -254,7 +254,6 @@ F:STACK
 D:Twice-cooked for good keeping qualities, this lump of bread is as hard as a 
 D:rock and about as tasty.
 
-#"鹿肉"は誤訳
 N:23:& Strip~ of Venison
 G:,:u
 I:80:33:1500
@@ -270,7 +269,6 @@ A:1/1
 F:STACK
 D:An utterly hideous fungal growth.  It is strangely appealing...
 
-#waybread now fully satisfies the player, instead of increasing the food count.
 N:25:& Piece~ of Elvish Waybread
 G:,:B
 I:80:37:7500
@@ -751,9 +749,6 @@ I:19:24:0
 W:30:0:0:200:500
 A:30/2:40/2:60/2:80/2
 F:SHOW_MODS
-# Not all heavy crossbow is the arbalest with a crank!
-#D:$The arbalest is so powerful it has to be reinforced with metal and 
-#D:$requires a crank to be cocked.
 
 N:77:& Sling~
 G:}:u
@@ -826,8 +821,6 @@ A:3/1
 P:0:1d3:0:0:0
 F:SHOW_MODS
 F:STACK
-#D:$A grapestone-shaped slug of lead, the right heft for hurling from a sling.
-#D:スリングで投げるのに適した重さの、葡萄の粒のような鉛の塊だ。
 
 ##### Shovels and Picks #####
 
@@ -1075,10 +1068,6 @@ P:14:1d4:-5:0:-8
 D:Each link of this suit is brittle with rust, and the corroded rings 
 D:are stiff and weakened.
 
-# "hauberk"は元の意味は(袖無しの)胴鎧を指す言葉。 よく鎖かたびらで作ら
-# れたので後に転じてhauberkと言えば鎖かたびらの胴鎧、さらには鎖かたび
-# ら全般をも指すようになったが、ここでは「鎖かたびらの胴鎧」の意味で使
-# われていると思われる。 Mogami
 N:111:Augmented Chain Mail~
 G:[:s
 I:37:6:0
@@ -1171,8 +1160,6 @@ W:30:0:0:250:1000
 A:30/1
 P:16:1d4:-2:0:0
 
-# This shield does not belong here
-
 N:122:& Mirror Shield~
 G:[:B
 I:34:10:0
@@ -1180,9 +1167,6 @@ W:70:0:0:100:10000
 A:70/8
 P:10:1d1:0:0:10
 F:IGNORE_ACID | REFLECT | RES_LITE
-#D:$A shield of purest white, made of mithril, engraved with runes to keep 
-#D:$all hurt and harm from you.
-#D:傷と危険から守られるようにルーン文字が刻まれたミスリル製の純白の盾だ。
 
 ### The Cloaks ###
 
@@ -1273,11 +1257,15 @@ I:45:0:0
 W:10:0:0:2:500
 A:10/1:40/1:60/1
 
+#sequence gap
+
 N:163:& Amulet~
 G:":y
 I:40:0:0
 W:10:0:0:2:500
 A:10/1:40/1:60/1
+
+#sequence gap
 
 ##### Extra armor #####
 
@@ -1287,6 +1275,8 @@ I:37:5:0
 W:25:0:0:230:700
 A:25/1
 P:15:1d4:-2:0:0
+
+#sequence gap
 
 ##### Scrolls #####
 
