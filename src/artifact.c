@@ -2980,44 +2980,6 @@ bool create_replacement_art(int a_idx, object_type *o_ptr)
     if (object_level < a_ptr->level)
         object_level = a_ptr->level;
 
-/*    for (i = 0; i < 1+m_bonus(2, object_level); i++)
-    {
-        object_prep(&forge2, forge1.k_idx);
-        create_artifact(&forge2, CREATE_ART_GOOD);
-        power = object_value_real(&forge2);
-
-        if (power > best_power)
-        {
-            object_copy(&best, &forge2);
-            best_power = power;
-        }
-        if (power > base_power * 7 / 10)
-            break;
-    }
-
-    if (best_power < base_power * 4 / 10)
-    {
-        for (i = 0; i < 15; i++)
-        {
-            object_prep(&forge2, forge1.k_idx);
-            create_artifact(&forge2, CREATE_ART_GOOD);
-            power = object_value_real(&forge2);
-            if (power > best_power)
-            {
-                object_copy(&keeper, &forge2);
-                best_power = power;
-            }
-            if (power > base_power * 4 / 10)
-                break;
-        }
-    }
-
-    keeper.name3 = a_idx;
-    object_level = old_level;
-    object_copy(o_ptr, &keeper);
-    o_ptr->weight = forge1.weight;
-
-*/
     for (i = 0; i < 10000; i++)
     {
         object_prep(&forge2, forge1.k_idx);

@@ -849,6 +849,7 @@ extern bool     effect_add(object_type *o_ptr, int type);
 extern bool     effect_try(effect_t *effect_ptr);
 extern bool     effect_use(effect_t *effect_ptr, int boost);
 extern errr     effect_parse(char *line, effect_t *effect);
+extern int      effect_value(effect_t *effect);
 extern cptr     do_effect(effect_t *effect_ptr, int mode, int boost);
 
 
@@ -1170,6 +1171,7 @@ extern s32b weapon_cost(object_type *o_ptr);
 extern s32b bow_cost(object_type *o_ptr);
 extern s32b armor_cost(object_type *o_ptr);
 extern s32b jewelry_cost(object_type *o_ptr);
+extern s32b lite_cost(object_type *o_ptr);
 extern s32b new_object_cost(object_type *o_ptr);
 
 /* racial.c */

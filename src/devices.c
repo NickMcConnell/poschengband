@@ -2685,6 +2685,15 @@ bool effect_use(effect_t *effect, int boost)
     return FALSE;
 }
 
+int effect_value(effect_t *effect)
+{
+    int  result = 0;
+    cptr hack = do_effect(effect, SPELL_VALUE, 0);
+    if (hack)
+        result = atoi(hack);
+    return result;
+}
+
 typedef struct 
 {
     cptr text;

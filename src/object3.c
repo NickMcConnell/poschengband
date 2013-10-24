@@ -41,7 +41,9 @@ static s32b _activation_p(object_type *o_ptr)
 {
     if (o_ptr->art_name && (have_flag(o_ptr->art_flags, TR_ACTIVATE)))
     {
-        /* TODO */
+        effect_t effect = obj_get_effect(o_ptr);
+        if (effect.type)
+            return effect_value(&effect);
     }
     else if (object_is_fixed_artifact(o_ptr))
     {
@@ -837,6 +839,131 @@ s32b jewelry_cost(object_type *o_ptr)
     return p;
 }
 
+s32b lite_cost(object_type *o_ptr)
+{
+    s32b j, y, q, p;
+    u32b flgs[TR_FLAG_SIZE];
+    char dbg_msg[512];
+
+    object_flags(o_ptr, flgs);
+
+    switch (o_ptr->sval)
+    {
+    case SV_LITE_TORCH:
+        j = 1;
+        break;
+    case SV_LITE_LANTERN:
+        j = 30;
+        break;
+    case SV_LITE_FEANOR:
+        j = 250;
+        break;
+    }
+
+    if (cost_calc_hook)
+    {
+        sprintf(dbg_msg, "  * Base Cost: j = %d", j);
+        cost_calc_hook(dbg_msg);
+    }
+
+    /* These egos don't use flags for their effects ... sigh. */
+    if (o_ptr->name2 == EGO_LITE_DURATION) 
+        j += 100;
+    if (o_ptr->name2 == EGO_LITE_EXTRA_LIGHT) 
+        j += 250;
+
+
+    /* Resistances */
+    q = _resistances_q(flgs);
+    p = j + q;
+
+    if (cost_calc_hook)
+    {
+        sprintf(dbg_msg, "  * Resistances: q = %d, p = %d", q, p);
+        cost_calc_hook(dbg_msg);
+    }
+
+    /* Abilities */
+    q = _abilities_q(flgs);
+    if (have_flag(flgs, TR_NO_MAGIC)) q += 7000;
+    if (have_flag(flgs, TR_NO_TELE)) q += 5000;
+    if (have_flag(flgs, TR_NO_SUMMON)) q += 1000000;
+    p += q;
+
+    if (cost_calc_hook)
+    {
+        sprintf(dbg_msg, "  * Abilities: q = %d, p = %d", q, p);
+        cost_calc_hook(dbg_msg);
+    }
+
+    /* Speed */
+    if (have_flag(flgs, TR_SPEED))
+    {
+        p += _speed_p(o_ptr->pval);
+
+        if (cost_calc_hook)
+        {
+            sprintf(dbg_msg, "  * Speed: p = %d", p);
+            cost_calc_hook(dbg_msg);
+        }
+    }
+
+    /* Stats */
+    q = _stats_q(flgs, o_ptr->pval);
+    if (q != 0)
+    {
+        p += q;
+        if (cost_calc_hook)
+        {
+            sprintf(dbg_msg, "  * Stats/Stealth: q = %d, p = %d", q, p);
+            cost_calc_hook(dbg_msg);
+        }
+    }
+
+    /* Other Bonuses */
+    y = 0;
+    if (have_flag(flgs, TR_SEARCH)) y += 100;
+    if (have_flag(flgs, TR_INFRA)) y += 500;
+
+    if (y != 0)
+    {
+        q = y*o_ptr->pval;
+        p += q;
+        if (cost_calc_hook)
+        {
+            sprintf(dbg_msg, "  * Other Crap: y = %d, q = %d, p = %d", y, q, p);
+            cost_calc_hook(dbg_msg);
+        }
+    }
+
+    /* Stats */
+    q = _stats_q(flgs, o_ptr->pval);
+    if (q != 0)
+    {
+        p += q;
+        if (cost_calc_hook)
+        {
+            sprintf(dbg_msg, "  * Stats/Stealth: q = %d, p = %d", q, p);
+            cost_calc_hook(dbg_msg);
+        }
+    }
+
+    /* Auras */
+    y = _aura_p(flgs);
+    if (y != 0)
+    {
+        p += y;
+        if (cost_calc_hook)
+        {
+            sprintf(dbg_msg, "  * Auras: p = %d", p);
+            cost_calc_hook(dbg_msg);
+        }
+    }
+
+    p = _finalize_p(p, flgs, o_ptr);
+    return p;
+}
+
 s32b armor_cost(object_type *o_ptr)
 {
     s32b a, y, q, p;
@@ -1427,5 +1554,6 @@ s32b new_object_cost(object_type *o_ptr)
     else if (o_ptr->tval == TV_BOW) return bow_cost(o_ptr);
     else if (object_is_armour(o_ptr) || object_is_shield(o_ptr)) return armor_cost(o_ptr);
     else if (object_is_jewelry(o_ptr) || (o_ptr->tval == TV_LITE && object_is_artifact(o_ptr))) return jewelry_cost(o_ptr);
+    else if (o_ptr->tval == TV_LITE) return lite_cost(o_ptr);
     return 0;
 }

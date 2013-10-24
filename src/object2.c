@@ -1053,6 +1053,7 @@ s32b object_value_real(object_type *o_ptr)
     if (o_ptr->tval == TV_BOW) return bow_cost(o_ptr);
     if (object_is_armour(o_ptr) || object_is_shield(o_ptr)) return armor_cost(o_ptr);
     if (object_is_jewelry(o_ptr) || (o_ptr->tval == TV_LITE && object_is_artifact(o_ptr))) return jewelry_cost(o_ptr);
+    if (o_ptr->tval == TV_LITE) return lite_cost(o_ptr);
 
     /* OK, here's the old pricing algorithm :( 
        Note this algorithm cheats for artifacts by relying on cost
@@ -2213,22 +2214,38 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
             switch (randint1(7))
             {
             case 1:
-                add_flag(o_ptr->art_flags, TR_STR);
-                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(5, level));
-                break;
+                if (!have_flag(o_ptr->art_flags, TR_CON))
+                {
+                    add_flag(o_ptr->art_flags, TR_CON);
+                    if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(5, level));
+                    break;
+                }
             case 2:
-                add_flag(o_ptr->art_flags, TR_DEX);
-                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(5, level));
-                break;
+                if (!have_flag(o_ptr->art_flags, TR_DEX))
+                {
+                    add_flag(o_ptr->art_flags, TR_DEX);
+                    if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(5, level));
+                    break;
+                }
             case 3:
-                add_flag(o_ptr->art_flags, TR_CON);
+                add_flag(o_ptr->art_flags, TR_STR);
                 if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(5, level));
                 break;
             case 4:
                 o_ptr->to_h += randint1(5) + m_bonus(5, level);
+                while (one_in_(2) && powers > 0)
+                {
+                    o_ptr->to_h += randint1(5) + m_bonus(5, level);
+                    powers--;
+                }
                 break;
             case 5:
                 o_ptr->to_d += randint1(5) + m_bonus(5, level);
+                while (one_in_(2) && powers > 0)
+                {
+                    o_ptr->to_d += randint1(5) + m_bonus(5, level);
+                    powers--;
+                }
                 break;
             case 6:
                 if (abs(power) >= 2 && one_in_(30) && level >= 50)
