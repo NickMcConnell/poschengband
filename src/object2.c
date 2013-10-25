@@ -2176,6 +2176,11 @@ static int get_random_ego(int type, int dead_arg)
     return _get_random_ego(type);
 }
 
+static int _jewelry_pval(int max, int level)
+{
+    return randint1(1 + m_bonus(max - 1, level));
+}
+
 static void _create_artifact(object_type *o_ptr, int power)
 {
     u32b mode = CREATE_ART_NORMAL;
@@ -2195,7 +2200,7 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
     {
         o_ptr->name2 = _get_random_ego(EGO_TYPE_RING);
         done = TRUE;
-        if ( (mode & AM_GREAT) 
+        if ( ((mode & AM_GREAT) && randint0(50) < level)
           || ((mode & AM_GOOD) && randint0(200) < level) )
         {
             if ( o_ptr->name2 != EGO_RING_SPEED
@@ -2217,19 +2222,19 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
                 if (!have_flag(o_ptr->art_flags, TR_CON))
                 {
                     add_flag(o_ptr->art_flags, TR_CON);
-                    if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(5, level));
+                    if (!o_ptr->pval) o_ptr->pval = _jewelry_pval(5, level);
                     break;
                 }
             case 2:
                 if (!have_flag(o_ptr->art_flags, TR_DEX))
                 {
                     add_flag(o_ptr->art_flags, TR_DEX);
-                    if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(5, level));
+                    if (!o_ptr->pval) o_ptr->pval = _jewelry_pval(5, level);
                     break;
                 }
             case 3:
                 add_flag(o_ptr->art_flags, TR_STR);
-                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(5, level));
+                if (!o_ptr->pval) o_ptr->pval = _jewelry_pval(5, level);
                 break;
             case 4:
                 o_ptr->to_h += randint1(5) + m_bonus(5, level);
@@ -2251,7 +2256,7 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
                 if (abs(power) >= 2 && one_in_(30) && level >= 50)
                 {
                     add_flag(o_ptr->art_flags, TR_WEAPONMASTERY);
-                    o_ptr->pval = randint1(2);
+                    o_ptr->pval = _jewelry_pval(3, level);
                     if (one_in_(30))
                     {
                         switch (randint1(5))
@@ -2286,11 +2291,11 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
             {
             case 1:
                 add_flag(o_ptr->art_flags, TR_DEX);
-                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(5, level));
+                if (!o_ptr->pval) o_ptr->pval = _jewelry_pval(5, level);
                 break;
             case 2:
                 add_flag(o_ptr->art_flags, TR_STEALTH);
-                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(5, level));
+                if (!o_ptr->pval) o_ptr->pval = _jewelry_pval(5, level);
                 break;
             case 3:
                 o_ptr->to_h += randint1(5) + m_bonus(5, level);
@@ -2302,7 +2307,7 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
                 if (abs(power) >= 2 && level >= 40)
                 {
                     add_flag(o_ptr->art_flags, TR_XTRA_SHOTS);
-                    o_ptr->pval = randint1(m_bonus(3, level));
+                    o_ptr->pval = _jewelry_pval(3, level);
                     break;
                 }
             case 6:
@@ -2505,7 +2510,7 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
             {
             case 1:
                 add_flag(o_ptr->art_flags, TR_INT);
-                if (!o_ptr->pval) o_ptr->pval = randint1(5);
+                if (!o_ptr->pval) o_ptr->pval = _jewelry_pval(5, level);
                 break;
             case 2:
                 add_flag(o_ptr->art_flags, TR_SUST_INT);
@@ -2513,7 +2518,7 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
             case 3:
                 add_flag(o_ptr->art_flags, TR_SPELL_CAP);
                 if (!o_ptr->pval) 
-                    o_ptr->pval = randint1(m_bonus(3, level));
+                    o_ptr->pval = _jewelry_pval(3, level);
                 else if (o_ptr->pval > 3)
                     o_ptr->pval = 3;
                 break;
@@ -2526,6 +2531,11 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
                     add_flag(o_ptr->art_flags, TR_DEC_MANA);
                     break;
                 }
+                else
+                {
+                    add_flag(o_ptr->art_flags, TR_LEVITATION);
+                    break;
+                }
             case 6:
                 if (abs(power) >= 2 && one_in_(30))
                 {
@@ -2533,11 +2543,11 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
                     add_flag(o_ptr->art_flags, TR_DEC_STR);
                     add_flag(o_ptr->art_flags, TR_DEC_DEX);
                     add_flag(o_ptr->art_flags, TR_DEC_CON);
-                    o_ptr->pval = randint1(m_bonus(2, level));
+                    o_ptr->pval = _jewelry_pval(2, level);
                     break;
                 }
             default:
-                if (one_in_(7))
+                if (abs(power) >= 2 && one_in_(15))
                     add_flag(o_ptr->art_flags, TR_TELEPATHY);
                 else
                     one_low_esp(o_ptr);
@@ -2595,12 +2605,12 @@ static void _create_amulet(object_type *o_ptr, int level, int power, int mode)
                     add_flag(o_ptr->art_flags, TR_DEC_STR);
                     add_flag(o_ptr->art_flags, TR_DEC_DEX);
                     add_flag(o_ptr->art_flags, TR_DEC_CON);
-                    o_ptr->pval = randint1(m_bonus(2, level));
+                    o_ptr->pval = _jewelry_pval(2, level);
                     break;
                 }
             default:
                 add_flag(o_ptr->art_flags, TR_INT);
-                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(5, level));
+                if (!o_ptr->pval) o_ptr->pval = _jewelry_pval(5, level);
             }
         }
         if (!o_ptr->pval) o_ptr->pval = randint1(8); /* Searching */
@@ -2614,7 +2624,7 @@ static void _create_amulet(object_type *o_ptr, int level, int power, int mode)
             {
             case 1:
                 add_flag(o_ptr->art_flags, TR_CHR);
-                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(5, level));
+                if (!o_ptr->pval) o_ptr->pval = _jewelry_pval(5, level);
                 break;
             case 2:
                 add_flag(o_ptr->art_flags, TR_REFLECT);
@@ -2623,7 +2633,7 @@ static void _create_amulet(object_type *o_ptr, int level, int power, int mode)
                 if (abs(power) >= 2 && one_in_(2) && level >= 30)
                 {
                     add_flag(o_ptr->art_flags, TR_SPELL_CAP);
-                    o_ptr->pval = randint1(m_bonus(3, level));
+                    o_ptr->pval = _jewelry_pval(3, level);
                 }
                 else
                 {
@@ -2645,7 +2655,7 @@ static void _create_amulet(object_type *o_ptr, int level, int power, int mode)
                 }
             default:
                 add_flag(o_ptr->art_flags, TR_WIS);
-                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(5, level));
+                if (!o_ptr->pval) o_ptr->pval = _jewelry_pval(5, level);
             }
         }
         if (abs(power) >= 2 && one_in_(ACTIVATION_CHANCE))
@@ -2659,7 +2669,7 @@ static void _create_amulet(object_type *o_ptr, int level, int power, int mode)
             {
             case 1:
                 add_flag(o_ptr->art_flags, TR_DEX);
-                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(5, level));
+                if (!o_ptr->pval) o_ptr->pval = _jewelry_pval(5, level);
                 break;
             case 2:
                 add_flag(o_ptr->art_flags, TR_SUST_DEX);
@@ -2686,7 +2696,7 @@ static void _create_amulet(object_type *o_ptr, int level, int power, int mode)
                 if (abs(power) >= 2 && one_in_(2) && level >= 50)
                 {
                     add_flag(o_ptr->art_flags, TR_SPEED);
-                    o_ptr->pval = randint1(m_bonus(3, level));
+                    o_ptr->pval = _jewelry_pval(3, level);
                     break;
                 }
             default:
@@ -2714,18 +2724,18 @@ static void _create_amulet(object_type *o_ptr, int level, int power, int mode)
             {
             case 1:
                 add_flag(o_ptr->art_flags, TR_STR);
-                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(4, level));
+                if (!o_ptr->pval) o_ptr->pval = _jewelry_pval(4, level);
                 break;
             case 2:
                 if (one_in_(3))
                     add_flag(o_ptr->art_flags, TR_DEC_DEX);
                 else
                     add_flag(o_ptr->art_flags, TR_DEC_STEALTH);
-                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(4, level));
+                if (!o_ptr->pval) o_ptr->pval = _jewelry_pval(4, level);
                 break;
             case 3:
                 add_flag(o_ptr->art_flags, TR_CON);
-                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(4, level));
+                if (!o_ptr->pval) o_ptr->pval = _jewelry_pval(4, level);
                 break;
             case 4:
                 add_flag(o_ptr->art_flags, TR_RES_BLIND);
@@ -2752,11 +2762,11 @@ static void _create_amulet(object_type *o_ptr, int level, int power, int mode)
             {
             case 1:
                 add_flag(o_ptr->art_flags, TR_STR);
-                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(4, level));
+                if (!o_ptr->pval) o_ptr->pval = _jewelry_pval(4, level);
                 break;
             case 2:
                 add_flag(o_ptr->art_flags, TR_DEX);
-                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(4, level));
+                if (!o_ptr->pval) o_ptr->pval = _jewelry_pval(4, level);
                 break;
             case 3:
                 if (one_in_(3))
@@ -2767,7 +2777,7 @@ static void _create_amulet(object_type *o_ptr, int level, int power, int mode)
                     if (abs(power) >= 2 && one_in_(10) && level >= 70)
                     {
                         add_flag(o_ptr->art_flags, TR_MAGIC_RESISTANCE);
-                        o_ptr->pval = randint1(m_bonus(3, level));
+                        o_ptr->pval = _jewelry_pval(3, level);
                     }
                 }
                 break;
@@ -2781,7 +2791,7 @@ static void _create_amulet(object_type *o_ptr, int level, int power, int mode)
                 break;
             case 5:
                 add_flag(o_ptr->art_flags, TR_DEC_INT);
-                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(4, level));
+                if (!o_ptr->pval) o_ptr->pval = _jewelry_pval(4, level);
                 break;
             case 6:
                 o_ptr->to_a += randint1(5) + m_bonus(5, level);
@@ -2799,11 +2809,11 @@ static void _create_amulet(object_type *o_ptr, int level, int power, int mode)
             {
             case 1:
                 add_flag(o_ptr->art_flags, TR_STR);
-                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(4, level));
+                if (!o_ptr->pval) o_ptr->pval = _jewelry_pval(4, level);
                 break;
             case 2:
                 add_flag(o_ptr->art_flags, TR_WIS);
-                if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(4, level));
+                if (!o_ptr->pval) o_ptr->pval = _jewelry_pval(4, level);
                 break;
             case 3:
                 add_flag(o_ptr->art_flags, TR_FREE_ACT);
@@ -2826,12 +2836,12 @@ static void _create_amulet(object_type *o_ptr, int level, int power, int mode)
                 if (abs(power) >= 2 && one_in_(20) && level >= 70)
                 {
                     add_flag(o_ptr->art_flags, TR_SPEED);
-                    o_ptr->pval = randint1(2);
+                    o_ptr->pval = _jewelry_pval(3, level);
                 }
                 else if (one_in_(7) && level >= 50)
                 {
                     add_flag(o_ptr->art_flags, TR_LIFE);
-                    if (!o_ptr->pval) o_ptr->pval = randint1(m_bonus(4, level));
+                    if (!o_ptr->pval) o_ptr->pval = _jewelry_pval(4, level);
                 }
                 else if (one_in_(2))
                     add_flag(o_ptr->art_flags, TR_REGEN);
@@ -5040,8 +5050,8 @@ static _kind_alloc_entry _kind_alloc_table[] = {
     { kind_is_other_armor,  20,   0,   0 },
     { kind_is_device,       25, -20, -10 },
     { kind_is_bow_ammo,      7,   0,   0 },
-    { kind_is_book,          5,   5,  10 },
-    { kind_is_jewelry,       5,   5,  10 },
+    { kind_is_book,          5,   0,   0 },
+    { kind_is_jewelry,       5,   0,   0 },
     { kind_is_misc,          5,  -5,  -5 },
     { NULL, 0}
 };

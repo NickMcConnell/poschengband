@@ -4102,7 +4102,6 @@ errr make_character_dump(FILE *fff)
         fprintf(fff, "\n");
 
     dump_aux_display_player(fff);
-    dump_aux_last_message(fff);
     dump_aux_recall(fff);
     dump_aux_quest(fff);
     dump_aux_arena(fff);
@@ -4118,6 +4117,7 @@ errr make_character_dump(FILE *fff)
     dump_aux_equipment_inventory(fff);
     dump_aux_home_museum(fff);
 
+    dump_aux_last_message(fff);
     dump_aux_options(fff);
 
     fprintf(fff, "  [Check Sum: \"%s\"]\n\n", get_check_sum());

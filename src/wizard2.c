@@ -496,13 +496,13 @@ static void do_cmd_wiz_hack_chris5(void)
             break;
         }
         object_wipe(&forge);
-        if (!make_object(&forge, AM_GOOD)) 
+        if (!make_object(&forge, AM_GREAT)) 
         {
             ct_errors++;
             continue;
         }
         ct_tries++;
-        if (forge.name2 == EGO_RING_COMBAT)
+        if (forge.name2 == EGO_RING_SPEED)
         /*if ((forge.tval == TV_RING || forge.tval == TV_AMULET) && forge.activation.type)*/
         /*if (forge.k_idx == 133)*/
         /*if (forge.tval >= TV_LIFE_BOOK && 3 == forge.sval && forge.tval != TV_ARCANE_BOOK)*/
