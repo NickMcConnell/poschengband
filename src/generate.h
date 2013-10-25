@@ -58,9 +58,9 @@ extern int dun_tun_jct;
 /*
  * Dungeon treausre allocation values
  */
-#define DUN_AMT_ROOM    9    /* Amount of objects for rooms */
-#define DUN_AMT_ITEM    3    /* Amount of objects for rooms/corridors */
-#define DUN_AMT_GOLD    3    /* Amount of treasure for rooms/corridors */
+#define DUN_AMT_ROOM    6    /* Amount of objects for rooms */
+#define DUN_AMT_ITEM    2    /* Amount of objects for rooms/corridors */
+#define DUN_AMT_GOLD    2    /* Amount of treasure for rooms/corridors */
 #define DUN_AMT_INVIS   3    /* Amount of invisible walls for rooms/corridors */
 
 /*

@@ -1528,7 +1528,7 @@ static bool vault_aux_undead(int r_idx)
 /*
  * Helper function for "monster nest (chapel)"
  */
-static bool vault_aux_chapel_g(int r_idx)
+bool vault_aux_chapel_g(int r_idx)
 {
     static int chapel_list[] = {
         MON_NOV_PRIEST, MON_NOV_PALADIN, MON_NOV_PRIEST_G, MON_NOV_PALADIN_G, 
@@ -1556,6 +1556,37 @@ static bool vault_aux_chapel_g(int r_idx)
     return FALSE;
 }
 
+bool vault_aux_chapel_e(int r_idx)
+{
+    static int chapel_list[] = {
+        MON_FALLEN_ANGEL, 
+        MON_HIGH_PRIEST, 
+        MON_ARCHPRIEST,
+        MON_BLACK_KNIGHT,
+        MON_DEATH_KNIGHT,
+        MON_HELL_KNIGHT,
+        MON_ANTI_PALADIN,
+        MON_IPSISSIMUS,
+        MON_WYRD_SISTER,
+        0
+    };
+
+    int i;
+
+    monster_race *r_ptr = &r_info[r_idx];
+
+    /* Validate the monster */
+    if (!vault_monster_okay(r_idx)) return (FALSE);
+
+    if (r_ptr->flags3 & (RF3_GOOD)) return (FALSE);
+
+    if (r_ptr->d_char == 'U') return TRUE;
+
+    for (i = 0; chapel_list[i]; i++)
+        if (r_idx == chapel_list[i]) return TRUE;
+
+    return FALSE;
+}
 
 /*
  * Helper function for "monster nest (kennel)"
@@ -2980,6 +3011,7 @@ static void _init_formation(const room_template_t *room_ptr, int x, int y)
             if (monster_has_hostile_align(&align, 0, 0, &r_info[r_idx])) continue;
             if (r_info[r_idx].flags1 & RF1_UNIQUE) continue;
             if (r_info[r_idx].flags7 & RF7_UNIQUE2) continue;
+            if (r_idx == MON_NAZGUL) continue;
             break;
         }
 
@@ -3336,7 +3368,7 @@ room_template_t *choose_room_template(int type, int subtype)
     int i, n;
 
 #if 0
-    return &room_info[496];
+    return &room_info[517];
 #endif
 
     for (i = 0; i < max_room_idx; i++)

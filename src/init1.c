@@ -1226,6 +1226,8 @@ static const char *_summon_specific_types[] = {
     "HORSE",
     "MAGICAL",
     "TROLL",
+    "CHAPEL_GOOD",
+    "CHAPEL_EVIL",
     0,
 };
 

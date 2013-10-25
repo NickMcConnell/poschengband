@@ -91,4 +91,5 @@ extern void build_maze_vault(int x0, int y0, int xsize, int ysize, bool is_vault
 extern room_template_t *choose_room_template(int type, int subtype);
 extern void build_room_template_aux(const room_template_t *room_ptr, int yval, int xval, int xoffset, int yoffset, int transno);
 extern void coord_trans(int *x, int *y, int xoffset, int yoffset, int transno);
-
+extern bool vault_aux_chapel_g(int r_idx);
+extern bool vault_aux_chapel_e(int r_idx);

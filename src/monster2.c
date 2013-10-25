@@ -11,6 +11,7 @@
 /* Purpose: misc code for monsters */
 
 #include "angband.h"
+#include "rooms.h"
 
 #define HORDE_NOGOOD 0x01
 #define HORDE_NOEVIL 0x02
@@ -808,6 +809,12 @@ bool mon_is_type(int r_idx, int type)
 
     switch (type)
     {
+    case SUMMON_CHAPEL_GOOD:
+        return vault_aux_chapel_g(r_idx);
+
+    case SUMMON_CHAPEL_EVIL:
+        return vault_aux_chapel_e(r_idx);
+
     case SUMMON_ULTIMATE:
         if ( r_idx == 1083 || r_idx == 1087 || r_idx == 1088 || r_idx == 1085 || r_idx == 1084
             || r_idx == 847 || r_idx == 793 || r_idx == 800 || r_idx == 798 || r_idx == 836
@@ -4122,7 +4129,6 @@ bool summon_specific(int who, int y1, int x1, int lev, int type, u32b mode)
         if (ct)
         {
             int oy, ox;
-            char buf[MAX_NLEN];
     
             i = monsters[randint0(ct)];
             m_ptr = &m_list[i];
@@ -4141,9 +4147,6 @@ bool summon_specific(int who, int y1, int x1, int lev, int type, u32b mode)
             lite_spot(y, x);
             if (r_info[m_ptr->r_idx].flags7 & (RF7_LITE_MASK | RF7_DARK_MASK))
                 p_ptr->update |= (PU_MON_LITE);
-
-            monster_desc(buf, m_ptr, 0);
-            msg_format("%^s returns!", buf);
 
             return TRUE;
         }
@@ -4245,8 +4248,7 @@ bool summon_named_creature (int who, int oy, int ox, int r_idx, u32b mode)
     {
         for (i = 1; i < max_m_idx; i++)
         {
-        monster_type *m_ptr = &m_list[i];
-        char buf[MAX_NLEN];
+            monster_type *m_ptr = &m_list[i];
 
             if (m_ptr->r_idx != r_idx) continue;
             if (who > 0 && m_ptr->parent_m_idx != who) continue;
@@ -4266,9 +4268,6 @@ bool summon_named_creature (int who, int oy, int ox, int r_idx, u32b mode)
             lite_spot(y, x);
             if (r_info[m_ptr->r_idx].flags7 & (RF7_LITE_MASK | RF7_DARK_MASK))
                 p_ptr->update |= (PU_MON_LITE);
-
-            monster_desc(buf, m_ptr, 0);
-            msg_format("%^s returns!", buf);
 
             result = TRUE;
             break;

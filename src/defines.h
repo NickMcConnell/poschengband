@@ -2687,6 +2687,8 @@ enum summon_specific_e {
     SUMMON_HORSE,
     SUMMON_MAGICAL,
     SUMMON_TROLL,
+    SUMMON_CHAPEL_GOOD,
+    SUMMON_CHAPEL_EVIL,
 };
 
 /*
@@ -4796,6 +4798,7 @@ extern int PlayerUID;
 #define MON_SPIRIT_NAGA   436
 #define MON_FIVE_HEADED_HYDRA 440
 #define MON_GACHAPIN      441
+#define MON_BLACK_KNIGHT 442
 #define MON_BASILISK      453
 #define MON_ICE_TROLL    454
 #define MON_ARCHANGEL     456
@@ -4812,6 +4815,7 @@ extern int PlayerUID;
 #define MON_SPECTATOR 488
 #define MON_BICLOPS       490
 #define MON_IVORY_MONK    492
+#define MON_ANTI_PALADIN 497
 #define MON_LOG_MASTER    498
 #define MON_CHAOS_DRAKE           501
 #define MON_LAW_DRAKE             502
@@ -4849,6 +4853,7 @@ extern int PlayerUID;
 #define MON_NIGHTBLADE    564
 #define MON_BODAK  566
 #define MON_ELDER_THING   569
+#define MON_IPSISSIMUS   571
 #define MON_CHAOS_SPAWN   574
 #define MON_CRYPT_THING   577
 #define MON_MAGMA_ELEMENTAL 584
@@ -4858,6 +4863,7 @@ extern int PlayerUID;
 #define MON_MATURE_GOLD_DRAGON    590
 #define MON_CRYSTAL_DRAKE         591
 #define MON_M_MH_DRAGON   593
+#define MON_DEATH_KNIGHT 597
 #define MON_MANDOR        598
 #define MON_SHIM_VOR      600
 #define MON_ANCIENT_BRONZE_DRAGON 602
@@ -4874,13 +4880,16 @@ extern int PlayerUID;
 #define MON_ROTTING_QUYLTHULG           633
 #define MON_LESSER_TITAN 634
 #define MON_NINE_HEADED_HYDRA 635
+#define MON_ARCHPRIEST   637
 #define MON_XAREN       639
 #define MON_JUBJUB        640
 #define MON_DEATH_DRAKE           643
 #define MON_ANCIENT_GOLD_DRAGON   645
 #define MON_GREAT_CRYSTAL_DRAKE   646
+#define MON_WYRD_SISTER  647
 #define MON_CLUB_DEMON          648
 #define MON_DEATH_QUASIT        649
+#define MON_FALLEN_ANGEL 652
 #define MON_UBBO_SATHLA         655
 #define MON_D_ELF_SORC          657
 #define MON_MASTER_LICH         658
@@ -4898,6 +4907,7 @@ extern int PlayerUID;
 #define MON_SHOGGOTH            685
 #define MON_ARIEL               687
 #define MON_ELEVEN_HEADED_HYDRA 688
+#define MON_HIGH_PRIEST         689
 #define MON_DREADMASTER         690
 #define MON_DAWN                693
 #define MON_NAZGUL              696
@@ -4919,6 +4929,7 @@ extern int PlayerUID;
 #define MON_PLASMA_HOUND        726
 #define MON_DEMONIC_QUYLTHULG   727
 #define MON_ULIK                729
+#define MON_HELL_KNIGHT         731
 #define MON_BULLGATES           732
 #define MON_SANTACLAUS          733
 #define MON_LORD_CHAOS          737
