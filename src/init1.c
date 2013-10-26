@@ -1597,6 +1597,8 @@ static errr _parse_room_flags(char* buf, room_template_t *room_ptr)
             room_ptr->flags |= ROOM_THEME_NIGHT;
         else if (streq(flag, "DAY"))
             room_ptr->flags |= ROOM_THEME_DAY;
+        else if (streq(flag, "DEBUG"))
+            room_ptr->flags |= ROOM_DEBUG;
         else if (streq(flag, "NO_ROTATE"))
             room_ptr->flags |= ROOM_NO_ROTATE;
         else if (streq(flag, "FORMATION"))

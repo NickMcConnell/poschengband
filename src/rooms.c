@@ -3096,7 +3096,8 @@ void build_room_template_aux(const room_template_t *room_ptr, int yval, int xval
             c_ptr = &cave[y][x];
 
             /* Lay down a floor */
-            place_floor_grid(c_ptr);
+            if (room_ptr->type != ROOM_WILDERNESS)
+                place_floor_grid(c_ptr);
 
             /* Remove any mimic */
             c_ptr->mimic = 0;
@@ -3115,7 +3116,7 @@ void build_room_template_aux(const room_template_t *room_ptr, int yval, int xval
             /* Part of a vault? */
             if (room_ptr->type == ROOM_VAULT)
                 c_ptr->info |= CAVE_ROOM | CAVE_ICKY;
-            else
+            else if (room_ptr->type != ROOM_WILDERNESS)
                 c_ptr->info |= CAVE_ROOM;
 
             /* Analyze the grid */
@@ -3367,13 +3368,10 @@ room_template_t *choose_room_template(int type, int subtype)
     int total = 0;
     int i, n;
 
-#if 0
-    return &room_info[530];
-#endif
-
     for (i = 0; i < max_room_idx; i++)
     {
         room_template_t *room_ptr = &room_info[i];
+        if (room_ptr->flags & ROOM_DEBUG) return room_ptr;
         if (!ironman_rooms && base_level < room_ptr->level) continue;  /* Note: dun_level is 0 for wilderness encounters! */
         if (room_ptr->max_level && room_ptr->max_level < base_level) continue;
         if (room_ptr->type != type || room_ptr->subtype != subtype) continue;

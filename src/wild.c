@@ -579,7 +579,7 @@ static void _generate_encounters(int x, int y, const rect_t *r, const rect_t *ex
     {
         room_template_t *room_ptr = choose_room_template(ROOM_WILDERNESS, _encounter_terrain_type(x, y));
 #if 0
-        room_ptr = &room_info[153]; /* Testing new design */
+        room_ptr = &room_info[154]; /* Testing new design */
 #endif
         if (room_ptr)
         {
