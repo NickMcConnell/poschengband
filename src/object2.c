@@ -2799,6 +2799,8 @@ static void _create_amulet(object_type *o_ptr, int level, int power, int mode)
             }
         }
         if (o_ptr->to_a > 15) o_ptr->to_a = 15;
+        if (one_in_(ACTIVATION_CHANCE))
+            effect_add(o_ptr, EFFECT_BERSERK);
         break;
     case EGO_AMULET_SACRED:
         add_flag(o_ptr->art_flags, TR_BLESSED);

@@ -3368,7 +3368,7 @@ room_template_t *choose_room_template(int type, int subtype)
     int i, n;
 
 #if 0
-    return &room_info[517];
+    return &room_info[530];
 #endif
 
     for (i = 0; i < max_room_idx; i++)

@@ -121,7 +121,7 @@ F:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
 #############
 
 N:20:BODY_ARMOR:of Protection
-W:0:*:1:16
+W:0:40:1:16
 C:0:0:10:0
 F:IGNORE_ACID 
 
@@ -304,7 +304,7 @@ E:BERSERK:10:50
 ###############
 
 N:80:SHIELD:of Protection
-W:0:*:1:16
+W:0:40:1:16
 C:0:0:10:0
 F:IGNORE_ACID 
 
@@ -359,7 +359,7 @@ F:CON
 ##############
 
 N:100:CLOAK:of Protection
-W:0:*:1:5
+W:0:40:1:5
 C:0:0:10:0
 F:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
 
@@ -370,7 +370,7 @@ F:SPEED | VULN_FEAR | DEC_CHR | ACTIVATE
 E:TELEPORT:20:100
 
 N:102:CLOAK:of Stealth
-W:0:*:2:10
+W:0:40:2:10
 C:0:0:0:3
 F:STEALTH
 
