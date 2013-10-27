@@ -631,7 +631,13 @@ static void _generate_encounters(int x, int y, const rect_t *r, const rect_t *ex
     wilderness_mon_hook = NULL;
 
     /* Random Monsters */
-    ct = ambush_flag ? 40 : 4;
+    if (ambush_flag)
+        ct = 40;    
+    else if (!wilderness[y][x].road)
+        ct = 10;
+    else
+        ct = 4;
+
     ct = ct * 100 * (rect_area(r) - rect_area(&invalid)) / (MAX_HGT * MAX_WID);
     prob = ct % 100;
     ct /= 100;

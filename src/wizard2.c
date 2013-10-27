@@ -301,7 +301,7 @@ static void do_cmd_wiz_hack_chris3_imp(FILE* file)
             object_prep(&forge, k_idx);
             apply_magic(&forge, depth, 0);
 
-            if (forge.name2 && forge.curse_flags)
+            if (forge.name2)
             {
                 char buf[MAX_NLEN];
 

@@ -2176,11 +2176,6 @@ static int get_random_ego(int type, int dead_arg)
     return _get_random_ego(type);
 }
 
-static int _jewelry_pval(int max, int level)
-{
-    return randint1(1 + m_bonus(max - 1, level));
-}
-
 static void _create_artifact(object_type *o_ptr, int power)
 {
     u32b mode = CREATE_ART_NORMAL;
@@ -2189,6 +2184,16 @@ static void _create_artifact(object_type *o_ptr, int power)
         mode = CREATE_ART_CURSED;
 
     create_artifact(o_ptr, mode);
+}
+
+static int _jewelry_pval(int max, int level)
+{
+    return randint1(1 + m_bonus(max - 1, level));
+}
+
+static int _jewelry_powers(int num, int level, int power)
+{
+    return abs(power) + m_bonus(num, level);
 }
 
 static void _create_ring(object_type *o_ptr, int level, int power, int mode)
@@ -2214,7 +2219,7 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
     switch (o_ptr->name2)
     {
     case EGO_RING_COMBAT:
-        for (powers = abs(power) + randint1(m_bonus(5, level)); powers > 0; --powers)
+        for (powers = _jewelry_powers(5, level, power); powers > 0; --powers)
         {
             switch (randint1(7))
             {
@@ -2285,7 +2290,7 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
             effect_add_random(o_ptr, BIAS_WARRIOR);
         break;
     case EGO_RING_ARCHERY:
-        for (powers = abs(power) + randint1(m_bonus(4, level)); powers > 0; --powers)
+        for (powers = _jewelry_powers(4, level, power); powers > 0; --powers)
         {
             switch (randint1(7))
             {
@@ -2324,7 +2329,7 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
         if (o_ptr->to_d > 25) o_ptr->to_d = 25;
         break;
     case EGO_RING_PROTECTION:
-        for (powers = abs(power) + randint1(m_bonus(5, level)); powers > 0; --powers)
+        for (powers = _jewelry_powers(5, level, power); powers > 0; --powers)
         {
             switch (randint1(7))
             {
@@ -2504,7 +2509,7 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
         if (cheat_peek) object_mention(o_ptr);
         break;
     case EGO_RING_WIZARDRY:
-        for (powers = abs(power) + randint1(m_bonus(4, level)); powers > 0; --powers)
+        for (powers = _jewelry_powers(4, level, power); powers > 0; --powers)
         {
             switch (randint1(7))
             {
@@ -2572,7 +2577,7 @@ static void _create_amulet(object_type *o_ptr, int level, int power, int mode)
     {
     case EGO_AMULET_MAGI:
         add_flag(o_ptr->art_flags, TR_SEARCH);
-        for (powers = abs(power) + randint1(m_bonus(5, level)); powers > 0; --powers)
+        for (powers = _jewelry_powers(5, level, power); powers > 0; --powers)
         {
             switch (randint1(7))
             {
@@ -2618,7 +2623,7 @@ static void _create_amulet(object_type *o_ptr, int level, int power, int mode)
             effect_add_random(o_ptr, BIAS_MAGE);
         break;
     case EGO_AMULET_DEVOTION:
-        for (powers = abs(power) + randint1(m_bonus(5, level)); powers > 0; --powers)
+        for (powers = _jewelry_powers(5, level, power); powers > 0; --powers)
         {
             switch (randint1(7))
             {
@@ -2663,7 +2668,7 @@ static void _create_amulet(object_type *o_ptr, int level, int power, int mode)
         break;
     case EGO_AMULET_TRICKERY:
         add_flag(o_ptr->art_flags, TR_SEARCH);
-        for (powers = abs(power) + randint1(m_bonus(5, level)); powers > 0; --powers)
+        for (powers = _jewelry_powers(5, level, power); powers > 0; --powers)
         {
             switch (randint1(7))
             {
@@ -2718,7 +2723,7 @@ static void _create_amulet(object_type *o_ptr, int level, int power, int mode)
         break;
     case EGO_AMULET_DWARVEN:
         add_flag(o_ptr->art_flags, TR_INFRA);
-        for (powers = abs(power) + randint1(m_bonus(5, level)); powers > 0; --powers)
+        for (powers = _jewelry_powers(5, level, power); powers > 0; --powers)
         {
             switch (randint1(9))
             {
@@ -2756,7 +2761,7 @@ static void _create_amulet(object_type *o_ptr, int level, int power, int mode)
         if (!o_ptr->pval) o_ptr->pval = 2 + randint1(6); /* Infravision */
         break;
     case EGO_AMULET_BARBARIAN:
-        for (powers = abs(power) + randint1(m_bonus(5, level)); powers > 0; --powers)
+        for (powers = _jewelry_powers(5, level, power); powers > 0; --powers)
         {
             switch (randint1(6))
             {
@@ -2805,7 +2810,7 @@ static void _create_amulet(object_type *o_ptr, int level, int power, int mode)
     case EGO_AMULET_SACRED:
         add_flag(o_ptr->art_flags, TR_BLESSED);
         o_ptr->to_a = 5;
-        for (powers = abs(power) + randint1(m_bonus(5, level)); powers > 0; --powers)
+        for (powers = _jewelry_powers(5, level, power); powers > 0; --powers)
         {
             switch (randint1(8))
             {
@@ -2861,7 +2866,7 @@ static void _create_amulet(object_type *o_ptr, int level, int power, int mode)
     case EGO_AMULET_HELL:
         o_ptr->curse_flags |= TRC_CURSED;
         o_ptr->to_a = -5;
-        for (powers = abs(power) + randint1(m_bonus(5, level)); powers > 0; --powers)
+        for (powers = _jewelry_powers(5, level, power); powers > 0; --powers)
         {
             switch (randint1(7))
             {
@@ -5047,14 +5052,14 @@ typedef struct {
     int     great;
 } _kind_alloc_entry;
 static _kind_alloc_entry _kind_alloc_table[] = {
-    { kind_is_weapon,       18,   0,   0 },  
-    { kind_is_body_armor,   15,   0,   0 },
-    { kind_is_other_armor,  20,   0,   0 },
-    { kind_is_device,       25, -20, -10 },
-    { kind_is_bow_ammo,      7,   0,   0 },
-    { kind_is_book,          5,   0,   0 },
-    { kind_is_jewelry,       5,   0,   0 },
-    { kind_is_misc,          5,  -5,  -5 },
+    { kind_is_weapon,       180,    0,    0 },  
+    { kind_is_body_armor,   165,    0,    0 },
+    { kind_is_other_armor,  200,    0,    0 },
+    { kind_is_device,       250, -200, -100 },
+    { kind_is_bow_ammo,      70,    0,    0 },
+    { kind_is_book,          50,    0,    0 },
+    { kind_is_jewelry,       35,    0,    0 },
+    { kind_is_misc,          50,  -50,  -50 },
     { NULL, 0}
 };
 static int _kind_alloc_weight(_kind_alloc_entry *entry, u32b mode)
