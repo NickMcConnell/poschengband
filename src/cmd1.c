@@ -1997,18 +1997,8 @@ static void hit_trap(bool break_trap)
         case TRAP_OPEN:
         {
             msg_print("Suddenly, surrounding walls are opened!");
-            if (cave_have_flag_bold(y+1, x, FF_WALL))
-            {
-                project(0, 3, y, x, 0, GF_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
-                project(0, 3, y, x - 4, 0, GF_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
-                project(0, 3, y, x + 4, 0, GF_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
-            }
-            else
-            {
-                project(0, 3, y, x, 0, GF_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
-                project(0, 3, y-4, x, 0, GF_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
-                project(0, 3, y+4, x, 0, GF_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
-            }
+            /*TODO: Fire beams in 4 principle directions that kill adjacent walls ... */
+            project(0, 10, y, x, 0, GF_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
             aggravate_monsters(0);
 
             break;

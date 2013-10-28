@@ -15,7 +15,6 @@
 #include "generate.h"
 #include "grid.h"
 #include "rooms.h"
-#include <assert.h>
 
 /*
  * [from SAngband (originally from OAngband)]
@@ -3001,13 +3000,11 @@ static bool _init_formation(const room_template_t *room_ptr, int x, int y)
             grid.flags = ROOM_GRID_MON_RANDOM;
             get_mon_num_prep(_room_grid_mon_hook, get_monster_hook2(y, x));
             r_idx = get_mon_num(monster_level);
-            assert(r_idx);
 
             grid.flags = ROOM_GRID_MON_CHAR;
             grid.monster = r_info[r_idx].d_char;
             get_mon_num_prep(_room_grid_mon_hook, get_monster_hook2(y, x));
             r_idx = get_mon_num(monster_level);
-            assert(r_idx);
         }
     }
 
