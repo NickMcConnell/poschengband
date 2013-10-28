@@ -1473,6 +1473,31 @@ static errr _parse_room_grid_artifact(char **args, int arg_ct, room_grid_t *grid
     return 0;
 }
 
+static errr _parse_room_grid_trap(char **args, int arg_ct, room_grid_t *grid_ptr)
+{
+    switch (arg_ct)
+    {
+    case 2:
+        grid_ptr->trap_pct = atoi(args[1]);
+    case 1:
+        if (streq(args[0], "*"))
+        {
+            grid_ptr->flags |= ROOM_GRID_TRAP_RANDOM;
+        }
+        else
+        {
+            s16b trap = f_tag_to_index(args[0]);
+            if (trap < 0) return PARSE_ERROR_GENERIC;
+            grid_ptr->cave_trap = trap;
+        }
+        break;
+
+    default:
+        return PARSE_ERROR_TOO_FEW_ARGUMENTS;
+    }
+    return 0;
+}
+
 /* GRANITE
    FLOOR(ROOM | ICKY | GLOW) */
 static errr _parse_room_grid_feature(char* name, char **args, int arg_ct, room_grid_t *grid_ptr)
@@ -1563,8 +1588,8 @@ errr parse_room_grid(char *buf, room_grid_t *grid_ptr)
         }
         else if (streq(name, "TRAP"))
         {
-            /* TODO */
-            return PARSE_ERROR_GENERIC;
+            result = _parse_room_grid_trap(args, arg_ct, grid_ptr);
+            if (result) break;
         }
         else
         {

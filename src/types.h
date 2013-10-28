@@ -586,6 +586,7 @@ struct room_grid_s
     byte letter;
     byte monster_level;
     byte object_level;
+    byte trap_pct;
 };
 
 typedef struct room_grid_s room_grid_t;
