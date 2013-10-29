@@ -121,7 +121,7 @@ static int _breath_amount(void)
     case DRAGON_BLUE:
     case DRAGON_BLACK:
     case DRAGON_GREEN:
-        return MAX(1, MIN(900, p_ptr->chp * (25 + l*l*l/2500) / 100));
+        return MAX(1, MIN(600, p_ptr->chp * (25 + l*l*l/2500) / 100));
 
     case DRAGON_LAW:
     case DRAGON_CHAOS:
