@@ -175,7 +175,7 @@ static bool alloc_stairs(int feat, int num, int walls)
         /* No up stairs in town or in ironman mode */
         if (ironman_downward || !dun_level) return TRUE;
         
-        /* No way out!! */
+        /* No way out!! 
         if ( dun_level == d_info[dungeon_type].mindepth
           && (dungeon_flags[dungeon_type] & DUNGEON_NO_ENTRANCE) )
         {
@@ -187,7 +187,7 @@ static bool alloc_stairs(int feat, int num, int walls)
         {
             shaft_num = 0;
         }
-        else if (dun_level > d_info[dungeon_type].mindepth)
+        else */if (dun_level > d_info[dungeon_type].mindepth)
             shaft_num = (randint1(num+1))/2;
     }
     else if (have_flag(f_ptr->flags, FF_MORE))

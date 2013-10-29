@@ -1011,7 +1011,10 @@ static void _generate_area(int x, int y, int dx, int dy, const rect_t *exclude)
 
 
         /* Ah ... well, our _cave scratch buffer can't handle the stairs. */
-        if (wilderness[y][x].entrance && !wilderness[y][x].town && (p_ptr->total_winner || !(d_info[wilderness[y][x].entrance].flags1 & DF1_WINNER)))
+        if ( wilderness[y][x].entrance 
+         && !wilderness[y][x].town 
+         && (p_ptr->total_winner || !(d_info[wilderness[y][x].entrance].flags1 & DF1_WINNER))
+         && !(dungeon_flags[wilderness[y][x].entrance] & DUNGEON_NO_ENTRANCE) )
         {
             int y2, x2;
             int which = wilderness[y][x].entrance;
@@ -1027,15 +1030,8 @@ static void _generate_area(int x, int y, int dx, int dy, const rect_t *exclude)
 
             if (in_bounds(y2, x2))
             {
-                if (dungeon_flags[which] & DUNGEON_NO_ENTRANCE)
-                {
-                    cave[dy][dx].feat = feat_mountain;
-                }
-                else
-                {
-                    cave[y2][x2].feat = feat_entrance;
-                    cave[y2][x2].special = which;
-                }
+                cave[y2][x2].feat = feat_entrance;
+                cave[y2][x2].special = which;
             }
             /* Use the complex RNG */
             Rand_quick = FALSE;
