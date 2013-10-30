@@ -301,6 +301,9 @@ static void _scroll_cave(int dx, int dy)
     if (dy == 0 && dx == 0)
         return;
 
+    forget_view();
+    forget_lite();
+
     if (dy <= 0 && dx <= 0)
     {
         for (y = 0; y < MAX_HGT; y++)
@@ -353,7 +356,7 @@ static void _scroll_cave(int dx, int dy)
     else
         _scroll_panel(dx, dy);
 
-    p_ptr->update |= PU_DISTANCE;
+    p_ptr->update |= PU_DISTANCE | PU_VIEW | PU_LITE;
     p_ptr->redraw |= PR_MAP;
     p_ptr->window |= PW_OVERHEAD | PW_DUNGEON;
 }
@@ -622,8 +625,11 @@ static void _generate_encounters(int x, int y, const rect_t *r, const rect_t *ex
                 }
 
                 _build_room(room_ptr, &room_rect);
-                msg_print("You've stumbled onto something interesting ...");
-                disturb(0, 0);
+                if (is_daytime())
+                {
+                    msg_print("You've stumbled onto something interesting ...");
+                    disturb(0, 0);
+                }
                 break;
             }        
         }

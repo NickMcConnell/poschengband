@@ -1574,7 +1574,7 @@ void generate_cave(void)
     p_ptr->enter_dungeon = FALSE;
     wipe_generate_cave_flags();
 
-#ifdef _DEBUG
+#if 0
     wiz_lite(FALSE);
     detect_all(255);
     {

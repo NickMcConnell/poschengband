@@ -29,7 +29,6 @@ static caster_info * _caster_info(void)
         me.magic_desc = "devilish power";
         me.which_stat = A_INT;
         me.weight = 750;
-        me.options = CASTER_ALLOW_DEC_MANA;
         init = TRUE;
     }
     return &me;
