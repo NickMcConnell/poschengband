@@ -622,7 +622,7 @@ s32b _finalize_p(s32b p, u32b flgs[TR_FLAG_SIZE], object_type *o_ptr)
         }
     }*/
 
-    if (!object_is_artifact(o_ptr))
+    if (!object_is_artifact(o_ptr) && o_ptr->tval != TV_LITE)
     {
         p = p * 3 / 4;
         if (cost_calc_hook)

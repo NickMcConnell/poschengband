@@ -2783,8 +2783,7 @@ static void mon_lite_hack(int y, int x)
     cave_type *c_ptr;
     int       midpoint, dpf, d;
 
-    /* We trust this grid is in bounds */
-    /* if (!in_bounds2(y, x)) return; */
+    if (!in_bounds2(y, x)) return;
 
     c_ptr = &cave[y][x];
 
@@ -2869,8 +2868,7 @@ static void mon_dark_hack(int y, int x)
     cave_type *c_ptr;
     int       midpoint, dpf, d;
 
-    /* We trust this grid is in bounds */
-    /* if (!in_bounds2(y, x)) return; */
+    if (!in_bounds2(y, x)) return;
 
     c_ptr = &cave[y][x];
 
