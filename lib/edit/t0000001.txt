@@ -19,10 +19,10 @@ F:@:FLOOR:0
 F:z:TREE:0
 
 # Default for Quest 25 = entrance is stone
-F:x:PERMANENT:0
+F:x:PERMANENT:3
 
 # Default for Quest 28 = entrance is stone
-F:w:PERMANENT:0
+F:w:PERMANENT:3
 
 # Default for Quest 27 = entrance is grass
 F:v:GRASS:0
@@ -31,10 +31,10 @@ F:v:GRASS:0
 F:s:GRASS:0
 
 # Default for Quest 32 = entrance is stone
-F:r:PERMANENT:0
+F:r:PERMANENT:3
 
 # Default for Quest 33 = entrance is stone
-F:q:PERMANENT:0
+F:q:PERMANENT:3
 
 
 ############### Quest 1 - Thieves Hideout ###############

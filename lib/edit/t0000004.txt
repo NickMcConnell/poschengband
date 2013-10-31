@@ -8,16 +8,16 @@
 ############### Additional default terrain settings ###############
 
 # Default for reward
-F:!:FLOOR:3 
+F:!:FLOOR:0
 
 # Default for Quest 19 = entrance is tree
-F:z:TREE:3
+F:z:TREE:0
 
 # Default for Quest 22 = entrance is tree
-F:y:TREE:3
+F:y:TREE:0
 
 # Default for Quest 23 = entrance is tree
-F:x:TREE:3
+F:x:TREE:0
 
 
 ############### Quest 22 - Orc Camp ###################

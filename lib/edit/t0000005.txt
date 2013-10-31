@@ -1,18 +1,18 @@
 
 # Default sorcery tower reward = floor
-F:!:FLOOR:3
+F:!:FLOOR:0
 
 # Default chaos tower reward = floor
-F:$:FLOOR:3
+F:$:FLOOR:0
 
 # Default nature tower reward = floor
-F:":FLOOR:3
+F:":FLOOR:0
 
-F:z:SHALLOW_WATER:3
+F:z:SHALLOW_WATER:0
 
-F:y:MOUNTAIN:3
+F:y:MOUNTAIN:0
 
-F:x:TREE:3
+F:x:TREE:0
 
 #################### Quest 10 - Node of Sorcery ####################
 
