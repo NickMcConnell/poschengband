@@ -21,12 +21,6 @@
 monster_hook_type wilderness_mon_hook = NULL;
 
 /* Trivial rectangle utility to make code a bit more readable */
-struct rect_s
-{
-    int  x,  y;
-    int cx, cy;
-};
-typedef struct rect_s rect_t;
 
 rect_t rect_create(int x, int y, int cx, int cy)
 {
@@ -1028,10 +1022,12 @@ static void _generate_area(int x, int y, int dx, int dy, const rect_t *exclude)
                 init_flags |= INIT_SCROLL_WILDERNESS;
             init_dx = dx;
             init_dy = dy;
+            init_exclude_rect = exclude;
             process_dungeon_file("t_info.txt", 0, 0, MAX_HGT, MAX_WID);
             init_flags = 0;
             init_dx = 0;
             init_dy = 0;
+            init_exclude_rect = 0;
         }
 
 

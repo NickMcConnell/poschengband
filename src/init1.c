@@ -4435,7 +4435,11 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
             int        artifact_index = letter[idx].artifact;
             int        ego_index = letter[idx].ego;
 
-            if (!in_bounds2(y2, x2)) continue;
+            if (!in_bounds2(y2, x2)) 
+                continue;
+
+            if (init_exclude_rect && rect_contains_pt(init_exclude_rect, x2, y2))
+                continue;
 
             /* Access the grid */
             c_ptr = &cave[y2][x2];

@@ -530,6 +530,7 @@ extern s16b gf_color[MAX_GF];
 extern int init_flags;
 extern int init_dx;
 extern int init_dy;
+extern const rect_t *init_exclude_rect;
 extern int highscore_fd;
 extern int mutant_regenerate_mod;
 extern bool can_save;
@@ -1866,6 +1867,14 @@ extern bool object_allow_two_hands_wielding(object_type *o_ptr);
 extern bool object_can_activate(object_type *o_ptr);
 
 /* wild.c */
+extern rect_t rect_create(int x, int y, int cx, int cy);
+extern bool rect_is_valid(const rect_t *r);
+extern bool rect_contains_pt(const rect_t *r, int x, int y);
+extern bool rect_contains(const rect_t *r1, const rect_t *r2);
+extern rect_t rect_intersect(const rect_t *r1, const rect_t *r2);
+extern rect_t rect_translate(const rect_t *r, int dx, int dy);
+extern int rect_area(const rect_t *r);
+
 extern void set_floor_and_wall(byte type);
 extern void wilderness_gen(void);
 extern monster_hook_type wilderness_mon_hook;

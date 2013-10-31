@@ -45,8 +45,12 @@
  */
 
 
-
-
+struct rect_s
+{
+    int  x,  y;
+    int cx, cy;
+};
+typedef struct rect_s rect_t;
 
 /*
  * Feature state structure
