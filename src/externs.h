@@ -557,7 +557,6 @@ extern int tsuri_dir;
 extern bool sukekaku;
 extern bool new_mane;
 extern bool mon_fight;
-extern bool ambush_flag;
 extern bool generate_encounter;
 extern cptr screen_dump;
 

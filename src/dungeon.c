@@ -3765,12 +3765,6 @@ static void process_command(void)
             {
                 if (vanilla_town) break;
 
-                if (ambush_flag)
-                {
-                    msg_print("To flee the ambush you have to reach the edge of the map.");
-                    break;
-                }
-
                 if (p_ptr->food < PY_FOOD_WEAK)
                 {
                     msg_print("You must eat something here.");
@@ -5112,7 +5106,6 @@ static void dungeon(bool load_game)
     target_who = 0;
     pet_t_m_idx = 0;
     riding_t_m_idx = 0;
-    ambush_flag = FALSE;
 
     /* Cancel the health bar */
     health_track(0);

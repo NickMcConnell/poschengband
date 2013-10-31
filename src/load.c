@@ -1462,7 +1462,7 @@ static errr rd_savefile_new_aux(savefile_ptr file)
         p_ptr->wilderness_dx = savefile_read_s16b(file);
         p_ptr->wilderness_dy = savefile_read_s16b(file);
         p_ptr->wild_mode = savefile_read_byte(file);
-        ambush_flag = savefile_read_byte(file);
+        savefile_read_skip(file, 1);
 
         wild_x_size = savefile_read_s32b(file);
         wild_y_size = savefile_read_s32b(file);

@@ -54,7 +54,8 @@ enum room_type_e {
     ROOM_UNKNOWN,
     ROOM_VAULT,
     ROOM_NORMAL,
-    ROOM_WILDERNESS
+    ROOM_WILDERNESS,
+    ROOM_AMBUSH,
 };
 
 enum vault_type_e {

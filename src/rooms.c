@@ -3110,7 +3110,7 @@ void build_room_template_aux(const room_template_t *room_ptr, int yval, int xval
             c_ptr = &cave[y][x];
 
             /* Lay down a floor */
-            if (room_ptr->type != ROOM_WILDERNESS)
+            if (room_ptr->type != ROOM_WILDERNESS && room_ptr->type != ROOM_AMBUSH)
                 place_floor_grid(c_ptr);
 
             /* Remove any mimic */
@@ -3119,7 +3119,7 @@ void build_room_template_aux(const room_template_t *room_ptr, int yval, int xval
             /* Part of a vault? */
             if (room_ptr->type == ROOM_VAULT)
                 c_ptr->info |= CAVE_ROOM | CAVE_ICKY;
-            else if (room_ptr->type != ROOM_WILDERNESS)
+            else if (room_ptr->type != ROOM_WILDERNESS && room_ptr->type != ROOM_AMBUSH)
                 c_ptr->info |= CAVE_ROOM;
 
             grid_ptr = _find_room_grid(room_ptr, *t);
@@ -3331,9 +3331,17 @@ void build_room_template_aux(const room_template_t *room_ptr, int yval, int xval
                 /* Meaner monster */
                 case '@':
                 {
-                    monster_level = base_level + 11;
-                    place_monster(y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
-                    monster_level = base_level;
+                    if (room_ptr->type == ROOM_AMBUSH)
+                    {
+                        p_ptr->oldpx = x;
+                        p_ptr->oldpy = y;
+                    }
+                    else
+                    {
+                        monster_level = base_level + 11;
+                        place_monster(y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+                        monster_level = base_level;
+                    }
                     break;
                 }
 
@@ -3384,6 +3392,33 @@ void build_room_template_aux(const room_template_t *room_ptr, int yval, int xval
     }
 }
 
+static bool _room_is_allowed(const room_template_t * room_ptr, int type, int subtype)
+{
+    if (!ironman_rooms && base_level < room_ptr->level) return FALSE;  /* Note: dun_level is 0 for wilderness encounters! */
+    if (room_ptr->max_level && room_ptr->max_level < base_level) return FALSE;
+    if (room_ptr->type != type) return FALSE;
+    if (subtype && room_ptr->subtype != subtype) return FALSE;
+    if (!room_ptr->rarity) return FALSE;
+
+    if (!dun_level)
+    {
+        if ((room_ptr->flags & ROOM_THEME_DAY) && !is_daytime()) return FALSE;
+        if ((room_ptr->flags & ROOM_THEME_NIGHT) && is_daytime()) return FALSE;
+    }
+
+    switch (dungeon_type)
+    {
+    case DUNGEON_HEAVEN:
+        if (room_ptr->flags & ROOM_THEME_EVIL) return FALSE;
+        break;
+    case DUNGEON_HELL:
+        if (room_ptr->flags & ROOM_THEME_GOOD) return FALSE;
+        break;
+    }
+
+    return TRUE;
+}
+
 room_template_t *choose_room_template(int type, int subtype)
 {
     int total = 0;
@@ -3393,10 +3428,7 @@ room_template_t *choose_room_template(int type, int subtype)
     {
         room_template_t *room_ptr = &room_info[i];
         if (room_ptr->flags & ROOM_DEBUG) return room_ptr;
-        if (!ironman_rooms && base_level < room_ptr->level) continue;  /* Note: dun_level is 0 for wilderness encounters! */
-        if (room_ptr->max_level && room_ptr->max_level < base_level) continue;
-        if (room_ptr->type != type || room_ptr->subtype != subtype) continue;
-        if (!room_ptr->rarity) continue;
+        if (!_room_is_allowed(room_ptr, type, subtype)) continue;
         total += 1000 / room_ptr->rarity;
     }
 
@@ -3407,10 +3439,7 @@ room_template_t *choose_room_template(int type, int subtype)
     for (i = 0; i < max_room_idx; i++)
     {
         room_template_t *room_ptr = &room_info[i];
-        if (!ironman_rooms && base_level < room_ptr->level) continue;  /* Note: dun_level is 0 for wilderness encounters! */
-        if (room_ptr->max_level && room_ptr->max_level < base_level) continue;
-        if (room_ptr->type != type || room_ptr->subtype != subtype) continue;
-        if (!room_ptr->rarity) continue;
+        if (!_room_is_allowed(room_ptr, type, subtype)) continue;
         n -= 1000 / room_ptr->rarity;
         if (n <= 0)
             return room_ptr;

@@ -1706,7 +1706,7 @@ errr parse_v_info(char *buf, header *head)
             room_ptr->type = ROOM_NORMAL;
             room_ptr->subtype = 0; /* TODO */
         }
-        else if (streq(zz[0], "WILD"))
+        else if (streq(zz[0], "WILD") || streq(zz[0], "AMBUSH"))
         {   
             static struct { cptr name; int type; } types[] = {
                 {"WATER",    TERRAIN_DEEP_WATER}, /* TERRAIN_SHALLOW_WATER */
@@ -1718,7 +1718,10 @@ errr parse_v_info(char *buf, header *head)
                 { 0, 0 }
             };
             int j;
-            room_ptr->type = ROOM_WILDERNESS;
+            if (streq(zz[0], "AMBUSH"))
+                room_ptr->type = ROOM_AMBUSH;
+            else
+                room_ptr->type = ROOM_WILDERNESS;
             for (j = 0; ; j++)
             {
                 if (!types[j].name) break;
