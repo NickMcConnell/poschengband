@@ -2446,9 +2446,11 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
         add_flag(o_ptr->art_flags, TR_SEE_INVIS);
         if (abs(power) >= 2)
         {
-            add_flag(o_ptr->art_flags, TR_LEVITATION);
-            one_sustain(o_ptr);
-            o_ptr->to_a = 5 + randint1(5) + m_bonus(10, level);
+            if (one_in_(2))
+                add_flag(o_ptr->art_flags, TR_LEVITATION);
+            if (one_in_(2))
+                one_sustain(o_ptr);
+            o_ptr->to_a = randint1(5) + m_bonus(5, level);
             switch (randint1(4))
             {
             case 1: /* Classic Defender */
@@ -2481,7 +2483,6 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
                 while (one_in_(4));
                 break;
             case 4: /* Revenge! */
-                o_ptr->to_a += 15;
                 add_flag(o_ptr->art_flags, TR_SH_COLD);
                 add_flag(o_ptr->art_flags, TR_SH_ELEC);
                 add_flag(o_ptr->art_flags, TR_SH_FIRE);
@@ -2969,9 +2970,11 @@ static void _create_amulet(object_type *o_ptr, int level, int power, int mode)
         add_flag(o_ptr->art_flags, TR_SEE_INVIS);
         if (abs(power) >= 2)
         {
-            add_flag(o_ptr->art_flags, TR_LEVITATION);
-            one_sustain(o_ptr);
-            o_ptr->to_a = 5 + randint1(5) + m_bonus(10, level);
+            if (one_in_(2))
+                add_flag(o_ptr->art_flags, TR_LEVITATION);
+            if (one_in_(2))
+                one_sustain(o_ptr);
+            o_ptr->to_a = randint1(5) + m_bonus(5, level);
             switch (randint1(4))
             {
             case 1: /* Classic Defender */
@@ -3004,7 +3007,6 @@ static void _create_amulet(object_type *o_ptr, int level, int power, int mode)
                 while (one_in_(4));
                 break;
             case 4: /* Revenge! */
-                o_ptr->to_a += 15;
                 add_flag(o_ptr->art_flags, TR_SH_COLD);
                 add_flag(o_ptr->art_flags, TR_SH_ELEC);
                 add_flag(o_ptr->art_flags, TR_SH_FIRE);
