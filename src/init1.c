@@ -813,6 +813,10 @@ static cptr k_info_flags[] =
     "DEC_SPEED", 
     "DEC_LIFE", 
     "SH_REVENGE", 
+    "VORPAL2",
+    "DEC_MAGIC_MASTERY",
+    "DEC_SPELL_CAP",
+    "DEC_SPELL_POWER",
 };
 
 

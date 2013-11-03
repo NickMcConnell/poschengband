@@ -2661,17 +2661,8 @@ static bool py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
         {
             int vorpal_chance = 4;
 
-            if (o_ptr)
-            {
-                switch (o_ptr->name1)
-                {
-                case ART_VORPAL_BLADE:
-                case ART_CHAINSWORD:
-                case ART_MURAMASA:
-                    vorpal_chance = 2;
-                    break;
-                }
-            }
+            if (have_flag(flgs, TR_VORPAL2))
+                vorpal_chance = 2;
 
             if (eviscerator && !duelist_attack) num_blow++;
 
@@ -2723,7 +2714,7 @@ static bool py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
             if (!zantetsu_mukou) /* No jelly cuts with Zantetsuken */
             {
                 if (have_flag(flgs, TR_VORPAL) && p_ptr->vorpal && vorpal_chance > 3) vorpal_chance = 3;
-                if (have_flag(flgs, TR_VORPAL) || hex_spelling(HEX_RUNESWORD) || p_ptr->vorpal)
+                if (have_flag(flgs, TR_VORPAL) || have_flag(flgs, TR_VORPAL2) || hex_spelling(HEX_RUNESWORD) || p_ptr->vorpal)
                 {
                     if (randint1(vorpal_chance*3/2) == 1)
                         vorpal_cut = TRUE;

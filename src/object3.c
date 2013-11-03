@@ -1207,17 +1207,10 @@ s32b weapon_cost(object_type *o_ptr)
             s = (s * 1.50 + 1.0) * 0.25 + s * 0.75;
         }
 
-        if (have_flag(flgs, TR_VORPAL))
-        {
-            if ( o_ptr->art_name == ART_VORPAL_BLADE 
-              || o_ptr->art_name == ART_CHAINSWORD
-              || o_ptr->art_name == ART_MURAMASA )
-            {
-                s *= 1.67;
-            }
-            else
-                s *= 1.22;
-        }
+        if (have_flag(flgs, TR_VORPAL2))
+            s *= 1.67;
+        else if (have_flag(flgs, TR_VORPAL))
+            s *= 1.22;
 
         d = d*s + (double)o_ptr->to_d;
         if (d < 1.0)

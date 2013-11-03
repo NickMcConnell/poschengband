@@ -913,6 +913,7 @@ s32b flag_cost(object_type *o_ptr, int plusses, bool hack)
     else if (have_flag(flgs, TR_SLAY_DRAGON)) {tmp_cost += 1800;count++;}
 
     if (have_flag(flgs, TR_VORPAL)) {tmp_cost += 1500;count++;}
+    if (have_flag(flgs, TR_VORPAL2)) {tmp_cost += 5000;count++;}
     if (have_flag(flgs, TR_IMPACT)) {tmp_cost += 500;}
     if (have_flag(flgs, TR_BRAND_POIS)) {tmp_cost += 1000;count++;}
     if (have_flag(flgs, TR_BRAND_ACID)) {tmp_cost += 1200;count++;}
@@ -3389,6 +3390,10 @@ static void _create_weapon(object_type *o_ptr, int level, int power, int mode)
                         }
                         while (one_in_(o_ptr->dd));
                     }
+                    if (one_in_(7))
+                        add_flag(o_ptr->art_flags, TR_VORPAL2);
+                    else
+                        add_flag(o_ptr->art_flags, TR_VORPAL);
                 }
                 break;
             case EGO_WEAPON_TRUMP:

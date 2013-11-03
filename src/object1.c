@@ -823,11 +823,12 @@ bool screen_object(object_type *o_ptr, u32b mode)
 
     }
 
-    if (have_flag(flgs, TR_VORPAL))
-    {
+    if (have_flag(flgs, TR_VORPAL2))
+        info[i++] = "It is extremely sharp and can cut your foes.";
+
+    else if (have_flag(flgs, TR_VORPAL))
         info[i++] = "It is very sharp and can cut your foes.";
 
-    }
 
     if (have_flag(flgs, TR_ORDER))
         info[i++] = "It is a weapon of order.";

@@ -3155,8 +3155,12 @@ enum summon_specific_e {
 #define TR_DEC_SPEED           152
 #define TR_DEC_LIFE            153
 #define TR_SH_REVENGE          154
+#define TR_VORPAL2             155
+#define TR_DEC_MAGIC_MASTERY   156
+#define TR_DEC_SPELL_CAP       157
+#define TR_DEC_SPELL_POWER     158
 
-#define TR_FLAG_MAX            155
+#define TR_FLAG_MAX            159
 #define TR_FLAG_SIZE           6
 
 #define TRG_INSTA_ART           0x00000001     /* Item must be an artifact */

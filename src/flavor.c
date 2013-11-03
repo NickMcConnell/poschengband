@@ -579,6 +579,7 @@ static flag_insc_table flag_insc_brand[] =
     { "V", TR_VAMPIRIC, -1 },
     { "Q", TR_IMPACT, -1 },
     { "S", TR_VORPAL, -1 },
+    { "S!", TR_VORPAL2, -1 },
     { "M", TR_FORCE_WEAPON, -1 },
     { NULL, 0, -1 }
 };
