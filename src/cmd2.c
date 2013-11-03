@@ -2417,6 +2417,16 @@ void do_cmd_walk(bool pickup)
         int lvl = wilderness_level(px, py);
         int tmp = MAX(1, 120 + p_ptr->lev*10 - lvl + 5);
 
+        if (wilderness[py][px].road)
+            tmp *= 3;
+
+        if (!is_daytime())
+            tmp /= 2;
+
+#if 0
+        msg_format("Ambush=%.2f%%", (double)(21 - p_ptr->skills.stl) * 100.0/(double)tmp);
+#endif
+
         if ( lvl + 5 > p_ptr->lev / 2 
           && randint0(tmp) < 21 - p_ptr->skills.stl )
         {
