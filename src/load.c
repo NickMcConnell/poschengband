@@ -920,6 +920,9 @@ static errr rd_inventory(savefile_ptr file)
 
         if (n == 0xFFFF) break;
 
+        if (savefile_is_older_than(file, 3, 0, 0, 3) && n > 23)
+            n += 3;
+
         rd_item(file, &forge);
 
         if (!forge.k_idx) return (53);

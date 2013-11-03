@@ -2037,9 +2037,9 @@ int show_inven(int target_item, int mode)
     object_type     *o_ptr;
     char            o_name[MAX_NLEN];
     char            tmp_val[80];
-    int             out_index[23];
-    byte            out_color[23];
-    char            out_desc[23][MAX_NLEN];
+    int             out_index[INVEN_PACK];
+    byte            out_color[INVEN_PACK];
+    char            out_desc[INVEN_PACK][MAX_NLEN];
     int             target_item_label = 0;
     int             wid, hgt;
     char            inven_label[52 + 1];
@@ -2210,7 +2210,7 @@ int show_inven(int target_item, int mode)
     }
 
     /* Make a "shadow" below the list (only if needed) */
-    if (j && (j < 23)) prt("", j + 1, col ? col - 2 : col);
+    if (j && (j < INVEN_PACK)) prt("", j + 1, col ? col - 2 : col);
 
     /* Save the new column */
     /*command_gap = col;*/
@@ -2229,9 +2229,9 @@ int show_equip(int target_item, int mode)
     int             col, cur_col, len;
     object_type     *o_ptr;
     char            tmp_val[80];
-    int             out_index[23];
-    byte            out_color[23];
-    char            out_desc[23][MAX_NLEN];
+    int             out_index[EQUIP_MAX_SLOTS];
+    byte            out_color[EQUIP_MAX_SLOTS];
+    char            out_desc[EQUIP_MAX_SLOTS][MAX_NLEN];
     int             target_item_label = 0;
     int             wid, hgt;
     char            equip_label[52 + 1];
@@ -2361,7 +2361,7 @@ int show_equip(int target_item, int mode)
     }
 
     /* Make a "shadow" below the list (only if needed) */
-    if (j && (j < 23)) prt("", j + 1, col ? col - 2 : col);
+    if (j && (j < EQUIP_MAX_SLOTS)) prt("", j + 1, col ? col - 2 : col);
 
     /* Save the new column */
     /*command_gap = col;*/

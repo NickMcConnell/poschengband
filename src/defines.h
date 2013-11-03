@@ -19,7 +19,7 @@
 #define VER_MAJOR 3
 #define VER_MINOR 0
 #define VER_PATCH 0
-#define VER_EXTRA 2
+#define VER_EXTRA 3
 
 
 /*
@@ -576,10 +576,12 @@
  * Note that "INVEN_PACK" is probably hard-coded by its use in savefiles, and
  * by the fact that the screen can only show 23 items plus a one-line prompt.
  */
-#define INVEN_PACK              23
+#define INVEN_PACK      26
+#define EQUIP_BEGIN     27
+#define INVEN_TOTAL     50
+#define EQUIP_MAX_SLOTS (INVEN_TOTAL - EQUIP_BEGIN)
 
 /* If you are looking for old INVEN_* crap, look in equip.h instead ... */
-#define INVEN_TOTAL     40
 
 /*
  * Fake inventory slot for selecting force (hard-coded).
@@ -5776,9 +5778,6 @@ enum mon_save_fields_e {
 #define LEAVING_ALTER_REALITY 4
 
 #define MAX_SUMMONS 50
-
-#define EQUIP_BEGIN 24
-#define EQUIP_MAX_SLOTS (INVEN_TOTAL - EQUIP_BEGIN)
 
 /* All of the following enumeration values are persisted in
    savefiles, so should not be changed. Add new options to
