@@ -1574,7 +1574,7 @@ void generate_cave(void)
     p_ptr->enter_dungeon = FALSE;
     wipe_generate_cave_flags();
 
-#if 0
+#ifdef _DEBUG
     wiz_lite(FALSE);
     detect_all(255);
     {
@@ -1596,7 +1596,7 @@ void generate_cave(void)
     }
     {
         int i;
-        int lvl = 0, ct = 0, uniques = 0;
+        int lvl = 0, ct = 0, uniques = 0, ct_drops = 0;
         for (i = 1; i < max_m_idx; i++)
         {
         monster_type *m_ptr = &m_list[i];
@@ -1605,11 +1605,12 @@ void generate_cave(void)
             if (!m_ptr->r_idx) continue;
             r_ptr = real_r_ptr(m_ptr);
             ct++;
+            ct_drops += m_ptr->drop_ct;
             lvl += r_ptr->level;
             if (r_ptr->flags1 & RF1_UNIQUE)
                 uniques++;
         }
-        msg_format("DL=%d, Monsters=%d, <ML>= %d, Uniques=%d", dun_level, ct, lvl/MAX(ct, 1), uniques);
+        msg_format("DL=%d, Monsters=%d, Drops=%d, <ML>= %d, Uniques=%d", dun_level, ct, ct_drops, lvl/MAX(ct, 1), uniques);
     }
 
     if (0)

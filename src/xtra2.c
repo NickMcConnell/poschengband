@@ -730,6 +730,15 @@ byte get_monster_drop_ct(monster_type *m_ptr)
     if  (r_ptr->flags1 & RF1_DROP_3D2) number += damroll(3, 2);
     if  (r_ptr->flags1 & RF1_DROP_4D2) number += damroll(4, 2);
 
+    /* Hack: There are currently too many objects, IMO. 
+       Please rescale in r_info rather than the following! */
+    if ( number > 2 
+      && !(r_ptr->flags1 & RF1_DROP_GREAT) 
+      && !(r_ptr->flags1 & RF1_UNIQUE) )
+    {
+        number = 2 + (number - 2) / 2;
+    }
+
     if (is_pet(m_ptr) || p_ptr->inside_battle || p_ptr->inside_arena)
         number = 0; /* Pets drop no stuff */
 
