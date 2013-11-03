@@ -571,13 +571,10 @@
 /*
  * Maximum number of "normal" pack slots, and the index of the "overflow"
  * slot, which can hold an item, but only temporarily, since it causes the
- * pack to "overflow", dropping the "last" item onto the ground.  Since this
- * value is used as an actual slot, it must be less than "INVEN_RARM" (below).
- * Note that "INVEN_PACK" is probably hard-coded by its use in savefiles, and
- * by the fact that the screen can only show 23 items plus a one-line prompt.
+ * pack to "overflow", dropping the "last" item onto the ground.
  */
 #define INVEN_PACK      26
-#define EQUIP_BEGIN     27
+#define EQUIP_BEGIN     (INVEN_PACK + 1)
 #define INVEN_TOTAL     50
 #define EQUIP_MAX_SLOTS (INVEN_TOTAL - EQUIP_BEGIN)
 
@@ -586,8 +583,7 @@
 /*
  * Fake inventory slot for selecting force (hard-coded).
  */
-#define INVEN_FORCE                1111
-
+#define INVEN_FORCE               1111
 #define INVEN_UNLIMITED_QUIVER    1112
 
 /*
