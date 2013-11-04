@@ -429,10 +429,10 @@
   Elder Fire Giant       +8   +0   -3   +1   +8   +3  121%  +46  200%
 
 [[[[r|                        Dsrm   Dvce   Save   Stlh  Srch  Prcp  Melee  Bows
-  Hill Giant            25+10  18+7   30+10   1+0  13+0   7+0  75+34  55+31
-  Stone Giant           25+10  18+7   30+10   1+0  13+0   7+0  75+34  55+31
-  Fire Giant            25+10  18+7   30+10   1+0  13+0   7+0  75+34  55+31
-  Elder Fire Giant      25+10  18+7   30+10   1+0  13+0   7+0  75+34  55+31
+  Hill Giant            25+10  18+7   30+10   0+0  13+0   7+0  75+34  55+31
+  Stone Giant           25+10  18+7   30+10   0+0  13+0   7+0  75+34  55+31
+  Fire Giant            25+10  18+7   30+10   0+0  13+0   7+0  75+34  55+31
+  Elder Fire Giant      25+10  18+7   30+10   0+0  13+0   7+0  75+34  55+31
 
 [[[[r|                        STR  INT  WIS  DEX  CON  CHR  Life  BHP  Exp
   Hill Giant             +3   -3   -6   -2   +3   +0  100%  +46  200%
@@ -441,10 +441,10 @@
   Ice Giant              +8   +0   -3   +1   +8   +3  121%  +46  200%
 
 [[[[r|                        Dsrm   Dvce   Save   Stlh  Srch  Prcp  Melee  Bows
-  Hill Giant            25+10  18+7   30+10   1+0  13+0   7+0  75+34  55+31
-  Stone Giant           25+10  18+7   30+10   1+0  13+0   7+0  75+34  55+31
-  Frost Giant           25+10  18+7   30+10   1+0  13+0   7+0  75+34  55+31
-  Ice Giant             25+10  18+7   30+10   1+0  13+0   7+0  75+34  55+31
+  Hill Giant            25+10  18+7   30+10   0+0  13+0   7+0  75+34  55+31
+  Stone Giant           25+10  18+7   30+10   0+0  13+0   7+0  75+34  55+31
+  Frost Giant           25+10  18+7   30+10   0+0  13+0   7+0  75+34  55+31
+  Ice Giant             25+10  18+7   30+10   0+0  13+0   7+0  75+34  55+31
 
 [[[[r|                        STR  INT  WIS  DEX  CON  CHR  Life  BHP  Exp
   Hill Giant             +3   -3   -6   -2   +3   +0  100%  +46  250%
@@ -454,11 +454,11 @@
   Elder Storm Giant      +7   +1   -2   +2   +7   +4  112%  +46  250%
 
 [[[[r|                        Dsrm   Dvce   Save   Stlh  Srch  Prcp  Melee  Bows
-  Hill Giant            25+10  18+7   30+10   1+0  13+0   7+0  70+30  55+30
-  Stone Giant           25+10  18+7   30+10   1+0  13+0   7+0  70+30  55+30
-  Cloud Giant           25+10  18+7   30+10   1+0  13+0   7+0  70+30  55+30
-  Storm Giant           25+10  18+7   30+10   1+0  13+0   7+0  70+30  55+30
-  Elder Storm Giant     25+10  18+7   30+10   1+0  13+0   7+0  70+30  55+30
+  Hill Giant            25+10  18+7   30+10   0+0  13+0   7+0  70+30  55+30
+  Stone Giant           25+10  18+7   30+10   0+0  13+0   7+0  70+30  55+30
+  Cloud Giant           25+10  18+7   30+10   0+0  13+0   7+0  70+30  55+30
+  Storm Giant           25+10  18+7   30+10   0+0  13+0   7+0  70+30  55+30
+  Elder Storm Giant     25+10  18+7   30+10   0+0  13+0   7+0  70+30  55+30
 
 [[[[r|                        STR  INT  WIS  DEX  CON  CHR  Life  BHP  Exp
   Hill Giant             +3   +0   +0   -2   +3   +3  102%  +46  300%
@@ -467,10 +467,10 @@
   Greater Titan          +6   +3   +3   +1   +6   +6  117%  +46  300%
 
 [[[[r|                        Dsrm   Dvce   Save   Stlh  Srch  Prcp  Melee  Bows
-  Hill Giant            25+11  20+8   32+10   1+0  15+0  10+0  75+35  50+30
-  Stone Giant           25+11  20+8   32+10   1+0  15+0  10+0  75+35  50+30
-  Lesser Titan          25+11  20+8   32+10   1+0  15+0  10+0  75+35  50+30
-  Greater Titan         25+11  20+8   32+10   1+0  15+0  10+0  75+35  50+30
+  Hill Giant            25+11  20+8   32+10   0+0  15+0  10+0  75+35  50+30
+  Stone Giant           25+11  20+8   32+10   0+0  15+0  10+0  75+35  50+30
+  Lesser Titan          25+11  20+8   32+10   0+0  15+0  10+0  75+35  50+30
+  Greater Titan         25+11  20+8   32+10   0+0  15+0  10+0  75+35  50+30
 
 [[[[r|                        STR  INT  WIS  DEX  CON  CHR  Life  BHP  Exp
   Hill Giant             +3   -3   -6   -2   +3   +0  102%  +46  225%
@@ -479,10 +479,10 @@
   Hru                    +9   +0   -3   +1   +8   +3  123%  +46  225%
 
 [[[[r|                        Dsrm   Dvce   Save   Stlh  Srch  Prcp  Melee  Bows
-  Hill Giant            25+10  18+7   30+10   1+0  13+0   7+0  75+34  55+31
-  Stone Giant           25+10  18+7   30+10   1+0  13+0   7+0  75+34  55+31
-  Rock Giant            25+10  18+7   30+10   1+0  13+0   7+0  75+34  55+31
-  Hru                   25+10  18+7   30+10   1+0  13+0   7+0  75+34  55+31
+  Hill Giant            25+10  18+7   30+10   0+0  13+0   7+0  75+34  55+31
+  Stone Giant           25+10  18+7   30+10   0+0  13+0   7+0  75+34  55+31
+  Rock Giant            25+10  18+7   30+10   0+0  13+0   7+0  75+34  55+31
+  Hru                   25+10  18+7   30+10   0+0  13+0   7+0  75+34  55+31
 
 
 ***** <Beholder>
@@ -895,15 +895,15 @@
 [[[[r|                        STR  INT  WIS  DEX  CON  CHR  Life  BHP  Exp
   Quylthulg              -5   -5   -5   -5   -5   +6   95%   +0  150%
   Nexus quylthulg        -4   -4   -4   -4   -4   +7   95%   +0  150%
-  Draconic quylthulg     -3   -3   -3   -3   -3   +8   95%   +0  150%
-  Greater draconic quyl  -2   -2   -2   -2   -2   +9   95%   +0  150%
+  Rotting quylthulg      -3   -3   -3   -3   -3   +8   95%   +0  150%
+  Greater rotting quylt  -2   -2   -2   -2   -2   +9   95%   +0  150%
   Master quylthulg       -1   -1   -1   -1   -1  +10   95%   +0  150%
 
 [[[[r|                        Dsrm   Dvce   Save   Stlh  Srch  Prcp  Melee  Bows
   Quylthulg             30+7   45+15  40+12   7+0  20+0  30+0   0+0    0+0 
   Nexus quylthulg       30+7   45+15  40+12   7+0  20+0  30+0   0+0    0+0 
-  Draconic quylthulg    30+7   45+15  40+12   7+0  20+0  30+0   0+0    0+0 
-  Greater draconic quyl 30+7   45+15  40+12   7+0  20+0  30+0   0+0    0+0 
+  Rotting quylthulg     30+7   45+15  40+12   7+0  20+0  30+0   0+0    0+0 
+  Greater rotting quylt 30+7   45+15  40+12   7+0  20+0  30+0   0+0    0+0 
   Master quylthulg      30+7   45+15  40+12   7+0  20+0  30+0   0+0    0+0 
 
 
