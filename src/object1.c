@@ -734,10 +734,10 @@ bool screen_object(object_type *o_ptr, u32b mode)
        info[i++] = "It decreases your charisma.";
 
     if (have_flag(flgs, TR_MAGIC_MASTERY))
-    {
         info[i++] = "It affects your ability to use magic devices.";
+    if (have_flag(flgs, TR_DEC_MAGIC_MASTERY))
+        info[i++] = "It decreases your ability to use magic devices.";
 
-    }
     if (have_flag(flgs, TR_STEALTH))
     {
         if (o_ptr->pval > 0)
@@ -750,78 +750,38 @@ bool screen_object(object_type *o_ptr, u32b mode)
 
 
     if (have_flag(flgs, TR_SEARCH))
-    {
         info[i++] = "It affects your searching.";
-
-    }
     if (have_flag(flgs, TR_INFRA))
-    {
         info[i++] = "It affects your infravision.";
-
-    }
     if (have_flag(flgs, TR_TUNNEL))
-    {
         info[i++] = "It affects your ability to tunnel.";
 
-    }
     if (have_flag(flgs, TR_SPEED))
-    {
         info[i++] = "It affects your speed.";
-    }
     if (have_flag(flgs, TR_DEC_SPEED))
-    {
         info[i++] = "It decreases your speed.";
-    }
+
     if (have_flag(flgs, TR_BLOWS))
-    {
         info[i++] = "It affects your attack speed.";
-
-    }
-
     if (have_flag(flgs, TR_BRAND_ACID))
-    {
         info[i++] = "It does extra damage from acid.";
-
-    }
     if (have_flag(flgs, TR_BRAND_ELEC))
-    {
         info[i++] = "It does extra damage from electricity.";
-
-    }
     if (have_flag(flgs, TR_BRAND_FIRE))
-    {
         info[i++] = "It does extra damage from fire.";
-
-    }
     if (have_flag(flgs, TR_BRAND_COLD))
-    {
         info[i++] = "It does extra damage from frost.";
-
-    }
-
     if (have_flag(flgs, TR_BRAND_POIS))
-    {
         info[i++] = "It poisons your foes.";
 
-    }
-
     if (have_flag(flgs, TR_CHAOTIC))
-    {
         info[i++] = "It produces chaotic effects.";
 
-    }
-
     if (have_flag(flgs, TR_VAMPIRIC))
-    {
         info[i++] = "It drains life from your foes.";
 
-    }
-
     if (have_flag(flgs, TR_IMPACT))
-    {
         info[i++] = "It can cause earthquakes.";
-
-    }
 
     if (have_flag(flgs, TR_VORPAL2))
         info[i++] = "It is extremely sharp and can cut your foes.";
@@ -837,177 +797,93 @@ bool screen_object(object_type *o_ptr, u32b mode)
         info[i++] = "It is a wild weapon.";
 
     if (have_flag(flgs, TR_KILL_DRAGON))
-    {
         info[i++] = "It is a great bane of dragons.";
-
-    }
     else if (have_flag(flgs, TR_SLAY_DRAGON))
-    {
         info[i++] = "It is especially deadly against dragons.";
 
-    }
-
     if (have_flag(flgs, TR_KILL_ORC))
-    {
         info[i++] = "It is a great bane of orcs.";
-
-    }
-    if (have_flag(flgs, TR_SLAY_ORC))
-    {
+    else if (have_flag(flgs, TR_SLAY_ORC))
         info[i++] = "It is especially deadly against orcs.";
 
-    }
-
     if (have_flag(flgs, TR_KILL_TROLL))
-    {
         info[i++] = "It is a great bane of trolls.";
-
-    }
-    if (have_flag(flgs, TR_SLAY_TROLL))
-    {
+    else if (have_flag(flgs, TR_SLAY_TROLL))
         info[i++] = "It is especially deadly against trolls.";
 
-    }
-
     if (have_flag(flgs, TR_KILL_GIANT))
-    {
         info[i++] = "It is a great bane of giants.";
-    }
     else if (have_flag(flgs, TR_SLAY_GIANT))
-    {
         info[i++] = "It is especially deadly against giants.";
 
-    }
-
     if (have_flag(flgs, TR_KILL_DEMON))
-    {
         info[i++] = "It is a great bane of demons.";
-
-    }
-    if (have_flag(flgs, TR_SLAY_DEMON))
-    {
+    else if (have_flag(flgs, TR_SLAY_DEMON))
         info[i++] = "It strikes at demons with holy wrath.";
 
-    }
-
     if (have_flag(flgs, TR_KILL_UNDEAD))
-    {
         info[i++] = "It is a great bane of undead.";
-
-    }
-    if (have_flag(flgs, TR_SLAY_UNDEAD))
-    {
+    else if (have_flag(flgs, TR_SLAY_UNDEAD))
         info[i++] = "It strikes at undead with holy wrath.";
 
-    }
-
     if (have_flag(flgs, TR_KILL_EVIL))
-    {
         info[i++] = "It is a great bane of evil monsters.";
-
-    }
-    if (have_flag(flgs, TR_SLAY_EVIL))
-    {
+    else if (have_flag(flgs, TR_SLAY_EVIL))
         info[i++] = "It fights against evil with holy fury.";
 
-    }
     if (have_flag(flgs, TR_SLAY_GOOD))
-    {
         info[i++] = "It fights against good with hellish glee.";
 
-    }
-
     if (have_flag(flgs, TR_KILL_ANIMAL))
-    {
         info[i++] = "It is a great bane of natural creatures.";
-
-    }
-    if (have_flag(flgs, TR_SLAY_ANIMAL))
-    {
+    else if (have_flag(flgs, TR_SLAY_ANIMAL))
         info[i++] = "It is especially deadly against natural creatures.";
 
-    }
-
     if (have_flag(flgs, TR_KILL_HUMAN))
-    {
         info[i++] = "It is a great bane of humans.";
-
-    }
-    if (have_flag(flgs, TR_SLAY_HUMAN))
-    {
+    else if (have_flag(flgs, TR_SLAY_HUMAN))
         info[i++] = "It is especially deadly against humans.";
 
-    }
-
     if (have_flag(flgs, TR_FORCE_WEAPON))
-    {
         info[i++] = "It powerfully strikes at a monster using your mana.";
 
-    }
     if (have_flag(flgs, TR_DEC_MANA))
-    {
         info[i++] = "It decreases your mana consumption.";
 
-    }
     if (have_flag(flgs, TR_SPELL_POWER))
-    {
         info[i++] = "It increases your spell power.";
-    }
+    if (have_flag(flgs, TR_DEC_SPELL_POWER))
+        info[i++] = "It decreases your spell power.";
+
     if (have_flag(flgs, TR_SPELL_CAP))
-    {
         info[i++] = "It increases your spell capacity.";
-    }
+    if (have_flag(flgs, TR_DEC_SPELL_CAP))
+        info[i++] = "It decreases your spell capacity.";
+
     if (have_flag(flgs, TR_LIFE))
         info[i++] = "It increases your hitpoints.";
     if (have_flag(flgs, TR_DEC_LIFE))
         info[i++] = "It decreases your hitpoints.";
 
     if (have_flag(flgs, TR_SUST_STR))
-    {
         info[i++] = "It sustains your strength.";
-
-    }
     if (have_flag(flgs, TR_SUST_INT))
-    {
         info[i++] = "It sustains your intelligence.";
-
-    }
     if (have_flag(flgs, TR_SUST_WIS))
-    {
         info[i++] = "It sustains your wisdom.";
-
-    }
     if (have_flag(flgs, TR_SUST_DEX))
-    {
         info[i++] = "It sustains your dexterity.";
-
-    }
     if (have_flag(flgs, TR_SUST_CON))
-    {
         info[i++] = "It sustains your constitution.";
-
-    }
     if (have_flag(flgs, TR_SUST_CHR))
-    {
         info[i++] = "It sustains your charisma.";
 
-    }
-
     if (have_flag(flgs, TR_THROW))
-    {
         info[i++] = "It is perfectly balanced for throwing.";
-    }
-
     if (have_flag(flgs, TR_FREE_ACT))
-    {
         info[i++] = "It provides immunity to paralysis.";
-
-    }
     if (have_flag(flgs, TR_HOLD_LIFE))
-    {
         info[i++] = "It provides resistance to life draining.";
-
-    }
     
     if (have_flag(flgs, TR_RES_FEAR))
         info[i++] = "It provides resistance to fear.";
@@ -1101,10 +977,7 @@ bool screen_object(object_type *o_ptr, u32b mode)
         info[i++] = "It makes you vulnerable to disenchantment.";
 
     if (have_flag(flgs, TR_LEVITATION))
-    {
         info[i++] = "It allows you to levitate.";
-
-    }
     if (have_flag(flgs, TR_LITE))
     {
         if ((o_ptr->name2 == EGO_HELMET_VAMPIRE) || (o_ptr->name1 == ART_NIGHT))
@@ -1114,146 +987,63 @@ bool screen_object(object_type *o_ptr, u32b mode)
 
     }
     if (have_flag(flgs, TR_SEE_INVIS))
-    {
         info[i++] = "It allows you to see invisible monsters.";
-
-    }
     if (have_flag(flgs, TR_TELEPATHY))
-    {
         info[i++] = "It gives telepathic powers.";
-
-    }
     if (have_flag(flgs, TR_ESP_ANIMAL))
-    {
         info[i++] = "It senses natural creatures.";
-
-    }
     if (have_flag(flgs, TR_ESP_UNDEAD))
-    {
         info[i++] = "It senses undead.";
-
-    }
     if (have_flag(flgs, TR_ESP_DEMON))
-    {
         info[i++] = "It senses demons.";
-
-    }
     if (have_flag(flgs, TR_ESP_ORC))
-    {
         info[i++] = "It senses orcs.";
-
-    }
     if (have_flag(flgs, TR_ESP_TROLL))
-    {
         info[i++] = "It senses trolls.";
-
-    }
     if (have_flag(flgs, TR_ESP_GIANT))
-    {
         info[i++] = "It senses giants.";
-
-    }
     if (have_flag(flgs, TR_ESP_DRAGON))
-    {
         info[i++] = "It senses dragons.";
-
-    }
     if (have_flag(flgs, TR_ESP_HUMAN))
-    {
         info[i++] = "It senses humans.";
-
-    }
     if (have_flag(flgs, TR_ESP_EVIL))
-    {
         info[i++] = "It senses evil creatures.";
-
-    }
     if (have_flag(flgs, TR_ESP_GOOD))
-    {
         info[i++] = "It senses good creatures.";
-
-    }
     if (have_flag(flgs, TR_ESP_NONLIVING))
-    {
         info[i++] = "It senses non-living creatures.";
-
-    }
     if (have_flag(flgs, TR_ESP_UNIQUE))
-    {
         info[i++] = "It senses unique monsters.";
-
-    }
     if (have_flag(flgs, TR_SLOW_DIGEST))
-    {
         info[i++] = "It slows your metabolism.";
-
-    }
     if (have_flag(flgs, TR_REGEN))
-    {
         info[i++] = "It speeds your regenerative powers.";
-
-    }
     if (have_flag(flgs, TR_WARNING))
-    {
         info[i++] = "It warns you of danger";
-
-    }
     if (have_flag(flgs, TR_REFLECT))
-    {
         info[i++] = "It reflects bolts and arrows.";
-
-    }
     if (have_flag(flgs, TR_SH_FIRE))
-    {
         info[i++] = "It produces a fiery sheath.";
-    }
     if (have_flag(flgs, TR_SH_SHARDS))
-    {
         info[i++] = "It produces a shard aura.";
-    }
     if (have_flag(flgs, TR_SH_REVENGE))
-    {
         info[i++] = "It produces an aura of retaliation.";
-    }
-
     if (have_flag(flgs, TR_SH_ELEC))
-    {
         info[i++] = "It produces an electric sheath.";
-
-    }
     if (have_flag(flgs, TR_SH_COLD))
-    {
         info[i++] = "It produces a sheath of coldness.";
-
-    }
     if (have_flag(flgs, TR_NO_MAGIC))
-    {
         info[i++] = "It produces an anti-magic shell.";
-
-    }
     if (have_flag(flgs, TR_NO_SUMMON))
         info[i++] = "It disrupts summoning spells.";
     if (have_flag(flgs, TR_NO_TELE))
-    {
         info[i++] = "It prevents teleportation.";
-
-    }
     if (have_flag(flgs, TR_XTRA_MIGHT))
-    {
         info[i++] = "It fires missiles with extra might.";
-
-    }
     if (have_flag(flgs, TR_XTRA_SHOTS))
-    {
         info[i++] = "It fires missiles excessively fast.";
-
-    }
-
     if (have_flag(flgs, TR_BLESSED))
-    {
         info[i++] = "It has been blessed by the gods.";
-
-    }
 
     if (object_is_cursed(o_ptr))
     {

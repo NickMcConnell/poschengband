@@ -9,7 +9,7 @@ static int _current_realm_hack = 0;
 
 int spell_power_aux(int pow, int bonus)
 {
-    return pow + pow*bonus/13;
+    return MAX(0, pow + pow*bonus/13);
 }
 
 int spell_power(int pow)
@@ -24,7 +24,7 @@ int spell_power(int pow)
 
 int device_power_aux(int pow, int bonus)
 {
-    return pow + pow*bonus/20;
+    return MAX(0, pow + pow*bonus/20);
 }
 
 int device_power(int pow)
@@ -34,7 +34,7 @@ int device_power(int pow)
 
 int spell_cap_aux(int cap, int bonus)
 {
-    return cap + cap*bonus/13;
+    return MAX(0, cap + cap*bonus/13);
 }
 
 int spell_cap(int cap)

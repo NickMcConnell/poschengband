@@ -323,7 +323,31 @@ bool one_biff(object_type *o_ptr)
                 return TRUE;
             }
         }
-        else if (n < 57) 
+        else if (n < 22)
+        {
+            if (_add_bad_flag(o_ptr, TR_DEC_MAGIC_MASTERY, TR_MAGIC_MASTERY))
+            {
+                has_pval = TRUE;
+                return TRUE;
+            }
+        }
+        else if (n < 30)
+        {
+            if (_add_bad_flag(o_ptr, TR_DEC_SPELL_CAP, TR_SPELL_CAP))
+            {
+                has_pval = TRUE;
+                return TRUE;
+            }
+        }
+        else if (n < 35)
+        {
+            if (_add_bad_flag(o_ptr, TR_DEC_SPELL_POWER, TR_SPELL_POWER))
+            {
+                has_pval = TRUE;
+                return TRUE;
+            }
+        }
+        else if (n < 67) 
         {
             if (one_stat_biff(o_ptr))
             {

@@ -312,6 +312,12 @@ static s32b _stats_q(u32b flgs[TR_FLAG_SIZE], int pval)
         q -= 1000 * pval;
     if (have_flag(flgs, TR_DEC_SPEED))
         q -= 10000 * pval;
+    if (have_flag(flgs, TR_DEC_MAGIC_MASTERY))
+        q -= 2000 * pval;
+    if (have_flag(flgs, TR_DEC_SPELL_CAP))
+        q -= 2000 * pval;
+    if (have_flag(flgs, TR_DEC_SPELL_POWER))
+        q -= 5000 * pval;
     return q;
 }
 

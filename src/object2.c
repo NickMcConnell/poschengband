@@ -3352,6 +3352,10 @@ static void _create_weapon(object_type *o_ptr, int level, int power, int mode)
                 if (one_in_(3))
                     add_flag(o_ptr->art_flags, TR_RES_POIS);
                 break;
+            case EGO_WEAPON_KILL_EVIL:
+                if (one_in_(30))
+                    add_flag(o_ptr->art_flags, TR_KILL_EVIL);
+                break;
             case EGO_WEAPON_NOLDOR:
                 if ( o_ptr->tval != TV_SWORD 
                   || o_ptr->sval == SV_BLADE_OF_CHAOS

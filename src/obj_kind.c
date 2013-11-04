@@ -56,7 +56,10 @@ bool have_pval_flags(u32b flgs[TR_FLAG_SIZE])
       || have_flag(flgs, TR_DEC_CHR)
       || have_flag(flgs, TR_DEC_STEALTH)
       || have_flag(flgs, TR_DEC_SPEED)
-      || have_flag(flgs, TR_DEC_LIFE) )
+      || have_flag(flgs, TR_DEC_LIFE)
+      || have_flag(flgs, TR_DEC_MAGIC_MASTERY)
+      || have_flag(flgs, TR_DEC_SPELL_CAP)
+      || have_flag(flgs, TR_DEC_SPELL_POWER) )
     {
         return TRUE;
     }

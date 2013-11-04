@@ -301,7 +301,7 @@ static void do_cmd_wiz_hack_chris3_imp(FILE* file)
             object_prep(&forge, k_idx);
             apply_magic(&forge, depth, 0);
 
-            if (forge.name2 == EGO_WEAPON_SHARPNESS)
+            if (have_flag(forge.art_flags, TR_DEC_SPELL_POWER))
             {
                 char buf[MAX_NLEN];
 
