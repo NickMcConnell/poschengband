@@ -3720,7 +3720,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
 N:404:Psyche!
 T:ROOM:NORMAL
-W:20:*:128
+W:20:*:500
 L:8:MON(*, 40):OBJ(*)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%

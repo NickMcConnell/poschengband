@@ -1093,9 +1093,6 @@ s32b object_value_real(object_type *o_ptr)
     {
         ego_item_type *e_ptr = &e_info[o_ptr->name2];
 
-        /* Hack -- "worthless" ego-items */
-        if (!e_ptr->rating) return (0L);
-
         /* Hack -- Reward the ego-item with a bonus */
         value += flag_cost(o_ptr, o_ptr->pval, FALSE);
     }

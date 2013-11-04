@@ -233,7 +233,6 @@ struct ego_item_type
     u32b text;            /* Text (offset) */
 
     byte type;            /* Type of Ego (Bow, Weapon, Gloves, Helmet, Crown, Harp, etc) */
-    byte rating;          /* Level Feelings and Cursed/Noncursed */
 
     byte level;            /* Minimum level */
     byte rarity;        /* Object rarity */

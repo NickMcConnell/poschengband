@@ -2992,14 +2992,14 @@ errr parse_e_info(char *buf, header *head)
         if (rc) 
             return rc;
     }
-    /* W:MinDepth:MaxDepth:Rarity:Rating 
-       W:30:*:32:50                    */
+    /* W:MinDepth:MaxDepth:Rarity 
+       W:30:*:32                  */
     else if (buf[0] == 'W')
     {
         char *zz[4];
         int   num = tokenize(buf + 2, 4, zz, 0);
 
-        if (num != 4) return PARSE_ERROR_TOO_FEW_ARGUMENTS;
+        if (num != 3) return PARSE_ERROR_TOO_FEW_ARGUMENTS;
 
         e_ptr->level = atoi(zz[0]);
         if (strcmp(zz[1], "*") == 0)
@@ -3007,7 +3007,6 @@ errr parse_e_info(char *buf, header *head)
         else
             e_ptr->max_level = atoi(zz[1]);
         e_ptr->rarity = atoi(zz[2]);
-        e_ptr->rating = atoi(zz[3]);
     }
 
     /* Hack -- Process 'C' for "creation" */
