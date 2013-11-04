@@ -315,6 +315,8 @@ static race_t *_khorne_get_race_t(void)
         me.calc_bonuses = _khorne_calc_bonuses;
         me.get_flags = _khorne_get_flags;
         me.gain_level = _khorne_gain_level;
+        me.pseudo_class_idx = CLASS_WARRIOR;
+
         init = TRUE;
     }
 
@@ -544,6 +546,7 @@ static race_t *_marilith_get_race_t(void)
         me.get_flags = _marilith_get_flags;
         me.gain_level = _marilith_gain_level;
         me.caster_info = _caster_info;
+        me.pseudo_class_idx = CLASS_CHAOS_WARRIOR;
         init = TRUE;
     }
 
@@ -695,6 +698,7 @@ static race_t *_balrog_get_race_t(void)
         me.get_immunities = _balrog_get_immunities;
         me.gain_level = _balrog_gain_level;
         me.caster_info = _caster_info;
+        me.pseudo_class_idx = CLASS_CHAOS_WARRIOR;
         init = TRUE;
     }
 
@@ -867,6 +871,8 @@ static race_t *_cyber_get_race_t(void)
         me.get_flags = _cyber_get_flags;
         me.get_vulnerabilities = _cyber_get_vulnerabilities;
         me.move_player = _cyber_move_player;
+        me.pseudo_class_idx = CLASS_WARRIOR;
+
         init = TRUE;
     }
 
@@ -910,7 +916,6 @@ race_t *mon_demon_get_race_t(int psubrace)
     result->name = "Demon";
     result->desc = _desc;
     result->flags = RACE_IS_MONSTER | RACE_IS_DEMON | RACE_IS_NONLIVING;
-    result->pseudo_class_idx = CLASS_WARRIOR;
 
     return result;
 }
