@@ -1999,21 +1999,13 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
                     /* Display prettily. */
                     t = object_desc_str(t, " (");
                     t = object_desc_num(t, power);
-                    #ifdef _DEBUG
-                    t = object_desc_str(t, format(" charging: %d turns)", o_ptr->timeout - (power - 1)*k_ptr->pval));
-                    #else
                     t = object_desc_str(t, " charging)");
-                    #endif
                 }
 
                 /* "one Rod of Perception (1 charging)" would look tacky. */
                 else
                 {
-                    #ifdef _DEBUG
-                    t = object_desc_str(t, format(" (charging: %d turns)", o_ptr->timeout));
-                    #else
                     t = object_desc_str(t, " (charging)");
-                    #endif
                 }
             }
         }

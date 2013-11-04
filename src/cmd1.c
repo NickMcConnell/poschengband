@@ -323,15 +323,6 @@ bool test_hit_fire(int chance, int ac, int vis)
     /* Invisible monsters are harder to hit */
     if (!vis) chance = (chance + 1) / 2;
 
-#ifdef _DEBUG
-    {
-        int odds = 95*(chance - ac*3/4)*1000/(chance*100);
-        if (odds < 50) odds = 50;
-        if (p_ptr->personality == PERS_LAZY) odds = (19*odds+10)/20;
-        msg_format("Shoot?: %d.%d%% (AC=%d)", odds/10, odds%10, ac);
-    }
-#endif
-
     /* Percentile dice */
     k = randint0(100);
 
@@ -364,15 +355,6 @@ bool test_hit_norm(int chance, int ac, int vis)
 
     /* Penalize invisible targets */
     if (!vis) chance = (chance + 1) / 2;
-
-#ifdef _DEBUG
-    {
-        int odds = 95*(chance - ac*3/4)*1000/(chance*100);
-        if (odds < 50) odds = 50;
-        if (p_ptr->personality == PERS_LAZY) odds = (19*odds+10)/20;
-        msg_format("Hit?: %d.%d%% (AC=%d)", odds/10, odds%10, ac);
-    }
-#endif
 
     /* Percentile dice */
     k = randint0(100);

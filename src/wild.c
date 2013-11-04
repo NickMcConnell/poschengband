@@ -316,6 +316,7 @@ static void _scroll_cave(int dx, int dy)
 
     forget_view();
     forget_lite();
+    forget_flow();
 
     if (dy <= 0 && dx <= 0)
     {
@@ -369,7 +370,7 @@ static void _scroll_cave(int dx, int dy)
     else
         _scroll_panel(dx, dy);
 
-    p_ptr->update |= PU_DISTANCE | PU_VIEW | PU_LITE;
+    p_ptr->update |= PU_DISTANCE | PU_VIEW | PU_LITE | PU_FLOW;
     p_ptr->redraw |= PR_MAP;
     p_ptr->window |= PW_OVERHEAD | PW_DUNGEON;
 }

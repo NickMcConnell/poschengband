@@ -1333,9 +1333,6 @@ static void _dagger_toss_imp(_dagger_toss_info * info)
                 tdam += p_ptr->shooter_info.to_d;
                 if (tdam < 0) tdam = 0;
                 tdam = mon_damage_mod(m_ptr, tdam, FALSE);
-                #ifdef _DEBUG
-                msg_format("You do %d damage.", tdam);
-                #endif
 
                 if (mon_take_hit(c_ptr->m_idx, tdam, &fear, extract_note_dies(real_r_ptr(m_ptr))))
                 {

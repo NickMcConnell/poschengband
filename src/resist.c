@@ -140,10 +140,6 @@ int res_calc_dam(int which, int dam)
     if (result < 0)
         result = 0;
 
-#ifdef _DEBUG
-    msg_format("%^s (Res %d%%->%d%%) (Dam %d->%d)", res_name(which), pct1, pct2, dam, result);
-#endif
-
     return result;
 }
 
