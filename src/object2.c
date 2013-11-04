@@ -4304,6 +4304,15 @@ void apply_magic(object_type *o_ptr, int lev, u32b mode)
         {
             power = -2;
         }
+
+        /* "Cursed" items become tedious in the late game ... */
+        if ( power == -1
+          && o_ptr->tval != TV_RING
+          && o_ptr->tval != TV_AMULET
+          && randint1(lev) > 10 )
+        {
+            power = 0;
+        }
     }
 
     if (mode & AM_AVERAGE)

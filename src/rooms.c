@@ -3427,8 +3427,8 @@ room_template_t *choose_room_template(int type, int subtype)
     for (i = 0; i < max_room_idx; i++)
     {
         room_template_t *room_ptr = &room_info[i];
-        if (room_ptr->flags & ROOM_DEBUG) return room_ptr;
         if (!_room_is_allowed(room_ptr, type, subtype)) continue;
+        if (room_ptr->flags & ROOM_DEBUG) return room_ptr;
         total += 1000 / room_ptr->rarity;
     }
 
