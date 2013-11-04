@@ -140,6 +140,7 @@ race_t *mon_xorn_get_race_t(void)
         me.birth = _birth;
 
         me.flags = RACE_IS_MONSTER;
+        me.pseudo_class_idx = CLASS_WARRIOR;
 
         init = TRUE;
     }

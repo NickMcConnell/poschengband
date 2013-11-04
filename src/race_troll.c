@@ -453,6 +453,7 @@ race_t *mon_troll_get_race_t(void)
 
         me.flags = RACE_IS_MONSTER;
         me.boss_r_idx = MON_ULIK;
+        me.pseudo_class_idx = CLASS_WARRIOR;
 
         init = TRUE;
     }

@@ -2185,13 +2185,30 @@ extern skill_table *s_info; /* deprecated ... in process of removing naked table
 extern void skills_add(skills_t *dest, skills_t *src);
 extern void skills_scale(skills_t *dest, int num, int denom); 
 extern void skills_init(skills_t *dest);
+
 extern int skills_bow_current(int sval);
 extern int skills_bow_max(int sval);
 extern void skills_bow_gain(int sval);
+
 extern int skills_weapon_current(int tval, int sval);
 extern int skills_weapon_max(int tval, int sval);
 extern void skills_weapon_gain(int tval, int sval);
 extern bool skills_weapon_is_icky(int tval, int sval);
+
+extern void skills_dual_wielding_gain(monster_race *r_ptr);
+extern int skills_dual_wielding_current(void);
+extern int skills_dual_wielding_max(void);
+
+extern void skills_martial_arts_gain(void);
+extern int skills_martial_arts_current(void);
+extern int skills_martial_arts_max(void);
+
+extern void skills_riding_gain_melee(monster_race *r_ptr);
+extern void skills_riding_gain_archery(monster_race *r_ptr);
+extern int skills_riding_current(void);
+extern int skills_riding_max(void);
+
+extern void skills_on_birth(void);
 
 /* time_lord.c */
 extern class_t *time_lord_get_class_t(void);

@@ -379,6 +379,7 @@ race_t *mon_jelly_get_race_t(void)
     result->birth = _birth;
     result->base_hp = 40;
     result->equip_template = mon_get_equip_template();
+    result->pseudo_class_idx = CLASS_WARRIOR;
 
     result->boss_r_idx = MON_UBBO_SATHLA;
     return result;

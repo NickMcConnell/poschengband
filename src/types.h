@@ -409,6 +409,7 @@ struct monster_body_s
     s16b     infra;
     s16b     spell_stat;
     s16b     body_idx;
+    s16b     class_idx;
 };
 typedef struct monster_body_s monster_body_t;
 
@@ -2063,6 +2064,7 @@ typedef struct {
     process_world_fn        process_world;  /* Called every 10 game turns */
     load_fn                 load_player;
     save_fn                 save_player;
+    s16b                    pseudo_class_idx; /* For the "Monster" class ... */
 } race_t;
 
 typedef struct {

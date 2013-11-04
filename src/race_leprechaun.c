@@ -415,6 +415,7 @@ race_t *mon_leprechaun_get_race_t(void)
         me.gain_level = _gain_level;
         me.birth = _birth;
         me.player_action = _player_action;
+        me.pseudo_class_idx = CLASS_ROGUE;
 
         me.flags = RACE_IS_MONSTER;
         init = TRUE;

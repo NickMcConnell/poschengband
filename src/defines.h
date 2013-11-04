@@ -4504,11 +4504,8 @@ extern int PlayerUID;
 #define PARSE_ERROR_UNDEFINED_TERRAIN_TAG   10
 #define PARSE_ERROR_MAX                     11
 
-#define GINOU_SUDE          0
 #define SKILL_MARTIAL_ARTS  0
-#define GINOU_NITOURYU      1
 #define SKILL_DUAL_WIELDING 1
-#define GINOU_RIDING        2
 #define SKILL_RIDING        2
 
 /* Proficiency level */

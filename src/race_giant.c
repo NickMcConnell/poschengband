@@ -1160,6 +1160,7 @@ race_t *mon_giant_get_race_t(int psubrace)
     result->desc = _desc;
     result->flags = RACE_IS_MONSTER;
     result->base_hp = 46;
+    result->pseudo_class_idx = CLASS_WARRIOR;
 
     return result;
 }

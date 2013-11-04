@@ -3342,7 +3342,7 @@ s16b spell_chance(int spell, int use_realm)
     chance -= 3 * (adj_mag_stat[p_ptr->stat_ind[mp_ptr->spell_stat]] - 1);
 
     if (p_ptr->riding)
-        chance += (MAX(r_info[m_list[p_ptr->riding].r_idx].level - p_ptr->skill_exp[GINOU_RIDING] / 100 - 10, 0));
+        chance += MAX(r_info[m_list[p_ptr->riding].r_idx].level - skills_riding_current() / 100 - 10, 0);
 
     /* Extract mana consumption rate */
     need_mana = mod_need_mana(s_ptr->smana, spell, use_realm);

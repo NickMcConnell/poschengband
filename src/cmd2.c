@@ -3543,15 +3543,7 @@ void do_cmd_fire_aux2(int item, object_type *bow, int sx, int sy, int tx, int ty
                     skills_bow_gain(bow->sval);
 
                 if (p_ptr->riding)
-                {
-                    if ((p_ptr->skill_exp[GINOU_RIDING] < s_info[p_ptr->pclass].s_max[GINOU_RIDING])
-                        && ((p_ptr->skill_exp[GINOU_RIDING] - (RIDING_EXP_BEGINNER * 2)) / 200 < r_info[m_list[p_ptr->riding].r_idx].level)
-                        && one_in_(2))
-                    {
-                        p_ptr->skill_exp[GINOU_RIDING] += 1;
-                        p_ptr->update |= (PU_BONUS);
-                    }
-                }
+                    skills_riding_gain_archery(r_ptr);
 
                  armour = MON_AC(r_ptr, m_ptr);
                 if (p_ptr->concent)

@@ -583,6 +583,7 @@ race_t *mon_spider_get_race_t(void)
     result->gain_level = _gain_level;
     result->birth = _birth;
     result->base_hp = 25;
+    result->pseudo_class_idx = CLASS_ROGUE;
 
     result->boss_r_idx = MON_UNGOLIANT;
     return result;

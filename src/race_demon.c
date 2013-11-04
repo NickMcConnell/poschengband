@@ -910,6 +910,7 @@ race_t *mon_demon_get_race_t(int psubrace)
     result->name = "Demon";
     result->desc = _desc;
     result->flags = RACE_IS_MONSTER | RACE_IS_DEMON | RACE_IS_NONLIVING;
+    result->pseudo_class_idx = CLASS_WARRIOR;
 
     return result;
 }

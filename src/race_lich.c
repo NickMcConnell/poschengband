@@ -290,6 +290,7 @@ race_t *mon_lich_get_race_t(void)
     result->calc_innate_attacks = _calc_innate_attacks;
     result->birth = _birth;
     result->caster_info = _caster_info;
+    result->pseudo_class_idx = CLASS_MAGE;
 
     result->boss_r_idx = MON_VECNA;
     return result;

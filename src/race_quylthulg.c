@@ -990,6 +990,7 @@ race_t *mon_quylthulg_get_race_t(void)
         me.get_flags = _get_flags;
         me.gain_level = _gain_level;
         me.birth = _birth;
+        me.pseudo_class_idx = CLASS_SORCERER;
 
         me.flags = RACE_IS_MONSTER;
 

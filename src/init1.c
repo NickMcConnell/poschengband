@@ -3380,7 +3380,7 @@ errr parse_r_info(char *buf, header *head)
                 if (idx >= 0)
                 {
                     class_t *class_ptr = get_class_t_aux(idx, 0);
-                    
+                    r_ptr->body.class_idx = idx;
                     for (i = 0; i < MAX_STATS; i++)
                         r_ptr->body.stats[i] += class_ptr->stats[i];
                     skills_add(&r_ptr->body.skills, &class_ptr->base_skills);

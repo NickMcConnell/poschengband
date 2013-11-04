@@ -2545,26 +2545,13 @@ static bool py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
 
     if (o_ptr)
     {
-        if ((r_ptr->level + 10) > p_ptr->lev)
+        if (r_ptr->level + 10 > p_ptr->lev)
             skills_weapon_gain(o_ptr->tval, o_ptr->sval);
     }
     else
     {
-        if ((r_ptr->level + 10) > p_ptr->lev)
-        {
-            if (p_ptr->skill_exp[GINOU_SUDE] < s_info[p_ptr->pclass].s_max[GINOU_SUDE])
-            {
-                if (p_ptr->skill_exp[GINOU_SUDE] < WEAPON_EXP_BEGINNER)
-                    p_ptr->skill_exp[GINOU_SUDE] += 40;
-                else if ((p_ptr->skill_exp[GINOU_SUDE] < WEAPON_EXP_SKILLED))
-                    p_ptr->skill_exp[GINOU_SUDE] += 5;
-                else if ((p_ptr->skill_exp[GINOU_SUDE] < WEAPON_EXP_EXPERT) && (p_ptr->lev > 19))
-                    p_ptr->skill_exp[GINOU_SUDE] += 1;
-                else if ((p_ptr->lev > 34))
-                    if (one_in_(3)) p_ptr->skill_exp[GINOU_SUDE] += 1;
-                p_ptr->update |= (PU_BONUS);
-            }
-        }
+        if (r_ptr->level + 10 > p_ptr->lev)
+            skills_martial_arts_gain();
     }
     
     set_monster_csleep(c_ptr->m_idx, 0);
@@ -4022,52 +4009,13 @@ bool py_attack(int y, int x, int mode)
 
         if (robj && lobj)
         {
-            if ((p_ptr->skill_exp[GINOU_NITOURYU] < s_info[p_ptr->pclass].s_max[GINOU_NITOURYU]) && ((p_ptr->skill_exp[GINOU_NITOURYU] - 1000) / 200 < r_ptr->level))
-            {
-                if (p_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_BEGINNER)
-                    p_ptr->skill_exp[GINOU_NITOURYU] += 80;
-                else if(p_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_SKILLED)
-                    p_ptr->skill_exp[GINOU_NITOURYU] += 4;
-                else if(p_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_EXPERT)
-                    p_ptr->skill_exp[GINOU_NITOURYU] += 1;
-                else if(p_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_MASTER)
-                    if (one_in_(3)) p_ptr->skill_exp[GINOU_NITOURYU] += 1;
-                p_ptr->update |= (PU_BONUS);
-            }
+            skills_dual_wielding_gain(r_ptr);
             break;
         }
     }
 
     if (p_ptr->riding)
-    {
-        int cur = p_ptr->skill_exp[GINOU_RIDING];
-        int max = s_info[p_ptr->pclass].s_max[GINOU_RIDING];
-
-        if (cur < max)
-        {
-            int ridinglevel = r_info[m_list[p_ptr->riding].r_idx].level;
-            int targetlevel = r_ptr->level;
-            int inc = 0;
-
-            if ((cur / 200 - 5) < targetlevel)
-                inc += 1;
-
-            /* Extra experience */
-            if ((cur / 100) < ridinglevel)
-            {
-                if ((cur / 100 + 15) < ridinglevel)
-                    inc += 1 + (ridinglevel - (cur / 100 + 15));
-                else
-                    inc += 1;
-            }
-
-            if (inc)
-            {
-                p_ptr->skill_exp[GINOU_RIDING] = MIN(max, cur + inc);
-                p_ptr->update |= PU_BONUS;
-            }
-        }
-    }
+        skills_riding_gain_melee(r_ptr);
 
     riding_t_m_idx = c_ptr->m_idx;
 

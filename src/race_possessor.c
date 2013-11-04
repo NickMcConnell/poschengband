@@ -1404,6 +1404,7 @@ race_t *mon_possessor_get_race_t(void)
         }
 
         me.infra = r_ptr->body.infra;
+
         me.life = r_ptr->body.life;
         if (!me.life)
             me.life = 100;
@@ -1415,6 +1416,8 @@ race_t *mon_possessor_get_race_t(void)
 
         me.skills = r_ptr->body.skills;
         me.extra_skills = r_ptr->body.extra_skills;
+
+        me.pseudo_class_idx = r_ptr->body.class_idx;
 
         me.subname = _mon_name(r_idx);
     }

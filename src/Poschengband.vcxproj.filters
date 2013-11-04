@@ -159,9 +159,6 @@
     <ClCompile Include="wild_realm.c">
       <Filter>Player\Spells</Filter>
     </ClCompile>
-    <ClCompile Include="skills.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="spells_m.c">
       <Filter>Player\Spells</Filter>
     </ClCompile>
@@ -545,6 +542,9 @@
     </ClCompile>
     <ClCompile Include="race_possessor.c">
       <Filter>Player\Races</Filter>
+    </ClCompile>
+    <ClCompile Include="skills.c">
+      <Filter>Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
