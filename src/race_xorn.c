@@ -112,7 +112,7 @@ race_t *mon_xorn_get_race_t(void)
 
     if (!init)
     {           /* dis, dev, sav, stl, srh, fos, thn, thb */
-    skills_t bs = { 25,  20,  31,   1,  14,   5,  56,  30};
+    skills_t bs = { 25,  20,  31,   2,  14,   5,  56,  30};
     skills_t xs = { 12,   8,  10,   0,   0,   0,  20,   7};
 
         me.skills = bs;
@@ -151,7 +151,7 @@ race_t *mon_xorn_get_race_t(void)
     me.stats[A_DEX] = -3 + rank;
     me.stats[A_CON] =  1 + rank;
     me.stats[A_CHR] = -1;
-    me.life = 105 + 5*rank;
+    me.life = 100 + 4*rank;
 
     me.equip_template = mon_get_equip_template();
 

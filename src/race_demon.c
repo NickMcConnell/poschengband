@@ -325,7 +325,7 @@ static race_t *_khorne_get_race_t(void)
     me.stats[A_DEX] =  0 + rank/3;
     me.stats[A_CON] =  2 + rank;
     me.stats[A_CHR] =  rank/3;
-    me.life = 100 + 6*rank;
+    me.life = 100 + 5*rank;
 
     me.equip_template = mon_get_equip_template();
     me.boss_r_idx = MON_MEPHISTOPHELES;
@@ -526,7 +526,7 @@ static race_t *_marilith_get_race_t(void)
 
     if (!init)
     {           /* dis, dev, sav, stl, srh, fos, thn, thb */
-    skills_t bs = { 20,  35,  36,   1,  16,  10,  56,  35};
+    skills_t bs = { 20,  35,  36,   3,  16,  10,  56,  35};
     skills_t xs = { 12,  11,  10,   0,   0,   0,  20,  11};
 
 
@@ -706,7 +706,7 @@ static race_t *_balrog_get_race_t(void)
     me.stats[A_CON] =  4 + 2*rank;
     me.stats[A_CHR] =  2 + rank;
     me.infra = 5 + 10*rank;
-    me.life = 110 + 15*rank;
+    me.life = 105 + 10*rank;
 
     me.boss_r_idx = MON_GOTHMOG;
 
@@ -856,7 +856,7 @@ static race_t *_cyber_get_race_t(void)
         me.extra_skills = xs;
 
         me.infra = 5;
-        me.life = 135;
+        me.life = 120;
 
         me.exp = 300;
         me.base_hp = 50;

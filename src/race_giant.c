@@ -543,7 +543,7 @@ static race_t *_hru_get_race_t(void)
 
     if (!init)
     {           /* dis, dev, sav, stl, srh, fos, thn, thb */
-    skills_t bs = { 25,  18,  30,  -1,  13,   7,  75,  55};
+    skills_t bs = { 25,  18,  30,   1,  13,   7,  75,  55};
     skills_t xs = { 10,   7,  10,   0,   0,   0,  34,  31};
 
         me.skills = bs;
@@ -683,7 +683,7 @@ static race_t *_fire_get_race_t(void)
 
     if (!init)
     {           /* dis, dev, sav, stl, srh, fos, thn, thb */
-    skills_t bs = { 25,  18,  30,  -1,  13,   7,  75,  55};
+    skills_t bs = { 25,  18,  30,   1,  13,   7,  75,  55};
     skills_t xs = { 10,   7,  10,   0,   0,   0,  34,  31};
 
         me.skills = bs;
@@ -816,7 +816,7 @@ static race_t *_frost_get_race_t(void)
 
     if (!init)
     {           /* dis, dev, sav, stl, srh, fos, thn, thb */
-    skills_t bs = { 25,  18,  30,  -1,  13,   7,  75,  55};
+    skills_t bs = { 25,  18,  30,   1,  13,   7,  75,  55};
     skills_t xs = { 10,   7,  10,   0,   0,   0,  34,  31};
 
         me.skills = bs;
@@ -992,7 +992,7 @@ static race_t *_storm_get_race_t(void)
 
     if (!init)
     {           /* dis, dev, sav, stl, srh, fos, thn, thb */
-    skills_t bs = { 25,  18,  30,  -1,  13,   7,  70,  55};
+    skills_t bs = { 25,  18,  30,   1,  13,   7,  70,  55};
     skills_t xs = { 10,   7,  10,   0,   0,   0,  30,  30};
 
         me.skills = bs;
@@ -1090,7 +1090,7 @@ static race_t *_titan_get_race_t(void)
 
     if (!init)
     {           /* dis, dev, sav, stl, srh, fos, thn, thb */
-    skills_t bs = { 25,  20,  32,  -1,  15,  10,  75,  50};
+    skills_t bs = { 25,  20,  32,   1,  15,  10,  75,  50};
     skills_t xs = { 11,   8,  10,   0,   0,   0,  35,  30};
 
         me.skills = bs;

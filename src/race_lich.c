@@ -222,7 +222,7 @@ static race_t *_archlich_get_race_t(void)
 
     if (!init)
     {           /* dis, dev, sav, stl, srh, fos, thn, thb */
-    skills_t bs = { 30,  45,  38,   5,  20,  30,  34,  20 };
+    skills_t bs = { 30,  45,  38,   7,  20,  30,  34,  20 };
     skills_t xs = {  7,  15,  12,   0,   0,   0,   6,   7 };
 
         me.skills = bs;
