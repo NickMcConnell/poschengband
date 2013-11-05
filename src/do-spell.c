@@ -34,7 +34,7 @@ int device_power(int pow)
 
 int spell_cap_aux(int cap, int bonus)
 {
-    return MAX(0, cap + cap*bonus/13);
+    return MAX(0, cap + cap*bonus/20);
 }
 
 int spell_cap(int cap)
