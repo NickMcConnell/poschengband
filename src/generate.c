@@ -1573,7 +1573,7 @@ void generate_cave(void)
     glow_deep_lava_and_bldg();
     p_ptr->enter_dungeon = FALSE;
     wipe_generate_cave_flags();
-
+/*
 #ifdef _DEBUG
     wiz_lite(FALSE);
     detect_all(255);
@@ -1641,5 +1641,5 @@ void generate_cave(void)
         str_map_free(map);
     }
 #endif
-
+*/
 }
