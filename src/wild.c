@@ -273,23 +273,17 @@ static void _scroll_grid(int src_x, int src_y, int dest_x, int dest_y)
 
         if (dest->m_idx)
         {
+            m_list[dest->m_idx].fy = dest_y;
+            m_list[dest->m_idx].fx = dest_x;
             if (_is_boundary(dest_x, dest_y))
                 delete_monster_idx(dest->m_idx);
-            else
-            {
-                m_list[dest->m_idx].fy = dest_y;
-                m_list[dest->m_idx].fx = dest_x;
-            }
         }
         if (dest->o_idx)
         {
+            o_list[dest->o_idx].iy = dest_y;
+            o_list[dest->o_idx].ix = dest_x;
             if (_is_boundary(dest_x, dest_y))
-                delete_object_idx(dest->m_idx);
-            else
-            {
-                o_list[dest->o_idx].iy = dest_y;
-                o_list[dest->o_idx].ix = dest_x;
-            }
+                delete_object_idx(dest->o_idx);
         }
     }
     else
