@@ -5144,7 +5144,7 @@ bool rush_attack(bool *mdeath)
     tx = px;
 
     /* Scrolling the cave would invalidate our path! */
-    if (!dun_level && !p_ptr->wild_mode)
+    if (!dun_level && !p_ptr->wild_mode && !p_ptr->inside_arena && !p_ptr->inside_battle)
         wilderness_scroll_lock = TRUE;
 
     /* Project along the path */
@@ -5210,7 +5210,7 @@ bool rush_attack(bool *mdeath)
     }
 
     if (!moved && !player_bold(ty, tx)) teleport_player_to(ty, tx, TELEPORT_NONMAGICAL);
-    if (!dun_level && !p_ptr->wild_mode)
+    if (!dun_level && !p_ptr->wild_mode && !p_ptr->inside_arena && !p_ptr->inside_battle)
     {
         wilderness_scroll_lock = FALSE;
         wilderness_move_player(px, py);

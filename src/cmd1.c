@@ -4494,7 +4494,7 @@ bool move_player_effect(int ny, int nx, u32b mpe_mode)
             if (race_ptr->move_player)
                 race_ptr->move_player();
 
-            if (!dun_level && !p_ptr->wild_mode)
+            if (!dun_level && !p_ptr->wild_mode && !p_ptr->inside_arena && !p_ptr->inside_battle)
                 wilderness_move_player(ox, oy);
         }
 

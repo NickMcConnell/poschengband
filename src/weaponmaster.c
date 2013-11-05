@@ -2544,7 +2544,7 @@ static void _circle_kick_spell(int cmd, variant *res)
     tx = px;
 
     /* Scrolling the cave would invalidate our path! */
-    if (!dun_level && !p_ptr->wild_mode)
+    if (!dun_level && !p_ptr->wild_mode && !p_ptr->inside_arena && !p_ptr->inside_battle)
         wilderness_scroll_lock = TRUE;
 
     for (i = 0; i < path_n; i++)
@@ -2593,7 +2593,7 @@ static void _circle_kick_spell(int cmd, variant *res)
 
     if (!moved && !player_bold(ty, tx)) move_player_effect(ty, tx, MPE_FORGET_FLOW | MPE_HANDLE_STUFF | MPE_DONT_PICKUP);
 
-    if (!dun_level && !p_ptr->wild_mode)
+    if (!dun_level && !p_ptr->wild_mode && !p_ptr->inside_arena && !p_ptr->inside_battle)
     {
         wilderness_scroll_lock = FALSE;
         wilderness_move_player(px, py);
