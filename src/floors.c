@@ -1124,9 +1124,6 @@ void change_floor(void)
     panel_col_min = 0;
     panel_col_max = 0;
 
-    /* Mega-Hack -- not ambushed on the wildness? */
-    ambush_flag = FALSE;
-
     /* No saved floors (On the surface etc.) */
     if (!(change_floor_mode & CFM_SAVE_FLOORS) &&
         !(change_floor_mode & CFM_FIRST_FLOOR))

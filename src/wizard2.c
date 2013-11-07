@@ -301,7 +301,7 @@ static void do_cmd_wiz_hack_chris3_imp(FILE* file)
             object_prep(&forge, k_idx);
             apply_magic(&forge, depth, 0);
 
-            if (forge.name2)
+            if (forge.name2 == EGO_RING_PROTECTION)
             {
                 char buf[MAX_NLEN];
 
@@ -310,7 +310,7 @@ static void do_cmd_wiz_hack_chris3_imp(FILE* file)
                 object_desc(buf, &forge, 0);
                 fprintf(file, "%s\n", buf);
                 /* msg_print(buf); */
-                /* drop_near(&forge, -1, py, px); */
+                /*drop_near(&forge, -1, py, px);*/
             }
 
             counts[forge.name2]++;
@@ -502,7 +502,7 @@ static void do_cmd_wiz_hack_chris5(void)
             continue;
         }
         ct_tries++;
-        if (forge.name2 == EGO_RING_SPEED)
+        if (forge.name2 == EGO_RING_COMBAT && forge.to_d >= 17)
         /*if ((forge.tval == TV_RING || forge.tval == TV_AMULET) && forge.activation.type)*/
         /*if (forge.k_idx == 133)*/
         /*if (forge.tval >= TV_LIFE_BOOK && 3 == forge.sval && forge.tval != TV_ARCANE_BOOK)*/

@@ -5,10 +5,10 @@
 ############### Additional default terrain settings ###############
 
 # Default castle reward = floor
-F:!:FLOOR:3
+F:!:FLOOR:0
 
 # Default for Quest 2 = entrance is floor
-F:z:FLOOR:3
+F:z:FLOOR:0
 
 # Default for Quest 3 = entrance is stone
 F:y:PERMANENT:3
@@ -17,7 +17,7 @@ F:y:PERMANENT:3
 F:x:PERMANENT:3
 
 # Default for Quest 5 = entrance is stone
-F:w:GRASS:3
+F:w:GRASS:0
 
 # Default for Quest 15 = entrance is stone
 F:v:PERMANENT:3
@@ -26,7 +26,7 @@ F:v:PERMANENT:3
 F:u:PERMANENT:3
 
 # Default for Quest 26 = entrance is tree
-F:t:TREE:3
+F:t:TREE:0
 
 
 ############### Quest 2 - The Sewer ###############

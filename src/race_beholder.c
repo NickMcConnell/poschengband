@@ -344,6 +344,8 @@ race_t *mon_beholder_get_race_t(void)
     me.stats[A_CHR] =  0 + rank/2;
     me.life = 100;
 
+    me.pseudo_class_idx = CLASS_MAGE;
+
     me.equip_template = mon_get_equip_template();
 
     return &me;

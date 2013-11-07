@@ -1731,7 +1731,7 @@ int calc_exp_factor(void)
  */
 static void get_extra(bool roll_hitdie)
 {
-    int i, j;
+    int i;
     race_t *race_ptr = get_race_t();
 
     p_ptr->expfact = calc_exp_factor();
@@ -1749,25 +1749,7 @@ static void get_extra(bool roll_hitdie)
         else p_ptr->spell_exp[i] = SPELL_EXP_UNSKILLED;
     }
 
-    for (i = 0; i < 5; i++)
-    {
-        for (j = 0; j < 64; j++)
-        {
-            if (i == TV_BOW-TV_WEAPON_BEGIN && p_ptr->prace == RACE_DEMIGOD && p_ptr->psubrace == DEMIGOD_ARTEMIS)
-                p_ptr->weapon_exp[i][j] = WEAPON_EXP_BEGINNER;
-            else if (p_ptr->prace == RACE_DEMIGOD && p_ptr->psubrace == DEMIGOD_ARES)
-                p_ptr->weapon_exp[i][j] = WEAPON_EXP_BEGINNER;
-            else
-                p_ptr->weapon_exp[i][j] = s_info[p_ptr->pclass].w_start[i][j];
-        }
-    }
-    if ((p_ptr->personality == PERS_SEXY) && (p_ptr->weapon_exp[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] < WEAPON_EXP_BEGINNER))
-    {
-        p_ptr->weapon_exp[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] = WEAPON_EXP_BEGINNER;
-    }
-
-    for (i = 0; i < 10; i++)
-        p_ptr->skill_exp[i] = s_info[p_ptr->pclass].s_start[i];
+    skills_on_birth();
 
     /* Roll for hit point unless quick-start */
     if (roll_hitdie) do_cmd_rerate_aux();

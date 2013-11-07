@@ -45,8 +45,12 @@
  */
 
 
-
-
+struct rect_s
+{
+    int  x,  y;
+    int cx, cy;
+};
+typedef struct rect_s rect_t;
 
 /*
  * Feature state structure
@@ -229,7 +233,6 @@ struct ego_item_type
     u32b text;            /* Text (offset) */
 
     byte type;            /* Type of Ego (Bow, Weapon, Gloves, Helmet, Crown, Harp, etc) */
-    byte rating;          /* Level Feelings and Cursed/Noncursed */
 
     byte level;            /* Minimum level */
     byte rarity;        /* Object rarity */
@@ -406,6 +409,7 @@ struct monster_body_s
     s16b     infra;
     s16b     spell_stat;
     s16b     body_idx;
+    s16b     class_idx;
 };
 typedef struct monster_body_s monster_body_t;
 
@@ -586,6 +590,7 @@ struct room_grid_s
     byte letter;
     byte monster_level;
     byte object_level;
+    byte trap_pct;
 };
 
 typedef struct room_grid_s room_grid_t;
@@ -2059,6 +2064,7 @@ typedef struct {
     process_world_fn        process_world;  /* Called every 10 game turns */
     load_fn                 load_player;
     save_fn                 save_player;
+    s16b                    pseudo_class_idx; /* For the "Monster" class ... */
 } race_t;
 
 typedef struct {

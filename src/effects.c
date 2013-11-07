@@ -6285,11 +6285,7 @@ void calc_android_exp(void)
             level = (level + MAX(a_info[o_ptr->name1].level - 8, 5)) / 2;
             level += MIN(20, a_info[o_ptr->name1].rarity/(a_info[o_ptr->name1].gen_flags & TRG_INSTA_ART ? 10 : 3));
         }
-        else if (object_is_ego(o_ptr))
-        {
-            level += MAX(3, (e_info[o_ptr->name2].rating - 5)/2);
-        }
-        else if (o_ptr->art_name)
+        else if (o_ptr->art_name || o_ptr->name2)
         {
             s32b total_flags = flag_cost(o_ptr, o_ptr->pval, FALSE);
             int fake_level;

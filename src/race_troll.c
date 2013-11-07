@@ -427,7 +427,7 @@ race_t *mon_troll_get_race_t(void)
 
     if (!init)
     {           /* dis, dev, sav, stl, srh, fos, thn, thb */
-    skills_t bs = { 25,  18,  30,  -1,  13,   7,  65,  30 };
+    skills_t bs = { 25,  18,  30,   1,  13,   7,  65,  30 };
     skills_t xs = {  7,   7,  10,   0,   0,   0,  28,  10 };
 
         me.skills = bs;
@@ -453,6 +453,7 @@ race_t *mon_troll_get_race_t(void)
 
         me.flags = RACE_IS_MONSTER;
         me.boss_r_idx = MON_ULIK;
+        me.pseudo_class_idx = CLASS_WARRIOR;
 
         init = TRUE;
     }

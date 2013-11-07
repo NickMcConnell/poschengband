@@ -16,7 +16,6 @@
 #include "grid.h"
 #include "rooms.h"
 
-
 /*
  * [from SAngband (originally from OAngband)]
  *
@@ -43,8 +42,8 @@ static room_info_type room_info_normal[ROOM_T_MAX] =
     {{  1, 10, 20, 30, 40, 50, 60, 70, 80, 90,100},  3}, /*INNER_F  */
     {{  0,  1,  1,  1,  3,  4,  6,  8,  8,  8,  8}, 10}, /*NEST     */
     {{  0,  1,  1,  2,  3,  4,  6,  8,  8,  8,  8}, 10}, /*PIT      */
-    {{  0,  0,  2,  2,  4,  4,  6, 10, 12, 16, 20}, 30}, /*LESSER_V */
-    {{  0,  0,  0,  0,  2,  4,  4,  4,  6,  6,  8}, 40}, /*GREATER_V*/
+    {{  0,  0,  1,  1,  2,  2,  3,  5,  6,  8, 10}, 30}, /*LESSER_V */
+    {{  0,  0,  0,  0,  1,  2,  2,  2,  3,  3,  4}, 40}, /*GREATER_V*/
     {{  0,200,300,400,500,600,700,800,900,900,900}, 10}, /*FRACAVE  */
     {{  0,  1,  1,  1,  1,  1,  1,  1,  1,  2,  2}, 10}, /*RANDOM_V */
     {{  0,  4,  8, 12, 16, 20, 24, 28, 32, 36, 40},  3}, /*OVAL     */
@@ -2707,14 +2706,20 @@ static void _apply_room_grid1(int x, int y, const room_grid_t *grid_ptr, u16b ro
     /* Traps */
     if (grid_ptr->cave_trap)
     {
-        c_ptr->mimic = c_ptr->feat;
-        c_ptr->feat = conv_dungeon_feat(grid_ptr->cave_trap);
-        trapped = TRUE;
+        if (!grid_ptr->trap_pct || randint0(100) < grid_ptr->trap_pct)
+        {
+            c_ptr->mimic = c_ptr->feat;
+            c_ptr->feat = conv_dungeon_feat(grid_ptr->cave_trap);
+            trapped = TRUE;
+        }
     }
-    else if ((grid_ptr->flags & ROOM_GRID_TRAP_RANDOM) && randint0(100) < grid_ptr->extra)
+    else if (grid_ptr->flags & ROOM_GRID_TRAP_RANDOM)
     {
-        place_trap(y, x);
-        trapped = TRUE;
+        if (!grid_ptr->trap_pct || randint0(100) < grid_ptr->trap_pct)
+        {
+            place_trap(y, x);
+            trapped = TRUE;
+        }
     }
 
     if (trapped)
@@ -2919,16 +2924,17 @@ static void _apply_room_grid2(int x, int y, const room_grid_t *grid_ptr, u16b ro
 #define _MAX_FORMATION 10
 static int _formation_monsters[_MAX_FORMATION];
 
-static void _init_formation(const room_template_t *room_ptr, int x, int y)
+static bool _init_formation(const room_template_t *room_ptr, int x, int y)
 {
     const room_grid_t *grid_ptr = _find_room_grid(room_ptr, '0');
-    int i, j;
+    int i, j, n, which;
     monster_type align;
 
     for (i = 0; i < _MAX_FORMATION; i++)
         _formation_monsters[i] = 0;
 
-    if (!grid_ptr) return;
+    if (!grid_ptr) 
+        return FALSE;
 
     monster_level = base_level + grid_ptr->monster_level;
 
@@ -2940,13 +2946,14 @@ static void _init_formation(const room_template_t *room_ptr, int x, int y)
     }    
     else if (grid_ptr->flags & ROOM_GRID_MON_RANDOM)
     {
-        int n = randint0(100);
+        n = randint0(100);
         if (!dun_level) n = 99; /* Hack: Most nests/pits won't allocate on the surface! */
         if (n < 5)
         {
-            int which = pick_vault_type(nest_types, d_info[dungeon_type].nest);
+            which = pick_vault_type(nest_types, d_info[dungeon_type].nest);
 
-            if (which < 0) return;
+            if (which < 0) 
+                return FALSE;
 
             if (nest_types[which].prep_func)
                 nest_types[which].prep_func();
@@ -2955,9 +2962,10 @@ static void _init_formation(const room_template_t *room_ptr, int x, int y)
         }
         else if (n < 30)
         {
-            int which = pick_vault_type(pit_types, d_info[dungeon_type].pit);
+            which = pick_vault_type(pit_types, d_info[dungeon_type].pit);
 
-            if (which < 0) return;
+            if (which < 0) 
+                return FALSE;
 
             if (pit_types[which].prep_func)
                 pit_types[which].prep_func();
@@ -2996,6 +3004,7 @@ static void _init_formation(const room_template_t *room_ptr, int x, int y)
             grid.flags = ROOM_GRID_MON_CHAR;
             grid.monster = r_info[r_idx].d_char;
             get_mon_num_prep(_room_grid_mon_hook, get_monster_hook2(y, x));
+            r_idx = get_mon_num(monster_level);
         }
     }
 
@@ -3015,7 +3024,11 @@ static void _init_formation(const room_template_t *room_ptr, int x, int y)
             break;
         }
 
-        if (!r_idx || !attempts) return;
+        if (!r_idx || !attempts)
+        { 
+            /*r_idx = get_mon_num(monster_level);*/
+            return FALSE;
+        }
 
         if (r_info[r_idx].flags3 & RF3_EVIL) align.sub_align |= SUB_ALIGN_EVIL;
         if (r_info[r_idx].flags3 & RF3_GOOD) align.sub_align |= SUB_ALIGN_GOOD;
@@ -3043,6 +3056,7 @@ static void _init_formation(const room_template_t *room_ptr, int x, int y)
             }
         }
     }
+    return TRUE;
 }
 
 /*
@@ -3096,11 +3110,17 @@ void build_room_template_aux(const room_template_t *room_ptr, int yval, int xval
             c_ptr = &cave[y][x];
 
             /* Lay down a floor */
-            if (room_ptr->type != ROOM_WILDERNESS)
+            if (room_ptr->type != ROOM_WILDERNESS && room_ptr->type != ROOM_AMBUSH)
                 place_floor_grid(c_ptr);
 
             /* Remove any mimic */
             c_ptr->mimic = 0;
+
+            /* Part of a vault? */
+            if (room_ptr->type == ROOM_VAULT)
+                c_ptr->info |= CAVE_ROOM | CAVE_ICKY;
+            else if (room_ptr->type != ROOM_WILDERNESS && room_ptr->type != ROOM_AMBUSH)
+                c_ptr->info |= CAVE_ROOM;
 
             grid_ptr = _find_room_grid(room_ptr, *t);
             if (!grid_ptr && (room_ptr->flags & ROOM_THEME_FORMATION) && '0' <= *t && *t <= '9')
@@ -3111,13 +3131,6 @@ void build_room_template_aux(const room_template_t *room_ptr, int yval, int xval
                 _apply_room_grid1(x, y, grid_ptr, room_ptr->flags);
                 continue;
             }
-
-
-            /* Part of a vault? */
-            if (room_ptr->type == ROOM_VAULT)
-                c_ptr->info |= CAVE_ROOM | CAVE_ICKY;
-            else if (room_ptr->type != ROOM_WILDERNESS)
-                c_ptr->info |= CAVE_ROOM;
 
             /* Analyze the grid */
             switch (*t)
@@ -3270,7 +3283,15 @@ void build_room_template_aux(const room_template_t *room_ptr, int yval, int xval
             {
                 if ((room_ptr->flags & ROOM_THEME_FORMATION) && !initialized_formation)
                 {
-                    _init_formation(room_ptr, x, y);
+                    int k;
+                    for (k = 0; k < 100; k++)
+                    {
+                        /* The Old Monster Pits/Nest fail fairly often. For example,
+                           when trying to generate a good chapel of vampires! More 
+                           commonly, Orc Pits won't work after a certain depth ... */
+                        if (_init_formation(room_ptr, x, y)) 
+                            break;
+                    }
                     initialized_formation = TRUE;
                 }
                 {
@@ -3281,8 +3302,8 @@ void build_room_template_aux(const room_template_t *room_ptr, int yval, int xval
                     if (r_idx)
                     {
                         placed = place_monster_aux(0, y, x, r_idx, PM_NO_KAGE);
-                        if (!placed)
-                            place_monster_aux(0, y, x, r_idx, PM_NO_KAGE);
+                        /*if (!placed)
+                            place_monster_aux(0, y, x, r_idx, PM_NO_KAGE);*/
                     }
                     continue;
                 }
@@ -3310,9 +3331,17 @@ void build_room_template_aux(const room_template_t *room_ptr, int yval, int xval
                 /* Meaner monster */
                 case '@':
                 {
-                    monster_level = base_level + 11;
-                    place_monster(y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
-                    monster_level = base_level;
+                    if (room_ptr->type == ROOM_AMBUSH)
+                    {
+                        p_ptr->oldpx = x;
+                        p_ptr->oldpy = y;
+                    }
+                    else
+                    {
+                        monster_level = base_level + 11;
+                        place_monster(y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+                        monster_level = base_level;
+                    }
                     break;
                 }
 
@@ -3363,6 +3392,33 @@ void build_room_template_aux(const room_template_t *room_ptr, int yval, int xval
     }
 }
 
+static bool _room_is_allowed(const room_template_t * room_ptr, int type, int subtype)
+{
+    if (!ironman_rooms && base_level < room_ptr->level) return FALSE;  /* Note: dun_level is 0 for wilderness encounters! */
+    if (room_ptr->max_level && room_ptr->max_level < base_level) return FALSE;
+    if (room_ptr->type != type) return FALSE;
+    if (subtype && room_ptr->subtype != subtype) return FALSE;
+    if (!room_ptr->rarity) return FALSE;
+
+    if (!dun_level)
+    {
+        if ((room_ptr->flags & ROOM_THEME_DAY) && !is_daytime()) return FALSE;
+        if ((room_ptr->flags & ROOM_THEME_NIGHT) && is_daytime()) return FALSE;
+    }
+
+    switch (dungeon_type)
+    {
+    case DUNGEON_HEAVEN:
+        if (room_ptr->flags & ROOM_THEME_EVIL) return FALSE;
+        break;
+    case DUNGEON_HELL:
+        if (room_ptr->flags & ROOM_THEME_GOOD) return FALSE;
+        break;
+    }
+
+    return TRUE;
+}
+
 room_template_t *choose_room_template(int type, int subtype)
 {
     int total = 0;
@@ -3371,11 +3427,8 @@ room_template_t *choose_room_template(int type, int subtype)
     for (i = 0; i < max_room_idx; i++)
     {
         room_template_t *room_ptr = &room_info[i];
+        if (!_room_is_allowed(room_ptr, type, subtype)) continue;
         if (room_ptr->flags & ROOM_DEBUG) return room_ptr;
-        if (!ironman_rooms && base_level < room_ptr->level) continue;  /* Note: dun_level is 0 for wilderness encounters! */
-        if (room_ptr->max_level && room_ptr->max_level < base_level) continue;
-        if (room_ptr->type != type || room_ptr->subtype != subtype) continue;
-        if (!room_ptr->rarity) continue;
         total += 1000 / room_ptr->rarity;
     }
 
@@ -3386,10 +3439,7 @@ room_template_t *choose_room_template(int type, int subtype)
     for (i = 0; i < max_room_idx; i++)
     {
         room_template_t *room_ptr = &room_info[i];
-        if (!ironman_rooms && base_level < room_ptr->level) continue;  /* Note: dun_level is 0 for wilderness encounters! */
-        if (room_ptr->max_level && room_ptr->max_level < base_level) continue;
-        if (room_ptr->type != type || room_ptr->subtype != subtype) continue;
-        if (!room_ptr->rarity) continue;
+        if (!_room_is_allowed(room_ptr, type, subtype)) continue;
         n -= 1000 / room_ptr->rarity;
         if (n <= 0)
             return room_ptr;
@@ -6618,11 +6668,11 @@ static bool room_build(int typ)
     case ROOM_T_FRACAVE:       return build_type9();
     case ROOM_T_NORMAL:        return one_in_(3) ? build_type2() : build_type1();
 
-    case ROOM_T_TRAP_PIT:      return build_type13();
     case ROOM_T_TRAP:          return build_type14();
     case ROOM_T_CRYPT:         return build_type12();
 
     /* I think rooms should be specified with templates where possible ... */
+    case ROOM_T_TRAP_PIT:      /*return build_type13(); cf N:509*/
     case ROOM_T_GLASS:         /*return build_type15(); I never liked these ... */
     case ROOM_T_OVERLAP:       /*return build_type2();*/
     case ROOM_T_CROSS:         /*return build_type3();*/

@@ -242,9 +242,7 @@ N:17:of Lore
 I:39:7:0
 W:15:12:15:20000
 P:0:1d1:0:0:0
-F:INSTA_ART | ACTIVATE
-E:IDENTIFY_FULL:25:100
-E:The stone reveals deep truths...
+F:INSTA_ART
 D:A great emerald that fills your mind with images of knowledge and 
 D:understanding as you stare into its depths.
 
@@ -441,7 +439,8 @@ I:33:10:25
 W:40:166:20:0
 P:0:1d1:0:0:25
 F:DEC_STR | DEC_DEX | DEC_CON | HIDE_TYPE | DEC_MANA | EASY_SPELL |
-F:FREE_ACT | SEE_INVIS | TELEPATHY | CURSED | XTRA_POWER | SPELL_POWER
+F:FREE_ACT | SEE_INVIS | TELEPATHY | XTRA_POWER | SPELL_POWER
+F:CURSED | HEAVY_CURSE | PERMA_CURSE | TY_CURSE
 D:The midnight-hued steel circlet of the sorceress-queen Beruthiel, which 
 D:grants extraordinary powers of sight and awareness at a terrible physical 
 D:cost.
@@ -1017,7 +1016,7 @@ N:85:'Chainsword'
 I:23:16:-2
 W:50:50:130:66666
 P:0:7d5:-30:7:0
-F:DEX | CHR | STEALTH | HIDE_TYPE | SPEED | AGGRAVATE | VORPAL |
+F:DEX | CHR | STEALTH | HIDE_TYPE | SPEED | AGGRAVATE | VORPAL2
 F:SLAY_HUMAN | SLAY_TROLL | SLAY_ORC | SEE_INVIS | SHOW_MODS |
 F:ESP_ORC | ESP_TROLL | ESP_HUMAN
 
@@ -1098,7 +1097,7 @@ N:92:'Vorpal Blade'
 I:23:17:2
 W:50:240:150:250000
 P:0:5d5:32:32:0
-F:VORPAL | SLAY_EVIL | HIDE_TYPE |
+F:VORPAL2 | SLAY_EVIL | HIDE_TYPE |
 F:FREE_ACT | LITE | SEE_INVIS | SLOW_DIGEST | REGEN | SPEED | STR | DEX | CHR
 D:"One, two! One, two!  And through, and through, the vorpal blade 
 D:went snicker-snack!"
@@ -1718,7 +1717,7 @@ N:144:'Muramasa'
 I:23:20:2
 W:60:200:200:1000000
 P:0:10d5:0:0:-20
-F:HIDE_TYPE | BLOWS | VORPAL | VAMPIRIC | SLAY_HUMAN | SLAY_GOOD |
+F:HIDE_TYPE | BLOWS | VORPAL2 | VAMPIRIC | SLAY_HUMAN | SLAY_GOOD |
 F:SHOW_MODS | SPEED | ACTIVATE | RES_DISEN | NO_TELE |
 F:DRAIN_EXP | AGGRAVATE | RES_DARK | RES_NETHER | TY_CURSE |
 E:MURAMASA:1
@@ -2348,11 +2347,11 @@ F:SEE_INVIS | FREE_ACT | REGEN | HOLD_LIFE | ACTIVATE |
 E:SACRED_KNIGHTS:25
 E:Your amulet exhibits the truth...
 
-N:218:of the Hell
+N:218:Harness of the Hell
 I:40:0:-2
 W:50:40:30:66666
 P:0:0d0:15:15:-5
-F:INT | WIS | CHR | STEALTH | SPEED | HIDE_TYPE |
+F:INT | WIS | CHR | STEALTH | SPEED | HIDE_TYPE | FULL_NAME
 F:RES_DARK | RES_NETHER |
 F:SEE_INVIS | AGGRAVATE | ESP_UNDEAD | ACTIVATE |
 E:BALL_DARK:50:100:250

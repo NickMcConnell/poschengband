@@ -415,12 +415,15 @@ race_t *mon_leprechaun_get_race_t(void)
         me.gain_level = _gain_level;
         me.birth = _birth;
         me.player_action = _player_action;
+        me.pseudo_class_idx = CLASS_ROGUE;
 
         me.flags = RACE_IS_MONSTER;
         init = TRUE;
     }
 
-    me.life = 80 + MIN(p_ptr->au / 1000000, 20);
+    me.life = 80;
+    if (!spoiler_hack)
+        me.life += MIN(p_ptr->au / 1000000, 20);
 
     me.subname = titles[rank];
     me.stats[A_STR] = -2 - 2*rank;

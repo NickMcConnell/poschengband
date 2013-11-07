@@ -119,7 +119,7 @@ race_t *_black_ooze_get_race_t(void)
         me.stats[A_CON] =  1;
         me.stats[A_CHR] = -2;
 
-        me.life = 95;
+        me.life = 90;
         me.infra = 0;
 
         me.calc_bonuses = _black_ooze_calc_bonuses;
@@ -170,7 +170,7 @@ race_t *_gelatinous_cube_get_race_t(void)
         me.stats[A_CON] =  2;
         me.stats[A_CHR] = -2;
         
-        me.life = 105;
+        me.life = 100;
         me.infra = 0;
 
         me.calc_bonuses = _gelatinous_cube_calc_bonuses;
@@ -233,7 +233,7 @@ race_t *_acidic_cytoplasm_get_race_t(void)
         me.stats[A_CON] =  3;
         me.stats[A_CHR] = -1;
         
-        me.life = 110;
+        me.life = 105;
         me.infra = 0;
 
         me.calc_bonuses = _acidic_cytoplasm_calc_bonuses;
@@ -288,7 +288,7 @@ race_t *_shoggoth_get_race_t(void)
         me.stats[A_CON] =  4;
         me.stats[A_CHR] =  0;
         
-        me.life = 115;
+        me.life = 108;
         me.infra = 0;
 
         me.calc_bonuses = _shoggoth_calc_bonuses;
@@ -379,6 +379,7 @@ race_t *mon_jelly_get_race_t(void)
     result->birth = _birth;
     result->base_hp = 40;
     result->equip_template = mon_get_equip_template();
+    result->pseudo_class_idx = CLASS_WARRIOR;
 
     result->boss_r_idx = MON_UBBO_SATHLA;
     return result;

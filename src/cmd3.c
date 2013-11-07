@@ -1571,4 +1571,102 @@ void do_cmd_list_monsters(void)
     int_map_free(info);
 }
 
+static bool _compare_obj_list_info(vptr u, vptr v, int a, int b)
+{
+    int         *vec = (int*)u;
+    int          left_idx = vec[a];
+    int          right_idx = vec[b];
+    object_type *left_obj = &o_list[left_idx];
+    object_type *right_obj = &o_list[right_idx];
 
+    /* Hack -- readable books always come first */
+    if (left_obj->tval == REALM1_BOOK && right_obj->tval != REALM1_BOOK) return TRUE;
+    if (right_obj->tval == REALM1_BOOK && left_obj->tval != REALM1_BOOK) return FALSE;
+
+    if (left_obj->tval == REALM2_BOOK && right_obj->tval != REALM2_BOOK) return TRUE;
+    if (right_obj->tval == REALM2_BOOK && left_obj->tval != REALM2_BOOK) return FALSE;
+
+    /* Objects sort by decreasing type */
+    if (left_obj->tval > right_obj->tval) return TRUE;
+    if (left_obj->tval < right_obj->tval) return FALSE;
+
+    /* Objects sort by increasing sval */
+    if (left_obj->sval < right_obj->sval) return TRUE;
+    if (left_obj->sval > right_obj->sval) return FALSE;
+
+    return TRUE;
+}
+
+#define _MAX_OBJ_LIST 100
+
+void do_cmd_list_objects(void)
+{
+    int list[_MAX_OBJ_LIST];
+    int i, ct = 0;
+    int cx, cy, row = 1, col;
+
+    for (i = 0; i < max_o_idx; i++)
+    {
+        object_type *o_ptr = &o_list[i];
+        int          auto_pick_idx;
+
+        if (!o_ptr->k_idx) continue;
+        if (!(o_ptr->marked & OM_FOUND)) continue;
+        if (o_ptr->tval == TV_GOLD) continue;
+        if (ct >= _MAX_OBJ_LIST) break;
+
+        auto_pick_idx = is_autopick(o_ptr);
+
+#if 0
+        if (auto_pick_idx >= 0 && autopick_list[auto_pick_idx].action & DO_AUTODESTROY) continue;
+#else
+        if (auto_pick_idx < 0) continue;
+        if (!(autopick_list[auto_pick_idx].action & DO_DISPLAY)) continue;
+        if (!(autopick_list[auto_pick_idx].action & (DO_AUTOPICK | DO_QUERY_AUTOPICK))) continue;
+#endif
+        list[ct++] = i;
+    }
+
+    if (!ct)
+    {
+        msg_print("No objects match your pickup preferences.");
+        return;
+    }
+
+    ang_sort_comp = _compare_obj_list_info;
+    ang_sort_swap = _swap_int;
+    ang_sort(list, NULL, ct);
+
+    Term_get_size(&cx, &cy);
+    col = cx - 52;
+    screen_save();
+    c_prt(TERM_WHITE, format("%d object%s match your pickup preferences", ct, ct != 1 ? "s" : ""), 0, col);
+    for (i = 0; i < ct; i++)
+    {
+        char         o_name[MAX_NLEN];
+        object_type *o_ptr = &o_list[list[i]];
+        byte         a = object_attr(o_ptr);
+        char         c = object_char(o_ptr);
+        byte         attr = TERM_WHITE;
+
+        Term_erase(col - 1, row, 53);
+
+        if (row >= cy - 2) 
+        {
+            c_prt(TERM_YELLOW, "...", row++, col+2);
+            break;
+        }
+
+        object_desc(o_name, o_ptr, 0);
+        attr = tval_to_attr[o_ptr->tval % 128];
+
+        Term_queue_bigchar(col, row, a, c, 0, 0);
+        c_put_str(attr, format(" %-50.50s", o_name), row++, col+1);
+    }
+    Term_erase(col - 1, row, 53);
+    c_prt(TERM_YELLOW, "Hit any key.", row, col+2);
+    inkey();
+    prt("", 0, 0);
+
+    screen_load();
+}

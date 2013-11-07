@@ -1138,8 +1138,11 @@ s16b gf_color[MAX_GF];
  * Flags for initialization
  */
 int init_flags;
+
+/* Parameters for process_dungeon_file to support wilderness scrolling */
 int init_dx = 0;
 int init_dy = 0;
+const rect_t *init_exclude_rect = 0;
 
 
 /*
@@ -1184,7 +1187,6 @@ bool new_mane;
 
 bool mon_fight;
 
-bool ambush_flag;
 bool generate_encounter;
 
 cptr screen_dump = NULL;

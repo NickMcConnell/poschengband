@@ -19,7 +19,7 @@
 #define VER_MAJOR 3
 #define VER_MINOR 0
 #define VER_PATCH 0
-#define VER_EXTRA 2
+#define VER_EXTRA 3
 
 
 /*
@@ -571,21 +571,19 @@
 /*
  * Maximum number of "normal" pack slots, and the index of the "overflow"
  * slot, which can hold an item, but only temporarily, since it causes the
- * pack to "overflow", dropping the "last" item onto the ground.  Since this
- * value is used as an actual slot, it must be less than "INVEN_RARM" (below).
- * Note that "INVEN_PACK" is probably hard-coded by its use in savefiles, and
- * by the fact that the screen can only show 23 items plus a one-line prompt.
+ * pack to "overflow", dropping the "last" item onto the ground.
  */
-#define INVEN_PACK              23
+#define INVEN_PACK      26
+#define EQUIP_BEGIN     (INVEN_PACK + 1)
+#define INVEN_TOTAL     50
+#define EQUIP_MAX_SLOTS (INVEN_TOTAL - EQUIP_BEGIN)
 
 /* If you are looking for old INVEN_* crap, look in equip.h instead ... */
-#define INVEN_TOTAL     40
 
 /*
  * Fake inventory slot for selecting force (hard-coded).
  */
-#define INVEN_FORCE                1111
-
+#define INVEN_FORCE               1111
 #define INVEN_UNLIMITED_QUIVER    1112
 
 /*
@@ -3155,8 +3153,12 @@ enum summon_specific_e {
 #define TR_DEC_SPEED           152
 #define TR_DEC_LIFE            153
 #define TR_SH_REVENGE          154
+#define TR_VORPAL2             155
+#define TR_DEC_MAGIC_MASTERY   156
+#define TR_DEC_SPELL_CAP       157
+#define TR_DEC_SPELL_POWER     158
 
-#define TR_FLAG_MAX            155
+#define TR_FLAG_MAX            159
 #define TR_FLAG_SIZE           6
 
 #define TRG_INSTA_ART           0x00000001     /* Item must be an artifact */
@@ -4502,11 +4504,8 @@ extern int PlayerUID;
 #define PARSE_ERROR_UNDEFINED_TERRAIN_TAG   10
 #define PARSE_ERROR_MAX                     11
 
-#define GINOU_SUDE          0
 #define SKILL_MARTIAL_ARTS  0
-#define GINOU_NITOURYU      1
 #define SKILL_DUAL_WIELDING 1
-#define GINOU_RIDING        2
 #define SKILL_RIDING        2
 
 /* Proficiency level */
@@ -5772,9 +5771,6 @@ enum mon_save_fields_e {
 #define LEAVING_ALTER_REALITY 4
 
 #define MAX_SUMMONS 50
-
-#define EQUIP_BEGIN 24
-#define EQUIP_MAX_SLOTS (INVEN_TOTAL - EQUIP_BEGIN)
 
 /* All of the following enumeration values are persisted in
    savefiles, so should not be changed. Add new options to

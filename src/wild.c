@@ -21,12 +21,6 @@
 monster_hook_type wilderness_mon_hook = NULL;
 
 /* Trivial rectangle utility to make code a bit more readable */
-struct rect_s
-{
-    int  x,  y;
-    int cx, cy;
-};
-typedef struct rect_s rect_t;
 
 rect_t rect_create(int x, int y, int cx, int cy)
 {
@@ -252,6 +246,15 @@ static void _apply_glow(bool all)
     }
 }
 
+static bool _is_boundary(int x, int y)
+{
+    if (x == 0 || x == MAX_WID - 1)
+        return TRUE;
+    if (y == 0 || y == MAX_HGT - 1)
+        return TRUE;
+    return FALSE;
+}
+
 static void _scroll_grid(int src_x, int src_y, int dest_x, int dest_y)
 {
     cave_type *src = &cave[src_y][src_x];
@@ -272,11 +275,15 @@ static void _scroll_grid(int src_x, int src_y, int dest_x, int dest_y)
         {
             m_list[dest->m_idx].fy = dest_y;
             m_list[dest->m_idx].fx = dest_x;
+            if (_is_boundary(dest_x, dest_y))
+                delete_monster_idx(dest->m_idx);
         }
         if (dest->o_idx)
         {
             o_list[dest->o_idx].iy = dest_y;
             o_list[dest->o_idx].ix = dest_x;
+            if (_is_boundary(dest_x, dest_y))
+                delete_object_idx(dest->o_idx);
         }
     }
     else
@@ -300,6 +307,10 @@ static void _scroll_cave(int dx, int dy)
 
     if (dy == 0 && dx == 0)
         return;
+
+    forget_view();
+    forget_lite();
+    forget_flow();
 
     if (dy <= 0 && dx <= 0)
     {
@@ -353,7 +364,7 @@ static void _scroll_cave(int dx, int dy)
     else
         _scroll_panel(dx, dy);
 
-    p_ptr->update |= PU_DISTANCE;
+    p_ptr->update |= PU_DISTANCE | PU_VIEW | PU_LITE | PU_FLOW;
     p_ptr->redraw |= PR_MAP;
     p_ptr->window |= PW_OVERHEAD | PW_DUNGEON;
 }
@@ -554,6 +565,74 @@ static int _encounter_terrain_type(int x, int y)
     return result;
 }
 
+static bool _generate_special_encounter(room_template_t *room_ptr, int x, int y, const rect_t *r, const rect_t *exclude)
+{
+    int    i, x2, y2;
+    rect_t room_rect, quad_rect;
+    int    qx_min = r->x/WILD_SCROLL_CX;
+    int    qx_max = (r->x + r->cx - 1)/WILD_SCROLL_CX;
+    int    qy_min = r->y/WILD_SCROLL_CY;
+    int    qy_max = (r->y + r->cy - 1)/WILD_SCROLL_CY;
+
+    for (i = 0; i < 100; i++)
+    {
+        int qx = rand_range(qx_min, qx_max);
+        int qy = rand_range(qy_min, qy_max);
+
+        quad_rect = rect_create(qx*WILD_SCROLL_CX, qy*WILD_SCROLL_CY, WILD_SCROLL_CX, WILD_SCROLL_CY);
+
+        /* TODO: Coordinate transforms */
+
+        x2 = quad_rect.x + 2 + randint0(quad_rect.cx - room_ptr->width - 4);
+        y2 = quad_rect.y + 1 + randint0(quad_rect.cy - room_ptr->height - 2);
+
+        room_rect = rect_create(x2, y2, room_ptr->width, room_ptr->height);
+
+        /* Exclude out of bounds */
+        if (!rect_contains(r, &room_rect)) continue;
+
+        /* Exclude unless restricted to a single "quadrant" (Should never fail) */
+        if (!rect_contains(&quad_rect, &room_rect)) continue;
+
+        /* Exclude if overlaps the "valid region" during a scroll op */
+        if (exclude)
+        {
+            rect_t temp_rect = rect_intersect(exclude, &room_rect);
+            if (rect_is_valid(&temp_rect)) continue;
+        }
+        /* Exclude if player is in the room during a non-scroll op (e.g. ambush) 
+            Note the player will always be inside the exclude rect during
+            a scroll op. */
+        else if (room_ptr->type == ROOM_WILDERNESS)
+        {
+            /* Player has not been placed yet, but will be placed at (oldpx, oldpy) shortly */
+            /* N.B. Ambush encounters include player placement information */
+            if (rect_contains_pt(&room_rect, p_ptr->oldpx, p_ptr->oldpy)) continue;
+        }
+
+        _build_room(room_ptr, &room_rect);
+        if (is_daytime() && room_ptr->type == ROOM_WILDERNESS)
+        {
+            msg_print("You've stumbled onto something interesting ...");
+            disturb(0, 0);
+        }
+        if (room_ptr->type == ROOM_AMBUSH)
+        {
+            msg_print("Press Space to continue.");
+            flush();
+            for (;;)
+            {
+                char ch = inkey();
+                if (ch == ' ') break;
+            }
+            prt("", 0, 0);
+            msg_flag = FALSE; /* prevents "-more-" message. */
+        }
+        return TRUE;
+    }
+    return FALSE;
+}
+
 static void _generate_encounters(int x, int y, const rect_t *r, const rect_t *exclude)
 {
     int    ct, prob, i, x2, y2, r_idx, j;
@@ -575,63 +654,29 @@ static void _generate_encounters(int x, int y, const rect_t *r, const rect_t *ex
     if ( !wilderness[y][x].town 
       && !wilderness[y][x].road 
       && !wilderness[y][x].entrance
+      && !generate_encounter
       && one_in_(15))
     {
         room_template_t *room_ptr = choose_room_template(ROOM_WILDERNESS, _encounter_terrain_type(x, y));
         if (room_ptr)
-        {
-            rect_t room_rect, quad_rect;
-            int    qx_min = r->x/WILD_SCROLL_CX;
-            int    qx_max = (r->x + r->cx - 1)/WILD_SCROLL_CX;
-            int    qy_min = r->y/WILD_SCROLL_CY;
-            int    qy_max = (r->y + r->cy - 1)/WILD_SCROLL_CY;
-
-            for (j = 0; j < 100; j++)
-            {
-                int qx = rand_range(qx_min, qx_max);
-                int qy = rand_range(qy_min, qy_max);
-
-                quad_rect = rect_create(qx*WILD_SCROLL_CX, qy*WILD_SCROLL_CY, WILD_SCROLL_CX, WILD_SCROLL_CY);
-
-                /* TODO: Coordinate transforms */
-
-                x2 = quad_rect.x + 2 + randint0(quad_rect.cx - room_ptr->width - 4);
-                y2 = quad_rect.y + 1 + randint0(quad_rect.cy - room_ptr->height - 2);
-
-                room_rect = rect_create(x2, y2, room_ptr->width, room_ptr->height);
-
-                /* Exclude out of bounds */
-                if (!rect_contains(r, &room_rect)) continue;
-
-                /* Exclude unless restricted to a single "quadrant" (Should never fail) */
-                if (!rect_contains(&quad_rect, &room_rect)) continue;
-
-                /* Exclude if overlaps the "valid region" during a scroll op */
-                if (exclude)
-                {
-                    rect_t temp_rect = rect_intersect(exclude, &room_rect);
-                    if (rect_is_valid(&temp_rect)) continue;
-                }
-                /* Exclude if player is in the room during a non-scroll op (e.g. ambush) 
-                   Note the player will always be inside the exclude rect during
-                   a scroll op. */
-                else
-                {
-                    /* Player has not been placed yet, but will be placed at (oldpx, oldpy) shortly */
-                    if (rect_contains_pt(&room_rect, p_ptr->oldpx, p_ptr->oldpy)) continue;
-                }
-
-                _build_room(room_ptr, &room_rect);
-                msg_print("You've stumbled onto something interesting ...");
-                disturb(0, 0);
-                break;
-            }        
-        }
+            _generate_special_encounter(room_ptr, x, y, r, exclude);
     }
+
+    /* Scripted Ambush? */
+    if ( !wilderness[y][x].town
+      && generate_encounter
+      && one_in_(5))
+    {
+        /*room_template_t *room_ptr = choose_room_template(ROOM_AMBUSH, 0);*/
+        room_template_t *room_ptr = choose_room_template(ROOM_AMBUSH, _encounter_terrain_type(x, y));
+        if (room_ptr && _generate_special_encounter(room_ptr, x, y, r, exclude))
+            generate_encounter = FALSE;
+    }
+
     wilderness_mon_hook = NULL;
 
     /* Random Monsters */
-    if (ambush_flag)
+    if (generate_encounter) /* Unscripted Ambush? */
         ct = 40;    
     else if (!wilderness[y][x].road)
         ct = 10;
@@ -1003,15 +1048,20 @@ static void _generate_area(int x, int y, int dx, int dy, const rect_t *exclude)
                 init_flags |= INIT_SCROLL_WILDERNESS;
             init_dx = dx;
             init_dy = dy;
+            init_exclude_rect = exclude;
             process_dungeon_file("t_info.txt", 0, 0, MAX_HGT, MAX_WID);
             init_flags = 0;
             init_dx = 0;
             init_dy = 0;
+            init_exclude_rect = 0;
         }
 
 
         /* Ah ... well, our _cave scratch buffer can't handle the stairs. */
-        if (wilderness[y][x].entrance && !wilderness[y][x].town && (p_ptr->total_winner || !(d_info[wilderness[y][x].entrance].flags1 & DF1_WINNER)))
+        if ( wilderness[y][x].entrance 
+         && !wilderness[y][x].town 
+         && (p_ptr->total_winner || !(d_info[wilderness[y][x].entrance].flags1 & DF1_WINNER))
+         && !(dungeon_flags[wilderness[y][x].entrance] & DUNGEON_NO_ENTRANCE) )
         {
             int y2, x2;
             int which = wilderness[y][x].entrance;
@@ -1027,15 +1077,8 @@ static void _generate_area(int x, int y, int dx, int dy, const rect_t *exclude)
 
             if (in_bounds(y2, x2))
             {
-                if (dungeon_flags[which] & DUNGEON_NO_ENTRANCE)
-                {
-                    cave[dy][dx].feat = feat_mountain;
-                }
-                else
-                {
-                    cave[y2][x2].feat = feat_entrance;
-                    cave[y2][x2].special = which;
-                }
+                cave[y2][x2].feat = feat_entrance;
+                cave[y2][x2].special = which;
             }
             /* Use the complex RNG */
             Rand_quick = FALSE;
@@ -1065,11 +1108,9 @@ void wilderness_gen(void)
     process_dungeon_file("w_info.txt", 0, 0, max_wild_y, max_wild_x);
 
     dun_level = 0;
-    if (generate_encounter) 
-        ambush_flag = TRUE;
-    generate_encounter = FALSE;
 
     _generate_cave(NULL);
+    generate_encounter = FALSE;
     _set_boundary();
 
     /* When teleporting from town to town, look for the building that offers the
@@ -1515,10 +1556,10 @@ void init_wilderness_terrains(void)
     init_terrain_table(TERRAIN_MOUNTAIN, feat_mountain, "abcdef",
         feat_floor, 1,
         feat_brake, 1,
-        feat_grass, 2,
-        feat_dirt, 2,
-        feat_tree, 2,
-        feat_mountain, MAX_FEAT_IN_TERRAIN - 8);
+        feat_grass, 3,
+        feat_dirt, 3,
+        feat_tree, 3,
+        feat_mountain, MAX_FEAT_IN_TERRAIN - 11);
 }
 
 

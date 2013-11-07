@@ -8,25 +8,25 @@
 ############### Additional default terrain settings ###############
 
 # Default castle reward = floor
-F:~:FLOOR:3
+F:~:FLOOR:0
 
 # Default for Thieves Guild = floor
-F:@:FLOOR:3
+F:@:FLOOR:0
 
 # Default for quest 10 = grass
-F:z:GRASS:3
+F:z:GRASS:0
 
 # Default for quest 11 = grass
-F:y:GRASS:3
+F:y:GRASS:0
 
 # Default for quest 12 = grass
-F:x:GRASS:3
+F:x:GRASS:0
 
 # Default for quest 20 = floor
-F:v:FLOOR:3
+F:v:FLOOR:0
 
 # Default for quest 21 = grass
-F:w:GRASS:3
+F:w:GRASS:0
 
 # Default for quest 24 = stone
 F:u:PERMANENT:3
@@ -38,7 +38,7 @@ F:s:PERMANENT:3
 F:r:PERMANENT:3
 
 # Default for quest 34 = stone
-F:y:MOUNTAIN:3
+F:y:MOUNTAIN:0
 
 ############### Quest 20 - Vapor Quest ################
 

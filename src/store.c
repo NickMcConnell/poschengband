@@ -5053,7 +5053,7 @@ static void _buyout(void)
             int auto_pick_idx = is_autopick(j_ptr);
 
             if (auto_pick_idx >= 0 && autopick_list[auto_pick_idx].action & DO_AUTODESTROY)
-                    destroy = TRUE;
+                destroy = TRUE;
             
             if (!destroy && !inven_carry_okay(o_ptr))
             {

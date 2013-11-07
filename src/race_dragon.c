@@ -121,7 +121,7 @@ static int _breath_amount(void)
     case DRAGON_BLUE:
     case DRAGON_BLACK:
     case DRAGON_GREEN:
-        return MAX(1, MIN(900, p_ptr->chp * (25 + l*l*l/2500) / 100));
+        return MAX(1, MIN(600, p_ptr->chp * (25 + l*l*l/2500) / 100));
 
     case DRAGON_LAW:
     case DRAGON_CHAOS:
@@ -1702,6 +1702,7 @@ race_t *mon_dragon_get_race_t(int psubrace)
     result->calc_innate_attacks = _calc_innate_attacks;
     result->equip_template = mon_get_equip_template();
     result->base_hp = 40;
+    result->pseudo_class_idx = CLASS_ROGUE;
 
     result->boss_r_idx = MON_GLAURUNG;
     return result;

@@ -482,17 +482,10 @@ int display_weapon_info(int hand, int row, int col)
     }
 
     mult = 100;
-    switch (o_ptr->name1)
-    {
-    case ART_VORPAL_BLADE:
-    case ART_CHAINSWORD:
-    case ART_MURAMASA:
+    if (have_flag(flgs, TR_VORPAL2))
         mult = mult * 5 / 3;
-        break;
-    default:
-        if (have_flag(flgs, TR_VORPAL))
-            mult = mult * 11 / 9;
-    }
+    else if (have_flag(flgs, TR_VORPAL))
+        mult = mult * 11 / 9;
 
     if (!have_flag(flgs, TR_ORDER))
     {

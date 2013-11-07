@@ -920,6 +920,9 @@ static errr rd_inventory(savefile_ptr file)
 
         if (n == 0xFFFF) break;
 
+        if (savefile_is_older_than(file, 3, 0, 0, 3) && n > 23)
+            n += 3;
+
         rd_item(file, &forge);
 
         if (!forge.k_idx) return (53);
@@ -1462,7 +1465,7 @@ static errr rd_savefile_new_aux(savefile_ptr file)
         p_ptr->wilderness_dx = savefile_read_s16b(file);
         p_ptr->wilderness_dy = savefile_read_s16b(file);
         p_ptr->wild_mode = savefile_read_byte(file);
-        ambush_flag = savefile_read_byte(file);
+        savefile_read_skip(file, 1);
 
         wild_x_size = savefile_read_s32b(file);
         wild_y_size = savefile_read_s32b(file);

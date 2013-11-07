@@ -312,6 +312,12 @@ static s32b _stats_q(u32b flgs[TR_FLAG_SIZE], int pval)
         q -= 1000 * pval;
     if (have_flag(flgs, TR_DEC_SPEED))
         q -= 10000 * pval;
+    if (have_flag(flgs, TR_DEC_MAGIC_MASTERY))
+        q -= 2000 * pval;
+    if (have_flag(flgs, TR_DEC_SPELL_CAP))
+        q -= 2000 * pval;
+    if (have_flag(flgs, TR_DEC_SPELL_POWER))
+        q -= 5000 * pval;
     return q;
 }
 
@@ -622,7 +628,7 @@ s32b _finalize_p(s32b p, u32b flgs[TR_FLAG_SIZE], object_type *o_ptr)
         }
     }*/
 
-    if (!object_is_artifact(o_ptr))
+    if (!object_is_artifact(o_ptr) && o_ptr->tval != TV_LITE)
     {
         p = p * 3 / 4;
         if (cost_calc_hook)
@@ -1207,17 +1213,10 @@ s32b weapon_cost(object_type *o_ptr)
             s = (s * 1.50 + 1.0) * 0.25 + s * 0.75;
         }
 
-        if (have_flag(flgs, TR_VORPAL))
-        {
-            if ( o_ptr->art_name == ART_VORPAL_BLADE 
-              || o_ptr->art_name == ART_CHAINSWORD
-              || o_ptr->art_name == ART_MURAMASA )
-            {
-                s *= 1.67;
-            }
-            else
-                s *= 1.22;
-        }
+        if (have_flag(flgs, TR_VORPAL2))
+            s *= 1.67;
+        else if (have_flag(flgs, TR_VORPAL))
+            s *= 1.22;
 
         d = d*s + (double)o_ptr->to_d;
         if (d < 1.0)

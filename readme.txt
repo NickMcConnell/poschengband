@@ -36,6 +36,7 @@
   Location of windows are ANGBAND_X11_AT_X_n, and ANGBAND_X11_AT_Y_n.
   Size of windows are ANGBAND_X11_COLS_n, and ANGBAND_X11_ROWS_n.
 
+  (Thanks to Nick McConnell for implementing and improving building under Linux/MAC!)
 
 --- Windows
 

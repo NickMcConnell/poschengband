@@ -728,6 +728,8 @@ race_t *mon_hound_get_race_t(void)
         me.flags = RACE_IS_MONSTER; /* | RACE_IS_ILLITERATE? */
         me.boss_r_idx = MON_CARCHAROTH;
 
+        me.pseudo_class_idx = CLASS_ROGUE;
+
         init = TRUE;
     }
 

@@ -530,6 +530,7 @@ extern s16b gf_color[MAX_GF];
 extern int init_flags;
 extern int init_dx;
 extern int init_dy;
+extern const rect_t *init_exclude_rect;
 extern int highscore_fd;
 extern int mutant_regenerate_mod;
 extern bool can_save;
@@ -556,7 +557,6 @@ extern int tsuri_dir;
 extern bool sukekaku;
 extern bool new_mane;
 extern bool mon_fight;
-extern bool ambush_flag;
 extern bool generate_encounter;
 extern cptr screen_dump;
 
@@ -775,6 +775,7 @@ extern void kamaenaoshi(int item);
 extern bool ang_sort_comp_hook(vptr u, vptr v, int a, int b);
 extern void ang_sort_swap_hook(vptr u, vptr v, int a, int b);
 extern void do_cmd_list_monsters(void);
+extern void do_cmd_list_objects(void);
 
 /* cmd4.c */
 extern cptr get_ordinal_number_suffix(int num);
@@ -1866,6 +1867,14 @@ extern bool object_allow_two_hands_wielding(object_type *o_ptr);
 extern bool object_can_activate(object_type *o_ptr);
 
 /* wild.c */
+extern rect_t rect_create(int x, int y, int cx, int cy);
+extern bool rect_is_valid(const rect_t *r);
+extern bool rect_contains_pt(const rect_t *r, int x, int y);
+extern bool rect_contains(const rect_t *r1, const rect_t *r2);
+extern rect_t rect_intersect(const rect_t *r1, const rect_t *r2);
+extern rect_t rect_translate(const rect_t *r, int dx, int dy);
+extern int rect_area(const rect_t *r);
+
 extern void set_floor_and_wall(byte type);
 extern void wilderness_gen(void);
 extern monster_hook_type wilderness_mon_hook;
@@ -2177,13 +2186,30 @@ extern skill_table *s_info; /* deprecated ... in process of removing naked table
 extern void skills_add(skills_t *dest, skills_t *src);
 extern void skills_scale(skills_t *dest, int num, int denom); 
 extern void skills_init(skills_t *dest);
+
 extern int skills_bow_current(int sval);
 extern int skills_bow_max(int sval);
 extern void skills_bow_gain(int sval);
+
 extern int skills_weapon_current(int tval, int sval);
 extern int skills_weapon_max(int tval, int sval);
 extern void skills_weapon_gain(int tval, int sval);
 extern bool skills_weapon_is_icky(int tval, int sval);
+
+extern void skills_dual_wielding_gain(monster_race *r_ptr);
+extern int skills_dual_wielding_current(void);
+extern int skills_dual_wielding_max(void);
+
+extern void skills_martial_arts_gain(void);
+extern int skills_martial_arts_current(void);
+extern int skills_martial_arts_max(void);
+
+extern void skills_riding_gain_melee(monster_race *r_ptr);
+extern void skills_riding_gain_archery(monster_race *r_ptr);
+extern int skills_riding_current(void);
+extern int skills_riding_max(void);
+
+extern void skills_on_birth(void);
 
 /* time_lord.c */
 extern class_t *time_lord_get_class_t(void);

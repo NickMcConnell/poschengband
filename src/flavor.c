@@ -474,6 +474,7 @@ static flag_insc_table flag_insc_minus[] =
     { "Sl", TR_DEC_STEALTH, -1 },
     { "Sp", TR_DEC_SPEED, -1 },
     { "Lf", TR_DEC_LIFE, -1 },
+    { "Md", TR_DEC_MAGIC_MASTERY, -1 },
     { NULL, 0, -1 }
 };
 
@@ -579,6 +580,7 @@ static flag_insc_table flag_insc_brand[] =
     { "V", TR_VAMPIRIC, -1 },
     { "Q", TR_IMPACT, -1 },
     { "S", TR_VORPAL, -1 },
+    { "S", TR_VORPAL2, -1 },
     { "M", TR_FORCE_WEAPON, -1 },
     { NULL, 0, -1 }
 };
@@ -1997,21 +1999,13 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
                     /* Display prettily. */
                     t = object_desc_str(t, " (");
                     t = object_desc_num(t, power);
-                    #ifdef _DEBUG
-                    t = object_desc_str(t, format(" charging: %d turns)", o_ptr->timeout - (power - 1)*k_ptr->pval));
-                    #else
                     t = object_desc_str(t, " charging)");
-                    #endif
                 }
 
                 /* "one Rod of Perception (1 charging)" would look tacky. */
                 else
                 {
-                    #ifdef _DEBUG
-                    t = object_desc_str(t, format(" (charging: %d turns)", o_ptr->timeout));
-                    #else
                     t = object_desc_str(t, " (charging)");
-                    #endif
                 }
             }
         }
@@ -2082,11 +2076,21 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
             else
                 t = object_desc_str(t, format(" <%d%%>", pct));
         }
+        else if (have_flag(flgs, TR_DEC_MAGIC_MASTERY))
+        {
+            int pct = device_power_aux(100, -o_ptr->pval) - 100;
+            t = object_desc_str(t, format(" <%d%%>", pct));
+        }
 
         if (have_flag(flgs, TR_SPELL_POWER))
         {
             int pct = spell_power_aux(100, o_ptr->pval) - 100;
             t = object_desc_str(t, format(" <+%d%%>", pct));
+        }
+        else if (have_flag(flgs, TR_DEC_SPELL_POWER))
+        {
+            int pct = spell_power_aux(100, -o_ptr->pval) - 100;
+            t = object_desc_str(t, format(" <%d%%>", pct));
         }
 
         if (have_flag(flgs, TR_SPELL_CAP))
@@ -2096,6 +2100,11 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
                 t = object_desc_str(t, format(" [+%d%%]", pct));
             else
                 t = object_desc_str(t, format(" [%d%%]", pct));
+        }
+        else if (have_flag(flgs, TR_DEC_SPELL_CAP))
+        {
+            int pct = spell_cap_aux(100, -o_ptr->pval) - 100;
+            t = object_desc_str(t, format(" [%d%%]", pct));
         }
 
         /* Hack -- Process Lanterns/Torches */

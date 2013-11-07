@@ -813,6 +813,10 @@ static cptr k_info_flags[] =
     "DEC_SPEED", 
     "DEC_LIFE", 
     "SH_REVENGE", 
+    "VORPAL2",
+    "DEC_MAGIC_MASTERY",
+    "DEC_SPELL_CAP",
+    "DEC_SPELL_POWER",
 };
 
 
@@ -1473,6 +1477,31 @@ static errr _parse_room_grid_artifact(char **args, int arg_ct, room_grid_t *grid
     return 0;
 }
 
+static errr _parse_room_grid_trap(char **args, int arg_ct, room_grid_t *grid_ptr)
+{
+    switch (arg_ct)
+    {
+    case 2:
+        grid_ptr->trap_pct = atoi(args[1]);
+    case 1:
+        if (streq(args[0], "*"))
+        {
+            grid_ptr->flags |= ROOM_GRID_TRAP_RANDOM;
+        }
+        else
+        {
+            s16b trap = f_tag_to_index(args[0]);
+            if (trap < 0) return PARSE_ERROR_GENERIC;
+            grid_ptr->cave_trap = trap;
+        }
+        break;
+
+    default:
+        return PARSE_ERROR_TOO_FEW_ARGUMENTS;
+    }
+    return 0;
+}
+
 /* GRANITE
    FLOOR(ROOM | ICKY | GLOW) */
 static errr _parse_room_grid_feature(char* name, char **args, int arg_ct, room_grid_t *grid_ptr)
@@ -1563,8 +1592,8 @@ errr parse_room_grid(char *buf, room_grid_t *grid_ptr)
         }
         else if (streq(name, "TRAP"))
         {
-            /* TODO */
-            return PARSE_ERROR_GENERIC;
+            result = _parse_room_grid_trap(args, arg_ct, grid_ptr);
+            if (result) break;
         }
         else
         {
@@ -1681,7 +1710,7 @@ errr parse_v_info(char *buf, header *head)
             room_ptr->type = ROOM_NORMAL;
             room_ptr->subtype = 0; /* TODO */
         }
-        else if (streq(zz[0], "WILD"))
+        else if (streq(zz[0], "WILD") || streq(zz[0], "AMBUSH"))
         {   
             static struct { cptr name; int type; } types[] = {
                 {"WATER",    TERRAIN_DEEP_WATER}, /* TERRAIN_SHALLOW_WATER */
@@ -1693,7 +1722,10 @@ errr parse_v_info(char *buf, header *head)
                 { 0, 0 }
             };
             int j;
-            room_ptr->type = ROOM_WILDERNESS;
+            if (streq(zz[0], "AMBUSH"))
+                room_ptr->type = ROOM_AMBUSH;
+            else
+                room_ptr->type = ROOM_WILDERNESS;
             for (j = 0; ; j++)
             {
                 if (!types[j].name) break;
@@ -2960,14 +2992,14 @@ errr parse_e_info(char *buf, header *head)
         if (rc) 
             return rc;
     }
-    /* W:MinDepth:MaxDepth:Rarity:Rating 
-       W:30:*:32:50                    */
+    /* W:MinDepth:MaxDepth:Rarity 
+       W:30:*:32                  */
     else if (buf[0] == 'W')
     {
         char *zz[4];
         int   num = tokenize(buf + 2, 4, zz, 0);
 
-        if (num != 4) return PARSE_ERROR_TOO_FEW_ARGUMENTS;
+        if (num != 3) return PARSE_ERROR_TOO_FEW_ARGUMENTS;
 
         e_ptr->level = atoi(zz[0]);
         if (strcmp(zz[1], "*") == 0)
@@ -2975,7 +3007,6 @@ errr parse_e_info(char *buf, header *head)
         else
             e_ptr->max_level = atoi(zz[1]);
         e_ptr->rarity = atoi(zz[2]);
-        e_ptr->rating = atoi(zz[3]);
     }
 
     /* Hack -- Process 'C' for "creation" */
@@ -3349,7 +3380,7 @@ errr parse_r_info(char *buf, header *head)
                 if (idx >= 0)
                 {
                     class_t *class_ptr = get_class_t_aux(idx, 0);
-                    
+                    r_ptr->body.class_idx = idx;
                     for (i = 0; i < MAX_STATS; i++)
                         r_ptr->body.stats[i] += class_ptr->stats[i];
                     skills_add(&r_ptr->body.skills, &class_ptr->base_skills);
@@ -4410,7 +4441,11 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
             int        artifact_index = letter[idx].artifact;
             int        ego_index = letter[idx].ego;
 
-            if (!in_bounds2(y2, x2)) continue;
+            if (!in_bounds2(y2, x2)) 
+                continue;
+
+            if (init_exclude_rect && rect_contains_pt(init_exclude_rect, x2, y2))
+                continue;
 
             /* Access the grid */
             c_ptr = &cave[y2][x2];

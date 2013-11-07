@@ -175,7 +175,7 @@ static bool alloc_stairs(int feat, int num, int walls)
         /* No up stairs in town or in ironman mode */
         if (ironman_downward || !dun_level) return TRUE;
         
-        /* No way out!! */
+        /* No way out!! 
         if ( dun_level == d_info[dungeon_type].mindepth
           && (dungeon_flags[dungeon_type] & DUNGEON_NO_ENTRANCE) )
         {
@@ -187,7 +187,7 @@ static bool alloc_stairs(int feat, int num, int walls)
         {
             shaft_num = 0;
         }
-        else if (dun_level > d_info[dungeon_type].mindepth)
+        else */if (dun_level > d_info[dungeon_type].mindepth)
             shaft_num = (randint1(num+1))/2;
     }
     else if (have_flag(f_ptr->flags, FF_MORE))
@@ -1573,10 +1573,11 @@ void generate_cave(void)
     glow_deep_lava_and_bldg();
     p_ptr->enter_dungeon = FALSE;
     wipe_generate_cave_flags();
-
+/*
 #ifdef _DEBUG
     wiz_lite(FALSE);
     detect_all(255);
+    if (0)
     {
         int i, ct = 0;
         char buf[MAX_NLEN];
@@ -1596,7 +1597,7 @@ void generate_cave(void)
     }
     {
         int i;
-        int lvl = 0, ct = 0, uniques = 0;
+        int lvl = 0, ct = 0, uniques = 0, ct_drops = 0;
         for (i = 1; i < max_m_idx; i++)
         {
         monster_type *m_ptr = &m_list[i];
@@ -1605,11 +1606,12 @@ void generate_cave(void)
             if (!m_ptr->r_idx) continue;
             r_ptr = real_r_ptr(m_ptr);
             ct++;
+            ct_drops += m_ptr->drop_ct;
             lvl += r_ptr->level;
             if (r_ptr->flags1 & RF1_UNIQUE)
                 uniques++;
         }
-        msg_format("DL=%d, Monsters=%d, <ML>= %d, Uniques=%d", dun_level, ct, lvl/MAX(ct, 1), uniques);
+        msg_format("DL=%d, Monsters=%d, Drops=%d, <ML>= %d, Uniques=%d", dun_level, ct, ct_drops, lvl/MAX(ct, 1), uniques);
     }
 
     if (0)
@@ -1640,5 +1642,5 @@ void generate_cave(void)
         str_map_free(map);
     }
 #endif
-
+*/
 }

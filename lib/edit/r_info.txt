@@ -180,6 +180,9 @@
 # to describe the monster. Note that lines may need spaces at their
 # ends to prevent words from running together in the monster memory.
 
+# 'P' is for posessor information. Generally this should lead with a 
+# "copy directive" as in P:Copy:Human:Warrior to establish a baseline
+# for stats and skills. This also determines the spell stat, if any.
 
 # Version stamp (required)
 

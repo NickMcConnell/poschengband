@@ -5191,40 +5191,57 @@ static void do_cmd_knowledge_spell_exp(void)
  */
 static void do_cmd_knowledge_skill_exp(void)
 {
-    int i = 0, skill_exp;
-
+    int i = 0, skill_exp, skill_max;
     FILE *fff;
-
     char file_name[1024];
-    char skill_name[3][20]={"Martial Arts    ", "Dual Wielding   ", "Riding          "};
 
-    /* Open a new file */
     fff = my_fopen_temp(file_name, 1024);
-    if (!fff) {
+    if (!fff) 
+    {
         msg_format("Failed to create temporary file %s.", file_name);
         msg_print(NULL);
         return;
     }
 
-    for (i = 0; i < 3; i++)
-    {
-        skill_exp = p_ptr->skill_exp[i];
-        fprintf(fff, "%-20s ", skill_name[i]);
-        if (skill_exp >= s_info[p_ptr->pclass].s_max[i]) fprintf(fff, "!");
-        else fprintf(fff, " ");
-        fprintf(fff, "%s", exp_level_str[(i == GINOU_RIDING) ? riding_exp_level(skill_exp) : weapon_exp_level(skill_exp)]);
-        if (cheat_xtra) fprintf(fff, " %d", skill_exp);
-        fprintf(fff, "\n");
-    }
+    fprintf(fff, "%-20s ", "Martial Arts    ");
+    skill_exp = skills_martial_arts_current();
+    skill_max = skills_martial_arts_max();
+    if (skill_exp >= skill_max)
+        fprintf(fff, "!");
+    else 
+        fprintf(fff, " ");
 
-    /* Close the file */
+    fprintf(fff, "%s", exp_level_str[weapon_exp_level(skill_exp)]);
+    if (cheat_xtra) fprintf(fff, " %d", skill_exp);
+    fprintf(fff, "\n");
+
+
+    fprintf(fff, "%-20s ", "Dual Wielding   ");
+    skill_exp = skills_dual_wielding_current();
+    skill_max = skills_dual_wielding_max();
+    if (skill_exp >= skill_max)
+        fprintf(fff, "!");
+    else 
+        fprintf(fff, " ");
+
+    fprintf(fff, "%s", exp_level_str[weapon_exp_level(skill_exp)]);
+    if (cheat_xtra) fprintf(fff, " %d", skill_exp);
+    fprintf(fff, "\n");
+
+    fprintf(fff, "%-20s ", "Riding          ");
+    skill_exp = skills_riding_current();
+    skill_max = skills_riding_max();
+    if (skill_exp >= skill_max)
+        fprintf(fff, "!");
+    else 
+        fprintf(fff, " ");
+
+    fprintf(fff, "%s", exp_level_str[riding_exp_level(skill_exp)]);
+    if (cheat_xtra) fprintf(fff, " %d", skill_exp);
+    fprintf(fff, "\n");
+
     my_fclose(fff);
-
-    /* Display the file contents */
     show_file(TRUE, file_name, "Miscellaneous Proficiency", 0, 0);
-
-
-    /* Remove the file */
     fd_kill(file_name);
 }
 

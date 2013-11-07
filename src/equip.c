@@ -1088,6 +1088,11 @@ void equip_calc_bonuses(void)
             p_ptr->skills.dev += 8*o_ptr->pval;
             p_ptr->device_power += o_ptr->pval;
         }
+        if (have_flag(flgs, TR_DEC_MAGIC_MASTERY))
+        {
+            p_ptr->skills.dev -= 8*o_ptr->pval;
+            p_ptr->device_power -= o_ptr->pval;
+        }
 
         if (have_flag(flgs, TR_STEALTH)) p_ptr->skills.stl += o_ptr->pval;
         if (have_flag(flgs, TR_DEC_STEALTH)) p_ptr->skills.stl -= o_ptr->pval;
@@ -1188,7 +1193,9 @@ void equip_calc_bonuses(void)
 
         if (have_flag(flgs, TR_DEC_MANA))    p_ptr->dec_mana = TRUE;
         if (have_flag(flgs, TR_SPELL_POWER)) p_ptr->spell_power += o_ptr->pval;
+        if (have_flag(flgs, TR_DEC_SPELL_POWER)) p_ptr->spell_power -= o_ptr->pval;
         if (have_flag(flgs, TR_SPELL_CAP))   p_ptr->spell_cap += o_ptr->pval;
+        if (have_flag(flgs, TR_DEC_SPELL_CAP))   p_ptr->spell_cap -= o_ptr->pval;
         if (have_flag(flgs, TR_MAGIC_RESISTANCE))   p_ptr->magic_resistance += 5*o_ptr->pval;
         if (have_flag(flgs, TR_BLESSED))     p_ptr->bless_blade = TRUE;
         if (have_flag(flgs, TR_XTRA_MIGHT))  p_ptr->shooter_info.to_mult++;

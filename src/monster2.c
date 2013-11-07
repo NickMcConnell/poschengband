@@ -2654,7 +2654,6 @@ void update_mon(int m_idx, bool full)
         }
     }
 
-
     /* The monster is now visible */
     if (flag)
     {

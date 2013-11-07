@@ -193,6 +193,17 @@ static int _adj_pseudo_id(int num)
     return result;
 }
 
+static int _class_idx(void)
+{
+    int result = p_ptr->pclass;
+    if (result == CLASS_MONSTER)
+    {
+        race_t *race_ptr = get_race_t();
+        result = race_ptr->pseudo_class_idx;
+    }
+    return result;
+}
+
 static void sense_inventory1(void)
 {
     int         i;
@@ -200,14 +211,9 @@ static void sense_inventory1(void)
     bool        heavy = FALSE;
     object_type *o_ptr;
 
-
-    /*** Check for "sensing" ***/
-
-    /* No sensing when confused */
     if (p_ptr->confused) return;
 
-    /* Analyze the class */
-    switch (p_ptr->pclass)
+    switch (_class_idx())
     {
         case CLASS_WARRIOR:
         case CLASS_ARCHER:
@@ -452,14 +458,9 @@ static void sense_inventory2(void)
     int         plev = p_ptr->lev;
     object_type *o_ptr;
 
-
-    /*** Check for "sensing" ***/
-
-    /* No sensing when confused */
     if (p_ptr->confused) return;
 
-    /* Analyze the class */
-    switch (p_ptr->pclass)
+    switch (_class_idx())
     {
         case CLASS_WARRIOR:
         case CLASS_ARCHER:
@@ -3765,12 +3766,6 @@ static void process_command(void)
             {
                 if (vanilla_town) break;
 
-                if (ambush_flag)
-                {
-                    msg_print("To flee the ambush you have to reach the edge of the map.");
-                    break;
-                }
-
                 if (p_ptr->food < PY_FOOD_WEAK)
                 {
                     msg_print("You must eat something here.");
@@ -4206,6 +4201,10 @@ static void process_command(void)
 
         case '[':
             do_cmd_list_monsters();
+            break;
+
+        case ']':
+            do_cmd_list_objects();
             break;
 
         /* Target monster or location */
@@ -4659,7 +4658,7 @@ static void process_player(void)
         {
             /* Hack -- Recover from stun */
             if (set_monster_stunned(p_ptr->riding,
-                (randint0(r_ptr->level) < p_ptr->skill_exp[GINOU_RIDING]) ? 0 : (MON_STUNNED(m_ptr) - 1)))
+                (randint0(r_ptr->level) < skills_riding_current()) ? 0 : (MON_STUNNED(m_ptr) - 1)))
             {
                 char m_name[80];
 
@@ -4675,7 +4674,7 @@ static void process_player(void)
         {
             /* Hack -- Recover from confusion */
             if (set_monster_confused(p_ptr->riding,
-                (randint0(r_ptr->level) < p_ptr->skill_exp[GINOU_RIDING]) ? 0 : (MON_CONFUSED(m_ptr) - 1)))
+                (randint0(r_ptr->level) < skills_riding_current()) ? 0 : (MON_CONFUSED(m_ptr) - 1)))
             {
                 char m_name[80];
 
@@ -4691,7 +4690,7 @@ static void process_player(void)
         {
             /* Hack -- Recover from fear */
             if (set_monster_monfear(p_ptr->riding,
-                (randint0(r_ptr->level) < p_ptr->skill_exp[GINOU_RIDING]) ? 0 : (MON_MONFEAR(m_ptr) - 1)))
+                (randint0(r_ptr->level) < skills_riding_current()) ? 0 : (MON_MONFEAR(m_ptr) - 1)))
             {
                 char m_name[80];
 
@@ -5112,7 +5111,6 @@ static void dungeon(bool load_game)
     target_who = 0;
     pet_t_m_idx = 0;
     riding_t_m_idx = 0;
-    ambush_flag = FALSE;
 
     /* Cancel the health bar */
     health_track(0);
