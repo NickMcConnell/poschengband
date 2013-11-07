@@ -704,9 +704,9 @@ static race_t *_balrog_get_race_t(void)
 
     me.subname = titles[rank];
     me.stats[A_STR] =  4 + 3*rank;
-    me.stats[A_INT] =  3 + 2*rank;
+    me.stats[A_INT] =  1 + 2*rank;
     me.stats[A_WIS] = -10;
-    me.stats[A_DEX] =  2 + 2*rank;
+    me.stats[A_DEX] =  1 + 2*rank;
     me.stats[A_CON] =  4 + 2*rank;
     me.stats[A_CHR] =  2 + rank;
     me.infra = 5 + 10*rank;

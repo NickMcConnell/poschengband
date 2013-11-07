@@ -421,7 +421,9 @@ race_t *mon_leprechaun_get_race_t(void)
         init = TRUE;
     }
 
-    me.life = 80 + MIN(p_ptr->au / 1000000, 20);
+    me.life = 80;
+    if (!spoiler_hack)
+        me.life += MIN(p_ptr->au / 1000000, 20);
 
     me.subname = titles[rank];
     me.stats[A_STR] = -2 - 2*rank;

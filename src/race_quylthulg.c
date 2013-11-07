@@ -905,6 +905,7 @@ static void _gain_level(int new_level)
     if (p_ptr->current_r_idx == MON_NEXUS_QUYLTHULG && new_level >= 30)
     {
         int which = randint1(3);
+        if (spoiler_hack) which = 1;
         switch (which)
         {
         case 1:

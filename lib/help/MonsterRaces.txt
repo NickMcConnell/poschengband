@@ -549,8 +549,8 @@
 
 
 [[[[r|                        STR  INT  WIS  DEX  CON  CHR  Life  BHP  Exp
-  Lesser Balrog          +4   +3  -10   +2   +4   +2  105%  +45  350%
-  Greater Balrog         +7   +5  -10   +4   +6   +3  115%  +45  350%
+  Lesser Balrog          +4   +1  -10   +1   +4   +2  105%  +45  350%
+  Greater Balrog         +7   +3  -10   +3   +6   +3  115%  +45  350%
 
 [[[[r|                        Dsrm   Dvce   Save   Stlh  Srch  Prcp  Melee  Bows
   Lesser Balrog         20+12  35+11  40+15  -2+0  10+0   7+0  75+35  30+7 
