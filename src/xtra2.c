@@ -336,7 +336,7 @@ static int get_coin_type(int r_idx)
 /*
  * Hack -- determine if a template is Cloak
  */
-static bool kind_is_cloak(int k_idx)
+static bool _kind_is_cloak(int k_idx)
 {
     object_kind *k_ptr = &k_info[k_idx];
 
@@ -354,7 +354,7 @@ static bool kind_is_cloak(int k_idx)
 /*
  * Hack -- determine if a template is Polearm
  */
-static bool kind_is_polearm(int k_idx)
+static bool _kind_is_polearm(int k_idx)
 {
     object_kind *k_ptr = &k_info[k_idx];
 
@@ -372,7 +372,7 @@ static bool kind_is_polearm(int k_idx)
 /*
  * Hack -- determine if a template is Sword
  */
-static bool kind_is_sword(int k_idx)
+static bool _kind_is_sword(int k_idx)
 {
     object_kind *k_ptr = &k_info[k_idx];
 
@@ -390,7 +390,7 @@ static bool kind_is_sword(int k_idx)
 /*
  * Hack -- determine if a template is Book
  */
-static bool kind_is_book(int k_idx)
+static bool _kind_is_book(int k_idx)
 {
     object_kind *k_ptr = &k_info[k_idx];
 
@@ -408,7 +408,7 @@ static bool kind_is_book(int k_idx)
 /*
  * Hack -- determine if a template is Good book
  */
-static bool kind_is_good_book(int k_idx)
+static bool _kind_is_good_book(int k_idx)
 {
     object_kind *k_ptr = &k_info[k_idx];
 
@@ -426,7 +426,7 @@ static bool kind_is_good_book(int k_idx)
 /*
  * Hack -- determine if a template is Armor
  */
-static bool kind_is_armor(int k_idx)
+static bool _kind_is_armor(int k_idx)
 {
     object_kind *k_ptr = &k_info[k_idx];
 
@@ -444,7 +444,7 @@ static bool kind_is_armor(int k_idx)
 /*
  * Hack -- determine if a template is hafted weapon
  */
-static bool kind_is_hafted(int k_idx)
+static bool _kind_is_hafted(int k_idx)
 {
     object_kind *k_ptr = &k_info[k_idx];
 
@@ -1115,9 +1115,9 @@ void monster_death(int m_idx, bool drop_item)
 
             /* Activate restriction */
             if ((dun_level > 49) && one_in_(5))
-                get_obj_num_hook = kind_is_good_book;
+                get_obj_num_hook = _kind_is_good_book;
             else
-                get_obj_num_hook = kind_is_book;
+                get_obj_num_hook = _kind_is_book;
 
             /* Make a book */
             if (make_object(q_ptr, mo_mode))
@@ -1271,7 +1271,7 @@ void monster_death(int m_idx, bool drop_item)
                 object_wipe(q_ptr);
 
                 /* Activate restriction */
-                get_obj_num_hook = kind_is_cloak;
+                get_obj_num_hook = _kind_is_cloak;
 
                 /* Make a cloak */
                 if (make_object(q_ptr, mo_mode))
@@ -1289,7 +1289,7 @@ void monster_death(int m_idx, bool drop_item)
                 object_wipe(q_ptr);
 
                 /* Activate restriction */
-                get_obj_num_hook = kind_is_polearm;
+                get_obj_num_hook = _kind_is_polearm;
 
                 /* Make a poleweapon */
                 if (make_object(q_ptr, mo_mode))
@@ -1307,7 +1307,7 @@ void monster_death(int m_idx, bool drop_item)
                 object_wipe(q_ptr);
 
                 /* Activate restriction */
-                get_obj_num_hook = kind_is_armor;
+                get_obj_num_hook = _kind_is_armor;
 
                 /* Make a hard armor */
                 if (make_object(q_ptr, mo_mode))
@@ -1325,7 +1325,7 @@ void monster_death(int m_idx, bool drop_item)
                 object_wipe(q_ptr);
 
                 /* Activate restriction */
-                get_obj_num_hook = kind_is_hafted;
+                get_obj_num_hook = _kind_is_hafted;
 
                 /* Make a hafted weapon */
                 if (make_object(q_ptr, mo_mode))
@@ -1343,7 +1343,7 @@ void monster_death(int m_idx, bool drop_item)
                 object_wipe(q_ptr);
 
                 /* Activate restriction */
-                get_obj_num_hook = kind_is_sword;
+                get_obj_num_hook = _kind_is_sword;
 
                 /* Make a sword */
                 if (make_object(q_ptr, mo_mode))
