@@ -4203,6 +4203,10 @@ static void process_command(void)
             do_cmd_list_monsters();
             break;
 
+        case ']':
+            do_cmd_list_objects();
+            break;
+
         /* Target monster or location */
         case '*':
         {

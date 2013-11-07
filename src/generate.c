@@ -1577,6 +1577,7 @@ void generate_cave(void)
 #ifdef _DEBUG
     wiz_lite(FALSE);
     detect_all(255);
+    if (0)
     {
         int i, ct = 0;
         char buf[MAX_NLEN];
