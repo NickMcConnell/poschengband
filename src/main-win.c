@@ -2505,7 +2505,7 @@ static void init_windows(void)
     td->s = angband_term_name[0];
 
     td->keys = 1024;
-    td->rows = 24;
+    td->rows = 27;
     td->cols = 80;
     td->visible = TRUE;
     td->size_ow1 = 2;
@@ -2523,7 +2523,7 @@ static void init_windows(void)
         WIPE(td, term_data);
         td->s = angband_term_name[i];
         td->keys = 16;
-        td->rows = 24;
+        td->rows = 27;
         td->cols = 80;
         td->visible = FALSE;
         td->size_ow1 = 1;
@@ -3661,10 +3661,10 @@ LRESULT FAR PASCAL AngbandWndProc(HWND hWnd, UINT uMsg,
             /* this message was sent before WM_NCCREATE */
             if (!td) return 1;
 
-            /* Minimum window size is 80x24 */
+            /* Minimum window size is 80x27 */
             rc.left = rc.top = 0;
             rc.right = rc.left + 80 * td->tile_wid + td->size_ow1 + td->size_ow2;
-            rc.bottom = rc.top + 24 * td->tile_hgt + td->size_oh1 + td->size_oh2 + 1;
+            rc.bottom = rc.top + 27 * td->tile_hgt + td->size_oh1 + td->size_oh2 + 1;
 
             /* Adjust */
             AdjustWindowRectEx(&rc, td->dwStyle, TRUE, td->dwExStyle);
@@ -4052,7 +4052,6 @@ LRESULT FAR PASCAL AngbandListProc(HWND hWnd, UINT uMsg,
             /* this message was sent before WM_NCCREATE */
             if (!td) return 1;
 
-            /* Minimum window size is 80x24 */
             rc.left = rc.top = 0;
             rc.right = rc.left + 20 * td->tile_wid + td->size_ow1 + td->size_ow2;
             rc.bottom = rc.top + 3 * td->tile_hgt + td->size_oh1 + td->size_oh2 + 1;
