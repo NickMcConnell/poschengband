@@ -4200,11 +4200,13 @@ static void process_command(void)
         }
 
         case '[':
-            do_cmd_list_monsters();
+            if (!p_ptr->image)
+                do_cmd_list_monsters();
             break;
 
         case ']':
-            do_cmd_list_objects();
+            if (!p_ptr->image)
+                do_cmd_list_objects();
             break;
 
         /* Target monster or location */
