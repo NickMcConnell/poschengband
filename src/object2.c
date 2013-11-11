@@ -6295,7 +6295,7 @@ bool object_sort_comp(object_type *o_ptr, s32b o_value, object_type *j_ptr)
     }
 
     /* Objects sort by decreasing value */
-    return o_value >= object_value(j_ptr);
+    return o_value > object_value(j_ptr);
 }
 
 
