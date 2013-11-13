@@ -752,9 +752,9 @@ errr fd_copy(cptr file, cptr what)
     if (dst_fd < 0) return (-1);
 
     /* Copy */
-    while ((read_num = _read(src_fd, buf, 1024)) > 0)
+    while ((read_num = read(src_fd, buf, 1024)) > 0)
     {
-        _write(dst_fd, buf, read_num);
+        write(dst_fd, buf, read_num);
     }
 
     /* Close files */
@@ -812,7 +812,7 @@ int fd_make(cptr file, int mode)
     }
 # else
     /* Create the file, fail if exists, write-only, binary */
-    return (_open(buf, O_CREAT | O_EXCL | O_WRONLY | O_BINARY, mode));
+    return (open(buf, O_CREAT | O_EXCL | O_WRONLY | O_BINARY, mode));
 # endif
 
 #endif /* BEN_HACK */
@@ -833,7 +833,7 @@ int fd_open(cptr file, int flags)
     if (path_parse(buf, 1024, file)) return (-1);
 
     /* Attempt to open the file */
-    return _open(buf, flags | O_BINARY, 0);
+    return open(buf, flags | O_BINARY, 0);
 }
 
 
@@ -912,7 +912,7 @@ errr fd_seek(int fd, huge n)
     if (fd < 0) return (-1);
 
     /* Seek to the given position */
-    p = _lseek(fd, n, SEEK_SET);
+    p = lseek(fd, n, SEEK_SET);
 
     /* Failure */
     if (p != n) return (1);
@@ -969,7 +969,7 @@ errr fd_read(int fd, char *buf, huge n)
 #endif
 
     /* Read the final piece */
-    if (_read(fd, buf, n) != (int)n) return (1);
+    if (read(fd, buf, n) != (int)n) return (1);
 
     /* Success */
     return (0);
@@ -1002,7 +1002,7 @@ errr fd_write(int fd, cptr buf, huge n)
 #endif
 
     /* Write the final piece */
-    if (_write(fd, buf, n) != (int)n) return (1);
+    if (write(fd, buf, n) != (int)n) return (1);
 
     /* Success */
     return (0);
@@ -1018,7 +1018,7 @@ errr fd_close(int fd)
     if (fd < 0) return (-1);
 
     /* Close */
-    _close(fd);
+    close(fd);
 
     /* XXX XXX XXX */
     return (0);
