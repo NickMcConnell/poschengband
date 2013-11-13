@@ -752,9 +752,9 @@ errr fd_copy(cptr file, cptr what)
     if (dst_fd < 0) return (-1);
 
     /* Copy */
-    while ((read_num = read(src_fd, buf, 1024)) > 0)
+    while ((read_num = _read(src_fd, buf, 1024)) > 0)
     {
-        write(dst_fd, buf, read_num);
+        _write(dst_fd, buf, read_num);
     }
 
     /* Close files */
@@ -812,7 +812,7 @@ int fd_make(cptr file, int mode)
     }
 # else
     /* Create the file, fail if exists, write-only, binary */
-    return (open(buf, O_CREAT | O_EXCL | O_WRONLY | O_BINARY, mode));
+    return (_open(buf, O_CREAT | O_EXCL | O_WRONLY | O_BINARY, mode));
 # endif
 
 #endif /* BEN_HACK */
@@ -833,7 +833,7 @@ int fd_open(cptr file, int flags)
     if (path_parse(buf, 1024, file)) return (-1);
 
     /* Attempt to open the file */
-    return (open(buf, flags | O_BINARY, 0));
+    return _open(buf, flags | O_BINARY, 0);
 }
 
 
@@ -912,7 +912,7 @@ errr fd_seek(int fd, huge n)
     if (fd < 0) return (-1);
 
     /* Seek to the given position */
-    p = lseek(fd, n, SEEK_SET);
+    p = _lseek(fd, n, SEEK_SET);
 
     /* Failure */
     if (p != n) return (1);
@@ -957,7 +957,7 @@ errr fd_read(int fd, char *buf, huge n)
     while (n >= 16384)
     {
         /* Read a piece */
-        if (read(fd, buf, 16384) != 16384) return (1);
+        if (_read(fd, buf, 16384) != 16384) return (1);
 
         /* Shorten the task */
         buf += 16384;
@@ -969,7 +969,7 @@ errr fd_read(int fd, char *buf, huge n)
 #endif
 
     /* Read the final piece */
-    if (read(fd, buf, n) != (int)n) return (1);
+    if (_read(fd, buf, n) != (int)n) return (1);
 
     /* Success */
     return (0);
@@ -990,7 +990,7 @@ errr fd_write(int fd, cptr buf, huge n)
     while (n >= 16384)
     {
         /* Write a piece */
-        if (write(fd, buf, 16384) != 16384) return (1);
+        if (_write(fd, buf, 16384) != 16384) return (1);
 
         /* Shorten the task */
         buf += 16384;
@@ -1002,7 +1002,7 @@ errr fd_write(int fd, cptr buf, huge n)
 #endif
 
     /* Write the final piece */
-    if (write(fd, buf, n) != (int)n) return (1);
+    if (_write(fd, buf, n) != (int)n) return (1);
 
     /* Success */
     return (0);
@@ -1018,7 +1018,7 @@ errr fd_close(int fd)
     if (fd < 0) return (-1);
 
     /* Close */
-    (void)close(fd);
+    _close(fd);
 
     /* XXX XXX XXX */
     return (0);
@@ -4082,7 +4082,7 @@ void request_command(int shopping)
             msg_print(NULL);
 
             /* Use auto-command */
-            cmd = command_new;
+            cmd = (char)command_new;  /* safe?? */
 
             /* Forget it */
             command_new = 0;
@@ -4263,7 +4263,7 @@ void request_command(int shopping)
     if (always_repeat && (command_arg <= 0))
     {
         /* Hack -- auto repeat certain commands */
-        if (my_strchr("TBDoc+", command_cmd))
+        if (my_strchr("TBDoc+", (char)command_cmd)) /* safe?? */
         {
             /* Repeat 99 times */
             command_arg = 99;
@@ -4760,7 +4760,7 @@ void build_gamma_table(int gamma)
          * Store the value in the table so that the
          * floating point pow function isn't needed .
          */
-        gamma_table[i] = ((long)(value / 256) * i) / 256;
+        gamma_table[i] = (byte)(((long)(value / 256) * i) / 256);
     }
 }
 

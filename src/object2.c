@@ -5357,7 +5357,7 @@ bool make_gold(object_type *j_ptr)
     base = k_info[OBJ_GOLD_LIST+i].cost;
 
     /* Determine how much the treasure is "worth" */
-    j_ptr->pval = (base + (8L * randint1(base)) + randint1(8));
+    j_ptr->pval = (base + (8 * randint1(base)) + randint1(8));
 
     if (no_selling)
     {

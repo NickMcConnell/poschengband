@@ -775,7 +775,7 @@ static void validate_dir(cptr s, bool vital)
 
         }
         /* Attempt to create this directory */
-        else if (mkdir(s))
+        else if (_mkdir(s))
         {
             quit_fmt("Unable to create directory:\n%s", s);
         }

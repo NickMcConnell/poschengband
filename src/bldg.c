@@ -983,7 +983,7 @@ static bool gamble_comm(int cmd)
 
             /* Prevent savefile-scumming of the casino */
 /*            Rand_quick = TRUE; */
-            Rand_value = time(NULL);
+            Rand_value = (u32b)time(NULL);
 
             do
             {

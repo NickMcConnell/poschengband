@@ -1228,7 +1228,7 @@ s32b weapon_cost(object_type *o_ptr)
         if (have_flag(flgs, TR_VAMPIRIC)) 
             d *= 1.1;
 
-        w = d * d * d;
+        w = (s32b)(d * d * d);
 
         if (have_flag(flgs, TR_VAMPIRIC)) 
             w += 5000;
@@ -1424,11 +1424,11 @@ s32b bow_cost(object_type *o_ptr)
 
     /* Base Cost calculated from expected damage output */
     t = _avg_dam_bow(o_ptr->sval, o_ptr->to_d, have_flag(flgs, TR_XTRA_MIGHT));
-    if (have_flag(flgs, TR_BRAND_POIS)) t *= 1.25;
-    if (have_flag(flgs, TR_BRAND_ACID)) t *= 1.25;
-    if (have_flag(flgs, TR_BRAND_ELEC)) t *= 1.25;
-    if (have_flag(flgs, TR_BRAND_FIRE)) t *= 1.25;
-    if (have_flag(flgs, TR_BRAND_COLD)) t *= 1.25;
+    if (have_flag(flgs, TR_BRAND_POIS)) t = t * 5 / 4;
+    if (have_flag(flgs, TR_BRAND_ACID)) t = t * 5 / 4;
+    if (have_flag(flgs, TR_BRAND_ELEC)) t = t * 5 / 4;
+    if (have_flag(flgs, TR_BRAND_FIRE)) t = t * 5 / 4;
+    if (have_flag(flgs, TR_BRAND_COLD)) t = t * 5 / 4;
 
     w = t * t * 3;
     if (have_flag(flgs, TR_XTRA_SHOTS))

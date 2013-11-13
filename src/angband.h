@@ -2,8 +2,11 @@
 
 /* Main "Angband" header file */
 #ifdef MSVC
-#pragma warning (disable:4244) /* You will get tens of thousands of these ... */
-#pragma warning (disable:4996) /* Whatever ... Stop whining already! */
+/* 1>util.c(815): warning C4996: 'open': The POSIX name for this item is deprecated. 
+   Instead, use the ISO C++ conformant name: _open. See online help for details. Etc.
+#pragma warning (disable:4996) 
+*/
+
 #endif
 
 #ifndef INCLUDED_ANGBAND_H

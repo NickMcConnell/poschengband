@@ -3444,7 +3444,7 @@ static void target_set_prepare(int mode)
 
     if (p_ptr->riding && target_pet && (temp_n > 1) && (mode & (TARGET_KILL)))
     {
-        byte tmp;
+        s16b tmp;
 
         tmp = temp_y[0];
         temp_y[0] = temp_y[1];

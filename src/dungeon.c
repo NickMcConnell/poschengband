@@ -5711,7 +5711,7 @@ void play_game(bool new_game)
         u32b seed;
 
         /* Basic seed */
-        seed = (time(NULL));
+        seed = (u32b)time(NULL);
 
 #ifdef SET_UID
 

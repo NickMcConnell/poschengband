@@ -2294,7 +2294,7 @@ bool _design_monkey_clone(void)
     r_ptr->hdice = 10;
     r_ptr->hside = p_ptr->mhp / 15;
     r_ptr->ac = p_ptr->ac + p_ptr->to_a;
-    r_ptr->speed = p_ptr->pspeed;
+    r_ptr->speed = (byte)p_ptr->pspeed;
 
     /* Combat */
     for (hand = 0; hand < MAX_HANDS; hand++)
