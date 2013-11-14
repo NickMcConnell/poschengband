@@ -4199,7 +4199,6 @@ void calc_bonuses(void)
     /* Blows Calculation */
     for (i = 0; i < MAX_HANDS; i++)
     {
-        int            arm = i / 2;
         weapon_info_t *info_ptr = &p_ptr->weapon_info[i];
         int            tmp_hold = hold;        
 

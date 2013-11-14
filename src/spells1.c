@@ -2531,7 +2531,6 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
 
         case GF_ELDRITCH_CONFUSE:
         {
-            int rlev = r_ptr->level;
             if (seen) obvious = TRUE;
 
             if (r_ptr->flagsr & RFR_RES_ALL)

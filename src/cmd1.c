@@ -4077,7 +4077,6 @@ bool py_attack(int y, int x, int mode)
     int        msec = delay_factor * delay_factor * delay_factor;
 
         int i, j, k;
-        bool stop = FALSE;
 
         for (i = 0; i < MAX_HANDS; i++)
         {
@@ -5932,7 +5931,7 @@ void run_step(int dir)
  */
 static bool travel_test(void)
 {
-    int prev_dir, new_dir, check_dir = 0;
+    int prev_dir, new_dir;
     int row, col;
     int i, max;
     bool stop = TRUE;

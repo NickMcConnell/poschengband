@@ -148,28 +148,6 @@ void do_cmd_equip(void)
 }
 
 
-static bool item_tester_hook_mochikae(object_type *o_ptr)
-{
-    /* Check for a usable slot */
-    if (((o_ptr->tval >= TV_DIGGING) && (o_ptr->tval <= TV_SWORD)) ||
-        (o_ptr->tval == TV_SHIELD) || (o_ptr->tval == TV_CAPTURE) ||
-        (o_ptr->tval == TV_CARD)) return (TRUE);
-
-    /* Assume not wearable */
-    return (FALSE);
-}
-
-
-static bool item_tester_hook_melee_weapon(object_type *o_ptr)
-{
-    /* Check for a usable slot */
-    if ((o_ptr->tval >= TV_DIGGING) && (o_ptr->tval <= TV_SWORD))return (TRUE);
-
-    /* Assume not wearable */
-    return (FALSE);
-}
-
-
 void kamaenaoshi(int item)
 {
 }

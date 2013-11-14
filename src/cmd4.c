@@ -5191,7 +5191,7 @@ static void do_cmd_knowledge_spell_exp(void)
  */
 static void do_cmd_knowledge_skill_exp(void)
 {
-    int i = 0, skill_exp, skill_max;
+    int skill_exp, skill_max;
     FILE *fff;
     char file_name[1024];
 

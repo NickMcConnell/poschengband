@@ -1183,7 +1183,7 @@ static s16b conv_terrain2feat[MAX_WILDERNESS];
  * Build the wilderness area.
  * -DG-
  */
-void wilderness_gen_small()
+void wilderness_gen_small(void)
 {
     int i, j;
 

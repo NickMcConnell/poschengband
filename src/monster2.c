@@ -4188,7 +4188,6 @@ bool summon_specific(int who, int y1, int x1, int lev, int type, u32b mode)
 
     if (who > 0 && hack_m_spell && mut_present(MUT_CULT_OF_PERSONALITY))
     {
-        int lev = r_info[r_idx].level;
         if (one_in_(2) && !mon_save_p(r_idx, A_CHR))
         {
             mode |= PM_FORCE_FRIENDLY;
@@ -4307,7 +4306,6 @@ bool multiply_monster(int m_idx, bool clone, u32b mode)
     /* Discourage farming ... */
     if (num_repro_kill >= 50)
     {
-        monster_race *r_ptr = &r_info[m_list[hack_m_idx_ii].r_idx];
         m_list[hack_m_idx_ii].mspeed += MIN(5 * num_repro_kill / 50, 20);
         m_list[hack_m_idx_ii].maxhp += MIN(m_list[hack_m_idx_ii].maxhp * num_repro_kill / 50, 2000);
         m_list[hack_m_idx_ii].hp = m_list[hack_m_idx_ii].maxhp;

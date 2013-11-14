@@ -191,7 +191,6 @@ void gain_chosen_stat(void)
 void check_experience(void)
 {
     bool level_inc_stat = FALSE;
-    bool android = (p_ptr->prace == RACE_ANDROID ? TRUE : FALSE);
     int  old_lev = p_ptr->lev;
     race_t *race_ptr = get_true_race_t(); /* So players don't miss if they Polymorph Demon, etc */
 
@@ -5012,7 +5011,7 @@ static void tgt_pt_prepare(void)
 bool tgt_pt(int *x_ptr, int *y_ptr, int rng)
 {
     char ch = 0;
-    int d, x, y, n;
+    int d, x, y, n = 0;
     bool success = FALSE;
 
     int wid, hgt;

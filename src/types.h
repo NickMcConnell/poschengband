@@ -1940,9 +1940,9 @@ typedef struct {
 typedef void (*ang_spell)(int cmd, variant *res);
 
 typedef struct {
-    s16b level;
-    s16b cost;
-    s16b fail;
+    int level;
+    int cost;
+    int fail;
     ang_spell fn;
 } spell_info;
 

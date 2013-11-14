@@ -1926,7 +1926,7 @@ extern bool stop_hex_spell(void);
 extern void check_hex(void);
 extern bool hex_spell_fully(void);
 extern void hex_stop_spelling_spell(int cmd, variant *res);
-extern void revenge_spell();
+extern void revenge_spell(void);
 extern void revenge_store(int dam);
 extern bool teleport_barrier(int m_idx);
 extern bool magic_barrier(int m_idx);

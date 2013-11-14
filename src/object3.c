@@ -1,7 +1,5 @@
 #include "angband.h"
 
-#include <math.h>
-
 /* New code for object values.  Designed by Dave.
    p is price
    q is ???
@@ -14,11 +12,6 @@
 */
 
 debug_hook cost_calc_hook = NULL;
-
-static s32b _avg_dam(object_type *o_ptr)
-{
-    return o_ptr->dd * (o_ptr->ds + 1)/2;
-}
 
 static double _calc_cost(double cost, int count)
 {

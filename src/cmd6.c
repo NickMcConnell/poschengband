@@ -53,12 +53,6 @@
  * but instead use the "sval" (which is also used to sort the objects).
  */
 
-static int _device_power_hack(int pow, bool magic)
-{
-    if (magic) return spell_power(pow);
-    return device_power(pow);
-}
-
 static bool _pack_find_tval(int tval)
 {
     int i;
@@ -1646,27 +1640,6 @@ void do_cmd_zap_rod(void)
 
     /* Zap the rod */
     do_cmd_zap_rod_aux(item);
-}
-
-
-/*
- * Hook to determine if an object is activatable
- */
-static bool item_tester_hook_activate(object_type *o_ptr)
-{
-    u32b flgs[TR_FLAG_SIZE];
-
-    /* Not known */
-    if (!object_is_known(o_ptr)) return (FALSE);
-
-    /* Extract the flags */
-    object_flags(o_ptr, flgs);
-
-    /* Check activation flag */
-    if (have_flag(flgs, TR_ACTIVATE)) return (TRUE);
-
-    /* Assume not */
-    return (FALSE);
 }
 
 

@@ -58,20 +58,6 @@ static int _find_ammo_slot(void)
     return -1;
 }
 
-static int _count_ammo_slots(void)
-{
-    int result = 0;
-    int i;
-
-    for (i = 0; i < INVEN_PACK; i++)
-    {
-        if (inventory[i].tval == p_ptr->shooter_info.tval_ammo) result++;
-    }
-
-    if (p_ptr->unlimited_quiver) result++;
-    return result;
-}
-
 static int _get_nearest_target_los(void)
 {
     int result = 0;
@@ -2283,7 +2269,6 @@ bool _design_monkey_clone(void)
     int tdam = 0;
     int blows = 0;
     int acc = 0;
-    int tmp_acc = 0;
 
     if (r_ptr->cur_num == 1)
     {
@@ -3218,19 +3203,6 @@ int weaponmaster_get_max_blows(object_type *o_ptr, int hand)
         break;
     }
     return num;
-}
-
-static int _count_weapons(int speciality)
-{
-    int result = 0;
-    int i = 0;
-
-    for (i = 0; i < _MAX_OBJECTS_PER_SPECIALITY; i++)
-    {
-        if (_specialities[speciality].objects[i].tval == 0) break;
-        result++;
-    }
-    return result;
 }
 
 static int _get_spells(spell_info* spells, int max)
