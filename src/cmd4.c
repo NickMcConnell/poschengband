@@ -5561,7 +5561,7 @@ static void do_cmd_knowledge_kill_count(void)
     }
 
     fprintf(fff,"----------------------------------------------\n");
-    fprintf(fff,"   Total: %lu creature%s killed.\n",
+    fprintf(fff,"   Total: %d creature%s killed.\n",
         Total, (Total == 1 ? "" : "s"));
 
 

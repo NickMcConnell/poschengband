@@ -790,7 +790,7 @@ int display_innate_attack_info(int which, int row, int col)
         char xtra[255];
         if (!a->effect[i]) break;
         if (!p)
-            sprintf(xtra, "");
+            sprintf(xtra, "%s", "");
         else
             sprintf(xtra, " (%d%%)", p);
 

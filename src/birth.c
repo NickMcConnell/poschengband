@@ -2833,7 +2833,7 @@ void player_outfit(void)
 static bool get_stat_limits(void)
 {
     int i, j, m, cs, os;
-    int mval[6], cval[6];
+    int cval[6];
     char c;
     char buf[80], cur[80];
     char inp[80];
@@ -2860,9 +2860,6 @@ static bool get_stat_limits(void)
 
         /* Obtain the "maximal" stat */
         m = adjust_stat(17, j);
-
-        /* Save the maximum */
-        mval[i] = m;
 
         if (m > 18)
             sprintf(cur, "18/%02d", (m - 18));        

@@ -67,7 +67,7 @@ _hash_t _hash(const char *str) /* djb2 hash algorithm */
     _hash_t hash = 5381;
     int c;
 
-    while (c = *str++)
+    while ((c = *str++))
         hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
 
     return hash;

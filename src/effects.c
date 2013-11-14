@@ -1049,7 +1049,7 @@ bool set_image(int v, bool do_dec)
     if (mut_present(MUT_WEIRD_MIND))
     {
          v = 0;
-         do_dec = TRUE;
+         /*do_dec = TRUE;*/
     }
 
     /* Open */

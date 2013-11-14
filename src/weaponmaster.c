@@ -950,10 +950,12 @@ static void _throw_weapon_spell(int cmd, variant *res)
         for (hand = 0; hand < MAX_HANDS; hand++)
         {
             if (p_ptr->weapon_info[hand].wield_how != WIELD_NONE)
-            if (_club_toss(hand))
-                var_set_bool(res, TRUE);
-            else
-                break;
+            {
+                if (_club_toss(hand))
+                    var_set_bool(res, TRUE);
+                else
+                    break;
+            }
         }
         break;
     }
@@ -1420,10 +1422,12 @@ static void _dagger_toss_spell(int cmd, variant *res)
         for (hand = 0; hand < MAX_HANDS; hand++)
         {
             if (p_ptr->weapon_info[hand].wield_how != WIELD_NONE)
-            if (_dagger_toss(hand))
-                var_set_bool(res, TRUE);
-            else
-                break;
+            {
+                if (_dagger_toss(hand))
+                    var_set_bool(res, TRUE);
+                else
+                    break;
+            }
         }
         break;
     }
@@ -2500,7 +2504,6 @@ static void _circle_kick_spell(int cmd, variant *res)
     int path_n, i;
     bool moved = FALSE;
     int flg = PROJECT_THRU | PROJECT_KILL;
-    int dis = 0;
     int dir;
 
     project_length = 3;
@@ -2518,8 +2521,6 @@ static void _circle_kick_spell(int cmd, variant *res)
 
     if (in_bounds(ty, tx)) tm_idx = cave[ty][tx].m_idx;
 
-    dis = distance(ty, tx, py, px);
-
     path_n = project_path(path_g, project_length, py, px, ty, tx, flg);
     project_length = 0;
 
@@ -2534,7 +2535,6 @@ static void _circle_kick_spell(int cmd, variant *res)
 
     for (i = 0; i < path_n; i++)
     {
-        monster_type *m_ptr;
         cave_type *c_ptr;
         bool can_enter = FALSE;
         int ny = GRID_Y(path_g[i]);
@@ -2562,7 +2562,6 @@ static void _circle_kick_spell(int cmd, variant *res)
         
         update_mon(c_ptr->m_idx, TRUE);
 
-        m_ptr = &m_list[c_ptr->m_idx];
         if (tm_idx != c_ptr->m_idx)
         {
             /* Just like "Acrobatic Charge." Attempts to displace monsters on route. */
