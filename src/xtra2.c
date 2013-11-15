@@ -3149,8 +3149,8 @@ bool target_okay(void)
  */
 static bool ang_sort_comp_distance(vptr u, vptr v, int a, int b)
 {
-    byte *x = (byte*)(u);
-    byte *y = (byte*)(v);
+    s16b *x = (s16b*)(u);
+    s16b *y = (s16b*)(v);
 
     int da, db, kx, ky;
 
@@ -3180,8 +3180,8 @@ static bool ang_sort_comp_distance(vptr u, vptr v, int a, int b)
  */
 static bool ang_sort_comp_importance(vptr u, vptr v, int a, int b)
 {
-    byte *x = (byte*)(u);
-    byte *y = (byte*)(v);
+    s16b *x = (s16b*)(u);
+    s16b *y = (s16b*)(v);
     cave_type *ca_ptr = &cave[y[a]][x[a]];
     cave_type *cb_ptr = &cave[y[b]][x[b]];
     monster_type *ma_ptr = &m_list[ca_ptr->m_idx];
@@ -3249,10 +3249,10 @@ static bool ang_sort_comp_importance(vptr u, vptr v, int a, int b)
  */
 static void ang_sort_swap_distance(vptr u, vptr v, int a, int b)
 {
-    byte *x = (byte*)(u);
-    byte *y = (byte*)(v);
+    s16b *x = (s16b*)(u);
+    s16b *y = (s16b*)(v);
 
-    byte temp;
+    s16b temp;
 
     /* Swap "x" */
     temp = x[a];
