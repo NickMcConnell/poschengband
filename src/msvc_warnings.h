@@ -35,6 +35,10 @@
 /* I'm pretty sure these aren't my fault :) */
 #pragma warning (disable:4668)
 
+/* Assignment in conditional ... I'm not sure that warrants a warning as it is 
+   somewhat idiomatic for string processing. */
+#pragma warning (disable:4706) 
+
 #endif
 
 #endif

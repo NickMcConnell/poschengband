@@ -1478,7 +1478,7 @@ void teleport_other_spell(int cmd, variant *res)
     case SPELL_CAST:
     {
         int dir;
-        int power = spell_power(p_ptr->lev);
+        int power = spell_power(p_ptr->lev*2);
 
         var_set_bool(res, FALSE);
 
