@@ -4201,7 +4201,7 @@ bool generate_rooms(void)
      * Prepare the number of rooms, of all types, we should build
      * on this level.
      */
-    for (i = DUN_ROOMS_MAX; i > 0; i--)
+    for (i = dun_rooms; i > 0; i--)
     {
         int room_type;
         int rand = randint0(total_prob);
