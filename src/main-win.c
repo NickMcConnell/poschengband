@@ -75,6 +75,12 @@
 
 
 #ifdef WINDOWS
+
+#ifdef MSVC
+/*1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\windef.h(230): warning C4255: 'FARPROC' : no function prototype given: converting '()' to '(void)'*/
+#pragma warning (disable:4255) 
+#endif 
+
 #include <windows.h>
 #include <direct.h>
 
@@ -775,7 +781,7 @@ static void validate_dir(cptr s, bool vital)
 
         }
         /* Attempt to create this directory */
-        else if (mkdir(s))
+        else if (_mkdir(s))
         {
             quit_fmt("Unable to create directory:\n%s", s);
         }
@@ -2258,7 +2264,7 @@ static errr Term_pict_win(int x, int y, int n, const byte *ap, const char *cp, c
 
     int i;
     int x1, y1, w1, h1;
-    int x2, y2, w2, h2, tw2;
+    int x2, y2, w2, h2, tw2 = 0;
     int x3, y3;
     HDC hdc;
     
@@ -2393,11 +2399,13 @@ static errr Term_pict_win(int x, int y, int n, const byte *ap, const char *cp, c
 static void windows_map(void)
 {
     term_data *td = &data[0];
-    byte a, c;
+    byte a;
+    char c;
     int x, min_x, max_x;
     int y, min_y, max_y;
 
-    byte ta, tc;
+    byte ta;
+    char tc;
 
     /* Only in graphics mode */
     if (!use_graphics) return;
