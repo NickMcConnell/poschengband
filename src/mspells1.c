@@ -1563,10 +1563,12 @@ bool make_attack_spell(int m_idx, bool ticked_off)
                 success = TRUE;
             }
         }
-        
-        /* Raphael can Breathe Light *and* Teleport To */
-        if (!success && (f6 & RF6_TELE_TO) && m_ptr->cdis <= (MAX_RANGE * 2/3)
-          && r_ptr->level >= 60 && !(cave[m_ptr->fy][m_ptr->fx].info & CAVE_ICKY) )
+                
+        if ( !success                      /* <=== Raphael can Breathe Light *and* Teleport To */
+          && (f6 & RF6_TELE_TO) 
+          && m_ptr->cdis <= (MAX_RANGE * 2/3)
+          && (r_ptr->level >= 40 || p_ptr->pass_wall)
+          && !(cave[m_ptr->fy][m_ptr->fx].info & CAVE_ICKY) )
         {
             if (one_in_(15))
             {
@@ -1599,6 +1601,30 @@ bool make_attack_spell(int m_idx, bool ticked_off)
                     success = TRUE;
                 }
                 else f4 |= (RF4_BR_LITE);
+            }
+
+            /* Hack: Is player hiding in walls? Note MONSTER_FLOW_DEPTH is cranked up
+               to 100 but is still might be possible that there exists a viable path
+               to the player that is longer (e.g. inside of certain vaults). */
+            if (p_ptr->pass_wall && !cave[m_ptr->fy][m_ptr->fx].dist)
+            {
+                y = m_ptr->fy;
+                x = m_ptr->fx;
+
+                if (one_in_(10))
+                {
+                    f4 &= RF4_PASSWALL_MASK_HARD;
+                    f5 &= RF5_PASSWALL_MASK_HARD;
+                    f6 &= RF6_PASSWALL_MASK_HARD;
+                    mode |= PM_WALL_SCUMMER;
+                }
+                else
+                {
+                    f4 &= RF4_PASSWALL_MASK_EASY;
+                    f5 &= RF5_PASSWALL_MASK_EASY;
+                    f6 &= RF6_PASSWALL_MASK_EASY;
+                }
+                success = TRUE;
             }
         }
 
@@ -3431,7 +3457,7 @@ bool make_attack_spell(int m_idx, bool ticked_off)
                         x, 
                         500 /*rlev - Hack: Olympain Summoning should never fail!*/, 
                         SUMMON_OLYMPIAN, 
-                        (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE)
+                        PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | mode
                     );
                 }
                 if (blind && count)
@@ -3454,7 +3480,7 @@ bool make_attack_spell(int m_idx, bool ticked_off)
                         x, 
                         rlev, 
                         SUMMON_KNIGHT, 
-                        (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE)
+                        PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | mode 
                     );
                 }
                 if (blind && count)
@@ -3477,7 +3503,7 @@ bool make_attack_spell(int m_idx, bool ticked_off)
                         x, 
                         rlev, 
                         SUMMON_CAMELOT, 
-                        (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE)
+                        PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | mode
                     );
                 }
                 if (!count) /* In case they are all dead ... */
@@ -3490,7 +3516,7 @@ bool make_attack_spell(int m_idx, bool ticked_off)
                             x, 
                             rlev, 
                             SUMMON_KNIGHT, 
-                            (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE)
+                            PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | mode
                         );
                     }
                 }
@@ -3514,7 +3540,7 @@ bool make_attack_spell(int m_idx, bool ticked_off)
                         x, 
                         rlev, 
                         SUMMON_NIGHTMARE, 
-                        (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE)
+                        PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | mode
                     );
                 }
                 if (blind && count)
@@ -3551,7 +3577,7 @@ bool make_attack_spell(int m_idx, bool ticked_off)
                     int num = 4 + randint1(3);
                     for (k = 0; k < num; k++)
                     {
-                        count += summon_specific(m_idx, y, x, rlev, SUMMON_EAGLE, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
+                        count += summon_specific(m_idx, y, x, rlev, SUMMON_EAGLE, PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | mode);
                     }
                 }
                 break;
@@ -3579,7 +3605,7 @@ bool make_attack_spell(int m_idx, bool ticked_off)
 
                     for (k = 0; k < num; k++)
                     {
-                        count += summon_specific(m_idx, y, x, rlev, SUMMON_GUARDIAN, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
+                        count += summon_specific(m_idx, y, x, rlev, SUMMON_GUARDIAN, PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | mode);
                     }
                 }
                 break;
@@ -3621,7 +3647,7 @@ bool make_attack_spell(int m_idx, bool ticked_off)
                     int num = 2 + randint1(3);
                     for (k = 0; k < num; k++)
                     {
-                        count += summon_specific(m_idx, y, x, rlev, SUMMON_LOUSE, PM_ALLOW_GROUP);
+                        count += summon_specific(m_idx, y, x, rlev, SUMMON_LOUSE, PM_ALLOW_GROUP | mode);
                     }
                 }
                 break;
@@ -3656,7 +3682,7 @@ bool make_attack_spell(int m_idx, bool ticked_off)
 
                     for (k = 0; k < num; k++)
                     {
-                        count += summon_specific(m_idx, y, x, rlev, SUMMON_SOFTWARE_BUG, PM_ALLOW_GROUP);
+                        count += summon_specific(m_idx, y, x, rlev, SUMMON_SOFTWARE_BUG, PM_ALLOW_GROUP | mode);
                     }
                 }
                 break;
@@ -3666,7 +3692,7 @@ bool make_attack_spell(int m_idx, bool ticked_off)
 
                 for (k = 0; k < 4; k++)
                 {
-                    count += summon_specific(m_idx, y, x, rlev, SUMMON_KIN, PM_ALLOW_GROUP);
+                    count += summon_specific(m_idx, y, x, rlev, SUMMON_KIN, PM_ALLOW_GROUP | mode);
                 }
                 break;
             }
@@ -3699,7 +3725,7 @@ bool make_attack_spell(int m_idx, bool ticked_off)
 
             for (k = 0; k < 1; k++)
             {
-                count += summon_specific(m_idx, y, x, rlev, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
+                count += summon_specific(m_idx, y, x, rlev, 0, PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | mode);
             }
             if (blind && count) msg_print("You hear something appear nearby.");
 
@@ -3716,7 +3742,7 @@ bool make_attack_spell(int m_idx, bool ticked_off)
 
             for (k = 0; k < s_num_6; k++)
             {
-                count += summon_specific(m_idx, y, x, rlev, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
+                count += summon_specific(m_idx, y, x, rlev, 0, PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | mode);
             }
             if (blind && count) msg_print("You hear many things appear nearby.");
 
@@ -3733,7 +3759,7 @@ bool make_attack_spell(int m_idx, bool ticked_off)
 
             for (k = 0; k < s_num_6; k++)
             {
-                count += summon_specific(m_idx, y, x, rlev, SUMMON_ANT, PM_ALLOW_GROUP);
+                count += summon_specific(m_idx, y, x, rlev, SUMMON_ANT, PM_ALLOW_GROUP | mode);
             }
             if (blind && count) msg_print("You hear many things appear nearby.");
 
@@ -3750,7 +3776,7 @@ bool make_attack_spell(int m_idx, bool ticked_off)
 
             for (k = 0; k < s_num_6; k++)
             {
-                count += summon_specific(m_idx, y, x, rlev, SUMMON_SPIDER, PM_ALLOW_GROUP);
+                count += summon_specific(m_idx, y, x, rlev, SUMMON_SPIDER, PM_ALLOW_GROUP | mode);
             }
             if (blind && count) msg_print("You hear many things appear nearby.");
 
@@ -3767,7 +3793,7 @@ bool make_attack_spell(int m_idx, bool ticked_off)
 
             for (k = 0; k < s_num_4; k++)
             {
-                count += summon_specific(m_idx, y, x, rlev, SUMMON_HOUND, PM_ALLOW_GROUP);
+                count += summon_specific(m_idx, y, x, rlev, SUMMON_HOUND, PM_ALLOW_GROUP | mode);
             }
             if (blind && count) msg_print("You hear many things appear nearby.");
 
@@ -3784,7 +3810,7 @@ bool make_attack_spell(int m_idx, bool ticked_off)
 
             for (k = 0; k < s_num_4; k++)
             {
-                count += summon_specific(m_idx, y, x, rlev, SUMMON_HYDRA, PM_ALLOW_GROUP);
+                count += summon_specific(m_idx, y, x, rlev, SUMMON_HYDRA, PM_ALLOW_GROUP | mode);
             }
             if (blind && count) msg_print("You hear many things appear nearby.");
 
@@ -3808,7 +3834,7 @@ bool make_attack_spell(int m_idx, bool ticked_off)
 
             for (k = 0; k < num; k++)
             {
-                count += summon_specific(m_idx, y, x, rlev, SUMMON_ANGEL, PM_ALLOW_GROUP);
+                count += summon_specific(m_idx, y, x, rlev, SUMMON_ANGEL, PM_ALLOW_GROUP | mode);
             }
 
             if (count < 2)
@@ -3838,7 +3864,7 @@ bool make_attack_spell(int m_idx, bool ticked_off)
 
             for (k = 0; k < 1; k++)
             {
-                count += summon_specific(m_idx, y, x, rlev, type, PM_ALLOW_GROUP);
+                count += summon_specific(m_idx, y, x, rlev, type, PM_ALLOW_GROUP | mode);
             }
             if (blind && count) msg_print("You hear something appear nearby.");
 
@@ -3855,7 +3881,7 @@ bool make_attack_spell(int m_idx, bool ticked_off)
 
             for (k = 0; k < 1; k++)
             {
-                count += summon_specific(m_idx, y, x, rlev, SUMMON_UNDEAD, PM_ALLOW_GROUP);
+                count += summon_specific(m_idx, y, x, rlev, SUMMON_UNDEAD, PM_ALLOW_GROUP | mode);
             }
             if (blind && count) msg_print("You hear something appear nearby.");
 
@@ -3872,7 +3898,7 @@ bool make_attack_spell(int m_idx, bool ticked_off)
 
             for (k = 0; k < 1; k++)
             {
-                count += summon_specific(m_idx, y, x, rlev, SUMMON_DRAGON, PM_ALLOW_GROUP);
+                count += summon_specific(m_idx, y, x, rlev, SUMMON_DRAGON, PM_ALLOW_GROUP | mode);
             }
             if (blind && count) msg_print("You hear something appear nearby.");
 
@@ -3931,7 +3957,7 @@ msg_format("They say 'The %d meets! We are the Ring-Ranger!'.", count);
 
                 for (k = 0; k < s_num_6; k++)
                 {
-                    count += summon_specific(m_idx, y, x, rlev, SUMMON_HI_UNDEAD, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
+                    count += summon_specific(m_idx, y, x, rlev, SUMMON_HI_UNDEAD, PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | mode);
                 }
             }
             if (blind && count)
@@ -3952,7 +3978,7 @@ msg_format("They say 'The %d meets! We are the Ring-Ranger!'.", count);
 
             for (k = 0; k < s_num_4; k++)
             {
-                count += summon_specific(m_idx, y, x, rlev, SUMMON_HI_DRAGON, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
+                count += summon_specific(m_idx, y, x, rlev, SUMMON_HI_DRAGON, PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | mode);
             }
             if (blind && count)
             {
@@ -3974,7 +4000,7 @@ msg_format("They say 'The %d meets! We are the Ring-Ranger!'.", count);
 
             for (k = 0; k < s_num_4; k++)
             {
-                count += summon_specific(m_idx, y, x, rlev, SUMMON_AMBERITE, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
+                count += summon_specific(m_idx, y, x, rlev, SUMMON_AMBERITE, PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | mode);
             }
             if (blind && count)
             {

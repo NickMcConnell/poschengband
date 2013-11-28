@@ -2516,6 +2516,7 @@
 #define PM_KAGE           0x00000200
 #define PM_MULTIPLY       0x00000400
 #define PM_ALLOW_CLONED   0x00000800
+#define PM_WALL_SCUMMER   0x00001000
 
 
 /* Bit flags for monster_desc() */
@@ -3791,6 +3792,29 @@ enum summon_specific_e {
     (RF5_SUMMON_MASK)
 
 #define RF6_INDIRECT_MASK \
+    (RF6_SUMMON_MASK | \
+     RF6_HASTE | RF6_HEAL | RF6_INVULNER | RF6_BLINK | RF6_WORLD | \
+     RF6_TPORT | RF6_RAISE_DEAD)
+
+/*
+ * When players are hiding inside the walls, we need to flush 'em out!
+ * Note: Summoning will target on the caster and tend to bring forth
+ * wall breakers, disintegraters and passwall monsters!
+ */
+#define RF4_PASSWALL_MASK_EASY RF4_SHRIEK
+
+#define RF5_PASSWALL_MASK_EASY 0
+
+#define RF6_PASSWALL_MASK_EASY \
+    (RF6_HASTE | RF6_HEAL | RF6_INVULNER | RF6_RAISE_DEAD)
+
+#define RF4_PASSWALL_MASK_HARD \
+    (RF4_SUMMON_MASK | RF4_SHRIEK)
+
+#define RF5_PASSWALL_MASK_HARD \
+    (RF5_SUMMON_MASK)
+
+#define RF6_PASSWALL_MASK_HARD \
     (RF6_SUMMON_MASK | \
      RF6_HASTE | RF6_HEAL | RF6_INVULNER | RF6_BLINK | RF6_WORLD | \
      RF6_TPORT | RF6_RAISE_DEAD)
