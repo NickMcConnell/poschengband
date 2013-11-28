@@ -2654,6 +2654,9 @@ void update_mon(int m_idx, bool full)
         }
     }
 
+    if (p_ptr->wizard)
+        flag = TRUE;
+
     /* The monster is now visible */
     if (flag)
     {

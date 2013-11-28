@@ -657,8 +657,8 @@ static bool get_moves_aux(int m_idx, int *yp, int *xp, bool no_flow)
         }
 
         /* Hack -- Save the "twiddled" location */
-        (*yp) = py + 16 * ddy_ddd[i];
-        (*xp) = px + 16 * ddx_ddd[i];
+        (*yp) = py + MAX(16, r_ptr->aaf) * ddy_ddd[i];
+        (*xp) = px + MAX(16, r_ptr->aaf) * ddx_ddd[i];
     }
 
     /* No legal move (?) */
