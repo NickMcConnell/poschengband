@@ -4061,6 +4061,7 @@ void forget_flow(void)
             cave[y][x].when = 0;
         }
     }
+    current_flow_depth = 0;
 }
 
 
