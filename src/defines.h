@@ -3801,20 +3801,20 @@ enum summon_specific_e {
  * Note: Summoning will target on the caster and tend to bring forth
  * wall breakers, disintegraters and passwall monsters!
  */
-#define RF4_PASSWALL_MASK_EASY RF4_SHRIEK
+#define RF4_NO_FLOW_MASK_EASY RF4_SHRIEK
 
-#define RF5_PASSWALL_MASK_EASY 0
+#define RF5_NO_FLOW_MASK_EASY 0
 
-#define RF6_PASSWALL_MASK_EASY \
+#define RF6_NO_FLOW_MASK_EASY \
     (RF6_HASTE | RF6_HEAL | RF6_INVULNER | RF6_RAISE_DEAD)
 
-#define RF4_PASSWALL_MASK_HARD \
+#define RF4_NO_FLOW_MASK_HARD \
     (RF4_SUMMON_MASK | RF4_SHRIEK)
 
-#define RF5_PASSWALL_MASK_HARD \
+#define RF5_NO_FLOW_MASK_HARD \
     (RF5_SUMMON_MASK)
 
-#define RF6_PASSWALL_MASK_HARD \
+#define RF6_NO_FLOW_MASK_HARD \
     (RF6_SUMMON_MASK | \
      RF6_HASTE | RF6_HEAL | RF6_INVULNER | RF6_BLINK | RF6_WORLD | \
      RF6_TPORT | RF6_RAISE_DEAD)

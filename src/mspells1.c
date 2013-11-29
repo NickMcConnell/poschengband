@@ -1606,23 +1606,23 @@ bool make_attack_spell(int m_idx, bool ticked_off)
             /* Hack: Is player hiding in walls? Note MONSTER_FLOW_DEPTH is cranked up
                to 100 but is still might be possible that there exists a viable path
                to the player that is longer (e.g. inside of certain vaults). */
-            if (p_ptr->pass_wall && !cave[m_ptr->fy][m_ptr->fx].dist)
+            if (current_flow_depth < MONSTER_FLOW_DEPTH && !cave[m_ptr->fy][m_ptr->fx].dist)
             {
                 y = m_ptr->fy;
                 x = m_ptr->fx;
 
                 if (one_in_(10))
                 {
-                    f4 &= RF4_PASSWALL_MASK_HARD;
-                    f5 &= RF5_PASSWALL_MASK_HARD;
-                    f6 &= RF6_PASSWALL_MASK_HARD;
+                    f4 &= RF4_NO_FLOW_MASK_HARD;
+                    f5 &= RF5_NO_FLOW_MASK_HARD;
+                    f6 &= RF6_NO_FLOW_MASK_HARD;
                     mode |= PM_WALL_SCUMMER;
                 }
                 else
                 {
-                    f4 &= RF4_PASSWALL_MASK_EASY;
-                    f5 &= RF5_PASSWALL_MASK_EASY;
-                    f6 &= RF6_PASSWALL_MASK_EASY;
+                    f4 &= RF4_NO_FLOW_MASK_EASY;
+                    f5 &= RF5_NO_FLOW_MASK_EASY;
+                    f6 &= RF6_NO_FLOW_MASK_EASY;
                 }
                 success = TRUE;
             }
