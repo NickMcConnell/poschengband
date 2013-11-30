@@ -2844,15 +2844,22 @@ static void process_monster(int m_idx)
         /* Ignore locations off of edge */
         if (!in_bounds2(ny, nx)) continue;
 
-        /* Smart monsters won't walk into anti-summoning situations */
+        /* Monsters that may summon won't walk into anti-summoning situations unless they
+           are angered by distance attacks by the player. Note, RF2_SMART is too rare for
+           this behavior so, for now, everybody gets it. */
         if (!player_bold(ny, nx) && player_has_los_bold(ny, nx) && projectable(py, px, ny, nx))
         {
             if ( (r_ptr->flags4 & RF4_SUMMON_MASK)
               || (r_ptr->flags5 & RF5_SUMMON_MASK)
               || (r_ptr->flags6 & RF6_SUMMON_MASK) )
             {
-                if (/*??(r_ptr->flags2 & RF2_SMART) &&*/ !_summon_possible(ny, nx))
-                    continue;
+                if (!_summon_possible(ny, nx))
+                {
+                    if (!(m_ptr->smart & SM_TICKED_OFF))
+                        continue;
+                    if (!one_in_(3))
+                        continue;
+                }
             }
         }
 
