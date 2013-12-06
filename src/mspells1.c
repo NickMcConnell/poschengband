@@ -1437,6 +1437,7 @@ bool make_attack_spell(int m_idx, bool ticked_off)
 
     /* Check "projectable" */
     bool direct;
+    bool wall_scummer = FALSE;
 
     bool in_no_magic_dungeon = (d_info[dungeon_type].flags1 & DF1_NO_MAGIC) && dun_level
         && (!p_ptr->inside_quest || is_fixed_quest_idx(p_ptr->inside_quest));
@@ -1625,6 +1626,7 @@ bool make_attack_spell(int m_idx, bool ticked_off)
                     f6 &= RF6_NO_FLOW_MASK_EASY;
                 }
                 success = TRUE;
+                wall_scummer = TRUE;
             }
         }
 
@@ -1872,7 +1874,7 @@ bool make_attack_spell(int m_idx, bool ticked_off)
         /* RF4_SHRIEK */
         case 96+0:
         {
-            disturb(1, 0);
+            if (!wall_scummer) disturb(1, 0);
             msg_format("%^s makes a high pitched shriek.", m_name);
             aggravate_monsters(m_idx);
             break;
@@ -2822,7 +2824,7 @@ bool make_attack_spell(int m_idx, bool ticked_off)
         /* RF6_HASTE */
         case 160+0:
         {
-            disturb(1, 0);
+            if (!wall_scummer) disturb(1, 0);
             if (blind) msg_format("%^s mumbles.", m_name);
             else msg_format("%^s concentrates on %s body.", m_name, m_poss);
 
@@ -2846,7 +2848,7 @@ bool make_attack_spell(int m_idx, bool ticked_off)
         /* RF6_HEAL */
         case 160+2:
         {
-            disturb(1, 0);
+            if (!wall_scummer) disturb(1, 0);
 
             /* Message */
             if (blind)
@@ -2941,7 +2943,7 @@ bool make_attack_spell(int m_idx, bool ticked_off)
         /* RF6_BLINK */
         case 160+4:
         {
-            disturb(1, 0);
+            if (!wall_scummer) disturb(1, 0);
             if (teleport_barrier(m_idx))
             {
                 msg_format("Magic barrier obstructs teleporting of %^s.", m_name);
@@ -2958,7 +2960,7 @@ bool make_attack_spell(int m_idx, bool ticked_off)
         /* RF6_TPORT */
         case 160+5:
         {
-            disturb(1, 0);
+            if (!wall_scummer) disturb(1, 0);
             if (teleport_barrier(m_idx))
             {
                 msg_format("Magic barrier obstructs teleporting of %^s.", m_name);
