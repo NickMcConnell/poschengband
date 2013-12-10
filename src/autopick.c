@@ -67,6 +67,7 @@
 #define FLG_HELMS           47
 #define FLG_GLOVES          48
 #define FLG_BOOTS           49
+#define FLG_SKELETONS       50
 
 #define FLG_NOUN_BEGIN      FLG_ITEMS
 #define FLG_NOUN_END        FLG_BOOTS
@@ -110,7 +111,8 @@ static char KEY_MISSILES[] = "missiles";
 static char KEY_DEVICES[] = "magical devices";
 static char KEY_LIGHTS[] = "lights";
 static char KEY_JUNKS[] = "junks";
-static char KEY_CORPSES[] = "corpses or skeletons";
+static char KEY_CORPSES[] = "corpses";
+static char KEY_SKELETONS[] = "skeletons";
 static char KEY_SPELLBOOKS[] = "spellbooks";
 static char KEY_HAFTED[] = "hafted weapons";
 static char KEY_SHIELDS[] = "shields";
@@ -233,83 +235,6 @@ static bool autopick_new_entry(autopick_type *entry, cptr str, bool allow_defaul
         if (MATCH_KEY(KEY_STAR_IDENTIFIED)) ADD_FLG(FLG_STAR_IDENTIFIED);
         if (MATCH_KEY(KEY_BOOSTED)) ADD_FLG(FLG_BOOSTED);
 
-        /*** Weapons whose dd*ds is more than nn ***/
-        if (MATCH_KEY2(KEY_MORE_THAN))
-        {
-            int k = 0;
-            entry->dice = 0;
-
-            /* Drop leading spaces */
-            while (' ' == *ptr) ptr++;
-
-            /* Read number */
-            while ('0' <= *ptr && *ptr <= '9')
-            {
-                entry->dice = 10 * entry->dice + (*ptr - '0');
-                ptr++;
-                k++;
-            }
-
-            if (k > 0 && k <= 2)
-            {
-                (void)MATCH_KEY(KEY_DICE);
-                ADD_FLG(FLG_MORE_DICE);
-            }
-            else
-                ptr = prev_ptr;
-        }
-
-        /*** Items whose magical bonus is more than n ***/
-        if (MATCH_KEY2(KEY_MORE_BONUS))
-        {
-            int k = 0;
-            entry->bonus = 0;
-
-            /* Drop leading spaces */
-            while (' ' == *ptr) ptr++;
-
-            /* Read number */
-            while ('0' <= *ptr && *ptr <= '9')
-            {
-                entry->bonus = 10 * entry->bonus + (*ptr - '0');
-                ptr++;
-                k++;
-            }
-
-            if (k > 0 && k <= 2)
-            {
-                if (' ' == *ptr) ptr++;
-                ADD_FLG(FLG_MORE_BONUS);
-            }
-            else
-                ptr = prev_ptr;
-        }
-
-        if (MATCH_KEY2(KEY_MORE_LEVEL))
-        {
-            int k = 0;
-            entry->bonus = 0;
-
-            /* Drop leading spaces */
-            while (' ' == *ptr) ptr++;
-
-            /* Read number */
-            while ('0' <= *ptr && *ptr <= '9')
-            {
-                entry->bonus = 10 * entry->bonus + (*ptr - '0');
-                ptr++;
-                k++;
-            }
-
-            if (k > 0 && k <= 2)
-            {
-                if (' ' == *ptr) ptr++;
-                ADD_FLG(FLG_MORE_LEVEL);
-            }
-            else
-                ptr = prev_ptr;
-        }
-
         if (MATCH_KEY(KEY_WORTHLESS)) ADD_FLG(FLG_WORTHLESS);
         if (MATCH_KEY(KEY_EGO)) ADD_FLG(FLG_EGO);
         if (MATCH_KEY(KEY_GOOD)) ADD_FLG(FLG_GOOD);
@@ -343,6 +268,7 @@ static bool autopick_new_entry(autopick_type *entry, cptr str, bool allow_defaul
     else if (MATCH_KEY2(KEY_LIGHTS)) ADD_FLG_NOUN(FLG_LIGHTS);
     else if (MATCH_KEY2(KEY_JUNKS)) ADD_FLG_NOUN(FLG_JUNKS);
     else if (MATCH_KEY2(KEY_CORPSES)) ADD_FLG_NOUN(FLG_CORPSES);
+    else if (MATCH_KEY2(KEY_SKELETONS)) ADD_FLG_NOUN(FLG_SKELETONS);
     else if (MATCH_KEY2(KEY_SPELLBOOKS)) ADD_FLG_NOUN(FLG_SPELLBOOKS);
     else if (MATCH_KEY2(KEY_HAFTED)) ADD_FLG_NOUN(FLG_HAFTED);
     else if (MATCH_KEY2(KEY_SHIELDS)) ADD_FLG_NOUN(FLG_SHIELDS);
@@ -354,6 +280,84 @@ static bool autopick_new_entry(autopick_type *entry, cptr str, bool allow_defaul
     else if (MATCH_KEY2(KEY_HELMS)) ADD_FLG_NOUN(FLG_HELMS);
     else if (MATCH_KEY2(KEY_GLOVES)) ADD_FLG_NOUN(FLG_GLOVES);
     else if (MATCH_KEY2(KEY_BOOTS)) ADD_FLG_NOUN(FLG_BOOTS);
+
+    /*** Weapons whose dd*ds is more than nn ***/
+    if (MATCH_KEY2(KEY_MORE_THAN))
+    {
+        int k = 0;
+        entry->dice = 0;
+
+        /* Drop leading spaces */
+        while (' ' == *ptr) ptr++;
+
+        /* Read number */
+        while ('0' <= *ptr && *ptr <= '9')
+        {
+            entry->dice = 10 * entry->dice + (*ptr - '0');
+            ptr++;
+            k++;
+        }
+
+        if (k > 0 && k <= 2)
+        {
+            (void)MATCH_KEY(KEY_DICE);
+            ADD_FLG(FLG_MORE_DICE);
+        }
+        else
+            ptr = prev_ptr;
+    }
+
+    /*** Items whose magical bonus is more than n ***/
+    if (MATCH_KEY2(KEY_MORE_BONUS))
+    {
+        int k = 0;
+        entry->bonus = 0;
+
+        /* Drop leading spaces */
+        while (' ' == *ptr) ptr++;
+
+        /* Read number */
+        while ('0' <= *ptr && *ptr <= '9')
+        {
+            entry->bonus = 10 * entry->bonus + (*ptr - '0');
+            ptr++;
+            k++;
+        }
+
+        if (k > 0 && k <= 2)
+        {
+            if (' ' == *ptr) ptr++;
+            ADD_FLG(FLG_MORE_BONUS);
+        }
+        else
+            ptr = prev_ptr;
+    }
+
+    if (MATCH_KEY2(KEY_MORE_LEVEL))
+    {
+        int k = 0;
+        entry->bonus = 0;
+
+        /* Drop leading spaces */
+        while (' ' == *ptr) ptr++;
+
+        /* Read number */
+        while ('0' <= *ptr && *ptr <= '9')
+        {
+            entry->bonus = 10 * entry->bonus + (*ptr - '0');
+            ptr++;
+            k++;
+        }
+
+        if (k > 0 && k <= 2)
+        {
+            if (' ' == *ptr) ptr++;
+            ADD_FLG(FLG_MORE_LEVEL);
+        }
+        else
+            ptr = prev_ptr;
+    }
+
 
     /* Last 'keyword' must be at the correct location */
     if (*ptr == ':')
@@ -584,8 +588,10 @@ static void autopick_entry_from_object(autopick_type *entry, object_type *o_ptr)
     else if (o_ptr->tval == TV_SKELETON || o_ptr->tval == TV_BOTTLE
          || o_ptr->tval == TV_JUNK || o_ptr->tval == TV_STATUE)
         ADD_FLG(FLG_JUNKS);
-    else if (o_ptr->tval == TV_CORPSE)
+    else if (o_ptr->tval == TV_CORPSE && o_ptr->sval == SV_CORPSE)
         ADD_FLG(FLG_CORPSES);
+    else if (o_ptr->tval == TV_CORPSE && o_ptr->sval == SV_SKELETON)
+        ADD_FLG(FLG_SKELETONS);
     else if (o_ptr->tval >= TV_LIFE_BOOK)
         ADD_FLG(FLG_SPELLBOOKS);
     else if (o_ptr->tval == TV_POLEARM || o_ptr->tval == TV_SWORD
@@ -837,26 +843,6 @@ cptr autopick_line_from_entry(autopick_type *entry)
     if (IS_FLG(FLG_STAR_IDENTIFIED)) ADD_KEY(KEY_STAR_IDENTIFIED);
     if (IS_FLG(FLG_BOOSTED)) ADD_KEY(KEY_BOOSTED);
 
-    if (IS_FLG(FLG_MORE_DICE))
-    {
-        ADD_KEY(KEY_MORE_THAN);
-        strcat(ptr, format("%d", entry->dice));
-        ADD_KEY(KEY_DICE);
-    }
-
-    if (IS_FLG(FLG_MORE_BONUS))
-    {
-        ADD_KEY(KEY_MORE_BONUS);
-        strcat(ptr, format("%d", entry->bonus));
-        ADD_KEY(KEY_MORE_BONUS2);
-    }
-
-    if (IS_FLG(FLG_MORE_LEVEL))
-    {
-        ADD_KEY(KEY_MORE_LEVEL);
-        strcat(ptr, format("%d ", entry->bonus));
-    }
-
     if (IS_FLG(FLG_UNREADABLE)) ADD_KEY(KEY_UNREADABLE);
     if (IS_FLG(FLG_REALM1)) ADD_KEY(KEY_REALM1);
     if (IS_FLG(FLG_REALM2)) ADD_KEY(KEY_REALM2);
@@ -886,6 +872,7 @@ cptr autopick_line_from_entry(autopick_type *entry)
     else if (IS_FLG(FLG_LIGHTS)) ADD_KEY2(KEY_LIGHTS);
     else if (IS_FLG(FLG_JUNKS)) ADD_KEY2(KEY_JUNKS);
     else if (IS_FLG(FLG_CORPSES)) ADD_KEY2(KEY_CORPSES);
+    else if (IS_FLG(FLG_SKELETONS)) ADD_KEY2(KEY_SKELETONS);
     else if (IS_FLG(FLG_SPELLBOOKS)) ADD_KEY2(KEY_SPELLBOOKS);
     else if (IS_FLG(FLG_HAFTED)) ADD_KEY2(KEY_HAFTED);
     else if (IS_FLG(FLG_SHIELDS)) ADD_KEY2(KEY_SHIELDS);
@@ -897,6 +884,27 @@ cptr autopick_line_from_entry(autopick_type *entry)
     else if (IS_FLG(FLG_HELMS)) ADD_KEY2(KEY_HELMS);
     else if (IS_FLG(FLG_GLOVES)) ADD_KEY2(KEY_GLOVES);
     else if (IS_FLG(FLG_BOOTS)) ADD_KEY2(KEY_BOOTS);
+
+    if (IS_FLG(FLG_MORE_DICE))
+    {
+        ADD_KEY(KEY_MORE_THAN);
+        strcat(ptr, format("%d", entry->dice));
+        ADD_KEY(KEY_DICE);
+    }
+
+    if (IS_FLG(FLG_MORE_BONUS))
+    {
+        ADD_KEY(KEY_MORE_BONUS);
+        strcat(ptr, format("%d", entry->bonus));
+        ADD_KEY(KEY_MORE_BONUS2);
+    }
+
+    if (IS_FLG(FLG_MORE_LEVEL))
+    {
+        ADD_KEY(KEY_MORE_LEVEL);
+        strcat(ptr, format("%d ", entry->bonus));
+    }
+
 
     /* You don't need sepalator after adjective */
     /* 'artifact' is not true adjective */
@@ -1311,8 +1319,16 @@ static bool is_autopick_aux(object_type *o_ptr, autopick_type *entry, cptr o_nam
     }
     else if (IS_FLG(FLG_CORPSES))
     {
-        if (o_ptr->tval != TV_CORPSE && o_ptr->tval != TV_SKELETON)
+        if (!object_is_(o_ptr, TV_CORPSE, SV_CORPSE))
             return FALSE;
+    }
+    else if (IS_FLG(FLG_SKELETONS))
+    {
+        if ( !object_is_(o_ptr, TV_CORPSE, SV_SKELETON)
+          && o_ptr->tval != TV_SKELETON )
+        {
+            return FALSE;
+        }
     }
     else if (IS_FLG(FLG_SPELLBOOKS))
     {
@@ -2385,7 +2401,9 @@ static void describe_autopick(char *buff, autopick_type *entry)
     else if (IS_FLG(FLG_JUNKS))
         body_str = "junk such as broken sticks";
     else if (IS_FLG(FLG_CORPSES))
-        body_str = "corpses or skeletons";
+        body_str = "corpses";
+    else if (IS_FLG(FLG_SKELETONS))
+        body_str = "skeletons";
     else if (IS_FLG(FLG_SPELLBOOKS))
         body_str = "spellbooks";
     else if (IS_FLG(FLG_HAFTED))
@@ -3600,14 +3618,15 @@ static void search_for_string(text_body_type *tb, cptr search_str, bool forward)
 #define EC_KK_CORPSES           71
 #define EC_KK_SPELLBOOKS       72
 #define EC_KK_SHIELDS           73
-#define EC_KK_BOWS           74
+#define EC_KK_BOWS            74
 #define EC_KK_RINGS           75
-#define EC_KK_AMULETS           76
+#define EC_KK_AMULETS         76
 #define EC_KK_SUITS           77
-#define EC_KK_CLOAKS           78
+#define EC_KK_CLOAKS          78
 #define EC_KK_HELMS           79
-#define EC_KK_GLOVES           80
+#define EC_KK_GLOVES          80
 #define EC_KK_BOOTS           81
+#define EC_KK_SKELETONS       82
 
 
 /* Manu names */
@@ -3774,6 +3793,7 @@ command_menu_type menu_data[] =
     {KEY_LIGHTS, 1, -1, EC_KK_LIGHTS},
     {KEY_JUNKS, 1, -1, EC_KK_JUNKS},
     {KEY_CORPSES, 1, -1, EC_KK_CORPSES},
+    {KEY_SKELETONS, 1, -1, EC_KK_SKELETONS},
     {KEY_SPELLBOOKS, 1, -1, EC_KK_SPELLBOOKS},
     {KEY_SHIELDS, 1, -1, EC_KK_SHIELDS},
     {KEY_BOWS, 1, -1, EC_KK_BOWS},
@@ -5397,6 +5417,7 @@ static bool do_editor_command(text_body_type *tb, int com_id)
     case EC_KK_LIGHTS: toggle_keyword(tb, FLG_LIGHTS); break;
     case EC_KK_JUNKS: toggle_keyword(tb, FLG_JUNKS); break;
     case EC_KK_CORPSES: toggle_keyword(tb, FLG_CORPSES); break;
+    case EC_KK_SKELETONS: toggle_keyword(tb, FLG_SKELETONS); break;
     case EC_KK_SPELLBOOKS: toggle_keyword(tb, FLG_SPELLBOOKS); break;
     case EC_KK_SHIELDS: toggle_keyword(tb, FLG_SHIELDS); break;
     case EC_KK_BOWS: toggle_keyword(tb, FLG_BOWS); break;
