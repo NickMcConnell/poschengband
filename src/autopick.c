@@ -884,6 +884,8 @@ cptr autopick_line_from_entry(autopick_type *entry)
     else if (IS_FLG(FLG_HELMS)) ADD_KEY2(KEY_HELMS);
     else if (IS_FLG(FLG_GLOVES)) ADD_KEY2(KEY_GLOVES);
     else if (IS_FLG(FLG_BOOTS)) ADD_KEY2(KEY_BOOTS);
+    else if (!IS_FLG(FLG_ARTIFACT))
+        sepa_flag = FALSE;
 
     if (IS_FLG(FLG_MORE_DICE))
     {
@@ -904,12 +906,6 @@ cptr autopick_line_from_entry(autopick_type *entry)
         ADD_KEY(KEY_MORE_LEVEL);
         strcat(ptr, format("%d ", entry->bonus));
     }
-
-
-    /* You don't need sepalator after adjective */
-    /* 'artifact' is not true adjective */
-    else if (!IS_FLG(FLG_ARTIFACT))
-        sepa_flag = FALSE;
 
     if (entry->name && entry->name[0])
     {
