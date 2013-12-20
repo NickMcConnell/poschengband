@@ -1805,9 +1805,9 @@ void curse_object(object_type *o_ptr)
             o_ptr->curse_flags |= get_curse(2, o_ptr);
         else if (n < 50)
             add_flag(o_ptr->art_flags, TR_AGGRAVATE);
-        else if (n < 55)
+        else if (n < 52)
             add_flag(o_ptr->art_flags, TR_TY_CURSE);
-        else if (n < 60)
+        else if (n < 53)
             o_ptr->curse_flags |= TRC_PERMA_CURSE;
         else if (n < 250)
             one_biff(o_ptr);
