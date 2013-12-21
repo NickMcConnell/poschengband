@@ -1410,7 +1410,7 @@ arena_type arena_info[MAX_ARENA_MONS + 2] =
     { MON_ELDER_THING,   TV_ROD,    SV_ROD_DRAIN_LIFE             },
     { MON_M_MH_DRAGON,   0,         0                             },
     { MON_ETTIN,         TV_SCROLL, SV_SCROLL_STAR_ENCHANT_WEAPON },
-    { MON_VAMPIRE_LORD,  0,         0                             },
+    { MON_VAMPIRE_LORD,  TV_SCROLL, SV_SCROLL_MUNDANITY           },
     { MON_BARNEY,        TV_SCROLL, SV_SCROLL_GENOCIDE            },
     { MON_GROO,          0,         0                             },
     { MON_D_ELF_SORC,    TV_WAND,   SV_WAND_STRIKING              },
