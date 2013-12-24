@@ -3792,13 +3792,14 @@ cptr game_inscriptions[] =
     NULL,            /* FEEL_NONE */
     "broken",        /* FEEL_BROKEN */
     "terrible",      /* FEEL_TERRIBLE */
-    "worthless",     /* FEEL_WORTHLESS */
+    "awful",         /* FEEL_AWFUL */
     "cursed",        /* FEEL_CURSED */
     "uncursed",      /* FEEL_UNCURSED */
     "average",       /* FEEL_AVERAGE */
     "good",          /* FEEL_GOOD */
     "excellent",     /* FEEL_EXCELLENT */
     "special",       /* FEEL_SPECIAL */
+	"bad",           /* FEEL_BAD */
 };
 
 kamae kamae_shurui[MAX_KAMAE] =

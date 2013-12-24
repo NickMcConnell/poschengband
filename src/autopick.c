@@ -46,6 +46,7 @@
 #define FLG_SECOND          26
 #define FLG_THIRD           27
 #define FLG_FOURTH          28
+#define FLG_CURSED          29
 
 #define FLG_ITEMS           30
 #define FLG_WEAPONS         31
@@ -82,6 +83,7 @@ static char KEY_COLLECTING[] = "collecting";
 static char KEY_ARTIFACT[] = "artifact";
 static char KEY_EGO[] = "ego";
 static char KEY_GOOD[] = "good";
+static char KEY_CURSED[] = "cursed";
 static char KEY_NAMELESS[] = "nameless";
 static char KEY_AVERAGE[] = "average";
 static char KEY_WORTHLESS[] = "worthless";
@@ -238,6 +240,7 @@ static bool autopick_new_entry(autopick_type *entry, cptr str, bool allow_defaul
         if (MATCH_KEY(KEY_WORTHLESS)) ADD_FLG(FLG_WORTHLESS);
         if (MATCH_KEY(KEY_EGO)) ADD_FLG(FLG_EGO);
         if (MATCH_KEY(KEY_GOOD)) ADD_FLG(FLG_GOOD);
+		if (MATCH_KEY(KEY_CURSED)) ADD_FLG(FLG_CURSED);
         if (MATCH_KEY(KEY_NAMELESS)) ADD_FLG(FLG_NAMELESS);
         if (MATCH_KEY(KEY_AVERAGE)) ADD_FLG(FLG_AVERAGE);
         if (MATCH_KEY(KEY_RARE)) ADD_FLG(FLG_RARE);
@@ -398,9 +401,6 @@ static void autopick_entry_from_object(autopick_type *entry, object_type *o_ptr)
     /* Assume that object name is to be added */
     bool name = TRUE;
 
-    /* We can always use the ^ mark in English */
-    bool bol_mark = TRUE;
-
     char name_str[MAX_NLEN];
 
     /* Initialize name string */
@@ -415,7 +415,6 @@ static void autopick_entry_from_object(autopick_type *entry, object_type *o_ptr)
     if (!object_is_aware(o_ptr))
     {
         ADD_FLG(FLG_UNAWARE);
-        bol_mark = TRUE;
     }
     /* Hack: Artifact Rings are visually identifiable, but can't currently
              be noticed by the autopicker. Pretend they are unaware items
@@ -426,7 +425,6 @@ static void autopick_entry_from_object(autopick_type *entry, object_type *o_ptr)
            && o_ptr->art_name )
     {
         ADD_FLG(FLG_UNAWARE);
-        bol_mark = TRUE;
     }
 
     /* Not really identified */
@@ -435,38 +433,56 @@ static void autopick_entry_from_object(autopick_type *entry, object_type *o_ptr)
         if (!(o_ptr->ident & IDENT_SENSE))
         {
             ADD_FLG(FLG_UNIDENTIFIED);
-            bol_mark = TRUE;
         }
         else
         {
             /* Pseudo-identified */
             switch (o_ptr->feeling)
             {
-            case FEEL_AVERAGE:
-            case FEEL_GOOD:
-                ADD_FLG(FLG_NAMELESS);
-                bol_mark = TRUE;
-                break;
-
-            case FEEL_BROKEN:
             case FEEL_CURSED:
-                ADD_FLG(FLG_NAMELESS);
-                ADD_FLG(FLG_WORTHLESS);
-                bol_mark = TRUE;
+				ADD_FLG(FLG_CURSED);
+				break;
+
+            case FEEL_UNCURSED:
+                /* XXX No appropriate flag */
+                /* ADD_FLG(); */
                 break;
 
-            /*case FEEL_TERRIBLE:
-            case FEEL_WORTHLESS:
-                ADD_FLG(FLG_WORTHLESS);
-                break;*/
+            case FEEL_AVERAGE:
+                ADD_FLG(FLG_NAMELESS);
+                break;
+
+            case FEEL_GOOD:
+				ADD_FLG(FLG_GOOD);
+                ADD_FLG(FLG_NAMELESS);
+                break;
+
+			case FEEL_BAD:
+				ADD_FLG(FLG_CURSED);
+				ADD_FLG(FLG_NAMELESS);
+				break;
 
             case FEEL_EXCELLENT:
                 ADD_FLG(FLG_EGO);
                 break;
 
-            case FEEL_UNCURSED:
-                /* XXX No appropriate flag */
-                /* ADD_FLG(); */
+			case FEEL_AWFUL:
+				ADD_FLG(FLG_CURSED);
+				ADD_FLG(FLG_EGO);
+				break;
+
+			case FEEL_SPECIAL:
+				ADD_FLG(FLG_ARTIFACT);
+				break;
+
+			case FEEL_TERRIBLE:
+				ADD_FLG(FLG_CURSED);
+				ADD_FLG(FLG_ARTIFACT);
+				break;
+
+            case FEEL_BROKEN:
+                ADD_FLG(FLG_NAMELESS);
+                ADD_FLG(FLG_WORTHLESS);
                 break;
 
             default:
@@ -513,8 +529,6 @@ static void autopick_entry_from_object(autopick_type *entry, object_type *o_ptr)
             /* Wearable nameless object */
             if (object_is_equipment(o_ptr))
                 ADD_FLG(FLG_NAMELESS);
-
-            bol_mark = TRUE;
         }
 
     }
@@ -623,12 +637,7 @@ static void autopick_entry_from_object(autopick_type *entry, object_type *o_ptr)
         char o_name[MAX_NLEN];
 
         object_desc(o_name, o_ptr, (OD_NO_FLAVOR | OD_OMIT_PREFIX | OD_NO_PLURAL | OD_NAME_ONLY));
-
-        /*
-         * If necessary, add a '^' which indicates the
-         * beginning of line.
-         */
-        sprintf(name_str, "%s%s", bol_mark ? "^" : "", o_name);
+        sprintf(name_str, "^%s", o_name);
     }
 
     /* Register the name in lowercase */
@@ -855,6 +864,7 @@ cptr autopick_line_from_entry(autopick_type *entry)
     if (IS_FLG(FLG_HUMAN)) ADD_KEY(KEY_HUMAN);
     if (IS_FLG(FLG_WORTHLESS)) ADD_KEY(KEY_WORTHLESS);
     if (IS_FLG(FLG_GOOD)) ADD_KEY(KEY_GOOD);
+	if (IS_FLG(FLG_CURSED)) ADD_KEY(KEY_CURSED);
     if (IS_FLG(FLG_NAMELESS)) ADD_KEY(KEY_NAMELESS);
     if (IS_FLG(FLG_AVERAGE)) ADD_KEY(KEY_AVERAGE);
     if (IS_FLG(FLG_RARE)) ADD_KEY(KEY_RARE);
@@ -1084,6 +1094,32 @@ static bool is_autopick_aux(object_type *o_ptr, autopick_type *entry, cptr o_nam
             return FALSE;
     }
 
+    /*** Cursed ***/
+    if (IS_FLG(FLG_CURSED))
+    {
+        if (!object_is_equipment(o_ptr)) return FALSE;
+		if (object_is_known(o_ptr))
+		{ 
+			if (!object_is_cursed(o_ptr)) return FALSE;
+		}
+		else if (o_ptr->ident & IDENT_SENSE) 
+		{
+			switch (o_ptr->feeling)
+			{
+			case FEEL_BROKEN:
+			case FEEL_BAD:
+			case FEEL_AWFUL:
+			case FEEL_TERRIBLE:
+			case FEEL_CURSED:
+				break;
+			default:
+				return FALSE;
+			}
+		}
+		else
+			return FALSE;
+	}
+
     /*** Good ***/
     if (IS_FLG(FLG_GOOD))
     {
@@ -1144,6 +1180,7 @@ static bool is_autopick_aux(object_type *o_ptr, autopick_type *entry, cptr o_nam
             {
             case FEEL_AVERAGE:
             case FEEL_GOOD:
+			case FEEL_BAD:
                 /* It's nameless */
                 break;
 
@@ -1474,9 +1511,20 @@ static bool is_opt_confirm_destroy(object_type *o_ptr)
 {
     if (!destroy_items) return FALSE;
 
-    /* Known to be worthless? */
-    if (leave_worth)
-        if (object_value(o_ptr) > 0) return FALSE;
+    if (leave_worth) /* leave worthy items ... worth could also stand for worthless, no? Sigh ... */
+	{
+		if ( !object_is_known(o_ptr)
+		  && !object_is_rare(o_ptr)
+		  && (o_ptr->ident & IDENT_SENSE)
+		  && o_ptr->feeling == FEEL_BAD )
+		{
+			/* Bad items should generally be destroyed (even if they have
+			   non-zero values). However, a subsequent option may keep them
+			   around (e.g. leave_special or leave_equip) */
+		}
+		else if (object_value(o_ptr) > 0) 
+			return FALSE;
+	}
 
     if (leave_equip)
         if (object_is_weapon_armour_ammo(o_ptr)) return FALSE;
@@ -1732,19 +1780,19 @@ static byte _get_object_feeling(object_type *o_ptr)
 {
     if (object_is_artifact(o_ptr))
     {
-        if (object_is_cursed(o_ptr) || object_is_broken(o_ptr)) return FEEL_CURSED;
+        if (object_is_cursed(o_ptr) || object_is_broken(o_ptr)) return FEEL_TERRIBLE;
         return FEEL_SPECIAL;
     }
 
     if (object_is_ego(o_ptr))
     {
-        if (object_is_cursed(o_ptr) || object_is_broken(o_ptr)) return FEEL_CURSED;
+        if (object_is_cursed(o_ptr) || object_is_broken(o_ptr)) return FEEL_AWFUL;
         return FEEL_EXCELLENT;
     }
 
-    if (object_is_cursed(o_ptr)) return FEEL_CURSED;
+    if (object_is_cursed(o_ptr)) return FEEL_BAD;
     if (object_is_broken(o_ptr)) return FEEL_BROKEN;
-    if ((o_ptr->tval == TV_RING) || (o_ptr->tval == TV_AMULET)) return FEEL_AVERAGE;
+    if (o_ptr->tval == TV_RING || o_ptr->tval == TV_AMULET) return FEEL_AVERAGE;
 
     if (o_ptr->to_a > 0) return FEEL_GOOD;
     if (o_ptr->to_h + o_ptr->to_d > 0) return FEEL_GOOD;
@@ -2255,6 +2303,12 @@ static void describe_autopick(char *buff, autopick_type *entry)
     {
         body_str = "equipment";
         which_str[which_n++] = "have good quality";
+    }
+
+    if (IS_FLG(FLG_CURSED))
+    {
+        body_str = "equipment";
+        which_str[which_n++] = "is cursed";
     }
 
     /*** Nameless ***/
@@ -3623,6 +3677,7 @@ static void search_for_string(text_body_type *tb, cptr search_str, bool forward)
 #define EC_KK_GLOVES          80
 #define EC_KK_BOOTS           81
 #define EC_KK_SKELETONS       82
+#define EC_OK_CURSED          83
 
 
 /* Manu names */
@@ -3759,6 +3814,7 @@ command_menu_type menu_data[] =
     {KEY_ARTIFACT, 1, -1, EC_OK_ARTIFACT},
     {KEY_EGO, 1, -1, EC_OK_EGO},
     {KEY_GOOD, 1, -1, EC_OK_GOOD},
+	{KEY_CURSED, 1, -1, EC_OK_CURSED},
     {KEY_NAMELESS, 1, -1, EC_OK_NAMELESS},
     {KEY_AVERAGE, 1, -1, EC_OK_AVERAGE},
     {KEY_WORTHLESS, 1, -1, EC_OK_WORTHLESS},
@@ -5432,6 +5488,7 @@ static bool do_editor_command(text_body_type *tb, int com_id)
     case EC_OK_ARTIFACT: toggle_keyword(tb, FLG_ARTIFACT); break;
     case EC_OK_EGO: toggle_keyword(tb, FLG_EGO); break;
     case EC_OK_GOOD: toggle_keyword(tb, FLG_GOOD); break;
+	case EC_OK_CURSED: toggle_keyword(tb, FLG_CURSED); break;
     case EC_OK_NAMELESS: toggle_keyword(tb, FLG_NAMELESS); break;
     case EC_OK_AVERAGE: toggle_keyword(tb, FLG_AVERAGE); break;
     case EC_OK_RARE: toggle_keyword(tb, FLG_RARE); break;
