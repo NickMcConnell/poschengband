@@ -2675,7 +2675,7 @@ void do_cmd_debug(void)
 
     /* Good Objects */
     case 'g':
-#if 0
+#if 1
 	{
 		object_type forge;
 		int num = 10;
@@ -2683,7 +2683,7 @@ void do_cmd_debug(void)
 		while (num--)
 		{
 			object_wipe(&forge);
-			if (!make_object(&forge, 0)) continue;
+			if (!make_object(&forge, AM_CURSED)) continue;
 			drop_near(&forge, -1, py, px);
 		}
 	}

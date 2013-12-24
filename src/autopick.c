@@ -416,17 +416,6 @@ static void autopick_entry_from_object(autopick_type *entry, object_type *o_ptr)
     {
         ADD_FLG(FLG_UNAWARE);
     }
-    /* Hack: Artifact Rings are visually identifiable, but can't currently
-             be noticed by the autopicker. Pretend they are unaware items
-             as a workaround. */
-    else if ( !(o_ptr->ident & IDENT_SENSE)
-           && !(o_ptr->ident & IDENT_KNOWN)
-           && (o_ptr->tval == TV_RING || o_ptr->tval == TV_AMULET)
-           && o_ptr->art_name )
-    {
-        ADD_FLG(FLG_UNAWARE);
-    }
-
     /* Not really identified */
     else if (!object_is_known(o_ptr))
     {
@@ -975,16 +964,6 @@ static bool _collecting(object_type *o1, object_type *o2)
  */
 static bool _is_aware(object_type *o_ptr)
 {
-    /* Hack: Artifact Rings are visually identifiable, but can't currently
-             be noticed by the autopicker. Pretend they are unaware items
-             as a workaround. */
-    if ( !(o_ptr->ident & IDENT_SENSE)
-      && !(o_ptr->ident & IDENT_KNOWN)
-      && (o_ptr->tval == TV_RING || o_ptr->tval == TV_AMULET)
-      && o_ptr->art_name )
-    {
-        return FALSE;
-    }
     return object_is_aware(o_ptr);
 }
 static bool is_autopick_aux(object_type *o_ptr, autopick_type *entry, cptr o_name)
@@ -1078,20 +1057,45 @@ static bool is_autopick_aux(object_type *o_ptr, autopick_type *entry, cptr o_nam
     /*** Artifact object ***/
     if (IS_FLG(FLG_ARTIFACT))
     {
-        if (!object_is_known(o_ptr) || !object_is_artifact(o_ptr))
-            return FALSE;
+		if (object_is_known(o_ptr))
+		{ 
+			if (!object_is_artifact(o_ptr)) return FALSE;
+		}
+		else if (o_ptr->ident & IDENT_SENSE) 
+		{
+			switch (o_ptr->feeling)
+			{
+			case FEEL_SPECIAL:
+			case FEEL_TERRIBLE:
+				break;
+			default:
+				return FALSE;
+			}
+		}
+		else
+			return FALSE;
     }
 
     /*** Ego object ***/
     if (IS_FLG(FLG_EGO))
     {
-        /* Need to be an ego item */
-        if (!object_is_ego(o_ptr)) return FALSE;
-
-        /* Need to be known to be an ego */
-        if (!object_is_known(o_ptr) &&
-            !((o_ptr->ident & IDENT_SENSE) && o_ptr->feeling == FEEL_EXCELLENT))
-            return FALSE;
+		if (object_is_known(o_ptr))
+		{ 
+			if (!object_is_ego(o_ptr)) return FALSE;
+		}
+		else if (o_ptr->ident & IDENT_SENSE) 
+		{
+			switch (o_ptr->feeling)
+			{
+			case FEEL_AWFUL:
+			case FEEL_EXCELLENT:
+				break;
+			default:
+				return FALSE;
+			}
+		}
+		else
+			return FALSE;
     }
 
     /*** Cursed ***/
