@@ -2869,7 +2869,7 @@ enum summon_specific_e {
  *
  * For weak sensing, we have:
  *
- * FEEL_NONE -> uncursed
+ * FEEL_NONE -> enchanted
  *           -> cursed
  *
  * This means that FEEL_CURSED items might be egos or artifacts, and should
@@ -2882,7 +2882,7 @@ enum summon_specific_e {
 #define FEEL_TERRIBLE          2
 #define FEEL_AWFUL             3
 #define FEEL_CURSED            4
-#define FEEL_UNCURSED          5
+#define FEEL_ENCHANTED         5
 #define FEEL_AVERAGE           6
 #define FEEL_GOOD              7
 #define FEEL_EXCELLENT         8

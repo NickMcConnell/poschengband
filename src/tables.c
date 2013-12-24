@@ -3794,7 +3794,7 @@ cptr game_inscriptions[] =
     "terrible",      /* FEEL_TERRIBLE */
     "awful",         /* FEEL_AWFUL */
     "cursed",        /* FEEL_CURSED */
-    "uncursed",      /* FEEL_UNCURSED */
+    "enchanted",     /* FEEL_ENCHANTED */
     "average",       /* FEEL_AVERAGE */
     "good",          /* FEEL_GOOD */
     "excellent",     /* FEEL_EXCELLENT */

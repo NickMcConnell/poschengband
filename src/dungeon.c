@@ -74,7 +74,7 @@ static byte value_check_aux1(object_type *o_ptr)
  *
  * For weak sensing, we have:
  *
- * FEEL_NONE -> uncursed
+ * FEEL_NONE -> enchanted
  *           -> cursed
  */
 static byte value_check_aux2(object_type *o_ptr)
@@ -86,16 +86,16 @@ static byte value_check_aux2(object_type *o_ptr)
     if (object_is_broken(o_ptr)) return FEEL_BROKEN;
 
     /* Artifacts -- except cursed/broken ones */
-    if (object_is_artifact(o_ptr)) return FEEL_UNCURSED;
+    if (object_is_artifact(o_ptr)) return FEEL_ENCHANTED;
 
     /* Ego-Items -- except cursed/broken ones */
-    if (object_is_ego(o_ptr)) return FEEL_UNCURSED;
+    if (object_is_ego(o_ptr)) return FEEL_ENCHANTED;
 
     /* Good armor bonus */
-    if (o_ptr->to_a > 0) return FEEL_UNCURSED;
+    if (o_ptr->to_a > 0) return FEEL_ENCHANTED;
 
     /* Good weapon bonuses */
-    if (o_ptr->to_h + o_ptr->to_d > 0) return FEEL_UNCURSED;
+    if (o_ptr->to_h + o_ptr->to_d > 0) return FEEL_ENCHANTED;
 
     /* No feeling */
     return FEEL_NONE;

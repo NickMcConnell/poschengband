@@ -432,7 +432,7 @@ static void autopick_entry_from_object(autopick_type *entry, object_type *o_ptr)
 				ADD_FLG(FLG_CURSED);
 				break;
 
-            case FEEL_UNCURSED:
+            case FEEL_ENCHANTED:
                 /* XXX No appropriate flag */
                 /* ADD_FLG(); */
                 break;
