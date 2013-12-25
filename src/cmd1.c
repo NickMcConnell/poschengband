@@ -477,13 +477,6 @@ critical_t critical_norm(int weight, int plus, s16b meichuu, int mode, int hand)
         roll = roll * 2 / 3;
     }
 
-    if ( prace_is_(RACE_MON_GOLEM) 
-      && hand == HAND_NONE
-      && !equip_find_first(object_is_shield) )
-    {
-        roll = roll * 2 / 3;
-    }
-
     /* Extract "blow" power */
     i = (weight + (meichuu * 3 + plus * 5) + (p_ptr->lev * 3));
 
