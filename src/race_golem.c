@@ -579,8 +579,8 @@ race_t *mon_golem_get_race_t(int psubrace)
     me.subname = _mon_name(p_ptr->current_r_idx);
 
     me.stats[A_STR] =  1 + rank;
-    me.stats[A_INT] = -3 + (rank+1)/2;
-    me.stats[A_WIS] = -3 + (rank+1)/2;
+    me.stats[A_INT] = -2 - (rank+1)/2;
+    me.stats[A_WIS] = -2 - (rank+1)/2;
     me.stats[A_DEX] = -1 - (rank+1)/2;
     me.stats[A_CON] =  1 + rank;
     me.stats[A_CHR] =  0 + (rank+1)/2;
