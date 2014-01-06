@@ -945,24 +945,33 @@
   One of the mightier undead creatures, the Vampire is an awe-inspiring sight.
   Yet this dread creature has a serious weakness: the bright rays of sun are
   its bane, and it will need to flee the surface to the deep recesses of earth
-  until the sun finally sets. Darkness, on the other hand, only makes the
-  Vampire stronger. As undead, the Vampire has a firm hold on its life force,
-  and resists nether attacks. The Vampire also resists cold and poison based
-  attacks. It is, however, susceptible to its perpetual hunger for fresh blood,
-  which can only be satiated by sucking the blood from a nearby monster.
+  until the sun finally sets. Darkness, on the other hand, (eventually) only
+  makes the Vampire stronger. As undead, the Vampire has a firm hold on its
+  life force, and resists nether attacks. The Vampire also resists cold and
+  poison based attacks. It is, however, susceptible to its perpetual hunger for
+  fresh blood, which can only be satiated by sucking the blood from a nearby
+  monster.
+   
+  The Vampire is a monster race and cannot choose a normal class. Instead, the
+  vampire gains access to various dark powers as they evolve. Of course, they
+  gain a vampiric bite at a very early stage, as they must use this power to
+  feed on the living. Killing humans with this power also is a means of
+  perpetuating the vampire species, and many are the servants of true prince of
+  darkness! Vampires are also rumored to have limited shapeshifting abilities
+  and a powerful, hypnotic gaze.
 
 
 [[[[r|                        STR  INT  WIS  DEX  CON  CHR  Life  BHP  Exp
-  Vampire                +1   +1   -1   +0   +1   +1   97%  +20  250%
-  Master Vampire         +2   +2   -2   +1   +1   +2   99%  +20  250%
-  Vampire Lord           +3   +2   -3   +2   +1   +4  102%  +20  250%
-  Elder Vampire          +4   +3   -4   +3   +1   +5  104%  +20  250%
+  Vampire                +1   +1   -1   +0   -1   +1   90%  +20  250%
+  Master Vampire         +2   +2   -2   +1   -1   +2   93%  +20  250%
+  Vampire Lord           +3   +2   -3   +2   -1   +4   96%  +20  250%
+  Elder Vampire          +4   +3   -4   +3   -1   +5   99%  +20  250%
 
 [[[[r|                        Dsrm   Dvce   Save   Stlh  Srch  Prcp  Melee  Bows
-  Vampire               25+7   37+12  36+10   9+0  32+0  25+0  60+21  35+11
-  Master Vampire        25+7   37+12  36+10   9+0  32+0  25+0  60+21  35+11
-  Vampire Lord          25+7   37+12  36+10   9+0  32+0  25+0  60+21  35+11
-  Elder Vampire         25+7   37+12  36+10   9+0  32+0  25+0  60+21  35+11
+  Vampire               25+7   37+12  36+10   6+1  32+0  25+0  60+21  35+11
+  Master Vampire        25+7   37+12  36+10   6+1  32+0  25+0  60+21  35+11
+  Vampire Lord          25+7   37+12  36+10   6+1  32+0  25+0  60+21  35+11
+  Elder Vampire         25+7   37+12  36+10   6+1  32+0  25+0  60+21  35+11
 
 
 
