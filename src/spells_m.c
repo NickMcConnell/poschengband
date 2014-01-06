@@ -816,6 +816,33 @@ void polymorph_self_spell(int cmd, variant *res)
 }
 bool cast_polymorph_self(void) { return cast_spell(polymorph_self_spell); }
 
+void polymorph_wolf_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Polymorph Wolf");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "You assume the form of a wolf, hungry for prey.");
+        break;
+    case SPELL_INFO:
+        var_set_string(res, info_duration(spell_power(25), spell_power(25)));
+        break;
+    case SPELL_CAST:
+    {
+        int base = spell_power(25);
+        var_set_bool(res, FALSE);
+        set_mimic(base + randint1(base), MIMIC_WOLF, FALSE);
+        var_set_bool(res, TRUE);
+        break;
+    }
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
+
 void power_throw_spell(int cmd, variant *res)
 {
     switch (cmd)

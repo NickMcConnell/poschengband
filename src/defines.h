@@ -765,6 +765,7 @@ enum _mimic_types {
     MIMIC_MANGY_LEPER,
     MIMIC_BAT,
     MIMIC_MIST,
+    MIMIC_WOLF
 };
 
 #define prace_is_(A) (p_ptr->mimic_form == (A) || (p_ptr->mimic_form == MIMIC_NONE && p_ptr->prace == (A)))

@@ -1352,6 +1352,9 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
         case MIMIC_MIST:
             r_ptr = &r_info[MON_VAMPIRIC_MIST];
             break;
+        case MIMIC_WOLF:
+            r_ptr = &r_info[196];
+            break;
         default:
             r_ptr = &r_info[p_ptr->current_r_idx];
         }

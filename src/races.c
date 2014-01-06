@@ -241,6 +241,9 @@ race_t *get_race_t_aux(int prace, int psubrace)
     case MIMIC_MIST:
         result = mist_get_race_t();
         break;
+    case MIMIC_WOLF:
+        result = wolf_get_race_t();
+        break;
     case MIMIC_DEMON:
         result = demon_get_race_t();
         break;

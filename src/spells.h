@@ -219,6 +219,7 @@ extern void polymorph_demon_spell(int cmd, variant *res);
 extern void polymorph_demonlord_spell(int cmd, variant *res);
 extern void polymorph_mist_spell(int cmd, variant *res);
 extern void polymorph_self_spell(int cmd, variant *res);
+extern void polymorph_wolf_spell(int cmd, variant *res);
 extern void power_throw_spell(int cmd, variant *res);
 extern void probing_spell(int cmd, variant *res);
 extern void protection_from_evil_spell(int cmd, variant *res);

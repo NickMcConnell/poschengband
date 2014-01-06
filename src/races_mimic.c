@@ -684,6 +684,72 @@ race_t *small_kobold_get_race_t(void)
     return &me;
 }
 
+/****************************************************************
+ * Wolf
+ ****************************************************************/
+static power_info _wolf_powers[] = 
+{
+    { A_DEX, {  1,  1, 30, hound_sniff_spell } },
+    { A_DEX, { 10,  0,  0, hound_stalk_spell}},
+    { A_DEX, { 15,  0,  0, hound_run_spell}},
+    { A_DEX, { 20, 10, 30, hound_leap_spell}},
+    {    -1, { -1, -1, -1, NULL}}
+};
+
+static int _wolf_get_powers(spell_info* spells, int max) 
+{
+    return get_powers_aux(spells, max, _wolf_powers);
+}
+static void _wolf_calc_bonuses(void)
+{
+    p_ptr->see_nocto = TRUE;
+    p_ptr->pspeed += 2 + p_ptr->lev / 10;
+}
+static void _wolf_get_flags(u32b flgs[TR_FLAG_SIZE])
+{
+    add_flag(flgs, TR_SPEED);
+}
+race_t *wolf_get_race_t(void)
+{
+    static race_t me = {0};
+    static bool init = FALSE;
+
+    if (!init)
+    {
+        me.name = "Dire Wolf";
+        me.desc = "";
+
+        me.skills.dis =  0;
+        me.skills.dev =  0;
+        me.skills.sav =  2;
+        me.skills.stl =  8;
+        me.skills.srh =  5;
+        me.skills.fos =  5;
+        me.skills.thn = 15;
+        me.skills.thb =  0;
+
+        me.life = 100;
+        me.base_hp = 22;
+        me.exp = 120;
+        me.infra = 5;
+
+        me.get_powers = _wolf_get_powers;
+        me.calc_innate_attacks = hound_calc_innate_attacks;
+        me.calc_bonuses = _wolf_calc_bonuses;
+        me.get_flags = _wolf_get_flags;
+
+        me.equip_template = &b_info[17];
+        init = TRUE;
+    }
+    me.stats[A_STR] =  1 + p_ptr->lev/12;
+    me.stats[A_INT] = -3;
+    me.stats[A_WIS] = -5;
+    me.stats[A_DEX] =  2 + p_ptr->lev/15;
+    me.stats[A_CON] =  1 + p_ptr->lev/15;
+    me.stats[A_CHR] =  0 + p_ptr->lev/25;
+
+    return &me;
+}
 
 /****************************************************************
  * Vampire-Lord (cf Polymorph Vampire)

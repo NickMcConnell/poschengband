@@ -61,28 +61,6 @@ static void _gain_level(int new_level)
 }
 
 /******************************************************************************
- * Vampire Bite
- ******************************************************************************/
-static void _calc_innate_attacks(void) 
-{
-    innate_attack_t    a = {0};
-
-    a.dd = 1 + p_ptr->lev / 12;
-    a.ds = 5 + p_ptr->lev / 10;
-    a.weight = 100;
-    a.to_h = p_ptr->lev/2;
-    a.to_d = p_ptr->lev/2;
-
-    a.effect[0] = GF_OLD_DRAIN;
-    a.blows = 100;
-
-    a.msg = "You bite %s.";
-    a.name = "Bite";
-
-    p_ptr->innate_attacks[p_ptr->innate_attack_ct++] = a;
-}
-
-/******************************************************************************
  * Powers
  ******************************************************************************/
 static int _bite_amt(void)
@@ -235,12 +213,36 @@ void _grasp_spell(int cmd, variant *res)
     }
 }
 
+void _repose_of_the_dead_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Repose of the Dead");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Sleep the sleep of the dead for a few rounds, during which time nothing can awaken you, except perhaps death.  When (if?) you wake up, you will be thoroughly refreshed!");
+        break;
+    case SPELL_CAST:
+        var_set_bool(res, FALSE);
+        if (!get_check("You will enter a deep slumber. Are you sure?")) return;
+        repose_of_the_dead = TRUE;
+        set_paralyzed(4 + randint1(4), FALSE);
+        var_set_bool(res, TRUE);
+        break;
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
+
 static spell_info _spells[] = 
 {
     {  2,  1, 60, _bite_spell },
     {  5,  3, 30, detect_life_spell },
     {  7,  4, 50, polymorph_bat_spell },
     { 10,  5, 30, create_darkness_spell },
+    { 12,  7, 50, polymorph_wolf_spell },
     { 15, 12, 40, _gaze_spell },
     { 20, 20, 50, amnesia_spell },
     { 25,  7, 40, nether_bolt_spell },       /* Master Vampire */
@@ -248,6 +250,7 @@ static spell_info _spells[] =
     { 25, 20, 60, polymorph_mist_spell },
     { 35, 25, 50, nether_ball_spell },       /* Vampire Lord */
     { 35, 30, 60, _grasp_spell },
+    { 40, 50, 70, _repose_of_the_dead_spell },
     { 45, 50, 80, darkness_storm_II_spell }, /* Elder Vampire */
     { -1, -1, -1, NULL}
 };
@@ -366,7 +369,6 @@ race_t *mon_vampire_get_race_t(void)
         me.get_flags = _get_flags;
         me.get_immunities = _get_immunities;
         me.get_vulnerabilities = _get_vulnerabilities;
-        /* I'm debating this: me.calc_innate_attacks = _calc_innate_attacks; */
 
         me.flags = RACE_IS_NONLIVING | RACE_IS_UNDEAD | RACE_IS_MONSTER;
         me.pseudo_class_idx = CLASS_ROGUE;
@@ -390,70 +392,3 @@ race_t *mon_vampire_get_race_t(void)
     return &me;
 }
 
-/*
-N:432:Vampire
-G:V:W
-I:110:25d12:20:45:10:170
-W:27:1:70:175:2000:520
-B:HIT:HURT:1d6
-B:HIT:HURT:1d6
-B:BITE:EXP_VAMP:1d8
-B:TOUCH:DR_MANA:1d10
-F:FORCE_SLEEP | 
-F:COLD_BLOOD | DROP_60 | DROP_1D2 | 
-F:OPEN_DOOR | BASH_DOOR | REGENERATE | CAN_FLY | RES_NETH |
-F:EVIL | UNDEAD | RES_COLD | IM_POIS | RES_DARK | HURT_LITE | NO_CONF | NO_SLEEP
-S:1_IN_9 | 
-S:TELE_TO | HOLD | SCARE | CAUSE_2 | MIND_BLAST | FORGET | DARKNESS
-
-N:520:Master vampire
-G:V:s
-I:110:34d10:20:60:10:170
-W:34:3:80:750:5000:623
-B:HIT:HURT:1d10
-B:BITE:EXP_VAMP:1d11
-B:BITE:EXP_VAMP:1d11
-B:TOUCH:DR_MANA:2d8
-F:FORCE_SLEEP | FORCE_MAXHP | 
-F:DROP_4D2 | 
-F:COLD_BLOOD | OPEN_DOOR | BASH_DOOR | REGENERATE | CAN_FLY | RES_NETH |
-F:EVIL | UNDEAD | RES_COLD | IM_POIS | RES_DARK | HURT_LITE | NO_CONF | NO_SLEEP
-S:1_IN_6 | 
-S:TELE_TO | HOLD | CONF | SCARE | CAUSE_3 | MIND_BLAST | FORGET | 
-S:DARKNESS | BO_NETH
-
-N:623:Vampire lord
-G:V:b
-I:120:16d100:20:70:10:170
-W:39:3:999:1800:20000:1058
-B:HIT:HURT:1d6
-B:HIT:HURT:1d6
-B:BITE:EXP_VAMP:4d6
-B:TOUCH:DR_MANA:4d6
-F:FORCE_SLEEP | FORCE_MAXHP | CAN_FLY |
-F:DROP_60 | DROP_4D2 |
-F:COLD_BLOOD | OPEN_DOOR | BASH_DOOR | REGENERATE | RES_TELE |
-F:EVIL | UNDEAD | RES_COLD | IM_POIS | RES_NETH | RES_DARK | HURT_LITE |
-F:NO_CONF | NO_SLEEP
-S:1_IN_7 | 
-S:BLIND | HOLD | SCARE | CAUSE_3 | CAUSE_4 | DRAIN_MANA | 
-S:BRAIN_SMASH | DARKNESS | BO_NETH
-
-N:1058:Elder vampire
-G:V:B
-I:120:34d100:20:90:10:170
-W:54:3:999:7500:0:0
-B:HIT:HURT:4d6
-B:HIT:HURT:4d6
-B:BITE:EXP_VAMP:6d8
-B:BITE:DR_MANA:6d8
-F:FORCE_SLEEP | FORCE_MAXHP | CAN_FLY |
-F:DROP_60 | DROP_4D2 |
-F:COLD_BLOOD | OPEN_DOOR | BASH_DOOR | REGENERATE | RES_TELE | 
-F:EVIL | UNDEAD | IM_COLD | IM_POIS | RES_NETH | RES_DARK | HURT_LITE | 
-F:NO_CONF | NO_SLEEP |
-S:1_IN_3 | 
-S:BLIND | HOLD | SCARE | CAUSE_3 | CAUSE_4 | DRAIN_MANA | BA_NETH
-S:BRAIN_SMASH | DARKNESS | BO_NETH | S_UNDEAD
-
-*/
