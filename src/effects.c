@@ -694,11 +694,10 @@ bool set_mimic(int v, int p, bool do_dec)
         disturb(0, 0);
 
     /* Redraw title */
-    p_ptr->redraw |= (PR_BASIC | PR_STATUS);
+    p_ptr->redraw |= (PR_BASIC | PR_STATUS | PR_MAP);
 
     /* Recalculate bonuses */
     p_ptr->update |= (PU_BONUS | PU_HP);
-
     handle_stuff();
 
     /* Result */
@@ -5099,6 +5098,10 @@ bool set_food(int v)
 
     /* Use the value */
     p_ptr->food = v;
+
+    #if _DEBUG
+    c_put_str(TERM_WHITE, format("F:%5d", p_ptr->food), 25, 0);
+    #endif
 
     /* Nothing to notice */
     if (!notice) return (FALSE);

@@ -265,16 +265,8 @@ static void remove_bad_spells(int m_idx, u32b *f4p, u32b *f5p, u32b *f6p)
 
     if (smart & (SM_RES_DARK))
     {
-        if (prace_is_(RACE_VAMPIRE))
-        {
-            f4 &= ~(RF4_BR_DARK);
-            f5 &= ~(RF5_BA_DARK);
-        }
-        else
-        {
-            if (int_outof(r_ptr, 50)) f4 &= ~(RF4_BR_DARK);
-            if (int_outof(r_ptr, 50)) f5 &= ~(RF5_BA_DARK);
-        }
+        if (int_outof(r_ptr, 50)) f4 &= ~(RF4_BR_DARK);
+        if (int_outof(r_ptr, 50)) f5 &= ~(RF5_BA_DARK);
     }
 
     if (smart & (SM_RES_FEAR))
@@ -2009,7 +2001,7 @@ bool make_attack_spell(int m_idx, bool ticked_off)
                 default:
                     for (;;)
                     {
-                        which = randint0(RACE_MON_JELLY);
+                        which = randint0(MAX_RACES);
                         if ( which != RACE_HUMAN 
                           && which != RACE_DEMIGOD 
                           && which != RACE_ANDROID 

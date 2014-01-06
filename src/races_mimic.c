@@ -1,6 +1,91 @@
 #include "angband.h"
 
 /****************************************************************
+ * Bat
+ ****************************************************************/
+static void _bat_calc_innate_attacks(void) 
+{
+    innate_attack_t    a = {0};
+
+    a.dd = 1;
+    a.ds = 4;
+    a.weight = 50;
+    a.to_h = p_ptr->lev/2;
+
+    a.effect[0] = GF_OLD_DRAIN;
+    calc_innate_blows(&a, 400);
+
+    a.msg = "You bite %s.";
+    a.name = "Bite";
+
+    p_ptr->innate_attacks[p_ptr->innate_attack_ct++] = a;
+}
+static void _bat_calc_bonuses(void)
+{
+    p_ptr->levitation = TRUE;
+    p_ptr->see_inv = TRUE;
+    p_ptr->regenerate = TRUE;
+    res_add(RES_DARK);
+    res_add(RES_COLD);
+    res_add(RES_POIS);
+    p_ptr->see_nocto = TRUE;
+    p_ptr->pspeed += 5 + p_ptr->lev * 3 / 10;
+    p_ptr->hold_life = TRUE;
+}
+static void _bat_get_flags(u32b flgs[TR_FLAG_SIZE])
+{
+    add_flag(flgs, TR_LEVITATION);
+    add_flag(flgs, TR_SEE_INVIS);
+    add_flag(flgs, TR_REGEN);
+    add_flag(flgs, TR_SPEED);
+    add_flag(flgs, TR_RES_DARK);
+    add_flag(flgs, TR_RES_COLD);
+    add_flag(flgs, TR_RES_POIS);
+    add_flag(flgs, TR_HOLD_LIFE);
+}
+race_t *bat_get_race_t(void)
+{
+    static race_t me = {0};
+    static bool init = FALSE;
+
+    if (!init)
+    {
+        me.name = "Vampire Bat";
+        me.desc = "";
+
+        me.stats[A_STR] = -5;
+        me.stats[A_INT] =  0;
+        me.stats[A_WIS] =  0;
+        me.stats[A_DEX] =  4;
+        me.stats[A_CON] = -5;
+        me.stats[A_CHR] = -5;
+        
+        me.skills.dis =  0;
+        me.skills.dev =  0;
+        me.skills.sav =  0;
+        me.skills.stl = 12;
+        me.skills.srh = 15;
+        me.skills.fos = 15;
+        me.skills.thn = -20;
+        me.skills.thb = -20;
+
+        me.life = 75;
+        me.base_hp = 10;
+        me.exp = 75;
+        me.infra = 10;
+
+        me.calc_innate_attacks = _bat_calc_innate_attacks;
+        me.calc_bonuses = _bat_calc_bonuses;
+        me.get_flags = _bat_get_flags;
+
+        me.equip_template = &b_info[r_info[MON_VAMPIRE_BAT].body.body_idx];
+        init = TRUE;
+    }
+
+    return &me;
+}
+
+/****************************************************************
  * Clay-Golem
  ****************************************************************/
 static void _clay_golem_calc_bonuses(void)
@@ -408,6 +493,81 @@ race_t *mangy_leper_get_race_t(void)
 }
 
 /****************************************************************
+ * Mist
+ ****************************************************************/
+static void _mist_calc_bonuses(void)
+{
+    p_ptr->levitation = TRUE;
+    p_ptr->pass_wall = TRUE;
+    p_ptr->no_passwall_dam = TRUE;
+    p_ptr->see_inv = TRUE;
+    p_ptr->see_nocto = TRUE;
+    p_ptr->hold_life = TRUE;
+
+    res_add(RES_ACID);
+    res_add(RES_COLD);
+    res_add(RES_POIS);
+    res_add(RES_NETHER);
+
+    p_ptr->magic_resistance = 50;
+}
+static void _mist_get_flags(u32b flgs[TR_FLAG_SIZE])
+{
+    add_flag(flgs, TR_LEVITATION);
+    add_flag(flgs, TR_SEE_INVIS);
+    add_flag(flgs, TR_HOLD_LIFE);
+
+    add_flag(flgs, TR_RES_COLD);
+    add_flag(flgs, TR_RES_POIS);
+    add_flag(flgs, TR_RES_ACID);
+    add_flag(flgs, TR_RES_NETHER);
+
+    add_flag(flgs, TR_MAGIC_RESISTANCE);
+}
+race_t *mist_get_race_t(void)
+{
+    static race_t me = {0};
+    static bool init = FALSE;
+
+    if (!init)
+    {
+        me.name = "Vampiric Mist";
+        me.desc = "You are a cloud of evil, sentient mist. As such you are incorporeal and are "
+            "unable to attack enemies directly. Conversely, you are resistant to material damage "
+            "and may pass through walls. Probably, you should run away upon assuming this form.";
+
+        me.stats[A_STR] = -3;
+        me.stats[A_INT] = -3;
+        me.stats[A_WIS] = -3;
+        me.stats[A_DEX] = -3;
+        me.stats[A_CON] = -3;
+        me.stats[A_CHR] = -3;
+        
+        me.skills.dis =  0;
+        me.skills.dev =  0;
+        me.skills.sav = 30;
+        me.skills.stl = 15;
+        me.skills.srh = 15;
+        me.skills.fos = 15;
+        me.skills.thn = -100;
+        me.skills.thb = -100;
+
+        me.life = 80;
+        me.base_hp = 15;
+        me.exp = 75;
+        me.infra = 10;
+
+        me.calc_bonuses = _mist_calc_bonuses;
+        me.get_flags = _mist_get_flags;
+
+        me.equip_template = &b_info[r_info[MON_VAMPIRIC_MIST].body.body_idx];
+        init = TRUE;
+    }
+
+    return &me;
+}
+
+/****************************************************************
  * Mithril-Golem
  ****************************************************************/
 static void _mithril_golem_calc_bonuses(void)
@@ -578,7 +738,7 @@ race_t *vampire_lord_get_race_t(void)
 
     if (!init)
     {
-        me.name = "Vampire-Lord";
+        me.name = "Vampire";
         me.desc = "";
 
         me.stats[A_STR] =  4;

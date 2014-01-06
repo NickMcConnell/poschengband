@@ -763,3 +763,17 @@ S:AMULET:Tentacle
 S:AMULET:Tentacle
 S:AMULET:Tentacle
 S:LITE:Light
+
+#Vampires wielding a light just feels wrong ...
+N:72:Vampire
+S:WEAPON_SHIELD:Right Hand:0
+S:WEAPON_SHIELD:Left Hand:1
+S:BOW:Shooting
+S:RING:Right Ring:0
+S:RING:Left Ring:1
+S:AMULET:Neck
+S:BODY_ARMOR:Body
+S:CLOAK:Cloak
+S:HELMET:Head
+S:GLOVES:Hands
+S:BOOTS:Feet

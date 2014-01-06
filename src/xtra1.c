@@ -141,6 +141,7 @@ void extract_day_hour_min(int *day, int *hour, int *min)
     switch (p_ptr->start_race)
     {
     case RACE_VAMPIRE:
+    case RACE_MON_VAMPIRE:
     case RACE_SKELETON:
     case RACE_ZOMBIE:
     case RACE_SPECTRE:
@@ -4793,8 +4794,12 @@ void calc_bonuses(void)
     */
 
     /* Apply some maximums ... */
-    if (p_ptr->magic_resistance > 15 && !prace_is_(RACE_MON_GOLEM))
+    if ( p_ptr->magic_resistance > 15 
+      && !prace_is_(RACE_MON_GOLEM) 
+      && !prace_is_(MIMIC_MIST) )
+    {
         p_ptr->magic_resistance = 15;
+    }
 
     /* Hack: Vicious Strike should not put AC below 0, but I can't find out a better
        way to achieve this! */

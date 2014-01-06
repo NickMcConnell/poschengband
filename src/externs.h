@@ -2004,6 +2004,7 @@ extern race_t *mon_quylthulg_get_race_t(void);
 extern race_t *mon_spider_get_race_t(void);
 extern race_t *mon_sword_get_race_t(void);
 extern race_t *mon_troll_get_race_t(void);
+extern race_t *mon_vampire_get_race_t(void);
 extern race_t *mon_xorn_get_race_t(void);
 
 extern bool    possessor_can_gain_exp(void);
@@ -2018,13 +2019,16 @@ extern int     leprechaun_get_toggle(void);
 extern void    sword_absorb_object(object_type *o_ptr);
 extern int     sword_calc_torch(void);
 extern bool    sword_disenchant(void);
+extern bool    vampiric_drain_hack;
 
 /* Mimic Forms */
+extern race_t *bat_get_race_t(void);
 extern race_t *clay_golem_get_race_t(void);
 extern race_t *colossus_get_race_t(void);
 extern race_t *demon_get_race_t(void);
 extern race_t *demon_lord_get_race_t(void);
 extern race_t *iron_golem_get_race_t(void);
+extern race_t *mist_get_race_t(void);
 extern race_t *mithril_golem_get_race_t(void);
 extern race_t *vampire_lord_get_race_t(void);
 extern race_t *small_kobold_get_race_t(void);

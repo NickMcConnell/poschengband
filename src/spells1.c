@@ -3279,8 +3279,9 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
 
         case GF_DOMINATION:
         {
-            if (!is_hostile(m_ptr)) break;
+            int power = dam;
 
+            if (!is_hostile(m_ptr)) break;
             if (seen) obvious = TRUE;
 
             if (r_ptr->flagsr & RFR_RES_ALL)
@@ -3291,11 +3292,10 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
                 break;
             }
             /* Attempt a saving throw */
-            if ((r_ptr->flags1 & (RF1_UNIQUE | RF1_QUESTOR)) ||
-                (r_ptr->flags3 & RF3_NO_CONF) ||
-                (r_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+            if ( (r_ptr->flags1 & (RF1_UNIQUE | RF1_QUESTOR)) 
+              || (r_ptr->flags3 & RF3_NO_CONF) 
+              || randint1(r_ptr->level) > randint1(power) )
             {
-                /* Memorize a flag */
                 if (r_ptr->flags3 & RF3_NO_CONF)
                 {
                     if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
@@ -3354,10 +3354,9 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
             }
             else
             {
-                if ((dam > 29) && (randint1(100) < dam))
+                if (power > 29 && randint1(100) < power)
                 {
                     note = " is in your thrall!";
-
                     set_pet(m_ptr);
                 }
                 else
@@ -3365,13 +3364,21 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
                     switch (randint1(4))
                     {
                         case 1:
-                            do_stun = dam / 2;
+                            do_stun = power / 2;
                             break;
                         case 2:
-                            do_conf = dam / 2;
+                            do_conf = power / 2;
                             break;
                         default:
-                            do_fear = dam;
+                            if ( prace_is_(RACE_MON_VAMPIRE) 
+                              && !(r_ptr->flags1 & (RF1_UNIQUE | RF1_QUESTOR))
+                              && randint1(r_ptr->level) < randint1(power) )
+                            {
+                                note = " is frozen in terror!";
+                                do_sleep = 500;
+                            }
+                            else
+                                do_fear = power;
                     }
                 }
             }
@@ -5947,6 +5954,9 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
         /* Damaged monster */
         else
         {
+            if (note == note_dies) /* Hack around crap code design ... Above we assumed monster would die but alas, we were wrong! */
+                note = NULL;
+
             /* HACK - anger the monster before showing the sleep message */
             if (do_sleep) anger_monster(m_ptr);
 
