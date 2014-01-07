@@ -67,7 +67,7 @@ static void _gain_level(int new_level)
 static int _bite_amt(void)
 {
     int l = p_ptr->lev;
-    return l + l*l/25 + l*l*l*3/2500; /* 50 + 100 + 150 = 300 */
+    return 5 + l + l*l/25 + l*l*l*3/2500; /* 5 + 50 + 100 + 150 = 305 */
 }
 static void _bite_spell(int cmd, variant *res)
 {
@@ -241,14 +241,13 @@ static spell_info _spells[] =
 {
     {  2,  1, 30, _bite_spell },
     {  5,  3, 30, detect_life_spell },
-    {  7,  4, 50, polymorph_bat_spell },
-    { 10,  5, 30, create_darkness_spell },
-    { 12,  7, 50, polymorph_wolf_spell },
+    {  7,  4, 30, polymorph_bat_spell },
+    { 11,  7, 35, polymorph_wolf_spell },
     { 15, 12, 40, _gaze_spell },
-    { 20, 20, 50, amnesia_spell },
+    { 20, 15, 40, create_darkness_spell },
     { 25,  7, 40, nether_bolt_spell },       /* Master Vampire */
     { 25, 10, 50, mind_blast_spell },
-    { 25, 20, 60, polymorph_mist_spell },
+    { 25, 20, 50, polymorph_mist_spell },
     { 35, 25, 50, nether_ball_spell },       /* Vampire Lord */
     { 35, 30, 60, _grasp_spell },
     { 40, 50, 70, _repose_of_the_dead_spell },

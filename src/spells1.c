@@ -3291,19 +3291,10 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
                 if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
                 break;
             }
+
             /* Attempt a saving throw */
-            if ( (r_ptr->flags1 & (RF1_UNIQUE | RF1_QUESTOR)) 
-              || (r_ptr->flags3 & RF3_NO_CONF) 
-              || randint1(r_ptr->level) > randint1(power) )
+            if (randint1(r_ptr->level) > randint1(power))
             {
-                if (r_ptr->flags3 & RF3_NO_CONF)
-                {
-                    if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
-                }
-
-                /* Resist */
-                do_conf = 0;
-
                 /*
                  * Powerful demons & undead can turn a mindcrafter's
                  * attacks back on them
@@ -3346,15 +3337,15 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
                 }
                 else
                 {
-                    /* No obvious effect */
                     note = " is unaffected!";
-
                     obvious = FALSE;
                 }
             }
             else
             {
-                if (power > 29 && randint1(100) < power)
+                bool unique = (r_ptr->flags1 & (RF1_UNIQUE | RF1_QUESTOR)) ? TRUE : FALSE;
+
+                if (!unique && power > 29 && randint1(100) < power)
                 {
                     note = " is in your thrall!";
                     set_pet(m_ptr);
@@ -3363,22 +3354,36 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
                 {
                     switch (randint1(4))
                     {
-                        case 1:
-                            do_stun = power / 2;
+                    case 1:
+                        do_stun = power / 2;
+                        break;
+                    case 2:
+                        if (r_ptr->flags3 & RF3_NO_CONF)
+                        {
+                            if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
+                            note = " is unaffected.";
                             break;
-                        case 2:
+                        }
+                        else if (!unique)
+                        {
                             do_conf = power / 2;
                             break;
-                        default:
-                            if ( prace_is_(RACE_MON_VAMPIRE) 
-                              && !(r_ptr->flags1 & (RF1_UNIQUE | RF1_QUESTOR))
-                              && randint1(r_ptr->level) < randint1(power) )
+                        }
+                    default:
+                        if (prace_is_(RACE_MON_VAMPIRE))
+                        {
+                            if (!unique && randint1(r_ptr->level) < randint1(power))
                             {
                                 note = " is frozen in terror!";
                                 do_sleep = 500;
                             }
                             else
-                                do_fear = power;
+                            {
+                                project_m(who, r, y, x, power, GF_AMNESIA, flg, see_s_msg);
+                            }
+                            break;
+                        }
+                        do_fear = power;
                     }
                 }
             }

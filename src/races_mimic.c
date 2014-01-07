@@ -7,10 +7,10 @@ static void _bat_calc_innate_attacks(void)
 {
     innate_attack_t    a = {0};
 
-    a.dd = 1;
-    a.ds = 4;
+    a.dd = 1 + p_ptr->lev/12;
+    a.ds = 4 + p_ptr->lev/15;
     a.weight = 50;
-    a.to_h = p_ptr->lev/2;
+    a.to_h = p_ptr->lev;
 
     a.effect[0] = GF_OLD_DRAIN;
     calc_innate_blows(&a, 400);
@@ -53,12 +53,12 @@ race_t *bat_get_race_t(void)
         me.name = "Vampire Bat";
         me.desc = "";
 
-        me.stats[A_STR] = -5;
+        me.stats[A_STR] = -3;
         me.stats[A_INT] =  0;
         me.stats[A_WIS] =  0;
         me.stats[A_DEX] =  4;
-        me.stats[A_CON] = -5;
-        me.stats[A_CHR] = -5;
+        me.stats[A_CON] = -3;
+        me.stats[A_CHR] = -3;
         
         me.skills.dis =  0;
         me.skills.dev =  0;
@@ -66,8 +66,8 @@ race_t *bat_get_race_t(void)
         me.skills.stl = 12;
         me.skills.srh = 15;
         me.skills.fos = 15;
-        me.skills.thn = -20;
-        me.skills.thb = -20;
+        me.skills.thn = -5;
+        me.skills.thb =  0;
 
         me.life = 75;
         me.base_hp = 10;

@@ -17792,7 +17792,7 @@ F:EVIL | UNDEAD | IM_COLD | IM_POIS | RES_NETH | RES_DARK | HURT_LITE |
 F:NO_CONF | NO_SLEEP |
 S:1_IN_3 | 
 S:BLIND | HOLD | SCARE | CAUSE_3 | CAUSE_4 | DRAIN_MANA | BA_NETH
-S:BRAIN_SMASH | DARKNESS | BO_NETH | S_UNDEAD
+S:BRAIN_SMASH | DARKNESS | BO_NETH | S_UNDEAD | BA_DARK
 D:A terrible robed undead figure, this creature has existed in its 
 D:unlife for many centuries by stealing the life of others. It can 
 D:summon the very shades of its victims from beyond the grave to 
