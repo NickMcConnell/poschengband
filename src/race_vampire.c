@@ -29,6 +29,7 @@ static void _birth(void)
     object_type    forge;
 
     p_ptr->current_r_idx = MON_VAMPIRE;
+    equip_on_change_race();
     
     object_prep(&forge, lookup_kind(TV_SOFT_ARMOR, SV_LEATHER_SCALE_MAIL));
     add_outfit(&forge);
@@ -238,7 +239,7 @@ void _repose_of_the_dead_spell(int cmd, variant *res)
 
 static spell_info _spells[] = 
 {
-    {  2,  1, 60, _bite_spell },
+    {  2,  1, 30, _bite_spell },
     {  5,  3, 30, detect_life_spell },
     {  7,  4, 50, polymorph_bat_spell },
     { 10,  5, 30, create_darkness_spell },

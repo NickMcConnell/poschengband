@@ -976,8 +976,13 @@ void monster_death(int m_idx, bool drop_item)
         }
     }
 
-    if (vampiric_drain_hack && (r_ptr->flags2 & RF2_HUMAN) && !is_pet(m_ptr))
+    if ( vampiric_drain_hack 
+      && (r_ptr->flags2 & RF2_HUMAN) 
+      && !is_pet(m_ptr)
+      && randint1(p_ptr->lev) >= 15 )
+    {
         do_vampire_servant = TRUE;
+    }
 
     /* Drop a dead corpse? */
     if (p_ptr->prace == RACE_MON_POSSESSOR && p_ptr->current_r_idx == MON_POSSESSOR_SOUL)
@@ -1942,10 +1947,10 @@ void monster_death(int m_idx, bool drop_item)
         if (!one_in_(3))
         {
             mode = PM_FORCE_FRIENDLY;
-            msg_format("%s is transformed in undeath!", m_name);
+            msg_format("%^s is transformed in undeath!", m_name);
         }
         else
-            msg_format("%s rises to serve you!", m_name);
+            msg_format("%^s rises to serve you!", m_name);
 
         if (r_ptr->flags1 & RF1_UNIQUE)
             r_lvl += 10;
