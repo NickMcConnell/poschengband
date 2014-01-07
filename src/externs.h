@@ -2030,6 +2030,7 @@ extern int     sword_calc_torch(void);
 extern bool    sword_disenchant(void);
 
 extern bool    vampiric_drain_hack;
+extern void    vampire_feed(int amt);
 
 /* Mimic Forms */
 extern race_t *bat_get_race_t(void);

@@ -37,6 +37,12 @@ static void _birth(void)
     object_prep(&forge, lookup_kind(TV_SWORD, SV_DAGGER));
     forge.name2 = EGO_WEAPON_DEATH;
     add_outfit(&forge);
+
+    /* Encourage shapeshifting! */
+    object_prep(&forge, lookup_kind(TV_RING, 0));
+    forge.name2 = EGO_RING_COMBAT;
+    forge.to_d = 4;
+    add_outfit(&forge);
 }
 
 static void _gain_level(int new_level) 
@@ -91,7 +97,7 @@ static void _bite_spell(int cmd, variant *res)
         }
         else
         {
-            int x = 0, y = 0, amt, food, m_idx = 0;
+            int x = 0, y = 0, amt, m_idx = 0;
             int dir = 0;
 
             if (use_old_target && target_okay())
@@ -131,24 +137,7 @@ static void _bite_spell(int cmd, variant *res)
             vampiric_drain_hack = TRUE;
             if (project(0, 0, y, x, amt, GF_OLD_DRAIN, PROJECT_STOP | PROJECT_KILL | PROJECT_THRU, -1))
             {
-                if (p_ptr->food < PY_FOOD_FULL)
-                    hp_player(amt);
-                else
-                    msg_print("You were not hungry.");
-
-                /* Experimental: Scale the feeding asymptotically. Historically, vampiric feeding
-                   was too slow in the early game (low damage) hence tedious. But by the end game,
-                   a mere two bites would fill the vampire, rendering the talent rather useless. */
-                if (p_ptr->food < PY_FOOD_VAMP_MAX)
-                    food = p_ptr->food + (PY_FOOD_VAMP_MAX - p_ptr->food) / 4;
-                /* Exceeding PY_FOOD_VAMP_MAX is unlikely, but possible (eg. eating rations of food?!) */
-                else if (p_ptr->food < PY_FOOD_MAX)
-                    food = p_ptr->food + (PY_FOOD_MAX - p_ptr->food) / 4;
-                else
-                    food = p_ptr->food + amt;
-
-                assert(food >= p_ptr->food);
-                set_food(food);
+                vampire_feed(amt);
             }
             else
                 msg_print("Yechh. That tastes foul.");
@@ -347,8 +336,8 @@ race_t *mon_vampire_get_race_t(void)
 
     if (!init)
     {           /* dis, dev, sav, stl, srh, fos, thn, thb */
-    skills_t bs = { 25,  37,  36,   6,  32,  25,  60,  35};
-    skills_t xs = {  7,  12,  10,   1,   0,   0,  21,  11};
+    skills_t bs = { 25,  37,  36,   0,  32,  25,  60,  35};
+    skills_t xs = {  7,  12,  10,   0,   0,   0,  21,  11};
 
         me.name = "Vampire";
         me.desc = _desc;
@@ -379,16 +368,45 @@ race_t *mon_vampire_get_race_t(void)
     }
 
     me.subname = titles[rank];
-    me.stats[A_STR] =  1 + rank;
-    me.stats[A_INT] =  1 + (rank+1)/2;
+    me.stats[A_STR] =  2 + rank;
+    me.stats[A_INT] =  1;
     me.stats[A_WIS] = -1 - rank;
     me.stats[A_DEX] =  0 + rank;
-    me.stats[A_CON] = -1;
+    me.stats[A_CON] = -2;
     me.stats[A_CHR] =  1 + 3*rank/2;
     me.life = 90 + 3*rank;
+
+    me.skills.stl = 7 + 4*rank/3; /* 7, 8, 9, 11 */
 
     me.equip_template = mon_get_equip_template();
 
     return &me;
 }
 
+void vampire_feed(int amt)
+{
+    int food;
+    int div = 4;
+
+    if (prace_is_(MIMIC_BAT))
+        div = 16;
+
+    if (p_ptr->food < PY_FOOD_FULL)
+        hp_player(amt);
+    else
+        msg_print("You were not hungry.");
+
+    /* Experimental: Scale the feeding asymptotically. Historically, vampiric feeding
+        was too slow in the early game (low damage) hence tedious. But by the end game,
+        a mere two bites would fill the vampire, rendering the talent rather useless. */
+    if (p_ptr->food < PY_FOOD_VAMP_MAX)
+        food = p_ptr->food + (PY_FOOD_VAMP_MAX - p_ptr->food) / div;
+    /* Exceeding PY_FOOD_VAMP_MAX is unlikely, but possible (eg. eating rations of food?!) */
+    else if (p_ptr->food < PY_FOOD_MAX)
+        food = p_ptr->food + (PY_FOOD_MAX - p_ptr->food) / div;
+    else
+        food = p_ptr->food + amt;
+
+    assert(food >= p_ptr->food);
+    set_food(food);
+}

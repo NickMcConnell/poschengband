@@ -3281,13 +3281,15 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
         {
             int power = dam;
 
+            /* No "real" damage */
+            dam = 0;
+
             if (!is_hostile(m_ptr)) break;
             if (seen) obvious = TRUE;
 
             if (r_ptr->flagsr & RFR_RES_ALL)
             {
                 note = " is immune.";
-                dam = 0;
                 if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
                 break;
             }
@@ -3319,10 +3321,10 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
                         switch (randint1(4))
                         {
                             case 1:
-                                set_stun(p_ptr->stun + dam / 2, FALSE);
+                                set_stun(p_ptr->stun + power / 2, FALSE);
                                 break;
                             case 2:
-                                set_confused(p_ptr->confused + dam / 2, FALSE);
+                                set_confused(p_ptr->confused + power / 2, FALSE);
                                 break;
                             default:
                             {
@@ -3330,7 +3332,7 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
                                     note = " is unaffected.";
 
                                 else
-                                    fear_add_p(dam);
+                                    fear_add_p(power);
                             }
                         }
                     }
@@ -3387,9 +3389,6 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
                     }
                 }
             }
-
-            /* No "real" damage */
-            dam = 0;
             break;
         }
 

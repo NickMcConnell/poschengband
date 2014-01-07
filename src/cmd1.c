@@ -15,7 +15,7 @@
 
 static int _max_vampiric_drain(void)
 {
-    if (prace_is_(RACE_MON_VAMPIRE))
+    if (prace_is_(RACE_MON_VAMPIRE) || prace_is_(MIMIC_BAT))
         return 100;
     return 50;
 }
@@ -2352,8 +2352,15 @@ static void innate_attacks(s16b m_idx, bool *fear, bool *mdeath, int mode)
                         if (project(0, 0, m_ptr->fy, m_ptr->fx, base_dam, e, PROJECT_KILL|PROJECT_HIDE, -1))
                         {
                             int amt = MIN(base_dam, max_drain_amt - drain_amt);
-                            msg_format("You drain life from %s!", m_name);
-                            hp_player(amt);
+                            if (prace_is_(MIMIC_BAT))
+                            {
+                                vampire_feed(amt);
+                            }
+                            else
+                            {
+                                msg_format("You drain life from %s!", m_name);
+                                hp_player(amt);
+                            }
                             drain_amt += amt;
                         }
                         *mdeath = (m_ptr->r_idx == 0);

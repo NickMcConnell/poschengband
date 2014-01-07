@@ -78,6 +78,8 @@ race_t *bat_get_race_t(void)
         me.calc_bonuses = _bat_calc_bonuses;
         me.get_flags = _bat_get_flags;
 
+        me.flags = RACE_IS_NONLIVING;
+
         me.equip_template = &b_info[r_info[MON_VAMPIRE_BAT].body.body_idx];
         init = TRUE;
     }
