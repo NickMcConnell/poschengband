@@ -763,6 +763,7 @@ enum _mimic_types {
     MIMIC_COLOSSUS,
     MIMIC_SMALL_KOBOLD,
     MIMIC_MANGY_LEPER,
+    /* Vampires only, please :) */
     MIMIC_BAT,
     MIMIC_MIST,
     MIMIC_WOLF

@@ -203,6 +203,102 @@ void _grasp_spell(int cmd, variant *res)
     }
 }
 
+static void _set_mimic_form(int which)
+{
+    p_ptr->mimic_form = which;
+    equip_on_change_race();
+    p_ptr->redraw |= PR_BASIC | PR_STATUS | PR_MAP;
+    p_ptr->update |= PU_BONUS | PU_HP;
+    handle_stuff();
+}
+
+static void _polymorph_undo_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Return to Vampire");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "You stop assuming your current form and revert to your natural, vampiric self.");
+        break;
+    case SPELL_CAST:
+        _set_mimic_form(MIMIC_NONE);
+        msg_print("You revert to your natural form.");
+        var_set_bool(res, TRUE);
+        break;
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
+
+static void _polymorph_bat_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Polymorph Bat");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "You assume the form of a giant bat. This grants incredible speed, stealth and sensory awareness, but makes you extremely fragile. Also, bats have very restricted equipment options!");
+        break;
+    case SPELL_CAST:
+        _set_mimic_form(MIMIC_BAT);
+        msg_print("You transform into a vampire bat!");
+        var_set_bool(res, TRUE);
+        break;
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
+
+static void _polymorph_mist_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Polymorph Mist");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "You lose your corporeal form to assume a cloud of evil sentient mist!");
+        break;
+    case SPELL_CAST:
+        _set_mimic_form(MIMIC_MIST);
+        msg_print("You transform into vampiric mist!");
+        var_set_bool(res, TRUE);
+        break;
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
+
+static void _polymorph_wolf_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Polymorph Wolf");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "You assume the form of a wolf, hungry for prey.");
+        break;
+    case SPELL_INFO:
+        var_set_string(res, info_duration(spell_power(25), spell_power(25)));
+        break;
+    case SPELL_CAST:
+        _set_mimic_form(MIMIC_WOLF);
+        msg_print("You transform into a dire wolf!");
+        var_set_bool(res, TRUE);
+        break;
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
+
 void _repose_of_the_dead_spell(int cmd, variant *res)
 {
     switch (cmd)
@@ -230,13 +326,13 @@ static spell_info _spells[] =
 {
     {  2,  1, 30, _bite_spell },
     {  5,  3, 30, detect_life_spell },
-    {  7,  4, 30, polymorph_bat_spell },
-    { 11,  7, 35, polymorph_wolf_spell },
+    {  7,  4, 30, _polymorph_bat_spell },
+    { 11,  7, 35, _polymorph_wolf_spell },
     { 15, 12, 40, _gaze_spell },
     { 20, 15, 40, create_darkness_spell },
     { 25,  7, 40, nether_bolt_spell },       /* Master Vampire */
     { 25, 10, 50, mind_blast_spell },
-    { 25, 20, 50, polymorph_mist_spell },
+    { 25, 20, 50, _polymorph_mist_spell },
     { 35, 25, 50, nether_ball_spell },       /* Vampire Lord */
     { 35, 30, 60, _grasp_spell },
     { 40, 50, 70, _repose_of_the_dead_spell },
@@ -280,6 +376,7 @@ static void _calc_bonuses(void)
 
     if (p_ptr->lev >= 35)
     {
+        res_add(RES_DARK);
         p_ptr->levitation = TRUE;
         p_ptr->pspeed += 1;
         p_ptr->regenerate = TRUE;
@@ -287,8 +384,8 @@ static void _calc_bonuses(void)
 
     if (p_ptr->lev >= 45)
     {
-        p_ptr->pspeed += 2;
         res_add_immune(RES_DARK);
+        p_ptr->pspeed += 2;
     }
 }
 
@@ -410,3 +507,255 @@ void vampire_feed(int amt)
     assert(food >= p_ptr->food);
     set_food(food);
 }
+
+/****************************************************************
+ * Vampire Shapeshifting (Bat, Mist, Wolf, ...)
+ *
+ * The vampire can maintain their form for as long as they like
+ * since equipment juggling is rather tedious. However, they can
+ * only feed as a bat or as a vampire, so they will quickly grow
+ * hungry for fresh blood!
+ ****************************************************************/
+static spell_info _mimic_spells[] = 
+{
+    { 1,  0,  0, _polymorph_undo_spell }, 
+    {-1, -1, -1, NULL }
+};
+
+static int _mimic_get_spells(spell_info* spells, int max) 
+{
+    return get_spells_aux(spells, max, _mimic_spells);
+}
+
+/****************************************************************
+ * Bat
+ ****************************************************************/
+static void _bat_calc_innate_attacks(void) 
+{
+    innate_attack_t    a = {0};
+
+    a.dd = 1 + p_ptr->lev/12;
+    a.ds = 4 + p_ptr->lev/15;
+    a.weight = 50;
+    a.to_h = p_ptr->lev;
+
+    a.effect[0] = GF_OLD_DRAIN;
+    calc_innate_blows(&a, 400);
+
+    a.msg = "You bite %s.";
+    a.name = "Bite";
+
+    p_ptr->innate_attacks[p_ptr->innate_attack_ct++] = a;
+}
+static void _bat_calc_bonuses(void)
+{
+    p_ptr->levitation = TRUE;
+    p_ptr->see_inv = TRUE;
+    p_ptr->regenerate = TRUE;
+    res_add(RES_DARK);
+    res_add(RES_COLD);
+    res_add(RES_POIS);
+    p_ptr->see_nocto = TRUE;
+    p_ptr->pspeed += 5 + p_ptr->lev * 3 / 10;
+    p_ptr->hold_life = TRUE;
+}
+static void _bat_get_flags(u32b flgs[TR_FLAG_SIZE])
+{
+    add_flag(flgs, TR_LEVITATION);
+    add_flag(flgs, TR_SEE_INVIS);
+    add_flag(flgs, TR_REGEN);
+    add_flag(flgs, TR_SPEED);
+    add_flag(flgs, TR_RES_DARK);
+    add_flag(flgs, TR_RES_COLD);
+    add_flag(flgs, TR_RES_POIS);
+    add_flag(flgs, TR_HOLD_LIFE);
+}
+race_t *bat_get_race_t(void)
+{
+    static race_t me = {0};
+    static bool init = FALSE;
+
+    if (!init)
+    {           /* dis, dev, sav, stl, srh, fos, thn, thb */
+    skills_t bs = { 30,  45,  38,  10,  24,  16,  48,  30 };
+    skills_t xs = { 12,  18,  11,   1,   0,   0,  13,  10 };
+
+        me.skills = bs;
+        me.extra_skills = xs;
+
+        me.name = "Vampire Bat";
+        me.desc = "";
+
+        me.stats[A_STR] = -3;
+        me.stats[A_INT] =  0;
+        me.stats[A_WIS] =  0;
+        me.stats[A_DEX] =  4;
+        me.stats[A_CON] = -3;
+        me.stats[A_CHR] = -3;
+        
+        me.life = 75;
+        me.base_hp = 10;
+        me.exp = 75;
+        me.infra = 10;
+
+        me.get_spells = _mimic_get_spells;
+        me.calc_innate_attacks = _bat_calc_innate_attacks;
+        me.calc_bonuses = _bat_calc_bonuses;
+        me.get_flags = _bat_get_flags;
+        me.caster_info = _caster_info;
+
+        me.flags = RACE_IS_NONLIVING | RACE_IS_UNDEAD | RACE_IS_MONSTER;
+
+        me.equip_template = &b_info[r_info[MON_VAMPIRE_BAT].body.body_idx];
+        init = TRUE;
+    }
+
+    return &me;
+}
+
+/****************************************************************
+ * Mist
+ ****************************************************************/
+static void _mist_calc_bonuses(void)
+{
+    p_ptr->levitation = TRUE;
+    p_ptr->pass_wall = TRUE;
+    p_ptr->no_passwall_dam = TRUE;
+    p_ptr->see_inv = TRUE;
+    p_ptr->see_nocto = TRUE;
+    p_ptr->hold_life = TRUE;
+
+    res_add(RES_ACID);
+    res_add(RES_COLD);
+    res_add(RES_POIS);
+    res_add(RES_NETHER);
+
+    p_ptr->magic_resistance = 50;
+}
+static void _mist_get_flags(u32b flgs[TR_FLAG_SIZE])
+{
+    add_flag(flgs, TR_LEVITATION);
+    add_flag(flgs, TR_SEE_INVIS);
+    add_flag(flgs, TR_HOLD_LIFE);
+
+    add_flag(flgs, TR_RES_COLD);
+    add_flag(flgs, TR_RES_POIS);
+    add_flag(flgs, TR_RES_ACID);
+    add_flag(flgs, TR_RES_NETHER);
+
+    add_flag(flgs, TR_MAGIC_RESISTANCE);
+}
+race_t *mist_get_race_t(void)
+{
+    static race_t me = {0};
+    static bool init = FALSE;
+
+    if (!init)
+    {
+        me.name = "Vampiric Mist";
+        me.desc = "You are a cloud of evil, sentient mist. As such you are incorporeal and are "
+            "unable to attack enemies directly. Conversely, you are resistant to material damage "
+            "and may pass through walls. Probably, you should run away upon assuming this form.";
+
+        me.stats[A_STR] = -3;
+        me.stats[A_INT] = -3;
+        me.stats[A_WIS] = -3;
+        me.stats[A_DEX] = -3;
+        me.stats[A_CON] = -3;
+        me.stats[A_CHR] = -3;
+        
+        me.skills.dis =  0;
+        me.skills.dev =  0;
+        me.skills.sav = 30;
+        me.skills.stl = 15;
+        me.skills.srh = 15;
+        me.skills.fos = 15;
+        me.skills.thn = -100;
+        me.skills.thb = -100;
+
+        me.life = 80;
+        me.base_hp = 15;
+        me.exp = 75;
+        me.infra = 10;
+
+        me.get_spells = _mimic_get_spells;
+        me.calc_bonuses = _mist_calc_bonuses;
+        me.get_flags = _mist_get_flags;
+        me.caster_info = _caster_info;
+
+        me.flags = RACE_IS_NONLIVING | RACE_IS_UNDEAD | RACE_IS_MONSTER;
+
+        me.equip_template = &b_info[r_info[MON_VAMPIRIC_MIST].body.body_idx];
+        init = TRUE;
+    }
+
+    return &me;
+}
+
+/****************************************************************
+ * Wolf
+ ****************************************************************/
+static power_info _wolf_powers[] = 
+{
+    { A_DEX, {  1,  1, 30, hound_sniff_spell } },
+    { A_DEX, { 10,  0,  0, hound_stalk_spell}},
+    { A_DEX, { 15,  0,  0, hound_run_spell}},
+    { A_DEX, { 20, 10, 30, hound_leap_spell}},
+    {    -1, { -1, -1, -1, NULL}}
+};
+
+static int _wolf_get_powers(spell_info* spells, int max) 
+{
+    return get_powers_aux(spells, max, _wolf_powers);
+}
+static void _wolf_calc_bonuses(void)
+{
+    p_ptr->see_nocto = TRUE;
+    p_ptr->pspeed += 2 + p_ptr->lev / 10;
+}
+static void _wolf_get_flags(u32b flgs[TR_FLAG_SIZE])
+{
+    add_flag(flgs, TR_SPEED);
+}
+race_t *wolf_get_race_t(void)
+{
+    static race_t me = {0};
+    static bool init = FALSE;
+
+    if (!init)
+    {           /* dis, dev, sav, stl, srh, fos, thn, thb */
+    skills_t bs = { 25,  20,  31,   4,  20,  15,  56,  30};
+    skills_t xs = {  8,   8,  10,   1,   0,   0,  20,   7};
+
+        me.skills = bs;
+        me.extra_skills = xs;
+        me.name = "Dire Wolf";
+        me.desc = "";
+
+        me.life = 100;
+        me.base_hp = 22;
+        me.exp = 120;
+        me.infra = 5;
+
+        me.get_spells = _mimic_get_spells;
+        me.get_powers = _wolf_get_powers;
+        me.calc_innate_attacks = hound_calc_innate_attacks;
+        me.calc_bonuses = _wolf_calc_bonuses;
+        me.get_flags = _wolf_get_flags;
+        me.caster_info = _caster_info;
+
+        me.flags = RACE_IS_NONLIVING | RACE_IS_UNDEAD | RACE_IS_MONSTER;
+
+        me.equip_template = &b_info[17];
+        init = TRUE;
+    }
+    me.stats[A_STR] =  1 + p_ptr->lev/12;
+    me.stats[A_INT] = -3;
+    me.stats[A_WIS] = -5;
+    me.stats[A_DEX] =  2 + p_ptr->lev/15;
+    me.stats[A_CON] =  1 + p_ptr->lev/15;
+    me.stats[A_CHR] =  0 + p_ptr->lev/25;
+
+    return &me;
+}
+

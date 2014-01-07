@@ -648,35 +648,6 @@ void polish_shield_spell(int cmd, variant *res)
 }
 bool cast_polish_shield(void) {    return cast_spell(polish_shield_spell); }
 
-void polymorph_bat_spell(int cmd, variant *res)
-{
-    switch (cmd)
-    {
-    case SPELL_NAME:
-        var_set_string(res, "Polymorph Bat");
-        break;
-    case SPELL_DESC:
-        var_set_string(res, "You assume the form of a giant bat. This grants incredible speed, stealth and sensory awareness, but makes you extremely fragile. Also, bats have very restricted equipment options!");
-        break;
-    case SPELL_INFO:
-        var_set_string(res, info_duration(spell_power(30), spell_power(30)));
-        break;
-    case SPELL_CAST:
-    {
-        int base = spell_power(30);
-        var_set_bool(res, FALSE);
-        if (p_ptr->lev >= 25 && !get_check("Are you sure you want to polymorph? "))
-            return;
-        set_mimic(base + randint1(base), MIMIC_BAT, FALSE);
-        var_set_bool(res, TRUE);
-        break;
-    }
-    default:
-        default_spell(cmd, res);
-        break;
-    }
-}
-
 void polymorph_colossus_spell(int cmd, variant *res)
 {
     switch (cmd)
@@ -755,33 +726,6 @@ void polymorph_demonlord_spell(int cmd, variant *res)
     }
 }
 
-void polymorph_mist_spell(int cmd, variant *res)
-{
-    switch (cmd)
-    {
-    case SPELL_NAME:
-        var_set_string(res, "Polymorph Mist");
-        break;
-    case SPELL_DESC:
-        var_set_string(res, "You lose your corporeal form to assume a cloud of evil sentient mist!");
-        break;
-    case SPELL_INFO:
-        var_set_string(res, info_duration(spell_power(20), spell_power(20)));
-        break;
-    case SPELL_CAST:
-    {
-        int base = spell_power(20);
-        var_set_bool(res, FALSE);
-        set_mimic(base + randint1(base), MIMIC_MIST, FALSE);
-        var_set_bool(res, TRUE);
-        break;
-    }
-    default:
-        default_spell(cmd, res);
-        break;
-    }
-}
-
 void polymorph_self_spell(int cmd, variant *res)
 {
     switch (cmd)
@@ -815,33 +759,6 @@ void polymorph_self_spell(int cmd, variant *res)
     }
 }
 bool cast_polymorph_self(void) { return cast_spell(polymorph_self_spell); }
-
-void polymorph_wolf_spell(int cmd, variant *res)
-{
-    switch (cmd)
-    {
-    case SPELL_NAME:
-        var_set_string(res, "Polymorph Wolf");
-        break;
-    case SPELL_DESC:
-        var_set_string(res, "You assume the form of a wolf, hungry for prey.");
-        break;
-    case SPELL_INFO:
-        var_set_string(res, info_duration(spell_power(25), spell_power(25)));
-        break;
-    case SPELL_CAST:
-    {
-        int base = spell_power(25);
-        var_set_bool(res, FALSE);
-        set_mimic(base + randint1(base), MIMIC_WOLF, FALSE);
-        var_set_bool(res, TRUE);
-        break;
-    }
-    default:
-        default_spell(cmd, res);
-        break;
-    }
-}
 
 void power_throw_spell(int cmd, variant *res)
 {
