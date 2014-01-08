@@ -694,7 +694,7 @@ bool set_mimic(int v, int p, bool do_dec)
         disturb(0, 0);
 
     /* Redraw title */
-    p_ptr->redraw |= (PR_BASIC | PR_STATUS | PR_MAP);
+    p_ptr->redraw |= (PR_BASIC | PR_STATUS | PR_MAP | PR_EQUIPPY);
 
     /* Recalculate bonuses */
     p_ptr->update |= (PU_BONUS | PU_HP);

@@ -242,7 +242,7 @@ static void _set_mimic_form(int which)
     if (p_ptr->action == ACTION_QUICK_WALK || p_ptr->action == ACTION_STALK) /* Wolf form ... */
         set_action(ACTION_NONE);
 
-    p_ptr->redraw |= PR_BASIC | PR_STATUS | PR_MAP;
+    p_ptr->redraw |= PR_BASIC | PR_STATUS | PR_MAP | PR_EQUIPPY;
     p_ptr->update |= PU_BONUS | PU_HP;
     handle_stuff();
 }
