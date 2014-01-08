@@ -1365,12 +1365,42 @@ static void prt_depth(void)
     c_prt(attr, format("%7s", depths), row_depth, col_depth);
 }
 
+static void food_redraw(void)
+{
+    byte attr;
+    int  pct;
+    int  len;
+
+    if (!display_food_bar) /* user might toggle option on and off ... */
+    {
+        Term_erase(COL_FOOD, ROW_FOOD, 12);
+        Term_erase(COL_FOOD, ROW_FOOD + 1, 12);
+        return;
+    }
+
+    pct = 100 * p_ptr->food / PY_FOOD_FULL;
+    len = (pct < 10) ? 1 : (pct < 90) ? (pct / 10 + 1) : 10;
+
+    if (pct >= 100) attr = TERM_L_GREEN;
+    else if (pct >= 50) attr = TERM_WHITE;
+    else if (pct >= 30) attr = TERM_YELLOW;
+    else if (pct >= 20) attr = TERM_ORANGE;
+    else if (pct >= 10) attr = TERM_L_RED;
+    else attr = TERM_VIOLET;
+
+    Term_putstr(COL_FOOD, ROW_FOOD, 5, TERM_WHITE, "Food:");
+    Term_putstr(COL_FOOD, ROW_FOOD + 1, 12, attr, "[----------]");
+    Term_putstr(COL_FOOD + 1, ROW_FOOD + 1, len, attr, "**********");
+}
+
 
 /*
  * Prints status of hunger
  */
 static void prt_hunger(void)
 {
+    food_redraw();
+
     /* Fainting / Starving */
     if (p_ptr->food < PY_FOOD_FAINT)
     {
@@ -1850,8 +1880,6 @@ static void health_redraw(bool riding)
             Term_putstr(col + 1, row, len, attr, "**********");
     }
 }
-
-
 
 /*
  * Display basic info (mostly left of map)

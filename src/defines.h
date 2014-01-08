@@ -955,6 +955,9 @@ enum _mimic_types {
 #define ROW_FEAR                 21
 #define COL_FEAR                0  
 
+#define ROW_FOOD                 25
+#define COL_FOOD                0  
+
 #define ROW_SPEED               (-1)
 #define COL_SPEED               (-24)      /* "Slow (-NN)" or "Fast (+NN)" */
 

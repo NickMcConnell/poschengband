@@ -207,6 +207,10 @@ static void _set_mimic_form(int which)
 {
     p_ptr->mimic_form = which;
     equip_on_change_race();
+
+    if (p_ptr->action == ACTION_QUICK_WALK || p_ptr->action == ACTION_STALK) /* Wolf form ... */
+        set_action(ACTION_NONE);
+
     p_ptr->redraw |= PR_BASIC | PR_STATUS | PR_MAP;
     p_ptr->update |= PU_BONUS | PU_HP;
     handle_stuff();
@@ -284,9 +288,6 @@ static void _polymorph_wolf_spell(int cmd, variant *res)
         break;
     case SPELL_DESC:
         var_set_string(res, "You assume the form of a wolf, hungry for prey.");
-        break;
-    case SPELL_INFO:
-        var_set_string(res, info_duration(spell_power(25), spell_power(25)));
         break;
     case SPELL_CAST:
         _set_mimic_form(MIMIC_WOLF);
@@ -651,7 +652,13 @@ race_t *mist_get_race_t(void)
     static bool init = FALSE;
 
     if (!init)
-    {
+    {           /* dis, dev, sav, stl, srh, fos, thn, thb */
+    skills_t bs = { 20,  20,  40,  10,  10,   7,  0,  0};
+    skills_t xs = {  6,   7,  10,   1,   0,   0,  0,  0};
+
+        me.skills = bs;
+        me.extra_skills = xs;
+
         me.name = "Vampiric Mist";
         me.desc = "You are a cloud of evil, sentient mist. As such you are incorporeal and are "
             "unable to attack enemies directly. Conversely, you are resistant to material damage "
@@ -662,16 +669,7 @@ race_t *mist_get_race_t(void)
         me.stats[A_WIS] = -3;
         me.stats[A_DEX] = -3;
         me.stats[A_CON] = -3;
-        me.stats[A_CHR] = -3;
-        
-        me.skills.dis =  0;
-        me.skills.dev =  0;
-        me.skills.sav = 30;
-        me.skills.stl = 15;
-        me.skills.srh = 15;
-        me.skills.fos = 15;
-        me.skills.thn = -100;
-        me.skills.thb = -100;
+        me.stats[A_CHR] = -3;    
 
         me.life = 80;
         me.base_hp = 15;
@@ -729,6 +727,7 @@ race_t *wolf_get_race_t(void)
 
         me.skills = bs;
         me.extra_skills = xs;
+
         me.name = "Dire Wolf";
         me.desc = "";
 
