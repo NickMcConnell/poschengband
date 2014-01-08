@@ -1335,6 +1335,8 @@ static bool project_f(int who, int r, int y, int x, int dam, int typ)
                 {
                     if (player_bold(y, x)) set_superstealth(FALSE);
                 }
+                if (prace_is_(RACE_MON_VAMPIRE))
+                    vampire_check_light_status();
             }
 
             break;
@@ -1395,6 +1397,9 @@ static bool project_f(int who, int r, int y, int x, int dam, int typ)
                 /* Mega-Hack -- Update the monster in the affected grid */
                 /* This allows "spear of light" (etc) to work "correctly" */
                 if (c_ptr->m_idx) update_mon(c_ptr->m_idx, FALSE);
+
+                if (prace_is_(RACE_MON_VAMPIRE))
+                    vampire_check_light_status();
             }
 
             /* All done */
@@ -6653,6 +6658,8 @@ static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int 
                 (void)set_blind(p_ptr->blind + randint1(5) + 2, FALSE);
 
             get_damage = take_hit(DAMAGE_ATTACK, dam, killer, monspell);
+            if (prace_is_(RACE_MON_VAMPIRE))
+                vampire_take_light_damage(dam);
 
             if (IS_WRAITH() && !CHECK_MULTISHADOW())
             {
@@ -6673,6 +6680,8 @@ static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int 
             if (!blind && !res_save_default(RES_DARK) && !res_save_default(RES_BLIND) && !CHECK_MULTISHADOW())
                 (void)set_blind(p_ptr->blind + randint1(5) + 2, FALSE);
             get_damage = take_hit(DAMAGE_ATTACK, dam, killer, monspell);
+            if (prace_is_(RACE_MON_VAMPIRE))
+                vampire_take_dark_damage(dam);
             break;
         }
         case GF_AMNESIA:

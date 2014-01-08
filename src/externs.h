@@ -2032,6 +2032,9 @@ extern bool    sword_disenchant(void);
 
 extern bool    vampiric_drain_hack;
 extern void    vampire_feed(int amt);
+extern void    vampire_check_light_status(void);
+extern void    vampire_take_light_damage(int amt);
+extern void    vampire_take_dark_damage(int amt);
 
 /* Mimic Forms */
 extern race_t *bat_get_race_t(void);

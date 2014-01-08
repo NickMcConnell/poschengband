@@ -361,8 +361,10 @@ static caster_info * _caster_info(void)
 }
 
 /******************************************************************************
- * Bonuses
+ * Bonuses (... and Penalties!)
  ******************************************************************************/
+static int _light_penalty = 0;
+
 static void _calc_bonuses(void) 
 {
     p_ptr->align -= 200;
@@ -387,6 +389,23 @@ static void _calc_bonuses(void)
     {
         res_add_immune(RES_DARK);
         p_ptr->pspeed += 2;
+    }
+
+    if (_light_penalty)
+    {
+        p_ptr->to_a -= 5*_light_penalty;
+        p_ptr->dis_to_a -= 5*_light_penalty;
+
+        p_ptr->life -= 3*_light_penalty;
+    }
+}
+
+static void _calc_weapon_bonuses(object_type *o_ptr, weapon_info_t *info_ptr)
+{
+    if (_light_penalty)
+    {
+        info_ptr->dis_to_h -= 3*_light_penalty;
+        info_ptr->to_h -= 3*_light_penalty;
     }
 }
 
@@ -416,6 +435,11 @@ static void _get_immunities(u32b flgs[TR_FLAG_SIZE])
 static void _get_vulnerabilities(u32b flgs[TR_FLAG_SIZE])
 {
     add_flag(flgs, TR_RES_LITE);
+}
+
+static void _move_player(void)
+{
+    vampire_check_light_status();
 }
 
 /******************************************************************************
@@ -449,10 +473,12 @@ race_t *mon_vampire_get_race_t(void)
 
         me.birth = _birth;
         me.gain_level = _gain_level;
+        me.move_player = _move_player;
 
         me.get_spells = _get_spells;
         me.caster_info = _caster_info;
         me.calc_bonuses = _calc_bonuses;
+        me.calc_weapon_bonuses = _calc_weapon_bonuses;
         me.get_flags = _get_flags;
         me.get_immunities = _get_immunities;
         me.get_vulnerabilities = _get_vulnerabilities;
@@ -507,6 +533,104 @@ void vampire_feed(int amt)
 
     assert(food >= p_ptr->food);
     set_food(food);
+}
+
+void vampire_check_light_status(void)
+{
+    static int _last_light_penalty = -1;
+
+    if ((cave[py][px].info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW)
+    {
+        _light_penalty = 1;
+        if (!dun_level && is_daytime())
+            _light_penalty++;
+        if (res_pct(RES_LITE) < 0)
+            _light_penalty++;
+    }
+    else
+        _light_penalty = 0;
+
+    if (_light_penalty != _last_light_penalty)
+    {
+        _last_light_penalty = _light_penalty;
+        if (_light_penalty)
+        {
+            int n = _light_penalty * _light_penalty * _light_penalty * MAX(1, dun_level/5);
+            if (!fear_save_p(n))
+            {
+                if (disturb_minor)
+                    msg_print("You fear the light!");
+                fear_add_p(FEAR_SCARED);
+            }
+            else if (disturb_minor)
+                msg_print("The light weakens you!");
+        }
+        else if (disturb_minor)
+            msg_print("You are comfortable in the dark.");
+        p_ptr->update |= PU_BONUS;
+    }
+}
+
+void vampire_take_light_damage(int amt)
+{
+    if (!fear_save_p(amt))
+    {
+        msg_print("You fear the light!");
+        fear_add_p(FEAR_SCARED);
+    }
+
+    if (randint1(p_ptr->chp) < amt && !res_save_default(RES_LITE))
+    {
+        int k = 0;
+        cptr act = NULL;
+
+        switch (randint1(12))
+        {
+        case 1: case 2: case 3: case 4: case 5:
+            msg_print("You feel your unlife force diminish.");
+            lose_exp(100 + (p_ptr->exp / 100) * MON_DRAIN_LIFE);
+            break;
+
+        case 6: case 7: case 8: case 9:
+            switch (randint1(6))
+            {
+                case 1: k = A_STR; act = "strong"; break;
+                case 2: k = A_INT; act = "bright"; break;
+                case 3: k = A_WIS; act = "wise"; break;
+                case 4: k = A_DEX; act = "agile"; break;
+                case 5: k = A_CON; act = "hale"; break;
+                case 6: k = A_CHR; act = "confident"; break;
+            }
+            msg_format("You're not as %s as you used to be.", act);
+            p_ptr->stat_cur[k] = (p_ptr->stat_cur[k] * 3) / 4;
+            if (p_ptr->stat_cur[k] < 3) p_ptr->stat_cur[k] = 3;
+            break;
+
+        case 10:
+            msg_print("You're not as powerful as you used to be.");
+            for (k = 0; k < 6; k++)
+            {
+                p_ptr->stat_cur[k] = (p_ptr->stat_cur[k] * 7) / 8;
+                if (p_ptr->stat_cur[k] < 3) p_ptr->stat_cur[k] = 3;
+            }
+            break;
+
+        case 11: case 12:
+            if (disenchant_player())
+                msg_print("You feel diminished!");
+            break;
+        }
+
+        p_ptr->update |= PU_BONUS;
+    }
+}
+
+void vampire_take_dark_damage(int amt)
+{
+    if (randint1(p_ptr->chp) < amt)
+    {
+        /* TODO */
+    }
 }
 
 /****************************************************************
