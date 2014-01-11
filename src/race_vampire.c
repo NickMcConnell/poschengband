@@ -197,8 +197,49 @@ void _grasp_spell(int cmd, variant *res)
     case SPELL_DESC:
         var_set_string(res, "Pulls a target creature to you.");
         break;
+    case SPELL_CAST:
+    {
+        int           m_idx;
+        bool          fear = FALSE;
+        monster_type *m_ptr;
+        monster_race *r_ptr;
+        char m_name[MAX_NLEN];
+
+        var_set_bool(res, FALSE);
+
+        if (!target_set(TARGET_KILL)) break;
+        if (!cave[target_row][target_col].m_idx) break;
+        if (!player_has_los_bold(target_row, target_col)) break;
+        if (!projectable(py, px, target_row, target_col)) break;
+
+        var_set_bool(res, TRUE);
+
+        m_idx = cave[target_row][target_col].m_idx;
+        m_ptr = &m_list[m_idx];
+        r_ptr = &r_info[m_ptr->r_idx];
+        monster_desc(m_name, m_ptr, 0);
+        if (r_ptr->flagsr & RFR_RES_TELE)
+        {
+            if ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->flagsr & RFR_RES_ALL))
+            {
+                if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= RFR_RES_TELE;
+                msg_format("%s is unaffected!", m_name);
+                break;
+            }
+            else if (r_ptr->level > randint1(100))
+            {
+                if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= RFR_RES_TELE;
+                msg_format("%s resists!", m_name);
+                break;
+            }
+        }
+        msg_format("You grasp %s.", m_name);
+        teleport_monster_to(m_idx, py, px, 100, TELEPORT_PASSIVE);
+        mon_take_hit(m_idx, damroll(10, 10), &fear, extract_note_dies(real_r_ptr(m_ptr)));
+        break;
+    }
     default:
-        teleport_to_spell(cmd, res);
+        default_spell(cmd, res);
         break;
     }
 }
@@ -603,6 +644,7 @@ void vampire_check_light_status(void)
         else if (disturb_minor)
             msg_print("You are comfortable in the dark.");
         p_ptr->update |= PU_BONUS;
+        p_ptr->redraw |= PR_STATUS;
     }
 }
 

@@ -414,6 +414,8 @@ static void prt_stat(int stat)
 #define BAR_BLINK 160
 #define BAR_DTRAP 161
 #define BAR_DTRAP_EDGE 162
+#define BAR_VAMPIRE_LIGHT 163
+#define BAR_VAMPIRE_DARK  164
 
 static struct {
     byte attr;
@@ -585,6 +587,8 @@ static struct {
     {TERM_L_BLUE, "Bl", "Blink"},
     {TERM_L_GREEN, "DT", "DTrap"},
     {TERM_YELLOW, "DT", "DTrap"},
+    {TERM_YELLOW, "Lt", "Light"},
+    {TERM_L_DARK, "Dk", "Dark"},
     {0, NULL, NULL}
 };
 
@@ -617,6 +621,14 @@ static void prt_status(void)
             ADD_FLG(BAR_DTRAP_EDGE);
         else if (cave[py][px].info & CAVE_IN_DETECT)
             ADD_FLG(BAR_DTRAP);
+    }
+
+    if (prace_is_(RACE_MON_VAMPIRE))
+    {
+        if ((cave[py][px].info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW)
+            ADD_FLG(BAR_VAMPIRE_LIGHT);
+        else
+            ADD_FLG(BAR_VAMPIRE_DARK);
     }
 
     /* Tsuyoshi  */
