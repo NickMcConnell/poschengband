@@ -777,3 +777,21 @@ S:CLOAK:Cloak
 S:HELMET:Head
 S:GLOVES:Hands
 S:BOOTS:Feet
+
+N:73:Dire Wolf
+S:RING:Ring
+S:RING:Ring
+S:RING:Ring
+S:RING:Ring
+S:AMULET:Amulet
+S:BODY_ARMOR:Body
+S:CLOAK:Cloak
+S:HELMET:Helm
+S:BOOTS:Boots
+
+N:74:Vampire Bat
+S:RING:Foot
+S:RING:Foot
+S:AMULET:Amulet
+S:CLOAK:Cloak
+S:HELMET:Helm

@@ -946,7 +946,7 @@ race_t *wolf_get_race_t(void)
 
         me.flags = RACE_IS_NONLIVING | RACE_IS_UNDEAD | RACE_IS_MONSTER;
 
-        me.equip_template = &b_info[17];
+        me.equip_template = &b_info[73];
         init = TRUE;
     }
     me.stats[A_STR] =  1 + p_ptr->lev/12;
