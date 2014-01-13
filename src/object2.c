@@ -3038,6 +3038,59 @@ static void _create_amulet(object_type *o_ptr, int level, int power, int mode)
         power--;
 }
 
+void adjust_weapon_weight(object_type *o_ptr)
+{
+    /* Experimental: Maulers need heavy weapons!
+        Anything that dice boosts gets heavier. */
+    if (object_is_melee_weapon(o_ptr) && p_ptr->pclass == CLASS_MAULER)
+    {
+    object_kind *k_ptr = &k_info[o_ptr->k_idx];
+    int          dice = o_ptr->dd * o_ptr->ds;
+    int          orig = k_ptr->dd * k_ptr->ds;
+        
+        if (dice > orig)
+        {
+            int wgt = o_ptr->weight;
+            int xtra = k_ptr->weight;
+            int mult = (dice - orig) * 100 / orig;
+
+            while (mult >= 100)
+            {
+                xtra = xtra * 3 / 4;
+                wgt += xtra;
+                mult -= 100;
+            }
+            if (mult > 0)
+            {
+                xtra = xtra * 3 / 4;
+                wgt += xtra * mult / 100;
+            }
+
+            o_ptr->weight = wgt;
+
+            /*  a Bo Staff (1d11) ... 16.0 lbs
+                a Bo Staff (2d12) ... 29.6 lbs
+                a Bo Staff (3d12) ... 38.8 lbs
+                a Bo Staff (4d12) ... 45.5 lbs
+                a Bo Staff (5d12) ... 50.3 lbs
+                a Bo Staff (6d12) ... 53.8 lbs
+                a Bo Staff (7d12) ... 56.3 lbs
+
+                a Heavy Lance (4d8) ... 40.0 lbs
+                a Heavy Lance (5d8) ... 47.5 lbs
+                a Heavy Lance (6d8) ... 55.0 lbs
+                a Heavy Lance (8d8) ... 70.0 lbs
+                a Heavy Lance (8d9) ... 75.6 lbs
+
+                a Dagger (1d4) ... 1.2 lbs
+                a Dagger (2d4) ... 2.1 lbs
+                a Dagger (3d4) ... 2.7 lbs
+                a Dagger (7d5) ... 3.7 lbs
+            */
+        }
+    }
+}
+
 static void _create_weapon(object_type *o_ptr, int level, int power, int mode)
 {
     int tohit1 = randint1(5) + m_bonus(5, level);
@@ -3434,6 +3487,9 @@ static void _create_weapon(object_type *o_ptr, int level, int power, int mode)
                 while (one_in_(o_ptr->dd * o_ptr->ds / 2));
             }
         }
+
+        if (done)
+            adjust_weapon_weight(o_ptr);
         break;
     }
 }

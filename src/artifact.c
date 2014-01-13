@@ -2623,6 +2623,9 @@ s32b create_artifact(object_type *o_ptr, u32b mode)
     if (o_ptr->tval == TV_LITE)
         o_ptr->art_name = quark_add("Temp");
 
+    if (object_is_melee_weapon(o_ptr))
+        adjust_weapon_weight(o_ptr);
+
     total_flags = new_object_cost(o_ptr);
     if (cheat_peek) msg_format("Score: %d", total_flags);
 

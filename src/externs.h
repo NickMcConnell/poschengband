@@ -1102,6 +1102,7 @@ extern bool get_item(int *cp, cptr pmt, cptr str, int mode);
 /* object2.c */
 extern bool add_esp_strong(object_type *o_ptr);
 extern void add_esp_weak(object_type *o_ptr, bool extra);
+extern void adjust_weapon_weight(object_type *o_ptr);
 extern void excise_object_idx(int o_idx);
 extern void delete_object_idx(int o_idx);
 extern void delete_object(int y, int x);
