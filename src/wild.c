@@ -503,6 +503,7 @@ void wilderness_move_player(int old_x, int old_y)
     _set_boundary();
 
     if (do_disturb) disturb(0, 0);
+    p_ptr->redraw |= PR_BASIC; /* In case the user left/entered a town ... */
     handle_stuff();  /* Is this necessary?? */
 
 #ifdef _DEBUG
