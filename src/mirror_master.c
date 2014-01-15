@@ -809,7 +809,7 @@ static caster_info * _caster_info(void)
     if (!init)
     {
         me.magic_desc = "mirror magic";
-        me.which_stat = A_WIS;
+        me.which_stat = A_INT;
         me.weight = 400;
         me.on_fail = _on_fail;
         me.options = CASTER_ALLOW_DEC_MANA;
