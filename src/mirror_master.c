@@ -756,7 +756,8 @@ static int _get_spells(spell_info* spells, int max)
 }
 
 static int _get_powers(spell_info* spells, int max)
-{
+{    
+    _on_mirror = is_mirror_grid(&cave[py][px]);
     return get_powers_aux(spells, max, _powers);
 }
 
