@@ -652,7 +652,7 @@ static cptr r_info_flagsr[] =
 /*
  * Object flags
  */
-static cptr k_info_flags[] =
+static cptr k_info_flags[TR_FLAG_MAX] =
 {
     "STR",
     "INT",
