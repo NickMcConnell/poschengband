@@ -817,6 +817,9 @@ static cptr k_info_flags[] =
     "DEC_MAGIC_MASTERY",
     "DEC_SPELL_CAP",
     "DEC_SPELL_POWER",
+    "SLAY_LIVING",
+
+    "STUN",
 };
 
 

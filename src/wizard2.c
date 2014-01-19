@@ -300,7 +300,9 @@ static void do_cmd_wiz_hack_chris3_imp(FILE* file)
             object_prep(&forge, k_idx);
             apply_magic(&forge, depth, AM_GREAT);
 
-            if (forge.weight > k_info[k_idx].weight)
+            if ( forge.name2 == EGO_WEAPON_JOUSTING
+              || forge.name2 == EGO_WEAPON_HELL_LANCE
+              || forge.name2 == EGO_WEAPON_HOLY_LANCE )
             {
                 char buf[MAX_NLEN];
 
@@ -311,7 +313,7 @@ static void do_cmd_wiz_hack_chris3_imp(FILE* file)
                 forge.ident |= (IDENT_MENTAL); 
                 object_desc(buf, &forge, 0);
                 fprintf(file, "%s %d.%d lbs\n", buf, forge.weight/10, forge.weight%10);
-                /* msg_print(buf); */
+                /*msg_print(buf);*/
                 /*drop_near(&forge, -1, py, px);*/
             }
 

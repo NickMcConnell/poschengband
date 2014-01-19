@@ -145,6 +145,16 @@ void one_demon_resistance(object_type *o_ptr)
     }
 }
 
+void one_holy_resistance(object_type *o_ptr)
+{
+    switch (randint1(4))
+    {
+        case 1: add_flag(o_ptr->art_flags, TR_RES_LITE);   break;
+        case 2: add_flag(o_ptr->art_flags, TR_RES_SOUND);  break;
+        case 3: add_flag(o_ptr->art_flags, TR_RES_SHARDS); break;
+        case 4: add_flag(o_ptr->art_flags, TR_RES_DISEN);  break;
+    }
+}
 
 /*
  * Choose one random high resistance ( except poison and disenchantment )
