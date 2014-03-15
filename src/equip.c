@@ -650,6 +650,10 @@ void equip_wield_aux(object_type *src, int slot)
     dest->marked |= OM_TOUCHED;
     p_ptr->total_weight += dest->weight;
 
+    /* Hack: Extra Might and Weaponmastery require a calc_bonus() to display correctly */
+    p_ptr->update |= PU_BONUS;
+    handle_stuff();
+
     object_desc(o_name, dest, 0);
     msg_format("You are wearing %s (%c).", o_name, index_to_label(slot)); /* TODO */
 
