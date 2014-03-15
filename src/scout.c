@@ -316,6 +316,57 @@ static void _calc_bonuses(void)
         p_ptr->peerless_stealth = TRUE;
 }
 
+static void _character_dump(FILE* file)
+{
+    int ct = _count_open_terrain();
+    bool disrupt = heavy_armor();
+
+    if (!disrupt && p_ptr->lev >= 5)
+    {
+        spell_info spells[MAX_SPELLS];
+        int        ct = _get_spells(spells, MAX_SPELLS);
+
+        dump_spells_aux(file, spells, ct);
+    }
+
+    fprintf(file, "\n\n================================== Abilities ==================================\n\n");
+
+    /* Hack: Heavy Armor negates advantages of being in the open, and
+       actually incurs penalties for being entrenched! */
+    if (disrupt)
+        ct = 0;
+
+    /* Unfettered Body */
+    if (p_ptr->lev >= 1)
+    {
+        int amt = (ct + 1) * (ct + 1) - 41;
+        if (amt > 0)
+            fprintf(file, "  * You gain %+d to your AC being out in the open.\n", amt);
+        else if (amt < 0)
+            fprintf(file, "  * You lose %+d to your AC being so confined.\n", -amt);
+    }
+
+    /* Unfettered Mind */
+    if (p_ptr->lev >= 1)
+    {
+        int amt = (ct + 1) * (ct + 1) / 2 - 20;
+        if (amt > 0)
+            fprintf(file, "  * You gain %+d to your Saving Throws being out in the open.\n", amt);
+        else if (amt < 0)
+            fprintf(file, "  * You lose %+d to your Saving Throws being so confined.\n", -amt);
+    }
+
+    if (!disrupt && p_ptr->lev >= 20)
+        fprintf(file, "  * You ambush sleeping monsters for extra damage.\n");
+
+    if (!disrupt && p_ptr->lev >= 35)
+        p_ptr->telepathy = TRUE;
+
+    if (!disrupt && p_ptr->lev >= 50)
+        fprintf(file, "  * You have Peerless Stealth and will never aggravate monsters.\n");
+
+}
+
 static caster_info * _caster_info(void)
 {
     static caster_info me = {0};
@@ -371,6 +422,8 @@ class_t *scout_get_class_t(void)
         me.caster_info = _caster_info;
         me.get_spells = _get_spells;
         me.move_player = _move_player;
+        me.character_dump = _character_dump;
+
         init = TRUE;
     }
 
