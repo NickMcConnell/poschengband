@@ -279,6 +279,27 @@ static int _count_open_terrain(void)
     return count;
 }
 
+static int _prorate_effect(int amt)
+{
+    int base = (amt + 3) / 4;
+    int xtra = amt - base;
+    xtra = xtra * (p_ptr->lev/2) / 25;
+
+    return base + xtra;
+}
+
+static int _unfettered_body(int ct)
+{
+    int amt = (ct + 1) * (ct + 1) - 41;
+    return _prorate_effect(amt);
+}
+
+static int _unfettered_mind(int ct)
+{
+    int amt = (ct + 1) * (ct + 1)/2 - 20;
+    return _prorate_effect(amt);
+}
+
 static void _calc_bonuses(void)
 {
     int ct = _count_open_terrain();
@@ -294,7 +315,7 @@ static void _calc_bonuses(void)
     /* Unfettered Body */
     if (p_ptr->lev >= 1)
     {
-        int amt = (ct + 1) * (ct + 1) - 41;
+        int amt = _unfettered_body(ct);
         p_ptr->to_a += amt;
         p_ptr->dis_to_a += amt;
     }
@@ -302,8 +323,7 @@ static void _calc_bonuses(void)
     /* Unfettered Mind */
     if (p_ptr->lev >= 1)
     {
-        int amt = (ct + 1) * (ct + 1) / 2 - 20;
-        p_ptr->skills.sav += amt;
+        p_ptr->skills.sav += _unfettered_mind(ct);
     }
 
     if (!disrupt && p_ptr->lev >= 20)
@@ -334,12 +354,15 @@ static void _character_dump(FILE* file)
     /* Hack: Heavy Armor negates advantages of being in the open, and
        actually incurs penalties for being entrenched! */
     if (disrupt)
+    {
+        fprintf(file, "  * Your talents are disrupted by the weight of your armor.\n");
         ct = 0;
+    }
 
     /* Unfettered Body */
     if (p_ptr->lev >= 1)
     {
-        int amt = (ct + 1) * (ct + 1) - 41;
+        int amt = _unfettered_body(ct);
         if (amt > 0)
             fprintf(file, "  * You gain %+d to your AC being out in the open.\n", amt);
         else if (amt < 0)
@@ -349,7 +372,7 @@ static void _character_dump(FILE* file)
     /* Unfettered Mind */
     if (p_ptr->lev >= 1)
     {
-        int amt = (ct + 1) * (ct + 1) / 2 - 20;
+        int amt = _unfettered_mind(ct);
         if (amt > 0)
             fprintf(file, "  * You gain %+d to your Saving Throws being out in the open.\n", amt);
         else if (amt < 0)
