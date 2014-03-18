@@ -358,6 +358,15 @@ static void _character_dump(FILE* file)
         fprintf(file, "  * Your talents are disrupted by the weight of your armor.\n");
         ct = 0;
     }
+    else
+    {
+        if (ct >= 6)
+            fprintf(file, "  * You are out in the open (%d adjacent open squares).\n", ct);
+        else if (ct >= 3)
+            fprintf(file, "  * You are somewhat confined (%d adjacent open squares).\n", ct);
+        else
+            fprintf(file, "  * You are very confined (%d adjacent open squares).\n", ct);
+    }
 
     /* Unfettered Body */
     if (p_ptr->lev >= 1)
