@@ -343,7 +343,7 @@ static void _character_dump(FILE* file)
         if (amt > 0)
             fprintf(file, "  * You gain %+d to your AC being out in the open.\n", amt);
         else if (amt < 0)
-            fprintf(file, "  * You lose %+d to your AC being so confined.\n", -amt);
+            fprintf(file, "  * You lose %+d to your AC being so confined.\n", amt);
     }
 
     /* Unfettered Mind */
@@ -353,7 +353,7 @@ static void _character_dump(FILE* file)
         if (amt > 0)
             fprintf(file, "  * You gain %+d to your Saving Throws being out in the open.\n", amt);
         else if (amt < 0)
-            fprintf(file, "  * You lose %+d to your Saving Throws being so confined.\n", -amt);
+            fprintf(file, "  * You lose %+d to your Saving Throws being so confined.\n", amt);
     }
 
     if (!disrupt && p_ptr->lev >= 20)
