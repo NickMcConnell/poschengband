@@ -45,6 +45,9 @@ static void _dark_stalker_spell(int cmd, variant *res)
     case SPELL_DESC:
         var_set_string(res, "Temporarily grants enhanced stealth.");
         break;
+    case SPELL_INFO:
+        var_set_string(res, info_duration(50, 50));
+        break;
     case SPELL_CAST:
         set_tim_dark_stalker(50 + randint1(50), FALSE);
         var_set_bool(res, TRUE);
@@ -161,6 +164,9 @@ static void _nimble_dodge_spell(int cmd, variant *res)
     case SPELL_DESC:
         var_set_string(res, "For a short time, you will have a chance of dodging enemy breath attacks.");
         break;
+    case SPELL_INFO:
+        var_set_string(res, info_duration(20, 20));
+        break;
     case SPELL_CAST:
         set_tim_nimble_dodge(20 + randint1(20), FALSE);
         var_set_bool(res, TRUE);
@@ -180,6 +186,9 @@ static void _stealthy_snipe_spell(int cmd, variant *res)
         break;
     case SPELL_DESC:
         var_set_string(res, "For a short while, your missile attacks will not anger distant monsters.");
+        break;
+    case SPELL_INFO:
+        var_set_string(res, info_duration(1, 6));
         break;
     case SPELL_CAST:
         set_tim_stealthy_snipe(1 + randint1(6), FALSE);
@@ -218,9 +227,9 @@ static spell_info _spells[] =
     {  9, 10, 50, detection_spell},
     { 13,  8, 40, stone_to_mud_spell},
     { 17, 20, 50, magic_mapping_spell},
-    { 21, 30, 60, _dark_stalker_spell},
+    { 21, 30, 50, _dark_stalker_spell},
     { 25, 18, 50, _whirlwind_attack_spell},
-    { 29, 25, 60, teleport_spell},
+    { 29, 25, 50, teleport_spell},
     { 33, 40, 55, _nimble_dodge_spell},
     { 37, 24, 45, _cavern_creation_spell},
     { 41, 70, 50, _stealthy_snipe_spell},
