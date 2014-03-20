@@ -2419,6 +2419,14 @@ s32b create_artifact(object_type *o_ptr, u32b mode)
                     {
                         add_flag(o_ptr->art_flags, TR_LEVITATION);
                     }
+                    else if ( (o_ptr->tval == TV_CROWN && one_in_(2))
+                           || (o_ptr->tval == TV_HELM && one_in_(7)) )
+                    {
+                        if (add_esp_strong(o_ptr))
+                            add_esp_weak(o_ptr, TRUE);
+                        else
+                            add_esp_weak(o_ptr, FALSE);
+                    }
                     else if (!boosted_ac && randint1(225) < lev)
                     {
                         o_ptr->to_a = 20 + randint1(20);
