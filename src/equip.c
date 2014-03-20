@@ -1375,6 +1375,23 @@ void equip_calc_bonuses(void)
             }
             continue;
         }
+        /* Hack -- Archery now benefits from equipment slays. Without this, only
+           Sniper gloves and Archery rings affect shooting, and that seems a bit
+           unfair (especially since melee is so favored)  */
+        else if ( o_ptr->tval != TV_GLOVES
+               && o_ptr->name2 != EGO_RING_COMBAT
+               && o_ptr->name1 != ART_TERROR
+               && o_ptr->name1 != ART_HAMMERHAND
+               && o_ptr->name2 != EGO_CROWN_MIGHT )
+        {
+            p_ptr->shooter_info.to_h += o_ptr->to_h;
+            p_ptr->shooter_info.to_d += o_ptr->to_d;
+            if (object_is_known(o_ptr))
+            {
+                p_ptr->shooter_info.dis_to_h += o_ptr->to_h;
+                p_ptr->shooter_info.dis_to_d += o_ptr->to_d;
+            }
+        }
 
         bonus_to_h = o_ptr->to_h;
         bonus_to_d = o_ptr->to_d;
