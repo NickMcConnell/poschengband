@@ -1380,9 +1380,10 @@ void equip_calc_bonuses(void)
            unfair (especially since melee is so favored)  */
         else if ( o_ptr->tval != TV_GLOVES
                && o_ptr->name2 != EGO_RING_COMBAT
+               && o_ptr->name2 != EGO_CROWN_MIGHT
+               && o_ptr->name2 != EGO_CLOAK_FAIRY  /* Hey, fairies can shoot just fine :) */
                && o_ptr->name1 != ART_TERROR
-               && o_ptr->name1 != ART_HAMMERHAND
-               && o_ptr->name2 != EGO_CROWN_MIGHT )
+               && o_ptr->name1 != ART_HAMMERHAND )
         {
             p_ptr->shooter_info.to_h += o_ptr->to_h;
             p_ptr->shooter_info.to_d += o_ptr->to_d;

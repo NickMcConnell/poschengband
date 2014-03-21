@@ -188,10 +188,10 @@ static void _stealthy_snipe_spell(int cmd, variant *res)
         var_set_string(res, "For a short while, your missile attacks will not anger distant monsters.");
         break;
     case SPELL_INFO:
-        var_set_string(res, info_duration(1, 6));
+        var_set_string(res, info_duration(6, 6));
         break;
     case SPELL_CAST:
-        set_tim_stealthy_snipe(1 + randint1(6), FALSE);
+        set_tim_stealthy_snipe(6 + randint1(6), FALSE);
         var_set_bool(res, TRUE);
         break;
     default:
