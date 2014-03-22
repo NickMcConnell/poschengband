@@ -1107,10 +1107,11 @@ void equip_calc_bonuses(void)
         if (have_flag(flgs, TR_DEC_CHR)) p_ptr->stat_add[A_CHR] -= o_ptr->pval;
 
         if (have_flag(flgs, TR_MAGIC_MASTERY))
-        {
             p_ptr->skills.dev += 8*o_ptr->pval;
+
+        if (have_flag(flgs, TR_DEVICE_POWER))
             p_ptr->device_power += o_ptr->pval;
-        }
+
         if (have_flag(flgs, TR_DEC_MAGIC_MASTERY))
         {
             p_ptr->skills.dev -= 8*o_ptr->pval;
@@ -1223,7 +1224,7 @@ void equip_calc_bonuses(void)
         if (have_flag(flgs, TR_BLESSED))     p_ptr->bless_blade = TRUE;
 
         if (have_flag(flgs, TR_XTRA_MIGHT) && o_ptr->tval != TV_BOW)  
-            p_ptr->shooter_info.to_mult += 20 * o_ptr->pval;
+            p_ptr->shooter_info.to_mult += 25 * o_ptr->pval;
 
         if (have_flag(flgs, TR_SLOW_DIGEST)) p_ptr->slow_digest = TRUE;
         if (have_flag(flgs, TR_REGEN))       p_ptr->regenerate = TRUE;

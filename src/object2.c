@@ -2618,6 +2618,11 @@ static void _create_amulet(object_type *o_ptr, int level, int power, int mode)
                     add_flag(o_ptr->art_flags, TR_DEC_MANA);
                     break;
                 }
+                else if (one_in_(2))
+                {
+                    add_flag(o_ptr->art_flags, TR_MAGIC_MASTERY);
+                    break;
+                }
             case 6:
                 if (abs(power) >= 2 && one_in_(15))
                 {
@@ -3699,6 +3704,8 @@ static void _create_armor(object_type *o_ptr, int level, int power, int mode)
             }
             if (one_in_(2))
                 add_flag(o_ptr->art_flags, TR_DEC_CON);
+            if (one_in_(30))
+                add_flag(o_ptr->art_flags, TR_DEVICE_POWER);
             break;
         case EGO_GLOVES_YEEK:
             if (one_in_(10))
@@ -4769,6 +4776,11 @@ void apply_magic(object_type *o_ptr, int lev, u32b mode)
         if (o_ptr->name2 == EGO_BOOTS_FEANOR)
         {
             o_ptr->pval = 6 + m_bonus(9, object_level);
+        }
+        if (have_flag(o_ptr->art_flags, TR_DEVICE_POWER) && o_ptr->pval >= 3)
+        {
+            o_ptr->pval = 2;
+            if (one_in_(30)) o_ptr->pval++;
         }
 
         if ((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_HAYABUSA) && (o_ptr->pval > 2) && (o_ptr->name2 != EGO_WEAPON_EXTRA_ATTACKS))

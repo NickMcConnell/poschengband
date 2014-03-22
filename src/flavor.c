@@ -2069,8 +2069,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
             /* Finish the display */
             t = object_desc_chr(t, p2);
         }
-
-        if (have_flag(flgs, TR_MAGIC_MASTERY))
+        if (have_flag(flgs, TR_DEVICE_POWER))
         {
             int pct = device_power_aux(100, o_ptr->pval) - 100;
             if (pct >= 0)

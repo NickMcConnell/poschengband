@@ -62,7 +62,7 @@ F:DEC_INT
 
 N:5:GLOVES:of the Wizard
 W:20:*:4
-C:-10:-10:-20:3
+C:-10:-10:-20:5
 F:INT | MAGIC_MASTERY | HIDE_TYPE
 F:DEC_STR
 

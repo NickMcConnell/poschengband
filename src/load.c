@@ -184,7 +184,7 @@ static void rd_item(savefile_ptr file, object_type *o_ptr)
               || o_ptr->name2 == EGO_BOW_EXTRA_MIGHT
               || o_ptr->name2 == EGO_BOW_HARADRIM )
             {
-                o_ptr->mult += 100;  /* This is very generous! */
+                o_ptr->mult += 75;
             }
             else if (o_ptr->name2 == EGO_BOW_VELOCITY)
                 o_ptr->mult += 25;

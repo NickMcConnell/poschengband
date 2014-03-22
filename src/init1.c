@@ -820,6 +820,7 @@ static cptr k_info_flags[TR_FLAG_MAX] =
     "SLAY_LIVING",
 
     "STUN",
+    "DEVICE_POWER",
 };
 
 

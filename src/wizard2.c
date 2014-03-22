@@ -300,7 +300,7 @@ static void do_cmd_wiz_hack_chris3_imp(FILE* file)
             object_prep(&forge, k_idx);
             apply_magic(&forge, depth, 0);
 
-            if (forge.name2 == EGO_RING_ARCHERY)
+            if (forge.name2 == EGO_GLOVES_WIZARD)
             {
                 char buf[MAX_NLEN];
 
@@ -314,8 +314,7 @@ static void do_cmd_wiz_hack_chris3_imp(FILE* file)
               
                 /*msg_print(buf);*/
 
-                if ( have_flag(forge.art_flags, TR_XTRA_MIGHT)
-                  && have_flag(forge.art_flags, TR_XTRA_SHOTS) )
+                if (forge.pval == 5 && !object_is_cursed(&forge))
                 {
                     drop_near(&forge, -1, py, px);
                 }
