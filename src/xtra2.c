@@ -5403,7 +5403,7 @@ s16b gain_energy(void)
 /*
  * Return bow energy 
  */
-s16b bow_energy(int sval)
+int bow_energy(int sval)
 {
     int energy = 100;
 
@@ -5457,97 +5457,6 @@ s16b bow_energy(int sval)
     }
 
     return (energy);
-}
-
-int bow_range(int sval)
-{
-    int tdis, tmul;
-
-    switch (sval)
-    {
-    case SV_LIGHT_XBOW:
-        tdis = 9; /* somebody is adding 1 later ... */
-        tdis += (p_ptr->concent + 1) / 2;    /* Snipers? */
-        break;
-
-    case SV_SHORT_BOW:
-        tdis = 9; /* somebody is adding 1 later ... */
-        break;
-
-    default:
-        tmul = bow_tmul(sval);
-        tmul += p_ptr->shooter_info.to_mult;
-        tmul = tmul * (100 + (int)(adj_str_td[p_ptr->stat_ind[A_STR]]) - 128);
-        tdis = 13 + tmul/80;
-        if (sval == SV_LIGHT_XBOW || sval == SV_HEAVY_XBOW)
-        {
-            if (p_ptr->concent)
-                tdis -= (5 - (p_ptr->concent + 1) / 2);
-            else
-                tdis -= 5;
-        }
-        break;
-    }
-    if (prace_is_(RACE_DEMIGOD) && p_ptr->psubrace == DEMIGOD_ARTEMIS)
-        tdis += 1 + p_ptr->lev/12;
-
-    return tdis;
-}
-
-/*
- * Return bow tmul
- */
-int bow_tmul(int sval)
-{
-    int tmul = 0;
-
-    /* Analyze the launcher */
-    switch (sval)
-    {
-        /* Sling and ammo */
-        case SV_SLING:
-        {
-            tmul = 2;
-            break;
-        }
-
-        /* Short Bow and Arrow */
-        case SV_SHORT_BOW:
-        {
-            tmul = 3;
-            break;
-        }
-
-        /* Long Bow and Arrow */
-        case SV_LONG_BOW:
-        {
-            tmul = 3;
-            break;
-        }
-
-        /* Bow of irresponsiblity and Arrow */
-        case SV_NAMAKE_BOW:
-        {
-            tmul = 3;
-            break;
-        }
-
-        /* Light Crossbow and Bolt */
-        case SV_LIGHT_XBOW:
-        {
-            tmul = 4;
-            break;
-        }
-
-        /* Heavy Crossbow and Bolt */
-        case SV_HEAVY_XBOW:
-        {
-            tmul = 4;
-            break;
-        }
-    }
-
-    return (tmul);
 }
 
 /*

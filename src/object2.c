@@ -1821,6 +1821,7 @@ void object_prep(object_type *o_ptr, int k_idx)
     o_ptr->ac = k_ptr->ac;
     o_ptr->dd = k_ptr->dd;
     o_ptr->ds = k_ptr->ds;
+    o_ptr->mult = k_ptr->mult;
 
     /* Hack -- worthless items are always "broken" */
     if (k_info[o_ptr->k_idx].cost <= 0) o_ptr->ident |= (IDENT_BROKEN);
@@ -2307,16 +2308,21 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
                 o_ptr->to_d += randint1(5) + m_bonus(5, level);
                 break;
             case 5:
-                if (abs(power) >= 2 && level >= 40)
+                if ( abs(power) >= 2
+                  && (!have_flag(o_ptr->art_flags, TR_XTRA_MIGHT) || one_in_(7) ) )
                 {
                     add_flag(o_ptr->art_flags, TR_XTRA_SHOTS);
-                    o_ptr->pval = _jewelry_pval(3, level);
+                    o_ptr->pval = _jewelry_pval(5, level);
                     break;
                 }
             case 6:
-                if (abs(power) >= 2 && one_in_(2) && level >= 40)
+                if ( abs(power) >= 2
+                  && level >= 40
+                  && one_in_(2)
+                  && (!have_flag(o_ptr->art_flags, TR_XTRA_SHOTS) || one_in_(7) ) )
                 {
                     add_flag(o_ptr->art_flags, TR_XTRA_MIGHT);
+                    o_ptr->pval = _jewelry_pval(5, level);
                     break;
                 }
             default:
@@ -3175,11 +3181,19 @@ static void _create_weapon(object_type *o_ptr, int level, int power, int mode)
 
             switch (o_ptr->name2)
             {
+            case EGO_BOW_VELOCITY:
+                o_ptr->mult  += 25;
+                break;
+            case EGO_BOW_EXTRA_MIGHT:
+                o_ptr->mult  += 25 + m_bonus(15, level) * 5;
+                break;
             case EGO_BOW_LOTHLORIEN:
                 if (o_ptr->sval != SV_LONG_BOW)
                     done = FALSE;
                 else
                 {
+                    o_ptr->mult  += 25 + m_bonus(17, level) * 5;
+
                     if (one_in_(3))
                         add_flag(o_ptr->art_flags, TR_XTRA_SHOTS);
                     else
@@ -3192,7 +3206,7 @@ static void _create_weapon(object_type *o_ptr, int level, int power, int mode)
                 else
                 {
                     if (one_in_(3))
-                        add_flag(o_ptr->art_flags, TR_XTRA_MIGHT);
+                        o_ptr->mult  += 25 + m_bonus(15, level) * 5;
                     else
                         one_high_resistance(o_ptr);
                 }
@@ -3202,6 +3216,7 @@ static void _create_weapon(object_type *o_ptr, int level, int power, int mode)
                     done = FALSE;
                 else
                 {
+                    o_ptr->mult  += 25 + m_bonus(20, level) * 5;
                     if (one_in_(3))
                     {
                         add_flag(o_ptr->art_flags, TR_XTRA_SHOTS);

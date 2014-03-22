@@ -19,7 +19,7 @@
 #define VER_MAJOR 3
 #define VER_MINOR 0
 #define VER_PATCH 6
-#define VER_EXTRA 0
+#define VER_EXTRA 1
 
 
 /*
@@ -5473,6 +5473,7 @@ enum object_save_fields_e {
     SAVE_ITEM_XTRA4,
     SAVE_ITEM_XTRA5,
     SAVE_ITEM_ACTIVATION,
+    SAVE_ITEM_MULT,
 };
 
 /*

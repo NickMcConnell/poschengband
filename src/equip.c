@@ -1198,7 +1198,7 @@ void equip_calc_bonuses(void)
         if (have_flag(flgs, TR_XTRA_SHOTS))
         {
             if (o_ptr->name2 == EGO_RING_ARCHERY)
-                p_ptr->shooter_info.num_fire += 50 * o_ptr->pval;
+                p_ptr->shooter_info.num_fire += 25 * o_ptr->pval;
             else if (o_ptr->name2 == EGO_GLOVES_SNIPER) 
                 p_ptr->shooter_info.num_fire += 50;
             else
@@ -1221,7 +1221,10 @@ void equip_calc_bonuses(void)
         if (have_flag(flgs, TR_DEC_SPELL_CAP))   p_ptr->spell_cap -= o_ptr->pval;
         if (have_flag(flgs, TR_MAGIC_RESISTANCE))   p_ptr->magic_resistance += 5*o_ptr->pval;
         if (have_flag(flgs, TR_BLESSED))     p_ptr->bless_blade = TRUE;
-        if (have_flag(flgs, TR_XTRA_MIGHT))  p_ptr->shooter_info.to_mult++;
+
+        if (have_flag(flgs, TR_XTRA_MIGHT) && o_ptr->tval != TV_BOW)  
+            p_ptr->shooter_info.to_mult += 20 * o_ptr->pval;
+
         if (have_flag(flgs, TR_SLOW_DIGEST)) p_ptr->slow_digest = TRUE;
         if (have_flag(flgs, TR_REGEN))       p_ptr->regenerate = TRUE;
         if (have_flag(flgs, TR_TELEPATHY))   p_ptr->telepathy = TRUE;

@@ -3141,10 +3141,6 @@ void calc_bonuses(void)
     s16b old_dis_ac = p_ptr->dis_ac;
     s16b old_dis_to_a = p_ptr->dis_to_a;
 
-    /* Clear extra blows/shots */
-    if (p_ptr->tim_speed_essentia)
-        p_ptr->shooter_info.num_fire += 100;
-
     /* Clear the stat modifiers */
     for (i = 0; i < 6; i++) p_ptr->stat_add[i] = 0;
 
@@ -3161,6 +3157,9 @@ void calc_bonuses(void)
     p_ptr->shooter_info.heavy_shoot = FALSE;
     p_ptr->shooter_info.to_mult = 0;
     p_ptr->shooter_info.tval_ammo = 0;
+
+    if (p_ptr->tim_speed_essentia)
+        p_ptr->shooter_info.num_fire += 100;
 
     p_ptr->dis_to_a = p_ptr->to_a = 0;
     p_ptr->to_h_m = 0;

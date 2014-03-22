@@ -496,33 +496,33 @@ F:CHR | SUST_CHR | SUST_STR | SUST_CON | RES_FEAR | RES_BLIND
 ############
 
 N:140:BOW:of Accuracy
-W:0:50:1
+W:0:40:1
 C:10:5:0:0
 
 N:141:BOW:of Velocity
-W:0:50:1
+W:0:60:1
 C:5:10:0:0
 
 N:142:BOW:of Extra Might
-W:20:80:2
+W:20:*:2
 C:2:4:0:0
-F:XTRA_MIGHT | XTRA_RES
+F:XTRA_RES
 
 N:143:BOW:of Extra Shots
-W:10:70:2
+W:10:*:2
 C:4:2:0:0
 F:XTRA_SHOTS
 
 N:144:BOW:of Lothlorien
 W:60:*:8
 C:10:10:0:3
-F:DEX | STEALTH | XTRA_MIGHT | 
+F:DEX | STEALTH | 
 F:IGNORE_ACID | IGNORE_FIRE
 
 N:145:BOW:of the Haradrim
 W:70:*:8
 C:5:10:0:3
-F:STR | XTRA_MIGHT | 
+F:STR | 
 F:IGNORE_ACID | IGNORE_FIRE
 
 N:146:BOW:of Buckland

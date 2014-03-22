@@ -999,14 +999,12 @@ static bool is_autopick_aux(object_type *o_ptr, autopick_type *entry, cptr o_nam
 
         if (object_is_bow(o_ptr))
         {
-            u32b flags[TR_FLAG_SIZE];
-            object_flags(o_ptr, flags);
-            if (!have_flag(flags, TR_XTRA_MIGHT))
+            if (o_ptr->mult == k_ptr->mult)
                 return FALSE;
         }
         else if (object_is_melee_weapon(o_ptr))
         {
-            if ((o_ptr->dd == k_ptr->dd) && (o_ptr->ds == k_ptr->ds))
+            if (o_ptr->dd == k_ptr->dd && o_ptr->ds == k_ptr->ds)
                 return FALSE;
         }
         else

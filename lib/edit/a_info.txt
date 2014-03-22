@@ -232,7 +232,7 @@ D:for rapid communication between distant lands.
 N:16:'Crimson'
 I:19:50:4
 W:60:250:100:100000
-P:0:0d0:20:20:0
+P:0:x0.00:20:20:0
 F:SPEED | STEALTH | RES_SHARDS |
 F:INSTA_ART | XTRA_POWER | XTRA_H_RES
 E:ROCKET:60:15
@@ -1505,7 +1505,7 @@ F:REGEN | RES_BLIND | SLOW_DIGEST | SHOW_MODS
 N:124:'Belthronding'
 I:19:13:3
 W:40:20:40:60000
-P:0:0d0:20:22:0
+P:0:x3.00:20:22:0
 F:DEX | STEALTH | HIDE_TYPE | RES_DISEN | XTRA_SHOTS | SHOW_MODS
 D:The great bow of Beleg Cuthalion, made of black yew and strung with elven 
 D:hair that faintly shimmers a pale clear gold.
@@ -1513,16 +1513,16 @@ D:hair that faintly shimmers a pale clear gold.
 N:125:of Bard
 I:19:13:3
 W:30:20:40:40000
-P:0:0d0:17:19:0
-F:DEX | HIDE_TYPE | FREE_ACT | XTRA_MIGHT | SHOW_MODS
+P:0:x4.00:17:19:0
+F:DEX | HIDE_TYPE | FREE_ACT | SHOW_MODS
 D:The great yew bow of grim-faced Bard, who shot the mightiest arrow that 
 D:songs record.
 
 N:126:of Brand
 I:19:23:5
 W:50:25:110:100000
-P:0:0d0:10:12:0
-F:SPEED | RES_FIRE | XTRA_MIGHT | SHOW_MODS | XTRA_RES_OR_POWER
+P:0:x5.00:10:12:0
+F:SPEED | RES_FIRE | SHOW_MODS | XTRA_RES_OR_POWER
 F:BRAND_FIRE
 
 N:127:of Himring
@@ -1612,9 +1612,8 @@ D: alive, by the command of Morgoth..."
 N:134:of Buckland
 I:19:2:3
 W:40:35:20:50000
-P:0:2d1:19:15:0
-F:SPEED | XTRA_MIGHT |
-F:RES_BLIND | RES_CONF | SHOW_MODS | XTRA_RES_OR_POWER
+P:0:x3.00:19:15:0
+F:SPEED | RES_BLIND | RES_CONF | SHOW_MODS | XTRA_RES_OR_POWER
 D:A sling granting extraordinary clarity of mind amidst darkness and 
 D:confusion, and which hurls shot with deadly speed.
 
@@ -1739,8 +1738,8 @@ E:Your stone glows pale...
 N:148:of Yoichi
 I:19:13:4
 W:35:30:40:30000
-P:0:0d0:40:13:0
-F:DEX | HIDE_TYPE | SEE_INVIS | XTRA_MIGHT | SHOW_MODS
+P:0:x4.00:40:13:0
+F:DEX | HIDE_TYPE | SEE_INVIS | SHOW_MODS
 
 N:149:'Yasaka-no-Magatama'
 I:40:0:3
@@ -1993,8 +1992,8 @@ F:SLOW_DIGEST | SHOW_MODS
 #N:180:of Harad
 #I:19:24:-2
 #W:60:120:200:35000
-#P:0:4d1:18:18:-44
-#F:WIS | STEALTH | XTRA_SHOTS | XTRA_MIGHT | AGGRAVATE | RES_LITE | RES_DARK | 
+#P:0:x5.00:18:18:-44
+#F:WIS | STEALTH | XTRA_SHOTS | AGGRAVATE | RES_LITE | RES_DARK | 
 #F:HIDE_TYPE | SHOW_MODS | TY_CURSE
 #D:A great brazen arbalest with arms of gleaming steel shooting quarrels with 
 #D:speed and power for those brave enough to risk betrayal.
@@ -2013,8 +2012,8 @@ F:SLAY_HUMAN | HIDE_TYPE | SHOW_MODS | RIDING | QUESTITEM | INSTA_ART
 N:182:of irresponsibility
 I:19:63:7
 W:127:1:50:1000000
-P:0:1d1:22:22:10
-F:SPEED | INT | WIS | SUST_INT | SUST_WIS | XTRA_SHOTS | XTRA_MIGHT |
+P:0:x4.00:22:22:10
+F:SPEED | INT | WIS | SUST_INT | SUST_WIS | XTRA_SHOTS | 
 F:DEC_MANA |
 F:RES_DARK | RES_LITE | RES_DISEN | RES_BLIND | IM_COLD | SLOW_DIGEST |
 F:HIDE_TYPE | SHOW_MODS | QUESTITEM | INSTA_ART
@@ -2358,16 +2357,16 @@ F:SEE_INVIS | LITE |
 N:221:of Robin Hood
 I:19:12:2
 W:20:15:30:50000
-P:0:2d1:15:17:0
+P:0:x4.00:15:17:0
 F:DEX | CHR | STEALTH |
-F:XTRA_MIGHT | HIDE_TYPE | SHOW_MODS | XTRA_H_RES
+F:HIDE_TYPE | SHOW_MODS | XTRA_H_RES
 D:This is of Robin Hood who live in the deep forest.
 
 # from Slash'EM
 N:222:of Hellfire
 I:19:23:4
 W:30:15:110:60000
-P:0:2d1:10:12:0
+P:0:x4.00:10:12:0
 F:STR | INFRA | RES_FIRE | SH_FIRE |
 F:HIDE_TYPE | SHOW_MODS
 F:BRAND_FIRE
@@ -2376,8 +2375,8 @@ D:This crossbow gives flame energy to bolts which it fires.
 N:223:of Wilhelm Tell
 I:19:23:4
 W:35:30:110:50000
-P:0:0d0:40:13:0
-F:DEX | HIDE_TYPE | SEE_INVIS | XTRA_MIGHT | SHOW_MODS
+P:0:x5.00:40:13:0
+F:DEX | HIDE_TYPE | SEE_INVIS | SHOW_MODS
 F:SLAY_HUMAN
 D:With this crossbow, Swiss hero Tell shot an apple exactly 
 D:though it was on his son's head, and then he defeated evil 
@@ -2590,7 +2589,7 @@ D:it holds an incredible power, undiluted by time.
 N:245:of Maglor
 I:19:70:4
 W:80:5:40:200000
-P:0:0d0:0:0:0
+P:0:x0.00:0:0:0
 F:STR | INT | CHR |
 F:SUST_STR | SUST_INT | SUST_CHR | FREE_ACT | HOLD_LIFE |
 F:RES_DARK | RES_NETHER | RES_BLIND
@@ -2602,7 +2601,7 @@ D:Maglor, son of Feanor and Nerdanel, was the greatest poet and bard of the Nold
 N:246:of Daeron
 I:19:70:4
 W:70:5:40:200000
-P:0:0d0:0:0:0
+P:0:x0.00:0:0:0
 F:WIS | CON | CHR |
 F:SUST_WIS | SUST_CON | SUST_CHR | SEE_INVIS | REFLECT |
 F:RES_FIRE | RES_ELEC | RES_LITE | RES_POIS
@@ -2772,7 +2771,7 @@ E:Your boots shine.
 N:262:of Apollo
 I:19:70:5
 W:90:127:40:555555
-P:0:0d0:0:0:0
+P:0:x0.00:0:0:0
 F:STR | INT | CHR | SPEED | SUST_STR |
 F:SUST_INT | SUST_CHR | FREE_ACT | RES_FEAR | RES_LITE |
 F:RES_NETHER | PERMA_CURSE | QUESTITEM
@@ -2783,8 +2782,8 @@ D:The is the lyre of Apollo, the sun god.
 N:263:of Artemis
 I:19:12:3
 W:90:127:30:555555
-P:0:0d0:12:18:0
-F:STR | DEX | CHR | STEALTH | XTRA_MIGHT |
+P:0:x4.50:12:18:0
+F:STR | DEX | CHR | STEALTH | 
 F:XTRA_SHOTS | SUST_STR | SUST_DEX | SUST_CHR | SEE_INVIS |
 F:RES_BLIND | PERMA_CURSE | QUESTITEM
 E:ARTEMIS:30:1000
@@ -2867,8 +2866,8 @@ D:This arrow is traditionally shot only by fat, scantly clad babies.
 N:271:'Ballista'
 I:19:24:3
 W:30:15:110:60000
-P:0:2d1:10:12:0
-F:XTRA_MIGHT | HIDE_TYPE | SHOW_MODS
+P:0:x5.00:10:12:0
+F:HIDE_TYPE | SHOW_MODS
 F:STR | RES_CONF
 E:PIERCING_SHOT:30:100
 E:Your ballista glows black...
@@ -2889,7 +2888,7 @@ D:So much death. So much destruction. What could cause such a thing?
 N:273:'Railgun'
 I:19:51:2
 W:85:150:100:80000
-P:0:0d0:25:25:0
+P:0:x0.00:25:25:0
 F:DEX | SPEED | SUST_DEX | IM_FIRE | RES_LITE
 F:INSTA_ART
 E:BEAM_LITE:50:15:300
@@ -3314,7 +3313,7 @@ E:You charge your foe ...
 N:325:of Heracles
 I:19:13:2
 W:40:30:40:60000
-P:0:0d0:12:17:0
+P:0:x3.00:12:17:0
 F:STR | INT | CHR | SPEED
 F:BRAND_POIS | RES_FEAR
 D:This bow belonged to the greatest of Greek heroes. Its 

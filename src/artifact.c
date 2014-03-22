@@ -2612,6 +2612,13 @@ s32b create_artifact(object_type *o_ptr, u32b mode)
         remove_flag(o_ptr->art_flags, TR_SHOW_MODS);
     }
 
+    /* Hack: Apply extra might at the end (so only once) */
+    if (o_ptr->tval == TV_BOW && have_flag(o_ptr->art_flags, TR_XTRA_MIGHT) && o_ptr->mult)
+    {
+        o_ptr->mult  += 25 + m_bonus(17, object_level) * 5;
+        remove_flag(o_ptr->art_flags, TR_XTRA_MIGHT);
+    }
+
     if ((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DOKUBARI))
     {
         o_ptr->to_h = 0;
