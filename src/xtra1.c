@@ -4214,23 +4214,12 @@ void calc_bonuses(void)
         /* TODO: Convert old code to use class_ptr->calc_shooter_bonuses() */
         if (!p_ptr->shooter_info.heavy_shoot)
         {
-            /*
-             * Addendum -- also "Reward" high level warriors,
-             * with _any_ missile weapon -- TY
-             */
             if (p_ptr->pclass == CLASS_WARLOCK &&
                 p_ptr->psubclass == PACT_ABERRATION &&
                 p_ptr->shooter_info.tval_ammo <= TV_BOLT &&
                 p_ptr->shooter_info.tval_ammo >= TV_SHOT)
             {
                 p_ptr->shooter_info.num_fire += (p_ptr->lev * 2);
-            }
-            if (p_ptr->pclass == CLASS_SCOUT &&
-                !heavy_armor() &&
-                p_ptr->shooter_info.tval_ammo <= TV_BOLT &&
-                p_ptr->shooter_info.tval_ammo >= TV_SHOT)
-            {
-                p_ptr->shooter_info.num_fire += (p_ptr->lev * 3);
             }
         }
         if (p_ptr->shooter_info.num_fire < 0) p_ptr->shooter_info.num_fire = 0;

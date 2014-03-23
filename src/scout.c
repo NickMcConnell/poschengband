@@ -345,6 +345,17 @@ static void _calc_bonuses(void)
         p_ptr->peerless_stealth = TRUE;
 }
 
+static void _calc_shooter_bonuses(object_type *o_ptr, shooter_info_t *info_ptr)
+{
+    if ( !p_ptr->shooter_info.heavy_shoot
+      && !heavy_armor()
+      && p_ptr->shooter_info.tval_ammo <= TV_BOLT
+      && p_ptr->shooter_info.tval_ammo >= TV_SHOT )
+    {
+        p_ptr->shooter_info.num_fire += p_ptr->lev * 150 / 50;
+    }
+}
+
 static void _character_dump(FILE* file)
 {
     int ct = _count_open_terrain();
@@ -460,6 +471,7 @@ class_t *scout_get_class_t(void)
         me.pets = 40;
 
         me.calc_bonuses = _calc_bonuses;
+        me.calc_shooter_bonuses = _calc_shooter_bonuses;
         me.caster_info = _caster_info;
         me.get_spells = _get_spells;
         me.move_player = _move_player;
