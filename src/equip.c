@@ -1130,6 +1130,7 @@ void equip_calc_bonuses(void)
         if (have_flag(flgs, TR_BLOWS) && (p_ptr->pclass != CLASS_MAULER || o_ptr->pval < 0))
         {
             int hand = _template->slots[i].hand;
+            int amt = o_ptr->pval * 50;
             switch (_template->slots[i].type)
             {
             case EQUIP_SLOT_GLOVES:
@@ -1139,47 +1140,44 @@ void equip_calc_bonuses(void)
                 int lhand = arm*2 + 1;
                 if (p_ptr->weapon_info[rhand].wield_how != WIELD_NONE && p_ptr->weapon_info[lhand].wield_how != WIELD_NONE)
                 {
-                    if (o_ptr->pval > 0)
+                    if (amt > 0)
                     {
-                        p_ptr->weapon_info[rhand].xtra_blow += o_ptr->pval*50;
-                        p_ptr->weapon_info[lhand].xtra_blow += o_ptr->pval*50;
+                        p_ptr->weapon_info[rhand].xtra_blow += amt/2;
+                        p_ptr->weapon_info[lhand].xtra_blow += amt/2;
                     }
                     else
                     {
-                        p_ptr->weapon_info[rhand].xtra_blow += o_ptr->pval*100;
-                        p_ptr->weapon_info[lhand].xtra_blow += o_ptr->pval*100;
+                        p_ptr->weapon_info[rhand].xtra_blow += amt;
+                        p_ptr->weapon_info[lhand].xtra_blow += amt;
                     }
                 }
                 else if (p_ptr->weapon_info[rhand].wield_how != WIELD_NONE)
-                    p_ptr->weapon_info[rhand].xtra_blow += o_ptr->pval*100;
+                    p_ptr->weapon_info[rhand].xtra_blow += amt;
                 else if (p_ptr->weapon_info[lhand].wield_how != WIELD_NONE)
-                    p_ptr->weapon_info[lhand].xtra_blow += o_ptr->pval*100;
+                    p_ptr->weapon_info[lhand].xtra_blow += amt;
                 else
-                    p_ptr->innate_attack_info.xtra_blow += o_ptr->pval*100;
+                    p_ptr->innate_attack_info.xtra_blow += amt;
                 break;
             }
             case EQUIP_SLOT_WEAPON_SHIELD:
             case EQUIP_SLOT_WEAPON:
                 if (p_ptr->weapon_info[hand].wield_how != WIELD_NONE)
-                    p_ptr->weapon_info[hand].xtra_blow += o_ptr->pval*100;
+                    p_ptr->weapon_info[hand].xtra_blow += amt;
                 break;
             default:
             {
-                int  j;
-                bool assigned = FALSE;
                 if (object_is_melee_weapon(o_ptr)) break; /* Hack for Jellies ... */
-                for (j = 0; j < MAX_HANDS; j++)
+                if (p_ptr->weapon_ct)
                 {
-                    if (p_ptr->weapon_info[j].wield_how != WIELD_NONE)
+                    int  j;
+                    for (j = 0; j < MAX_HANDS; j++)
                     {
-                        p_ptr->weapon_info[j].xtra_blow += o_ptr->pval*100;
-                        assigned = TRUE;
-                        break; /* Assume pval == 1 so first found gets it */
-                               /* TODO: We could prorate pval*100 across # valid slots now! */
+                        if (p_ptr->weapon_info[j].wield_how != WIELD_NONE)
+                            p_ptr->weapon_info[j].xtra_blow += amt/p_ptr->weapon_ct;
                     }
                 }
-                if (!assigned)
-                    p_ptr->innate_attack_info.xtra_blow += o_ptr->pval*100;
+                else
+                    p_ptr->innate_attack_info.xtra_blow += amt;
             }
             }
         }

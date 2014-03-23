@@ -2470,15 +2470,15 @@ s32b create_artifact(object_type *o_ptr, u32b mode)
         {
             if (o_ptr->tval == TV_RING)
             {
-                o_ptr->pval = 1;
+                o_ptr->pval = randint1(2);
                 if (one_in_(30)) o_ptr->pval++;
             }
             else
             {
-                o_ptr->pval = 1;
+                o_ptr->pval = randint1(3);
                 if (one_in_(15)) o_ptr->pval++;
                 if (is_falcon_sword)
-                    o_ptr->pval++;
+                    o_ptr->pval += randint1(2);
             }
         }
         else

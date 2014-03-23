@@ -567,7 +567,7 @@ s32b jewelry_cost(object_type *o_ptr)
 
     if (have_flag(flgs, TR_BLOWS))
     {
-        p += 90 * 1000 * o_ptr->pval;
+        p += 45 * 1000 * o_ptr->pval;
         if (cost_calc_hook)
         {
             sprintf(dbg_msg, "  * Blows: p = %d", p);
@@ -911,7 +911,7 @@ s32b armor_cost(object_type *o_ptr)
     /* Extra Attacks */
     if (have_flag(flgs, TR_BLOWS))
     {
-        p += 100 * 1000 * o_ptr->pval; /* Just for show ... Shiva's Jacket and Ares */
+        p += 50 * 1000 * o_ptr->pval; /* Just for show ... Shiva's Jacket and Ares */
                                        /* With Reforging, this is relevant: Biffed! */
         if (cost_calc_hook)
         {
@@ -1036,7 +1036,7 @@ s32b weapon_cost(object_type *o_ptr)
             d = 1.0;
 
         if (have_flag(flgs, TR_BLOWS))
-            d += (d + 15.0)*o_ptr->pval/5.0;
+            d += (d + 15.0)*o_ptr->pval/10.0;
 
         if (have_flag(flgs, TR_VAMPIRIC)) 
             d *= 1.1;

@@ -2034,7 +2034,10 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
                 /* Dump " to speed" */
                 t = object_desc_str(t, " to speed");
             }
-
+#if 0
+            TODO: Blows are now fractional (currently +.50 attacks per pval)
+                  As a result, the display would be wrong if we appended "attacks"
+                  after the pval.
             /* Attack speed */
             else if (have_flag(flgs, TR_BLOWS))
             {
@@ -2044,7 +2047,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
                 /* Add "attacks" */
                 if (ABS(o_ptr->pval) != 1) t = object_desc_chr(t, 's');
             }
-
+#endif
             /* Stealth */
             else if (have_flag(flgs, TR_STEALTH))
             {

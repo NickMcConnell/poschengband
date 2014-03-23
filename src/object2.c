@@ -4731,22 +4731,22 @@ void apply_magic(object_type *o_ptr, int lev, u32b mode)
                 }
                 else
                 {
-                    o_ptr->pval = 1;
+                    o_ptr->pval = randint1(2);
                     if ((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_HAYABUSA))
-                        o_ptr->pval++;
-                    if ((lev > 60) && one_in_(3) && ((o_ptr->dd*(o_ptr->ds+1)) < 15)) o_ptr->pval++;
+                        o_ptr->pval += randint1(2);
+                    if ((lev > 60) && one_in_(3) && ((o_ptr->dd*(o_ptr->ds+1)) < 15)) o_ptr->pval += randint1(2);
                 }
             }
             else if (o_ptr->name2 == EGO_WEAPON_EXTRA_ATTACKS)
             {
                 o_ptr->pval = randint1(e_ptr->max_pval*lev/100+1);
-                if (o_ptr->pval > 3) o_ptr->pval = 3;
-                if (o_ptr->pval == 3 && !one_in_(o_ptr->dd * o_ptr->ds / 2)) o_ptr->pval = 2;
+                if (o_ptr->pval > 6) o_ptr->pval = 6;
+                if (o_ptr->pval == 6 && !one_in_(o_ptr->dd * o_ptr->ds / 2)) o_ptr->pval = 5;
                 if ((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_HAYABUSA))
-                    o_ptr->pval += 1;
+                    o_ptr->pval += randint1(2);
 
                 if (o_ptr->dd*o_ptr->ds > 30)
-                    o_ptr->pval = 1;
+                    o_ptr->pval = MAX(o_ptr->pval, 3);
             }
             else if ( o_ptr->name2 == EGO_CLOAK_BAT 
                    || o_ptr->name2 == EGO_CLOAK_FAIRY 
@@ -4758,7 +4758,7 @@ void apply_magic(object_type *o_ptr, int lev, u32b mode)
             }
             else if (o_ptr->name2 == EGO_GLOVES_BERSERKER)
             {
-                o_ptr->pval = 1;
+                o_ptr->pval = randint1(2);
                 if (one_in_(15))
                     o_ptr->pval++;
             }
