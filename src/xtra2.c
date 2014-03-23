@@ -5437,7 +5437,7 @@ int bow_energy(int sval)
         /* Bow of irresponsiblity and Arrow */
         case SV_NAMAKE_BOW:
         {
-            energy = 7777;
+            energy = 10000; /* Now has +7 XTRA_SHOTS (currently x1.75) */
             break;
         }
 

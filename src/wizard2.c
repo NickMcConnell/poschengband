@@ -255,16 +255,16 @@ static void do_cmd_wiz_hack_chris2(void)
         
         object_prep(&forge, k_idx);
         /*create_artifact(&forge, CREATE_ART_CURSED);*/
-        apply_magic(&forge, object_level, 0);
+        apply_magic(&forge, object_level, AM_GREAT);
 
-        if (1 || forge.curse_flags)
+        if (1 || forge.name2 == EGO_BOW_EXTRA_SHOTS)
         {
             identify_item(&forge);
             forge.ident |= (IDENT_MENTAL); 
         
             object_desc(buf, &forge, 0);
             msg_format("%s (%d)", buf, object_value_real(&forge));
-            /*drop_near(&forge, -1, py, px);*/
+        /*    drop_near(&forge, -1, py, px); */
         }
     }
 }
@@ -300,7 +300,7 @@ static void do_cmd_wiz_hack_chris3_imp(FILE* file)
             object_prep(&forge, k_idx);
             apply_magic(&forge, depth, 0);
 
-            if (forge.name2 == EGO_GLOVES_WIZARD)
+            if (forge.name2 == EGO_BOW_EXTRA_SHOTS)
             {
                 char buf[MAX_NLEN];
 
@@ -314,7 +314,7 @@ static void do_cmd_wiz_hack_chris3_imp(FILE* file)
               
                 /*msg_print(buf);*/
 
-                if (forge.pval == 5 && !object_is_cursed(&forge))
+                if (1)
                 {
                     drop_near(&forge, -1, py, px);
                 }

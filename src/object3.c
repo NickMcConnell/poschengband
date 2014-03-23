@@ -577,7 +577,7 @@ s32b jewelry_cost(object_type *o_ptr)
 
     if (have_flag(flgs, TR_XTRA_SHOTS))
     {
-        p += 30000;
+        p += 5000 * o_ptr->pval;
         if (cost_calc_hook)
         {
             sprintf(dbg_msg, "  * Shots: p = %d", p);
@@ -586,7 +586,7 @@ s32b jewelry_cost(object_type *o_ptr)
     }
     if (have_flag(flgs, TR_XTRA_MIGHT))
     {
-        p += 50000;
+        p += 5000 * o_ptr->pval;
         if (cost_calc_hook)
         {
             sprintf(dbg_msg, "  * Extra Might: p = %d", p);
@@ -1242,7 +1242,11 @@ s32b bow_cost(object_type *o_ptr)
 
     w = t * t * 3;
     if (have_flag(flgs, TR_XTRA_SHOTS))
-        w = w * 3 / 2;
+    {
+        int i;
+        for (i = 0; i < o_ptr->pval; i++)
+            w = w * 11 / 10;
+    }
 
     if (cost_calc_hook)
     {

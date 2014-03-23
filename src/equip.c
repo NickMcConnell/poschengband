@@ -1197,14 +1197,7 @@ void equip_calc_bonuses(void)
         }
 
         if (have_flag(flgs, TR_XTRA_SHOTS))
-        {
-            if (o_ptr->name2 == EGO_RING_ARCHERY)
-                p_ptr->shooter_info.num_fire += 25 * o_ptr->pval;
-            else if (o_ptr->name2 == EGO_GLOVES_SNIPER) 
-                p_ptr->shooter_info.num_fire += 50;
-            else
-                p_ptr->shooter_info.num_fire += 100;
-        }
+            p_ptr->shooter_info.num_fire += 25 * o_ptr->pval;
 
         if (have_flag(flgs, TR_LIFE))
             p_ptr->life += 3*o_ptr->pval;

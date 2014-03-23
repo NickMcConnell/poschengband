@@ -191,6 +191,15 @@ static void rd_item(savefile_ptr file, object_type *o_ptr)
         }
         remove_flag(o_ptr->art_flags, TR_XTRA_MIGHT);
     }
+
+    /* Extra shots now uses the pval */
+    if ( savefile_is_older_than(file, 3, 0, 6, 2)
+      && o_ptr->tval == TV_BOW
+      && (o_ptr->name2 == EGO_BOW_EXTRA_SHOTS || have_flag(o_ptr->art_flags, TR_XTRA_SHOTS))
+      && !o_ptr->pval )
+    {
+        o_ptr->pval = 3;
+    }
 }
 
 static void rd_monster(savefile_ptr file, monster_type *m_ptr)
