@@ -79,7 +79,7 @@ F:DEX | SHOW_MODS | HIDE_TYPE
 
 N:8:GLOVES:of the Sniper
 W:50:*:16
-C:10:5:0:5
+C:10:5:0:3
 F:XTRA_SHOTS | STEALTH | SHOW_MODS | HIDE_TYPE
 
 N:9:GLOVES:of the Berserker

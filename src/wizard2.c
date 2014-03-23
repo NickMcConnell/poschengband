@@ -300,7 +300,7 @@ static void do_cmd_wiz_hack_chris3_imp(FILE* file)
             object_prep(&forge, k_idx);
             apply_magic(&forge, depth, 0);
 
-            if (forge.name2 == EGO_BOW_EXTRA_SHOTS)
+            if (forge.name2 == EGO_RING_ARCHERY)
             {
                 char buf[MAX_NLEN];
 
@@ -314,7 +314,7 @@ static void do_cmd_wiz_hack_chris3_imp(FILE* file)
               
                 /*msg_print(buf);*/
 
-                if (1)
+                if (0)
                 {
                     drop_near(&forge, -1, py, px);
                 }
