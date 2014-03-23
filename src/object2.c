@@ -5218,7 +5218,7 @@ static _kind_alloc_entry _kind_alloc_table[] = {
     { kind_is_weapon,       180,    0,    0 },  
     { kind_is_body_armor,   165,    0,    0 },
     { kind_is_other_armor,  200,    0,    0 },
-    { kind_is_device,       250, -200, -100 },
+    { kind_is_device,       250, -200, -200 },
     { kind_is_bow_ammo,      70,    0,    0 },
     { kind_is_book,          50,    0,    0 },
     { kind_is_jewelry,       35,    0,    0 },
