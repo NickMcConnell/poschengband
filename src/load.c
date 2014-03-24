@@ -200,6 +200,14 @@ static void rd_item(savefile_ptr file, object_type *o_ptr)
     {
         o_ptr->pval = 3;
     }
+
+    /* Extra attacks is now .5 per pval */
+    if ( savefile_is_older_than(file, 3, 1, 0, 1)
+      && o_ptr->name1
+      && have_flag(a_info[o_ptr->name1].flags, TR_BLOWS) )
+    {
+        o_ptr->pval = a_info[o_ptr->name1].pval;
+    }
 }
 
 static void rd_monster(savefile_ptr file, monster_type *m_ptr)
