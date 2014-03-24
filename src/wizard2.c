@@ -2956,9 +2956,17 @@ void do_cmd_debug(void)
         break;
 
     case '_':
-        mut_gain(MUT_HORNS);
-        mut_gain(MUT_TRUNK);
-        mut_gain(MUT_TENTACLES);
+        if (p_ptr->prace != RACE_DEMIGOD)
+            change_race(RACE_DEMIGOD, "");
+        else
+        {
+            change_race(RACE_KLACKON, "");
+            change_race(RACE_DEMIGOD, "");
+            change_race(RACE_KLACKON, "");
+            change_race(RACE_HUMAN, "");
+            change_race(RACE_KLACKON, "");
+        }
+
         break;
 
     default:
