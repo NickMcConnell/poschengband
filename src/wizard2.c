@@ -314,7 +314,7 @@ static void do_cmd_wiz_hack_chris3_imp(FILE* file)
               
                 /*msg_print(buf);*/
 
-                if (0)
+                if (1)
                 {
                     drop_near(&forge, -1, py, px);
                 }
