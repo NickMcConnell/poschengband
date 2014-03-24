@@ -192,10 +192,6 @@ void check_experience(void)
 {
     bool level_inc_stat = FALSE;
     int  old_lev = p_ptr->lev;
-    race_t *race_ptr = get_true_race_t(); /* So players don't miss if they Polymorph Demon, etc */
-
-    if (p_ptr->prace == RACE_DOPPELGANGER) /* But a doppelganger should use the mimicked race! */
-        race_ptr = get_race_t();
 
     /* Hack -- lower limit */
     if (p_ptr->exp < 0) p_ptr->exp = 0;
@@ -261,11 +257,22 @@ void check_experience(void)
             if (class_ptr->gain_level != NULL)
                 (class_ptr->gain_level)(p_ptr->lev);
 
-            if (race_ptr->gain_level != NULL)
-                (race_ptr->gain_level)(p_ptr->lev);
-
             if (mut_present(MUT_CHAOS_GIFT))
                 chaos_warrior_reward();
+
+            /* N.B. The class hook or the Chaos Gift mutation may result in a race
+               change (stupid Chaos-Warriors), so we better always requery the player's 
+               race to make sure the correct racial hook is called. */
+            {
+                race_t *race_ptr = get_true_race_t(); /* So players don't miss if they Polymorph Demon, etc */
+
+                if (p_ptr->prace == RACE_DOPPELGANGER) /* But a doppelganger should use the mimicked race! */
+                    race_ptr = get_race_t();
+
+                if (race_ptr->gain_level != NULL)
+                    (race_ptr->gain_level)(p_ptr->lev);
+            }
+
 
             level_inc_stat = TRUE;
         }
@@ -301,8 +308,14 @@ void check_experience(void)
 
     if (old_lev != p_ptr->lev) 
     {
+        race_t *race_ptr = get_true_race_t(); /* So players don't miss if they Polymorph Demon, etc */
+
+        if (p_ptr->prace == RACE_DOPPELGANGER) /* But a doppelganger should use the mimicked race! */
+            race_ptr = get_race_t();
+
         if (race_ptr->change_level)
             race_ptr->change_level(old_lev, p_ptr->lev);
+
         autopick_load_pref(FALSE);
     }
 }
