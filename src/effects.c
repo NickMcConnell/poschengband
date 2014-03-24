@@ -5777,7 +5777,7 @@ void change_race(int new_race, cptr effect_msg)
 
     if (p_ptr->prace == RACE_HUMAN || p_ptr->prace == RACE_DEMIGOD)
     {
-        race_t *race_ptr = get_race_t();
+        race_t *race_ptr = get_true_race_t();
         if (race_ptr != NULL && race_ptr->gain_level != NULL)
             race_ptr->gain_level(p_ptr->lev);    /* This is OK ... Just make sure we get to choose racial powers on poly */
     }
