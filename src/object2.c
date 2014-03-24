@@ -2329,6 +2329,12 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
         }
         if (o_ptr->to_h > 25) o_ptr->to_h = 25;
         if (o_ptr->to_d > 20) o_ptr->to_d = 20;
+        if ( o_ptr->pval > 3
+          && (have_flag(o_ptr->art_flags, TR_XTRA_SHOTS) || have_flag(o_ptr->art_flags, TR_XTRA_MIGHT))
+          && !one_in_(10) )
+        {
+            o_ptr->pval = 3;
+        }
         break;
     case EGO_RING_PROTECTION:
         for (powers = _jewelry_powers(5, level, power); powers > 0; --powers)

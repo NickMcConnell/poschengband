@@ -955,10 +955,10 @@ D:both the living and undead.
 # The Katana 'Aglarang'
 
 N:81:'Aglarang'
-I:23:20:3
+I:23:20:5
 W:50:25:50:150000
-P:0:8d6:0:0:0
-F:DEX | HIDE_TYPE | VORPAL |
+P:0:8d4:0:0:0
+F:DEX | HIDE_TYPE | VORPAL2 |
 F:SUST_DEX | SHOW_MODS | SPEED
 D:An utterly perfect, cleanly chiseled sword, with a edge that effortlessly
 D: slices rock and bone and spells to render the wearer lithe and nimble. It
@@ -2672,7 +2672,7 @@ D:It emits a curiously muted bell-like tone when you strike
 D:your foes.
 
 N:253:of Rygar
-I:21:12:2
+I:21:12:1
 W:50:50:150:150000
 P:0:3d9:12:20:5
 F:STR | DEX | BLOWS | HIDE_TYPE | SLAY_HUMAN |
