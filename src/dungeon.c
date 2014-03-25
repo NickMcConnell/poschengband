@@ -649,6 +649,11 @@ static void pattern_teleport(void)
         teleport_player(200, 0L);
         return;
     }
+    else if (!ironman_downward && get_check("Recall? "))
+    {
+        recall_player(1);
+        return;
+    }
     else
     {
         return;
