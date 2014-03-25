@@ -202,11 +202,12 @@ static void rd_item(savefile_ptr file, object_type *o_ptr)
     }
 
     /* Extra attacks is now .5 per pval */
-    if ( savefile_is_older_than(file, 3, 1, 0, 1)
-      && o_ptr->name1
-      && have_flag(a_info[o_ptr->name1].flags, TR_BLOWS) )
+    if (savefile_is_older_than(file, 3, 1, 0, 1))
     {
-        o_ptr->pval = a_info[o_ptr->name1].pval;
+        if (o_ptr->name1 && have_flag(a_info[o_ptr->name1].flags, TR_BLOWS))
+            o_ptr->pval = a_info[o_ptr->name1].pval;
+        else if (o_ptr->name2 == EGO_WEAPON_EXTRA_ATTACKS || o_ptr->name2 == EGO_WEAPON_DAEMON)
+            o_ptr->pval *= 2;
     }
 }
 
