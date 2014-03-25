@@ -3422,7 +3422,7 @@ static bool enter_wizard_mode(void)
         else
         {
 #ifndef ALLOW_WIZARD
-            msg_print("Wizard mode is only permitted in _DEBUG builds.");
+            msg_print("Wizard mode is only permitted in special builds (#define ALLOW_WIZARD in z-config.h).");
             return FALSE;
 #endif
         }

@@ -2578,7 +2578,7 @@ extern void do_cmd_spoilers(void);
 
 /*
  * Hack -- declare external function
- */
+ */ 
 extern void do_cmd_debug(void);
 
 
@@ -2952,21 +2952,13 @@ void do_cmd_debug(void)
         break;
 
     case 'S':
+#ifdef ALLOW_SPOILERS
         generate_spoilers();
+#endif
         break;
 
     case '_':
-        if (p_ptr->prace != RACE_DEMIGOD)
-            change_race(RACE_DEMIGOD, "");
-        else
-        {
-            change_race(RACE_KLACKON, "");
-            change_race(RACE_DEMIGOD, "");
-            change_race(RACE_KLACKON, "");
-            change_race(RACE_HUMAN, "");
-            change_race(RACE_KLACKON, "");
-        }
-
+        /* Placeholder for quick and dirty debugging ... */
         break;
 
     default:
