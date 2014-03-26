@@ -603,7 +603,7 @@ static void sense_inventory2(void)
  */
 static void pattern_teleport(void)
 {
-    int min_level = 0;
+    int min_level = 1;
     int max_level = 99;
 
     /* Ask for level */
