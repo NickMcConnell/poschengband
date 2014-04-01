@@ -4284,7 +4284,7 @@ void calc_bonuses(void)
         {
             info_ptr->base_blow = calculate_base_blows(i, p_ptr->stat_ind[A_STR], p_ptr->stat_ind[A_DEX]);
 
-            if (p_ptr->tim_speed_essentia)
+            if (p_ptr->tim_speed_essentia && p_ptr->pclass != CLASS_MAULER)
                 info_ptr->xtra_blow += 200;
 
             if (p_ptr->special_defense & KATA_FUUJIN) info_ptr->xtra_blow -= 100;
