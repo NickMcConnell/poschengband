@@ -2798,6 +2798,12 @@ static bool _reforge_artifact(void)
     int src_max_power = p_ptr->fame * p_ptr->fame * 10;
     int dest_max_power = 0;
 
+    if (p_ptr->prace == RACE_MON_SWORD)
+    {
+        msg_print("Go enchant yourself!");
+        return FALSE;
+    }
+
     item_tester_hook = object_is_artifact;
     sprintf(buf, "Use what artifact for reforging (Max Power = %d)? ", src_max_power);
     if (!get_item(&src_idx, buf, "You have no artifacts to reforge.", USE_INVEN | SHOW_VALUE))
@@ -2918,6 +2924,12 @@ static bool enchant_item(int cost, int to_hit, int to_dam, int to_ac, bool is_gu
     cptr        q, s;
     int         maxenchant;
     char        tmp_str[MAX_NLEN];
+
+    if (p_ptr->prace == RACE_MON_SWORD)
+    {
+        msg_print("Go enchant yourself!");
+        return FALSE;
+    }
 
     clear_bldg(4, 18);
 
