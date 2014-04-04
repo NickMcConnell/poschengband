@@ -3301,6 +3301,26 @@ static void _create_weapon(object_type *o_ptr, int level, int power, int mode)
             done = TRUE;
             switch (o_ptr->name2)
             {
+            case EGO_WEAPON_BURNING:
+                if (one_in_(ACTIVATION_CHANCE))
+                    effect_add_random(o_ptr, BIAS_FIRE);
+                break;
+            case EGO_WEAPON_FREEZING:
+                if (one_in_(ACTIVATION_CHANCE))
+                    effect_add_random(o_ptr, BIAS_COLD);
+                break;
+            case EGO_WEAPON_MELTING:
+                if (one_in_(ACTIVATION_CHANCE))
+                    effect_add_random(o_ptr, BIAS_ACID);
+                break;
+            case EGO_WEAPON_SHOCKING:
+                if (one_in_(ACTIVATION_CHANCE))
+                    effect_add_random(o_ptr, BIAS_ELEC);
+                break;
+            case EGO_WEAPON_VENOM:
+                if (one_in_(ACTIVATION_CHANCE))
+                    effect_add_random(o_ptr, BIAS_POIS);
+                break;
             case EGO_WEAPON_ARCANE:
                 if (o_ptr->tval != TV_HAFTED || o_ptr->sval != SV_WIZSTAFF)
                     done = FALSE;
@@ -3311,6 +3331,8 @@ static void _create_weapon(object_type *o_ptr, int level, int power, int mode)
                         o_ptr->pval++;
                     o_ptr->to_h = -10;
                     o_ptr->to_d = -10;
+                    if (one_in_(ACTIVATION_CHANCE))
+                        effect_add_random(o_ptr, BIAS_MAGE);
                 }
                 break;
             case EGO_WEAPON_ARMAGEDDON:
@@ -3461,7 +3483,7 @@ static void _create_weapon(object_type *o_ptr, int level, int power, int mode)
                     add_flag(o_ptr->art_flags, TR_SUST_STR);
                 if (one_in_(5))
                     add_flag(o_ptr->art_flags, TR_KILL_GIANT);
-                if (one_in_(ACTIVATION_CHANCE))
+                if (one_in_(ACTIVATION_CHANCE*2)) /* TODO: Need more "Giant" activations */
                     effect_add_random(o_ptr, BIAS_STR);
                 break;
             case EGO_WEAPON_KILL_HUMAN:
@@ -3880,6 +3902,8 @@ static void _create_armor(object_type *o_ptr, int level, int power, int mode)
                     done = FALSE;
                 else
                 {
+                    if (one_in_(ACTIVATION_CHANCE))
+                        effect_add_random(o_ptr, BIAS_DEMON);
                 }
                 break;
             }
@@ -4043,11 +4067,25 @@ static void _create_armor(object_type *o_ptr, int level, int power, int mode)
         o_ptr->name2 = _get_random_ego(EGO_TYPE_CLOAK);
         switch (o_ptr->name2)
         {
+        case EGO_CLOAK_IMMOLATION:
+            if (one_in_(ACTIVATION_CHANCE))
+                effect_add_random(o_ptr, BIAS_FIRE);
+            break;
+        case EGO_CLOAK_ELECTRICITY:
+            if (one_in_(ACTIVATION_CHANCE))
+                effect_add_random(o_ptr, BIAS_ELEC);
+            break;
+        case EGO_CLOAK_FREEZING:
+            if (one_in_(ACTIVATION_CHANCE))
+                effect_add_random(o_ptr, BIAS_COLD);
+            break;
         case EGO_CLOAK_ELEMENTAL_PROTECTION:
             one_ele_resistance(o_ptr);
             do { one_ele_resistance(o_ptr); } while (one_in_(4));
             if (one_in_(7))
                 add_flag(o_ptr->art_flags, TR_RES_POIS);
+            if (one_in_(ACTIVATION_CHANCE))
+                effect_add_random(o_ptr, BIAS_ELEMENTAL);
             break;
         case EGO_CLOAK_BAT:
         case EGO_CLOAK_FAIRY:

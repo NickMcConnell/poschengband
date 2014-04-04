@@ -2730,8 +2730,8 @@ static _effect_info_t _effect_info[] =
     {"ESCAPE",          EFFECT_ESCAPE,              30,  70,  6, BIAS_ROGUE},
     {"RECALL",          EFFECT_RECALL,              25, 100,  2, 0},
 
-    {"STONE_TO_MUD",    EFFECT_STONE_TO_MUD,        15,  20,  1, 0},
-    {"EARTHQUAKE",      EFFECT_EARTHQUAKE,          25, 100,  1, 0},
+    {"STONE_TO_MUD",    EFFECT_STONE_TO_MUD,        15,  20,  1, BIAS_STR | BIAS_RANGER},
+    {"EARTHQUAKE",      EFFECT_EARTHQUAKE,          25, 100,  1, BIAS_STR},
     {"DESTRUCTION",     EFFECT_DESTRUCTION,         50, 250,  6, BIAS_DEMON},
     {"GENOCIDE",        EFFECT_GENOCIDE,            70, 500, 32, BIAS_NECROMANTIC},
     {"MASS_GENOCIDE",   EFFECT_MASS_GENOCIDE,       80, 750, 64, BIAS_NECROMANTIC},
