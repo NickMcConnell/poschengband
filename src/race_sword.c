@@ -38,8 +38,21 @@ static void _load(savefile_ptr file)
         int j = savefile_read_s16b(file);
         int n = savefile_read_s16b(file);
 
+        /* *Slay Foo* weapons no longer automatically get kill brands */
+        if (savefile_is_older_than(file, 3, 1, 1, 2))
+        {
+            if (j == TR_KILL_DEMON) j = TR_SLAY_DEMON;
+            else if (j == TR_KILL_ANIMAL) j = TR_SLAY_ANIMAL;
+            else if (j == TR_KILL_DRAGON) j = TR_SLAY_DRAGON;
+            else if (j == TR_KILL_GIANT) j = TR_SLAY_GIANT;
+            else if (j == TR_KILL_HUMAN) j = TR_SLAY_HUMAN;
+            else if (j == TR_KILL_ORC) j = TR_SLAY_ORC;
+            else if (j == TR_KILL_TROLL) j = TR_SLAY_TROLL;
+            else if (j == TR_KILL_UNDEAD) j = TR_SLAY_UNDEAD;
+        }
+
         if (0 <= j && j < _MAX_ESSENCE)
-            _essences[j] = n;
+            _essences[j] += n;
     }
 }
 

@@ -3434,13 +3434,63 @@ static void _create_weapon(object_type *o_ptr, int level, int power, int mode)
                         o_ptr->pval = m_bonus(3, level);
                 }
                 break;
+            case EGO_WEAPON_KILL_DEMON:
+                if (one_in_(3))
+                    one_demon_resistance(o_ptr);
+                if (one_in_(5))
+                    add_flag(o_ptr->art_flags, TR_KILL_DEMON);
+                if (one_in_(ACTIVATION_CHANCE))
+                    effect_add_random(o_ptr, BIAS_DEMON);
+                break;
             case EGO_WEAPON_KILL_DRAGON:
                 if (one_in_(3))
                     add_flag(o_ptr->art_flags, TR_RES_POIS);
+                if (one_in_(5))
+                    add_flag(o_ptr->art_flags, TR_KILL_DRAGON);
+                if (one_in_(ACTIVATION_CHANCE))
+                    effect_add_random(o_ptr, BIAS_ELEMENTAL);
                 break;
             case EGO_WEAPON_KILL_EVIL:
                 if (one_in_(30))
                     add_flag(o_ptr->art_flags, TR_KILL_EVIL);
+                if (one_in_(ACTIVATION_CHANCE))
+                    effect_add_random(o_ptr, BIAS_LAW);
+                break;
+            case EGO_WEAPON_KILL_GIANT:
+                if (one_in_(3))
+                    add_flag(o_ptr->art_flags, TR_SUST_STR);
+                if (one_in_(5))
+                    add_flag(o_ptr->art_flags, TR_KILL_GIANT);
+                if (one_in_(ACTIVATION_CHANCE))
+                    effect_add_random(o_ptr, BIAS_STR);
+                break;
+            case EGO_WEAPON_KILL_HUMAN:
+                if (one_in_(5))
+                    add_flag(o_ptr->art_flags, TR_KILL_HUMAN);
+                break;
+            case EGO_WEAPON_KILL_ORC:
+                if (one_in_(3))
+                    add_flag(o_ptr->art_flags, TR_KILL_ORC);
+                break;
+            case EGO_WEAPON_KILL_TROLL:
+                if (one_in_(3))
+                    add_flag(o_ptr->art_flags, TR_REGEN);
+                if (one_in_(3))
+                    add_flag(o_ptr->art_flags, TR_KILL_TROLL);
+                break;
+            case EGO_WEAPON_KILL_UNDEAD:
+                if (one_in_(3))
+                    add_flag(o_ptr->art_flags, TR_HOLD_LIFE);
+                if (one_in_(5))
+                    add_flag(o_ptr->art_flags, TR_KILL_UNDEAD);
+                if (one_in_(ACTIVATION_CHANCE))
+                    effect_add_random(o_ptr, BIAS_NECROMANTIC);
+                break;
+            case EGO_WEAPON_NATURE:
+                if (one_in_(5))
+                    add_flag(o_ptr->art_flags, TR_KILL_ANIMAL);
+                if (one_in_(ACTIVATION_CHANCE))
+                    effect_add_random(o_ptr, BIAS_RANGER);
                 break;
             case EGO_WEAPON_NOLDOR:
                 if ( o_ptr->tval != TV_SWORD 

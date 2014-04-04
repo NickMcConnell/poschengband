@@ -19,7 +19,7 @@
 #define VER_MAJOR 3
 #define VER_MINOR 1
 #define VER_PATCH 1
-#define VER_EXTRA 0
+#define VER_EXTRA 2
 
 
 /*
@@ -6324,6 +6324,7 @@ enum effect_e
 #define BIAS_FIRE            0x00000004
 #define BIAS_COLD            0x00000008
 #define BIAS_ACID            0x00000010
+#define BIAS_ELEMENTAL      (BIAS_ELEC | BIAS_POIS | BIAS_FIRE | BIAS_COLD | BIAS_ACID)
 #define BIAS_STR             0x00000020
 #define BIAS_INT             0x00000040
 #define BIAS_WIS             0x00000080
