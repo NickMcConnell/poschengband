@@ -243,15 +243,22 @@ static int _res_power(int which)
     case RES_ELEC:
     case RES_CONF:
     case RES_FEAR:
-        return 1;
+    case RES_TIME:
+    case RES_TELEPORT:
+        return 2;
 
     case RES_SOUND:
     case RES_SHARDS:
-        return 3;
-
     case RES_CHAOS:
+        return 4;
+
     case RES_DISEN:
-        return 2;
+    case RES_POIS:
+    case RES_LITE:
+    case RES_DARK:
+    case RES_NETHER:
+    case RES_NEXUS:
+        return 3;
     }
 
     return 2;
