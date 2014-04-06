@@ -2798,7 +2798,7 @@ static bool _reforge_artifact(void)
     int src_max_power = p_ptr->fame * p_ptr->fame * 10;
     int dest_max_power = 0;
 
-    if (p_ptr->prace == RACE_MON_SWORD)
+    if (p_ptr->prace == RACE_MON_SWORD || p_ptr->prace == RACE_MON_RING)
     {
         msg_print("Go enchant yourself!");
         return FALSE;
