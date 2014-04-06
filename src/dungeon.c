@@ -3227,7 +3227,7 @@ static void process_world(void)
 
         if (one_in_(chance))
         {
-            if (p_ptr->action == ACTION_GLITTER)
+            if (p_ptr->action == ACTION_GLITTER && one_in_(3))
             {
                 int x, y, i;
                 const int max_attempts = 10000;
