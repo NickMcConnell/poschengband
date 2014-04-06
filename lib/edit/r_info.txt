@@ -6698,6 +6698,7 @@ S:BO_ACID | BO_FIRE | BO_COLD | BO_ELEC |
 S:S_MONSTER
 D:A strange creature that disguises itself as discarded objects to lure 
 D:unsuspecting adventurers within reach of its venomous claws.
+P:Body:Ring
 
 N:458:Chaos tile
 G:.:v

@@ -4931,11 +4931,19 @@ void move_player(int dir, bool do_pickup, bool break_trap)
         }
     }
 
+    if (oktomove && p_ptr->prace == RACE_MON_RING && !p_ptr->riding)
+    {
+        msg_print("You can't move! Try using your Glitter power to lure a ringbearer instead.");
+        energy_use = 0;
+        oktomove = FALSE;
+        disturb(0, 0);
+    }
+
     if (oktomove && p_ptr->riding)
     {
         if (riding_r_ptr->flags1 & RF1_NEVER_MOVE)
         {
-            msg_print("Can't move!");
+            msg_print("You can't move!");
             energy_use = 0;
             oktomove = FALSE;
             disturb(0, 0);

@@ -427,7 +427,7 @@ static void _calc_bonuses(void)
     p_ptr->skills.stl += _calc_amount(_essences[TR_STEALTH], 2, 1);
     p_ptr->pspeed += _calc_amount(_essences[TR_SPEED], 1, 10);
     p_ptr->skills.dev += 8*_calc_amount(_essences[TR_MAGIC_MASTERY], 2, 1);
-    p_ptr->device_power += _calc_amount(_essences[TR_MAGIC_MASTERY], 2, 1);
+    p_ptr->device_power += _calc_amount(_essences[TR_DEVICE_POWER], 2, 1);
     p_ptr->skills.srh += 5*_calc_amount(_essences[TR_SEARCH], 2, 1);
     p_ptr->skills.fos += 5*_calc_amount(_essences[TR_SEARCH], 2, 1);
     p_ptr->see_infra += _calc_amount(_essences[TR_INFRA], 2, 1);
@@ -587,7 +587,7 @@ static void _get_flags(u32b flgs[TR_FLAG_SIZE])
 /**********************************************************************
  * Powers
  **********************************************************************/
-void _absorb_spell(int cmd, variant *res)
+static void _absorb_spell(int cmd, variant *res)
 {
     switch (cmd)
     {
@@ -702,7 +702,6 @@ static void _judge_spell(int cmd, variant *res)
             var_set_bool(res, identify_fully(object_is_melee_weapon));
         else
             var_set_bool(res, ident_spell(object_is_melee_weapon));
-        break;
         break;
     default:
         default_spell(cmd, res);

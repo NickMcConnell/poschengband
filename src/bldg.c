@@ -257,7 +257,7 @@ static void arena_comm(int cmd)
                     msg_print(NULL);
                 }
             }
-            else if (p_ptr->riding && (p_ptr->pclass != CLASS_BEASTMASTER) && (p_ptr->pclass != CLASS_CAVALRY))
+            else if (p_ptr->riding && p_ptr->pclass != CLASS_BEASTMASTER && p_ptr->pclass != CLASS_CAVALRY && p_ptr->prace != RACE_MON_RING)
             {
                 msg_print("You don't have permission to enter with pet.");
 
