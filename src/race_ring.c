@@ -1728,7 +1728,19 @@ void ring_process_m(int m_idx)
                 p_ptr->redraw |= PR_UHEALTH;
 
                 move_player_effect(py, px, MPE_DONT_PICKUP | MPE_DONT_SWAP_MON);
-            }
+                handle_stuff();
+
+                /* This can be quite jarring when it happens out of the blue! */ 
+                msg_print("Press Space to continue.");
+                flush();
+                for (;;)
+                {
+                    char ch = inkey();
+                    if (ch == ' ') break;
+                }
+                prt("", 0, 0);
+                msg_flag = FALSE; /* prevents "-more-" message. */
+           }
         }
     }
 }
