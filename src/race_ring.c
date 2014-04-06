@@ -756,6 +756,7 @@ static _group_t _groups[] = {
         { EFFECT_HEAL_CURING,         32,  45, 60 }, /* 300hp */
         { EFFECT_RESTORE_EXP,         35,  40, 60 },
         { EFFECT_REMOVE_ALL_CURSE,    37,  50, 60 },
+        { EFFECT_SACRED_KNIGHTS,      39,  50, 65 },
         { EFFECT_RESTORE_STATS,       40,  60, 70 },
         { EFFECT_RESTORING,           40,  60, 70 },
         { EFFECT_HEAL_CURING_HERO,    45,  65, 80 },
@@ -816,6 +817,7 @@ static _group_t _groups[] = {
         { EFFECT_CHARM_UNDEAD,        32,  30, 50 },
         { EFFECT_SUMMON_HOUNDS,       33,  35, 50 },
         { EFFECT_SUMMON_HYDRAS,       35,  40, 50 },
+        { EFFECT_MITO_KOUMON,         36,  45, 55 },
         { EFFECT_SUMMON_DRAGON,       37,  45, 55 },
         { EFFECT_SUMMON_UNDEAD,       39,  50, 55 },
         { EFFECT_SUMMON_DEMON,        40,  55, 55 },
