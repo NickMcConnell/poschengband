@@ -1095,6 +1095,8 @@ bool mon_is_type(int r_idx, int type)
             return TRUE;
         else if (r_ptr->flags7 & RF7_NAZGUL)
             return TRUE;
+        else if (r_idx == MON_ANGMAR || r_idx == MON_HOARMOUTH)
+             return TRUE;
         break;
     }
     return FALSE;

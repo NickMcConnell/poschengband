@@ -5111,6 +5111,7 @@ extern int PlayerUID;
 #define MON_LUPART              934
 #define MON_KENSHIROU           936
 #define MON_W_KNIGHT            938
+#define MON_HOARMOUTH           939
 #define MON_LESSER_BALROG       940
 #define MON_BONE_DRAGON         941
 #define MON_PLANETAR            942
