@@ -3221,27 +3221,29 @@ static void process_world(void)
     if (!p_ptr->inside_arena && !p_ptr->inside_quest && !p_ptr->inside_battle)
     {
         int  chance = d_info[dungeon_type].max_m_alloc_chance;
-        bool ring_hack = FALSE;
 
         chance = chance * (100 + dun_level) / 100;
         chance = chance * (375 - virtue_current(VIRTUE_PATIENCE)) / 375;
 
-        if (p_ptr->action == ACTION_GLITTER && one_in_(2))
-            ring_hack = TRUE;
-
-        if (ring_hack)
-            chance = 2;
-
         if (one_in_(chance))
         {
-            int mode = 0;
-            int rng = MAX_SIGHT + 5;
-            if (ring_hack)
+            if (p_ptr->action == ACTION_GLITTER)
             {
-                /*rng = 5;*/
-                mode = PM_RING_BEARER;
-            }
-            alloc_monster(rng, mode);
+                int x, y, i;
+                const int max_attempts = 10000;
+
+                for (i = 0; i < max_attempts; i++)
+                {
+                    x = rand_spread(px, 10);
+                    y = rand_spread(py, 10);
+                    if (!in_bounds(y, x)) continue;
+                    if (!cave_empty_bold(y, x)) continue;
+                    summon_specific(-1, y, x, dun_level, SUMMON_RING_BEARER, PM_ALLOW_UNIQUE);
+                    break;
+                }
+            }    
+            else
+                alloc_monster(MAX_SIGHT + 5, 0);
         }
     }
 
