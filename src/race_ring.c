@@ -1625,6 +1625,8 @@ bool ring_dominate_m(int m_idx)
     if ( p_ptr->prace == RACE_MON_RING 
       && !p_ptr->riding
       && !is_aware(m_ptr) 
+      && !p_ptr->inside_arena
+      && !p_ptr->inside_battle
       && mon_is_type(m_ptr->r_idx, SUMMON_RING_BEARER) )
     {
         char m_name[MAX_NLEN];
