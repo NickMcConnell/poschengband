@@ -2041,6 +2041,7 @@ extern void    ring_cast(void);
 extern void    ring_browse(void);
 extern bool    ring_dominate_m(int m_idx);
 extern void    ring_process_m(int m_idx);
+extern void    ring_summon_ring_bearer(void);
 
 extern bool    vampiric_drain_hack;
 extern void    vampire_feed(int amt);

@@ -3228,23 +3228,14 @@ static void process_world(void)
         if (one_in_(chance))
         {
             if (p_ptr->action == ACTION_GLITTER && one_in_(3))
-            {
-                int x, y, i;
-                const int max_attempts = 10000;
-
-                for (i = 0; i < max_attempts; i++)
-                {
-                    x = rand_spread(px, 10);
-                    y = rand_spread(py, 10);
-                    if (!in_bounds(y, x)) continue;
-                    if (!cave_empty_bold(y, x)) continue;
-                    summon_specific(-1, y, x, dun_level, SUMMON_RING_BEARER, PM_ALLOW_UNIQUE);
-                    break;
-                }
-            }    
+                ring_summon_ring_bearer();
             else
                 alloc_monster(MAX_SIGHT + 5, 0);
         }
+    }
+    else if (p_ptr->inside_quest && p_ptr->action == ACTION_GLITTER && one_in_(50))
+    {
+        ring_summon_ring_bearer();
     }
 
     /* Hack -- Check for creature regeneration */

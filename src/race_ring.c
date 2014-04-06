@@ -1744,3 +1744,22 @@ void ring_process_m(int m_idx)
         }
     }
 }
+
+void ring_summon_ring_bearer(void)
+{
+    if (p_ptr->prace == RACE_MON_RING && p_ptr->action == ACTION_GLITTER && !p_ptr->riding)
+    {
+        int x, y, i;
+        const int max_attempts = 10000;
+
+        for (i = 0; i < max_attempts; i++)
+        {
+            x = rand_spread(px, 10);
+            y = rand_spread(py, 10);
+            if (!in_bounds(y, x)) continue;
+            if (!cave_empty_bold(y, x)) continue;
+            summon_specific(-1, y, x, dun_level, SUMMON_RING_BEARER, PM_ALLOW_UNIQUE);
+            break;
+        }
+    }    
+}
