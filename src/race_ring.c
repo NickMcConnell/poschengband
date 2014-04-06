@@ -231,6 +231,7 @@ static bool _absorb(object_type *o_ptr)
             else
             {
                 _essences[i]++;
+                if (i == TR_SH_FIRE && !have_flag(flags, TR_LITE)) _essences[TR_LITE]++;
                 result = TRUE;
             }
         }
