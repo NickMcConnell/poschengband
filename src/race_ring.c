@@ -310,7 +310,7 @@ static int _calc_needed(int amount, int power, int rep)
 
 static int _calc_stat_bonus(int flag)
 {
-    return _calc_amount(_essences[flag], 3, 1);
+    return _calc_amount(_essences[flag], 2, 1);
 }
 
 static void _add_stat_flag(int flag, u32b flgs[TR_FLAG_SIZE])
@@ -1414,7 +1414,7 @@ static void _character_dump(FILE* fff)
     fprintf(fff, "\n   %-22.22s Total  Need Bonus\n", "Stats");
     fprintf(fff, "   ---------------------- ----- ----- -----\n");
     for (i = 0; i < 6; i++) /* Assume in order */
-        _dump_bonus_flag(fff, TR_STR + i, 3, 1, stat_name_true[A_STR + i]);
+        _dump_bonus_flag(fff, TR_STR + i, 2, 1, stat_name_true[A_STR + i]);
 
     fprintf(fff, "\n   %-22.22s Total  Need Bonus\n", "Skills");
     fprintf(fff, "   ---------------------- ----- ----- -----\n");
