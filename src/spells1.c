@@ -3939,7 +3939,7 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
 
             if (typ == GF_CHARM_RING_BEARER && !mon_is_type(m_ptr->r_idx, SUMMON_RING_BEARER))
             {
-                note = " is immune.";
+                note = " is not a suitable ring bearer.";
                 dam = 0;
                 break;
             }
@@ -3954,30 +3954,26 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
             if ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->flags7 & RF7_NAZGUL))
                 dam = dam * 2 / 3;
 
-            /* Attempt a saving throw */
-            if ((r_ptr->flags1 & RF1_QUESTOR) ||
-                (r_ptr->flags3 & RF3_NO_CONF) ||
-                (m_ptr->mflag2 & MFLAG2_NOPET) ||
-                (r_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 5))
+            if (typ != GF_CHARM_RING_BEARER && (r_ptr->flags3 & RF3_NO_CONF))
             {
-                /* Memorize a flag */
-                if (r_ptr->flags3 & RF3_NO_CONF)
-                {
-                    if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
-                }
-
-                /* Resist */
-                /* No obvious effect */
+                if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
                 note = " is unaffected!";
-
                 obvious = FALSE;
-
+            }
+            else if (r_ptr->flags1 & RF1_QUESTOR)
+            {
+                note = " is unaffected!";
+                obvious = FALSE;
+            }
+            else if ((m_ptr->mflag2 & MFLAG2_NOPET) || r_ptr->level > randint1(dam))
+            {
+                note = " resists!";
+                obvious = FALSE;
                 if (one_in_(4)) m_ptr->mflag2 |= MFLAG2_NOPET;
             }
             else if (p_ptr->cursed & TRC_AGGRAVATE)
             {
                 note = " hates you too much!";
-
                 if (one_in_(4)) m_ptr->mflag2 |= MFLAG2_NOPET;
             }
             else
