@@ -718,6 +718,8 @@ static _group_t _groups[] = {
         { EFFECT_CONFUSING_LITE,      37,  40, 60 },
         { EFFECT_DISPEL_EVIL_HERO,    40,  40, 60 },
         { EFFECT_ROCKET,              42,  45, 65 },
+        { EFFECT_WRATH_OF_GOD,        43,  50, 70 },
+        { EFFECT_STAR_BALL,           44,  55, 75 },
         { EFFECT_MANA_STORM,          45,  55, 75 },
         { EFFECT_NONE } } },
 

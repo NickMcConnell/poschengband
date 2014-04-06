@@ -877,6 +877,7 @@ extern cptr info_power(int power);
 extern cptr info_delay(int base, int sides);
 extern cptr info_weight(int weight);
 extern bool cast_summon_greater_demon(void);
+extern bool cast_wrath_of_the_god(int dam, int rad);
 
 /* dungeon.c */
 extern void leave_quest_check(void);

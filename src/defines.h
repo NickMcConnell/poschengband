@@ -6299,6 +6299,7 @@ enum effect_e
     EFFECT_MANA_STORM,
     EFFECT_CONFUSING_LITE,
     EFFECT_ARROW,
+    EFFECT_WRATH_OF_GOD,
 
     /* Misc */
     EFFECT_POLY_SELF = 600,
