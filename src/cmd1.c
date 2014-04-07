@@ -4931,7 +4931,7 @@ void move_player(int dir, bool do_pickup, bool break_trap)
         }
     }
 
-    if (oktomove && p_ptr->prace == RACE_MON_RING && !p_ptr->riding && !p_ptr->inside_arena)
+    if (oktomove && p_ptr->prace == RACE_MON_RING && !p_ptr->riding)
     {
         msg_print("You can't move! Try using your Glitter power to lure a ringbearer instead.");
         energy_use = 0;
