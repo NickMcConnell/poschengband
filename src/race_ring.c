@@ -571,6 +571,10 @@ static void _glitter_spell(int cmd, variant *res)
     }
 }
 
+static int _charm_power(void)
+{
+    return spell_power(p_ptr->lev * 3 / 2 + p_ptr->stat_ind[A_CHR] + 3);
+}
 static void _charm_spell(int cmd, variant *res)
 {
     switch (cmd)
@@ -582,7 +586,7 @@ static void _charm_spell(int cmd, variant *res)
         var_set_string(res, "Attempt to dominate a single ring bearer.");
         break;
     case SPELL_INFO:
-        var_set_string(res, info_power(spell_power(p_ptr->lev * 2)));
+        var_set_string(res, info_power(_charm_power()));
         break;
     case SPELL_CAST:
     {
@@ -590,8 +594,7 @@ static void _charm_spell(int cmd, variant *res)
         var_set_bool(res, FALSE);
         if (get_aim_dir(&dir))
         {
-            int power = spell_power(p_ptr->lev * 2);          
-            project_hook(GF_CHARM_RING_BEARER, dir, power, PROJECT_STOP | PROJECT_KILL);
+            project_hook(GF_CHARM_RING_BEARER, dir, _charm_power(), PROJECT_STOP | PROJECT_KILL);
             var_set_bool(res, TRUE);
         }
         break;

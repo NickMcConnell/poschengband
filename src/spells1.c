@@ -3928,9 +3928,9 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
         case GF_CHARM:
         case GF_CHARM_RING_BEARER:
         {
-            dam += (adj_con_fix[p_ptr->stat_ind[A_CHR]] - 1);
             if (typ != GF_CHARM_RING_BEARER)
             {
+                dam += (adj_con_fix[p_ptr->stat_ind[A_CHR]] - 1);
                 dam += virtue_current(VIRTUE_HARMONY)/10;
                 dam -= virtue_current(VIRTUE_INDIVIDUALISM)/20;
             }

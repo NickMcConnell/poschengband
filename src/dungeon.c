@@ -3233,7 +3233,10 @@ static void process_world(void)
                 alloc_monster(MAX_SIGHT + 5, 0);
         }
     }
-    else if (p_ptr->inside_quest && p_ptr->action == ACTION_GLITTER && one_in_(50))
+    /* It's too easy to get stuck playing a race that can't move! Sigh ... */
+    else if ( (p_ptr->inside_quest || p_ptr->inside_arena) 
+           && p_ptr->action == ACTION_GLITTER 
+           && one_in_(50) )
     {
         ring_summon_ring_bearer();
     }
