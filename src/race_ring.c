@@ -32,6 +32,13 @@ static int _random(int list[])
 static int _essences[_MAX_ESSENCE] = {0};
 static int _effects[EFFECT_MAX] = {0};
 
+static int _bounds_check(int n)
+{
+    if (n < 0) n = 0;
+    if (n > 10000) n = 10000;
+    return n;
+}
+
 static void _load(savefile_ptr file)
 {
     int ct, i;
@@ -44,7 +51,8 @@ static void _load(savefile_ptr file)
     for (i = 0; i < ct; i++)
     {
         int j = savefile_read_s16b(file);
-        int n = savefile_read_s16b(file);
+        int n = _bounds_check(savefile_read_s16b(file));
+
 
         if (0 <= j && j < _MAX_ESSENCE)
             _essences[j] += n;
@@ -58,7 +66,7 @@ static void _load(savefile_ptr file)
     for (i = 0; i < ct; i++)
     {
         int j = savefile_read_s16b(file);
-        int n = savefile_read_s16b(file);
+        int n = _bounds_check(savefile_read_s16b(file));
 
         if (0 <= j && j < EFFECT_MAX)
             _effects[j] += n;
@@ -135,7 +143,7 @@ static bool _skip_flag(int which)
     case TR_RIDING:
     case TR_THROW:
     case TR_SLAY_HUMAN:
-    case TR_NO_TELE:
+   /*case TR_NO_TELE:*/
     case TR_NO_MAGIC:
     case TR_TY_CURSE:
     case TR_HIDE_TYPE:
@@ -208,15 +216,15 @@ static bool _add_essence(int which, int amount)
     int n = _essences[which];
 
     if (amount > 0)
-        n += amount;
-
-    if (n > 10000)
-        n = 10000;
-
-    if (n != _essences[which])
     {
-        _essences[which] = n;
-        return TRUE;
+        n += amount;
+        n = _bounds_check(n);
+
+        if (n != _essences[which])
+        {
+            _essences[which] = n;
+            return TRUE;
+        }
     }
 
     return FALSE;
