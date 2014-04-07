@@ -7,6 +7,23 @@ static cptr _mon_name(int r_idx)
     return ""; /* Birth Menu */
 }
 
+static int _count(int list[])
+{
+    int i;
+    for (i = 0; ; i++)
+    {
+        if (list[i] == -1) return i;
+    }
+    /* return 0;  error: missing sentinel ... unreachable */
+}
+
+static int _random(int list[])
+{
+    if (spoiler_hack)
+        return list[0];
+    return list[randint0(_count(list))];
+}
+
 /**********************************************************************
  * Essences
  **********************************************************************/
@@ -417,8 +434,59 @@ static bool _drain_essences(int div)
     return result;
 }
 
+static void _gain_one_effect(int list[])
+{
+    effect_t e = {0};
+    e.type = _random(list);
+    if (!_effects[e.type])
+        msg_format("You have gained the power of '%s'.", do_effect(&e, SPELL_NAME, 0));
+    else
+        msg_format("Your power of '%s' has grown stronger.", do_effect(&e, SPELL_NAME, 0));
+    _effects[e.type]++;
+}
+
 static void _gain_level(int new_level) 
 {
+    switch (new_level)
+    {
+    case 10:
+    {
+        int choices[] = {EFFECT_LITE_AREA, EFFECT_DETECT_TRAPS, EFFECT_DETECT_MONSTERS, 
+                         EFFECT_DETECT_OBJECTS, EFFECT_SATISFY_HUNGER, -1};
+        _gain_one_effect(choices);
+        break;
+    }
+    case 15:
+    {
+        int choices[] = {EFFECT_BOLT_COLD, EFFECT_BOLT_FIRE, EFFECT_BOLT_ACID, 
+                         EFFECT_BOLT_ELEC, EFFECT_BOLT_POIS, -1};
+        _gain_one_effect(choices);
+        break;
+    }
+    case 25:
+    {
+        int choices[] = {EFFECT_BALL_COLD, EFFECT_BALL_FIRE, EFFECT_BALL_ACID, 
+                         EFFECT_BALL_ELEC, EFFECT_BALL_POIS, -1};
+        _gain_one_effect(choices);
+        break;
+    }
+    case 35:
+    {
+        int choices[] = {EFFECT_BREATHE_COLD, EFFECT_BREATHE_FIRE, EFFECT_BREATHE_ACID, 
+                         EFFECT_BREATHE_ELEC, EFFECT_BREATHE_POIS, -1};
+        _gain_one_effect(choices);
+        break;
+    }
+    case 45:
+    {
+        int choices[] = {EFFECT_BOLT_WATER, EFFECT_BOLT_MANA, EFFECT_BALL_LITE, 
+                         EFFECT_BALL_DARK, EFFECT_BALL_CHAOS, EFFECT_BALL_WATER,
+                         EFFECT_BALL_MANA, EFFECT_BREATHE_SOUND, EFFECT_BREATHE_SHARDS,
+                         EFFECT_BREATHE_CHAOS, -1};
+        _gain_one_effect(choices);
+        break;
+    }
+    }
 }
 
 /**********************************************************************
@@ -688,8 +756,8 @@ static _group_t _groups[] = {
         { EFFECT_BALL_SHARDS,         32,  27, 65 },
         { EFFECT_BALL_DISEN,          34,  27, 65 },
         { EFFECT_BALL_TIME,           34,  30, 65 },
-        { EFFECT_BALL_LITE,           35,  18, 55 },
-        { EFFECT_BALL_DARK,           36,  18, 60 },
+        { EFFECT_BALL_LITE,           35,  35, 65 },
+        { EFFECT_BALL_DARK,           36,  35, 65 },
         { EFFECT_BALL_CHAOS,          37,  35, 65 },
         { EFFECT_BALL_WATER,          38,  37, 70 },
         { EFFECT_BALL_MANA,           40,  42, 75 },
@@ -798,7 +866,7 @@ static _group_t _groups[] = {
         { EFFECT_NONE } } },
 
     { "Utility", 'U', TERM_L_BLUE, 
-      { { EFFECT_SATISFY_HUGER,        5,   5, 35 },
+      { { EFFECT_SATISFY_HUNGER,       5,   5, 35 },
         { EFFECT_STONE_TO_MUD,        15,  10, 50 },
         { EFFECT_DESTROY_TRAP,        20,  12, 50 },
         { EFFECT_DESTROY_TRAPS,       25,  15, 55 },
@@ -1153,6 +1221,9 @@ static void _calc_bonuses(void)
     res_add(RES_POIS);
     p_ptr->hold_life = TRUE;
 
+    /* Speed rings come very late, and very unreliably ... */
+    p_ptr->pspeed += p_ptr->lev / 10;
+
     if (p_ptr->lev >= 25)
     {
         res_add(RES_COLD);
@@ -1306,7 +1377,7 @@ static void _get_flags(u32b flgs[TR_FLAG_SIZE])
     if (_essences[TR_EASY_SPELL] >= 7)
         add_flag(flgs, TR_EASY_SPELL);
 
-    if (_calc_amount(_essences[TR_SPEED], 1, 5))
+    if (p_ptr->lev >= 10 || _calc_amount(_essences[TR_SPEED], 1, 5))
         add_flag(flgs, TR_SPEED);
     if (_calc_amount(_essences[TR_STEALTH], 2, 1))
         add_flag(flgs, TR_STEALTH);
