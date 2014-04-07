@@ -3234,7 +3234,7 @@ static void process_world(void)
         }
     }
     /* It's too easy to get stuck playing a race that can't move! Sigh ... */
-    else if ( (p_ptr->inside_quest || p_ptr->inside_arena) 
+    else if ( p_ptr->inside_quest 
            && p_ptr->action == ACTION_GLITTER 
            && one_in_(50) )
     {

@@ -3928,37 +3928,41 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
         case GF_CHARM:
         case GF_CHARM_RING_BEARER:
         {
-            if (typ != GF_CHARM_RING_BEARER)
+            if (seen) obvious = TRUE;
+
+            if (typ == GF_CHARM_RING_BEARER)
+            {
+                if (!mon_is_type(m_ptr->r_idx, SUMMON_RING_BEARER))
+                {
+                    note = " is not a suitable ring bearer.";
+                    dam = 0;
+                    break;
+                }
+            }
+            else
             {
                 dam += (adj_con_fix[p_ptr->stat_ind[A_CHR]] - 1);
                 dam += virtue_current(VIRTUE_HARMONY)/10;
                 dam -= virtue_current(VIRTUE_INDIVIDUALISM)/20;
+                if ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->flags7 & RF7_NAZGUL))
+                    dam = dam * 2 / 3;
+
+                if (r_ptr->flags3 & RF3_NO_CONF)
+                {
+                    if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
+                    note = " is unaffected!";
+                    obvious = FALSE;
+                    dam = 0;
+                    break;
+                }
             }
 
-            if (seen) obvious = TRUE;
-
-            if (typ == GF_CHARM_RING_BEARER && !mon_is_type(m_ptr->r_idx, SUMMON_RING_BEARER))
-            {
-                note = " is not a suitable ring bearer.";
-                dam = 0;
-                break;
-            }
             if ((r_ptr->flagsr & RFR_RES_ALL) || p_ptr->inside_arena)
             {
                 note = " is immune.";
                 dam = 0;
                 if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
                 break;
-            }
-
-            if ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->flags7 & RF7_NAZGUL))
-                dam = dam * 2 / 3;
-
-            if (typ != GF_CHARM_RING_BEARER && (r_ptr->flags3 & RF3_NO_CONF))
-            {
-                if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
-                note = " is unaffected!";
-                obvious = FALSE;
             }
             else if (r_ptr->flags1 & RF1_QUESTOR)
             {
