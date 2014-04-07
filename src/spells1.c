@@ -5723,7 +5723,8 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
         dam = mon_damage_mod_mon(m_ptr, dam, (bool)(typ == GF_PSY_SPEAR));
     else
         dam = mon_damage_mod(m_ptr, dam, (bool)(typ == GF_PSY_SPEAR));
-    if ((tmp > 0) && (dam == 0)) note = " is unharmed.";
+    if (tmp > 0 && dam == 0) 
+        note = " is unharmed.";
 
     /* Check for death */
     if (dam > m_ptr->hp)

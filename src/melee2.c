@@ -2557,6 +2557,7 @@ static void process_monster(int m_idx)
 
         /* Some monsters can speak */
         if ((ap_r_ptr->flags2 & RF2_CAN_SPEAK) && aware && is_aware(m_ptr) &&
+            m_idx != p_ptr->riding &&
             one_in_(SPEAK_CHANCE) &&
             player_has_los_bold(oy, ox) &&
             projectable(oy, ox, py, px))
