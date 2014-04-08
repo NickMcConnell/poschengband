@@ -1003,10 +1003,19 @@ static cptr _do_scroll(int sval, int mode)
         }
         break;
     case SV_SCROLL_SUMMON_PET:
-        if (desc) return "It summons a monster as your pet when you read it.";
+        if (desc) 
+        {
+            if (p_ptr->prace == RACE_MON_RING)
+                return "It summons a ring bearer as your pet when you read it.";
+            else
+                return "It summons a monster as your pet when you read it.";
+        }
         if (cast)
         {
-            if (summon_specific(-1, py, px, _scroll_power(dun_level), 0, (PM_ALLOW_GROUP | PM_FORCE_PET)))
+            int type = 0;
+            if (p_ptr->prace == RACE_MON_RING)
+                type = SUMMON_RING_BEARER;
+            if (summon_specific(-1, py, px, _scroll_power(dun_level), type, (PM_ALLOW_GROUP | PM_FORCE_PET)))
                 device_noticed = TRUE;
         }
         break;
