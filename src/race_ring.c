@@ -1479,7 +1479,9 @@ static void _dump_effects(FILE* fff)
                 sprintf(name, "%s", do_effect(&effect, SPELL_NAME, 0));
                 sprintf(info, "%s", do_effect(&effect, SPELL_INFO, _boost(s->effect)));
 
-                sprintf(buf, "%-30.30s %3d %3d %3d %3d%% ", name, _effects[s->effect], s->level, s->cost, calculate_fail_rate(s->level, s->fail, p_ptr->stat_ind[A_INT]));
+                sprintf(buf, "%-30.30s %3d %3d %3d %3d%% ", 
+                              name, _effects[s->effect], s->level, calculate_cost(s->cost), 
+                              calculate_fail_rate(s->level, s->fail, p_ptr->stat_ind[A_INT]));
                 if (info)
                     strcat(buf, info);
 
