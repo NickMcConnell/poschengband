@@ -1070,7 +1070,7 @@ static _spell_t _prompt_spell(_spell_ptr spells)
             
             choice->effect = spell->effect;
             choice->level = spell->level;
-            choice->cost = spell->cost;
+            choice->cost = calculate_cost(spell->cost);
             choice->fail = calculate_fail_rate(spell->level, spell->fail, p_ptr->stat_ind[A_INT]);
 
             ct_avail++;
