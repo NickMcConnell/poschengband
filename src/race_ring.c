@@ -717,6 +717,8 @@ typedef struct {
     int     level;
     int     cost;
     int     fail;
+/*  TODO
+    s16b    extra; */
 } _spell_t, *_spell_ptr;
 
 #define _MAX_PER_GROUP 30
@@ -788,7 +790,8 @@ static _group_t _groups[] = {
         { EFFECT_NONE } } },
 
     { "Offense: Other", '4', TERM_RED,
-      { { EFFECT_DRAIN_LIFE,          30,  20, 50 },
+      { { EFFECT_DISPEL_MONSTERS,     10,   5, 40 }, /* Faramir for only 4 damage */
+        { EFFECT_DRAIN_LIFE,          30,  20, 50 },
         { EFFECT_ARROW,               30,  20, 50 },
         { EFFECT_DISPEL_UNDEAD,       32,  30, 50 }, 
         { EFFECT_DISPEL_DEMON,        32,  30, 50 },
