@@ -1769,7 +1769,7 @@ void ring_process_m(int m_idx)
         if (r_ptr->flags1 & RF1_UNIQUE)
             odds = 1000;
 
-        if (one_in_(odds) && !_mon_save_p(m_ptr))
+        if (one_in_(odds) && _mon_save_p(m_ptr))
         {
             char m_name[MAX_NLEN];
             int  x, y, ox, oy;
