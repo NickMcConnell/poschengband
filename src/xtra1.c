@@ -4586,7 +4586,8 @@ void calc_bonuses(void)
         }
     }
 
-    if (p_ptr->riding) p_ptr->levitation = riding_levitation;
+    if (p_ptr->riding && p_ptr->prace != RACE_MON_RING) 
+        p_ptr->levitation = riding_levitation;
 
     monk_armour_aux = FALSE;
 
