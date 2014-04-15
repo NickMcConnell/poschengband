@@ -1389,6 +1389,7 @@ static void _get_flags(u32b flgs[TR_FLAG_SIZE])
         int j = res_get_object_flag(i);
         int n = _calc_amount(_essences[j], _res_power(i), 1);
 
+        if (j == TR_NO_TELE) continue; /* TODO: Need TR_RES_TELE */
         if (n)
             add_flag(flgs, j);
     }
