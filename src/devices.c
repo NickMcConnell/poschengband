@@ -4208,7 +4208,7 @@ cptr do_effect(effect_t *effect, int mode, int boost)
     case EFFECT_HEAL:
     {
         int amt = _extra(effect, 50);
-        if (name) return "Healing";
+        if (name) return "Cure Wounds";
         if (desc) return "It heals your hitpoints and cuts.";
         if (info) return info_heal(0, 0, _BOOST(amt));
         if (value) return format("%d", 10*amt);
@@ -4569,7 +4569,7 @@ cptr do_effect(effect_t *effect, int mode, int boost)
     }
     case EFFECT_BOLT_SHARDS:
     {
-        int dd = _extra(effect, 7 + p_ptr->lev/6);
+        int dd = _extra(effect, 7 + p_ptr->lev/5);
         if (name) return "Shard Bolt";
         if (desc) return "It fires a bolt of shards.";
         if (info) return info_damage(_BOOST(dd), 8, 0);
@@ -4629,7 +4629,7 @@ cptr do_effect(effect_t *effect, int mode, int boost)
     }
     case EFFECT_BOLT_WATER:
     {
-        int dd = _extra(effect, 7 + p_ptr->lev/6);
+        int dd = _extra(effect, 7 + p_ptr->lev/4);
         if (name) return "Water Bolt";
         if (desc) return "It fires a bolt of water.";
         if (info) return info_damage(_BOOST(dd), 8, 0);

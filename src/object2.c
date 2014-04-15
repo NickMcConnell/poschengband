@@ -2476,7 +2476,7 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
                 add_flag(o_ptr->art_flags, TR_LEVITATION);
             if (one_in_(2))
                 one_sustain(o_ptr);
-            o_ptr->to_a = randint1(5) + m_bonus(5, level);
+            o_ptr->to_a = randint1(7) + m_bonus(7, level);
             switch (randint1(4))
             {
             case 1: /* Classic Defender */
@@ -2521,6 +2521,10 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
         }
         else
         {
+            if (one_in_(5))
+                add_flag(o_ptr->art_flags, TR_LEVITATION);
+            if (one_in_(5))
+                one_sustain(o_ptr);
             o_ptr->to_a = randint1(5) + m_bonus(5, level);
             one_ele_resistance(o_ptr);
             one_ele_resistance(o_ptr);
@@ -3018,7 +3022,7 @@ static void _create_amulet(object_type *o_ptr, int level, int power, int mode)
                 add_flag(o_ptr->art_flags, TR_LEVITATION);
             if (one_in_(2))
                 one_sustain(o_ptr);
-            o_ptr->to_a = randint1(5) + m_bonus(5, level);
+            o_ptr->to_a = randint1(7) + m_bonus(7, level);
             switch (randint1(4))
             {
             case 1: /* Classic Defender */
@@ -3063,6 +3067,10 @@ static void _create_amulet(object_type *o_ptr, int level, int power, int mode)
         }
         else
         {
+            if (one_in_(5))
+                add_flag(o_ptr->art_flags, TR_LEVITATION);
+            if (one_in_(5))
+                one_sustain(o_ptr);
             o_ptr->to_a = randint1(5) + m_bonus(5, level);
             one_ele_resistance(o_ptr);
             one_ele_resistance(o_ptr);
