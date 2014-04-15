@@ -375,6 +375,20 @@ static int _res_power(int which)
 
     return 2;
 }
+static int _calculate_cost(int which, int base)
+{
+    int result = base;
+    int dec = 7 * _calc_amount(_essences[TR_DEC_MANA], 1, 1);
+    dec += 5 * _calc_amount(_effects[which] - 1, 1, 1);
+    
+    if (dec)
+    {
+        result -= dec * base / 100;
+        if (result < 1)
+            result = 1;
+    }
+    return result;
+}
 
 /**********************************************************************
  * Birth and Evolution
@@ -1075,7 +1089,7 @@ static _spell_t _prompt_spell(_spell_ptr spells)
             
             choice->effect = spell->effect;
             choice->level = spell->level;
-            choice->cost = calculate_cost(spell->cost);
+            choice->cost = _calculate_cost(spell->effect, spell->cost);
             choice->fail = calculate_fail_rate(spell->level, spell->fail, p_ptr->stat_ind[A_INT]);
 
             ct_avail++;
@@ -1479,7 +1493,7 @@ static void _dump_effects(FILE* fff)
                 sprintf(info, "%s", do_effect(&effect, SPELL_INFO, _boost(s->effect)));
 
                 sprintf(buf, "%-30.30s %3d %3d %3d %3d%% ", 
-                              name, _effects[s->effect], s->level, calculate_cost(s->cost), 
+                              name, _effects[s->effect], s->level, _calculate_cost(s->effect, s->cost), 
                               calculate_fail_rate(s->level, s->fail, p_ptr->stat_ind[A_INT]));
                 if (info)
                     strcat(buf, info);
@@ -1538,7 +1552,7 @@ static void _character_dump(FILE* fff)
     _dump_ability_flag(fff, TR_SLOW_DIGEST, 2, "Slow Digestion");
     _dump_ability_flag(fff, TR_HOLD_LIFE, 7, "Hold Life");
     _dump_ability_flag(fff, TR_REGEN, 7, "Regeneration");
-    _dump_ability_flag(fff, TR_DEC_MANA, 7, "Economical Mana");
+    _dump_bonus_flag(fff, TR_DEC_MANA, 1, 1, "Economical Mana");
     _dump_ability_flag(fff, TR_EASY_SPELL, 7, "Wizardry");
     _dump_ability_flag(fff, TR_REFLECT, 7, "Reflection");
     _dump_ability_flag(fff, TR_SH_FIRE, 7, "Aura Fire");
