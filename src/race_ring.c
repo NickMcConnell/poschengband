@@ -378,9 +378,12 @@ static int _res_power(int which)
 static int _calculate_cost(int which, int base)
 {
     int result = base;
-    int dec = 7 * _calc_amount(_essences[TR_DEC_MANA], 1, 1);
+    int dec = 8 * _calc_amount(_essences[TR_DEC_MANA], 1, 1);
     dec += 5 * _calc_amount(_effects[which] - 1, 1, 1);
     
+    if (dec > 60)
+        dec = 60;
+
     if (dec)
     {
         result -= dec * base / 100;
