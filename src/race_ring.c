@@ -347,10 +347,12 @@ static int _res_power(int which)
 {
     switch (which)
     {
+    case RES_ELEC:
+        return 3;
+
     case RES_ACID:
     case RES_FIRE:
     case RES_COLD:
-    case RES_ELEC:
     case RES_CONF:
     case RES_FEAR:
     case RES_TIME:
@@ -1225,19 +1227,11 @@ static void _calc_bonuses(void)
     p_ptr->to_a += to_a;
     p_ptr->dis_to_a += to_a;
 
+    res_add_vuln(RES_ELEC);
     p_ptr->no_cut = TRUE;
-    res_add(RES_BLIND);
-    res_add(RES_POIS);
-    p_ptr->hold_life = TRUE;
 
     /* Speed rings come very late, and very unreliably ... */
     p_ptr->pspeed += p_ptr->lev / 10;
-
-    if (p_ptr->lev >= 25)
-    {
-        res_add(RES_COLD);
-        res_add(RES_ELEC);
-    }
 
     for (i = 0; i < 6; i++) /* Assume in order */
         p_ptr->stat_add[A_STR + i] += _calc_stat_bonus(TR_STR + i);
@@ -1275,6 +1269,9 @@ static void _calc_bonuses(void)
         p_ptr->dec_mana = TRUE;
     if (_essences[TR_EASY_SPELL] >= 7)
         p_ptr->easy_spell = TRUE;
+
+    if (_essences[TR_HOLD_LIFE] >= 7)
+        p_ptr->hold_life = TRUE;
 
     if (_essences[TR_SUST_STR] >= 5)
         p_ptr->sustain_str = TRUE;
@@ -1326,7 +1323,7 @@ static void _calc_bonuses(void)
         p_ptr->slow_digest = TRUE;
     if (_essences[TR_REGEN] >= 7)
         p_ptr->regenerate = TRUE;
-    if (_essences[TR_REFLECT] >= 3)
+    if (_essences[TR_REFLECT] >= 7)
         p_ptr->reflect = TRUE;
 
     if (_essences[TR_SH_FIRE] >= 7)
@@ -1335,6 +1332,11 @@ static void _calc_bonuses(void)
         p_ptr->sh_elec = TRUE;
     if (_essences[TR_SH_COLD] >= 7)
         p_ptr->sh_cold = TRUE;
+}
+
+static void _get_vulnerabilities(u32b flgs[TR_FLAG_SIZE]) 
+{
+    add_flag(flgs, TR_RES_ELEC);
 }
 
 static void _get_immunities(u32b flgs[TR_FLAG_SIZE]) 
@@ -1354,15 +1356,6 @@ static void _get_flags(u32b flgs[TR_FLAG_SIZE])
     int i;
 
     add_flag(flgs, TR_LITE);
-    add_flag(flgs, TR_RES_BLIND);
-    add_flag(flgs, TR_RES_POIS);
-    add_flag(flgs, TR_HOLD_LIFE);
-
-    if (p_ptr->lev >= 25)
-    {
-        add_flag(flgs, TR_RES_COLD);
-        add_flag(flgs, TR_RES_ELEC);
-    }
 
     for (i = 0; i < 6; i++) /* Assume in order */
     {
@@ -1385,6 +1378,9 @@ static void _get_flags(u32b flgs[TR_FLAG_SIZE])
         add_flag(flgs, TR_DEC_MANA);
     if (_essences[TR_EASY_SPELL] >= 7)
         add_flag(flgs, TR_EASY_SPELL);
+
+    if (_essences[TR_HOLD_LIFE] >= 7)
+        add_flag(flgs, TR_HOLD_LIFE);
 
     if (p_ptr->lev >= 10 || _calc_amount(_essences[TR_SPEED], 1, 5))
         add_flag(flgs, TR_SPEED);
@@ -1416,7 +1412,7 @@ static void _get_flags(u32b flgs[TR_FLAG_SIZE])
         add_flag(flgs, TR_SLOW_DIGEST);
     if (_essences[TR_REGEN] >= 7)
         add_flag(flgs, TR_REGEN);
-    if (_essences[TR_REFLECT] >= 3)
+    if (_essences[TR_REFLECT] >= 7)
         add_flag(flgs, TR_REFLECT);
 
     if (_essences[TR_SH_FIRE] >= 7)
@@ -1540,10 +1536,11 @@ static void _character_dump(FILE* fff)
     _dump_ability_flag(fff, TR_SEE_INVIS, 1, "See Invisible");
     _dump_ability_flag(fff, TR_LEVITATION, 2, "Levitation");
     _dump_ability_flag(fff, TR_SLOW_DIGEST, 2, "Slow Digestion");
+    _dump_ability_flag(fff, TR_HOLD_LIFE, 7, "Hold Life");
     _dump_ability_flag(fff, TR_REGEN, 7, "Regeneration");
     _dump_ability_flag(fff, TR_DEC_MANA, 7, "Economical Mana");
     _dump_ability_flag(fff, TR_EASY_SPELL, 7, "Wizardry");
-    _dump_ability_flag(fff, TR_REFLECT, 3, "Reflection");
+    _dump_ability_flag(fff, TR_REFLECT, 7, "Reflection");
     _dump_ability_flag(fff, TR_SH_FIRE, 7, "Aura Fire");
     _dump_ability_flag(fff, TR_SH_ELEC, 7, "Aura Elec");
     _dump_ability_flag(fff, TR_SH_COLD, 7, "Aura Cold");
@@ -1619,6 +1616,7 @@ race_t *mon_ring_get_race_t(void)
         me.character_dump = _character_dump;
         me.get_flags = _get_flags;
         me.get_immunities = _get_immunities;
+        me.get_vulnerabilities = _get_vulnerabilities;
         me.gain_level = _gain_level;
         me.birth = _birth;
 
