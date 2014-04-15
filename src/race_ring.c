@@ -1240,6 +1240,8 @@ static void _calc_bonuses(void)
     int l = p_ptr->lev;
     int to_a = l;
 
+    p_ptr->skill_dig += 30;
+
     to_a += _calc_amount(_essences[TR_ES_AC], 1, 15);
     p_ptr->to_a += to_a;
     p_ptr->dis_to_a += to_a;
