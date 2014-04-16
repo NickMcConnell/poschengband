@@ -878,6 +878,7 @@ extern cptr info_delay(int base, int sides);
 extern cptr info_weight(int weight);
 extern bool cast_summon_greater_demon(void);
 extern bool cast_wrath_of_the_god(int dam, int rad);
+bool trump_summoning(int num, bool pet, int y, int x, int lev, int type, u32b mode);
 
 /* dungeon.c */
 extern void leave_quest_check(void);
@@ -2215,6 +2216,7 @@ extern class_t *warrior_mage_get_class_t(void);
 extern class_t *weaponsmith_get_class_t(void);
 
 extern cptr do_hissatsu_spell(int spell, int mode);
+extern cptr do_necromancy_spell(int spell, int mode);
 
 /* skills.c */
 extern skill_table *s_info; /* deprecated ... in process of removing naked table reads*/

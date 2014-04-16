@@ -4666,7 +4666,7 @@ void calc_bonuses(void)
     if (p_ptr->action == ACTION_STALK) p_ptr->skills.stl += 99;
 
     if (p_ptr->tim_dark_stalker)
-        p_ptr->skills.stl += 2 + p_ptr->lev/10;
+        p_ptr->skills.stl += 3 + p_ptr->lev/5;
 
     /* Affect Skill -- disarming (DEX and INT) */
     p_ptr->skills.dis += adj_dex_dis[p_ptr->stat_ind[A_DEX]];
