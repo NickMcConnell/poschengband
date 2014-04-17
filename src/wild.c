@@ -655,6 +655,9 @@ static void _generate_encounters(int x, int y, const rect_t *r, const rect_t *ex
     if (r->cx < 10 || r->cy < 10)
         return;
 
+    if (wilderness[y][x].terrain == TERRAIN_EDGE)
+        return;
+
     wilderness_mon_hook = get_wilderness_monster_hook(x, y);
     get_mon_num_prep(wilderness_mon_hook, NULL);
     base_level = wilderness_level(x, y);
