@@ -5812,7 +5812,6 @@ enum mon_save_fields_e {
 
 #define LEPRECHAUN_TOGGLE_BLINK  44
 
-
 /* Wild Counters */
 #define WILD_INFRAVISION 1
 #define WILD_BLESS 2

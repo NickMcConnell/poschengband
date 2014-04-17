@@ -4,6 +4,7 @@
    When they wake up, they are restored. See set_paralyzed() for details.*/
 bool repose_of_the_dead = FALSE;
 
+
 /**********************************************************************
  * Utilities
  **********************************************************************/
@@ -15,9 +16,9 @@ static bool _necro_check_touch(void)
         msg_print("You are too scared to do that!");
         return FALSE;
     }
-    if (equip_find_first(object_is_melee_weapon))
+    if (!equip_find_empty_hand())
     {
-        msg_print("You can't touch while wielding a weapon.");
+        msg_print("You need a free hand to touch.");
         return FALSE;
     }
 
