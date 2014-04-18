@@ -3359,7 +3359,11 @@ static void process_monster(int m_idx)
                 /* Hack: Some classes have techniques to apply whenever a monster
                    moves too close */
                 if (class_ptr && class_ptr->move_monster)
+                {
                     class_ptr->move_monster(m_idx);
+                    if (!m_list[m_idx].r_idx) /* dead? */
+                        return;
+                }
             }
             else
             {
