@@ -889,7 +889,7 @@ static caster_info * _caster_info(void)
     if (!init)
     {
         me.magic_desc = "timecraft";
-        me.which_stat = A_CHR;
+        me.which_stat = A_WIS;
         me.weight = 400;
         me.on_fail = _on_fail;
         me.options = CASTER_ALLOW_DEC_MANA;
@@ -924,14 +924,14 @@ class_t *time_lord_get_class_t(void)
                   "Time-Lords are mediocre fighters and not good at archery at all. They are OK with "
                   "magical devices, but nowhere near as proficient as are mages. They have midling "
                   "stealth. At high levels, they become resistant to time. The Time-Lord's primary "
-                  "magic stat is Charisma.";
+                  "magic stat is Wisdom.";
 
         me.stats[A_STR] = -1;
         me.stats[A_INT] =  0;
-        me.stats[A_WIS] =  0;
+        me.stats[A_WIS] =  3;
         me.stats[A_DEX] = -1;
         me.stats[A_CON] = -1;
-        me.stats[A_CHR] =  3;
+        me.stats[A_CHR] =  0;
 
         me.base_skills = bs;
         me.extra_skills = xs;
