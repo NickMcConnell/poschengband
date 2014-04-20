@@ -981,11 +981,10 @@ F:@:FLOOR:3:0:0:0:132
 F:a:BUILDING_0:3
 F:@:FLOOR:3:0:0:0:274
 
-# TODO
-# Numenor
+# Palantir of Westernesse
 ?:[AND [EQU $QUEST27 3] [EQU $CLASS Time-Lord] [GEQ [MOD $RANDOM27 5] 1] ]
 F:a:BUILDING_0:3
-F:@:FLOOR:3:0:0:0:132
+F:@:FLOOR:3:0:0:0:15
 
 ##########################################################################
 # Samurai
