@@ -2276,6 +2276,12 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
                     }
                     break;
                 }
+                if (abs(power) >= 2 && one_in_(15) && level >= 50)
+                {
+                    add_flag(o_ptr->art_flags, TR_BLOWS);
+                    o_ptr->pval = _jewelry_pval(3, level);
+                    powers = 0;
+                }
                 else if (one_in_(3))
                 {
                     add_flag(o_ptr->art_flags, TR_RES_FEAR);
