@@ -898,6 +898,14 @@ static caster_info * _caster_info(void)
     return &me;
 }
 
+static void _character_dump(FILE* file)
+{
+    spell_info spells[MAX_SPELLS];
+    int        ct = _get_spells(spells, MAX_SPELLS);
+
+    dump_spells_aux(file, spells, ct);
+}
+
 class_t *time_lord_get_class_t(void)
 {
     static class_t me = {0};
@@ -944,6 +952,7 @@ class_t *time_lord_get_class_t(void)
         me.get_flags = _get_flags;
         me.caster_info = _caster_info;
         me.get_spells = _get_spells;
+        me.character_dump = _character_dump;
         init = TRUE;
     }
 
