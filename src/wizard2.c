@@ -254,9 +254,10 @@ static void do_cmd_wiz_hack_chris2(void)
         object_type forge;
         
         object_prep(&forge, k_idx);
-        apply_magic(&forge, object_level, 0);
+        create_artifact(&forge, CREATE_ART_GOOD);
+        /*apply_magic(&forge, object_level, 0);*/
 
-        if (forge.name2 == EGO_RING_COMBAT)
+        if (1 || forge.name2 == EGO_RING_COMBAT)
         {
             identify_item(&forge);
             forge.ident |= (IDENT_MENTAL); 
