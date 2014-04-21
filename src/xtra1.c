@@ -3502,6 +3502,7 @@ void calc_bonuses(void)
     if (p_ptr->personality == PERS_LAZY) p_ptr->to_m_chance += 10;
     if (p_ptr->personality == PERS_SHREWD) p_ptr->to_m_chance -= 3;
     if (p_ptr->personality == PERS_PATIENT || p_ptr->personality == PERS_MIGHTY) p_ptr->to_m_chance++;
+    if (p_ptr->personality == PERS_FEARLESS) res_add(RES_FEAR);
 
     /* Lucky man. TODO: This should become a birth event! */
     if ( p_ptr->personality == PERS_LUCKY
