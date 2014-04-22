@@ -1629,8 +1629,9 @@ bool change_wild_mode(void)
         if (MON_CSLEEP(m_ptr)) continue;
         if (m_ptr->cdis > MAX_SIGHT) continue;
         if (!is_hostile(m_ptr)) continue;
-        if (!is_aware(m_ptr)) continue;
-        /*if (r_info[m_ptr->r_idx].level < p_ptr->lev - 10) continue;*/
+        /* Monster Awareness of the player is a TODO concept, not yet correctly implemented.
+           At the moment, only the Ring player race uses this and there is a slight bug as well!
+        if (!is_aware(m_ptr)) continue;*/
         msg_print("You cannot enter the global map since there are some monsters nearby!");
         energy_use = 0;
         return FALSE;
