@@ -2269,7 +2269,6 @@ static void castle_quest(void)
     if (!q_index)
     {
         put_str("I don't have a quest for you at the moment.", 8, 0);
-
         return;
     }
 
@@ -2303,7 +2302,6 @@ static void castle_quest(void)
         put_str("Use CTRL-Q to check the status of your quest.", 9, 0);
 
         put_str("Return when you have completed your quest.", 12, 0);
-
     }
     /* No quest yet */
     else if (q_ptr->status == QUEST_STATUS_UNTAKEN)

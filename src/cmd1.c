@@ -92,7 +92,7 @@ static void _rune_sword_kill(object_type *o_ptr, monster_race *r_ptr)
 
         if (unique && one_in_(200 / MAX(r_ptr->level, 1)))
         {
-            switch (randint1(11))
+            switch (randint1(12))
             {
             case 1:
                 if (one_in_(6)) 
@@ -170,6 +170,18 @@ static void _rune_sword_kill(object_type *o_ptr, monster_race *r_ptr)
                     feed = TRUE; 
                     add_flag(o_ptr->art_flags, TR_SLAY_EVIL); 
                 } 
+                break;
+            case 12:
+                if (one_in_(666)) 
+                { 
+                    feed = TRUE; 
+                    add_flag(o_ptr->art_flags, TR_VORPAL2); 
+                }
+                else if (one_in_(6))
+                {
+                    feed = TRUE; 
+                    add_flag(o_ptr->art_flags, TR_VORPAL); 
+                }
                 break;
             }
         }
