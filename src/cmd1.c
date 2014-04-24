@@ -193,6 +193,10 @@ static void _rune_sword_kill(object_type *o_ptr, monster_race *r_ptr)
             {  
                 o_ptr->curse_flags |= TRC_TY_CURSE;
                 msg_print("Your Rune Sword seeks to dominate you!");
+                if (one_in_(13))
+                    add_flag(o_ptr->art_flags, TR_AGGRAVATE);
+                if (one_in_(13))
+                    add_flag(o_ptr->art_flags, TR_DRAIN_EXP);
             }
             else if ((o_ptr->curse_flags & TRC_AGGRAVATE) == 0
                    && o_ptr->dd * o_ptr->ds > 30 )
