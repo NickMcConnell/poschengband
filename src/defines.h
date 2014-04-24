@@ -4875,7 +4875,7 @@ extern int PlayerUID;
 #define MON_BICLOPS       490
 #define MON_IVORY_MONK    492
 #define MON_ANTI_PALADIN 497
-#define MON_LOG_MASTER    498
+#define MON_LOGRUS_MASTER    498
 #define MON_CHAOS_DRAKE           501
 #define MON_LAW_DRAKE             502
 #define MON_BALANCE_DRAKE         503
@@ -4930,6 +4930,7 @@ extern int PlayerUID;
 #define MON_BEHOLDER 603
 #define MON_SERAPH        605
 #define MON_LOGE            606
+#define MON_MONASTIC_LICH 611
 #define MON_SEVEN_HEADED_HYDRA 614
 #define MON_MOIRE           615
 #define MON_KAVLAX        616
@@ -5099,8 +5100,11 @@ extern int PlayerUID;
 #define MON_FIRE_TROLL          899
 #define MON_SMALL_KRAKEN        903
 #define MON_POLEAXE_OF_ANIMATED_ATTACK 908
+#define MON_MYSTIC              915
 #define MON_MASTER_MYS          916
+#define MON_MASTER_MYSTIC       916
 #define MON_G_MASTER_MYS        917
+#define MON_GRAND_MASTER_MYSTIC 917
 #define MON_IE                  921
 #define MON_TSUCHINOKO          926
 #define MON_GCWADL              929
@@ -5110,6 +5114,7 @@ extern int PlayerUID;
 #define MON_BANOR               933
 #define MON_LUPART              934
 #define MON_KENSHIROU           936
+#define MON_LEMS                937
 #define MON_W_KNIGHT            938
 #define MON_HOARMOUTH           939
 #define MON_LESSER_BALROG       940

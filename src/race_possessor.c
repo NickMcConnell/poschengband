@@ -62,6 +62,28 @@ static int _max_lvl(void)
  * We could either write new attack code, or translate to existing innate
  * attack code (which also has nice display code already written for us!)
  **********************************************************************/
+static bool _is_monk(void)
+{
+    switch (p_ptr->current_r_idx)
+    {
+    case MON_JADE_MONK:
+    case MON_IVORY_MONK:
+    case MON_EBONY_MONK:
+    case MON_TOPAZ_MONK:
+    case MON_MYSTIC:
+    case MON_MASTER_MYSTIC:
+    case MON_GRAND_MASTER_MYSTIC:
+    case MON_MONASTIC_LICH:
+    case MON_LOGRUS_MASTER:
+    case MON_LORD_CHAOS:
+    case MON_KENSHIROU:
+    case MON_LEMS:
+    case MON_RAOU:
+        return TRUE;
+    }
+    return FALSE;
+}
+
 static bool _blow_is_masked(monster_blow *blow_ptr)
 {
     switch (blow_ptr->effect)
@@ -352,9 +374,14 @@ static void _calc_innate_attacks(void)
         }
 
         /* Monster Stunning is a bit obtuse ... Perhaps it could be made into an effect? */
-        if ( (blow_ptr->method == RBM_KICK || blow_ptr->method == RBM_PUNCH || blow_ptr->method == RBM_BUTT || blow_ptr->method == RBM_CRUSH)
-          && a.dd >= 15
-          && a.ds <= 2 )
+        if ( (blow_ptr->method == RBM_KICK || blow_ptr->method == RBM_PUNCH)
+          && _is_monk())
+        {
+            a.effect[2] = GF_STUN;
+        }
+        else if ( (blow_ptr->method == RBM_BUTT || blow_ptr->method == RBM_CRUSH)
+               && a.dd >= 15
+               && a.ds <= 2 )
         {
             a.effect[2] = GF_STUN;
         }
@@ -893,13 +920,13 @@ static int _get_spells(spell_info* spells, int max)
     if (ct < max && (r_ptr->flags5 & RF5_BRAIN_SMASH))
         _add_spell(&spells[ct++], 30, 14, 65, brain_smash_spell, stat_idx);
     if (ct < max && (r_ptr->flags5 & RF5_BA_WATE))
-        _add_spell(&spells[ct++], 30, 22, 75, water_ball_spell, stat_idx);
+        _add_spell(&spells[ct++], 30, 22, 65, water_ball_spell, stat_idx);
     if (ct < max && (r_ptr->flags4 & RF4_BA_CHAO))
-        _add_spell(&spells[ct++], 30, 32, 85, invoke_logrus_spell, stat_idx);
+        _add_spell(&spells[ct++], 30, 25, 65, invoke_logrus_spell, stat_idx);
     if (ct < max && (r_ptr->flags6 & RF6_RAISE_DEAD))
         _add_spell(&spells[ct++], 30, 30, 70, animate_dead_spell, stat_idx);
     if (ct < max && (r_ptr->flags6 & RF6_TELE_LEVEL))
-        _add_spell(&spells[ct++], 30, 40, 95, teleport_level_spell, stat_idx);
+        _add_spell(&spells[ct++], 30, 40, 70, teleport_level_spell, stat_idx);
     if (ct < max && (r_ptr->flags5 & RF5_CAUSE_4))
         _add_spell(&spells[ct++], 32, 10, 70, cause_wounds_IV_spell, stat_idx);
     if (ct < max && (r_ptr->flags5 & RF5_BA_DARK) && r_ptr->level < 43) /* Jack */

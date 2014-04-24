@@ -794,7 +794,7 @@ int display_innate_attack_info(int which, int row, int col)
     {
         int p = a->effect_chance[i];
         char xtra[255];
-        if (!a->effect[i]) break;
+        if (!a->effect[i]) continue;
         if (!p)
             sprintf(xtra, "%s", "");
         else

@@ -1371,7 +1371,7 @@ void battle_monsters(void)
                 case MON_VORPAL_BUNNY:
                 case MON_SHAGRAT:
                 case MON_GORBAG:
-                case MON_LOG_MASTER:
+                case MON_LOGRUS_MASTER:
                 case MON_JURT:
                 case MON_GRAV_HOUND:
                 case MON_SHIM_VOR:
