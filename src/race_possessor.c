@@ -693,9 +693,10 @@ static void _shriek_spell(int cmd, variant *res)
 
 static void _add_power(spell_info* spell, int lvl, int cost, int fail, ang_spell fn, int stat_idx)
 {
-    spell->level = lvl;
+    int l = MIN(_max_lvl(), lvl); /* It's frustrating when a corpse can *never* use a given power ... */
+    spell->level = l;
     spell->cost = cost;
-    spell->fail = calculate_fail_rate(lvl, fail, stat_idx); 
+    spell->fail = calculate_fail_rate(l, fail, stat_idx); 
     spell->fn = fn;
 }
 
@@ -756,6 +757,8 @@ static int _get_powers(spell_info* spells, int max)
         _add_power(&spells[ct++], 30, 15, 80, _breathe_force_spell, p_ptr->stat_ind[A_CON]);
     if (ct < max && (r_ptr->flags4 & RF4_BR_MANA))
         _add_power(&spells[ct++], 30, 15, 80, _breathe_mana_spell, p_ptr->stat_ind[A_CON]);
+    if (ct < max && _is_monk())
+        _add_power(&spells[ct++], 30, 30, 80, monk_double_attack_spell, p_ptr->stat_ind[A_STR]);
     if (ct < max && (r_ptr->flags4 & RF4_BR_PLAS))
         _add_power(&spells[ct++], 35, 15, 80, _breathe_plasma_spell, p_ptr->stat_ind[A_CON]);
     if (ct < max && (r_ptr->flags4 & RF4_BR_STORM))
