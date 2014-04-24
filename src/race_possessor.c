@@ -49,6 +49,14 @@ static void _player_action(int energy_use)
         teleport_player(10, TELEPORT_LINE_OF_SIGHT);
 }
 
+static int _max_lvl(void)
+{
+    monster_race *r_ptr = &r_info[p_ptr->current_r_idx];
+    int           max_lvl = MAX(15, r_ptr->level + 5);
+
+    return MIN(PY_MAX_LEVEL, max_lvl);
+}
+
 /**********************************************************************
  * Attacks
  * We could either write new attack code, or translate to existing innate
@@ -738,6 +746,11 @@ static int _get_powers(spell_info* spells, int max)
 /**********************************************************************
  * Spells
  **********************************************************************/
+static int _healing_amt(void)
+{
+    monster_race *r_ptr = &r_info[p_ptr->current_r_idx];
+    return MIN(300, r_ptr->level * 5);
+}
 void _healing_spell(int cmd, variant *res)
 {
     switch (cmd)
@@ -749,20 +762,17 @@ void _healing_spell(int cmd, variant *res)
         var_set_string(res, "Heals hitpoints, cuts and stun.");
         break;
     case SPELL_INFO:
-    {
-        monster_race *r_ptr = &r_info[p_ptr->current_r_idx];
-        var_set_string(res, format("Heals %d", MIN(300, r_ptr->level * 5)));
+        var_set_string(res, format("Heals %d", _healing_amt()));
         break;
-    }
     case SPELL_CAST:
-    {
-        monster_race *r_ptr = &r_info[p_ptr->current_r_idx];
-        hp_player(MIN(300, r_ptr->level * 5));
+        hp_player(_healing_amt());
         set_stun(0, TRUE);
         set_cut(0, TRUE);
         var_set_bool(res, TRUE);
         break;
-    }
+    case SPELL_COST_EXTRA:
+        var_set_int(res, _healing_amt()/10);
+        break;
     default:
         default_spell(cmd, res);
         break;
@@ -771,9 +781,10 @@ void _healing_spell(int cmd, variant *res)
 
 static void _add_spell(spell_info* spell, int lvl, int cost, int fail, ang_spell fn, int stat_idx)
 {
-    spell->level = lvl;
+    int l = MIN(_max_lvl(), lvl); /* It's frustrating when a corpse can *never* use a given power ... */
+    spell->level = l;
     spell->cost = cost;
-    spell->fail = calculate_fail_rate(lvl, fail, stat_idx); 
+    spell->fail = calculate_fail_rate(l, fail, stat_idx); 
     spell->fn = fn;
 }
 
@@ -849,16 +860,16 @@ static int _get_spells(spell_info* spells, int max)
         _add_spell(&spells[ct++], 15, 11, 50, frost_ball_spell, stat_idx);
     if (ct < max && (r_ptr->flags5 & RF5_BA_ACID))
         _add_spell(&spells[ct++], 18, 13, 55, acid_ball_spell, stat_idx);
+    if (ct < max && (r_ptr->flags5 & RF5_BO_MANA) && r_ptr->level < 25) /* DE Warlock */
+        _add_spell(&spells[ct++], 20, 10, 55, mana_bolt_I_spell, stat_idx);
     if (ct < max && (r_ptr->flags6 & RF6_HASTE))
         _add_spell(&spells[ct++], 20, 10, 70, haste_self_spell, stat_idx);
     if (ct < max && (r_ptr->flags6 & RF6_TELE_AWAY))
         _add_spell(&spells[ct++], 20, 13, 80, teleport_other_spell, stat_idx);
     if (ct < max && (r_ptr->flags5 & RF5_BA_FIRE))
         _add_spell(&spells[ct++], 20, 14, 60, fire_ball_spell, stat_idx);
-    if (ct < max && (r_ptr->flags5 & RF5_BO_MANA) && r_ptr->level < 25) /* DE Warlock */
-        _add_spell(&spells[ct++], 20, 15, 60, mana_bolt_I_spell, stat_idx);
     if (ct < max && (r_ptr->flags6 & RF6_HEAL) && r_ptr->level >= 20)
-        _add_spell(&spells[ct++], 20, 35, 70, _healing_spell, stat_idx);
+        _add_spell(&spells[ct++], 20, 1, 70, _healing_spell, stat_idx);
     if (ct < max && (r_ptr->flags5 & RF5_CAUSE_3))
         _add_spell(&spells[ct++], 22, 6, 50, cause_wounds_III_spell, stat_idx);
     if (ct < max && (r_ptr->flags5 & RF5_MIND_BLAST))
@@ -1407,14 +1418,6 @@ race_t *mon_possessor_get_race_t(void)
         me.subname = _mon_name(r_idx);
     }
     return &me;
-}
-
-static int _max_lvl(void)
-{
-    monster_race *r_ptr = &r_info[p_ptr->current_r_idx];
-    int           max_lvl = MAX(15, r_ptr->level + 5);
-
-    return MIN(PY_MAX_LEVEL, max_lvl);
 }
 
 bool possessor_can_gain_exp(void)
