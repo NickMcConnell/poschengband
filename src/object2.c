@@ -1629,6 +1629,15 @@ int object_similar_part(object_type *o_ptr, object_type *j_ptr)
     /* Hack -- Require identical "cursed" status */
     if (o_ptr->curse_flags != j_ptr->curse_flags) return 0;
 
+    /* Require identical activations */
+    if ( o_ptr->activation.type != j_ptr->activation.type
+      || o_ptr->activation.timeout != o_ptr->activation.timeout
+      || o_ptr->activation.level != o_ptr->activation.level
+      || o_ptr->activation.extra != o_ptr->activation.extra )
+    {
+        return 0;
+    }
+
     /* Hack -- Require identical "broken" status */
     if ((o_ptr->ident & (IDENT_BROKEN)) != (j_ptr->ident & (IDENT_BROKEN))) return 0;
 
