@@ -1631,9 +1631,9 @@ int object_similar_part(object_type *o_ptr, object_type *j_ptr)
 
     /* Require identical activations */
     if ( o_ptr->activation.type != j_ptr->activation.type
-      || o_ptr->activation.timeout != o_ptr->activation.timeout
-      || o_ptr->activation.level != o_ptr->activation.level
-      || o_ptr->activation.extra != o_ptr->activation.extra )
+      || o_ptr->activation.timeout != j_ptr->activation.timeout
+      || o_ptr->activation.level != j_ptr->activation.level
+      || o_ptr->activation.extra != j_ptr->activation.extra )
     {
         return 0;
     }
