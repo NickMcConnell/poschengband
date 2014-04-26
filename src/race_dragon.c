@@ -302,6 +302,8 @@ static void _calc_innate_attacks(void)
 
         if (p_ptr->lev >= 40)
             calc_innate_blows(&a, 200);
+        else if (p_ptr->lev >= 35)
+            calc_innate_blows(&a, 150);
         else
             a.blows = 100;
         a.msg = "You bite %s.";
