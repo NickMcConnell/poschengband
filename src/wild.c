@@ -1623,11 +1623,13 @@ bool change_wild_mode(void)
     for (i = 1; i < m_max; i++)
     {
         monster_type *m_ptr = &m_list[i];
+        monster_race *r_ptr;
 
         if (!m_ptr->r_idx) continue;
+        r_ptr = &r_info[m_ptr->r_idx];
         if (is_pet(m_ptr) && i != p_ptr->riding) have_pet = TRUE;
         if (MON_CSLEEP(m_ptr)) continue;
-        if (m_ptr->cdis > MAX_SIGHT) continue;
+        if (m_ptr->cdis > MIN(MAX_SIGHT, r_ptr->aaf)) continue;
         if (!is_hostile(m_ptr)) continue;
         /* Monster Awareness of the player is a TODO concept, not yet correctly implemented.
            At the moment, only the Ring player race uses this and there is a slight bug as well!

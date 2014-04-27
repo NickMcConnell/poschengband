@@ -568,6 +568,7 @@ critical_t critical_norm(int weight, int plus, s16b meichuu, int mode, int hand)
 s16b tot_dam_aux_monk(int tdam, monster_type *m_ptr, int mode)
 {
     int mult = 10;
+    int bonus = 0;
     monster_race *r_ptr = &r_info[m_ptr->r_idx];
     const int monk_elem_slay = 17;
 
@@ -579,7 +580,8 @@ s16b tot_dam_aux_monk(int tdam, monster_type *m_ptr, int mode)
         }
         else if (mode == MYSTIC_ACID)
         {
-            if (mult < 20) mult = 20;
+            mult = MAX(mult, 20);
+            bonus = MAX(bonus, 5);
         }
         else
         {
@@ -595,7 +597,8 @@ s16b tot_dam_aux_monk(int tdam, monster_type *m_ptr, int mode)
         }
         else if (mode == MYSTIC_ELEC)
         {
-            if (mult < 25) mult = 25;
+            mult = MAX(mult, 25);
+            bonus = MAX(bonus, 7);
         }
         else
         {
@@ -616,6 +619,11 @@ s16b tot_dam_aux_monk(int tdam, monster_type *m_ptr, int mode)
                 mult = MAX(mult, 25);
                 if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= RF3_HURT_FIRE;
             }
+            else if (mode == MYSTIC_FIRE)
+            {
+                mult = MAX(mult, 17);
+                bonus = MAX(bonus, 3);
+            }
             else 
                 mult = MAX(mult, monk_elem_slay);
         }
@@ -634,6 +642,11 @@ s16b tot_dam_aux_monk(int tdam, monster_type *m_ptr, int mode)
                 mult = MAX(mult, 25);
                 if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= RF3_HURT_COLD;
             }
+            else if (mode == MYSTIC_COLD)
+            {
+                mult = MAX(mult, 17);
+                bonus = MAX(bonus, 3);
+            }
             else 
                 mult = MAX(mult, monk_elem_slay);
         }
@@ -645,13 +658,18 @@ s16b tot_dam_aux_monk(int tdam, monster_type *m_ptr, int mode)
         {
             if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (r_ptr->flagsr & RFR_EFF_IM_POIS_MASK);
         }
+        else if (mode == MYSTIC_POIS)
+        {
+            mult = MAX(mult, 17);
+            bonus = MAX(bonus, 3);
+        }
         else
         {
             if (mult < monk_elem_slay) mult = monk_elem_slay;
         }
     }
 
-    return (tdam * mult / 10);
+    return tdam * mult / 10 + bonus;
 }
 
 #define _MAX_CHAOS_SLAYS 15
