@@ -900,7 +900,7 @@ static bool do_cmd_wiz_hack_chris9(void)
         char buf[MAX_NLEN];
 
         object_copy(&forge, dest);
-        reforge_artifact(src, &forge);
+        reforge_artifact(src, &forge, p_ptr->fame);
         identify_item(&forge);
         forge.ident |= (IDENT_MENTAL); 
         object_desc(buf, &forge, 0);

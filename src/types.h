@@ -1109,6 +1109,7 @@ struct player_type
     byte personality;        /* Seikaku index */
     byte realm1;        /* First magic realm */
     byte realm2;        /* Second magic realm */
+    byte dragon_realm;
     byte psubclass;        /* e.g. Pacts on Warlocks. Type of Weaponmaster.*/
     byte psubrace;      /* e.g. Parentage on Demigods */
     s16b current_r_idx;
@@ -1504,6 +1505,8 @@ struct player_type
     bool regenerate;    /* Regenerate hit pts */
     bool hold_life;        /* Resist life draining */
 
+    bool loremaster;
+
     bool telepathy;        /* Telepathy */
     bool esp_animal;
     bool esp_undead;
@@ -1588,6 +1591,7 @@ struct birther
     byte personality;     /* Seikaku index */
     byte realm1;       /* First magic realm */
     byte realm2;       /* Second magic realm */
+    byte dragon_realm;
 
     s16b age;
     s16b ht;
@@ -2087,3 +2091,14 @@ typedef struct equip_template_s {
     slot_t     slots[EQUIP_MAX_SLOTS];
 } equip_template_t, *equip_template_ptr;
 
+typedef struct {
+    cptr                    name;
+    cptr                    desc;
+    s16b                    stats[MAX_STATS];
+    skills_t                skills;
+    s16b                    life;
+    s16b                    exp;
+    s16b                    attack;
+    s16b                    breath;
+    s16b                    spell_stat;
+} dragon_realm_t, *dragon_realm_ptr;

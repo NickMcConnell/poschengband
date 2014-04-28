@@ -1723,7 +1723,7 @@ extern void random_artifact_resistance(object_type * o_ptr, artifact_type *a_ptr
 extern bool create_named_art(int a_idx, int y, int x);
 extern bool create_named_art_aux(int a_idx, object_type *o_ptr);
 extern bool create_replacement_art(int a_idx, object_type *o_ptr);
-extern bool reforge_artifact(object_type *src, object_type *dest);
+extern bool reforge_artifact(object_type *src, object_type *dest, int fame);
 extern void get_random_name(char *return_name, object_type *o_ptr, int power);
 
 /* scores.c */
@@ -2013,6 +2013,8 @@ extern race_t *mon_sword_get_race_t(void);
 extern race_t *mon_troll_get_race_t(void);
 extern race_t *mon_vampire_get_race_t(void);
 extern race_t *mon_xorn_get_race_t(void);
+
+extern dragon_realm_ptr dragon_get_realm(int which);
 
 extern void    hound_calc_innate_attacks(void);
 extern void    hound_sniff_spell(int cmd, variant *res);

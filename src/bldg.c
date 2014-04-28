@@ -2887,7 +2887,7 @@ static bool _reforge_artifact(void)
         return FALSE;
     }
 
-    if (!reforge_artifact(src, dest))
+    if (!reforge_artifact(src, dest, p_ptr->fame))
     {
         msg_print("The reforging failed!");
         return FALSE;

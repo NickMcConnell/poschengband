@@ -19,7 +19,7 @@
 #define VER_MAJOR 3
 #define VER_MINOR 1
 #define VER_PATCH 6
-#define VER_EXTRA 0
+#define VER_EXTRA 1
 
 
 /*
@@ -6360,3 +6360,16 @@ enum effect_e
 #define BIAS_PROTECTION      0x00100000
 #define BIAS_ARCHER          0x00200000
 
+enum dragon_realm_e
+{
+    DRAGON_REALM_NONE, /* Steel dragons and upgrading old savefiles */
+    DRAGON_REALM_LORE,
+    DRAGON_REALM_BREATH,
+    DRAGON_REALM_ATTACK,
+    DRAGON_REALM_CRAFT,
+    DRAGON_REALM_ARMOR,
+    DRAGON_REALM_RECOVERY,
+    DRAGON_REALM_DOMINATION,
+    DRAGON_REALM_CRUSADE,
+    DRAGON_REALM_MAX
+};

@@ -3069,6 +3069,12 @@ void display_player(int mode)
             _print_field(7, 1, "Realm      :", tmp, TERM_L_BLUE, 0);
         }
 
+        if (p_ptr->prace == RACE_MON_DRAGON)
+        {
+            dragon_realm_ptr realm = dragon_get_realm(p_ptr->dragon_realm);
+            _print_field(7, 1, "Realm      :", realm->name, TERM_L_BLUE, 0);
+        }
+
         if ((p_ptr->pclass == CLASS_CHAOS_WARRIOR) || mut_present(MUT_CHAOS_GIFT))
             _print_field(8, 1, "Patron     :", chaos_patrons[p_ptr->chaos_patron], TERM_L_BLUE, 0);
 

@@ -1,0 +1,86 @@
+[[[[B|  Dragon Realms
+
+  Dragons are magical creatures and may choose to learn a particular branch of
+  dragon magic. Unlike normal spell casters, dragons do not need spell books to
+  cast or learn powers. Instead, they simply gain spells as they mature. Each
+  realm of dragon magic has a direct impact on the player's stats and skills,
+  and each realm also requires a different stat for casting purposes.
+
+
+***** <Lore>
+[[[[r|  Lore
+
+  Dragons specializing in lore are seekers of knowledge. They are the most
+  intelligent of dragonkind and use their vast intellects to drive their magic.
+
+
+***** <Breath>
+[[[[r|  Breath
+
+  Dragon breath is the stuff of legends, and this realm seeks to enhance this
+  most powerful attribute of dragonkind. With this speciality, you will be able
+  to shape and control your breaths to maximize deadliness for a given
+  situation. This focus requires great fortitude to master and somewhat
+  dimishes the dragon's defenses and melee.
+
+
+***** <Attack>
+[[[[r|  Attack
+
+
+
+***** <Craft>
+[[[[r|  Craft
+
+
+
+***** <Armor>
+[[[[r|  Armor
+
+
+
+***** <Recovery>
+[[[[r|  Recovery
+
+
+
+***** <Domination>
+[[[[r|  Domination
+
+
+
+***** <Crusade>
+[[[[r|  Crusade
+
+
+
+***** <Tables>
+[[[[y|  Table 1 - Realm Statistic Bonus Table ---
+
+[[[[r|                 STR  INT  WIS  DEX  CON  CHR  Life  Exp
+  Lore            -1 [[[[G|  +3 |  +0   -1   -1   +0   98%  100%
+  Breath          +0   -1   -1   +0 [[[[G|  +3 |  +1  103%  105%
+  Attack        [[[[G|  +3 |  -2   -2   +1   -1   +0   97%  105%
+  Craft           -1   -1 [[[[G|  +3 |  -1   -1   -1  100%  107%
+  Armor           -1   -1   -1 [[[[G|  +3 |  +1   +1  102%  105%
+  Recovery        -1   +0   +0   -1 [[[[G|  +3 |  +0  100%  107%
+  Domination      -1   -1   -1   -1   -1 [[[[G|  +3 |  95%  105%
+  Crusade         +1   -1   -1   +1   -1 [[[[G|  +2 |  95%  107%
+
+
+[[[[y|  Table 2 - Realm Skill Bonus Table
+
+[[[[r|                 Dsrm  Dvce  Save  Stlh  Srch  Prcp  Melee  Attack  Breath
+  Lore             +3    +8    +2    +0    +5    +5     -8     95%     95%
+  Breath           +0    +0    +3    -1    +0    +0     +0     90%    115%
+  Attack           -5    -5    -3    -1    -2    -2    +15    115%     90%
+  Craft            +3    +5    +0    +0    +0    +0     -5     95%     95%
+  Armor            -2    -3    +7    +1    +0    +0    -10     95%     95%
+  Recovery         +0    +0    +0    +0    +0    +0     +0    100%    100%
+  Domination       -2    -3    -2    +0    +0    +0     -7     95%     90%
+  Crusade          -5    +0    -2    +0    -2    -2     +7    105%    105%
+
+
+
+
+[[[[s|  Automatically generated for PosChengband 3.1.6.

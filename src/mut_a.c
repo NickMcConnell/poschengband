@@ -1310,6 +1310,9 @@ void loremaster_mut(int cmd, variant *res)
     case SPELL_HELP_DESC:
         var_set_string(res, "Items will automatically identify as you pick them up.");
         break;
+    case SPELL_CALC_BONUS:
+        p_ptr->loremaster = TRUE;
+        break;
     default:
         default_spell(cmd, res);
         break;
