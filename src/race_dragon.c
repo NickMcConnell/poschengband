@@ -419,7 +419,7 @@ static dragon_realm_t _realms[DRAGON_REALM_MAX] = {
         "and control your breaths to maximize deadliness for a given situation. In addition, "
         "dragons of this realm may choose their breath types if applicable, and breathing "
         "becomes less costly as they mature. This focus requires great fortitude to master "
-        "and somewhat dimishes the dragon's defenses and melee.",
+        "and somewhat diminishes the dragon's defenses and melee.",
     /*  S   I   W   D   C   C    Dsrm Dvce Save Stlh Srch Prcp Thn Thb  Life  Exp Attack Breath*/
       { 0, -1, -1,  0, +3, +1}, {   0,   0,   3,  -1,   0,   0,  0,  0}, 103, 105,    90,   115, A_CON},
 
@@ -2462,7 +2462,7 @@ race_t *mon_dragon_get_race_t(int psubrace)
         result = _nether_get_race_t();
     }
 
-    if (p_ptr->dragon_realm)
+    if (p_ptr->dragon_realm && !spoiler_hack)
     {
         dragon_realm_ptr realm = _get_realm();
         int              i;
