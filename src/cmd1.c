@@ -2249,6 +2249,8 @@ static void innate_attacks(s16b m_idx, bool *fear, bool *mdeath, int mode)
         innate_attack_ptr a = &p_ptr->innate_attacks[i];
         int               blows = _get_num_blow_innate(i);
 
+        if (a->flags & INNATE_SKIP) continue;
+
         for (j = 0; j < blows; j++)
         {
             to_h = a->to_h + p_ptr->to_h_m;
@@ -2261,7 +2263,27 @@ static void innate_attacks(s16b m_idx, bool *fear, bool *mdeath, int mode)
                 sound(SOUND_HIT);
                 msg_format(a->msg, m_name);
 
-                base_dam = damroll(dd, a->ds) + a->to_d;
+                base_dam = damroll(dd, a->ds);
+                if ( ((a->flags & INNATE_VORPAL) || mode == DRAGON_REND) 
+                  && one_in_(6) )
+                {
+                    int m = 2;
+                    while (one_in_(4))
+                        m++;
+
+                    base_dam *= m;
+                    switch (m)
+                    {
+                    case 2: msg_format("You gouge %s!", m_name); break;
+                    case 3: msg_format("You maim %s!", m_name); break;
+                    case 4: msg_format("You carve %s!", m_name); break;
+                    case 5: msg_format("You cleave %s!", m_name); break;
+                    case 6: msg_format("You smite %s!", m_name); break;
+                    case 7: msg_format("You eviscerate %s!", m_name); break;
+                    default: msg_format("You shred %s!", m_name); break;
+                    }
+                }
+                base_dam += a->to_d;
                 crit = critical_norm(a->weight, to_h, 0, mode, HAND_NONE);
                 if (crit.desc)
                 {
@@ -2418,6 +2440,13 @@ static void innate_attacks(s16b m_idx, bool *fear, bool *mdeath, int mode)
                 /* TODO: Should rings of power brand innate attacks? */
                 touch_zap_player(m_idx);
                 if (*mdeath) return;
+
+                if (mode == DRAGON_SNATCH)
+                {
+                    msg_format("You grab %s in your jaws.", m_name);
+                    monster_toss(m_idx);
+                    return;
+                }
             }
             else
             {

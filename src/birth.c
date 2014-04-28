@@ -167,6 +167,7 @@ static int _menu_choose(menu_ptr menu, int start_choice)
 
         var_clear(&key);
         var_clear(&text);
+        var_clear(&color);
     }
     if (start_choice == menu->count)
     {
@@ -543,6 +544,8 @@ static int _prompt_realm1(void)
                 choices[ct++] = DRAGON_REALM_DOMINATION;
                 if (p_ptr->psubrace == DRAGON_LAW)
                     choices[ct++] = DRAGON_REALM_CRUSADE;
+                if (p_ptr->psubrace == DRAGON_NETHER)
+                    choices[ct++] = DRAGON_REALM_DEATH;
 
                 menu.count = ct;
                 choices[ct] = -1;

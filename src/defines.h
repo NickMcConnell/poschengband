@@ -5342,6 +5342,12 @@ extern int PlayerUID;
 
 #define PY_POWER_ATTACK      67
 
+#define DRAGON_REND          68
+#define DRAGON_DEADLY_BITE   69
+#define DRAGON_SNATCH        70
+#define DRAGON_RAPID_STRIKE  71
+#define DRAGON_POWER_STRIKE  72
+
 #define HISSATSU_IAI    100
 
 /*
@@ -6371,5 +6377,6 @@ enum dragon_realm_e
     DRAGON_REALM_RECOVERY,
     DRAGON_REALM_DOMINATION,
     DRAGON_REALM_CRUSADE,
+    DRAGON_REALM_DEATH,
     DRAGON_REALM_MAX
 };

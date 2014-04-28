@@ -343,21 +343,6 @@ static int _attack_level(void)
     return l;
 }
 
-/*
-static int _bite_effect(void)
-{
-    switch (p_ptr->psubrace)
-    {
-    case DRAGON_RED: return GF_FIRE;
-    case DRAGON_WHITE: return GF_COLD;
-    case DRAGON_BLUE: return GF_ELEC;
-    case DRAGON_BLACK: return GF_ACID;
-    case DRAGON_GREEN: return GF_POIS;
-    case DRAGON_BRONZE: return GF_OLD_CONF;
-    }
-    return 0;
-}*/
-
 static void _calc_innate_attacks(void)
 {
     int l = _attack_level();
@@ -378,6 +363,9 @@ static void _calc_innate_attacks(void)
         a.msg = "You claw %s.";
         a.name = "Claw";
 
+        if (p_ptr->dragon_realm == DRAGON_REALM_ATTACK && p_ptr->lev >= 40)
+            a.flags |= INNATE_VORPAL;
+
         p_ptr->innate_attacks[p_ptr->innate_attack_ct++] = a;
     }
     /* Bite */
@@ -391,9 +379,6 @@ static void _calc_innate_attacks(void)
 
         a.weight = 200 + 2 * l;
 
-        /*TODO: if (p_ptr->lev >= 30)
-            a.effect[1] = _bite_effect();*/
-
         if (p_ptr->lev >= 40)
             calc_innate_blows(&a, 200);
         else if (p_ptr->lev >= 35)
@@ -402,6 +387,10 @@ static void _calc_innate_attacks(void)
             a.blows = 100;
         a.msg = "You bite %s.";
         a.name = "Bite";
+
+        if (p_ptr->dragon_realm == DRAGON_REALM_ATTACK && p_ptr->lev >= 40)
+            a.flags |= INNATE_VORPAL;
+
         p_ptr->innate_attacks[p_ptr->innate_attack_ct++] = a;
     }
 }
@@ -409,6 +398,117 @@ static void _calc_innate_attacks(void)
 /**********************************************************************
  * Dragon Realms
  **********************************************************************/
+static dragon_realm_t _realms[DRAGON_REALM_MAX] = {
+    { "None", 
+        "",
+    /*  S   I   W   D   C   C    Dsrm Dvce Save Stlh Srch Prcp Thn Thb  Life  Exp Attack Breath*/
+      { 0,  0,  0,  0,  0,  0}, {   0,   0,   0,   0,   0,   0,  0,  0}, 100, 100,   100,   100, A_NONE},
+
+    { "Lore", 
+        "Dragons specializing in lore are seekers of knowledge. They are the most "
+        "intelligent of dragonkind and use their vast intellects to drive their magic. "
+        "Armed with a vast array of detection and knowledge spells, dragons of lore "
+        "seek power through knowledge. They eventually gain powers of telepathy and "
+        "automatic object identification.",
+    /*  S   I   W   D   C   C    Dsrm Dvce Save Stlh Srch Prcp Thn Thb  Life  Exp Attack Breath*/
+      {-1, +3,  0, -1, -1,  0}, {   3,   8,   2,   0,   5,   5, -8,  0},  98, 100,    95,    95, A_INT},
+
+    { "Breath", 
+        "Dragon breath is the stuff of legends, and this realm seeks to enhance this most "
+        "powerful attribute of dragonkind. With this speciality, you will be able to shape "
+        "and control your breaths to maximize deadliness for a given situation. In addition, "
+        "dragons of this realm may choose their breath types if applicable, and breathing "
+        "becomes less costly as they mature. This focus requires great fortitude to master "
+        "and somewhat dimishes the dragon's defenses and melee.",
+    /*  S   I   W   D   C   C    Dsrm Dvce Save Stlh Srch Prcp Thn Thb  Life  Exp Attack Breath*/
+      { 0, -1, -1,  0, +3, +1}, {   0,   0,   3,  -1,   0,   0,  0,  0}, 103, 105,    90,   115, A_CON},
+
+    { "Attack", 
+        "Attack dragons seek melee supremacy above all else. This realm offers powerful attack "
+        "spells to support a race that is already among the melee elite, and the result can "
+        "be truly awe-inspiring. With this realm, the dragon may rend their opponents with "
+        "extra sharp claws, may reach out to bite distant foes, may snatch an adjacent opponent "
+        "in their powerful jaws and then toss them about like a rag doll, and may even augment "
+        "their bite attacks with their breath element! Truly, a rampaging dragon is an awe "
+        "inspiring sight, one that is seldom witnessed (or perhaps seldom survived?). This "
+        "focus values strength above all else.",
+    /*  S   I   W   D   C   C    Dsrm Dvce Save Stlh Srch Prcp Thn Thb  Life  Exp Attack Breath*/
+      {+3, -2, -2, +1, -1,  0}, {  -5,  -5,  -3,  -1,  -2,  -2, 15,  0},  97, 105,   115,    80, A_STR},
+
+    { "Craft", 
+        "The most powerful magical items have long been believed forged by dragonflame. The "
+        "craft dragon gains powers of enchantment and may even reforge artifacts into the objects "
+        "of their choosing!",
+    /*  S   I   W   D   C   C    Dsrm Dvce Save Stlh Srch Prcp Thn Thb  Life  Exp Attack Breath*/
+      {-1, -1, +3, -1, -1, -1}, {   3,   5,   0,   0,   0,   0, -5,  0}, 100, 107,    95,    95, A_WIS},
+
+    { "Armor", 
+        "",
+    /*  S   I   W   D   C   C    Dsrm Dvce Save Stlh Srch Prcp Thn Thb  Life  Exp Attack Breath*/
+      {-1, -1, -1, +3, +1, +1}, {  -2,  -3,   7,   1,   0,   0,-10,  0}, 102, 105,    95,    95, A_DEX},
+
+    { "Recovery", 
+        "",
+    /*  S   I   W   D   C   C    Dsrm Dvce Save Stlh Srch Prcp Thn Thb  Life  Exp Attack Breath*/
+      {-1,  0,  0, -1, +3,  0}, {   0,   0,   0,   0,   0,   0,  0,  0}, 100, 107,   100,   100, A_CON},
+
+    { "Domination", 
+        "",
+    /*  S   I   W   D   C   C    Dsrm Dvce Save Stlh Srch Prcp Thn Thb  Life  Exp Attack Breath*/
+      {-1, -1, -1, -1, -1, +3}, {  -2,  -3,  -2,   0,   0,   0, -7,  0},  95, 105,    95,    90, A_CHR},
+
+    { "Crusade", 
+        "",
+    /*  S   I   W   D   C   C    Dsrm Dvce Save Stlh Srch Prcp Thn Thb  Life  Exp Attack Breath*/
+      {+1, -1, -1, +1, -1, +2}, {  -5,   0,  -2,   0,  -2,  -2,  7,  0},  95, 107,   105,   105, A_CHR},
+
+    { "Death", 
+        "",
+    /*  S   I   W   D   C   C    Dsrm Dvce Save Stlh Srch Prcp Thn Thb  Life  Exp Attack Breath*/
+      {+2, -2, -2,  0, -2, +1}, {  -5,  -3,  -3,   2,  -2,  -2,  5,  0},  95, 105,    95,    95, A_STR},
+};
+
+dragon_realm_ptr dragon_get_realm(int which)
+{
+    assert(0 <= which && which < DRAGON_REALM_MAX);
+    return &_realms[which];
+}
+
+dragon_realm_ptr _get_realm(void)
+{
+    return dragon_get_realm(p_ptr->dragon_realm);
+}
+
+static caster_info * _caster_info(void)
+{
+    static caster_info me = {0};
+    static bool init = FALSE;
+    if (!init)
+    {
+        me.magic_desc = "dragon spell";
+        me.weight = 750;
+        init = TRUE;
+    }
+    me.which_stat = _get_realm()->spell_stat; /* Careful: Birthing may invoke this multiple times with different realms */
+    return &me;
+}
+
+/* Lore */
+static spell_info _lore_spells[] = {
+    {  1,  1, 30, detect_traps_spell },
+    {  3,  2, 30, detect_treasure_spell },
+    {  5,  3, 40, detect_monsters_spell },
+    {  7,  5, 50, detect_objects_spell },
+    { 12, 10, 60, identify_spell },
+    { 15, 12, 60, sense_surroundings_spell },
+    { 20, 15, 60, detection_spell },
+    { 22, 17, 60, probing_spell },
+    { 25, 20, 65, self_knowledge_spell },
+    { 30, 25, 70, identify_fully_spell },
+    { 40, 50, 90, clairvoyance_spell },
+    { -1, -1, -1, NULL}
+};
+
 /* Breath */
 static void _bolt_spell(int cmd, variant *res)
 {
@@ -711,6 +811,17 @@ static void _star_ball_spell(int cmd, variant *res)
     }
 }
 
+static spell_info _breath_spells[] = {
+    {  1,  0, 30, _bolt_spell },
+    { 10,  0, 30, _beam_spell },
+    { 20,  0, 30, _cone_spell },
+    { 25, 10, 50, _split_beam_spell },
+    { 30, 15, 50, _retreating_breath_spell },
+    { 40, 15, 60, _deadly_breath_spell },
+    { 50, 50, 70, _star_ball_spell },
+    { -1, -1, -1, NULL}
+};
+
 /* Craft */
 static void _detect_magic_spell(int cmd, variant *res)
 {
@@ -847,115 +958,6 @@ static void _reforging_spell(int cmd, variant *res)
     }
 }
 
-static dragon_realm_t _realms[DRAGON_REALM_MAX] = {
-    { "None", 
-        "",
-    /*  S   I   W   D   C   C    Dsrm Dvce Save Stlh Srch Prcp Thn Thb  Life  Exp Attack Breath*/
-      { 0,  0,  0,  0,  0,  0}, {   0,   0,   0,   0,   0,   0,  0,  0}, 100, 100,   100,   100, A_NONE},
-
-    { "Lore", 
-        "Dragons specializing in lore are seekers of knowledge. They are the most "
-        "intelligent of dragonkind and use their vast intellects to drive their magic. "
-        "Armed with a vast array of detection and knowledge spells, dragons of lore "
-        "seek power through knowledge. They eventually gain powers of telepathy and "
-        "automatic object identification.",
-    /*  S   I   W   D   C   C    Dsrm Dvce Save Stlh Srch Prcp Thn Thb  Life  Exp Attack Breath*/
-      {-1, +3,  0, -1, -1,  0}, {   3,   8,   2,   0,   5,   5, -8,  0},  98, 100,    95,    95, A_INT},
-
-    { "Breath", 
-        "Dragon breath is the stuff of legends, and this realm seeks to enhance this most "
-        "powerful attribute of dragonkind. With this speciality, you will be able to shape "
-        "and control your breaths to maximize deadliness for a given situation. In addition, "
-        "dragons of this realm may choose their breath types if applicable, and breathing "
-        "becomes less costly as they mature. This focus requires great fortitude to master "
-        "and somewhat dimishes the dragon's defenses and melee.",
-    /*  S   I   W   D   C   C    Dsrm Dvce Save Stlh Srch Prcp Thn Thb  Life  Exp Attack Breath*/
-      { 0, -1, -1,  0, +3, +1}, {   0,   0,   3,  -1,   0,   0,  0,  0}, 103, 105,    90,   115, A_CON},
-
-    { "Attack", 
-        "",
-    /*  S   I   W   D   C   C    Dsrm Dvce Save Stlh Srch Prcp Thn Thb  Life  Exp Attack Breath*/
-      {+3, -2, -2, +1, -1,  0}, {  -5,  -5,  -3,  -1,  -2,  -2, 15,  0},  97, 105,   115,    90, A_STR},
-
-    { "Craft", 
-        "The most powerful magical items have long been believed forged by dragonflame. The "
-        "craft dragon gains powers of enchantment and may even reforge artifacts into the objects "
-        "of their choosing!",
-    /*  S   I   W   D   C   C    Dsrm Dvce Save Stlh Srch Prcp Thn Thb  Life  Exp Attack Breath*/
-      {-1, -1, +3, -1, -1, -1}, {   3,   5,   0,   0,   0,   0, -5,  0}, 100, 107,    95,    95, A_WIS},
-
-    { "Armor", 
-        "",
-    /*  S   I   W   D   C   C    Dsrm Dvce Save Stlh Srch Prcp Thn Thb  Life  Exp Attack Breath*/
-      {-1, -1, -1, +3, +1, +1}, {  -2,  -3,   7,   1,   0,   0,-10,  0}, 102, 105,    95,    95, A_DEX},
-
-    { "Recovery", 
-        "",
-    /*  S   I   W   D   C   C    Dsrm Dvce Save Stlh Srch Prcp Thn Thb  Life  Exp Attack Breath*/
-      {-1,  0,  0, -1, +3,  0}, {   0,   0,   0,   0,   0,   0,  0,  0}, 100, 107,   100,   100, A_CON},
-
-    { "Domination", 
-        "",
-    /*  S   I   W   D   C   C    Dsrm Dvce Save Stlh Srch Prcp Thn Thb  Life  Exp Attack Breath*/
-      {-1, -1, -1, -1, -1, +3}, {  -2,  -3,  -2,   0,   0,   0, -7,  0},  95, 105,    95,    90, A_CHR},
-
-    { "Crusade", 
-        "",
-    /*  S   I   W   D   C   C    Dsrm Dvce Save Stlh Srch Prcp Thn Thb  Life  Exp Attack Breath*/
-      {+1, -1, -1, +1, -1, +2}, {  -5,   0,  -2,   0,  -2,  -2,  7,  0},  95, 107,   105,   105, A_CHR},
-};
-
-dragon_realm_ptr dragon_get_realm(int which)
-{
-    assert(0 <= which && which < DRAGON_REALM_MAX);
-    return &_realms[which];
-}
-
-dragon_realm_ptr _get_realm(void)
-{
-    return dragon_get_realm(p_ptr->dragon_realm);
-}
-
-static caster_info * _caster_info(void)
-{
-    static caster_info me = {0};
-    static bool init = FALSE;
-    if (!init)
-    {
-        me.magic_desc = "dragon spell";
-        me.weight = 750;
-        init = TRUE;
-    }
-    me.which_stat = _get_realm()->spell_stat; /* Careful: Birthing may invoke this multiple times with different realms */
-    return &me;
-}
-
-static spell_info _lore_spells[] = {
-    {  1,  1, 30, detect_traps_spell },
-    {  3,  2, 30, detect_treasure_spell },
-    {  5,  3, 40, detect_monsters_spell },
-    {  7,  5, 50, detect_objects_spell },
-    { 12, 10, 60, identify_spell },
-    { 15, 12, 60, sense_surroundings_spell },
-    { 20, 15, 60, detection_spell },
-    { 22, 17, 60, probing_spell },
-    { 25, 20, 65, self_knowledge_spell },
-    { 30, 25, 70, identify_fully_spell },
-    { 40, 50, 90, clairvoyance_spell },
-    { -1, -1, -1, NULL}
-};
-
-static spell_info _breath_spells[] = {
-    {  1,  0, 30, _bolt_spell },
-    { 10,  0, 30, _beam_spell },
-    { 20,  0, 30, _cone_spell },
-    { 25, 10, 50, _split_beam_spell },
-    { 30, 15, 50, _retreating_breath_spell },
-    { 40, 15, 60, _deadly_breath_spell },
-    { 50, 50, 70, _star_ball_spell },
-    { -1, -1, -1, NULL}
-};
-
 static spell_info _craft_spells[] = {
     {  1,  1, 30, _detect_magic_spell },
     {  5,  7, 60, minor_enchantment_spell },
@@ -967,6 +969,267 @@ static spell_info _craft_spells[] = {
     { -1, -1, -1, NULL}
 };
 
+/* Attack */
+static void _war_cry_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "War Cry");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Aggravate nearby monsters.");
+        break;
+    case SPELL_CAST:
+        msg_print("You roar out!");
+        project_hack(GF_SOUND, randint1(p_ptr->lev));
+        aggravate_monsters(0);
+        var_set_bool(res, TRUE);
+        break;
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
+
+static void _reach_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Reach");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Reach out and bite a distant monster.");
+        break;
+    case SPELL_INFO:
+        var_set_string(res, info_range(2 + p_ptr->lev/40));
+        break;
+    case SPELL_CAST:
+        {
+            int dir = 5;
+            var_set_bool(res, FALSE);
+            project_length = 2 + p_ptr->lev/40;
+            if (!get_aim_dir(&dir)) return;
+            p_ptr->innate_attacks[0].flags |= INNATE_SKIP;
+            project_hook(GF_ATTACK, dir, HISSATSU_2, PROJECT_STOP | PROJECT_KILL);
+            p_ptr->innate_attacks[0].flags &= ~INNATE_SKIP;
+            var_set_bool(res, TRUE);
+            break;
+        }
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
+
+static void _rend_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Rend");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Attack an adjacent opponent with cutting blows.");
+        break;
+    case SPELL_CAST:
+        var_set_bool(res, do_blow(DRAGON_REND));
+        break;
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
+
+static void _rage_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Rage");
+        break;
+    default:
+        berserk_spell(cmd, res);
+        break;
+    }
+}
+
+static void _three_way_attack_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "3-Way Attack");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Attack in chosen direction, and to either side of chosen direction, in a single action.");
+        break;
+    case SPELL_CAST:
+    {
+        int cdir, dir;
+        int y, x;
+
+        var_set_bool(res, FALSE);
+        if (!get_rep_dir2(&dir)) return;
+        if (dir == 5) return;
+
+        for (cdir = 0;cdir < 8; cdir++)
+        {
+            if (cdd[cdir] == dir) break;
+        }
+
+        if (cdir == 8) return;
+
+        y = py + ddy_cdd[cdir];
+        x = px + ddx_cdd[cdir];
+        if (cave[y][x].m_idx)
+            py_attack(y, x, 0);
+        else
+            msg_print("You attack the empty air.");
+        y = py + ddy_cdd[(cdir + 7) % 8];
+        x = px + ddx_cdd[(cdir + 7) % 8];
+        if (cave[y][x].m_idx)
+            py_attack(y, x, 0);
+        else
+            msg_print("You attack the empty air.");
+        y = py + ddy_cdd[(cdir + 1) % 8];
+        x = px + ddx_cdd[(cdir + 1) % 8];
+        if (cave[y][x].m_idx)
+            py_attack(y, x, 0);
+        else
+            msg_print("You attack the empty air.");
+        var_set_bool(res, TRUE);
+        break;
+    }
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
+
+static void _deadly_bite_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Deadly Bite");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Attack an adjacent opponent as usual, but augment your bite attacks with your breath element.");
+        break;
+    case SPELL_CAST:
+        p_ptr->innate_attacks[1].effect[1] = _breath_effect();
+        var_set_bool(res, do_blow(DRAGON_DEADLY_BITE));
+        p_ptr->innate_attacks[1].effect[1] = 0;
+        break;
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
+
+static void _snatch_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Snatch");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Attempt to snatch an adjacent opponent in your jaws. If successful, you may toss the monster away from you.");
+        break;
+    case SPELL_CAST:
+        p_ptr->innate_attacks[0].flags |= INNATE_SKIP;
+        var_set_bool(res, do_blow(DRAGON_SNATCH));
+        p_ptr->innate_attacks[0].flags &= ~INNATE_SKIP;
+        break;
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
+
+static void _charge_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Charge");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Charge a nearby monster and attack in a single action.");
+        break;
+    case SPELL_CAST:
+        var_set_bool(res, rush_attack(5, NULL));
+        break;
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
+
+static void _rapid_strike_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Rapid Strike");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Attack an adjacent opponent with extra blows.");
+        break;
+    case SPELL_CAST:
+        p_ptr->innate_attacks[0].blows += 100;
+        p_ptr->innate_attacks[1].blows += 50;
+        var_set_bool(res, do_blow(DRAGON_RAPID_STRIKE));
+        p_ptr->innate_attacks[0].blows -= 100;
+        p_ptr->innate_attacks[1].blows -= 50;
+        break;
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
+
+static void _power_strike_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Power Strike");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Attack an adjacent opponent with more powerful blows.");
+        break;
+    case SPELL_CAST:
+        p_ptr->innate_attacks[0].dd += 2;
+        p_ptr->innate_attacks[1].dd += 2;
+        var_set_bool(res, do_blow(DRAGON_POWER_STRIKE));
+        p_ptr->innate_attacks[0].dd -= 2;
+        p_ptr->innate_attacks[1].dd -= 2;
+        break;
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
+
+static spell_info _attack_spells[] = {
+    {  1,  1, 20, _war_cry_spell },
+    {  5,  3,  0, _reach_spell },
+    {  7,  5, 40, detect_menace_spell },
+    { 10,  7,  0, _rend_spell },
+    { 12,  9, 50, _rage_spell },
+    { 15, 10,  0, _three_way_attack_spell },
+    { 20, 15,  0, _deadly_bite_spell },
+    { 22, 15,  0, _snatch_spell },
+    { 25, 20, 50, _charge_spell },
+    { 30, 25, 50, _rapid_strike_spell },
+    { 40, 30, 60, _power_strike_spell },
+    { -1, -1, -1, NULL}
+};
+
 int _realm_get_spells(spell_info* spells, int max)
 {
     switch (p_ptr->dragon_realm)
@@ -975,6 +1238,8 @@ int _realm_get_spells(spell_info* spells, int max)
         return get_spells_aux(spells, max, _lore_spells);
     case DRAGON_REALM_BREATH:
         return get_spells_aux(spells, max, _breath_spells);
+    case DRAGON_REALM_ATTACK:
+        return get_spells_aux(spells, max, _attack_spells);
     case DRAGON_REALM_CRAFT:
         return get_spells_aux(spells, max, _craft_spells);
     }
@@ -995,6 +1260,9 @@ static void _realm_calc_bonuses(void)
         p_ptr->to_a -= p_ptr->lev/2;
         p_ptr->dis_to_a -= p_ptr->lev/2;
         break;
+    case DRAGON_REALM_ATTACK:
+        res_add(RES_FEAR);
+        break;
     }
 }
 
@@ -1005,6 +1273,9 @@ static void _realm_get_flags(u32b flgs[TR_FLAG_SIZE])
     case DRAGON_REALM_LORE:
         if (p_ptr->lev >= 35)
             add_flag(flgs, TR_TELEPATHY);
+        break;
+    case DRAGON_REALM_ATTACK:
+        add_flag(flgs, TR_RES_FEAR);
         break;
     }
 }

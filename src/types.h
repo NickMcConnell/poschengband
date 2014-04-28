@@ -1084,6 +1084,9 @@ typedef struct {
 #define MAX_WILD_COUNTERS  5
 #define MAX_INNATE_EFFECTS 7
 
+#define INNATE_SKIP        0x0001
+#define INNATE_VORPAL      0x0002
+
 typedef struct {
     int dd;
     int ds;
@@ -1093,6 +1096,7 @@ typedef struct {
     int weight;
     int effect[MAX_INNATE_EFFECTS];
     int effect_chance[MAX_INNATE_EFFECTS];
+    int flags;
     cptr msg;   /* "You bite %s.", "You hit %s with your horns.", etc. */
     cptr name;
 } innate_attack_t, *innate_attack_ptr;

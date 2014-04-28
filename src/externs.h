@@ -2015,6 +2015,7 @@ extern race_t *mon_vampire_get_race_t(void);
 extern race_t *mon_xorn_get_race_t(void);
 
 extern dragon_realm_ptr dragon_get_realm(int which);
+extern bool monster_toss(int m_idx);
 
 extern void    hound_calc_innate_attacks(void);
 extern void    hound_sniff_spell(int cmd, variant *res);

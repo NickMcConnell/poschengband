@@ -12,6 +12,9 @@
 
   Dragons specializing in lore are seekers of knowledge. They are the most
   intelligent of dragonkind and use their vast intellects to drive their magic.
+  Armed with a vast array of detection and knowledge spells, dragons of lore
+  seek power through knowledge. They eventually gain powers of telepathy and
+  automatic object identification.
 
 
 ***** <Breath>
@@ -20,18 +23,32 @@
   Dragon breath is the stuff of legends, and this realm seeks to enhance this
   most powerful attribute of dragonkind. With this speciality, you will be able
   to shape and control your breaths to maximize deadliness for a given
-  situation. This focus requires great fortitude to master and somewhat
-  dimishes the dragon's defenses and melee.
+  situation. In addition, dragons of this realm may choose their breath types
+  if applicable, and breathing becomes less costly as they mature. This focus
+  requires great fortitude to master and somewhat dimishes the dragon's
+  defenses and melee.
 
 
 ***** <Attack>
 [[[[r|  Attack
 
+  Attack dragons seek melee supremacy above all else. This realm offers
+  powerful attack spells to support a race that is already among the melee
+  elite, and the result can be truly awe-inspiring. With this realm, the dragon
+  may rend their opponents with extra sharp claws, may reach out to bite
+  distant foes, may snatch an adjacent opponent in their powerful jaws and then
+  toss them about like a rag doll, and may even augment their bite attacks with
+  their breath element! Truly, a rampaging dragon is an awe inspiring sight,
+  one that is seldom witnessed (or perhaps seldom survived?). This focus values
+  strength above all else.
 
 
 ***** <Craft>
 [[[[r|  Craft
 
+  The most powerful magical items have long been believed forged by
+  dragonflame. The craft dragon gains powers of enchantment and may even
+  reforge artifacts into the objects of their choosing!
 
 
 ***** <Armor>
@@ -54,6 +71,11 @@
 
 
 
+***** <Death>
+[[[[r|  Death
+
+
+
 ***** <Tables>
 [[[[y|  Table 1 - Realm Statistic Bonus Table ---
 
@@ -66,6 +88,7 @@
   Recovery        -1   +0   +0   -1 [[[[G|  +3 |  +0  100%  107%
   Domination      -1   -1   -1   -1   -1 [[[[G|  +3 |  95%  105%
   Crusade         +1   -1   -1   +1   -1 [[[[G|  +2 |  95%  107%
+  Death         [[[[G|  +2 |  -2   -2   +0   -2   +1   95%  105%
 
 
 [[[[y|  Table 2 - Realm Skill Bonus Table
@@ -73,12 +96,13 @@
 [[[[r|                 Dsrm  Dvce  Save  Stlh  Srch  Prcp  Melee  Attack  Breath
   Lore             +3    +8    +2    +0    +5    +5     -8     95%     95%
   Breath           +0    +0    +3    -1    +0    +0     +0     90%    115%
-  Attack           -5    -5    -3    -1    -2    -2    +15    115%     90%
+  Attack           -5    -5    -3    -1    -2    -2    +15    115%     80%
   Craft            +3    +5    +0    +0    +0    +0     -5     95%     95%
   Armor            -2    -3    +7    +1    +0    +0    -10     95%     95%
   Recovery         +0    +0    +0    +0    +0    +0     +0    100%    100%
   Domination       -2    -3    -2    +0    +0    +0     -7     95%     90%
   Crusade          -5    +0    -2    +0    -2    -2     +7    105%    105%
+  Death            -5    -3    -3    +2    -2    -2     +5     95%     95%
 
 
 
