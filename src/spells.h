@@ -123,6 +123,7 @@ extern void cure_poison_spell(int cmd, variant *res);
 extern void cure_wounds_I_spell(int cmd, variant *res);
 extern void cure_wounds_II_spell(int cmd, variant *res);
 extern void cure_wounds_III_spell(int cmd, variant *res);
+extern void curing_spell(int cmd, variant *res);
 extern void darkness_storm_I_spell(int cmd, variant *res);
 extern void darkness_storm_II_spell(int cmd, variant *res);
 extern void day_of_the_dove_spell(int cmd, variant *res);

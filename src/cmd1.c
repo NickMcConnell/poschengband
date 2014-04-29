@@ -2312,7 +2312,7 @@ static void innate_attacks(s16b m_idx, bool *fear, bool *mdeath, int mode)
                        I inadvertantly made dragon bite attacks too strong. Let's
                        emulate the way branded weapons work, but only when the elemental
                        effect is added on top of some base effect (generally GF_MISSILE). */
-                    if (k)
+                    if (k && mode == DRAGON_DEADLY_BITE)
                     {
                         switch (e)
                         {
@@ -4498,8 +4498,6 @@ bool py_attack(int y, int x, int mode)
                 int           ct = 3 + p_ptr->lev / 25;
                 int           x2, y2, dir, start_dir;
                 int           msec = delay_factor * delay_factor * delay_factor;
-                cave_type    *c_ptr2;
-                monster_type *m_ptr2;
 
                 start_dir = calculate_dir(px, py, x, y);
                 dir = start_dir;
@@ -4509,30 +4507,31 @@ bool py_attack(int y, int x, int mode)
                     x2 = px + ddx[dir];
                     y2 = py + ddy[dir];
 
-                    if (!in_bounds(y2, x2)) continue;
-
-                    c_ptr2 = &cave[y2][x2];
-                    m_ptr2 = &m_list[c_ptr2->m_idx];
-
-                    if (panel_contains(y2, x2) && player_can_see_bold(y2, x2))
+                    if (in_bounds(y2, x2))
                     {
-                        char c = '*';
-                        byte a = TERM_WHITE;
+                        cave_type    *c_ptr2 = &cave[y2][x2];
+                        monster_type *m_ptr2 = &m_list[c_ptr2->m_idx];
 
-                        print_rel(c, a, y2, x2);
-                        move_cursor_relative(y2, x2);
-                        Term_fresh();
-                        Term_xtra(TERM_XTRA_DELAY, msec);
-                        lite_spot(y2, x2);
-                        Term_fresh();
-                    }
-                    else
-                        Term_xtra(TERM_XTRA_DELAY, msec);
+                        if (panel_contains(y2, x2) && player_can_see_bold(y2, x2))
+                        {
+                            char c = '*';
+                            byte a = TERM_WHITE;
 
-                    if (c_ptr2->m_idx && (m_ptr2->ml || cave_have_flag_bold(y2, x2, FF_PROJECT)))
-                    {
-                        bool fear2 = FALSE, mdeath2 = FALSE;
-                        innate_attacks(c_ptr2->m_idx, &fear2, &mdeath2, DRAGON_TAIL_SWEEP);
+                            print_rel(c, a, y2, x2);
+                            move_cursor_relative(y2, x2);
+                            Term_fresh();
+                            Term_xtra(TERM_XTRA_DELAY, msec);
+                            lite_spot(y2, x2);
+                            Term_fresh();
+                        }
+                        else
+                            Term_xtra(TERM_XTRA_DELAY, msec);
+
+                        if (c_ptr2->m_idx && (m_ptr2->ml || cave_have_flag_bold(y2, x2, FF_PROJECT)))
+                        {
+                            bool fear2 = FALSE, mdeath2 = FALSE;
+                            innate_attacks(c_ptr2->m_idx, &fear2, &mdeath2, DRAGON_TAIL_SWEEP);
+                        }
                     }
                     dir = get_next_dir(dir);
                     if (dir == start_dir || dir == 5) break;

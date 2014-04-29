@@ -540,7 +540,6 @@ static int _prompt_realm1(void)
                 choices[ct++] = DRAGON_REALM_ATTACK;
                 choices[ct++] = DRAGON_REALM_CRAFT;
                 choices[ct++] = DRAGON_REALM_ARMOR;
-                choices[ct++] = DRAGON_REALM_RECOVERY;
                 choices[ct++] = DRAGON_REALM_DOMINATION;
                 if (p_ptr->psubrace == DRAGON_LAW || p_ptr->psubrace == DRAGON_GOLD)
                     choices[ct++] = DRAGON_REALM_CRUSADE;

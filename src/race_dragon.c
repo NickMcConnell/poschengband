@@ -72,6 +72,7 @@ cptr gf_name(int which)
     case GF_NUKE: return "nuke";
     case GF_DISINTEGRATE: return "disintegration";
     case GF_STORM: return "storm";
+    case GF_HOLY_FIRE: return "holy fire";
     }
     return "something";
 }
@@ -457,12 +458,7 @@ static dragon_realm_t _realms[DRAGON_REALM_MAX] = {
         "to offer temporary defensive augmentations. Unlike their kin, dragons of this order prize "
         "agility above all else.",
     /*  S   I   W   D   C   C    Dsrm Dvce Save Stlh Srch Prcp Thn Thb  Life  Exp Attack Breath*/
-      {-1, -1, -1, +3, +1, +1}, {  -2,  -3,   7,   1,   0,   0,-10,  0}, 102, 105,    95,    95, A_DEX},
-
-    { "Recovery", 
-        "",
-    /*  S   I   W   D   C   C    Dsrm Dvce Save Stlh Srch Prcp Thn Thb  Life  Exp Attack Breath*/
-      {-1,  0,  0, -1, +3,  0}, {   0,   0,   0,   0,   0,   0,  0,  0}, 100, 107,   100,   100, A_CON},
+      {-1, -1, -1, +3, +1, +1}, {  -2,  -3,   7,   1,   0,   0,-10,  0}, 102, 105,    90,    90, A_DEX},
 
     { "Domination", 
         "",
@@ -470,14 +466,21 @@ static dragon_realm_t _realms[DRAGON_REALM_MAX] = {
       {-1, -1, -1, -1, -1, +3}, {  -2,  -3,  -2,   0,   0,   0, -7,  0},  95, 105,    95,    90, A_CHR},
 
     { "Crusade", 
-        "",
+        "Crusade dragons are on a mission to destroy the forces of evil. As such, this realm is only "
+        "available to Gold Dragons and Law Dragons. Being of a single focus, the Crusade dragon is not "
+        "as powerful in melee or breaths as other dragons, but their spells more than make up for this "
+        "deficit. At least against evil opponents. For one thing, Crusade dragons can breathe holy "
+        "elements not normally accessible. At the sight of evil, they become enraged and may haste "
+        "for battle. They can even heal a bit and ultimately they may smite the forces of evil with "
+        "holy power, both in melee and in breath. Strong in personality, dragons of this order "
+        "may summon like minded kin for the final battles.",
     /*  S   I   W   D   C   C    Dsrm Dvce Save Stlh Srch Prcp Thn Thb  Life  Exp Attack Breath*/
-      {+1, -1, -1, +1, -1, +2}, {  -5,   0,  -2,   0,  -2,  -2,  7,  0},  95, 107,   105,   105, A_CHR},
+      {+1, -1, -1, +1, -1, +2}, {  -5,   0,  -2,   0,  -2,  -2,  7,  0},  95, 107,    90,    90, A_CHR},
 
     { "Death", 
         "",
     /*  S   I   W   D   C   C    Dsrm Dvce Save Stlh Srch Prcp Thn Thb  Life  Exp Attack Breath*/
-      {+2, -2, -2,  0, -2, +1}, {  -5,  -3,  -3,   2,  -2,  -2,  5,  0},  95, 105,    95,    95, A_STR},
+      {+2, -2, -2,  0, -2, +1}, {  -5,  -3,  -3,   2,  -2,  -2,  5,  0},  95, 105,    90,    90, A_STR},
 };
 
 dragon_realm_ptr dragon_get_realm(int which)
@@ -1281,6 +1284,200 @@ static spell_info _armor_spells[] = {
     { -1, -1, -1, NULL}
 };
 
+/* Crusade */
+static void _breathe_retribution_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Breathe Retribution");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Breathes lightning at chosen target.");
+        break;
+    case SPELL_INFO:
+        var_set_string(res, info_damage(0, 0, _breath_amount()));
+        break;
+    case SPELL_COST_EXTRA:
+        var_set_int(res, _breath_cost());
+        break;
+    case SPELL_CAST:
+    {
+        int dir = 0;
+        var_set_bool(res, FALSE);
+        if (get_aim_dir(&dir))
+        {
+            int e = GF_ELEC;
+            int dam = _breath_amount();
+
+            msg_format("You breathe %s", gf_name(e));
+            if (p_ptr->lev < 20)
+                fire_bolt(e, dir, dam);
+            else if (p_ptr->lev < 30)
+                fire_beam(e, dir, dam);
+            else
+                fire_ball(e, dir, dam, -1 - (p_ptr->lev / 20));
+
+            var_set_bool(res, TRUE);
+        }
+        break;
+    }
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
+
+static void _breathe_light_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Breathe Light");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Breathes light at chosen target.");
+        break;
+    case SPELL_INFO:
+        var_set_string(res, info_damage(0, 0, _breath_amount()));
+        break;
+    case SPELL_COST_EXTRA:
+        var_set_int(res, _breath_cost());
+        break;
+    case SPELL_CAST:
+    {
+        int dir = 0;
+        var_set_bool(res, FALSE);
+        if (get_aim_dir(&dir))
+        {
+            int e = GF_LITE;
+            int dam = _breath_amount();
+
+            msg_format("You breathe %s", gf_name(e));
+            if (p_ptr->lev < 20)
+                fire_bolt(e, dir, dam);
+            else if (p_ptr->lev < 30)
+                fire_beam(e, dir, dam);
+            else
+                fire_ball(e, dir, dam, -1 - (p_ptr->lev / 20));
+
+            var_set_bool(res, TRUE);
+        }
+        break;
+    }
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
+
+static void _healing_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Healing");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Powerful healing magic:  heals hitpoints, cuts and stun.");
+        break;
+    case SPELL_INFO:
+        var_set_string(res, format("Heals %d", 200));
+        break;
+    case SPELL_CAST:
+        hp_player(200);
+        set_stun(0, TRUE);
+        set_cut(0, TRUE);
+        var_set_bool(res, TRUE);
+        break;
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
+
+static void _breathe_holiness_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Breathe Holiness");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Breathes holy fire at chosen target. This hurts evil monsters greatly, but non-evil monsters resist.");
+        break;
+    case SPELL_INFO:
+        var_set_string(res, info_damage(0, 0, _breath_amount()));
+        break;
+    case SPELL_COST_EXTRA:
+        var_set_int(res, _breath_cost());
+        break;
+    case SPELL_CAST:
+    {
+        int dir = 0;
+        var_set_bool(res, FALSE);
+        if (get_aim_dir(&dir))
+        {
+            int e = GF_HOLY_FIRE;
+            int dam = _breath_amount();
+
+            msg_format("You breathe %s", gf_name(e));
+            if (p_ptr->lev < 20)
+                fire_bolt(e, dir, dam);
+            else if (p_ptr->lev < 30)
+                fire_beam(e, dir, dam);
+            else
+                fire_ball(e, dir, dam, -1 - (p_ptr->lev / 20));
+
+            var_set_bool(res, TRUE);
+        }
+        break;
+    }
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
+
+static void _smite_evil_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Smite Evil");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Attack an adjacent evil opponent with holy fury!");
+        break;
+    case SPELL_CAST:
+        p_ptr->innate_attacks[0].effect[1] = GF_HOLY_FIRE;
+        p_ptr->innate_attacks[1].effect[1] = GF_HOLY_FIRE;
+        var_set_bool(res, do_blow(DRAGON_SMITE_EVIL));
+        p_ptr->innate_attacks[0].effect[1] = 0;
+        p_ptr->innate_attacks[1].effect[1] = 0;
+        break;
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
+
+static spell_info _crusade_spells[] = {
+    {  1,  1, 30, bless_spell },
+    {  5,  3, 30, remove_fear_spell },
+    {  7,  4, 40, detect_evil_spell },
+    { 10,  5, 50, _breathe_retribution_spell },
+    { 15,  7, 50, heroism_spell },
+    { 25, 15, 60, haste_self_spell },
+    { 30, 20, 60, curing_spell },
+    { 32, 10, 60, _breathe_light_spell },
+    { 35, 30, 60, _healing_spell },
+    { 37, 30, 70, _breathe_holiness_spell },
+    { 40, 60,  0, _smite_evil_spell },
+    { 45,100, 90, summon_hi_dragon_spell },
+    { -1, -1, -1, NULL}
+};
+
 int _realm_get_spells(spell_info* spells, int max)
 {
     switch (p_ptr->dragon_realm)
@@ -1295,6 +1492,8 @@ int _realm_get_spells(spell_info* spells, int max)
         return get_spells_aux(spells, max, _armor_spells);
     case DRAGON_REALM_CRAFT:
         return get_spells_aux(spells, max, _craft_spells);
+    case DRAGON_REALM_CRUSADE:
+        return get_spells_aux(spells, max, _crusade_spells);
     }
     return 0;
 }
@@ -1341,6 +1540,11 @@ static void _realm_calc_bonuses(void)
         if (p_ptr->resist_magic && p_ptr->lev >= 30) 
             p_ptr->magic_resistance = 5 + (p_ptr->lev - 30) / 2;
         break;
+    case DRAGON_REALM_CRUSADE:
+        p_ptr->align += 200;
+        if (p_ptr->lev >= 15)
+            p_ptr->hold_life = TRUE;
+        break;
     }
 }
 
@@ -1377,6 +1581,10 @@ static void _realm_get_flags(u32b flgs[TR_FLAG_SIZE])
         }
         if (p_ptr->resist_magic && p_ptr->lev >= 30) 
             add_flag(flgs, TR_MAGIC_RESISTANCE); /* s/b a temp flag ... */
+        break;
+    case DRAGON_REALM_CRUSADE:
+        if (p_ptr->lev >= 15)
+            add_flag(flgs, TR_HOLD_LIFE);
         break;
     }
 }
