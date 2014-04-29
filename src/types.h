@@ -1213,6 +1213,7 @@ struct player_type
     s16b tim_mimic;
     s16b tim_sh_fire;
     s16b tim_sh_elements;
+    s16b tim_sh_shards;
     s16b tim_weaponmastery;
     s16b tim_sh_holy;
     s16b tim_eyeeye;

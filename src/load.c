@@ -772,6 +772,10 @@ static void rd_extra(savefile_ptr file)
     p_ptr->tim_mimic = savefile_read_s16b(file);
     p_ptr->tim_sh_fire = savefile_read_s16b(file);
     p_ptr->tim_sh_elements = savefile_read_s16b(file);
+    if (savefile_is_older_than(file, 3, 1, 6, 2))
+        p_ptr->tim_sh_shards = 0;
+    else
+        p_ptr->tim_sh_shards = savefile_read_s16b(file);
     p_ptr->tim_weaponmastery = savefile_read_s16b(file);
     p_ptr->tim_sh_holy = savefile_read_s16b(file);
     p_ptr->tim_eyeeye = savefile_read_s16b(file);

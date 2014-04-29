@@ -7366,6 +7366,45 @@ bool set_tim_inven_prot(int v, bool do_dec)
     return TRUE;
 }
 
+bool set_tim_sh_shards(int v, bool do_dec)
+{
+    bool notice = FALSE;
+
+    if (p_ptr->is_dead) return FALSE;
+
+    v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
+
+    if (v)
+    {
+        if (p_ptr->tim_sh_shards && !do_dec)
+        {
+            if (p_ptr->tim_sh_shards > v) return FALSE;
+        }
+        else if (!p_ptr->tim_sh_shards)
+        {
+            msg_print("You are enveloped in shards!");
+            notice = TRUE;
+        }
+    }
+    else
+    {
+        if (p_ptr->tim_sh_elements)
+        {
+            msg_print("You are no longer enveloped in shards.");
+            notice = TRUE;
+        }
+    }
+
+    p_ptr->tim_sh_shards = v;
+    p_ptr->redraw |= PR_STATUS;
+    if (!notice) return FALSE;
+    if (disturb_state) disturb(0, 0);
+    p_ptr->update |= PU_BONUS;
+    handle_stuff();
+    return TRUE;
+}
+
+
 bool set_tim_sh_elements(int v, bool do_dec)
 {
     bool notice = FALSE;

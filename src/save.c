@@ -589,6 +589,7 @@ static void wr_extra(savefile_ptr file)
     savefile_write_s16b(file, p_ptr->tim_mimic);
     savefile_write_s16b(file, p_ptr->tim_sh_fire);
     savefile_write_s16b(file, p_ptr->tim_sh_elements);
+    savefile_write_s16b(file, p_ptr->tim_sh_shards);
     savefile_write_s16b(file, p_ptr->tim_weaponmastery);
     savefile_write_s16b(file, p_ptr->tim_sh_holy);
     savefile_write_s16b(file, p_ptr->tim_eyeeye);

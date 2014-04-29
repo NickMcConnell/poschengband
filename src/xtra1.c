@@ -416,6 +416,7 @@ static void prt_stat(int stat)
 #define BAR_DTRAP_EDGE 162
 #define BAR_VAMPIRE_LIGHT 163
 #define BAR_VAMPIRE_DARK  164
+#define BAR_SH_SHARDS 165
 
 static struct {
     byte attr;
@@ -589,6 +590,7 @@ static struct {
     {TERM_YELLOW, "DT", "DTrap"},
     {TERM_YELLOW, "Lt", "Light"},
     {TERM_L_DARK, "Dk", "Dark"},
+    {TERM_UMBER, "SSh", "SShards"},
     {0, NULL, NULL}
 };
 
@@ -758,6 +760,7 @@ static void prt_status(void)
     if (p_ptr->special_defense & NINJA_S_STEALTH) ADD_FLG(BAR_SUPERSTEALTH);
 
     if (p_ptr->tim_sh_fire) ADD_FLG(BAR_SHFIRE);
+    if (p_ptr->tim_sh_shards) ADD_FLG(BAR_SH_SHARDS);
     if (p_ptr->tim_sh_elements)
     {
         ADD_FLG(BAR_SHFIRE);
@@ -3506,6 +3509,9 @@ void calc_bonuses(void)
     
     if (p_ptr->tim_sh_fire)
         p_ptr->sh_fire = TRUE;
+
+    if (p_ptr->tim_sh_shards)
+        p_ptr->sh_shards = TRUE;
 
     if (p_ptr->tim_sh_elements)
     {

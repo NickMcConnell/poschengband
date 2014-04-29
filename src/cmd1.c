@@ -2352,6 +2352,78 @@ static void innate_attacks(s16b m_idx, bool *fear, bool *mdeath, int mode)
                                 e = 0;
                             }
                             break;
+                        case GF_CONFUSION:
+                            if (r_ptr->flags3 & RF3_NO_CONF)
+                            {
+                                if (is_original_ap_and_seen(m_ptr)) 
+                                    r_ptr->r_flags3 |= RF3_NO_CONF;
+                                e = 0;
+                            }
+                            break;
+                        case GF_SOUND:
+                            if (r_ptr->flagsr & RFR_RES_SOUN)
+                            {
+                                if (is_original_ap_and_seen(m_ptr)) 
+                                    r_ptr->r_flagsr |= RFR_RES_SOUN;
+                                e = 0;
+                            }
+                            break;
+                        case GF_SHARDS:
+                            if (r_ptr->flagsr & RFR_RES_SHAR)
+                            {
+                                if (is_original_ap_and_seen(m_ptr)) 
+                                    r_ptr->r_flagsr |= RFR_RES_SHAR;
+                                e = 0;
+                            }
+                            break;
+                        case GF_NETHER:
+                            if (r_ptr->flagsr & RFR_RES_NETH)
+                            {
+                                if (is_original_ap_and_seen(m_ptr)) 
+                                    r_ptr->r_flagsr |= RFR_RES_NETH;
+                                e = 0;
+                            }
+                            break;
+                        case GF_NEXUS:
+                            if (r_ptr->flagsr & RFR_RES_NEXU)
+                            {
+                                if (is_original_ap_and_seen(m_ptr)) 
+                                    r_ptr->r_flagsr |= RFR_RES_NEXU;
+                                e = 0;
+                            }
+                            break;
+                        case GF_CHAOS:
+                            if (r_ptr->flagsr & RFR_RES_CHAO)
+                            {
+                                if (is_original_ap_and_seen(m_ptr)) 
+                                    r_ptr->r_flagsr |= RFR_RES_CHAO;
+                                e = 0;
+                            }
+                            break;
+                        case GF_DISENCHANT:
+                            if (r_ptr->flagsr & RFR_RES_DISE)
+                            {
+                                if (is_original_ap_and_seen(m_ptr)) 
+                                    r_ptr->r_flagsr |= RFR_RES_DISE;
+                                e = 0;
+                            }
+                            break;
+                        case GF_LITE:
+                            if (r_ptr->flagsr & RFR_RES_LITE)
+                            {
+                                if (is_original_ap_and_seen(m_ptr)) 
+                                    r_ptr->r_flagsr |= RFR_RES_LITE;
+                                e = 0;
+                            }
+                            break;
+                        case GF_DARK:
+                            if (r_ptr->flagsr & RFR_RES_DARK)
+                            {
+                                if (is_original_ap_and_seen(m_ptr)) 
+                                    r_ptr->r_flagsr |= RFR_RES_DARK;
+                                e = 0;
+                            }
+                            break;
                         }
                     }
 

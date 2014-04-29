@@ -228,8 +228,13 @@ static int _breath_cost(void)
 {
     int l = p_ptr->lev;
     int cost = l/2 + l*l*15/2500;
-    if (p_ptr->dragon_realm == DRAGON_REALM_BREATH && p_ptr->lev >= 40)
-        cost = cost * 3 / 4;
+    if (p_ptr->dragon_realm == DRAGON_REALM_BREATH)
+    {
+        if (p_ptr->lev >= 40)
+            cost = cost * 3 / 4;
+    }
+    else
+        cost += 5;
     return MAX(cost, 1);
 }
 
@@ -438,12 +443,20 @@ static dragon_realm_t _realms[DRAGON_REALM_MAX] = {
     { "Craft", 
         "The most powerful magical items have long been believed forged by dragonflame. The "
         "craft dragon gains powers of enchantment and may even reforge artifacts into the objects "
-        "of their choosing!",
+        "of their choosing! Otherwise, craft dragons are not particularly powerful as they trade "
+        "melee and breath prowess for magical understanding. This focus requires great wisdom to "
+        "master.",
     /*  S   I   W   D   C   C    Dsrm Dvce Save Stlh Srch Prcp Thn Thb  Life  Exp Attack Breath*/
-      {-1, -1, +3, -1, -1, -1}, {   3,   5,   0,   0,   0,   0, -5,  0}, 100, 107,    95,    95, A_WIS},
+      {-1, -1, +3, -1, -1, -1}, {   3,  15,   3,   0,   0,   0, -5,  0}, 100, 107,    95,    95, A_WIS},
 
     { "Armor", 
-        "",
+        "Dragon scales have thwarted many a would be dragonslayer. Naturally tough and resistant, "
+        "this realm offers even further protections. Specializing in this realm gives enhanced "
+        "armor class, reflection, resistance to cuts, resistance to stunning, resistance to poison "
+        "and life draining, and sustaining to several key stats, albeit not all at once. With all "
+        "of these extra innate bonuses, the magic spells of this realm are few in number but serve "
+        "to offer temporary defensive augmentations. Unlike their kin, dragons of this order prize "
+        "agility above all else.",
     /*  S   I   W   D   C   C    Dsrm Dvce Save Stlh Srch Prcp Thn Thb  Life  Exp Attack Breath*/
       {-1, -1, -1, +3, +1, +1}, {  -2,  -3,   7,   1,   0,   0,-10,  0}, 102, 105,    95,    95, A_DEX},
 
@@ -1230,6 +1243,76 @@ static spell_info _attack_spells[] = {
     { -1, -1, -1, NULL}
 };
 
+/* Armor */
+static void _shard_skin_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Shard Skin");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Temporarily gain an aura of shards which damages any monsters that strike you.");
+        break;
+    case SPELL_CAST:
+        set_tim_sh_shards(randint1(30) + 20, FALSE);
+        var_set_bool(res, TRUE);
+        break;
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
+
+static void _dragon_cloak_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Dragon Cloak");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Temporarily gain protective elemental auras for a bit.");
+        break;
+    case SPELL_CAST:
+        set_tim_sh_elements(randint1(30) + 20, FALSE);
+        var_set_bool(res, TRUE);
+        break;
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
+
+static void _magic_resistance_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Magic Resistance");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Temporarily gain enhanced resistance to magic.");
+        break;
+    case SPELL_CAST:
+        set_resist_magic(randint1(30) + 20, FALSE);
+        var_set_bool(res, TRUE);
+        break;
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
+
+static spell_info _armor_spells[] = {
+    { 10, 10, 50, stone_skin_spell },
+    { 15, 12, 50, _shard_skin_spell },
+    { 20, 15, 60, _dragon_cloak_spell },
+    { 25, 20, 60, resistance_spell },
+    { 30, 30, 70, _magic_resistance_spell },
+    { -1, -1, -1, NULL}
+};
+
 int _realm_get_spells(spell_info* spells, int max)
 {
     switch (p_ptr->dragon_realm)
@@ -1240,6 +1323,8 @@ int _realm_get_spells(spell_info* spells, int max)
         return get_spells_aux(spells, max, _breath_spells);
     case DRAGON_REALM_ATTACK:
         return get_spells_aux(spells, max, _attack_spells);
+    case DRAGON_REALM_ARMOR:
+        return get_spells_aux(spells, max, _armor_spells);
     case DRAGON_REALM_CRAFT:
         return get_spells_aux(spells, max, _craft_spells);
     }
@@ -1263,6 +1348,31 @@ static void _realm_calc_bonuses(void)
     case DRAGON_REALM_ATTACK:
         res_add(RES_FEAR);
         break;
+    case DRAGON_REALM_ARMOR:
+        p_ptr->to_a += p_ptr->lev;
+        p_ptr->dis_to_a += p_ptr->lev;
+        if (p_ptr->lev >= 5)
+            p_ptr->sustain_dex = TRUE;
+        if (p_ptr->lev >= 10)
+            p_ptr->sustain_str = TRUE;
+        if (p_ptr->lev >= 15)
+            p_ptr->sustain_con = TRUE;
+        if (p_ptr->lev >= 20)
+            p_ptr->sustain_chr = TRUE;
+        if (p_ptr->lev >= 25)
+            p_ptr->hold_life = TRUE;
+        if (p_ptr->lev >= 30)
+            p_ptr->no_cut = TRUE;
+        if (p_ptr->lev >= 35)
+            res_add(RES_POIS);
+        if (p_ptr->lev >= 40)
+        {
+            p_ptr->reflect = TRUE;
+            p_ptr->no_stun = TRUE;
+        }         /* v---- This is a timer but is not following the naming convention! */
+        if (p_ptr->resist_magic && p_ptr->lev >= 30) 
+            p_ptr->magic_resistance = 5 + (p_ptr->lev - 30) / 2;
+        break;
     }
 }
 
@@ -1276,6 +1386,29 @@ static void _realm_get_flags(u32b flgs[TR_FLAG_SIZE])
         break;
     case DRAGON_REALM_ATTACK:
         add_flag(flgs, TR_RES_FEAR);
+        break;
+    case DRAGON_REALM_ARMOR:
+        if (p_ptr->lev >= 5)
+            add_flag(flgs, TR_SUST_DEX);
+        if (p_ptr->lev >= 10)
+            add_flag(flgs, TR_SUST_STR);
+        if (p_ptr->lev >= 15)
+            add_flag(flgs, TR_SUST_CON);
+        if (p_ptr->lev >= 20)
+            add_flag(flgs, TR_SUST_CHR);
+        if (p_ptr->lev >= 25)
+            add_flag(flgs, TR_HOLD_LIFE);
+        /*if (p_ptr->lev >= 30)
+            add_flag(flgs, TR_NO_CUT);*/
+        if (p_ptr->lev >= 35)
+            add_flag(flgs, TR_RES_POIS);
+        if (p_ptr->lev >= 40)
+        {
+            add_flag(flgs, TR_REFLECT);
+            /*add_flag(flgs, TR_NO_STUN);*/
+        }
+        if (p_ptr->resist_magic && p_ptr->lev >= 30) 
+            add_flag(flgs, TR_MAGIC_RESISTANCE); /* s/b a temp flag ... */
         break;
     }
 }

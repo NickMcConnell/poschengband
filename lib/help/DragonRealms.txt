@@ -48,12 +48,22 @@
 
   The most powerful magical items have long been believed forged by
   dragonflame. The craft dragon gains powers of enchantment and may even
-  reforge artifacts into the objects of their choosing!
+  reforge artifacts into the objects of their choosing! Otherwise, craft
+  dragons are not particularly powerful as they trade melee and breath prowess
+  for magical understanding. This focus requires great wisdom to master.
 
 
 ***** <Armor>
 [[[[r|  Armor
 
+  Dragon scales have thwarted many a would be dragonslayer. Naturally tough and
+  resistant, this realm offers even further protections. Specializing in this
+  realm gives enhanced armor class, reflection, resistance to cuts, resistance
+  to stunning, resistance to poison and life draining, and sustaining to
+  several key stats, albeit not all at once. With all of these extra innate
+  bonuses, the magic spells of this realm are few in number but serve to offer
+  temporary defensive augmentations. Unlike their kin, dragons of this order
+  prize agility above all else.
 
 
 ***** <Recovery>
@@ -97,7 +107,7 @@
   Lore             +3    +8    +2    +0    +5    +5     -8     95%     95%
   Breath           +0    +0    +3    -1    +0    +0     +0     90%    115%
   Attack           -5    -5    -3    -1    -2    -2    +15    115%     80%
-  Craft            +3    +5    +0    +0    +0    +0     -5     95%     95%
+  Craft            +3   +15    +3    +0    +0    +0     -5     95%     95%
   Armor            -2    -3    +7    +1    +0    +0    -10     95%     95%
   Recovery         +0    +0    +0    +0    +0    +0     +0    100%    100%
   Domination       -2    -3    -2    +0    +0    +0     -7     95%     90%

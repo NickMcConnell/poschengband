@@ -1833,6 +1833,10 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE])
         if (p_ptr->lev > 9)
             add_flag(flgs, TR_SPEED);
     }
+    if (p_ptr->personality == PERS_FEARLESS)
+    {
+        add_flag(flgs, TR_RES_FEAR);
+    }
     if (p_ptr->special_defense & KATA_FUUJIN)
         add_flag(flgs, TR_REFLECT);
     if (p_ptr->special_defense & KAMAE_GENBU)
@@ -1980,6 +1984,10 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE])
     if (p_ptr->tim_sh_fire)
     {
         add_flag(flgs, TR_SH_FIRE);
+    }
+    if (p_ptr->tim_sh_shards)
+    {
+        add_flag(flgs, TR_SH_SHARDS);
     }
     if (p_ptr->tim_sh_elements)
     {
