@@ -5346,6 +5346,7 @@ extern int PlayerUID;
 #define DRAGON_SNATCH        70
 #define DRAGON_RAPID_STRIKE  71
 #define DRAGON_POWER_STRIKE  72
+#define DRAGON_TAIL_SWEEP    73
 
 #define HISSATSU_IAI    100
 

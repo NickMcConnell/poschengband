@@ -5010,13 +5010,16 @@ static bool kind_is_tailored(int k_idx)
             && _is_favorite(k_ptr->tval, k_ptr->sval);
 
     case TV_SHOT:
-        return equip_can_wield_kind(TV_BOW, SV_SLING);
+        /*return equip_can_wield_kind(TV_BOW, SV_SLING);*/
+        return FALSE;
 
     case TV_BOLT:
-        return equip_can_wield_kind(TV_BOW, SV_LIGHT_XBOW);
+        /*return equip_can_wield_kind(TV_BOW, SV_LIGHT_XBOW);*/
+        return FALSE;
 
     case TV_ARROW:
-        return equip_can_wield_kind(TV_BOW, SV_LONG_BOW);
+        /*return equip_can_wield_kind(TV_BOW, SV_LONG_BOW);*/
+        return FALSE;
 
     case TV_LIFE_BOOK:
     case TV_SORCERY_BOOK:

@@ -432,11 +432,10 @@ static dragon_realm_t _realms[DRAGON_REALM_MAX] = {
         "Attack dragons seek melee supremacy above all else. This realm offers powerful attack "
         "spells to support a race that is already among the melee elite, and the result can "
         "be truly awe-inspiring. With this realm, the dragon may rend their opponents with "
-        "extra sharp claws, may reach out to bite distant foes, may snatch an adjacent opponent "
-        "in their powerful jaws and then toss them about like a rag doll, and may even augment "
-        "their bite attacks with their breath element! Truly, a rampaging dragon is an awe "
-        "inspiring sight, one that is seldom witnessed (or perhaps seldom survived?). This "
-        "focus values strength above all else.",
+        "extra sharp claws, may snatch an adjacent opponent in their powerful jaws and then "
+        "toss them about like a rag doll, and may even augment their bite attacks with their "
+        "breath element! Truly, a rampaging dragon is an awe inspiring sight, one that is "
+        "seldom witnessed (or perhaps seldom survived?). This focus values strength above all else.",
     /*  S   I   W   D   C   C    Dsrm Dvce Save Stlh Srch Prcp Thn Thb  Life  Exp Attack Breath*/
       {+3, -2, -2, +1, -1,  0}, {  -5,  -5,  -3,  -1,  -2,  -2, 15,  0},  97, 105,   115,    80, A_STR},
 
@@ -451,9 +450,9 @@ static dragon_realm_t _realms[DRAGON_REALM_MAX] = {
 
     { "Armor", 
         "Dragon scales have thwarted many a would be dragonslayer. Naturally tough and resistant, "
-        "this realm offers even further protections. Specializing in this realm gives enhanced "
-        "armor class, reflection, resistance to cuts, resistance to stunning, resistance to poison "
-        "and life draining, and sustaining to several key stats, albeit not all at once. With all "
+        "the dragon's armor is even further enhanced by this realm. This specialization gives enhanced "
+        "armor class, reflection, resistance to cuts and stunning, resistance to poison "
+        "and life draining, and sustaining of several key stats, albeit not all at once. With all "
         "of these extra innate bonuses, the magic spells of this realm are few in number but serve "
         "to offer temporary defensive augmentations. Unlike their kin, dragons of this order prize "
         "agility above all else.",
@@ -979,6 +978,7 @@ static spell_info _craft_spells[] = {
     { 30, 25, 70, enchantment_spell },
     { 32, 30, 70, recharging_spell },
     { 35, 90, 90, _reforging_spell },
+    { 40, 30, 70, dispel_magic_spell },
     { -1, -1, -1, NULL}
 };
 
@@ -999,37 +999,6 @@ static void _war_cry_spell(int cmd, variant *res)
         aggravate_monsters(0);
         var_set_bool(res, TRUE);
         break;
-    default:
-        default_spell(cmd, res);
-        break;
-    }
-}
-
-static void _reach_spell(int cmd, variant *res)
-{
-    switch (cmd)
-    {
-    case SPELL_NAME:
-        var_set_string(res, "Reach");
-        break;
-    case SPELL_DESC:
-        var_set_string(res, "Reach out and bite a distant monster.");
-        break;
-    case SPELL_INFO:
-        var_set_string(res, info_range(2 + p_ptr->lev/40));
-        break;
-    case SPELL_CAST:
-        {
-            int dir = 5;
-            var_set_bool(res, FALSE);
-            project_length = 2 + p_ptr->lev/40;
-            if (!get_aim_dir(&dir)) return;
-            p_ptr->innate_attacks[0].flags |= INNATE_SKIP;
-            project_hook(GF_ATTACK, dir, HISSATSU_2, PROJECT_STOP | PROJECT_KILL);
-            p_ptr->innate_attacks[0].flags &= ~INNATE_SKIP;
-            var_set_bool(res, TRUE);
-            break;
-        }
     default:
         default_spell(cmd, res);
         break;
@@ -1230,11 +1199,10 @@ static void _power_strike_spell(int cmd, variant *res)
 
 static spell_info _attack_spells[] = {
     {  1,  1, 20, _war_cry_spell },
-    {  5,  3,  0, _reach_spell },
-    {  7,  5, 40, detect_menace_spell },
-    { 10,  7,  0, _rend_spell },
-    { 12,  9, 50, _rage_spell },
-    { 15, 10,  0, _three_way_attack_spell },
+    {  5,  3, 40, detect_menace_spell },
+    {  7,  7,  0, _rend_spell },
+    {  9,  9, 50, _rage_spell },
+    { 12, 10,  0, _three_way_attack_spell },
     { 20, 15,  0, _deadly_bite_spell },
     { 22, 15,  0, _snatch_spell },
     { 25, 20, 50, _charge_spell },
@@ -1450,6 +1418,120 @@ static void _dragon_get_flags(u32b flgs[TR_FLAG_SIZE])
 }
 
 /**********************************************************************
+ * Dragon Powers (Common to all Types)
+ **********************************************************************/
+static void _reach_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Reach");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Reach out and bite a distant monster.");
+        break;
+    case SPELL_INFO:
+        var_set_string(res, info_range(2 + p_ptr->lev/40));
+        break;
+    case SPELL_CAST:
+        {
+            int dir = 5;
+            var_set_bool(res, FALSE);
+            project_length = 2 + p_ptr->lev/40;
+            if (!get_aim_dir(&dir)) return;
+            p_ptr->innate_attacks[0].flags |= INNATE_SKIP;
+            project_hook(GF_ATTACK, dir, HISSATSU_2, PROJECT_STOP | PROJECT_KILL);
+            p_ptr->innate_attacks[0].flags &= ~INNATE_SKIP;
+            var_set_bool(res, TRUE);
+            break;
+        }
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
+
+static void _tail_sweep_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Tail Sweep");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Sweep your tail in a semicircle clockwise from chosen direction. Monsters, if hit, may be flung back a square or two.");
+        break;
+    case SPELL_CAST:
+        /* Hack: Replace normal tooth and claw attacks with a tail attack */
+        p_ptr->innate_attack_ct = 0;
+        {
+            int             l = _attack_level();
+            innate_attack_t a = {0};
+
+            a.dd = 1 + l / 30;
+            a.ds = 3 + l / 10;
+            a.to_h += l / 2;
+
+            a.weight = 100 + l;
+            a.blows = 100;
+            a.msg = "You hit %s.";
+            a.name = "Tail";
+
+            p_ptr->innate_attacks[p_ptr->innate_attack_ct++] = a;
+        }     
+        var_set_bool(res, do_blow(DRAGON_TAIL_SWEEP));
+        /* Hack: Restore normal attacks */
+        p_ptr->innate_attack_ct = 0;
+        _calc_innate_attacks();
+        break;
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
+
+static void _wing_storm_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Wing Storm");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "This talent uses your wings to create massive wind gusts. Nearby foes are damaged, stunned, and blown about.");
+        break;
+    case SPELL_CAST:
+        msg_print("You bring your wings down powerfully!");
+        project(0, 5, py, px, randint1(p_ptr->lev * 3), GF_STORM, PROJECT_KILL | PROJECT_ITEM, -1);
+        var_set_bool(res, TRUE);
+        break;
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
+
+static power_info _dragon_powers[] = {
+    { A_CON, {  1,  0, 30, _breathe_spell}},
+    { A_DEX, { 20,  7,  0, _reach_spell}},
+    { A_DEX, { 25, 10,  0, _tail_sweep_spell}},
+    { A_DEX, { 30, 20,  0, _wing_storm_spell}},
+    {    -1, { -1, -1, -1, NULL} }
+};
+static power_info _steel_powers[] = {
+    { A_DEX, { 20,  7,  0, _reach_spell}},
+    { A_DEX, { 25, 10,  0, _tail_sweep_spell}},
+    { A_DEX, { 30, 20,  0, _wing_storm_spell}},
+    {    -1, { -1, -1, -1, NULL} }
+};
+static int _dragon_get_powers(spell_info* spells, int max) {
+    if (p_ptr->psubrace == DRAGON_STEEL)
+        return get_powers_aux(spells, max, _steel_powers);
+    else
+        return get_powers_aux(spells, max, _dragon_powers);
+}
+
+/**********************************************************************
  * Elemental Dragon (Red, White, Blue, Black, Green)
  *   Baby -> Young -> Mature -> Ancient -> Great Foo Wyrm
  **********************************************************************/
@@ -1477,13 +1559,6 @@ static _elemental_info_t _elemental_info[5] = { /* relies on #define DRAGON_RED 
       RES_POIS},
 };
 
-static power_info _elemental_powers[] = {
-    { A_CON, {  1,  0, 30, _breathe_spell}},
-    {    -1, { -1, -1, -1, NULL} }
-};
-static int _elemental_get_powers(spell_info* spells, int max) {
-    return get_powers_aux(spells, max, _elemental_powers);
-}
 static void _elemental_calc_bonuses(void) {
     int l = p_ptr->lev;
     int to_a = l/2 + l*l/100 + l*l*l/5000;
@@ -1594,7 +1669,7 @@ static race_t *_elemental_get_race_t(int subrace)
         me.exp = 250;
 
         me.birth = _elemental_birth;
-        me.get_powers = _elemental_get_powers;
+        me.get_powers = _dragon_get_powers;
         me.calc_bonuses = _elemental_calc_bonuses;
         me.get_flags = _elemental_get_flags;
         me.get_immunities = _elemental_get_immunities;
@@ -1617,15 +1692,6 @@ static race_t *_elemental_get_race_t(int subrace)
 /**********************************************************************
  * Nether: Shadow Drake -> Death Drake -> Spectral Wyrm
  **********************************************************************/
-static power_info _nether_powers[] = {
-    { A_CON, {  1,  0, 30, _breathe_spell}},
-    { A_DEX, { 45,  5, 30, phase_door_spell}}, 
-    { A_CHR, { 45, 90, 90, summon_hi_dragon_spell}}, 
-    {    -1, { -1, -1, -1, NULL} }
-};
-static int _nether_get_powers(spell_info* spells, int max) {
-    return get_powers_aux(spells, max, _nether_powers);
-}
 static void _nether_calc_bonuses(void) {
     int l = p_ptr->lev;
     int to_a = l/2 + l*l/100 + l*l*l/5000;
@@ -1722,7 +1788,7 @@ static race_t *_nether_get_race_t(void)
         me.exp = 350;
 
         me.birth = _nether_birth;
-        me.get_powers = _nether_get_powers;
+        me.get_powers = _dragon_get_powers;
         me.calc_bonuses = _nether_calc_bonuses;
         me.get_flags = _nether_get_flags;
         me.get_immunities = _nether_get_immunities;
@@ -1745,14 +1811,6 @@ static race_t *_nether_get_race_t(void)
 /**********************************************************************
  * Law: Law Drake -> Great Wyrm of Law
  **********************************************************************/
-static power_info _law_powers[] = {
-    { A_CON, {  1,  0, 30, _breathe_spell}},
-    { A_CHR, { 40, 70, 65, summon_dragon_spell}}, 
-    {    -1, { -1, -1, -1, NULL} }
-};
-static int _law_get_powers(spell_info* spells, int max) {
-    return get_powers_aux(spells, max, _law_powers);
-}
 static void _law_calc_bonuses(void) {
     int l = p_ptr->lev;
     int to_a = l/2 + l*l/100 + l*l*l/5000;
@@ -1819,7 +1877,7 @@ static race_t *_law_get_race_t(void)
         me.exp = 300;
 
         me.birth = _law_birth;
-        me.get_powers = _law_get_powers;
+        me.get_powers = _dragon_get_powers;
         me.calc_bonuses = _law_calc_bonuses;
         me.get_flags = _law_get_flags;
         me.gain_level = _law_gain_level;
@@ -1841,14 +1899,6 @@ static race_t *_law_get_race_t(void)
 /**********************************************************************
  * Chaos: Chaos Drake -> Great Wyrm of Chaos
  **********************************************************************/
-static power_info _chaos_powers[] = {
-    { A_CON, {  1,  0, 30, _breathe_spell}},
-    { A_CHR, { 40, 70, 65, summon_dragon_spell}}, 
-    {    -1, { -1, -1, -1, NULL} }
-};
-static int _chaos_get_powers(spell_info* spells, int max) {
-    return get_powers_aux(spells, max, _chaos_powers);
-}
 static void _chaos_calc_bonuses(void) {
     int l = p_ptr->lev;
     int to_a = l/2 + l*l/100 + l*l*l/5000;
@@ -1915,7 +1965,7 @@ static race_t *_chaos_get_race_t(void)
         me.exp = 300;
 
         me.birth = _chaos_birth;
-        me.get_powers = _chaos_get_powers;
+        me.get_powers = _dragon_get_powers;
         me.calc_bonuses = _chaos_calc_bonuses;
         me.get_flags = _chaos_get_flags;
         me.gain_level = _chaos_gain_level;
@@ -1937,15 +1987,6 @@ static race_t *_chaos_get_race_t(void)
 /**********************************************************************
  * Balance: Balance Drake -> Great Wyrm of Balance
  **********************************************************************/
-static power_info _balance_powers[] = {
-    { A_CON, {  1,  0, 30, _breathe_spell}},
-    { A_CHR, { 40, 70, 65, summon_dragon_spell}}, 
-    { A_CHR, { 50, 90, 80, summon_hi_dragon_spell}}, 
-    {    -1, { -1, -1, -1, NULL} }
-};
-static int _balance_get_powers(spell_info* spells, int max) {
-    return get_powers_aux(spells, max, _balance_powers);
-}
 static void _balance_calc_bonuses(void) {
     int l = p_ptr->lev;
     int to_a = l/2 + l*l/100 + l*l*l/5000;
@@ -2012,7 +2053,7 @@ static race_t *_balance_get_race_t(void)
         me.exp = 350;
 
         me.birth = _balance_birth;
-        me.get_powers = _balance_get_powers;
+        me.get_powers = _dragon_get_powers;
         me.calc_bonuses = _balance_calc_bonuses;
         me.get_flags = _balance_get_flags;
         me.gain_level = _balance_gain_level;
@@ -2034,13 +2075,6 @@ static race_t *_balance_get_race_t(void)
 /**********************************************************************
  * Ethereal: Pseudo Dragon -> Ethereal Drake -> Ethereal Dragon
  **********************************************************************/
-static power_info _ethereal_powers[] = {
-    { A_CON, {  1,  0, 30, _breathe_spell}},
-    {    -1, { -1, -1, -1, NULL} }
-};
-static int _ethereal_get_powers(spell_info* spells, int max) {
-    return get_powers_aux(spells, max, _ethereal_powers);
-}
 static void _ethereal_calc_bonuses(void) {
     int l = p_ptr->lev;
     int to_a = l/2 + l*l/100 + l*l*l/5000;
@@ -2118,7 +2152,7 @@ static race_t *_ethereal_get_race_t(void)
         me.exp = 250;
 
         me.birth = _ethereal_birth;
-        me.get_powers = _ethereal_get_powers;
+        me.get_powers = _dragon_get_powers;
         me.calc_bonuses = _ethereal_calc_bonuses;
         me.get_flags = _ethereal_get_flags;
         me.gain_level = _ethereal_gain_level;
@@ -2140,13 +2174,6 @@ static race_t *_ethereal_get_race_t(void)
 /**********************************************************************
  * Crystal: Crystal Drake -> Great Crystal Drake
  **********************************************************************/
-static power_info _crystal_powers[] = {
-    { A_CON, {  1,  0, 30, _breathe_spell}},
-    {    -1, { -1, -1, -1, NULL} }
-};
-static int _crystal_get_powers(spell_info* spells, int max) {
-    return get_powers_aux(spells, max, _crystal_powers);
-}
 static void _crystal_calc_bonuses(void) {
     int l = p_ptr->lev;
     int to_a = l/2 + l*l/50 + l*l*l/2500;
@@ -2226,7 +2253,7 @@ static race_t *_crystal_get_race_t(void)
         me.exp = 275;
 
         me.birth = _crystal_birth;
-        me.get_powers = _crystal_get_powers;
+        me.get_powers = _dragon_get_powers;
         me.calc_bonuses = _crystal_calc_bonuses;
         me.get_flags = _crystal_get_flags;
         me.gain_level = _crystal_gain_level;
@@ -2248,13 +2275,6 @@ static race_t *_crystal_get_race_t(void)
 /**********************************************************************
  * Bronze: Young -> Mature -> Ancient
  **********************************************************************/
-static power_info _bronze_powers[] = {
-    { A_CON, {  1,  0, 30, _breathe_spell}},
-    {    -1, { -1, -1, -1, NULL} }
-};
-static int _bronze_get_powers(spell_info* spells, int max) {
-    return get_powers_aux(spells, max, _bronze_powers);
-}
 static void _bronze_calc_bonuses(void) {
     int l = p_ptr->lev;
     int to_a = l/2 + l*l/100 + l*l*l/5000;
@@ -2326,7 +2346,7 @@ static race_t *_bronze_get_race_t(void)
         me.exp = 250;
 
         me.birth = _bronze_birth;
-        me.get_powers = _bronze_get_powers;
+        me.get_powers = _dragon_get_powers;
         me.calc_bonuses = _bronze_calc_bonuses;
         me.get_flags = _bronze_get_flags;
         me.gain_level = _bronze_gain_level;
@@ -2348,13 +2368,6 @@ static race_t *_bronze_get_race_t(void)
 /**********************************************************************
  * Gold: Young -> Mature -> Ancient
  **********************************************************************/
-static power_info _gold_powers[] = {
-    { A_CON, {  1,  0, 30, _breathe_spell}},
-    {    -1, { -1, -1, -1, NULL} }
-};
-static int _gold_get_powers(spell_info* spells, int max) {
-    return get_powers_aux(spells, max, _gold_powers);
-}
 static void _gold_calc_bonuses(void) {
     int l = p_ptr->lev;
     int to_a = l/2 + l*l/100 + l*l*l/5000;
@@ -2427,7 +2440,7 @@ static race_t *_gold_get_race_t(void)
         me.exp = 250;
 
         me.birth = _gold_birth;
-        me.get_powers = _gold_get_powers;
+        me.get_powers = _dragon_get_powers;
         me.calc_bonuses = _gold_calc_bonuses;
         me.get_flags = _gold_get_flags;
         me.gain_level = _gold_gain_level;
@@ -2531,6 +2544,7 @@ static race_t *_steel_get_race_t(void)
         me.birth = _steel_birth;
         me.calc_bonuses = _steel_calc_bonuses;
         me.get_flags = _steel_get_flags;
+        me.get_powers = _dragon_get_powers;
         me.get_vulnerabilities = _steel_get_vulnerabilities;
         me.gain_level = _steel_gain_level;
         init = TRUE;

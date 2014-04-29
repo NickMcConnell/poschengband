@@ -2215,6 +2215,8 @@ static int _get_num_blow_innate(int which)
     return result;
 }
 
+static void do_monster_knockback(int x, int y, int dist);
+
 static void innate_attacks(s16b m_idx, bool *fear, bool *mdeath, int mode)
 {
     int             dam, base_dam, to_h, chance;
@@ -2227,6 +2229,7 @@ static void innate_attacks(s16b m_idx, bool *fear, bool *mdeath, int mode)
     bool            delay_quake = FALSE;
     int             drain_amt = 0;
     int             steal_ct = 0;
+    int             hit_ct = 0;
     const int       max_drain_amt = _max_vampiric_drain();
 
     set_monster_csleep(m_idx, 0);
@@ -2260,6 +2263,7 @@ static void innate_attacks(s16b m_idx, bool *fear, bool *mdeath, int mode)
                 critical_t crit;
                 int        dd = a->dd + p_ptr->innate_attack_info.to_dd;
 
+                hit_ct++;
                 sound(SOUND_HIT);
                 msg_format(a->msg, m_name);
 
@@ -2532,6 +2536,11 @@ static void innate_attacks(s16b m_idx, bool *fear, bool *mdeath, int mode)
         if (mode == WEAPONMASTER_RETALIATION)
             break;
     }
+    if (mode == DRAGON_TAIL_SWEEP && !*mdeath && hit_ct)
+    {
+        int dist = randint1(1 + p_ptr->lev/20);
+        do_monster_knockback(m_ptr->fx, m_ptr->fy, dist);
+    }
     if (delay_quake)
         earthquake(py, px, 10);
     if (delay_sleep && !*mdeath)
@@ -2584,6 +2593,54 @@ static int get_next_dir(int dir)
     case 2: return 1;
     }
     return 5;
+}
+
+static void do_monster_knockback(int x, int y, int dist)
+{   
+    monster_type   *m_ptr = &m_list[cave[y][x].m_idx];   
+    int             dir = calculate_dir(px, py, x, y);
+
+    if (dir != 5)
+    {
+        int i;
+        int msec = delay_factor * delay_factor * delay_factor;
+
+        for (i = 0; i < dist; i++)
+        {
+            int ty = y, tx = x;
+            int oy = y, ox = x;
+
+            y += ddy[dir];
+            x += ddx[dir];
+            if (cave_empty_bold(y, x))
+            {
+                ty = y;
+                tx = x;
+            }
+            if (ty != oy || tx != ox)
+            {
+                int m_idx = cave[oy][ox].m_idx;
+
+                cave[oy][ox].m_idx = 0;
+                cave[ty][tx].m_idx = m_idx;
+                m_ptr->fy = ty;
+                m_ptr->fx = tx;
+    
+                Term_fresh();
+                update_mon(m_idx, TRUE);
+                lite_spot(oy, ox);
+                lite_spot(ty, tx);
+    
+                if (r_info[m_ptr->r_idx].flags7 & (RF7_LITE_MASK | RF7_DARK_MASK))
+                    p_ptr->update |= PU_MON_LITE;
+                    
+                Term_xtra(TERM_XTRA_DELAY, msec);
+                Term_fresh();
+            }
+            else
+                break;
+        }
+    }
 }
 
 static bool py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
@@ -3987,57 +4044,18 @@ static bool py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
     if (mode == WEAPONMASTER_ELUSIVE_STRIKE && hit_ct)
         teleport_player(10, TELEPORT_LINE_OF_SIGHT);
 
-    if ((mode == WEAPONMASTER_KNOCK_BACK || mode == MAULER_KNOCKBACK || mode == MAULER_SCATTER) && hit_ct)
+    if ( (mode == WEAPONMASTER_KNOCK_BACK || mode == MAULER_KNOCKBACK || mode == MAULER_SCATTER) 
+      && hit_ct
+      && !*mdeath )
     {
-        int dir = calculate_dir(px, py, x, y);
-        if (dir != 5)
-        {
-            int i;
-            int msec = delay_factor * delay_factor * delay_factor;
-            int dist = hit_ct * 2;
+        int dist = hit_ct * 2;
 
-            if (mode == MAULER_KNOCKBACK)
-                dist = 8;
+        if (mode == MAULER_KNOCKBACK)
+            dist = 8;
+        if (mode == MAULER_SCATTER)
+            dist = 3;
 
-            if (mode == MAULER_SCATTER)
-                dist = 3;
-
-            for (i = 0; i < dist; i++)
-            {
-                int ty = y, tx = x;
-                int oy = y, ox = x;
-
-                y += ddy[dir];
-                x += ddx[dir];
-                if (cave_empty_bold(y, x))
-                {
-                    ty = y;
-                    tx = x;
-                }
-                if (ty != oy || tx != ox)
-                {
-                    int m_idx = cave[oy][ox].m_idx;
-
-                    cave[oy][ox].m_idx = 0;
-                    cave[ty][tx].m_idx = m_idx;
-                    m_ptr->fy = ty;
-                    m_ptr->fx = tx;
-    
-                    Term_fresh();
-                    update_mon(m_idx, TRUE);
-                    lite_spot(oy, ox);
-                    lite_spot(ty, tx);
-    
-                    if (r_info[m_ptr->r_idx].flags7 & (RF7_LITE_MASK | RF7_DARK_MASK))
-                        p_ptr->update |= PU_MON_LITE;
-                    
-                    Term_xtra(TERM_XTRA_DELAY, msec);
-                    Term_fresh();
-                }
-                else
-                    break;
-            }
-        }
+        do_monster_knockback(x, y, dist);
     }
 
     /* Sleep counter ticks down in energy units ... Also, *lots* of code
@@ -4474,7 +4492,56 @@ bool py_attack(int y, int x, int mode)
             do_innate_attacks = FALSE;
 
         if (do_innate_attacks)
-            innate_attacks(c_ptr->m_idx, &fear, &mdeath, mode);
+        {
+            if (mode == DRAGON_TAIL_SWEEP)
+            {
+                int           ct = 3 + p_ptr->lev / 25;
+                int           x2, y2, dir, start_dir;
+                int           msec = delay_factor * delay_factor * delay_factor;
+                cave_type    *c_ptr2;
+                monster_type *m_ptr2;
+
+                start_dir = calculate_dir(px, py, x, y);
+                dir = start_dir;
+
+                while(ct--)
+                {
+                    x2 = px + ddx[dir];
+                    y2 = py + ddy[dir];
+
+                    if (!in_bounds(y2, x2)) continue;
+
+                    c_ptr2 = &cave[y2][x2];
+                    m_ptr2 = &m_list[c_ptr2->m_idx];
+
+                    if (panel_contains(y2, x2) && player_can_see_bold(y2, x2))
+                    {
+                        char c = '*';
+                        byte a = TERM_WHITE;
+
+                        print_rel(c, a, y2, x2);
+                        move_cursor_relative(y2, x2);
+                        Term_fresh();
+                        Term_xtra(TERM_XTRA_DELAY, msec);
+                        lite_spot(y2, x2);
+                        Term_fresh();
+                    }
+                    else
+                        Term_xtra(TERM_XTRA_DELAY, msec);
+
+                    if (c_ptr2->m_idx && (m_ptr2->ml || cave_have_flag_bold(y2, x2, FF_PROJECT)))
+                    {
+                        bool fear2 = FALSE, mdeath2 = FALSE;
+                        innate_attacks(c_ptr2->m_idx, &fear2, &mdeath2, DRAGON_TAIL_SWEEP);
+                    }
+                    dir = get_next_dir(dir);
+                    if (dir == start_dir || dir == 5) break;
+                }
+            }
+            else
+                innate_attacks(c_ptr->m_idx, &fear, &mdeath, mode);
+
+        }
     }
 
     melee_hack = FALSE;

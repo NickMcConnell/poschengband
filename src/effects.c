@@ -7388,7 +7388,7 @@ bool set_tim_sh_shards(int v, bool do_dec)
     }
     else
     {
-        if (p_ptr->tim_sh_elements)
+        if (p_ptr->tim_sh_shards)
         {
             msg_print("You are no longer enveloped in shards.");
             notice = TRUE;

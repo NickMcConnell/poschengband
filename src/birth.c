@@ -542,9 +542,9 @@ static int _prompt_realm1(void)
                 choices[ct++] = DRAGON_REALM_ARMOR;
                 choices[ct++] = DRAGON_REALM_RECOVERY;
                 choices[ct++] = DRAGON_REALM_DOMINATION;
-                if (p_ptr->psubrace == DRAGON_LAW)
+                if (p_ptr->psubrace == DRAGON_LAW || p_ptr->psubrace == DRAGON_GOLD)
                     choices[ct++] = DRAGON_REALM_CRUSADE;
-                if (p_ptr->psubrace == DRAGON_NETHER)
+                if (p_ptr->psubrace == DRAGON_NETHER || p_ptr->psubrace == DRAGON_CHAOS)
                     choices[ct++] = DRAGON_REALM_DEATH;
 
                 menu.count = ct;
