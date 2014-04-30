@@ -2015,6 +2015,8 @@ extern race_t *mon_troll_get_race_t(void);
 extern race_t *mon_vampire_get_race_t(void);
 extern race_t *mon_xorn_get_race_t(void);
 
+extern bool dragon_vamp_hack;
+extern int dragon_vamp_amt;
 extern dragon_realm_ptr dragon_get_realm(int which);
 extern bool monster_toss(int m_idx);
 

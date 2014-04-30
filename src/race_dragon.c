@@ -73,6 +73,11 @@ cptr gf_name(int which)
     case GF_DISINTEGRATE: return "disintegration";
     case GF_STORM: return "storm";
     case GF_HOLY_FIRE: return "holy fire";
+    case GF_ELDRITCH_HOWL: return "fear";
+    case GF_ANIM_DEAD: return "reanimation";
+    case GF_OLD_DRAIN: return "vampirism";
+    case GF_HELL_FIRE: return "hell fire";
+    case GF_GENOCIDE: return "death";
     }
     return "something";
 }
@@ -210,12 +215,9 @@ static int _breath_amount(void)
         break;
 
     case DRAGON_BALANCE:
-        amt = MIN(400, p_ptr->chp * (20 + l*l*l*25/125000) / 100);
-        break;
-
     case DRAGON_NETHER:
     case DRAGON_ETHEREAL:
-        amt = MIN(375, p_ptr->chp * (20 + l*l*l*15/125000) / 100);
+        amt = MIN(400, p_ptr->chp * (20 + l*l*l*25/125000) / 100);
         break;
 
     case DRAGON_STEEL:
@@ -288,7 +290,7 @@ static void _breathe_spell(int cmd, variant *res)
             int dam = _breath_amount();
             var_set_bool(res, FALSE);
             if (e < 0) return;
-            msg_format("You breathe %s", gf_name(e));
+            msg_format("You breathe %s.", gf_name(e));
             if (p_ptr->lev < 20)
                 fire_bolt(e, dir, dam);
             else if (p_ptr->lev < 30)
@@ -372,6 +374,9 @@ static void _calc_innate_attacks(void)
         if (p_ptr->dragon_realm == DRAGON_REALM_ATTACK && p_ptr->lev >= 40)
             a.flags |= INNATE_VORPAL;
 
+        if (p_ptr->dragon_realm == DRAGON_REALM_DEATH && p_ptr->lev >= 45)
+            a.effect[1] = GF_OLD_DRAIN;
+
         p_ptr->innate_attacks[p_ptr->innate_attack_ct++] = a;
     }
     /* Bite */
@@ -397,6 +402,9 @@ static void _calc_innate_attacks(void)
         if (p_ptr->dragon_realm == DRAGON_REALM_ATTACK && p_ptr->lev >= 40)
             a.flags |= INNATE_VORPAL;
 
+        if (p_ptr->dragon_realm == DRAGON_REALM_DEATH && p_ptr->lev >= 45)
+            a.effect[1] = GF_OLD_DRAIN;
+
         p_ptr->innate_attacks[p_ptr->innate_attack_ct++] = a;
     }
 }
@@ -417,7 +425,7 @@ static dragon_realm_t _realms[DRAGON_REALM_MAX] = {
         "seek power through knowledge. They eventually gain powers of telepathy and "
         "automatic object identification.",
     /*  S   I   W   D   C   C    Dsrm Dvce Save Stlh Srch Prcp Thn Thb  Life  Exp Attack Breath*/
-      {-1, +3,  0, -1, -1,  0}, {   3,   8,   2,   0,   5,   5, -8,  0},  98, 100,    95,    95, A_INT},
+      {-1, +3,  0, -1, -1,  0}, {   3,   8,   2,   0,   5,   5, -8,  0}, 100,  90,   100,   100, A_INT},
 
     { "Breath", 
         "Dragon breath is the stuff of legends, and this realm seeks to enhance this most "
@@ -447,7 +455,7 @@ static dragon_realm_t _realms[DRAGON_REALM_MAX] = {
         "melee and breath prowess for magical understanding. This focus requires great wisdom to "
         "master.",
     /*  S   I   W   D   C   C    Dsrm Dvce Save Stlh Srch Prcp Thn Thb  Life  Exp Attack Breath*/
-      {-1, -1, +3, -1, -1, -1}, {   3,  15,   3,   0,   0,   0, -5,  0}, 100, 107,    95,    95, A_WIS},
+      {-1, -1, +3, -1, -1, -1}, {   3,  15,   3,   0,   0,   0, -5,  0}, 100,  95,   100,   100, A_WIS},
 
     { "Armor", 
         "Dragon scales have thwarted many a would be dragonslayer. Naturally tough and resistant, "
@@ -478,7 +486,11 @@ static dragon_realm_t _realms[DRAGON_REALM_MAX] = {
       {+1, -1, -1, +1, -1, +2}, {  -5,   0,  -2,   0,  -2,  -2,  7,  0},  95, 107,    90,    90, A_CHR},
 
     { "Death", 
-        "",
+        "Death dragons are enemies of life itself, seeking to destroy all living creatures. With this "
+        "realm, the dragon may bend their breath weapon to suit their necromantic desires, eventually "
+        "breathing mastery over both death and life. At high levels, the death dragon's melee attacks "
+        "gain a powerful draining effect against living creatures. This focus values strength above "
+        "all else. This foul realm is only available to Shadow and Chaos dragons.",
     /*  S   I   W   D   C   C    Dsrm Dvce Save Stlh Srch Prcp Thn Thb  Life  Exp Attack Breath*/
       {+2, -2, -2,  0, -2, +1}, {  -5,  -3,  -3,   2,  -2,  -2,  5,  0},  95, 105,    90,    90, A_STR},
 };
@@ -551,7 +563,7 @@ static void _bolt_spell(int cmd, variant *res)
             int dam = MAX(1, _breath_amount()/2);
             var_set_bool(res, FALSE);
             if (e < 0) return;
-            msg_format("You breathe %s", gf_name(e));
+            msg_format("You breathe %s.", gf_name(e));
             fire_bolt(e, dir, dam);
             var_set_bool(res, TRUE);
         }
@@ -592,7 +604,7 @@ static void _beam_spell(int cmd, variant *res)
             int dam = _breath_amount();
             var_set_bool(res, FALSE);
             if (e < 0) return;
-            msg_format("You breathe %s", gf_name(e));
+            msg_format("You breathe %s.", gf_name(e));
             fire_beam(e, dir, dam);
             var_set_bool(res, TRUE);
         }
@@ -633,7 +645,7 @@ static void _cone_spell(int cmd, variant *res)
             int dam = _breath_amount();
             var_set_bool(res, FALSE);
             if (e < 0) return;
-            msg_format("You breathe %s", gf_name(e));
+            msg_format("You breathe %s.", gf_name(e));
             fire_ball(e, dir, dam, -2);
             var_set_bool(res, TRUE);
         }
@@ -674,7 +686,7 @@ static void _split_beam_spell(int cmd, variant *res)
             int dam = MAX(1, _breath_amount()/2);
             var_set_bool(res, FALSE);
             if (e < 0) return;
-            msg_format("You breathe %s", gf_name(e));
+            msg_format("You breathe %s.", gf_name(e));
             fire_beam(e, dir, dam);
             
             command_dir = 0; /* Code is buggy asking for a direction 2x in a single player action! */
@@ -718,7 +730,7 @@ static void _retreating_breath_spell(int cmd, variant *res)
             int dam = _breath_amount();
             var_set_bool(res, FALSE);
             if (e < 0) return;
-            msg_format("You breathe %s", gf_name(e));
+            msg_format("You breathe %s.", gf_name(e));
             fire_ball(e, dir, dam, -2);
 
             command_dir = 0; /* Code is buggy asking for a direction 2x in a single player action! */
@@ -769,7 +781,7 @@ static void _deadly_breath_spell(int cmd, variant *res)
             int dam = _breath_amount() * 125 / 100;
             var_set_bool(res, FALSE);
             if (e < 0) return;
-            msg_format("You breathe %s", gf_name(e));
+            msg_format("You breathe %s.", gf_name(e));
             fire_ball(e, dir, dam, -3);
             var_set_bool(res, TRUE);
         }
@@ -1285,16 +1297,10 @@ static spell_info _armor_spells[] = {
 };
 
 /* Crusade */
-static void _breathe_retribution_spell(int cmd, variant *res)
+static void _breathe_spell_aux(int effect, int cmd, variant *res)
 {
     switch (cmd)
     {
-    case SPELL_NAME:
-        var_set_string(res, "Breathe Retribution");
-        break;
-    case SPELL_DESC:
-        var_set_string(res, "Breathes lightning at chosen target.");
-        break;
     case SPELL_INFO:
         var_set_string(res, info_damage(0, 0, _breath_amount()));
         break;
@@ -1307,16 +1313,15 @@ static void _breathe_retribution_spell(int cmd, variant *res)
         var_set_bool(res, FALSE);
         if (get_aim_dir(&dir))
         {
-            int e = GF_ELEC;
             int dam = _breath_amount();
 
-            msg_format("You breathe %s", gf_name(e));
+            msg_format("You breathe %s.", gf_name(effect));
             if (p_ptr->lev < 20)
-                fire_bolt(e, dir, dam);
+                fire_bolt(effect, dir, dam);
             else if (p_ptr->lev < 30)
-                fire_beam(e, dir, dam);
+                fire_beam(effect, dir, dam);
             else
-                fire_ball(e, dir, dam, -1 - (p_ptr->lev / 20));
+                fire_ball(effect, dir, dam, -1 - (p_ptr->lev / 20));
 
             var_set_bool(res, TRUE);
         }
@@ -1324,6 +1329,22 @@ static void _breathe_retribution_spell(int cmd, variant *res)
     }
     default:
         default_spell(cmd, res);
+        break;
+    }
+}
+
+static void _breathe_retribution_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Breathe Retribution");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Breathes lightning at chosen target.");
+        break;
+    default:
+        _breathe_spell_aux(GF_ELEC, cmd, res);
         break;
     }
 }
@@ -1338,35 +1359,8 @@ static void _breathe_light_spell(int cmd, variant *res)
     case SPELL_DESC:
         var_set_string(res, "Breathes light at chosen target.");
         break;
-    case SPELL_INFO:
-        var_set_string(res, info_damage(0, 0, _breath_amount()));
-        break;
-    case SPELL_COST_EXTRA:
-        var_set_int(res, _breath_cost());
-        break;
-    case SPELL_CAST:
-    {
-        int dir = 0;
-        var_set_bool(res, FALSE);
-        if (get_aim_dir(&dir))
-        {
-            int e = GF_LITE;
-            int dam = _breath_amount();
-
-            msg_format("You breathe %s", gf_name(e));
-            if (p_ptr->lev < 20)
-                fire_bolt(e, dir, dam);
-            else if (p_ptr->lev < 30)
-                fire_beam(e, dir, dam);
-            else
-                fire_ball(e, dir, dam, -1 - (p_ptr->lev / 20));
-
-            var_set_bool(res, TRUE);
-        }
-        break;
-    }
     default:
-        default_spell(cmd, res);
+        _breathe_spell_aux(GF_LITE, cmd, res);
         break;
     }
 }
@@ -1406,35 +1400,8 @@ static void _breathe_holiness_spell(int cmd, variant *res)
     case SPELL_DESC:
         var_set_string(res, "Breathes holy fire at chosen target. This hurts evil monsters greatly, but non-evil monsters resist.");
         break;
-    case SPELL_INFO:
-        var_set_string(res, info_damage(0, 0, _breath_amount()));
-        break;
-    case SPELL_COST_EXTRA:
-        var_set_int(res, _breath_cost());
-        break;
-    case SPELL_CAST:
-    {
-        int dir = 0;
-        var_set_bool(res, FALSE);
-        if (get_aim_dir(&dir))
-        {
-            int e = GF_HOLY_FIRE;
-            int dam = _breath_amount();
-
-            msg_format("You breathe %s", gf_name(e));
-            if (p_ptr->lev < 20)
-                fire_bolt(e, dir, dam);
-            else if (p_ptr->lev < 30)
-                fire_beam(e, dir, dam);
-            else
-                fire_ball(e, dir, dam, -1 - (p_ptr->lev / 20));
-
-            var_set_bool(res, TRUE);
-        }
-        break;
-    }
     default:
-        default_spell(cmd, res);
+        _breathe_spell_aux(GF_HOLY_FIRE, cmd, res);
         break;
     }
 }
@@ -1478,6 +1445,189 @@ static spell_info _crusade_spells[] = {
     { -1, -1, -1, NULL}
 };
 
+/* Death */
+static void _breathe_poison_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Breathe Poison");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Breathes poison at chosen target.");
+        break;
+    default:
+        _breathe_spell_aux(GF_POIS, cmd, res);
+        break;
+    }
+}
+
+static void _breathe_fear_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Breathe Fear");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Breathes fear at chosen target.");
+        break;
+    default:
+        _breathe_spell_aux(GF_ELDRITCH_HOWL, cmd, res);
+        break;
+    }
+}
+
+static void _breathe_dark_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Breathe Darkness");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Breathes darkness at chosen target.");
+        break;
+    default:
+        _breathe_spell_aux(GF_DARK, cmd, res);
+        break;
+    }
+}
+
+static void _breathe_nether_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Breathe Nether");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Breathes nether at chosen target.");
+        break;
+    default:
+        _breathe_spell_aux(GF_NETHER, cmd, res);
+        break;
+    }
+}
+
+static void _breathe_reanimation_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Breathe Reanimation");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Breathes reanimation. Any corpses or skeletons hit by this breath may come back to life to serve you.");
+        break;
+    case SPELL_INFO:
+        break;
+    default:
+        _breathe_spell_aux(GF_ANIM_DEAD, cmd, res);
+        break;
+    }
+}
+
+int dragon_vamp_amt = 0;
+bool dragon_vamp_hack = FALSE;
+
+static void _breathe_vampirism_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Breathe Vampirism");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Breathes vampirism. Any living creatures hit by this breath have their life energies stolen to regain your hitpoints.");
+        break;
+    default:
+        dragon_vamp_hack = TRUE;
+        dragon_vamp_amt = 0;
+        _breathe_spell_aux(GF_OLD_DRAIN, cmd, res);
+        dragon_vamp_hack = FALSE;
+        if (dragon_vamp_amt)
+        {
+            int amt = MIN(500, (dragon_vamp_amt + 1) / 2);
+            hp_player(amt);
+        }
+        break;
+    }
+}
+
+static void _breathe_unholiness_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Breathe Unholiness");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Breathes hell fire at chosen target.");
+        break;
+    case SPELL_INFO:
+        var_set_string(res, info_damage(0, 0, _breath_amount() * 3 / 2));
+        break;
+    case SPELL_COST_EXTRA:
+        var_set_int(res, _breath_cost() * 3 / 2);
+        break;
+    case SPELL_CAST:
+    {
+        int dir = 0;
+        var_set_bool(res, FALSE);
+        if (get_aim_dir(&dir))
+        {
+            int dam = _breath_amount() * 3 / 2;
+
+            msg_print("You breathe hell fire.");
+            fire_ball(GF_HELL_FIRE, dir, dam, -1 - (p_ptr->lev / 20));
+
+            var_set_bool(res, TRUE);
+        }
+        break;
+    }
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
+
+static void _breathe_genocide_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Breathe Genocide");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Breathes genocide. Any monsters hit by this breath may be removed from the level, but you take damage for each monster so removed.");
+        break;
+    case SPELL_INFO:
+        var_set_string(res, info_power(_breath_amount()));
+        break;
+    default:
+        _breathe_spell_aux(GF_GENOCIDE, cmd, res);
+        break;
+    }
+}
+
+
+static spell_info _death_spells[] = {
+    {  1,  1, 30, evil_bless_spell },
+    {  5,  2, 40, detect_evil_spell },
+    { 10,  5, 50, _breathe_poison_spell },
+    { 15,  5, 50, _breathe_fear_spell },
+    { 20, 10, 60, _breathe_dark_spell },
+    { 25, 20, 60, restore_life_spell },
+    { 27, 10, 60, _breathe_nether_spell },
+    { 30, 25, 65, battle_frenzy_spell },
+    { 32, 20, 65, _breathe_reanimation_spell },
+    { 35, 20, 65, _breathe_vampirism_spell },
+    { 37, 20, 70, _breathe_unholiness_spell },
+    { 40, 35, 75, _breathe_genocide_spell },
+    { -1, -1, -1, NULL}
+};
+
 int _realm_get_spells(spell_info* spells, int max)
 {
     switch (p_ptr->dragon_realm)
@@ -1494,6 +1644,8 @@ int _realm_get_spells(spell_info* spells, int max)
         return get_spells_aux(spells, max, _craft_spells);
     case DRAGON_REALM_CRUSADE:
         return get_spells_aux(spells, max, _crusade_spells);
+    case DRAGON_REALM_DEATH:
+        return get_spells_aux(spells, max, _death_spells);
     }
     return 0;
 }
@@ -1544,6 +1696,9 @@ static void _realm_calc_bonuses(void)
         p_ptr->align += 200;
         if (p_ptr->lev >= 15)
             p_ptr->hold_life = TRUE;
+        break;
+    case DRAGON_REALM_DEATH:
+        p_ptr->align -= 200;
         break;
     }
 }

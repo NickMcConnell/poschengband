@@ -2481,7 +2481,7 @@ static void innate_attacks(s16b m_idx, bool *fear, bool *mdeath, int mode)
                         break;
                     }
                     case GF_OLD_DRAIN:
-                        if (project(0, 0, m_ptr->fy, m_ptr->fx, base_dam, e, PROJECT_KILL|PROJECT_HIDE, -1))
+                        if (monster_living(r_ptr) && project(0, 0, m_ptr->fy, m_ptr->fx, base_dam, e, PROJECT_KILL|PROJECT_HIDE, -1))
                         {
                             int amt = MIN(base_dam, max_drain_amt - drain_amt);
                             if (prace_is_(MIMIC_BAT))
