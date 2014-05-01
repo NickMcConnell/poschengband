@@ -24,7 +24,7 @@ monster_hook_type wilderness_mon_hook = NULL;
    entering and leaving wild_mode while waiting for desired monsters to get
    spawned adjacent to the player. For example, dragons in the mountains
    were a good, quick source of experience and loot for a mid level player.
-   Let's trevent any encounters when the player leaves wild mode (excepting ambushes, 
+   Let's prevent any encounters when the player leaves wild mode (excepting ambushes, 
    of course). To get encounters, the player must seek them by traveling about. */
 bool no_encounters_hack = FALSE;
 

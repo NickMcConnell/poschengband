@@ -237,7 +237,9 @@ static int _breath_cost(void)
             cost = cost * 3 / 4;
     }
     else
-        cost += 5;
+    {
+    /*    cost += 5; */
+    }
     return MAX(cost, 1);
 }
 
