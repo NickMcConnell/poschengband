@@ -1786,7 +1786,6 @@ static void _banish_summons_spell(int cmd, variant *res)
     case SPELL_DESC:
         var_set_string(res, "All enemy summons in view are returned to where they came.");
         break;
-        break;
     case SPELL_CAST:
     {
         int i;

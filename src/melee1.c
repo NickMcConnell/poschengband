@@ -1749,7 +1749,7 @@ bool make_attack_normal(int m_idx)
                     else
                     {
                         if (is_original_ap_and_seen(m_ptr))
-                            r_ptr->r_flagsr |= (r_ptr->flagsr & RFR_EFF_RES_TIME_MASK);
+                            r_ptr->r_flagsr |= RFR_RES_ALL;
                     }
                 }
 
