@@ -1004,6 +1004,10 @@ void self_knowledge(void)
         info[i++] = "You cannot be stunned.";
     if (p_ptr->no_charge_drain)
         info[i++] = "You are immune to charge draining attacks.";
+    if (p_ptr->loremaster)
+        info[i++] = "Objects are automatically identified as you pass over them.";
+    if (p_ptr->cult_of_personality)
+        info[i++] = "Summoned monsters sometimes switch their allegiance.";
 
     /* TODO: We used to spoil your first weapon, and ignore any alternate weapons. Rethink ... */
 

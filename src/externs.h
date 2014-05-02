@@ -1545,6 +1545,7 @@ extern bool set_tim_sh_touki(int v, bool do_dec);
 extern bool set_tim_sh_fire(int v, bool do_dec);
 extern bool set_tim_sh_elements(int v, bool do_dec);
 extern bool set_tim_sh_shards(int v, bool do_dec);
+extern bool set_tim_sh_domination(int v, bool do_dec);
 extern bool set_tim_weaponmastery(int v, bool do_dec);
 extern bool set_tim_sh_holy(int v, bool do_dec);
 extern bool set_tim_eyeeye(int v, bool do_dec);
@@ -2018,6 +2019,7 @@ extern race_t *mon_xorn_get_race_t(void);
 extern bool dragon_vamp_hack;
 extern int dragon_vamp_amt;
 extern dragon_realm_ptr dragon_get_realm(int which);
+extern int subjugation_power(void);
 extern bool monster_toss(int m_idx);
 
 extern void    hound_calc_innate_attacks(void);

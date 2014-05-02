@@ -19,7 +19,7 @@
 #define VER_MAJOR 3
 #define VER_MINOR 1
 #define VER_PATCH 6
-#define VER_EXTRA 2
+#define VER_EXTRA 3
 
 /*
  * Number of grids in each block (vertically)
@@ -2834,8 +2834,9 @@ enum summon_specific_e {
 #define GF_STORM    141
 #define GF_QUAKE    142
 #define GF_CHARM_RING_BEARER  143
+#define GF_SUBJUGATION 144
 
-#define MAX_GF                143
+#define MAX_GF                144
 
 /*
  * Some things which induce learning

@@ -1214,6 +1214,7 @@ struct player_type
     s16b tim_sh_fire;
     s16b tim_sh_elements;
     s16b tim_sh_shards;
+    s16b tim_sh_domination;
     s16b tim_weaponmastery;
     s16b tim_sh_holy;
     s16b tim_eyeeye;
@@ -1511,6 +1512,7 @@ struct player_type
     bool hold_life;        /* Resist life draining */
 
     bool loremaster;
+    bool cult_of_personality;
 
     bool telepathy;        /* Telepathy */
     bool esp_animal;

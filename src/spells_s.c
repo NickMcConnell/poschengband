@@ -951,6 +951,9 @@ void summon_hi_dragon_spell(int cmd, variant *res)
         int ct = 0, i;
         int l = p_ptr->lev + randint1(p_ptr->lev);
 
+        if (p_ptr->dragon_realm == DRAGON_REALM_DOMINATION)
+            num = 2 + randint1(3);
+
         for (i = 0; i < num; i++)
         {
             ct += summon_specific(-1, py, px, l, SUMMON_HI_DRAGON, PM_FORCE_PET);

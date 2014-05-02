@@ -545,6 +545,9 @@ void cult_of_personality_mut(int cmd, variant *res)
     case SPELL_HELP_DESC:
         var_set_string(res, "Summoned monsters may sometimes switch alliances.");
         break;
+    case SPELL_CALC_BONUS:
+        p_ptr->cult_of_personality = TRUE;
+        break;
     default:
         default_spell(cmd, res);
         break;

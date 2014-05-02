@@ -14,7 +14,8 @@
   intelligent of dragonkind and use their vast intellects to drive their magic.
   Armed with a vast array of detection and knowledge spells, dragons of lore
   seek power through knowledge. They eventually gain powers of telepathy and
-  automatic object identification.
+  automatic object identification. Lore dragons are quick learners and gain
+  maturity much more rapidly than the rest of their kind.
 
 
 ***** <Breath>
@@ -68,6 +69,16 @@
 ***** <Domination>
 [[[[r|  Domination
 
+  All dragons have a formidable presence and make fearsome opponents. But
+  Domination dragons are truly a breed apart seeking to bend and control the
+  will of all they meet. Convinced of their right to rule, these dragons may
+  subjugate the weak, terrify the uncertain, and stun the unwary with their
+  awesome presence. They are the best dragons at controlling minions and can
+  summon mighty aid. Enemy monsters summoned to battle may switch sides when
+  they notice whom they have been commanded to fight. And in the end, the
+  dragon of domination may sever all oaths of allegiance, returning enemy
+  summons to where they came. Needless to say, dragons of this order value
+  force of will above all else.
 
 
 ***** <Crusade>
@@ -100,7 +111,7 @@
 [[[[y|  Table 1 - Realm Statistic Bonus Table ---
 
 [[[[r|                 STR  INT  WIS  DEX  CON  CHR  Life  Exp
-  Lore            -1 [[[[G|  +3 |  +0   -1   -1   +0  100%   90%
+  Lore            -1 [[[[G|  +3 |  +0   -1   -1   +0  100%   80%
   Breath          +0   -1   -1   +0 [[[[G|  +3 |  +1  103%  105%
   Attack        [[[[G|  +3 |  -2   -2   +1   -1   +0   97%  105%
   Craft           -1   -1 [[[[G|  +3 |  -1   -1   -1  100%   95%

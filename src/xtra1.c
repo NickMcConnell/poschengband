@@ -417,6 +417,7 @@ static void prt_stat(int stat)
 #define BAR_VAMPIRE_LIGHT 163
 #define BAR_VAMPIRE_DARK  164
 #define BAR_SH_SHARDS 165
+#define BAR_SH_DOMINATION 166
 
 static struct {
     byte attr;
@@ -591,6 +592,7 @@ static struct {
     {TERM_YELLOW, "Lt", "Light"},
     {TERM_L_DARK, "Dk", "Dark"},
     {TERM_UMBER, "SSh", "SShards"},
+    {TERM_L_BLUE, "Dom", "Dominate"},
     {0, NULL, NULL}
 };
 
@@ -761,6 +763,7 @@ static void prt_status(void)
 
     if (p_ptr->tim_sh_fire) ADD_FLG(BAR_SHFIRE);
     if (p_ptr->tim_sh_shards) ADD_FLG(BAR_SH_SHARDS);
+    if (p_ptr->tim_sh_domination) ADD_FLG(BAR_SH_DOMINATION);
     if (p_ptr->tim_sh_elements)
     {
         ADD_FLG(BAR_SHFIRE);
@@ -3244,6 +3247,7 @@ void calc_bonuses(void)
     p_ptr->levitation = FALSE;
     p_ptr->hold_life = FALSE;
     p_ptr->loremaster = FALSE;
+    p_ptr->cult_of_personality = FALSE;
     p_ptr->telepathy = FALSE;
     p_ptr->esp_animal = FALSE;
     p_ptr->esp_undead = FALSE;

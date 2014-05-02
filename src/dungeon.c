@@ -1779,6 +1779,9 @@ static void process_world_aux_timeout(void)
     if (p_ptr->tim_sh_shards)
         set_tim_sh_shards(p_ptr->tim_sh_shards - 1, TRUE);
 
+    if (p_ptr->tim_sh_domination)
+        set_tim_sh_domination(p_ptr->tim_sh_domination - 1, TRUE);
+
     if (p_ptr->tim_weaponmastery)
         set_tim_weaponmastery(p_ptr->tim_weaponmastery - 1, TRUE);
 

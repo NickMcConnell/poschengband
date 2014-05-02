@@ -45,6 +45,17 @@ static void _dragon_birth(void)
  * Dragon Breath
  **********************************************************************/
 
+static void _do_breathe(int effect, int dir, int dam)
+{
+    /* Dragon breath changes shape with maturity */
+    if (p_ptr->lev < 20)
+        fire_bolt(effect, dir, dam);
+    else if (p_ptr->lev < 30)
+        fire_beam(effect, dir, dam);
+    else
+        fire_ball(effect, dir, dam, -1 - (p_ptr->lev / 20));
+}
+
 cptr gf_name(int which)
 {
     switch (which)
@@ -293,12 +304,7 @@ static void _breathe_spell(int cmd, variant *res)
             var_set_bool(res, FALSE);
             if (e < 0) return;
             msg_format("You breathe %s.", gf_name(e));
-            if (p_ptr->lev < 20)
-                fire_bolt(e, dir, dam);
-            else if (p_ptr->lev < 30)
-                fire_beam(e, dir, dam);
-            else
-                fire_ball(e, dir, dam, -1 - (p_ptr->lev / 20));
+            _do_breathe(e, dir, dam);
             var_set_bool(res, TRUE);
         }
         break;
@@ -425,9 +431,10 @@ static dragon_realm_t _realms[DRAGON_REALM_MAX] = {
         "intelligent of dragonkind and use their vast intellects to drive their magic. "
         "Armed with a vast array of detection and knowledge spells, dragons of lore "
         "seek power through knowledge. They eventually gain powers of telepathy and "
-        "automatic object identification.",
+        "automatic object identification. Lore dragons are quick learners and gain "
+        "maturity much more rapidly than the rest of their kind.",
     /*  S   I   W   D   C   C    Dsrm Dvce Save Stlh Srch Prcp Thn Thb  Life  Exp Attack Breath*/
-      {-1, +3,  0, -1, -1,  0}, {   3,   8,   2,   0,   5,   5, -8,  0}, 100,  90,   100,   100, A_INT},
+      {-1, +3,  0, -1, -1,  0}, {   3,   8,   2,   0,   5,   5, -8,  0}, 100,  80,   100,   100, A_INT},
 
     { "Breath", 
         "Dragon breath is the stuff of legends, and this realm seeks to enhance this most "
@@ -471,7 +478,14 @@ static dragon_realm_t _realms[DRAGON_REALM_MAX] = {
       {-1, -1, -1, +3, +1, +1}, {  -2,  -3,   7,   1,   0,   0,-10,  0}, 102, 105,    90,    90, A_DEX},
 
     { "Domination", 
-        "",
+        "All dragons have a formidable presence and make fearsome opponents. But Domination dragons "
+        "are truly a breed apart seeking to bend and control the will of all they meet. Convinced "
+        "of their right to rule, these dragons may subjugate the weak, terrify the uncertain, "
+        "and stun the unwary with their awesome presence. They are the best dragons at controlling "
+        "minions and can summon mighty aid. Enemy monsters summoned to battle may switch sides "
+        "when they notice whom they have been commanded to fight. And in the end, the dragon of "
+        "domination may sever all oaths of allegiance, returning enemy summons to where they came. "
+        "Needless to say, dragons of this order value force of will above all else.",
     /*  S   I   W   D   C   C    Dsrm Dvce Save Stlh Srch Prcp Thn Thb  Life  Exp Attack Breath*/
       {-1, -1, -1, -1, -1, +3}, {  -2,  -3,  -2,   0,   0,   0, -7,  0},  95, 105,    95,    90, A_CHR},
 
@@ -1318,12 +1332,7 @@ static void _breathe_spell_aux(int effect, int cmd, variant *res)
             int dam = _breath_amount();
 
             msg_format("You breathe %s.", gf_name(effect));
-            if (p_ptr->lev < 20)
-                fire_bolt(effect, dir, dam);
-            else if (p_ptr->lev < 30)
-                fire_beam(effect, dir, dam);
-            else
-                fire_ball(effect, dir, dam, -1 - (p_ptr->lev / 20));
+            _do_breathe(effect, dir, dam);
 
             var_set_bool(res, TRUE);
         }
@@ -1613,7 +1622,6 @@ static void _breathe_genocide_spell(int cmd, variant *res)
     }
 }
 
-
 static spell_info _death_spells[] = {
     {  1,  1, 30, evil_bless_spell },
     {  5,  2, 40, detect_evil_spell },
@@ -1627,6 +1635,194 @@ static spell_info _death_spells[] = {
     { 35, 20, 65, _breathe_vampirism_spell },
     { 37, 20, 70, _breathe_unholiness_spell },
     { 40, 35, 75, _breathe_genocide_spell },
+    { -1, -1, -1, NULL}
+};
+
+/* Domination */
+static void _frightful_presence_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Frightful Presence");
+        break;
+    default:
+        scare_spell(cmd, res);
+        break;
+    }
+}
+
+static void _detect_minions_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Detect Minions");
+        break;
+    default:
+        detect_monsters_spell(cmd, res);
+        break;
+    }
+}
+
+static void _baffling_presence_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Baffling Presence");
+        break;
+    default:
+        confuse_spell(cmd, res);
+        break;
+    }
+}
+
+static void _enslave_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Enslave");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Attempt to force a single monster to serve you.");
+        break;
+    case SPELL_CAST:
+    {
+        int dir = 0;
+        var_set_bool(res, FALSE);
+        if (!get_aim_dir(&dir)) return;
+        charm_monster(dir, p_ptr->lev * 2);
+        var_set_bool(res, TRUE);
+        break;
+    }
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
+
+static int _plev(void)
+{
+    if (p_ptr->lev <= 40)
+        return 5 + p_ptr->lev;
+
+    return 45 + (p_ptr->lev - 40)*2;
+}
+
+int subjugation_power(void)
+{
+    return _plev() + adj_stat_save[p_ptr->stat_ind[A_CHR]];
+}
+
+static void _breathe_subjugation_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Breathe Subjugation");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Breathes dominance at chosen target. Affected monsters may be forced to serve you or may be stunned or terrified by your awesome presence.");
+        break;
+    case SPELL_INFO:
+        var_set_string(res, info_power(subjugation_power()));
+        break;
+    case SPELL_COST_EXTRA:
+        var_set_int(res, _breath_cost());
+        break;
+    case SPELL_CAST:
+    {
+        int dir = 0;
+        var_set_bool(res, FALSE);
+        if (get_aim_dir(&dir))
+        {
+            int dam = subjugation_power();
+
+            msg_print("You breathe subjugation.");
+            _do_breathe(GF_SUBJUGATION, dir, dam);
+
+            var_set_bool(res, TRUE);
+        }
+        break;
+    }
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
+
+static void _aura_of_domination_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Aura of Domination");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Temporarily gain an aura of domination which attempts to enslave, terrify or stun any monster that strikes you.");
+        break;
+    case SPELL_INFO:
+        var_set_string(res, info_duration(10, 20));
+        break;
+    case SPELL_CAST:
+        set_tim_sh_domination(randint1(20) + 10, FALSE);
+        var_set_bool(res, TRUE);
+        break;
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
+
+static void _banish_summons_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Banish Summons");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "All enemy summons in view are returned to where they came.");
+        break;
+        break;
+    case SPELL_CAST:
+    {
+        int i;
+        msg_print("You shatter all oaths of allegiance!");
+        for (i = 1; i < m_max; i++)
+        {
+            monster_type *m_ptr = &m_list[i];
+
+            if (!m_ptr->r_idx) continue;
+            if (!m_ptr->parent_m_idx) continue;
+            if (!projectable(py, px, m_ptr->fy, m_ptr->fx)) continue;
+            if (is_pet(m_ptr)) continue;
+
+            delete_monster_idx(i);
+        }
+        var_set_bool(res, TRUE);
+        break;
+    }
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
+
+
+static spell_info _domination_spells[] = {
+    {  1,  1, 30, _frightful_presence_spell },
+    {  5,  2, 35, _detect_minions_spell }, 
+    { 10,  5, 40, _baffling_presence_spell },
+    { 15, 10, 50, slow_spell },
+    { 20, 15, 55, _enslave_spell },
+    { 25, 25, 60, summon_kin_spell },
+    { 30, 10, 60, _breathe_subjugation_spell },
+    { 35, 30, 60, _aura_of_domination_spell },
+    { 40, 70, 90, summon_hi_dragon_spell },
+    { 45, 80, 85, _banish_summons_spell },
     { -1, -1, -1, NULL}
 };
 
@@ -1648,6 +1844,8 @@ int _realm_get_spells(spell_info* spells, int max)
         return get_spells_aux(spells, max, _crusade_spells);
     case DRAGON_REALM_DEATH:
         return get_spells_aux(spells, max, _death_spells);
+    case DRAGON_REALM_DOMINATION:
+        return get_spells_aux(spells, max, _domination_spells);
     }
     return 0;
 }
@@ -1702,6 +1900,13 @@ static void _realm_calc_bonuses(void)
     case DRAGON_REALM_DEATH:
         p_ptr->align -= 200;
         break;
+    case DRAGON_REALM_DOMINATION:
+        res_add(RES_FEAR);
+        if (p_ptr->lev >= 30)
+            p_ptr->cult_of_personality = TRUE;
+        if (p_ptr->lev >= 50)
+            res_add_immune(RES_FEAR);
+        break;
     }
 }
 
@@ -1742,6 +1947,20 @@ static void _realm_get_flags(u32b flgs[TR_FLAG_SIZE])
     case DRAGON_REALM_CRUSADE:
         if (p_ptr->lev >= 15)
             add_flag(flgs, TR_HOLD_LIFE);
+        break;
+    case DRAGON_REALM_DOMINATION:
+        add_flag(flgs, TR_RES_FEAR);
+        break;
+    }
+}
+
+static void _realm_get_immunities(u32b flgs[TR_FLAG_SIZE]) 
+{
+    switch (p_ptr->dragon_realm)
+    {
+    case DRAGON_REALM_DOMINATION:
+        if (p_ptr->lev >= 50)
+            add_flag(flgs, TR_RES_FEAR);
         break;
     }
 }
@@ -1980,6 +2199,7 @@ static void _elemental_get_immunities(u32b flgs[TR_FLAG_SIZE]) {
     int res = _elemental_info[p_ptr->psubrace].which_res;
     if (p_ptr->lev >= 40)
         add_flag(flgs, res_get_object_flag(res));
+    _realm_get_immunities(flgs);
 }
 static void _elemental_birth(void) { 
     p_ptr->current_r_idx = _elemental_info[p_ptr->psubrace].r_idx[0]; 
@@ -2110,6 +2330,7 @@ static void _nether_get_flags(u32b flgs[TR_FLAG_SIZE]) {
 static void _nether_get_immunities(u32b flgs[TR_FLAG_SIZE]) {
     if (p_ptr->lev >= 45)
         add_flag(flgs, TR_RES_NETHER);
+    _realm_get_immunities(flgs);
 }
 static void _nether_birth(void) { 
     p_ptr->current_r_idx = MON_SHADOW_DRAKE; 
@@ -2243,6 +2464,7 @@ static race_t *_law_get_race_t(void)
 
         me.birth = _law_birth;
         me.get_powers = _dragon_get_powers;
+        me.get_immunities = _realm_get_immunities;
         me.calc_bonuses = _law_calc_bonuses;
         me.get_flags = _law_get_flags;
         me.gain_level = _law_gain_level;
@@ -2333,6 +2555,7 @@ static race_t *_chaos_get_race_t(void)
         me.get_powers = _dragon_get_powers;
         me.calc_bonuses = _chaos_calc_bonuses;
         me.get_flags = _chaos_get_flags;
+        me.get_immunities = _realm_get_immunities;
         me.gain_level = _chaos_gain_level;
         init = TRUE;
     }
@@ -2421,6 +2644,7 @@ static race_t *_balance_get_race_t(void)
         me.get_powers = _dragon_get_powers;
         me.calc_bonuses = _balance_calc_bonuses;
         me.get_flags = _balance_get_flags;
+        me.get_immunities = _realm_get_immunities;
         me.gain_level = _balance_gain_level;
         init = TRUE;
     }
@@ -2520,6 +2744,7 @@ static race_t *_ethereal_get_race_t(void)
         me.get_powers = _dragon_get_powers;
         me.calc_bonuses = _ethereal_calc_bonuses;
         me.get_flags = _ethereal_get_flags;
+        me.get_immunities = _realm_get_immunities;
         me.gain_level = _ethereal_gain_level;
         init = TRUE;
     }
@@ -2621,6 +2846,7 @@ static race_t *_crystal_get_race_t(void)
         me.get_powers = _dragon_get_powers;
         me.calc_bonuses = _crystal_calc_bonuses;
         me.get_flags = _crystal_get_flags;
+        me.get_immunities = _realm_get_immunities;
         me.gain_level = _crystal_gain_level;
         init = TRUE;
     }
@@ -2714,6 +2940,7 @@ static race_t *_bronze_get_race_t(void)
         me.get_powers = _dragon_get_powers;
         me.calc_bonuses = _bronze_calc_bonuses;
         me.get_flags = _bronze_get_flags;
+        me.get_immunities = _realm_get_immunities;
         me.gain_level = _bronze_gain_level;
         init = TRUE;
     }
@@ -2808,6 +3035,7 @@ static race_t *_gold_get_race_t(void)
         me.get_powers = _dragon_get_powers;
         me.calc_bonuses = _gold_calc_bonuses;
         me.get_flags = _gold_get_flags;
+        me.get_immunities = _realm_get_immunities;
         me.gain_level = _gold_gain_level;
         init = TRUE;
     }
@@ -2911,6 +3139,7 @@ static race_t *_steel_get_race_t(void)
         me.get_flags = _steel_get_flags;
         me.get_powers = _dragon_get_powers;
         me.get_vulnerabilities = _steel_get_vulnerabilities;
+    /*  me.get_immunities = _realm_get_immunities; Steel Dragons don't currently have a realm */
         me.gain_level = _steel_gain_level;
         init = TRUE;
     }
