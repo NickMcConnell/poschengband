@@ -421,7 +421,7 @@ static void _possess_spell(int cmd, variant *res)
         var_set_bool(res, FALSE);
 
         if ( p_ptr->current_r_idx != MON_POSSESSOR_SOUL 
-          && !get_check("Your current body will be destroyed. Are you sure? ") )
+          && !get_check("Your current body may be destroyed. Are you sure? ") )
         {
             return;
         }
@@ -444,8 +444,22 @@ static void _possess_spell(int cmd, variant *res)
             msg_format("You are not powerful enough to possess %s (Lvl %d).", o_name, r_info[copy.pval].level);
             return;
         }
-        else
-            msg_format("You possess %s.", o_name);
+
+        msg_format("You possess %s.", o_name);
+        if (p_ptr->current_r_idx != MON_POSSESSOR_SOUL)
+        {
+            if (one_in_(3))
+            {
+                object_type forge;
+                object_prep(&forge, lookup_kind(TV_CORPSE, SV_CORPSE));
+                apply_magic(&forge, object_level, AM_NO_FIXED_ART);
+                forge.pval = p_ptr->current_r_idx;
+                forge.weight = MIN(500*10, MAX(40, r_info[p_ptr->current_r_idx].weight * 10));
+                drop_near(&forge, -1, py, px);
+            }
+            else
+                msg_print("Your previous body quickly decays!");
+        }
 
         /* Order is important. Changing body forms may result in illegal
            equipment being placed in the pack, invalidating the item index.
@@ -465,6 +479,8 @@ static void _possess_spell(int cmd, variant *res)
         o_ptr = NULL;
 
         p_ptr->current_r_idx = copy.pval;
+        r_info[p_ptr->current_r_idx].r_xtra1 |= MR1_POSSESSOR; /* Learn the body info */
+
         if (p_ptr->exp > possessor_max_exp())
         {
             p_ptr->exp = possessor_max_exp();
@@ -487,7 +503,62 @@ static void _possess_spell(int cmd, variant *res)
         break;
     }
 }
+static void _unpossess_spell(int cmd, variant *res)
+{
+    switch (cmd)
+    {
+    case SPELL_NAME:
+        var_set_string(res, "Unpossess");
+        break;
+    case SPELL_DESC:
+        var_set_string(res, "Leave your current body, returning to your native form. Your current body may be destroyed in the process.");
+        break;
+    case SPELL_CAST:
+    {
+        var_set_bool(res, FALSE);
+        if (p_ptr->current_r_idx == MON_POSSESSOR_SOUL) return; /* paranoia */
 
+        if (get_check("Your current body may be destroyed. Are you sure? "))
+        {
+            int old_r_idx = p_ptr->current_r_idx;
+            monster_race *old_r_ptr = &r_info[old_r_idx];
+
+            msg_print("You leave your current body!");
+            if (one_in_(3))
+            {
+                object_type forge;
+                object_prep(&forge, lookup_kind(TV_CORPSE, SV_CORPSE));
+                apply_magic(&forge, object_level, AM_NO_FIXED_ART);
+                forge.pval = old_r_idx;
+                forge.weight = MIN(500*10, MAX(40, old_r_ptr->weight * 10));
+                drop_near(&forge, -1, py, px);
+            }
+            else
+                msg_print("Your previous body quickly decays!");
+
+            p_ptr->current_r_idx = MON_POSSESSOR_SOUL;
+            p_ptr->chp = p_ptr->mhp;
+            p_ptr->chp_frac = 0;
+            if (p_ptr->exp > possessor_max_exp())
+            {
+                p_ptr->exp = possessor_max_exp();
+                check_experience();
+            }
+            else
+                restore_level();
+
+            p_ptr->update |= PU_BONUS | PU_HP | PU_MANA;
+            p_ptr->redraw |= PR_MAP | PR_BASIC | PR_MANA | PR_EXP | PR_EQUIPPY;
+            equip_on_change_race();
+            var_set_bool(res, TRUE);
+        }
+        break;
+    }
+    default:
+        default_spell(cmd, res);
+        break;
+    }
+}
 /**********************************************************************
  * Innate Powers
  **********************************************************************/
@@ -707,6 +778,8 @@ static int _get_powers(spell_info* spells, int max)
 
     if (ct < max)
         _add_power(&spells[ct++], 1, 0, 0, _possess_spell, p_ptr->stat_ind[A_DEX]);
+    if (ct < max && p_ptr->current_r_idx != MON_POSSESSOR_SOUL)
+        _add_power(&spells[ct++], 1, 0, 0, _unpossess_spell, p_ptr->stat_ind[A_DEX]);
     if (ct < max && (r_ptr->flags1 & RF1_TRUMP))
         _add_power(&spells[ct++], 1, 0, 0, blink_toggle_spell, p_ptr->stat_ind[A_DEX]);
     if (ct < max && (r_ptr->flags2 & RF2_MULTIPLY))

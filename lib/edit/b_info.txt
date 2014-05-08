@@ -813,3 +813,16 @@ S:HELMET:Helm
 S:HELMET:Helm
 S:HELMET:Helm
 S:HELMET:Helm
+
+N:77:Small Centipede
+S:RING:Ring
+S:RING:Ring
+S:RING:Ring
+S:RING:Ring
+S:LITE:Light
+S:BOOTS:Boots
+S:BOOTS:Boots
+S:BOOTS:Boots
+S:BOOTS:Boots
+
+

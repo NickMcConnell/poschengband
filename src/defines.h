@@ -669,11 +669,12 @@
 #define RACE_MON_POSSESSOR      56
 #define RACE_MON_VAMPIRE        57
 #define RACE_MON_RING           58
+#define RACE_MON_MIMIC          59
 /* TODO: New races are in progress! ... */
-    #define RACE_MON_GHOST          59
-    #define RACE_MON_ZOMBIE         60
-    #define RACE_MON_CENTIPEDE      61
-    #define MAX_RACES               59 /* TODO: Bump me!! */
+    #define RACE_MON_GHOST          60
+    #define RACE_MON_ZOMBIE         61
+    #define RACE_MON_CENTIPEDE      62
+    #define MAX_RACES               60 /* TODO: Bump me!! */
 
 #define DEMIGOD_MINOR           0
 #define DEMIGOD_ZEUS            1
@@ -3892,7 +3893,8 @@ enum summon_specific_e {
 #define RFR_EFF_RES_TIME_MASK (RFR_RES_TIME | RFR_RES_ALL)
 
 
-#define MR1_SINKA 0x01
+#define MR1_SINKA      0x01  /* Evolution */
+#define MR1_POSSESSOR  0x02
 
 
 #define is_friendly(A) \

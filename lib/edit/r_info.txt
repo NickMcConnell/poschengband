@@ -168,6 +168,10 @@ B:BITE:HURT:1d3
 F:RAND_25 | CAN_FLY | WILD_TOWN | WILD_ONLY
 F:ANIMAL | DROP_SKELETON
 D:Utterly harmless, except when angry.
+P:Copy:Yeek:Tourist
+P:Stats:-5:0:0:0:-5:0
+P:Life:50
+P:Body:Scrawny
 
 #Instead, we have chaffinches for wilderness
 
@@ -179,6 +183,10 @@ B:BITE:HURT:1d3
 F:RAND_25 | CAN_FLY | WILD_ONLY | WILD_WOOD | WILD_GRASS
 F:ANIMAL | DROP_SKELETON
 D:Utterly harmless, except when angry.
+P:Copy:Yeek:Tourist
+P:Stats:-5:0:0:0:-5:0
+P:Life:50
+P:Body:Scrawny
 
 N:5:Wild rabbit
 G:r:U
@@ -19028,6 +19036,13 @@ F:FORCE_MAXHP | OPEN_DOOR |
 F:DROP_60 | ONLY_ITEM | 
 F:RES_POIS | RES_FIRE | RES_CHAO
 P:Body:Marilith
+
+#Base form for the Mimic
+N:1131:Mimic
+G:@:w
+I:110:1d1:4:1:40:60
+W:50:0:0:0:10:14
+P:Copy:Human:Tourist
 
 # N: serial number : monster name
 # G: symbol : color

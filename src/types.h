@@ -492,7 +492,7 @@ struct monster_race
     byte r_wake;            /* Number of times woken up (?) */
     byte r_ignore;            /* Number of times ignored (?) */
 
-    byte r_xtra1;            /* Something (unused) */
+    byte r_xtra1;            /* Flags for Evolution and Possessor Body Info */
     byte r_xtra2;            /* Something (unused) */
 
     byte r_drop_gold;        /* Max number of gold dropped at once */
