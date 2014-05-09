@@ -739,10 +739,6 @@ int possessor_get_powers(spell_info* spells, int max)
     monster_race *r_ptr = &r_info[p_ptr->current_r_idx];
     int           ct = 0;
 
-    if (ct < max)
-        _add_power(&spells[ct++], 1, 0, 0, _possess_spell, p_ptr->stat_ind[A_DEX]);
-    if (ct < max && p_ptr->current_r_idx != MON_POSSESSOR_SOUL)
-        _add_power(&spells[ct++], 1, 0, 0, _unpossess_spell, p_ptr->stat_ind[A_DEX]);
     if (ct < max && (r_ptr->flags1 & RF1_TRUMP))
         _add_power(&spells[ct++], 1, 0, 0, blink_toggle_spell, p_ptr->stat_ind[A_DEX]);
     if (ct < max && (r_ptr->flags2 & RF2_MULTIPLY))
@@ -809,6 +805,18 @@ int possessor_get_powers(spell_info* spells, int max)
     return ct;
 }
 
+static int _get_powers(spell_info* spells, int max)
+{
+    int ct = 0;
+
+    if (ct < max)
+        _add_power(&spells[ct++], 1, 0, 0, _possess_spell, p_ptr->stat_ind[A_DEX]);
+    if (ct < max && p_ptr->current_r_idx != MON_POSSESSOR_SOUL)
+        _add_power(&spells[ct++], 1, 0, 0, _unpossess_spell, p_ptr->stat_ind[A_DEX]);
+
+    ct += possessor_get_powers(spells + ct, max - ct);
+    return ct;
+}
 /**********************************************************************
  * Spells
  **********************************************************************/
@@ -1398,25 +1406,20 @@ void possessor_get_vulnerabilities(u32b flgs[TR_FLAG_SIZE])
 /**********************************************************************
  * Public
  **********************************************************************/
-void possessor_init_race_t(race_t *race_ptr)
+void possessor_init_race_t(race_t *race_ptr, int default_r_idx)
 {
 static int    last_r_idx = -1;
 int           r_idx = p_ptr->current_r_idx, i;
 
-    if (!r_idx) /* Birth hack ... Is this still needed? */
-    {
-        if (p_ptr->prace == RACE_MON_MIMIC)
-            r_idx = MON_MIMIC; 
-        else
-            r_idx = MON_POSSESSOR_SOUL;
-    }
+    if (!r_idx) /* Birthing menus. p_ptr->prace not chosen yet. _birth() not called yet. */
+        r_idx = default_r_idx; 
 
     if (r_idx != last_r_idx)
     {
         monster_race *r_ptr;
     
-        if (p_ptr->current_r_idx == r_idx) /* Birth hack ... */
-            last_r_idx = r_idx;
+        if (p_ptr->current_r_idx == r_idx) /* Birthing menus. current_r_idx = 0 but r_idx = default_r_idx. */
+            last_r_idx = r_idx;            /* BTW, the game really needs a "current state" concept ... */
 
         r_ptr = &r_info[r_idx];
 
@@ -1479,7 +1482,7 @@ race_t *mon_possessor_get_race_t(void)
 
         me.birth = _birth;
 
-        me.get_powers = possessor_get_powers;
+        me.get_powers = _get_powers;
 
         me.calc_bonuses = possessor_calc_bonuses;
         me.get_flags = possessor_get_flags;
@@ -1493,7 +1496,7 @@ race_t *mon_possessor_get_race_t(void)
         init = TRUE;
     }
 
-    possessor_init_race_t(&me);
+    possessor_init_race_t(&me, MON_POSSESSOR_SOUL);
     return &me;
 }
 
@@ -1551,20 +1554,36 @@ void possessor_on_take_hit(void)
 
 void possessor_set_current_r_idx(int r_idx)
 {
-    p_ptr->current_r_idx = r_idx;
-    r_info[p_ptr->current_r_idx].r_xtra1 |= MR1_POSSESSOR; /* Learn the body info */
-
-    if (p_ptr->exp > possessor_max_exp())
+    if (r_idx != p_ptr->current_r_idx)
     {
-        p_ptr->exp = possessor_max_exp();
-        check_experience();
+        int old_r_idx = p_ptr->current_r_idx;
+        p_ptr->current_r_idx = r_idx;
+        r_info[p_ptr->current_r_idx].r_xtra1 |= MR1_POSSESSOR; /* Learn the body info */
+
+        if (p_ptr->exp > possessor_max_exp())
+        {
+            p_ptr->exp = possessor_max_exp();
+            check_experience();
+        }
+        else
+            restore_level();
+
+        p_ptr->update |= PU_BONUS | PU_HP | PU_MANA;
+        p_ptr->redraw |= PR_MAP | PR_BASIC | PR_MANA | PR_EXP | PR_EQUIPPY;
+
+        /* Apply the new body type to our equipment */
+        equip_on_change_race();
+
+        /* Switching from native form to a magical form should not start out with 0sp!
+           Note: p_ptr->msp is often a stale old value, suppressed elsewhere in the code. */
+        if (old_r_idx == MON_MIMIC)
+        {
+            handle_stuff();
+        
+            p_ptr->csp = p_ptr->msp;
+            p_ptr->csp_frac = 0;
+            p_ptr->redraw |= PR_MANA;
+            p_ptr->window |= PW_PLAYER | PW_SPELL;
+        }
     }
-    else
-        restore_level();
-
-    p_ptr->update |= PU_BONUS | PU_HP | PU_MANA;
-    p_ptr->redraw |= PR_MAP | PR_BASIC | PR_MANA | PR_EXP | PR_EQUIPPY;
-
-    /* Apply the new body type to our equipment */
-    equip_on_change_race();
 }

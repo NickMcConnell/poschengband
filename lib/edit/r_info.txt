@@ -19042,7 +19042,7 @@ N:1131:Mimic
 G:@:w
 I:110:1d1:4:1:40:60
 W:50:0:0:0:10:14
-P:Copy:Human:Tourist
+P:Copy:Human:Imitator
 
 # N: serial number : monster name
 # G: symbol : color

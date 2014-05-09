@@ -610,6 +610,7 @@ void dispel_player(void)
     */
     wild_dispel_player();
     psion_dispel_player();
+    mimic_dispel_player();
 
 
     /* Cancel glowing hands */
