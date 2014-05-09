@@ -5,13 +5,6 @@ static int _calc_level(int l)
     return l + l*l*l/2500;
 }
 
-static cptr _mon_name(int r_idx)
-{
-    if (r_idx)
-        return r_name + r_info[r_idx].name;
-    return ""; /* Birth Menu */
-}
-
 static void _birth(void) 
 { 
     object_type forge;
@@ -38,7 +31,7 @@ static int _get_toggle(void)
 int possessor_get_toggle(void)
 {
     int result = TOGGLE_NONE;
-    if (p_ptr->prace == RACE_MON_POSSESSOR)
+    if (p_ptr->prace == RACE_MON_POSSESSOR || p_ptr->prace == RACE_MON_MIMIC)
         result = _get_toggle();
     return result;
 }
@@ -125,7 +118,7 @@ static bool _blow_is_masked(monster_blow *blow_ptr)
     return FALSE;
 }
 
-static void _calc_innate_attacks(void)
+void possessor_calc_innate_attacks(void)
 {
     monster_race *r_ptr = &r_info[p_ptr->current_r_idx];
     monster_blow  blows[4] = {0};
@@ -477,24 +470,7 @@ static void _possess_spell(int cmd, variant *res)
             floor_item_optimize(0 - item);
         }
         o_ptr = NULL;
-
-        p_ptr->current_r_idx = copy.pval;
-        r_info[p_ptr->current_r_idx].r_xtra1 |= MR1_POSSESSOR; /* Learn the body info */
-
-        if (p_ptr->exp > possessor_max_exp())
-        {
-            p_ptr->exp = possessor_max_exp();
-            check_experience();
-        }
-        else
-            restore_level();
-
-        p_ptr->update |= PU_BONUS | PU_HP | PU_MANA;
-        p_ptr->redraw |= PR_MAP | PR_BASIC | PR_MANA | PR_EXP | PR_EQUIPPY;
-
-        /* Apply the new body type to our equipment */
-        equip_on_change_race();
-
+        possessor_set_current_r_idx(copy.pval);
         var_set_bool(res, TRUE);
         break;
     }
@@ -536,20 +512,7 @@ static void _unpossess_spell(int cmd, variant *res)
             else
                 msg_print("Your previous body quickly decays!");
 
-            p_ptr->current_r_idx = MON_POSSESSOR_SOUL;
-            p_ptr->chp = p_ptr->mhp;
-            p_ptr->chp_frac = 0;
-            if (p_ptr->exp > possessor_max_exp())
-            {
-                p_ptr->exp = possessor_max_exp();
-                check_experience();
-            }
-            else
-                restore_level();
-
-            p_ptr->update |= PU_BONUS | PU_HP | PU_MANA;
-            p_ptr->redraw |= PR_MAP | PR_BASIC | PR_MANA | PR_EXP | PR_EQUIPPY;
-            equip_on_change_race();
+            possessor_set_current_r_idx(MON_POSSESSOR_SOUL);
             var_set_bool(res, TRUE);
         }
         break;
@@ -771,7 +734,7 @@ static void _add_power(spell_info* spell, int lvl, int cost, int fail, ang_spell
     spell->fn = fn;
 }
 
-static int _get_powers(spell_info* spells, int max)
+int possessor_get_powers(spell_info* spells, int max)
 {
     monster_race *r_ptr = &r_info[p_ptr->current_r_idx];
     int           ct = 0;
@@ -891,7 +854,7 @@ static void _add_spell(spell_info* spell, int lvl, int cost, int fail, ang_spell
     spell->fn = fn;
 }
 
-static int _get_spells(spell_info* spells, int max) 
+int possessor_get_spells(spell_info* spells, int max) 
 {
     monster_race *r_ptr = &r_info[p_ptr->current_r_idx];
     int           ct = 0;
@@ -1068,7 +1031,7 @@ static int _get_spells(spell_info* spells, int max)
     return ct;
 }
 
-static caster_info * _caster_info(void)
+caster_info *possessor_caster_info(void)
 {
     static caster_info me = {0};
     monster_race *r_ptr = &r_info[p_ptr->current_r_idx];
@@ -1131,7 +1094,7 @@ static void _ac_bonus_imp(int slot)
     }
 }
 
-static void _calc_bonuses(void) 
+void possessor_calc_bonuses(void) 
 {
     monster_race *r_ptr = &r_info[p_ptr->current_r_idx];
     int           r_lvl = MAX(1, r_ptr->level);
@@ -1310,7 +1273,7 @@ static void _calc_bonuses(void)
         res_add_all();
 }
 
-static void _get_flags(u32b flgs[TR_FLAG_SIZE]) 
+void possessor_get_flags(u32b flgs[TR_FLAG_SIZE]) 
 {
     monster_race *r_ptr = &r_info[p_ptr->current_r_idx];
 
@@ -1405,7 +1368,7 @@ static void _get_flags(u32b flgs[TR_FLAG_SIZE])
     }
 }
 
-static void _get_immunities(u32b flgs[TR_FLAG_SIZE]) 
+void possessor_get_immunities(u32b flgs[TR_FLAG_SIZE]) 
 {
     monster_race *r_ptr = &r_info[p_ptr->current_r_idx];
     if (r_ptr->flagsr & RFR_IM_ACID)
@@ -1420,7 +1383,7 @@ static void _get_immunities(u32b flgs[TR_FLAG_SIZE])
         add_flag(flgs, TR_RES_POIS);
 }
 
-static void _get_vulnerabilities(u32b flgs[TR_FLAG_SIZE]) 
+void possessor_get_vulnerabilities(u32b flgs[TR_FLAG_SIZE]) 
 {
     monster_race *r_ptr = &r_info[p_ptr->current_r_idx];
 
@@ -1435,12 +1398,62 @@ static void _get_vulnerabilities(u32b flgs[TR_FLAG_SIZE])
 /**********************************************************************
  * Public
  **********************************************************************/
+void possessor_init_race_t(race_t *race_ptr)
+{
+static int    last_r_idx = -1;
+int           r_idx = p_ptr->current_r_idx, i;
+
+    if (!r_idx) /* Birth hack ... Is this still needed? */
+    {
+        if (p_ptr->prace == RACE_MON_MIMIC)
+            r_idx = MON_MIMIC; 
+        else
+            r_idx = MON_POSSESSOR_SOUL;
+    }
+
+    if (r_idx != last_r_idx)
+    {
+        monster_race *r_ptr;
+    
+        if (p_ptr->current_r_idx == r_idx) /* Birth hack ... */
+            last_r_idx = r_idx;
+
+        r_ptr = &r_info[r_idx];
+
+        race_ptr->base_hp = 15;
+
+        race_ptr->get_spells = NULL;
+        race_ptr->caster_info = NULL;
+        if (r_ptr->body.spell_stat != A_NONE)
+        {
+            race_ptr->get_spells = possessor_get_spells;
+            race_ptr->caster_info = possessor_caster_info;
+        }
+
+        race_ptr->infra = r_ptr->body.infra;
+
+        race_ptr->life = r_ptr->body.life;
+        if (!race_ptr->life)
+            race_ptr->life = 100;
+    
+        race_ptr->equip_template = mon_get_equip_template();
+
+        for (i = 0; i < MAX_STATS; i++)
+            race_ptr->stats[i] = r_ptr->body.stats[i];
+
+        race_ptr->skills = r_ptr->body.skills;
+        race_ptr->extra_skills = r_ptr->body.extra_skills;
+
+        race_ptr->pseudo_class_idx = r_ptr->body.class_idx;
+
+        race_ptr->subname = mon_name(r_idx);
+    }
+}
+
 race_t *mon_possessor_get_race_t(void)
 {
     static race_t me = {0};
     static bool   init = FALSE;
-    static int    last_r_idx = -1;
-    int           r_idx = p_ptr->current_r_idx, i;
 
     if (!init)
     {
@@ -1466,60 +1479,21 @@ race_t *mon_possessor_get_race_t(void)
 
         me.birth = _birth;
 
-        me.get_powers = _get_powers;
+        me.get_powers = possessor_get_powers;
 
-        me.calc_bonuses = _calc_bonuses;
-        me.get_flags = _get_flags;
-        me.get_immunities = _get_immunities;
-        me.get_vulnerabilities = _get_vulnerabilities;
+        me.calc_bonuses = possessor_calc_bonuses;
+        me.get_flags = possessor_get_flags;
+        me.get_immunities = possessor_get_immunities;
+        me.get_vulnerabilities = possessor_get_vulnerabilities;
         me.player_action = _player_action;
         
-        me.calc_innate_attacks = _calc_innate_attacks;
+        me.calc_innate_attacks = possessor_calc_innate_attacks;
 
         me.flags = RACE_IS_MONSTER;
         init = TRUE;
     }
 
-    if (!r_idx)
-        r_idx = MON_POSSESSOR_SOUL; /* Birth hack ... */
-
-    if (r_idx != last_r_idx)
-    {
-        monster_race *r_ptr;
-    
-        if (p_ptr->current_r_idx == r_idx) /* Birth hack ... */
-            last_r_idx = r_idx;
-
-        r_ptr = &r_info[r_idx];
-
-        me.base_hp = 15;
-
-        me.get_spells = NULL;
-        me.caster_info = NULL;
-        if (r_ptr->body.spell_stat != A_NONE)
-        {
-            me.get_spells = _get_spells;
-            me.caster_info = _caster_info;
-        }
-
-        me.infra = r_ptr->body.infra;
-
-        me.life = r_ptr->body.life;
-        if (!me.life)
-            me.life = 100;
-    
-        me.equip_template = mon_get_equip_template();
-
-        for (i = 0; i < MAX_STATS; i++)
-            me.stats[i] = r_ptr->body.stats[i];
-
-        me.skills = r_ptr->body.skills;
-        me.extra_skills = r_ptr->body.extra_skills;
-
-        me.pseudo_class_idx = r_ptr->body.class_idx;
-
-        me.subname = _mon_name(r_idx);
-    }
+    possessor_init_race_t(&me);
     return &me;
 }
 
@@ -1564,24 +1538,33 @@ void possessor_on_take_hit(void)
             else
                 msg_print("Your previous body quickly decays!");
 
-            p_ptr->current_r_idx = MON_POSSESSOR_SOUL;
-            p_ptr->chp = p_ptr->mhp;
+            possessor_set_current_r_idx(MON_POSSESSOR_SOUL);
+            p_ptr->chp = p_ptr->mhp; /* Be kind. This effect is nasty! */
             p_ptr->chp_frac = 0;
-            if (p_ptr->exp > possessor_max_exp())
-            {
-                p_ptr->exp = possessor_max_exp();
-                check_experience();
-            }
-            else
-                restore_level();
-
-            p_ptr->update |= PU_BONUS | PU_HP | PU_MANA;
-            p_ptr->redraw |= PR_MAP | PR_BASIC | PR_MANA | PR_EXP | PR_EQUIPPY;
-            equip_on_change_race();
         }
         else
         {
             msg_print("You struggle to maintain possession of your current body!");
         }
     }
+}
+
+void possessor_set_current_r_idx(int r_idx)
+{
+    p_ptr->current_r_idx = r_idx;
+    r_info[p_ptr->current_r_idx].r_xtra1 |= MR1_POSSESSOR; /* Learn the body info */
+
+    if (p_ptr->exp > possessor_max_exp())
+    {
+        p_ptr->exp = possessor_max_exp();
+        check_experience();
+    }
+    else
+        restore_level();
+
+    p_ptr->update |= PU_BONUS | PU_HP | PU_MANA;
+    p_ptr->redraw |= PR_MAP | PR_BASIC | PR_MANA | PR_EXP | PR_EQUIPPY;
+
+    /* Apply the new body type to our equipment */
+    equip_on_change_race();
 }
