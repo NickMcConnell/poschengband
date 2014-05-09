@@ -1,5 +1,220 @@
 #include "angband.h"
 
+/**********************************************************************
+ * Memorized Forms
+ **********************************************************************/
+#define _MAX_FORMS 5
+static int _forms[_MAX_FORMS];
+
+static bool _is_memorized(int r_idx)
+{
+    int i;
+    for (i = 0; i < _MAX_FORMS; i++)
+    {
+        if (_forms[i] == r_idx)
+            return TRUE;
+    }
+    return FALSE;
+}
+
+static int _count_memorized(void)
+{
+    int ct = 0, i;
+
+    for (i = 0; i < _MAX_FORMS; i++)
+    {
+        if (_forms[i])
+            ct++;
+    }
+    return ct;
+}
+
+/* UI code is yucky ... There are two scenarios, prompting for
+   an existing learned form when using the mimicry talent, and 
+   prompting for a slot (which may or may not be empty) when
+   learning a new form. In the first case, we should skip empty
+   slots and the user may opt to target a visible monster instead
+   (i.e. use an unlearned form). In the second case, we should
+   show empty slots and there is no option to choose a target.
+   In both cases, the user may cancel the UI command altogether.
+*/
+#define _PROMPT_CANCEL  -1  /* Return code indicating cancel */
+#define _PROMPT_TARGET  -2  /* Return code indicating desire to target */
+#define _PROMPT_EXISTING 1  /* Only show learned forms */
+#define _PROMPT_ANY      2  /* Show empty slots as well */
+
+
+static void _menu_fn(int cmd, int which, vptr cookie, variant *res)
+{
+    int  slot = ((int*)cookie)[which];
+    int  r_idx = 0;
+
+    if (0 <= slot && slot < _MAX_FORMS)
+        r_idx = _forms[slot];
+
+    switch (cmd)
+    {
+    case MENU_TEXT:
+        if (slot == _PROMPT_TARGET)
+            var_set_string(res, "Choose Target");
+        else if (r_idx)
+            var_set_string(res, r_name + r_info[r_idx].name);
+        else
+            var_set_string(res, "Unused");
+        break;
+    case MENU_COLOR:
+        if (slot == _PROMPT_TARGET)
+            var_set_int(res, TERM_UMBER);
+        else if (r_idx)
+            var_set_int(res, TERM_WHITE);
+        else
+            var_set_int(res, TERM_L_DARK);
+        break;
+    case MENU_KEY:
+        if (slot == _PROMPT_TARGET)
+            var_set_int(res, 't');
+        break;        
+    }
+}
+
+static int _prompt_memorized_aux(int mode) /* returns the slot chosen! */
+{
+    int result = _PROMPT_CANCEL;
+    int ct = 0, i;
+    int choices[_MAX_FORMS + 1];
+
+    for (i = 0; i < _MAX_FORMS; i++)
+    {
+        if (mode == _PROMPT_ANY || _forms[i])
+            choices[ct++] = i;
+    }
+
+    if (ct && mode == _PROMPT_EXISTING)
+        choices[ct++] = _PROMPT_TARGET;
+
+    /* TODO: Give a nice custom menu similar to the monster knowledge screen */
+    if (ct)
+    {
+        menu_t menu = { (mode == _PROMPT_EXISTING) ? "Mimic which form?" : "Choose a slot for this form.", 
+                            NULL, NULL, _menu_fn,  choices, ct};
+        int    idx = menu_choose(&menu);
+        
+        if (idx >= 0)
+            result = choices[idx];
+    }
+
+    return result;
+}
+
+static int _prompt_memorized(void)
+{
+    int r_idx = _PROMPT_TARGET;
+    if (_count_memorized())
+    {
+        int i = _prompt_memorized_aux(_PROMPT_EXISTING);
+        if (i >= 0 && i < _MAX_FORMS)
+            r_idx = _forms[i];
+        else
+            r_idx = i; /* Special code to choose target or escape the command */
+    }
+    return r_idx;
+}
+
+static bool _memorize_form(int r_idx)
+{
+    int           i;
+    monster_race *r_ptr = &r_info[r_idx];
+
+    if (_is_memorized(r_idx))
+    {
+        msg_format("You already know this form (%s).", r_name + r_ptr->name);
+        return FALSE;
+    }
+
+    i = _prompt_memorized_aux(_PROMPT_ANY);
+    if (i >= 0 && i < _MAX_FORMS)
+    {
+        if (_forms[i])
+        {
+            int           r_idx2 = _forms[i];
+            monster_race *r_ptr2 = &r_info[r_idx2];
+            char          prompt[512];
+
+            sprintf(prompt, "Really replace %s with %s? ", r_name + r_ptr2->name, r_name + r_ptr->name);
+            if (!get_check(prompt))
+                return FALSE;
+        }
+
+        _forms[i] = r_idx;
+        msg_format("You have learned this form (%s).", r_name + r_ptr->name);
+        return TRUE;
+    }
+    return FALSE;
+}
+
+static int _prompt(void)
+{
+    int r_idx = _prompt_memorized();
+
+    if (r_idx == _PROMPT_TARGET)
+    {
+        int m_idx = 0;
+        if (target_set(TARGET_MARK))
+        {
+            msg_flag = FALSE; /* Bug ... we get an extra -more- prompt after target_set() ... */
+            if (target_who > 0)
+                m_idx = target_who;
+            else
+                m_idx = cave[target_row][target_col].m_idx;
+        }
+        if (m_idx)
+        {
+            monster_type *m_ptr = &m_list[m_idx];
+            r_idx = m_ptr->r_idx;
+            if (!projectable(py, px, m_ptr->fy, m_ptr->fx))
+            {
+                msg_print("You must be able to see your target to mimic.");
+                r_idx = _PROMPT_CANCEL;
+            }
+        }
+        else
+            r_idx = _PROMPT_CANCEL;
+    }
+    return r_idx;
+}
+
+static void _load(savefile_ptr file)
+{
+    int ct, i;
+
+    for (i = 0; i < _MAX_FORMS; i++)
+        _forms[i] = 0;
+
+    ct = savefile_read_s16b(file);
+    for (i = 0; i < ct; i++)
+    {
+        int r_idx = savefile_read_s16b(file);
+        if (i < _MAX_FORMS)
+            _forms[i] = r_idx;
+    }
+}
+
+static void _save(savefile_ptr file)
+{
+    int i;
+
+    savefile_write_s16b(file, _count_memorized());
+
+    for (i = 0; i < _MAX_FORMS; i++)
+    {
+        if (_forms[i])
+            savefile_write_s16b(file, _forms[i]);
+    }
+}
+
+/**********************************************************************
+ * Utilities
+ **********************************************************************/
 static int _calc_level(int l)
 {
     return l + l*l*l/2500;
@@ -7,6 +222,7 @@ static int _calc_level(int l)
 
 static void _set_current_r_idx(int r_idx)
 {
+    disturb(1, 0);
     possessor_set_current_r_idx(r_idx);
     /* Mimics shift forms often enough to be annoying if shapes
        have dramatically different body types (e.g. dragons vs humanoids).
@@ -31,11 +247,6 @@ static void _birth(void)
     forge.name2 = EGO_RING_COMBAT;
     forge.to_d = 3;
     add_outfit(&forge);
-}
-
-static bool _is_memorized(int r_idx)
-{
-    return FALSE;
 }
 
 static bool _is_visible(int r_idx)
@@ -69,7 +280,7 @@ static void _player_action(int energy_use)
         if (_is_memorized(p_ptr->current_r_idx))
         {
             int r_lvl = r_info[p_ptr->current_r_idx].level;
-            int p_lvl = _calc_level(p_ptr->max_plv);
+            int p_lvl = _calc_level(p_ptr->max_plv); /* Use max level in case player is assuming a weak form that decreases player level. */
             p_lvl += 3 + p_ptr->stat_ind[A_DEX];
 
             if (randint1(p_lvl) < r_lvl)
@@ -84,7 +295,8 @@ static void _player_action(int energy_use)
             lose_form = TRUE;
         }
 
-        _set_current_r_idx(MON_MIMIC);
+        if (lose_form)
+            _set_current_r_idx(MON_MIMIC);
     }
 }
 
@@ -108,7 +320,8 @@ static void _mimic_spell(int cmd, variant *res)
             var_set_string(res, "Return to your native form.");
         break;
     case SPELL_INFO:
-        var_set_string(res, format("Lvl %d", _calc_level(p_ptr->max_plv) + 5));
+        if (p_ptr->current_r_idx == MON_MIMIC)
+            var_set_string(res, format("Lvl %d", _calc_level(p_ptr->lev) + 5));
         break;
     case SPELL_CAST:
     {
@@ -116,28 +329,14 @@ static void _mimic_spell(int cmd, variant *res)
 
         if (p_ptr->current_r_idx == MON_MIMIC)
         {
-            int m_idx = 0;
-            int r_idx = 0;
+            int           r_idx = _prompt();
+            monster_race *r_ptr = 0;
 
-            if (target_set(TARGET_MARK))
-            {
-                msg_flag = FALSE; /* Bug ... we get an extra -more- prompt after target_set() ... */
-                if (target_who > 0)
-                    m_idx = target_who;
-                else
-                    m_idx = cave[target_row][target_col].m_idx;
-            }
-            if (!m_idx) return;
+            if (r_idx <= 0 || r_idx > max_r_idx) return;
 
-            r_idx = m_list[m_idx].r_idx;
-            if (!r_idx) return;
-
-            if (r_info[r_idx].level > _calc_level(p_ptr->max_plv) + 5)
-            {
-                char m_name[MAX_NLEN];
-                monster_desc(m_name, &m_list[m_idx], 0);
-                msg_format("You are not powerful enough to mimic %s (Lvl %d).", m_name, r_info[r_idx].level);
-            }
+            r_ptr = &r_info[r_idx];
+            if (r_ptr->level > _calc_level(p_ptr->lev) + 5)
+                msg_format("You are not powerful enough to mimic this form (%s: Lvl %d).", r_name + r_ptr->name, r_ptr->level);
             else
                 _set_current_r_idx(r_idx);
         }
@@ -211,6 +410,9 @@ race_t *mon_mimic_get_race_t(void)
         me.get_immunities = possessor_get_immunities;
         me.get_vulnerabilities = possessor_get_vulnerabilities;
         me.player_action = _player_action;
+
+        me.load_player = _load;
+        me.save_player = _save;
         
         me.calc_innate_attacks = possessor_calc_innate_attacks;
 
@@ -227,4 +429,17 @@ void mimic_dispel_player(void)
 {
     if (p_ptr->prace != RACE_MON_MIMIC) return;
     _set_current_r_idx(MON_MIMIC);
+}
+
+void mimic_on_kill_monster(int r_idx)
+{
+    if (p_ptr->prace != RACE_MON_MIMIC) return;
+
+    /* To learn a form, you must be mimicking it when you land the killing blow. */
+    if (r_idx != p_ptr->current_r_idx) return;
+
+    /*          v---- Tweak odds, but this should work for now */
+    if (one_in_(20) && _memorize_form(r_idx))
+    {
+    }
 }
