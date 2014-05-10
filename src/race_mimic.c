@@ -1,5 +1,7 @@
 #include "angband.h"
 
+#include <assert.h>
+
 /**********************************************************************
  * Memorized Forms
  **********************************************************************/
@@ -29,95 +31,587 @@ static int _count_memorized(void)
     return ct;
 }
 
-/* UI code is yucky ... There are two scenarios, prompting for
-   an existing learned form when using the mimicry talent, and 
-   prompting for a slot (which may or may not be empty) when
-   learning a new form. In the first case, we should skip empty
-   slots and the user may opt to target a visible monster instead
-   (i.e. use an unlearned form). In the second case, we should
-   show empty slots and there is no option to choose a target.
-   In both cases, the user may cancel the UI command altogether.
+/* vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+   You are about to enter UI hell. The road looks dangerous and a hot
+   breeze carries odors most foul. Do you dare continue? 
+   
+   I suggest you start reading at the bottom of this section and work
+   your way upwards. */
+
+/*
+          1         2         3         4         5         6         7
+01234567890123456789012345678901234567890123456789012345678901234567890123456789
+<----------Name-----------><--------------Extra Info ----------------------->
+Name                       STR  INT  WIS  DEX  CON  CHR  Life  Body          
+=============================================================================
+Xiclotlan                   +6   -2   +0   -1   +4   +1  +122% ********      
+Great Storm Wyrm            +7   +0   +1   -1   +4   +6  +126% ======"~(]
+
+          1         2         3         4         5         6         7
+01234567890123456789012345678901234567890123456789012345678901234567890123456789
+<----------Name-----------><--------------Extra Info ----------------------->
+Name                       Dsrm   Dvce   Save   Stlh  Srch  Prcp  Melee  Bows 
+============================================================================= 
+Xiclotlan                  20+12  20+7   36+10     0    14    11  85+30  50+30
+Great Storm Wyrm           15+7   30+10  33+10     0    19    24  77+14  63+25
+
+          1         2         3         4         5         6         7
+01234567890123456789012345678901234567890123456789012345678901234567890123456789
+<----------Name-----------><--------------Extra Info ----------------------->
+Name                       Lvl  Max  Speed    AC  Pseudo-Class               
+=============================================================================
+Xiclotlan                   25   30     +0   +60  Warrior                    
+Great Storm Wyrm            58   63    +10  +175  Beastmaster                
 */
-#define _PROMPT_CANCEL  -1  /* Return code indicating cancel */
-#define _PROMPT_TARGET  -2  /* Return code indicating desire to target */
-#define _PROMPT_EXISTING 1  /* Only show learned forms */
-#define _PROMPT_ANY      2  /* Show empty slots as well */
-
-
-static void _menu_fn(int cmd, int which, vptr cookie, variant *res)
+enum _choice_type_e
 {
-    int  slot = ((int*)cookie)[which];
-    int  r_idx = 0;
+    _TYPE_UNINITIALIZED,
+    _TYPE_NEW,
+    _TYPE_KNOWN,
+    _TYPE_VISIBLE,
+};
+struct _choice_s
+{
+    int type;
+    int r_idx;
+    int slot;
+};
+typedef struct _choice_s _choice_t;
 
-    if (0 <= slot && slot < _MAX_FORMS)
-        r_idx = _forms[slot];
+enum _choose_mode_e
+{
+    _CHOOSE_MODE_MIMIC,
+    _CHOOSE_MODE_LEARN
+};
 
-    switch (cmd)
+#define _MAX_CHOICES 50
+
+struct _choice_array_s
+{
+    _choice_t  choices[_MAX_CHOICES];
+    int        size;
+    int        current;
+    int        mode;
+};
+typedef struct _choice_array_s _choice_array_t;
+
+enum _display_mode_e
+{
+    _DISPLAY_MODE_STATS,
+    _DISPLAY_MODE_SKILLS,
+    _DISPLAY_MODE_EXTRA,
+    _DISPLAY_MODE_MAX
+};
+
+static int _display_mode = _DISPLAY_MODE_STATS;
+
+static void _next_display_mode(void)
+{
+    _display_mode++;
+    if (_display_mode == _DISPLAY_MODE_MAX)
+        _display_mode = _DISPLAY_MODE_STATS;
+}
+
+static void _prt_equippy(int row, int col, int tval, int sval) /* Signatures s/b (x, y) -or- (row, col). This is standard. */
+{
+    int k_idx = lookup_kind(tval, sval);
+    object_kind *k_ptr = &k_info[k_idx];
+    Term_putch(col, row, k_ptr->x_attr, k_ptr->x_char);
+}
+
+#define _DISPLAY_WIDTH 80
+
+static int _start_col(void)
+{
+    int w,h;
+    Term_get_size(&w, &h);
+    w -= _DISPLAY_WIDTH; 
+    if (w < 15)
+        w = 15;
+    return w;
+}
+
+static int _extra_col(void)
+{
+    int c = _start_col();
+    c += 27;
+    return c;
+}
+
+static void _clear_row(int row)
+{
+    Term_erase(_start_col()-1, row, _DISPLAY_WIDTH+1); /* Hack a border for cleaner display */
+}
+
+static cptr _choose_prompt(_choice_array_t *choices)
+{
+    switch (choices->mode)
     {
-    case MENU_TEXT:
-        if (slot == _PROMPT_TARGET)
-            var_set_string(res, "Choose Target");
-        else if (r_idx)
-            var_set_string(res, r_name + r_info[r_idx].name);
-        else
-            var_set_string(res, "Unused");
+    case _CHOOSE_MODE_MIMIC:
+        return "Mimic which form?";
+    case _CHOOSE_MODE_LEARN:
+        return "Replace which existing form?";
+    }
+    return "";
+}
+
+static void _list(_choice_array_t *choices)
+{
+    int start_col = _start_col();
+    int extra_col = _extra_col();
+    int row = 1;
+    int current_type = _TYPE_UNINITIALIZED;
+    int current_row = 0;
+    int i;
+
+    _clear_row(1); /* Prompt */
+    _clear_row(2); /* Header Line */
+    _clear_row(3); /* Header Underline */
+
+    c_prt(TERM_YELLOW, _choose_prompt(choices), row++, start_col);
+    switch (_display_mode)
+    {
+    case _DISPLAY_MODE_STATS:
+                        /* [         1         2     ]   3         4         5         6         7       */
+                        /* 01234567890123456789012345678901234567890123456789012345678901234567890123456 */
+        c_prt(TERM_WHITE, "Name                       STR  INT  WIS  DEX  CON  CHR  Life  Body            ", row++, start_col);
+        c_prt(TERM_WHITE, "===============================================================================", row++, start_col);
         break;
-    case MENU_COLOR:
-        if (slot == _PROMPT_TARGET)
-            var_set_int(res, TERM_UMBER);
-        else if (r_idx)
-            var_set_int(res, TERM_WHITE);
-        else
-            var_set_int(res, TERM_L_DARK);
+    case _DISPLAY_MODE_SKILLS:
+        c_prt(TERM_WHITE, "Name                       Dsrm   Dvce   Save   Stlh  Srch  Prcp  Melee  Bows  ", row++, start_col);
+        c_prt(TERM_WHITE, "===============================================================================", row++, start_col);
         break;
-    case MENU_KEY:
-        if (slot == _PROMPT_TARGET)
-            var_set_int(res, 't');
-        break;        
+    case _DISPLAY_MODE_EXTRA:
+        c_prt(TERM_WHITE, "Name                       Lvl  Max  Speed    AC  Pseudo-Class                 ", row++, start_col);
+        c_prt(TERM_WHITE, "===============================================================================", row++, start_col);
+        break;
+    }
+
+    for (i = 0; i < choices->size; i++)
+    {
+        _choice_t *choice = &choices->choices[i];
+
+        /* Group Header */
+        if (choice->type != current_type)
+        {
+            if (current_type != _TYPE_UNINITIALIZED)
+                _clear_row(row++);
+
+            current_type = choice->type;
+            _clear_row(row);
+            switch (current_type)
+            {
+            case _TYPE_NEW:
+                c_prt(TERM_YELLOW, "New Form", row, start_col);
+                break;
+            case _TYPE_KNOWN:
+                c_prt(TERM_RED, "Known Forms", row, start_col);
+                break;
+            case _TYPE_VISIBLE:
+                c_prt(TERM_UMBER, "Visible Forms", row, start_col);
+                break;
+            }
+            row++;
+        }
+
+        _clear_row(row);
+
+        if (i == choices->current)
+            current_row = row;
+
+        if (!choice->r_idx)
+        {
+            assert(choice->type == _TYPE_KNOWN);
+            c_prt((i == choices->current) ? TERM_L_BLUE : TERM_L_DARK, 
+                  format(" %-23.23s", "Unused"), 
+                  row, start_col + 1
+            );
+        }
+        else
+        {
+            monster_race *r_ptr = &r_info[choice->r_idx];
+
+            /* Name */
+            Term_putch(start_col, row, r_ptr->x_attr, r_ptr->x_char);
+            c_prt((i == choices->current) ? TERM_L_BLUE : TERM_WHITE, 
+                  format(" %-23.23s", r_name + r_ptr->name), 
+                  row, start_col + 1
+            );
+
+            /* Extra Info */
+            if ((p_ptr->wizard || (r_ptr->r_xtra1 & MR1_POSSESSOR)) && r_ptr->body.life)
+            {
+                char buf[255];
+                if (_display_mode == _DISPLAY_MODE_STATS)
+                {
+                    int                j;
+                    equip_template_ptr body = &b_info[r_ptr->body.body_idx];
+
+                    for (j = 0; j < 6; j++)
+                    {                      
+                        sprintf(buf, "%+3d", r_ptr->body.stats[j]);
+                        c_put_str(j == r_ptr->body.spell_stat ? TERM_L_GREEN : TERM_WHITE,
+                                    buf, row, extra_col + j * 5);
+                    }
+                    sprintf(buf, "%+3d%%", r_ptr->body.life);
+                    c_put_str(TERM_WHITE, buf, row, extra_col + 30);
+
+                    for (j = 0; j < body->count; j++)
+                    {
+                        int c = extra_col + 36 + j;
+                        int r = row;
+                        switch (body->slots[j].type)
+                        {
+                        case EQUIP_SLOT_GLOVES:
+                            _prt_equippy(r, c, TV_GLOVES, SV_SET_OF_GAUNTLETS);
+                            break;
+                        case EQUIP_SLOT_WEAPON_SHIELD:
+                            if (body->slots[j].hand % 2)
+                                _prt_equippy(r, c, TV_SHIELD, SV_LARGE_METAL_SHIELD);
+                            else
+                                _prt_equippy(r, c, TV_SWORD, SV_LONG_SWORD);
+                            break;
+                        case EQUIP_SLOT_WEAPON:
+                            _prt_equippy(r, c, TV_SWORD, SV_LONG_SWORD);
+                            break;
+                        case EQUIP_SLOT_RING:         
+                            _prt_equippy(r, c, TV_RING, 0);
+                            break;
+                        case EQUIP_SLOT_BOW:          
+                            _prt_equippy(r, c, TV_BOW, SV_LONG_BOW);
+                            break;
+                        case EQUIP_SLOT_AMULET:       
+                            _prt_equippy(r, c, TV_AMULET, 0);
+                            break;
+                        case EQUIP_SLOT_LITE:         
+                            _prt_equippy(r, c, TV_LITE, SV_LITE_FEANOR);
+                            break;
+                        case EQUIP_SLOT_BODY_ARMOR:   
+                            _prt_equippy(r, c, TV_HARD_ARMOR, SV_CHAIN_MAIL);
+                            break;
+                        case EQUIP_SLOT_CLOAK:        
+                            _prt_equippy(r, c, TV_CLOAK, SV_CLOAK);
+                            break;
+                        case EQUIP_SLOT_BOOTS:        
+                            _prt_equippy(r, c, TV_BOOTS, SV_PAIR_OF_HARD_LEATHER_BOOTS);
+                            break;
+                        case EQUIP_SLOT_HELMET:       
+                            _prt_equippy(r, c, TV_HELM, SV_IRON_HELM);
+                            break;
+                        case EQUIP_SLOT_ANY:             
+                            Term_putch(r, c, TERM_WHITE, '*');
+                            break;
+                        case EQUIP_SLOT_CAPTURE_BALL:
+                            _prt_equippy(r, c, TV_CAPTURE, 0);
+                            break;
+                        }
+                    }
+                }
+                else if (_display_mode == _DISPLAY_MODE_SKILLS)
+                {
+                    sprintf(buf, "%2d+%-2d  %2d+%-2d  %2d+%-2d  %4d  %4d  %4d  %2d+%-2d  %2d+%-2d\n", 
+                        r_ptr->body.skills.dis, r_ptr->body.extra_skills.dis, 
+                        r_ptr->body.skills.dev, r_ptr->body.extra_skills.dev, 
+                        r_ptr->body.skills.sav, r_ptr->body.extra_skills.sav,
+                        r_ptr->body.skills.stl, 
+                        r_ptr->body.skills.srh, 
+                        r_ptr->body.skills.fos,
+                        r_ptr->body.skills.thn, r_ptr->body.extra_skills.thn, 
+                        r_ptr->body.skills.thb, r_ptr->body.extra_skills.thb
+                    );
+                    c_put_str(TERM_WHITE, buf, row, extra_col);
+                }
+                else if (_display_mode == _DISPLAY_MODE_EXTRA)
+                {
+                    int speed = 0;
+                    int ac = 0;
+
+                    /* Copied from race_possessor.c _calc_bonuses() */
+                    if (r_ptr->flags9 & RF9_POS_GAIN_AC)
+                        ac = r_ptr->ac;
+                    
+                    if (r_ptr->speed != 110)
+                    {
+                        speed = (int)r_ptr->speed - 110;
+
+                        if (speed > 0)
+                        {
+                            if (strchr("ghknoOpPTVWz", r_ptr->d_char))
+                                speed /= 3;
+                            if (strchr("H", r_ptr->d_char))
+                                speed = speed * 2/3;
+                        }
+                    }
+
+                    sprintf(buf, "%3d  %3d  %+5d  %+4d  %s", 
+                        r_ptr->level, MAX(15, r_ptr->level + 5), speed, ac,
+                        get_class_t_aux(r_ptr->body.class_idx, 0)->name
+                    );
+                    c_put_str(TERM_WHITE, buf, row, extra_col);
+                }
+            }
+        } 
+        row++;
+    }
+    _clear_row(row);
+    if (current_row)
+        Term_gotoxy(start_col, current_row);
+}
+
+static bool _choose(_choice_array_t *choices)
+{
+    int  key = 0;
+    bool redraw = TRUE;
+    bool done = FALSE;
+
+    assert(choices->size);
+
+    choices->current = 0;
+    if (choices->mode == _CHOOSE_MODE_LEARN)
+    {
+        /* In this mode, the first choice is the form to learn followed by a single group of existing slots */
+        assert(choices->size > 1);
+        choices->current = 1;
+    }
+
+    while (!done)
+    {
+        if (redraw)
+        {
+            _list(choices);
+            redraw = FALSE;
+        }
+
+        /* No macros. The problem is that arrow keys are implemented with macros! */
+        key = inkey_special(TRUE);
+        
+        switch (key)
+        {
+        case ESCAPE:
+            done = TRUE;
+            break;
+        case 'R':
+        case 'r':
+        {
+            int r_idx = choices->choices[choices->current].r_idx;
+            if (r_idx > 0)
+            {
+                int x = Term->scr->cx; /* No way to query this? */
+                int y = Term->scr->cy;
+
+                /* This breaks things quite a bit. We cannot control where monster display happens
+                   and we only get one screen_save() op (they should stack but don't). Hence, this
+                   is it. The result means our menu cleanup code is more cumbersome ... sigh.
+                   Also, monster info trashes are current cursor position and does not restore
+                   the old location. */
+                screen_save();
+                screen_roff(r_idx, 0); /* i.e. display_monster_info(r_idx, 0) */
+                inkey();
+                screen_load();
+
+                Term_gotoxy(x, y);
+                redraw = TRUE; /* screen_save buggily misses row 0 */
+            }
+            break;
+        }
+        case 'm':
+        case 'n':
+        case 'h':
+            _next_display_mode();
+            redraw = TRUE;
+            break;
+
+        case '8':
+        case SKEY_UP:
+        {
+            int old_current = choices->current;
+            choices->current--;
+            if (choices->current < 0)
+                choices->current = 0;
+            if (old_current != choices->current)
+                redraw = TRUE;
+            break;
+        }
+
+        case '2':
+        case SKEY_DOWN:
+        {
+            int old_current = choices->current;
+            choices->current++;
+            if (choices->current > choices->size - 1)
+                choices->current = choices->size - 1;
+            if (old_current != choices->current)
+                redraw = TRUE;
+            break;
+        }
+
+        case '\t':
+        {
+            int old_current = choices->current;
+            int old_type = choices->choices[old_current].type;
+            /* Tab to next group in the list. Wrap to first group as needed. */
+            for (;;)
+            {
+                choices->current++;
+                if (choices->current == choices->size) /* Wrap */
+                    choices->current = 0;
+                if (choices->choices[choices->current].type != old_type)
+                    break;
+                if (choices->current == old_current)
+                    break;
+            }
+            if (old_current != choices->current)
+                redraw = TRUE;
+            break;
+        }
+        case ' ': case '\r': case '\n':
+            if (choices->mode == _CHOOSE_MODE_LEARN)
+            {
+                _choice_t *choice = &choices->choices[choices->current];
+                if (choice->type != _TYPE_KNOWN)
+                {
+                    msg_print("Choose an existing slot for this new form.");
+                    break;
+                }            
+                assert(0 <= choice->slot && choice->slot < _MAX_FORMS);
+                if (_forms[choice->slot])
+                {
+                    int           r_idx1 = choices->choices[0].r_idx; /* Hack: We just know this is correct :) */
+                    monster_race *r_ptr1 = &r_info[r_idx1];
+                    int           r_idx2 = _forms[choice->slot];
+                    monster_race *r_ptr2 = &r_info[r_idx2];
+                    char          prompt[512];
+
+                    sprintf(prompt, "Really replace %s with %s? ", r_name + r_ptr2->name, r_name + r_ptr1->name);
+                    if (!get_check(prompt))
+                    {
+                        redraw = TRUE;
+                        break;
+                    }
+                }
+            }
+            return TRUE;
+        }
+    }
+
+    return FALSE;
+}
+
+static void _add_visible_form(_choice_array_t *choices, int r_idx)
+{
+    int       i = 0;
+    _choice_t src = {0};
+
+    src.type = _TYPE_VISIBLE;
+    src.r_idx = r_idx;
+
+    for (i = 0; i < _MAX_CHOICES; i++)
+    {
+        _choice_t *dest = &choices->choices[i];
+
+        /* Already in list? */
+        if (dest->r_idx == src.r_idx)
+            break;
+
+        /* Sort in order of decreasing power */
+        if (dest->type == _TYPE_VISIBLE && r_info[dest->r_idx].level < r_info[src.r_idx].level)
+        {
+            /* Swap */
+            _choice_t tmp = *dest;
+            *dest = src;
+            src = tmp;
+        }
+
+        /* End of list? */
+        if (dest->type == _TYPE_UNINITIALIZED)
+        {
+            *dest = src;
+            choices->size++;
+            break;
+        }
     }
 }
 
-static int _prompt_memorized_aux(int mode) /* returns the slot chosen! */
+static int _choose_mimic_form(void)
 {
-    int result = _PROMPT_CANCEL;
-    int ct = 0, i;
-    int choices[_MAX_FORMS + 1];
+    int             r_idx = -1;
+    int             i;
+    _choice_array_t choices = {0};
 
+    /* List Known Forms */
     for (i = 0; i < _MAX_FORMS; i++)
     {
-        if (mode == _PROMPT_ANY || _forms[i])
-            choices[ct++] = i;
+        if (_forms[i])
+        {
+            _choice_t *choice = &choices.choices[choices.size++];
+            choice->r_idx = _forms[i];
+            choice->slot = i;
+            choice->type = _TYPE_KNOWN;
+        }
     }
 
-    if (ct && mode == _PROMPT_EXISTING)
-        choices[ct++] = _PROMPT_TARGET;
-
-    /* TODO: Give a nice custom menu similar to the monster knowledge screen */
-    if (ct)
+    /* List Visible Forms */
+    for (i = 1; i < m_max; i++)
     {
-        menu_t menu = { (mode == _PROMPT_EXISTING) ? "Mimic which form?" : "Choose a slot for this form.", 
-                            NULL, NULL, _menu_fn,  choices, ct};
-        int    idx = menu_choose(&menu);
-        
-        if (idx >= 0)
-            result = choices[idx];
+        monster_type *m_ptr = &m_list[i];
+
+        if (!m_ptr->r_idx) continue;
+        if (!m_ptr->ml) continue;
+        if (!projectable(py, px, m_ptr->fy, m_ptr->fx)) continue;
+
+        _add_visible_form(&choices, m_ptr->r_idx);
     }
 
-    return result;
+    if (choices.size)
+    {
+        choices.mode = _CHOOSE_MODE_MIMIC;
+        if (_choose(&choices))
+            r_idx = choices.choices[choices.current].r_idx;
+        do_cmd_redraw();
+    }
+    else
+        msg_print("You see nothing to mimic.");
+    return r_idx;
 }
 
-static int _prompt_memorized(void)
+static int _choose_new_slot(int new_r_idx)
 {
-    int r_idx = _PROMPT_TARGET;
-    if (_count_memorized())
+    int             slot = -1;
+    int             i;
+    _choice_array_t choices = {0};
+
+    /* Display the Newly Learned Form */
+    assert(new_r_idx);
     {
-        int i = _prompt_memorized_aux(_PROMPT_EXISTING);
-        if (i >= 0 && i < _MAX_FORMS)
-            r_idx = _forms[i];
-        else
-            r_idx = i; /* Special code to choose target or escape the command */
+        _choice_t *choice = &choices.choices[choices.size++];
+        choice->r_idx = new_r_idx;
+        choice->slot = -1; /* paranoia ... it should not be possible to choose this choice! */
+        choice->type = _TYPE_NEW;
     }
-    return r_idx;
+
+    /* List Existing Slots/Known Forms */
+    for (i = 0; i < _MAX_FORMS; i++)
+    {
+        if (_forms[i])
+        {
+            _choice_t *choice = &choices.choices[choices.size++];
+            choice->r_idx = _forms[i];
+            choice->slot = i;
+            choice->type = _TYPE_KNOWN;
+        }
+        else
+        {
+            /* Simply use the first empty slot */
+            return i;
+        }
+    }
+
+    choices.mode = _CHOOSE_MODE_LEARN;
+    if (_choose(&choices))
+        slot = choices.choices[choices.current].slot;
+    do_cmd_redraw();
+
+    return slot;
 }
 
 static bool _memorize_form(int r_idx)
@@ -131,57 +625,17 @@ static bool _memorize_form(int r_idx)
         return FALSE;
     }
 
-    i = _prompt_memorized_aux(_PROMPT_ANY);
+    i = _choose_new_slot(r_idx);
     if (i >= 0 && i < _MAX_FORMS)
     {
-        if (_forms[i])
-        {
-            int           r_idx2 = _forms[i];
-            monster_race *r_ptr2 = &r_info[r_idx2];
-            char          prompt[512];
-
-            sprintf(prompt, "Really replace %s with %s? ", r_name + r_ptr2->name, r_name + r_ptr->name);
-            if (!get_check(prompt))
-                return FALSE;
-        }
-
         _forms[i] = r_idx;
         msg_format("You have learned this form (%s).", r_name + r_ptr->name);
         return TRUE;
     }
     return FALSE;
 }
-
-static int _prompt(void)
-{
-    int r_idx = _prompt_memorized();
-
-    if (r_idx == _PROMPT_TARGET)
-    {
-        int m_idx = 0;
-        if (target_set(TARGET_MARK))
-        {
-            msg_flag = FALSE; /* Bug ... we get an extra -more- prompt after target_set() ... */
-            if (target_who > 0)
-                m_idx = target_who;
-            else
-                m_idx = cave[target_row][target_col].m_idx;
-        }
-        if (m_idx)
-        {
-            monster_type *m_ptr = &m_list[m_idx];
-            r_idx = m_ptr->r_idx;
-            if (!projectable(py, px, m_ptr->fy, m_ptr->fx))
-            {
-                msg_print("You must be able to see your target to mimic.");
-                r_idx = _PROMPT_CANCEL;
-            }
-        }
-        else
-            r_idx = _PROMPT_CANCEL;
-    }
-    return r_idx;
-}
+/* You have finally left UI hell. A bit singed but unbroken! 
+   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
 
 static void _load(savefile_ptr file)
 {
@@ -233,6 +687,10 @@ static void _set_current_r_idx(int r_idx)
 static void _birth(void) 
 { 
     object_type forge;
+    int i;
+
+    for (i = 0; i < _MAX_FORMS; i++)
+        _forms[i] = 0;
 
     p_ptr->current_r_idx = MON_MIMIC;
     equip_on_change_race();
@@ -329,7 +787,7 @@ static void _mimic_spell(int cmd, variant *res)
 
         if (p_ptr->current_r_idx == MON_MIMIC)
         {
-            int           r_idx = _prompt();
+            int           r_idx = _choose_mimic_form(); /*_prompt();*/
             monster_race *r_ptr = 0;
 
             if (r_idx <= 0 || r_idx > max_r_idx) return;
@@ -438,8 +896,9 @@ void mimic_on_kill_monster(int r_idx)
     /* To learn a form, you must be mimicking it when you land the killing blow. */
     if (r_idx != p_ptr->current_r_idx) return;
 
-    /*          v---- Tweak odds, but this should work for now */
-    if (one_in_(20) && _memorize_form(r_idx))
+    /*           v---- Tweak odds, but this should work for now */
+    if ((one_in_(20) || p_ptr->wizard) && _memorize_form(r_idx))
     {
     }
 }
+
