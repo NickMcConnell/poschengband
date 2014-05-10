@@ -510,7 +510,7 @@ F:XTRA_RES
 
 N:143:BOW:of Extra Shots
 W:10:*:2
-C:4:2:0:5
+C:4:2:0:3
 F:XTRA_SHOTS
 
 N:144:BOW:of Lothlorien
