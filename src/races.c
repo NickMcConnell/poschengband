@@ -36,6 +36,7 @@ int get_race_idx(cptr name)
             case RACE_MON_GOLEM:
             case RACE_MON_QUYLTHULG:
             case RACE_MON_POSSESSOR:
+            case RACE_MON_MIMIC:
             case RACE_MON_VAMPIRE:
                 continue;
             }

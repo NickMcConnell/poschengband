@@ -88,7 +88,7 @@ static bool _blow_is_masked(monster_blow *blow_ptr)
     switch (blow_ptr->method)
     {
     case 0:
-    case RBM_EXPLODE:
+    /*case RBM_EXPLODE:*/
     case RBM_SHOOT:
         return TRUE;
 
@@ -277,6 +277,12 @@ void possessor_calc_innate_attacks(void)
             a.msg = "You sing to %s.";
             a.name = "Voice";
             a.weight = MIN(r_ptr->weight / 20, 100);
+            break;
+        case RBM_EXPLODE:
+            a.msg = "You explode!";
+            a.name = "Explosion";
+            a.flags |= INNATE_EXPLODE;
+            a.weight = MIN(r_ptr->weight / 2, 100);
             break;
         }
         if (a.weight < 10) /* 1 lb minimum ... */
@@ -1278,7 +1284,10 @@ void possessor_calc_bonuses(void)
     if (r_ptr->flagsr & RFR_RES_TELE)
         res_add(RES_TELEPORT);
     if (r_ptr->flagsr & RFR_RES_ALL)
+    {
         res_add_all();
+        p_ptr->magic_resistance = 95;
+    }
 }
 
 void possessor_get_flags(u32b flgs[TR_FLAG_SIZE]) 
@@ -1585,5 +1594,33 @@ void possessor_set_current_r_idx(int r_idx)
             p_ptr->redraw |= PR_MANA;
             p_ptr->window |= PW_PLAYER | PW_SPELL;
         }
+    }
+}
+
+void possessor_explode(int dam)
+{
+    if (p_ptr->prace == RACE_MON_POSSESSOR || p_ptr->prace == RACE_MON_MIMIC)
+    {
+        int           i;
+        monster_race *r_ptr = &r_info[p_ptr->current_r_idx];
+
+        for (i = 0; i < 4; i++)
+        {
+            if (r_ptr->blow[i].method == RBM_EXPLODE)
+            {
+                int flg = PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
+                int typ = mbe_info[r_ptr->blow[i].effect].explode_type;
+                project(0, 3, py, px, dam, typ, flg, -1);
+                break;
+            }
+        }
+
+        if (p_ptr->prace == RACE_MON_MIMIC)
+            possessor_set_current_r_idx(MON_MIMIC);
+        else
+            possessor_set_current_r_idx(MON_POSSESSOR_SOUL);
+
+        take_hit(DAMAGE_NOESCAPE, dam, "Exploding", -1);
+        set_stun(p_ptr->stun + 10, FALSE);
     }
 }

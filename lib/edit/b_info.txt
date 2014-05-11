@@ -814,7 +814,14 @@ S:HELMET:Helm
 S:HELMET:Helm
 S:HELMET:Helm
 
-N:77:Small Centipede
+# Without a pseudopod for a poison needle, the mimic
+# will never learn this form.
+N:77:Babble
+S:ANY:Belly
+S:ANY:Belly
+S:ANY:Belly
+
+N:78:Small Centipede
 S:RING:Ring
 S:RING:Ring
 S:RING:Ring

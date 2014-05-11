@@ -2045,6 +2045,7 @@ extern void    possessor_get_flags(u32b flgs[TR_FLAG_SIZE]);
 extern void    possessor_get_immunities(u32b flgs[TR_FLAG_SIZE]);
 extern void    possessor_get_vulnerabilities(u32b flgs[TR_FLAG_SIZE]);
 extern void    possessor_set_current_r_idx(int r_idx);
+extern void    possessor_explode(int dam);
 extern void    possessor_init_race_t(race_t *race_ptr, int default_r_idx);
 extern void    mimic_dispel_player(void);
 extern void    mimic_on_kill_monster(int r_idx);
