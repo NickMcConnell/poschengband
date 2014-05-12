@@ -407,6 +407,7 @@ F:NEVER_MOVE |
 F:STUPID | EMPTY_MIND | 
 F:RES_POIS | DROP_CORPSE
 F:NO_CONF | NO_SLEEP | NO_FEAR
+F:POS_GAIN_AC
 P:Copy:Snotling:Tourist
 P:Life:50
 P:Body:Mold
@@ -437,6 +438,7 @@ F:RES_POIS | DROP_CORPSE
 F:NO_CONF | NO_SLEEP | NO_FEAR
 S:1_IN_2 |
 S:BLINK
+F:POS_GAIN_AC
 P:Copy:Snotling:Tourist
 P:Life:50
 P:Body:Mold
@@ -670,6 +672,7 @@ F:RES_POIS | WILD_SWAMP | DROP_CORPSE |
 F:NO_CONF | NO_SLEEP | NO_FEAR
 S:1_IN_4 | 
 S:SHRIEK
+F:POS_GAIN_AC
 P:Copy:Snotling:Tourist
 P:Life:50
 P:Body:Mold
@@ -1169,6 +1172,10 @@ F:NEVER_MOVE |
 F:STUPID | EMPTY_MIND | 
 F:RES_POIS | 
 F:NO_CONF | NO_SLEEP | NO_FEAR
+F:POS_GAIN_AC
+P:Copy:Yeek:Tourist
+P:Life:50
+P:Body:Mold
 D:It is a strange growth on the dungeon floor.
 
 N:77:Metallic red centipede
@@ -1643,6 +1650,10 @@ F:NEVER_MOVE |
 F:STUPID | EMPTY_MIND | 
 F:RES_POIS | CAN_SWIM |
 F:NO_CONF | NO_SLEEP | NO_FEAR
+F:POS_GAIN_AC
+P:Copy:Human:Tourist
+P:Life:70
+P:Body:Mold
 D:A strange brown growth on the dungeon floor.
 
 N:114:Giant brown bat
@@ -2103,6 +2114,10 @@ F:NEVER_MOVE |
 F:STUPID | EMPTY_MIND | 
 F:RES_ACID | RES_POIS | CAN_SWIM |
 F:NO_CONF | NO_SLEEP | NO_FEAR
+F:POS_GAIN_AC
+P:Copy:Human:Tourist
+P:Life:90
+P:Body:Mold
 D:It is a strange growth on the dungeon floor.
 
 N:147:Novice paladin
@@ -2732,6 +2747,9 @@ F:NEVER_MOVE | CAN_SWIM |
 F:STUPID | EMPTY_MIND | 
 F:RES_POIS | 
 F:NO_CONF | NO_SLEEP | NO_FEAR
+F:POS_GAIN_AC
+P:Copy:Human:Tourist
+P:Body:Mold
 D:It is a strange hairy growth on the dungeon floor.
 
 N:191:Grizzly bear
@@ -2757,6 +2775,9 @@ F:NEVER_MOVE |
 F:STUPID | EMPTY_MIND | RES_DISE |
 F:RES_POIS | ATTR_MULTI | CAN_SWIM |
 F:NO_CONF | NO_SLEEP | NO_FEAR | SELF_LITE_1 |
+F:POS_GAIN_AC
+P:Copy:Human:Rogue
+P:Body:Mold
 S:1_IN_11 | 
 S:DRAIN_MANA
 D:It is a strange glowing growth on the dungeon floor.
@@ -3596,6 +3617,7 @@ F:MALE |
 F:WILD_ALL | 
 F:OPEN_DOOR | BASH_DOOR | 
 F:EVIL | ORC | HURT_LITE | RES_DARK
+P:Copy:Snotling:Warrior
 D:He is one of the many weaker 'slave' orcs, often mistakenly known as a 
 D:goblin. He is equipped with an explosive charge.
 
@@ -4680,6 +4702,9 @@ F:NEVER_MOVE |
 F:STUPID | EMPTY_MIND | 
 F:RES_FIRE | RES_POIS | CAN_SWIM |
 F:NO_CONF | NO_SLEEP | NO_FEAR
+F:POS_GAIN_AC
+P:Copy:Kobold:Warrior
+P:Body:Mold
 D:It is a strange red growth on the dungeon floor; it seems to burn with 
 D:flame.
 
@@ -11016,6 +11041,7 @@ F:RES_POIS | RES_FIRE | RES_ELEC | RES_ACID | RES_COLD |
 F:NO_SLEEP | HUMAN |
 F:FRIENDS |
 F:MALE | OPEN_DOOR | BASH_DOOR
+P:Copy:Dunadan:Warrior
 D:Fierce, barbaric warriors, armed with great spiked clubs, and surrounded 
 D:in an aura of scarlet. Whenever one of them is slain, another appears 
 D:out of nowhere to take his place.
@@ -13664,6 +13690,7 @@ F:ONLY_ITEM | DROP_1D2 | DROP_GREAT | DROP_GOOD |
 F:INVISIBLE | OPEN_DOOR | BASH_DOOR | CAN_FLY |
 F:EVIL | RES_NETH | RES_COLD | RES_POIS |
 F:RES_FIRE | NO_CONF | NO_SLEEP |
+P:Copy:Amberite:Priest
 S:1_IN_3 | 
 S:CAUSE_3 | CAUSE_4 | HAND_DOOM | TELE_TO | HOLD |
 S:S_UNDEAD | S_HI_UNDEAD | S_HI_DRAGON | FORGET | SCARE | BLIND |
@@ -14620,6 +14647,8 @@ F:ONLY_ITEM | DROP_2D2 | DROP_3D2 | DROP_4D2 | DROP_GOOD | DROP_GREAT |
 F:SMART | OPEN_DOOR | BASH_DOOR | MOVE_BODY | REGENERATE | 
 F:EVIL | RES_FIRE | RES_COLD | RES_ELEC | RES_POIS | RES_DARK |
 F:NO_CONF | NO_SLEEP | RES_TELE | POWERFUL |
+P:Copy:Amberite:Sorcerer
+P:Life:150
 S:1_IN_2 | 
 S:TPORT | TELE_LEVEL | BLIND | CONF | SCARE | CAUSE_4 | 
 S:BRAIN_SMASH | FORGET |
@@ -15709,6 +15738,9 @@ B:BITE:HURT:1d8
 F:FEMALE | AQUATIC | RES_WATE |
 F:ONLY_ITEM | DROP_90 | DROP_2D2 |
 F:EVIL | NO_CONF | NO_SLEEP | SMART
+F:POS_SEE_INVIS
+P:Copy:Demigod:Priest
+P:Body:Naga
 S:1_IN_7 |
 S:DARKNESS | CAUSE_4 | BO_ICEE
 D:A naga adapted to underwater life. She has a fish-like tail and a pair
@@ -15773,6 +15805,7 @@ B:TOUCH:COLD:3d5
 B:TOUCH:COLD:3d5
 B:TOUCH:COLD:3d5
 F:FEMALE | RES_COLD | DROP_1D2 | NONLIVING | AURA_COLD |
+P:Copy:Dunadan:Warrior-Mage
 S:1_IN_5
 S:BR_COLD | BO_COLD | BA_COLD
 
@@ -16237,6 +16270,7 @@ F:ONLY_ITEM | DROP_3D2 | DROP_2D2 | DROP_GOOD | HAS_LITE_2 |
 F:RES_FIRE | RES_COLD | RES_ELEC | RES_ACID | RES_POIS |
 F:RES_WATE | RES_NETH | RES_DISE | HUMAN |
 F:NO_SLEEP | NO_CONF | OPEN_DOOR | CAN_SWIM | REGENERATE |
+P:Copy:Amberite:Paladin
 S:1_IN_5 |
 S:BO_MANA | BA_FIRE | BA_COLD | BA_ELEC | BA_ACID | BO_ICEE | BO_PLAS |
 S:BO_WATE | BA_WATE | PSY_SPEAR | CAUSE_3 | CAUSE_4 |
@@ -16786,6 +16820,7 @@ B:HIT:CONFUSE:6d8
 F:FORCE_MAXHP | 
 F:COLD_BLOOD | OPEN_DOOR | CAN_FLY |
 F:EVIL | UNDEAD | RES_COLD | RES_POIS | RES_NETH | NO_CONF | NO_SLEEP |
+P:Copy:Dunadan:Priest
 S:1_IN_5
 S:BLIND | HOLD | SCARE | CAUSE_4 | BO_NETH | S_UNDEAD
 
