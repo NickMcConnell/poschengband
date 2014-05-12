@@ -5247,7 +5247,8 @@ static cptr do_craft_spell(int spell, int mode)
             }
             else
             {
-                o_ptr->discount = 99;
+                if (object_is_nameless(o_ptr))
+                    o_ptr->discount = 99;
                 virtue_add(VIRTUE_ENCHANTMENT, 1);
             }
 
