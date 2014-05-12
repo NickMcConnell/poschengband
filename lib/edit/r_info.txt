@@ -1438,6 +1438,7 @@ B:HIT:HURT:2d5
 B:HIT:HURT:2d5
 B:DROOL
 F:EVIL | OPEN_DOOR | BASH_DOOR | DROP_90 | DROP_SKELETON
+P:Copy:Imp:Warrior
 D:Drooling, insectoid aliens with disgusting habits.
 
 N:99:Blue ooze
@@ -2861,6 +2862,7 @@ B:HIT:HURT:1d7
 B:HIT:HURT:1d7
 F:BASH_DOOR | OPEN_DOOR | FRIENDS | DROP_60 | RES_POIS | NO_SLEEP | NO_CONF
 F:MALE | DROP_SKELETON
+P:Copy:Dark-Elf:Warrior
 D:"There was something unusual about their appearance... For one thing, 
 D:all had uniformly bloodshot eyes. Very, very bloodshot eyes. With them, 
 D:though, the condition seemed normal. For another, all had an extra joint 
@@ -3540,6 +3542,7 @@ B:HIT:HURT:6d3
 B:HIT:HURT:6d3
 F:AQUATIC | WILD_ALL | RES_WATE |
 F:MALE
+P:Copy:Dark-Elf:Warrior
 D:A race of fair yet belligrent sea elves.
 
 N:249:Vlasta
@@ -11092,6 +11095,7 @@ W:46:6:80:80:0:0
 B:EXPLODE:HURT:20d5
 F:MULTIPLY | RAND_25 | TAKE_ITEM | SMART |
 F:EVIL | OPEN_DOOR | MALE | HAS_LITE_1 |
+P:Copy:Dark-Elf:Rogue
 S:1_IN_6
 S:BLINK | TPORT | TELE_TO
 D:These leprechauns are not afraid to die for their cause. They are 
@@ -15135,6 +15139,7 @@ F:FORCE_SLEEP | FORCE_MAXHP
 F:ONLY_ITEM | DROP_90 | DROP_4D2 | 
 F:SMART | INVISIBLE | COLD_BLOOD | UNDEAD |
 F:EVIL | HURT_LITE | RES_NETH | RES_DARK | NO_CONF | NO_SLEEP |
+P:Copy:Dark-Elf:Mage
 S:1_IN_2 | 
 S:HEAL | BLINK | BLIND | CONF | CAUSE_3 | DARKNESS | 
 S:ANIM_DEAD | SHRIEK | TELE_AWAY | BA_DARK | DRAIN_MANA |
@@ -15940,6 +15945,7 @@ F:FORCE_SLEEP | FORCE_MAXHP |
 F:ONLY_ITEM | DROP_4D2 | DROP_GOOD | 
 F:OPEN_DOOR | RES_NETH | RES_PLAS |
 F:EVIL | RES_FIRE | NO_CONF | NO_SLEEP
+P:Copy:Dark-Elf:Chaos-Warrior
 S:1_IN_3 |
 S:S_DEMON | BA_CHAO | BO_PLAS | BR_FIRE | BR_PLAS
 
@@ -17847,6 +17853,7 @@ F:FORCE_MAXHP | FORCE_SLEEP | NO_FEAR | GOOD |
 F:ONLY_ITEM | DROP_2D2 | NONLIVING | 
 F:SMART | TAKE_ITEM | OPEN_DOOR | BASH_DOOR | POWERFUL | 
 F:RES_FIRE | RES_COLD | RES_POIS | NO_CONF | NO_SLEEP | RES_TELE | 
+P:Copy:Dark-Elf:Warrior-Mage
 S:1_IN_3 | 
 S:HEAL | HASTE | BLIND | CONF | SCARE | TPORT | BLINK
 D:A shabby humanoid with a wrinkled skin. It seems to shift 
@@ -18456,6 +18463,7 @@ W:80:4:999:5000:0:0
 B:HIT:HURT:50d30
 F:RAND_50 | RAND_25 | FORCE_MAXHP
 F:ONLY_ITEM | DROP_1D2 | DROP_GOOD | AURA_REVENGE
+P:Copy:Tonberry:Warrior
 D:This sluggish lizard-like being approaches you with a large knife brandished. 
 D:You have trouble taking this monster seriously, as it repeatedly seems to trip 
 D:over its own feet. Yet you don't remember any tales of heroes who's fought one and lived...
@@ -18467,6 +18475,7 @@ I:125:20d100:30:150:30:90
 W:80:7:999:5000:0:0
 B:HIT:EAT_ITEM:30d15
 F:ONLY_ITEM | DROP_1D2 | DROP_GOOD | DROP_GREAT | AURA_REVENGE | THIEF
+P:Copy:Tonberry:Ninja
 D:This sluggish lizard-like being approaches you with a large knife brandished. 
 D:It is cloaked in brown, and attempting to hide in the shadows ... not very well
 D:though.  But perhaps now is not the time to laugh?
@@ -18479,6 +18488,7 @@ B:HIT:HURT:70d30
 F:RAND_50 | RAND_25 | FORCE_MAXHP | UNIQUE
 F:ONLY_ITEM | DROP_4D2 | DROP_GOOD | DROP_GREAT
 F:NO_CONF | NO_SLEEP | AURA_REVENGE
+P:Copy:Tonberry:Beastmaster
 S:1_IN_3 |
 S:S_KIN | HEAL | TPORT | TELE_LEVEL
 D:This sluggish lizard-like being approaches you with a large knife brandished. 
