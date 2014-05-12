@@ -1086,6 +1086,9 @@ I:120:2d6:20:8:5:5
 W:3:1:60:9:40:187
 B:BITE:HURT:13d1
 F:FRIENDS | AQUATIC | ANIMAL | WILD_ALL | RES_WATE
+F:POS_GAIN_AC
+P:Copy:Snotling:Warrior
+P:Body:Fish
 D:Bloodthirsty fish who can smell your blood from a great distance.
 
 N:71:Black naga
@@ -1311,6 +1314,9 @@ W:4:2:40:15:0:0
 B:STING:HURT:7d1
 B:STING:HURT:7d1
 F:ANIMAL | AQUATIC | WILD_ALL | RES_WATE
+F:POS_GAIN_AC
+P:Copy:Snotling:Warrior
+P:Body:Fish
 D:An animal with a swordlike "beak".
 
 N:89:Blue worm mass
@@ -1410,6 +1416,9 @@ W:5:2:40:30:0:0
 B:BITE:HURT:13d1
 B:BITE:HURT:2d7
 F:AQUATIC | ANIMAL | WILD_ALL | RES_WATE
+F:POS_GAIN_AC
+P:Copy:Human:Warrior
+P:Body:Fish
 D:A predatory fish with razor-sharp teeth.
 
 N:97:Novice paladin
@@ -2685,6 +2694,9 @@ B:BITE:HURT:9d1
 B:BITE:HURT:9d1
 F:NO_SLEEP | WILD_ALL | RES_WATE |
 F:FRIENDS | AQUATIC | ANIMAL
+F:POS_GAIN_AC
+P:Copy:Kobold:Warrior
+P:Body:Fish
 D:A very large and bloodthirsty fish.
 
 N:188:Owlbear
@@ -3150,6 +3162,9 @@ W:12:1:50:40:600:406
 B:STING:POISON:2d5
 B:STING:POISON:2d5
 F:ANIMAL | EVIL | AQUATIC | RES_POIS | RES_WATE | WILD_ALL
+F:POS_GAIN_AC
+P:Copy:Snotling:Warrior
+P:Body:Fish
 D:A devil ray of the depths.
 
 N:221:Mine-dog
@@ -3804,6 +3819,9 @@ B:CRUSH:SUPERHURT:8d3
 B:CRUSH:SUPERHURT:8d3
 B:CRUSH:SUPERHURT:8d3
 F:RAND_25 | RES_COLD | RES_WATE | AQUATIC | ANIMAL | WILD_ALL | RIDING
+F:POS_GAIN_AC
+P:Copy:Human:Warrior
+P:Body:Octopus
 D:It doesn't move very fast, but when it does - watch out!
 
 N:267:Magic mushroom patch
@@ -4198,6 +4216,9 @@ B:BITE:HURT:4d4
 B:BUTT:HURT:4d4
 B:BITE:HURT:4d4
 F:ANIMAL | AQUATIC | WILD_ALL | RES_WATE
+F:POS_GAIN_AC
+P:Copy:Kobold:Warrior
+P:Body:Fish
 D:A hungry shark with a strange head.
 
 N:293:Berserker
@@ -4560,6 +4581,9 @@ W:18:1:999:68:400:386
 B:BITE:HURT:3d5
 B:BITE:HURT:3d5
 F:ANIMAL | AQUATIC | WILD_ALL | RES_WATE
+F:POS_GAIN_AC
+P:Copy:Barbarian:Warrior
+P:Body:Fish
 D:Fast moving hunter of the depths, when this creature moves, 
 D:everybody in water is in danger!
 
@@ -4706,6 +4730,9 @@ W:19:1:80:80:0:0
 B:STING:POISON:2d7
 B:STING:POISON:2d7
 F:ANIMAL | EVIL | AQUATIC | RES_POIS | RES_WATE | WILD_ALL |
+F:POS_GAIN_AC
+P:Copy:Kobold:Priest
+P:Body:Fish
 S:1_IN_6
 S:TELE_TO | HEAL | SCARE | CAUSE_2 | BLIND | S_MONSTER
 D:A devil ray of the depths, with priestly magic.
@@ -4975,6 +5002,9 @@ B:CRUSH:HURT:1d20
 B:CRUSH:HURT:1d20
 F:RAND_25 | FORCE_MAXHP | RES_WATE
 F:ANIMAL | AQUATIC | WILD_ALL |
+F:POS_GAIN_AC
+P:Copy:Barbarian:Warrior
+P:Body:Fish
 D:Although it looks like a fish and lives in water, it is in fact 
 D:a mammal. And it is huge!
 
@@ -5192,6 +5222,9 @@ B:BITE:POISON:5d5
 B:BITE:POISON:5d5
 F:EMPTY_MIND | BASH_DOOR | AQUATIC | 
 F:RES_POIS | RES_WATE | NO_STUN | WILD_ALL | FORCE_MAXHP
+F:POS_GAIN_AC
+P:Copy:Human:Warrior
+P:Body:Fish
 S:1_IN_7 | 
 S:BR_POIS
 D:This cute fish is among the most poisonous creatures there are.
@@ -5232,6 +5265,9 @@ B:BITE:HURT:8d3
 B:BITE:HURT:8d3
 F:AQUATIC | WILD_OCEAN | RES_WATE |
 F:ANIMAL
+F:POS_GAIN_AC
+P:Copy:Barbarian:Warrior
+P:Body:Fish
 D:An almost beautiful, deadly beast.
 
 N:364:Serpent man
@@ -5585,6 +5621,9 @@ B:BITE:HURT:3d6
 B:BITE:HURT:3d6
 F:FORCE_SLEEP | AQUATIC | RES_WATE |
 F:ANIMAL
+F:POS_GAIN_AC
+P:Copy:Barbarian:Warrior
+P:Body:Fish
 D:A very large carnivorous fish.
 
 N:387:4-headed hydra
@@ -5906,6 +5945,9 @@ W:26:1:70:120:0:0
 B:STING:POISON:2d8
 B:STING:EXP_VAMP:2d8
 F:ANIMAL | EVIL | AQUATIC | RES_NETH | RES_POIS | RES_WATE | WILD_ALL
+F:POS_GAIN_AC
+P:Copy:Kobold:Priest
+P:Body:Fish
 S:1_IN_6
 S:HEAL | SCARE | CAUSE_3 | BLIND | FORGET | HASTE
 D:A devil ray of the depths, with vampiric powers.
@@ -6502,6 +6544,9 @@ B:BITE:LOSE_DEX:4d5
 B:BITE:LOSE_CON:4d5
 F:FORCE_SLEEP | AQUATIC | GOOD | ANIMAL |
 F:RES_COLD | RES_POIS | RES_FIRE | RES_ELEC | RES_WATE | WILD_OCEAN 
+F:POS_GAIN_AC
+P:Copy:Sprite:Mage
+P:Body:Fish
 S:1_IN_5 | 
 S:BO_WATE | BO_COLD | BO_ICEE | BO_MANA
 D:Your mind is filled with admiration as you view this wondrous, 
@@ -7166,6 +7211,9 @@ B:CRUSH:HURT:8d4
 B:CRUSH:HURT:8d4
 F:RES_ACID | RES_WATE | AQUATIC | ANIMAL | RES_COLD | MOVE_BODY | RIDING
 F:FORCE_MAXHP | WILD_OCEAN |
+F:POS_GAIN_AC
+P:Copy:Kobold:Warrior
+P:Body:Octopus
 S:1_IN_8
 S:BR_ELEC | BR_ACID | BR_POIS
 D:Besides being capable of dragging whole ships underwater, 
@@ -8820,6 +8868,9 @@ B:CRUSH:PARALYZE:8d4
 F:PASS_WALL | INVISIBLE | FORCE_MAXHP | RES_DISE | 
 F:RES_POIS | RES_COLD | RES_ACID | RES_WALL | ELDRITCH_HORROR |
 F:NO_CONF | NO_SLEEP | EVIL | CAN_FLY |
+F:POS_GAIN_AC
+P:Copy:Beastman:Warrior
+P:Body:Polyp
 S:1_IN_7
 S:BR_WALL |
 D:"They were only partly material and had the power of aerial motion, 
@@ -12966,6 +13017,9 @@ F:FORCE_SLEEP | FORCE_MAXHP | EVIL | SMART | DEMON |
 F:ONLY_ITEM | DROP_2D2 | DROP_3D2 | DROP_4D2 | DROP_GOOD |
 F:NO_SLEEP | NO_CONF | NO_STUN |
 F:RES_POIS | RES_COLD | RES_ACID
+F:POS_GAIN_AC | POS_SEE_INVIS | POS_HOLD_LIFE
+P:Copy:Beastman:Warlock
+P:Body:Glaaki
 S:1_IN_5
 S:BA_WATE | S_HYDRA | S_DRAGON | S_DEMON | SCARE |
 S:BLIND | CONF | CAUSE_4 | BR_POIS
@@ -18072,6 +18126,9 @@ B:CRUSH:HURT:6d6
 B:CRAWL:POISON:4d4
 F:FRIENDS | ANIMAL | CAN_SWIM | WEIRD_MIND
 F:RES_POIS | RES_DARK | RES_WATE
+F:POS_GAIN_AC
+P:Copy:Kobold:Warrior
+P:Body:Octopus
 S:1_IN_4 | BR_DARK
 
 N:1066:Great Bile Wyrm
