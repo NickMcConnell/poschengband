@@ -824,6 +824,13 @@ S:ANY:Belly
 N:78:Small Centipede
 S:RING:Ring
 S:RING:Ring
+S:LITE:Light
+S:BOOTS:Boots
+S:BOOTS:Boots
+
+N:79:Centipede
+S:RING:Ring
+S:RING:Ring
 S:RING:Ring
 S:RING:Ring
 S:LITE:Light
@@ -832,4 +839,41 @@ S:BOOTS:Boots
 S:BOOTS:Boots
 S:BOOTS:Boots
 
+N:80:Giant Centipede
+S:RING:Ring
+S:RING:Ring
+S:RING:Ring
+S:RING:Ring
+S:LITE:Light
+S:BOOTS:Boots
+S:BOOTS:Boots
+S:BOOTS:Boots
+S:BOOTS:Boots
+S:BOOTS:Boots
+S:BOOTS:Boots
+S:BOOTS:Boots
+S:BOOTS:Boots
 
+N:81:Cyaegha
+S:RING:Tentacle
+S:RING:Tentacle
+S:RING:Tentacle
+S:RING:Tentacle
+S:RING:Tentacle
+S:AMULET:Tentacle
+S:AMULET:Tentacle
+S:AMULET:Tentacle
+S:AMULET:Tentacle
+S:AMULET:Tentacle
+S:LITE:Light
+
+N:82:Auto-roller
+S:RING:Spike
+S:RING:Spike
+S:RING:Spike
+S:RING:Spike
+S:AMULET:Spike
+S:AMULET:Spike
+S:AMULET:Spike
+S:AMULET:Spike
+S:LITE:Light
