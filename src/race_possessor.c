@@ -753,6 +753,8 @@ int possessor_get_powers(spell_info* spells, int max)
         _add_power(&spells[ct++], 1, 1, 10, _shriek_spell, p_ptr->stat_ind[A_CON]);
     if (ct < max && (r_ptr->flags4 & RF4_SHOOT))
         _add_power(&spells[ct++], 2, 1, 15, shoot_arrow_spell, p_ptr->stat_ind[A_DEX]);
+    if (ct < max && r_ptr->d_char == 'V')
+        _add_power(&spells[ct++], 2, 1, 60, vampirism_spell, p_ptr->stat_ind[A_CON]);
     if (ct < max && (r_ptr->flags4 & RF4_THROW))
         _add_power(&spells[ct++], 5, 0, 50, throw_boulder_spell, p_ptr->stat_ind[A_STR]);
     if (ct < max && (r_ptr->flags9 & RF9_POS_BERSERK))
