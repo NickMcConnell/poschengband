@@ -1290,6 +1290,11 @@ void possessor_calc_bonuses(void)
         res_add_all();
         p_ptr->magic_resistance = 95;
     }
+
+    if (strchr("sGLVWz", r_ptr->d_char))
+        p_ptr->no_cut = TRUE;
+    if (strchr("sg", r_ptr->d_char))
+        p_ptr->no_stun = TRUE;
 }
 
 void possessor_get_flags(u32b flgs[TR_FLAG_SIZE]) 

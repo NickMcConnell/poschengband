@@ -914,3 +914,16 @@ S:AMULET:Spine
 S:AMULET:Spine
 S:AMULET:Spine
 S:LITE:Light
+
+N:86:Skull
+S:HELMET:Skull
+S:LITE:Eye Socket
+S:LITE:Eye Socket
+S:RING:Tooth
+S:RING:Tooth
+S:RING:Tooth
+S:RING:Tooth
+
+N:87:Disembodied Eye
+S:HELMET:Eye
+
