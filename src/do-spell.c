@@ -5469,8 +5469,8 @@ static cptr do_craft_spell(int spell, int mode)
         break;
 
     case 15:
-        if (name) return "Mana Branding";
-        if (desc) return "Makes current weapon some elemental branded. You must wield weapons.";
+        if (name) return "Elemental Branding";
+        if (desc) return "Grants your attacks a temporary elemental brand of your choice.";
     
         {
             int base = plev / 2;
@@ -5610,7 +5610,7 @@ static cptr do_craft_spell(int spell, int mode)
         break;
 
     case 23:
-        if (name) return "Magical armor";
+        if (name) return "Magical Armor";
         if (desc) return "Gives resistance to magic, bonus to AC, resistance to confusion, blindness, reflection, free action and levitation for a while.";
     
         {
