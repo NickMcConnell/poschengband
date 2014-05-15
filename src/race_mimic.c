@@ -681,6 +681,10 @@ static void _set_current_r_idx(int r_idx)
     /* Mimics shift forms often enough to be annoying if shapes
        have dramatically different body types (e.g. dragons vs humanoids).
        Inscribe gear with @mimic to autoequip on shifing. */
+    equip_shuffle("@mimic1");
+    equip_shuffle("@mimic2");
+    equip_shuffle("@mimic3");
+    equip_shuffle("@mimic4");
     equip_shuffle("@mimic");
 }
 
