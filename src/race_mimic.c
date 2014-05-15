@@ -737,6 +737,10 @@ static void _player_action(int energy_use)
         bool lose_form = FALSE;
         if (_is_memorized(p_ptr->current_r_idx))
         {
+        #if 0
+            /* I'm debating this at the moment. Many forms have disparate body types and a random
+               low frequency return to the default body will scatter no longer wieldable equipment
+               about in a most annoying fashion. Plus, there is already dispel magic for this ... */
             int r_lvl = r_info[p_ptr->current_r_idx].level;
             int p_lvl = _calc_level(p_ptr->max_plv); /* Use max level in case player is assuming a weak form that decreases player level. */
             p_lvl += 3 + p_ptr->stat_ind[A_DEX];
@@ -746,6 +750,7 @@ static void _player_action(int energy_use)
                 msg_print("You lose control over your current form.");
                 lose_form = TRUE;
             }
+        #endif
         }
         else
         {
