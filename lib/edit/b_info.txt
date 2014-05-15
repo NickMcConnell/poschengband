@@ -927,3 +927,51 @@ S:RING:Tooth
 N:87:Disembodied Eye
 S:HELMET:Eye
 
+N:88:Elder Thing
+S:WEAPON_SHIELD:Arm:0
+S:WEAPON_SHIELD:Arm:1
+S:RING:Ring:0
+S:RING:Ring:1
+S:WEAPON_SHIELD:Arm:2
+S:WEAPON_SHIELD:Arm:3
+S:RING:Ring:2
+S:RING:Ring:3
+S:WEAPON_SHIELD:Arm:4
+S:RING:Ring:4
+S:LITE:Light
+
+N:89:Demonic Horror
+S:ANY:Any
+S:ANY:Any
+S:ANY:Any
+S:ANY:Any
+S:ANY:Any
+S:ANY:Any
+S:ANY:Any
+S:ANY:Any
+
+N:90:Demogorgon
+S:RING:Tentacle
+S:RING:Tentacle
+S:RING:Tentacle
+S:RING:Tentacle
+S:HELMET:Head
+S:AMULET:Neck
+S:HELMET:Head
+S:AMULET:Neck
+S:LITE:Light
+S:BODY_ARMOR:Body
+S:CLOAK:Cloak
+S:BOOTS:Feet
+
+N:91:Cthulhu
+S:RING:Tentacle
+S:RING:Tentacle
+S:RING:Tentacle
+S:RING:Tentacle
+S:RING:Claw
+S:RING:Claw
+S:RING:Claw
+S:RING:Claw
+S:AMULET:Neck
+S:LITE:Light
