@@ -558,6 +558,7 @@ static int _choose_mimic_form(void)
         if (!m_ptr->r_idx) continue;
         if (!m_ptr->ml) continue;
         if (!projectable(py, px, m_ptr->fy, m_ptr->fx)) continue;
+        if (!r_info[m_ptr->r_idx].body.life) continue; /* Form not implemented yet ... */
 
         _add_visible_form(&choices, m_ptr->r_idx);
     }

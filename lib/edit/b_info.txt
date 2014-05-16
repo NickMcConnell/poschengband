@@ -1060,3 +1060,6 @@ S:BOOTS:Feet
 S:BOOTS:Feet
 S:BOOTS:Feet
 S:BOOTS:Feet
+
+N:102:Orb
+S:HELMET:Orb

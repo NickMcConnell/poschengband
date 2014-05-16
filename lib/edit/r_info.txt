@@ -1264,6 +1264,9 @@ I:120:2d6:8:12:30:10
 W:4:1:30:5:0:0
 B:EXPLODE:BLIND
 F:RES_LITE | EMPTY_MIND | CAN_FLY | NONLIVING | SELF_LITE_1 | SELF_LITE_2
+F:POS_GAIN_AC
+P:Copy:Snotling:Warrior
+P:Body:Wisp
 D:A fast-moving bright light.
 
 N:82:Cave lizard
@@ -4473,6 +4476,9 @@ B:EXPLODE:COLD:8d8
 F:FORCE_SLEEP | CAN_FLY | COLD_BLOOD |
 F:EMPTY_MIND | AURA_COLD | HURT_FIRE |
 F:IM_COLD | NO_FEAR | NO_CONF | NO_SLEEP | NONLIVING
+F:POS_GAIN_AC
+P:Copy:Snotling:Warrior
+P:Body:Orb
 D:The embodiment of cold.
 
 N:299:Jumping fireball
@@ -4483,6 +4489,9 @@ B:EXPLODE:FIRE:8d8
 F:FORCE_SLEEP | CAN_FLY | SELF_LITE_2 |
 F:EMPTY_MIND | AURA_FIRE | HURT_COLD |
 F:IM_FIRE | NO_FEAR | NO_CONF | NO_SLEEP | NONLIVING
+F:POS_GAIN_AC
+P:Copy:Snotling:Warrior
+P:Body:Orb
 D:The embodiment of heat.
 
 N:300:Ball lightning
@@ -4493,6 +4502,9 @@ B:EXPLODE:ELEC:8d8
 F:FORCE_SLEEP | CAN_FLY | SELF_LITE_2 |
 F:EMPTY_MIND | AURA_ELEC |
 F:IM_ELEC | NO_FEAR | NO_CONF | NO_SLEEP | NONLIVING
+F:POS_GAIN_AC
+P:Copy:Snotling:Warrior
+P:Body:Orb
 D:A crackling ball of energy.
 
 N:301:2-headed hydra
@@ -6494,6 +6506,9 @@ B:CRUSH:PARALYZE:3d5
 F:FORCE_MAXHP | FORCE_SLEEP | NO_FEAR | NEVER_MOVE |
 F:ONLY_GOLD | DROP_2D2 | DROP_60 | DROP_1D2 | EVIL 
 F:RES_ACID | RES_POIS | NO_CONF | NO_SLEEP | RES_COLD | RES_FIRE |
+F:POS_GAIN_AC
+P:Copy:Ent:Mauler
+P:Body:Tree
 S:1_IN_5 | 
 S:BA_FIRE | BA_ELEC | BA_POIS | HASTE | 
 S:TRAPS | SHRIEK | HOLD | CONF
@@ -6713,6 +6728,9 @@ B:STING:LOSE_STR:8d1
 B:WAIL:TERRIFY:1d4
 F:BASH_DOOR | 
 F:EVIL | DEMON | 
+F:POS_GAIN_AC
+P:Copy:Beastman:Warrior
+P:Body:Spider
 D:Slaanesh's pet, a large scorpion-like creature with a human face and 
 D:reptile skin.
 
@@ -7205,8 +7223,9 @@ F:EMPTY_MIND | COLD_BLOOD | OPEN_DOOR | BASH_DOOR |
 F:EVIL | ANIMAL | UNDEAD | 
 F:RES_COLD | IM_POIS | RES_NETH |
 F:NO_CONF | NO_SLEEP | NO_FEAR | RIDING
-F:POS_HOLD_LIFE | POS_SEE_INVIS
+F:POS_HOLD_LIFE | POS_SEE_INVIS | POS_GAIN_AC
 P:Copy:Half-Troll:Warrior
+P:Body:Giant Reptile
 D:It is the skeleton of a tyrannosaurus, animated by dark dweomers.
 
 N:467:Jaws
@@ -7594,6 +7613,9 @@ F:ESCORT | ESCORTS | ELDRITCH_HORROR |
 F:ONLY_ITEM | DROP_1D2 | DROP_GOOD |
 F:OPEN_DOOR | BASH_DOOR | CAN_SWIM |
 F:EVIL | RES_COLD | RES_POIS | DEMON
+F:POS_GAIN_AC
+P:Copy:Barbarian:Beastmaster
+P:Body:Reptile
 S:1_IN_5
 S:S_UNDEAD | MIND_BLAST | CAUSE_3 | SCARE | BO_WATE | S_KIN
 D:A lizard-like Great Old One worshipped by the men of Sarnath.
@@ -8561,6 +8583,8 @@ F:FORCE_MAXHP | AQUATIC |
 F:FRIENDS | DROP_60 | WILD_OCEAN | REGENERATE |
 F:OPEN_DOOR | BASH_DOOR | RES_WATE
 F:EVIL | TROLL | RES_COLD | RES_POIS | HURT_LITE
+F:POS_GAIN_AC | POS_BERSERK
+P:Copy:Half-Troll:Warrior
 D:He is a troll that reeks of brine, close relative to water trolls.
 
 N:545:Ooze elemental
@@ -10180,6 +10204,8 @@ F:DROP_90 |
 F:INVISIBLE | PASS_WALL | CAN_FLY | REGENERATE |
 F:EVIL | TROLL | RES_COLD | RES_ELEC | RES_POIS | 
 F:NO_CONF | NO_SLEEP
+F:POS_GAIN_AC | POS_BERSERK
+P:Copy:Half-Troll:Warrior
 D:A weird troll from the elemental planes.
 
 N:631:War troll
@@ -11116,6 +11142,9 @@ F:FORCE_SLEEP | FORCE_MAXHP | ELDRITCH_HORROR |
 F:ONLY_ITEM | DROP_1D2 | NONLIVING | CAN_SWIM |
 F:OPEN_DOOR | BASH_DOOR | POWERFUL | HURT_LITE |
 F:EVIL | DEMON | RES_FIRE | RES_DARK | NO_CONF | NO_SLEEP | RES_TELE
+F:POS_GAIN_AC
+P:Copy:Ent:Mauler
+P:Body:Tree
 S:1_IN_9 | 
 S:BLIND | CAUSE_2 | 
 S:S_DEMON | HEAL 
@@ -11500,6 +11529,9 @@ F:RAND_25 | CAN_SWIM | ELDRITCH_HORROR |
 F:KILL_ITEM | BASH_DOOR | POWERFUL | 
 F:EVIL | RES_ACID | RES_COLD | RES_ELEC | RES_POIS | 
 F:NO_CONF | NO_SLEEP 
+F:POS_GAIN_AC
+P:Copy:Barbarian:Mauler
+P:Body:Giant Reptile
 S:1_IN_5 | 
 S:S_MONSTER | SCARE | CAUSE_4 | S_HYDRA | S_SPIDER | 
 S:BA_NETH | BA_POIS | BA_ACID | CAUSE_3 | HOLD | MIND_BLAST
@@ -11705,6 +11737,9 @@ F:NO_CONF | NO_SLEEP |
 F:IM_POIS | RES_ACID | RES_COLD |
 F:ONLY_ITEM | DROP_4D2 | DROP_GOOD | 
 F:OPEN_DOOR | BASH_DOOR | MOVE_BODY | RIDING
+F:POS_GAIN_AC
+P:Copy:Barbarian:Rage-Mage
+P:Body:Giant Reptile
 S:1_IN_6 | 
 S:HOLD | SCARE | 
 S:BR_NEXU | BR_POIS | BR_NETH
@@ -11886,6 +11921,9 @@ B:CRUSH:HURT:23d13
 F:FORCE_SLEEP | FORCE_MAXHP | UNIQUE | ELDRITCH_HORROR |
 F:ONLY_ITEM | DROP_4D2 | DROP_GOOD | KILL_BODY |
 F:SMART | TAKE_ITEM | OPEN_DOOR | BASH_DOOR | CAN_SWIM |
+F:POS_GAIN_AC
+P:Copy:Barbarian:Mauler
+P:Body:Demonic Horror
 F:EVIL
 S:1_IN_6
 S:S_DEMON | SHRIEK | CONF | SCARE | MIND_BLAST | BLIND 
@@ -12908,6 +12946,9 @@ F:FORCE_SLEEP | FORCE_MAXHP | UNIQUE | CAN_SPEAK |
 F:ONLY_ITEM | DROP_4D2 | DROP_GOOD | MOVE_BODY |
 F:SMART | TAKE_ITEM | OPEN_DOOR | BASH_DOOR |
 F:EVIL | DEMON | NONLIVING | ELDRITCH_HORROR
+F:POS_GAIN_AC
+P:Copy:Ent:Mauler
+P:Body:Tree
 S:1_IN_6
 S:BR_FIRE | S_DEMON | CAUSE_4 | BR_PLAS | BR_NETH | BRAIN_SMASH |
 S:S_UNDEAD | BA_DARK 
@@ -13784,6 +13825,9 @@ F:FORCE_SLEEP | FORCE_MAXHP | CAN_FLY |
 F:ONLY_ITEM | DROP_2D2 | DROP_3D2 | DROP_4D2 | DROP_GOOD | 
 F:OPEN_DOOR | BASH_DOOR | POWERFUL | MOVE_BODY | 
 F:RES_ACID | RES_ELEC | RES_POIS | NO_CONF | NO_SLEEP | RES_WATE
+F:POS_GAIN_AC | POS_DETECT_MONSTERS
+P:Copy:Beastman:Mauler
+P:Body:Spider
 S:1_IN_5 | 
 S:S_DEMON | BR_ACID | S_UNDEAD | S_KIN | CONF | SCARE |
 S:MIND_BLAST | BR_CONF 
@@ -14051,6 +14095,9 @@ F:FORCE_SLEEP | FORCE_MAXHP |
 F:ONLY_ITEM | DROP_4D2 | DROP_GOOD | 
 F:SMART | BASH_DOOR | MOVE_BODY | NONLIVING |
 F:ANIMAL | EVIL | IM_POIS | RES_DARK | HURT_LITE | NO_CONF | NO_SLEEP
+F:POS_GAIN_AC | POS_DETECT_MONSTERS
+P:Copy:Hobbit:Rogue
+P:Life:120
 P:Body:Spider
 S:1_IN_3 |
 S:SCARE | BLIND | CONF | HOLD | BR_POIS |
@@ -14174,6 +14221,9 @@ F:OPEN_DOOR | BASH_DOOR |
 F:FORCE_SLEEP | FORCE_MAXHP | NO_CONF | NO_SLEEP |
 F:DROP_4D2 | DROP_1D2 | DROP_GOOD | DROP_60 | DROP_90 | ONLY_ITEM |
 F:EVIL | RES_POIS | RES_ACID | RES_ELEC | REGENERATE |
+F:POS_GAIN_AC
+P:Copy:Half-Giant:Mauler
+P:Body:Giant Reptile
 S:1_IN_4 |
 S:BR_POIS | BR_NUKE | BR_ACID | S_HYDRA | S_KIN | S_DEMON |
 D:"The half-human father of serpents... the snake-god of the central 
@@ -14511,6 +14561,8 @@ F:ONLY_ITEM | DROP_4D2 | DROP_GOOD | AURA_ELEC |
 F:INVISIBLE | OPEN_DOOR | BASH_DOOR | NONLIVING |
 F:EVIL | DEMON | RES_ACID | RES_FIRE | RES_COLD | RES_ELEC | 
 F:RES_POIS | NO_CONF | NO_SLEEP | POWERFUL |
+F:POS_GAIN_AC
+P:Copy:Half-Titan:Beastmaster
 S:1_IN_3 | 
 S:BO_MANA | SCARE | BR_COLD | S_DEMON | BO_ELEC | BA_ELEC | PSY_SPEAR |
 S:MIND_BLAST | CAUSE_4 | BA_CHAO | BA_WATE | S_HI_UNDEAD | S_KIN
@@ -15449,6 +15501,8 @@ F:COLD_BLOOD | EMPTY_MIND | REGENERATE | BASH_DOOR | KILL_BODY | KILL_ITEM |
 F:ANIMAL | HURT_LITE | RES_ACID | RES_ELEC | RES_FIRE | RES_COLD | RES_POIS | 
 F:RES_TELE | RES_NETH | RES_DISE | RES_DARK |
 F:NO_FEAR | NO_CONF | NO_STUN | NO_SLEEP | 
+F:POS_GAIN_AC | POS_DETECT_MONSTERS
+P:Copy:Hobbit:Rogue
 P:Body:Spider
 D:Small brown spiders that lurk in the darkness deep underground.
 D:  An individual would be nearly harmless, but their size allows many
@@ -15521,6 +15575,9 @@ B:CRUSH:HURT:2d8
 F:FORCE_MAXHP | STUPID | COLD_BLOOD | BASH_DOOR |
 F:ANIMAL | RES_WATE | CAN_SWIM | WILD_SHORE |
 F:WILD_OCEAN |
+F:POS_GAIN_AC
+P:Copy:Barbarian:Warrior
+P:Body:Reptile
 D:"...Head something like a croc's, only bigger. Around forty
 D: feet long. Able to roll itself into a big beachball with teeth.
 D:  Fast on land or in water - and a hell of a lot of little legs
@@ -16242,6 +16299,9 @@ I:120:10d7:25:25:5:10
 W:15:2:50:50:0:0
 F:NEVER_BLOW | NEVER_MOVE | NO_SLEEP | NO_FEAR | NO_CONF | CAN_FLY
 F:RES_COLD | RES_FIRE | RES_POIS | RES_ACID | ONLY_ITEM | DROP_60 | NONLIVING
+F:POS_GAIN_AC
+P:Copy:Snotling:Warrior
+P:Body:Orb
 S:1_IN_1
 S:MISSILE
 D:A metallic ball floating in the air, that turns to track you with evil
@@ -16956,6 +17016,9 @@ F:ONLY_GOLD | DROP_90 |
 F:EMPTY_MIND | BASH_DOOR | REFLECTING |
 F:RES_FIRE | RES_COLD | RES_ELEC | RES_POIS | RES_ACID |
 F:NO_CONF | NO_SLEEP | NONLIVING
+F:POS_GAIN_AC
+P:Copy:Barbarian:Warrior
+P:Body:Beetle
 
 N:952:Kamikaze hound
 G:Z:o
@@ -16966,6 +17029,8 @@ F:FORCE_SLEEP |
 F:FRIENDS |
 F:OPEN_DOOR | BASH_DOOR |
 F:ANIMAL | NO_CONF | NO_SLEEP
+F:POS_GAIN_AC | POS_DETECT_MONSTERS
+P:Copy:Kutar:Rogue
 P:Body:Hound
 
 N:953:Broken death sword
@@ -18015,6 +18080,9 @@ B:EXPLODE:HURT:30d2
 F:EMPTY_MIND | COLD_BLOOD |
 F:RES_FIRE | RES_COLD | RES_ELEC | RES_POIS |
 F:NO_FEAR | NO_CONF | NO_SLEEP | NONLIVING | RES_TELE
+F:POS_GAIN_AC | POS_DETECT_MONSTERS
+P:Copy:Hobbit:Rogue
+P:Body:Spider
 D:It is a small bomb of a form like a spider. 
 D:It walks toward you!
 
@@ -18760,6 +18828,8 @@ F:UNIQUE | MALE | GIANT | CAN_SPEAK | HUMAN |
 F:FORCE_MAXHP | WILD_TOWN | WILD_ONLY
 F:OPEN_DOOR | BASH_DOOR | HAS_LITE_1 |
 F:NO_CONF | NO_SLEEP
+F:POS_GAIN_AC | POS_BERSERK
+P:Copy:Half-Troll:Tourist
 D:Brazen faced this creature is more impudent than normal troll.
 
 N:1061:Barney the Dinosaur
