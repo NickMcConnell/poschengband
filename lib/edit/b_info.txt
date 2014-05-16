@@ -1006,3 +1006,22 @@ S:ANY:Any
 S:ANY:Any
 S:ANY:Any
 S:ANY:Any
+
+N:96:Questing Beast
+S:AMULET:Neck
+S:LITE:Light
+S:BODY_ARMOR:Body
+S:CLOAK:Cloak
+S:BOOTS:Feet
+S:BOOTS:Feet
+
+N:97:Worm
+S:RING:Body
+S:RING:Body
+S:RING:Body
+S:RING:Body
+
+N:98:Wisp
+S:ANY:Any
+S:ANY:Any
+S:ANY:Any
