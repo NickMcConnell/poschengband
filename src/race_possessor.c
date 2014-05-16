@@ -783,6 +783,8 @@ int possessor_get_powers(spell_info* spells, int max)
         _add_power(&spells[ct++], 20, 15, 70, _breathe_chaos_spell, p_ptr->stat_ind[A_CON]);
     if (ct < max && (r_ptr->flags4 & RF4_BR_DISE))
         _add_power(&spells[ct++], 20, 5, 70, _breathe_disenchantment_spell, p_ptr->stat_ind[A_CON]);
+    if (ct < max && (r_ptr->body.class_idx == CLASS_MAGE || r_ptr->body.class_idx == CLASS_HIGH_MAGE))
+        _add_power(&spells[ct++], 25, 1, 90, eat_magic_spell, p_ptr->stat_ind[A_INT]);
     if (ct < max && (r_ptr->flags4 & RF4_BR_NUKE))
         _add_power(&spells[ct++], 25, 0, 70, _breathe_nuke_spell, p_ptr->stat_ind[A_CON]);
     if (ct < max && (r_ptr->flags4 & RF4_BR_SHAR))
@@ -1187,6 +1189,8 @@ void possessor_calc_bonuses(void)
     if (r_ptr->flags9 & RF9_POS_TELEPATHY)
         p_ptr->telepathy = TRUE;
     if (r_ptr->flags9 & RF9_POS_SEE_INVIS)
+        p_ptr->see_inv = TRUE;
+    if (r_ptr->flags2 & RF2_INVISIBLE)
         p_ptr->see_inv = TRUE;
 
     if (r_ptr->flags9 & RF9_POS_SUST_STR)
