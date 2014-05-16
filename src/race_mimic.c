@@ -839,6 +839,25 @@ static int _get_powers(spell_info* spells, int max)
     return ct;
 }
 
+void _character_dump(FILE* file)
+{
+    int i;
+    bool first = TRUE;
+
+    for (i = 0; i < _MAX_FORMS; i++)
+    {
+        if (_forms[i])
+        {
+            if (first)
+            {
+                fprintf(file, "================================ Learned Forms ================================\n\n");
+                first = FALSE;
+            }
+            fprintf(file, "  %s\n", r_name + r_info[_forms[i]].name);
+        }
+    }
+}
+
 /**********************************************************************
  * Public
  **********************************************************************/
@@ -878,6 +897,7 @@ race_t *mon_mimic_get_race_t(void)
         me.get_immunities = possessor_get_immunities;
         me.get_vulnerabilities = possessor_get_vulnerabilities;
         me.player_action = _player_action;
+        me.character_dump = _character_dump;
 
         me.load_player = _load;
         me.save_player = _save;
