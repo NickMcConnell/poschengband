@@ -353,7 +353,11 @@ static void _list(_choice_array_t *choices)
         } 
         row++;
     }
+    _clear_row(row++);
     _clear_row(row);
+    c_prt(TERM_WHITE, "['r' to recall, 'm' for more info, ESC to cancel, ENTER to select]", row++, start_col);
+    _clear_row(row);
+
     if (current_row)
         Term_gotoxy(start_col, current_row);
 }
@@ -677,8 +681,15 @@ static int _calc_level(int l)
 
 static void _set_current_r_idx(int r_idx)
 {
+    if (r_idx == p_ptr->current_r_idx)
+        return;
+
     disturb(1, 0);
+    if (r_idx == MON_MIMIC && p_ptr->current_r_idx)
+        msg_format("You stop mimicking %s.", r_name + r_info[p_ptr->current_r_idx].name);
     possessor_set_current_r_idx(r_idx);
+    if (r_idx != MON_MIMIC)
+        msg_format("You start mimicking %s.", r_name + r_info[p_ptr->current_r_idx].name);
     /* Mimics shift forms often enough to be annoying if shapes
        have dramatically different body types (e.g. dragons vs humanoids).
        Inscribe gear with @mimic to autoequip on shifing. */
@@ -850,10 +861,10 @@ void _character_dump(FILE* file)
         {
             if (first)
             {
-                fprintf(file, "================================ Learned Forms ================================\n\n");
+                fprintf(file, "\n================================ Learned Forms ================================\n\n");
                 first = FALSE;
             }
-            fprintf(file, "  %s\n", r_name + r_info[_forms[i]].name);
+            fprintf(file, " %s\n", r_name + r_info[_forms[i]].name);
         }
     }
 }

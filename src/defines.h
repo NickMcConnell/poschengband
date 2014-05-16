@@ -3894,7 +3894,8 @@ enum summon_specific_e {
 
 
 #define MR1_SINKA      0x01  /* Evolution */
-#define MR1_POSSESSOR  0x02
+#define MR1_POSSESSOR  0x02  /* Body Type */
+#define MR1_LORE       0x04  /* Probed */
 
 
 #define is_friendly(A) \

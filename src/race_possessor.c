@@ -1578,7 +1578,7 @@ void possessor_set_current_r_idx(int r_idx)
     {
         int old_r_idx = p_ptr->current_r_idx;
         p_ptr->current_r_idx = r_idx;
-        r_info[p_ptr->current_r_idx].r_xtra1 |= MR1_POSSESSOR; /* Learn the body info */
+        lore_do_probe(r_idx);
 
         if (p_ptr->exp > possessor_max_exp())
         {

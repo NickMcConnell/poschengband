@@ -20172,6 +20172,7 @@ G:@:w
 I:110:1d1:4:1:40:60
 W:50:0:0:0:10:14
 P:Copy:Human:Imitator
+F:CAN_SWIM
 
 # N: serial number : monster name
 # G: symbol : color
