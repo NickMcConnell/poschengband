@@ -1803,6 +1803,8 @@ B:HIT:HURT:1d3
 F:EMPTY_MIND | COLD_BLOOD | OPEN_DOOR | BASH_DOOR | 
 F:EVIL | UNDEAD | RES_COLD | IM_POIS | RES_NETH |
 F:NO_CONF | NO_SLEEP | NO_FEAR
+F:POS_HOLD_LIFE
+P:Copy:Zombie:Tourist
 D:It is an animated kobold corpse.  Flesh falls off in large chunks as it 
 D:shambles forward. 
 
@@ -1832,6 +1834,8 @@ B:CLAW:POISON:1d4
 F:OPEN_DOOR | BASH_DOOR | FRIENDS |
 F:NO_CONF | NO_SLEEP | UNDEAD | EVIL | NO_FEAR | IM_POIS
 F:RES_COLD | RES_NETH | COLD_BLOOD | EMPTY_MIND
+F:POS_HOLD_LIFE
+P:Copy:Zombie:Tourist
 D:Corpses awakened from their sleep by dark sorceries. 
 
 N:126:Cave orc
@@ -2648,6 +2652,8 @@ B:CLAW:DISEASE:1d3
 F:OPEN_DOOR | BASH_DOOR | FRIENDS | HURT_LITE |
 F:NO_CONF | NO_SLEEP | UNDEAD | EVIL | IM_POIS
 F:RES_COLD | RES_NETH | COLD_BLOOD 
+F:POS_HOLD_LIFE
+P:Copy:Zombie:Priest
 S:1_IN_12
 S:CAUSE_1 | SCARE
 D:"...the hand of a corpse -- bloodless and skeletal, and with 
@@ -3040,6 +3046,8 @@ F:COLD_BLOOD | EMPTY_MIND | OPEN_DOOR | BASH_DOOR |
 F:EVIL | ORC | UNDEAD | 
 F:RES_COLD | IM_POIS | RES_NETH | RES_DARK |
 F:NO_CONF | NO_SLEEP | NO_FEAR
+F:POS_HOLD_LIFE
+P:Copy:Zombie:Warrior
 D:It is a shambling orcish corpse leaving behind a trail of flesh.
 
 N:209:Hippogriff
@@ -3341,7 +3349,7 @@ F:EMPTY_MIND | COLD_BLOOD | OPEN_DOOR | BASH_DOOR |
 F:EVIL | UNDEAD | RES_COLD | IM_POIS | RES_NETH |
 F:NO_CONF | NO_SLEEP | NO_FEAR
 F:POS_HOLD_LIFE | POS_SEE_INVIS
-P:Copy:Human:Warrior
+P:Copy:Zombie:Warrior
 D:It is a shambling human corpse dropping chunks of flesh behind it.
 
 N:230:Tiger
@@ -3901,6 +3909,8 @@ B:BUTT:HURT:3d5
 F:FORCE_MAXHP | DROP_60 | 
 F:OPEN_DOOR | BASH_DOOR | RES_COLD |
 F:EVIL | DEMON | UNDEAD | IM_POIS | RES_NETH | NONLIVING 
+F:POS_HOLD_LIFE
+P:Copy:Zombie:Priest
 S:1_IN_8
 S:SCARE | S_ANT | CAUSE_2 | SLOW
 D:An unfortunate individual, who was killed by the incurable 
@@ -4790,6 +4800,8 @@ F:DROP_60 |
 F:NO_SLEEP | NO_CONF | UNDEAD | EVIL | IM_POIS | RES_COLD |
 F:COLD_BLOOD | HURT_LITE | RES_NETH | CAN_SWIM | ELDRITCH_HORROR
 F:BASH_DOOR | OPEN_DOOR
+F:POS_HOLD_LIFE
+P:Copy:Zombie:Warrior
 D:A repulsive being which leaps on long hind legs like a kangaroo. 
 D:Its face is curiously human despite the absence of a nose, a 
 D:forehead, and "other important particulars".
@@ -5344,6 +5356,8 @@ F:EMPTY_MIND | COLD_BLOOD | OPEN_DOOR | BASH_DOOR |
 F:EVIL | ORC | UNDEAD | 
 F:RES_COLD | IM_POIS | RES_NETH | RES_DARK |
 F:NO_CONF | NO_SLEEP | NO_FEAR
+F:POS_HOLD_LIFE
+P:Copy:Zombie:Warrior
 D:It is an orcish figure covered in wrappings.
 
 N:363:Killer whale
@@ -5778,6 +5792,8 @@ F:ONLY_ITEM | DROP_90 |
 F:EMPTY_MIND | COLD_BLOOD | OPEN_DOOR | BASH_DOOR | 
 F:EVIL | UNDEAD | RES_COLD | IM_POIS | RES_NETH |
 F:NO_CONF | NO_SLEEP | NO_FEAR
+F:POS_HOLD_LIFE
+P:Copy:Zombie:Warrior
 D:It is a human form encased in mouldy wrappings.
 
 N:391:Vampire bat
@@ -6091,6 +6107,8 @@ F:UNIQUE | MALE | CAN_SPEAK | UNDEAD | EVIL | ESCORTS | ESCORT
 F:FORCE_MAXHP | COLD_BLOOD | IM_POIS | RES_COLD | RES_NETH | 
 F:ONLY_ITEM | DROP_90 | DROP_GOOD | 
 F:OPEN_DOOR | BASH_DOOR | RES_TELE
+F:POS_HOLD_LIFE
+P:Copy:Zombie:Rage-Mage
 S:1_IN_5 |
 S:TRAPS | CAUSE_3 | DARKNESS | S_UNDEAD | SCARE | SLOW
 S:S_KIN | ANIM_DEAD
@@ -6223,6 +6241,8 @@ B:BITE:PARALYZE:1d5
 F:DROP_60 | OPEN_DOOR | BASH_DOOR | CAN_SWIM | RES_NETH |
 F:EVIL | UNDEAD | FRIENDS | IM_POIS | RES_COLD | NO_CONF | NO_SLEEP
 F:COLD_BLOOD | HURT_LITE
+F:POS_HOLD_LIFE
+P:Copy:Zombie:Rage-Mage
 S:1_IN_9
 S:SCARE | HOLD
 D:Flesh is falling off in chunks from this decaying abomination.
@@ -7334,6 +7354,8 @@ F:DROP_60 | OPEN_DOOR | BASH_DOOR | CAN_SWIM |
 F:DROP_1D2 | FORCE_MAXHP | ESCORT | FORCE_SLEEP |
 F:EVIL | UNDEAD | IM_POIS | RES_COLD | NO_CONF | NO_SLEEP |
 F:COLD_BLOOD | HURT_LITE | RES_NETH
+F:POS_HOLD_LIFE
+P:Copy:Zombie:Rage-Mage
 S:1_IN_7
 S:SCARE | HOLD | DARKNESS | S_UNDEAD | ANIM_DEAD
 D:Flesh is falling off in chunks from this decaying abomination.
@@ -8006,6 +8028,8 @@ F:ONLY_ITEM | DROP_1D2 | DROP_2D2 | RES_TELE
 F:SMART | TAKE_ITEM | OPEN_DOOR | BASH_DOOR | MOVE_BODY | 
 F:RES_ACID | RES_FIRE | RES_COLD | RES_ELEC | IM_POIS | RES_NETH |
 F:NO_CONF | NO_SLEEP
+F:POS_HOLD_LIFE | POS_SEE_INVIS
+P:Copy:Zombie:Rage-Mage
 S:1_IN_3 | 
 S:HEAL | HASTE | BLIND | SCARE | S_UNDEAD | ANIM_DEAD
 S:BA_POIS | BA_NETH | BA_COLD | DRAIN_MANA |
@@ -8924,6 +8948,8 @@ F:DROP_60 |
 F:EMPTY_MIND | COLD_BLOOD | OPEN_DOOR | BASH_DOOR | 
 F:EVIL | TROLL | UNDEAD | RES_COLD | IM_POIS | RES_NETH |
 F:NO_CONF | NO_SLEEP | NO_FEAR
+F:POS_HOLD_LIFE
+P:Copy:Zombie:Warrior
 D:It is a massive figure clothed in wrappings.  You are wary of its massive 
 D:fists.
 
@@ -10445,6 +10471,8 @@ F:ONLY_ITEM | DROP_4D2 | DROP_GOOD |
 F:COLD_BLOOD | OPEN_DOOR | BASH_DOOR | MOVE_BODY |
 F:EVIL | UNDEAD | HURT_FIRE | RES_COLD | IM_POIS | RES_NETH |
 F:NO_CONF | NO_SLEEP
+F:POS_HOLD_LIFE | POS_SEE_INVIS
+P:Copy:Zombie:Rage-Mage
 S:1_IN_3 |
 S:BLIND | SCARE | CAUSE_3 | BO_ACID | BO_NETH | BR_POIS |
 S:BR_NETH | BLINK | TPORT | ANIM_DEAD |
@@ -11010,6 +11038,8 @@ F:FORCE_SLEEP | FORCE_MAXHP |
 F:ONLY_ITEM | DROP_2D2 | DROP_GOOD | KILL_BODY | DROP_GREAT |
 F:SMART | TAKE_ITEM | OPEN_DOOR | BASH_DOOR |
 F:EVIL | UNDEAD | DEMON | REGENERATE |
+F:POS_HOLD_LIFE | POS_SEE_INVIS
+P:Copy:Human:Rage-Mage
 S:1_IN_3 | 
 S:BR_TIME | SLOW | HASTE | HEAL 
 D:"It was a figure no larger than a young child, but sere and 
