@@ -1009,7 +1009,7 @@ static void roff_aux(int r_idx, int mode)
     }
 
     /* Describe monster "toughness" */
-    if (know_armour(r_idx))
+    if (know_armour(r_idx) || know_everything)
     {
         /* Armor */
         hooked_roff(format("%^s has an armor rating of %d",

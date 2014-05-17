@@ -6319,16 +6319,16 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
         if (p_ptr->wizard || p_ptr->prace == RACE_MON_POSSESSOR || p_ptr->prace == RACE_MON_MIMIC)
         {
             prt(format("<dir>%s%s%s%s, ESC",
-                (!visual_list && !visual_only) ? ", 'r' to recall" : "",
+                (!visual_list && !visual_only) ? ", '?' to recall" : "",
                 visual_list ? ", ENTER to accept" : ", 'v' for visuals",
                 (attr_idx || char_idx) ? ", 'c', 'p' to paste" : ", 'c' to copy",
-                ", 'm' for more info"),
+                ", '=' for more info"),
                 hgt - 1, 0);
         }
         else
         {
             prt(format("<dir>%s%s%s, ESC",
-                (!visual_list && !visual_only) ? ", 'r' to recall" : "",
+                (!visual_list && !visual_only) ? ", '?' to recall" : "",
                 visual_list ? ", ENTER to accept" : ", 'v' for visuals",
                 (attr_idx || char_idx) ? ", 'c', 'p' to paste" : ", 'c' to copy"),
                 hgt - 1, 0);
@@ -6388,6 +6388,7 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 
             case 'R':
             case 'r':
+            case '?':
             {
                 /* Recall on screen */
                 if (!visual_list && !visual_only && (mon_idx[mon_cur] > 0))
@@ -6404,6 +6405,7 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
             case 'm':
             case 'n':
             case 'h':
+            case '=':
                 monster_mode++;
                 if (monster_mode == MONSTER_MODE_MAX)
                     monster_mode = MONSTER_MODE_STATS;
