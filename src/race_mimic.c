@@ -72,9 +72,10 @@ enum _choice_type_e
 };
 struct _choice_s
 {
-    int type;
-    int r_idx;
-    int slot;
+    int  type;
+    int  r_idx;
+    int  slot;
+    char key;
 };
 typedef struct _choice_s _choice_t;
 
@@ -229,19 +230,25 @@ static void _list(_choice_array_t *choices)
         }
         else
         {
+            char          buf[255];
+            byte          attr = TERM_WHITE;
             monster_race *r_ptr = &r_info[choice->r_idx];
 
             /* Name */
+            if (i == choices->current)
+                attr = TERM_L_BLUE;
+
+            if (choice->key)
+                sprintf(buf, " %c) %-20.20s", choice->key, r_name + r_ptr->name);
+            else
+                sprintf(buf, "    %-20.20s", r_name + r_ptr->name);
+
             Term_putch(start_col, row, r_ptr->x_attr, r_ptr->x_char);
-            c_prt((i == choices->current) ? TERM_L_BLUE : TERM_WHITE, 
-                  format(" %-23.23s", r_name + r_ptr->name), 
-                  row, start_col + 1
-            );
+            c_prt(attr, buf, row, start_col + 1);
 
             /* Extra Info */
             if ((p_ptr->wizard || (r_ptr->r_xtra1 & MR1_POSSESSOR)) && r_ptr->body.life)
             {
-                char buf[255];
                 if (_display_mode == _DISPLAY_MODE_STATS)
                 {
                     int                j;
@@ -355,16 +362,43 @@ static void _list(_choice_array_t *choices)
     }
     _clear_row(row++);
     _clear_row(row);
-    c_prt(TERM_WHITE, "['r' to recall, 'm' for more info, ESC to cancel, ENTER to select]", row++, start_col);
+    c_prt(TERM_WHITE, "['?' to recall, '=' for more info, ESC to cancel, ENTER to select]", row++, start_col);
     _clear_row(row);
 
     if (current_row)
         Term_gotoxy(start_col, current_row);
 }
 
+static bool _confirm(_choice_array_t *choices, int which)
+{
+    if (choices->mode == _CHOOSE_MODE_LEARN)
+    {
+        _choice_t *choice = &choices->choices[which];
+        if (choice->type != _TYPE_KNOWN)
+        {
+            msg_print("Choose an existing slot for this new form.");
+            return FALSE;
+        }            
+        assert(0 <= choice->slot && choice->slot < _MAX_FORMS);
+        if (_forms[choice->slot])
+        {
+            int           r_idx1 = choices->choices[0].r_idx; /* Hack: We just know this is correct :) */
+            monster_race *r_ptr1 = &r_info[r_idx1];
+            int           r_idx2 = _forms[choice->slot];
+            monster_race *r_ptr2 = &r_info[r_idx2];
+            char          prompt[512];
+
+            sprintf(prompt, "Really replace %s with %s? ", r_name + r_ptr2->name, r_name + r_ptr1->name);
+            if (!get_check(prompt))
+                return FALSE;
+        }
+    }
+    return TRUE;
+}
+
 static bool _choose(_choice_array_t *choices)
 {
-    int  key = 0;
+    int  key = 0, i;
     bool redraw = TRUE;
     bool done = FALSE;
 
@@ -394,8 +428,7 @@ static bool _choose(_choice_array_t *choices)
         case ESCAPE:
             done = TRUE;
             break;
-        case 'R':
-        case 'r':
+        case '?':
         {
             int r_idx = choices->choices[choices->current].r_idx;
             if (r_idx > 0)
@@ -418,9 +451,7 @@ static bool _choose(_choice_array_t *choices)
             }
             break;
         }
-        case 'm':
-        case 'n':
-        case 'h':
+        case '=':
             _next_display_mode();
             redraw = TRUE;
             break;
@@ -469,32 +500,22 @@ static bool _choose(_choice_array_t *choices)
             break;
         }
         case ' ': case '\r': case '\n':
-            if (choices->mode == _CHOOSE_MODE_LEARN)
+            if (_confirm(choices, choices->current))
+                return TRUE;
+            redraw = TRUE;
+            break;
+        default:
+            for (i = 0; i < choices->size; i++)
             {
-                _choice_t *choice = &choices->choices[choices->current];
-                if (choice->type != _TYPE_KNOWN)
+                if (choices->choices[i].key == key)
                 {
-                    msg_print("Choose an existing slot for this new form.");
+                    choices->current = i;
+                    if (_confirm(choices, choices->current))
+                        return TRUE;
+                    redraw = TRUE;
                     break;
-                }            
-                assert(0 <= choice->slot && choice->slot < _MAX_FORMS);
-                if (_forms[choice->slot])
-                {
-                    int           r_idx1 = choices->choices[0].r_idx; /* Hack: We just know this is correct :) */
-                    monster_race *r_ptr1 = &r_info[r_idx1];
-                    int           r_idx2 = _forms[choice->slot];
-                    monster_race *r_ptr2 = &r_info[r_idx2];
-                    char          prompt[512];
-
-                    sprintf(prompt, "Really replace %s with %s? ", r_name + r_ptr2->name, r_name + r_ptr1->name);
-                    if (!get_check(prompt))
-                    {
-                        redraw = TRUE;
-                        break;
-                    }
                 }
             }
-            return TRUE;
         }
     }
 
@@ -547,10 +568,13 @@ static int _choose_mimic_form(void)
     {
         if (_forms[i])
         {
-            _choice_t *choice = &choices.choices[choices.size++];
+            int        j = choices.size++;
+            _choice_t *choice = &choices.choices[j];
+
             choice->r_idx = _forms[i];
             choice->slot = i;
             choice->type = _TYPE_KNOWN;
+            choice->key = I2A(j);
         }
     }
 
@@ -565,6 +589,15 @@ static int _choose_mimic_form(void)
         if (!r_info[m_ptr->r_idx].body.life) continue; /* Form not implemented yet ... */
 
         _add_visible_form(&choices, m_ptr->r_idx);
+    }
+
+    /* Assign menu keys at the end due to insertion sort */
+    for (i = 0; i < choices.size; i++)
+    {
+        _choice_t *choice = &choices.choices[i];
+        
+        if (choice->type == _TYPE_VISIBLE)
+            choice->key = I2A(i);
     }
 
     if (choices.size)
@@ -599,10 +632,12 @@ static int _choose_new_slot(int new_r_idx)
     {
         if (_forms[i])
         {
-            _choice_t *choice = &choices.choices[choices.size++];
+            int        j = choices.size++;
+            _choice_t *choice = &choices.choices[j];
             choice->r_idx = _forms[i];
             choice->slot = i;
             choice->type = _TYPE_KNOWN;
+            choice->key = I2A(j-1);
         }
         else
         {
