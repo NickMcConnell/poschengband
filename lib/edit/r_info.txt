@@ -3919,7 +3919,7 @@ B:GAZE:CONFUSE
 F:NEVER_MOVE | DROP_60 | EVIL | DEMON | 
 F:RES_POIS | RES_COLD |RES_FIRE | NO_FEAR | NO_CONF | NO_SLEEP
 F:DROP_CORPSE | POS_GAIN_AC
-P:Copy:Human:Mystic
+P:Copy:Human:Beastmaster
 S:1_IN_6
 S:BO_ACID | S_MONSTER | SCARE | DRAIN_MANA
 D:A creature like a giant purple Buddha with lots of teeth.
@@ -4954,7 +4954,7 @@ B:CRUSH:HURT:3d6
 F:DROP_60 | NO_SLEEP | NO_CONF | ANIMAL | WEIRD_MIND | EVIL
 F:RES_WATE | RES_COLD | HURT_FIRE | NEVER_MOVE | WILD_ONLY | WILD_WOOD |
 F:DROP_CORPSE | POS_GAIN_AC
-P:Copy:Ent:Mystic
+P:Copy:Ent:Beastmaster
 P:Body:Tree
 S:1_IN_9
 S:BLINK | TELE_TO
@@ -6215,7 +6215,7 @@ F:RAND_25 | DROP_90 | DROP_60
 F:OPEN_DOOR | BASH_DOOR | AURA_COLD | RES_COLD |
 F:ANIMAL | EVIL | RIDING | 
 F:DROP_CORPSE | POS_GAIN_AC
-P:Copy:Human:Mystic
+P:Copy:Human:Beastmaster
 P:Body:Horse
 S:1_IN_8
 S:BR_COLD | BO_ICEE | BO_COLD | BA_COLD
@@ -9117,7 +9117,7 @@ S:1_IN_4 |
 S:TELE_TO | 
 S:S_KIN
 D:A Lord of Chaos famous for his skill at arms.
-P:Copy:Dunadan:Mystic
+P:Copy:Dunadan:Beastmaster
 
 N:574:Chaos spawn
 G:e:u
@@ -10308,7 +10308,7 @@ F:ONLY_ITEM | DROP_2D2 | DROP_GOOD | HUMAN |
 F:OPEN_DOOR | BASH_DOOR | 
 F:EVIL | NO_CONF | NO_SLEEP
 F:DROP_SKELETON | DROP_CORPSE | POS_DETECT_MONSTERS | POS_SEE_INVIS
-P:Copy:Dark-Elf:Mystic
+P:Copy:Dark-Elf:Beastmaster
 S:1_IN_2 | 
 S:BLIND | 
 S:S_DRAGON
@@ -10794,7 +10794,7 @@ S:1_IN_2 |
 S:CAUSE_3 | BO_WATE | BO_MANA | BA_CHAO | POLY
 D:The madman's son is a Logrus Master, almost as great a 
 D:menace as his father.
-P:Copy:Amberite:Mystic
+P:Copy:Amberite:Beastmaster
 
 N:661:Archon
 G:A:v
@@ -13010,7 +13010,7 @@ D:'Oh? None of us knew that Dad had locked you up.' (Corwin) heard
 D:(Dworkin) weeping. 'Yes,' he said after a long time. 'He didn't 
 D:trust me.' 'Why not?' 'I told him I'd thought of a way to 
 D:destroy Amber. I described it to him, and he locked me in.'"
-P:Copy:Amberite:Mystic
+P:Copy:Amberite:Beastmaster
 
 N:764:Uriel, Angel of Fire
 G:A:R
@@ -13267,7 +13267,7 @@ D:like Bleys and (Corwin). (Corwin's) features, though smaller, his eyes,
 D:Bleys' hair, beardless. He wore a riding suit of green and sat atop a white 
 D:horse... There was a quality of both strength and weakness, questing and 
 D:abandonment about him."
-P:Copy:Amberite:Mystic
+P:Copy:Amberite:Beastmaster
 
 N:774:Shadowlord
 G:G:b
@@ -15662,7 +15662,7 @@ F:RES_TELE | NO_CONF | NO_SLEEP | NO_STUN |
 F:DROP_CORPSE | POS_GAIN_AC
 S:1_IN_2 | 
 S:ROCKET | HEAL | BLINK | INVULNER
-P:Copy:Human:Mystic
+P:Copy:Human:Beastmaster
 D:His favorite food is roasting rice noodle. 
 D:He is the lone wolf filled with the adventurous spirit. 
 D:His righteousness and courage are more than the average. 
@@ -15999,7 +15999,7 @@ S:1_IN_2 |
 S:CAUSE_3 | BO_WATE | BO_MANA
 D:This once-mighty warrior was so dominated by Morgoth's power that he 
 D:became little more than a mindless creature of evil.
-P:Copy:Human:Mystic
+P:Copy:Human:Beastmaster
 
 N:892:Djinni
 G:P:b
@@ -18174,7 +18174,7 @@ D:He looks like brawny human being apparently.
 D:However, unlike man, it has the tail of a monkey. 
 D:This tail proves he is a Saiyan. 
 D:A Saiyan's fighting power is far superior to human's and will bring many destruction.
-P:Copy:Human:Mystic
+P:Copy:Human:Beastmaster
 
 N:1023:Hand grenade
 G:{:r
@@ -19133,7 +19133,7 @@ F:ONLY_ITEM | DROP_1D2 | DROP_GOOD | OPEN_DOOR | BASH_DOOR
 S:1_IN_6 |
 S:S_ANT | S_SPIDER
 D:He is one of chiefs of Nanman. He is also good beast master.
-P:Copy:Human:Mystic
+P:Copy:Human:Beastmaster
 
 N:1078:Wutugu, the Chief of Southerings
 G:P:u
@@ -19972,7 +19972,7 @@ S:1_IN_3 | SCARE
 D:A human, covered in bleached leather and decorated with
 D:bones of foes defeated.  The sight of him puts fear 
 D:into your heart.
-P:Copy:Human:Mystic
+P:Copy:Human:Beastmaster
 
 N:1121:Grand Fearlord
 G:p:U
@@ -19990,7 +19990,7 @@ S:1_IN_2 | SCARE | S_KIN | TELE_TO
 D:A human, covered in bone armor and decorated with the
 D:shriveled, preserved eyeballs of foes defeated.  The 
 D:sight of him strikes terror into your soul.
-P:Copy:Demigod:Mystic
+P:Copy:Demigod:Beastmaster
 
 N:1122:The Questing Beast
 G:q:v
