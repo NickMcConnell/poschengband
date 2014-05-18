@@ -1141,15 +1141,25 @@ int possessor_r_speed(int r_idx)
     if (sp > 0)
     {
         int factor = 100;
+        int i;
+        equip_template_ptr body = &b_info[r_ptr->body.body_idx];
 
+        for (i = 0; i < body->count; i++)
+        {
+            if (body->slots[i].type == EQUIP_SLOT_WEAPON_SHIELD)
+            {
+                factor = 35;
+                break;
+            }
+        }
         /* TODO: I do think we need speed info in r_info (optional, using monster
-            value as a default). I'm just not up to it at the moment :( */
+            value as a default). I'm just not up to it at the moment :(
         if (strchr("AghknOoPpT", r_ptr->d_char))
             factor = 50;
         else if (strchr("H", r_ptr->d_char))
             factor = 75;
-        else if (strchr("UuVWz", r_ptr->d_char) && !r_ptr->body.body_idx)
-            factor = 50;
+        else if (strchr("UuVWYz", r_ptr->d_char) && !r_ptr->body.body_idx)
+            factor = 50; */
 
         sp = sp * factor / 100;
         sp = sp * MIN(p_lvl, r_lvl) / r_lvl;
@@ -1180,8 +1190,6 @@ int possessor_r_ac(int r_idx)
 void possessor_calc_bonuses(void) 
 {
     monster_race *r_ptr = &r_info[p_ptr->current_r_idx];
-    int           r_lvl = MAX(1, r_ptr->level);
-    int           p_lvl = _calc_level(p_ptr->lev);
 
     if (!p_ptr->current_r_idx) /* Birth hack ... we haven't been "born" yet! */
         return;
