@@ -1128,6 +1128,55 @@ static void _ac_bonus_imp(int slot)
     }
 }
 
+/* Add possessor speed info to r_info? The problem is that many end game
+    humanoid forms are too fast! Possessing Great Eagles should be encouraged,
+    as they have severe equipment limitations to compensate. */
+int possessor_r_speed(int r_idx)
+{
+    monster_race *r_ptr = &r_info[r_idx];
+    int           sp = (int)r_ptr->speed - 110;
+    int           r_lvl = MAX(1, r_ptr->level);
+    int           p_lvl = _calc_level(p_ptr->lev);
+
+    if (sp > 0)
+    {
+        int factor = 100;
+
+        /* TODO: I do think we need speed info in r_info (optional, using monster
+            value as a default). I'm just not up to it at the moment :( */
+        if (strchr("AghknOoPpT", r_ptr->d_char))
+            factor = 50;
+        else if (strchr("H", r_ptr->d_char))
+            factor = 75;
+        else if (strchr("UuVWz", r_ptr->d_char) && !r_ptr->body.body_idx)
+            factor = 50;
+
+        sp = sp * factor / 100;
+        sp = sp * MIN(p_lvl, r_lvl) / r_lvl;
+    }
+    return sp;
+}
+
+int possessor_r_ac(int r_idx)
+{
+    monster_race *r_ptr = &r_info[r_idx];
+    int           ac = 0;
+    int           r_lvl = MAX(1, r_ptr->level);
+    int           p_lvl = _calc_level(p_ptr->lev);
+
+    if (r_ptr->flags9 & RF9_POS_GAIN_AC)
+    {
+        ac = r_ptr->ac * MIN(p_lvl, r_lvl) / r_lvl;
+
+        /* Reduce AC bonus a bit depending on what armor slots are available.
+           For example, Wahha-man has AC200 yet can also wear a full complement of armor! */        
+        ac_percent = 100;
+        equip_for_each_slot(_ac_bonus_imp);
+        ac = ac * ac_percent / 100;
+    }
+    return MAX(0, ac);
+}
+
 void possessor_calc_bonuses(void) 
 {
     monster_race *r_ptr = &r_info[p_ptr->current_r_idx];
@@ -1152,46 +1201,13 @@ void possessor_calc_bonuses(void)
     if (!equip_can_wield_kind(TV_LITE, SV_LITE_FEANOR))
         p_ptr->see_nocto = TRUE;
 
-    if (r_ptr->flags9 & RF9_POS_GAIN_AC)
     {
-        int to_a = r_ptr->ac * MIN(p_lvl, r_lvl) / r_lvl;
-
-        /* Reduce AC bonus a bit depending on what armor slots are available.
-           For example, Wahha-man has AC200 yet can also wear a full complement of armor! */        
-        ac_percent = 100;
-        equip_for_each_slot(_ac_bonus_imp);
-        to_a = to_a * ac_percent / 100;
-
-        if (to_a > 0)
-        {
-            p_ptr->to_a += to_a;
-            p_ptr->dis_to_a += to_a;
-        }
+        int to_a = possessor_r_ac(p_ptr->current_r_idx);
+        p_ptr->to_a += to_a;
+        p_ptr->dis_to_a += to_a;
     }
 
-    /* Add possessor speed info to r_info? The problem is that many end game
-       humanoid forms are too fast! Possessing Great Eagles should be encouraged,
-       as they have severe equipment limitations to compensate. */
-    if (r_ptr->speed != 110)
-    {
-        int sp = (int)r_ptr->speed - 110;
-
-        if (sp < 0)
-            p_ptr->pspeed += sp;
-        else
-        {
-            int bonus;
-
-            if (strchr("ghknoOpPTVWz", r_ptr->d_char))
-                sp /= 3;
-            if (strchr("H", r_ptr->d_char))
-                sp = sp * 2/3;
-
-            bonus = sp * MIN(p_lvl, r_lvl) / r_lvl;
-
-            p_ptr->pspeed += bonus;
-        }
-    }
+    p_ptr->pspeed += possessor_r_speed(p_ptr->current_r_idx);
 
     if (r_ptr->flags3 & RF3_GOOD)
         p_ptr->align += 200;

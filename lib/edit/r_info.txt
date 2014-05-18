@@ -3638,7 +3638,7 @@ F:MALE | WILD_ALL | DROP_SKELETON | DROP_CORPSE
 F:FRIENDS | DROP_60
 F:OPEN_DOOR | BASH_DOOR | 
 F:EVIL | ORC | HURT_LITE | RES_DARK
-P:Copy:Kobold:Weaponmaster
+P:Copy:Kobold:Warrior
 S:1_IN_15
 S:SHOOT
 D:He is a large orc with powerful arms and deep black skin.
@@ -4270,7 +4270,7 @@ F:MALE | WILD_ALL |
 F:DROP_90 | 
 F:OPEN_DOOR | BASH_DOOR | ESCORT | DROP_SKELETON | DROP_CORPSE
 F:EVIL | ORC | RES_DARK | CAN_SPEAK
-P:Copy:Kobold:Weaponmaster
+P:Copy:Kobold:Warrior
 S:1_IN_15
 S:SHOOT
 D:An armoured orc with an air of authority.
@@ -4704,7 +4704,7 @@ F:MALE |
 F:FORCE_MAXHP | FRIENDS | DROP_60 | 
 F:OPEN_DOOR | BASH_DOOR | DROP_SKELETON | DROP_CORPSE
 F:EVIL | ORC | RES_POIS | RES_DARK
-P:Copy:Kobold:Weaponmaster
+P:Copy:Kobold:Warrior
 S:1_IN_12
 S:SHOOT
 D:He is a cunning orc of power, as tall as a man, and stronger.  It fears 
@@ -17055,7 +17055,7 @@ B:HIT:HURT:1d5
 B:HIT:HURT:1d5
 F:FORCE_SLEEP | DROP_1D2 | SMART | DROP_CORPSE | DROP_SKELETON |
 F:ORC | HURT_LITE | EVIL | RES_DARK
-P:Copy:Kobold:Weaponmaster
+P:Copy:Kobold:Warrior
 S:1_IN_2 |
 S:SHOOT
 D:In a rare display of ingenuity, the Orcs invented an incredibly

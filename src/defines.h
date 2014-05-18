@@ -4861,6 +4861,7 @@ extern int PlayerUID;
 #define MON_FIVE_HEADED_HYDRA 440
 #define MON_GACHAPIN      441
 #define MON_BLACK_KNIGHT 442
+#define MON_DEEP_ONE      452
 #define MON_BASILISK      453
 #define MON_ICE_TROLL    454
 #define MON_ARCHANGEL     456
