@@ -2965,6 +2965,7 @@ enum summon_specific_e {
 #define OM_AUTODESTROY  0x08    /* Destroy later to avoid illegal inventry shift */
 #define OM_TOUCHED      0x10    /* Object was touched by player */
 #define OM_RESERVED     0x20    /* Object reserved in the shop */
+#define OM_WORN         0x40    /* Object was previously being worn but is possibly no longer a legal piece of equipment (Mimics) */
 
 
 /*
