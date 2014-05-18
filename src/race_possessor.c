@@ -740,6 +740,22 @@ static void _add_power(spell_info* spell, int lvl, int cost, int fail, ang_spell
     spell->fn = fn;
 }
 
+static int _breath_fail(int base_fail)
+{
+    if (strchr("Zv", r_info[p_ptr->current_r_idx].d_char))
+        base_fail -= 30;
+
+    return MAX(20, base_fail);
+}
+
+static int _breath_lvl(int base_lvl)
+{
+    if (strchr("Zv", r_info[p_ptr->current_r_idx].d_char))
+        base_lvl = MIN(r_info[p_ptr->current_r_idx].level, base_lvl);
+
+    return MAX(1, base_lvl);
+}
+
 int possessor_get_powers(spell_info* spells, int max)
 {
     monster_race *r_ptr = &r_info[p_ptr->current_r_idx];
@@ -760,55 +776,55 @@ int possessor_get_powers(spell_info* spells, int max)
     if (ct < max && (r_ptr->flags9 & RF9_POS_BERSERK))
         _add_power(&spells[ct++], 13, 9, 50, berserk_spell, p_ptr->stat_ind[A_STR]);
     if (ct < max && (r_ptr->flags4 & RF4_BR_ACID))
-        _add_power(&spells[ct++], 20, 0, 55, _breathe_acid_spell, p_ptr->stat_ind[A_CON]);
+        _add_power(&spells[ct++], _breath_lvl(20), 0, _breath_fail(55), _breathe_acid_spell, p_ptr->stat_ind[A_CON]);
     if (ct < max && (r_ptr->flags4 & RF4_BR_ELEC))
-        _add_power(&spells[ct++], 20, 0, 55, _breathe_elec_spell, p_ptr->stat_ind[A_CON]);
+        _add_power(&spells[ct++], _breath_lvl(20), 0, _breath_fail(55), _breathe_elec_spell, p_ptr->stat_ind[A_CON]);
     if (ct < max && (r_ptr->flags4 & RF4_BR_FIRE))
-        _add_power(&spells[ct++], 20, 0, 55, _breathe_fire_spell, p_ptr->stat_ind[A_CON]);
+        _add_power(&spells[ct++], _breath_lvl(20), 0, _breath_fail(55), _breathe_fire_spell, p_ptr->stat_ind[A_CON]);
     if (ct < max && (r_ptr->flags4 & RF4_BR_COLD))
-        _add_power(&spells[ct++], 20, 0, 55, _breathe_cold_spell, p_ptr->stat_ind[A_CON]);
+        _add_power(&spells[ct++], _breath_lvl(20), 0, _breath_fail(55), _breathe_cold_spell, p_ptr->stat_ind[A_CON]);
     if (ct < max && (r_ptr->flags4 & RF4_BR_POIS))
-        _add_power(&spells[ct++], 20, 0, 55, _breathe_poison_spell, p_ptr->stat_ind[A_CON]);
+        _add_power(&spells[ct++], _breath_lvl(20), 0, _breath_fail(55), _breathe_poison_spell, p_ptr->stat_ind[A_CON]);
     if (ct < max && (r_ptr->flags4 & RF4_BR_NETH))
-        _add_power(&spells[ct++], 20, 0, 70, _breathe_nether_spell, p_ptr->stat_ind[A_CON]);
+        _add_power(&spells[ct++], _breath_lvl(20), 0, _breath_fail(70), _breathe_nether_spell, p_ptr->stat_ind[A_CON]);
     if (ct < max && (r_ptr->flags4 & RF4_BR_LITE))
-        _add_power(&spells[ct++], 20, 5, 70, _breathe_light_spell, p_ptr->stat_ind[A_CON]);
+        _add_power(&spells[ct++], _breath_lvl(20), 5, _breath_fail(70), _breathe_light_spell, p_ptr->stat_ind[A_CON]);
     if (ct < max && (r_ptr->flags4 & RF4_BR_DARK))
-        _add_power(&spells[ct++], 20, 5, 70, _breathe_dark_spell, p_ptr->stat_ind[A_CON]);
+        _add_power(&spells[ct++], _breath_lvl(20), 5, _breath_fail(70), _breathe_dark_spell, p_ptr->stat_ind[A_CON]);
     if (ct < max && (r_ptr->flags4 & RF4_BR_CONF))
-        _add_power(&spells[ct++], 20, 10, 70, _breathe_confusion_spell, p_ptr->stat_ind[A_CON]);
+        _add_power(&spells[ct++], _breath_lvl(20), 10, _breath_fail(70), _breathe_confusion_spell, p_ptr->stat_ind[A_CON]);
     if (ct < max && (r_ptr->flags4 & RF4_BR_SOUN))
-        _add_power(&spells[ct++], 20, 15, 70, _breathe_sound_spell, p_ptr->stat_ind[A_CON]);
+        _add_power(&spells[ct++], _breath_lvl(20), 15, _breath_fail(70), _breathe_sound_spell, p_ptr->stat_ind[A_CON]);
     if (ct < max && (r_ptr->flags4 & RF4_BR_CHAO))
-        _add_power(&spells[ct++], 20, 15, 70, _breathe_chaos_spell, p_ptr->stat_ind[A_CON]);
+        _add_power(&spells[ct++], _breath_lvl(20), 15, _breath_fail(70), _breathe_chaos_spell, p_ptr->stat_ind[A_CON]);
     if (ct < max && (r_ptr->flags4 & RF4_BR_DISE))
-        _add_power(&spells[ct++], 20, 5, 70, _breathe_disenchantment_spell, p_ptr->stat_ind[A_CON]);
+        _add_power(&spells[ct++], _breath_lvl(20), 5, _breath_fail(70), _breathe_disenchantment_spell, p_ptr->stat_ind[A_CON]);
     if (ct < max && (r_ptr->body.class_idx == CLASS_MAGE || r_ptr->body.class_idx == CLASS_HIGH_MAGE))
         _add_power(&spells[ct++], 25, 1, 90, eat_magic_spell, p_ptr->stat_ind[A_INT]);
     if (ct < max && (r_ptr->flags4 & RF4_BR_NUKE))
-        _add_power(&spells[ct++], 25, 0, 70, _breathe_nuke_spell, p_ptr->stat_ind[A_CON]);
+        _add_power(&spells[ct++], _breath_lvl(25), 0, _breath_fail(70), _breathe_nuke_spell, p_ptr->stat_ind[A_CON]);
     if (ct < max && (r_ptr->flags4 & RF4_BR_SHAR))
-        _add_power(&spells[ct++], 25, 10, 70, _breathe_shards_spell, p_ptr->stat_ind[A_CON]);
+        _add_power(&spells[ct++], _breath_lvl(25), 10, _breath_fail(70), _breathe_shards_spell, p_ptr->stat_ind[A_CON]);
     if (ct < max && (r_ptr->flags4 & RF4_BR_NEXU))
-        _add_power(&spells[ct++], 30, 15, 80, _breathe_nexus_spell, p_ptr->stat_ind[A_CON]);
+        _add_power(&spells[ct++], _breath_lvl(30), 15, _breath_fail(80), _breathe_nexus_spell, p_ptr->stat_ind[A_CON]);
     if (ct < max && (r_ptr->flags4 & RF4_BR_INER))
-        _add_power(&spells[ct++], 30, 20, 80, _breathe_inertia_spell, p_ptr->stat_ind[A_CON]);
+        _add_power(&spells[ct++], _breath_lvl(30), 20, _breath_fail(80), _breathe_inertia_spell, p_ptr->stat_ind[A_CON]);
     if (ct < max && (r_ptr->flags4 & RF4_BR_GRAV))
-        _add_power(&spells[ct++], 30, 20, 90, _breathe_gravity_spell, p_ptr->stat_ind[A_CON]);
+        _add_power(&spells[ct++], _breath_lvl(30), 20, _breath_fail(90), _breathe_gravity_spell, p_ptr->stat_ind[A_CON]);
     if (ct < max && (r_ptr->flags4 & RF4_BR_WALL))
-        _add_power(&spells[ct++], 30, 15, 80, _breathe_force_spell, p_ptr->stat_ind[A_CON]);
+        _add_power(&spells[ct++], _breath_lvl(30), 15, _breath_fail(80), _breathe_force_spell, p_ptr->stat_ind[A_CON]);
     if (ct < max && (r_ptr->flags4 & RF4_BR_MANA))
-        _add_power(&spells[ct++], 30, 15, 80, _breathe_mana_spell, p_ptr->stat_ind[A_CON]);
+        _add_power(&spells[ct++], _breath_lvl(30), 15, _breath_fail(80), _breathe_mana_spell, p_ptr->stat_ind[A_CON]);
     if (ct < max && _is_monk())
         _add_power(&spells[ct++], 30, 30, 80, monk_double_attack_spell, p_ptr->stat_ind[A_STR]);
     if (ct < max && (r_ptr->flags4 & RF4_BR_PLAS))
-        _add_power(&spells[ct++], 35, 15, 80, _breathe_plasma_spell, p_ptr->stat_ind[A_CON]);
+        _add_power(&spells[ct++], _breath_lvl(35), 15, _breath_fail(80), _breathe_plasma_spell, p_ptr->stat_ind[A_CON]);
     if (ct < max && (r_ptr->flags4 & RF4_BR_STORM))
-        _add_power(&spells[ct++], 35, 20, 80, _breathe_storm_spell, p_ptr->stat_ind[A_CON]);
+        _add_power(&spells[ct++], _breath_lvl(35), 20, _breath_fail(80), _breathe_storm_spell, p_ptr->stat_ind[A_CON]);
     if (ct < max && (r_ptr->flags4 & RF4_BR_TIME))
-        _add_power(&spells[ct++], 35, 15, 80, _breathe_time_spell, p_ptr->stat_ind[A_CON]);
+        _add_power(&spells[ct++], _breath_lvl(35), 15, _breath_fail(80), _breathe_time_spell, p_ptr->stat_ind[A_CON]);
     if (ct < max && (r_ptr->flags4 & RF4_BR_DISI))
-        _add_power(&spells[ct++], 35, 25, 95, _breathe_disintegration_spell, p_ptr->stat_ind[A_CON]);
+        _add_power(&spells[ct++], _breath_lvl(35), 25, _breath_fail(95), _breathe_disintegration_spell, p_ptr->stat_ind[A_CON]);
     if (ct < max && (r_ptr->flags4 & RF4_ROCKET))
         _add_power(&spells[ct++], 35, 30, 80, _rocket_spell, p_ptr->stat_ind[A_STR]);
 
