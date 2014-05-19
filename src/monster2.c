@@ -1134,9 +1134,9 @@ static bool restrict_monster_to_dungeon(int r_idx)
             !(r_ptr->flags5 & RF5_NOMAGIC_MASK) &&
             !(r_ptr->flags6 & RF6_NOMAGIC_MASK))
             return FALSE;
-    }
-    if (d_ptr->flags1 & DF1_NO_MELEE && (summon_specific_who != -1))
-    {                                 /* ^---- Block players spamming the anti-melee cave for better summons */
+    }                                                              /* v--- ...but prevent the Summon Mold exploit. Sigh ... */
+    if (d_ptr->flags1 & DF1_NO_MELEE && (summon_specific_who != -1 || !allow_pets))
+    {                                 /* ^---- Block players spamming the anti-melee cave for better summons... */
         if (r_idx == MON_CHAMELEON) return TRUE;
         if (!(r_ptr->flags4 & (RF4_BOLT_MASK | RF4_BEAM_MASK | RF4_BALL_MASK)) &&
             !(r_ptr->flags5 & (RF5_BOLT_MASK | RF5_BEAM_MASK | RF5_BALL_MASK | RF5_CAUSE_1 | RF5_CAUSE_2 | RF5_CAUSE_3 | RF5_CAUSE_4 | RF5_MIND_BLAST | RF5_BRAIN_SMASH)) &&
