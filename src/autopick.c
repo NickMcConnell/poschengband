@@ -12,6 +12,7 @@
 
 #include "angband.h"
 
+#include <assert.h>
 
 #define MAX_LINELEN 1024
 
@@ -631,7 +632,7 @@ static void autopick_entry_from_object(autopick_type *entry, object_type *o_ptr)
         char o_name[MAX_NLEN];
 
         object_desc(o_name, o_ptr, (OD_NO_FLAVOR | OD_OMIT_PREFIX | OD_NO_PLURAL | OD_NAME_ONLY));
-        sprintf(name_str, "^%s", o_name);
+        sprintf(name_str, "^%s$", o_name);
     }
 
     /* Register the name in lowercase */
@@ -972,10 +973,77 @@ static bool _is_aware(object_type *o_ptr)
 {
     return object_is_aware(o_ptr);
 }
+
+static bool _string_match_aux(cptr source, cptr pattern)
+{
+    cptr ss = source, ps = pattern;
+
+    while (*ss && *ps)
+    {
+        int s = toupper(*ss), p = toupper(*ps);
+
+        if (p == '$')
+            break;
+
+        if (s != p)
+            return FALSE;
+
+        ss++;
+        ps++;
+    }
+
+    /* Did we exhaust the pattern string? */
+    if (*ps)
+    {
+        /* anchor to end of string? */
+        if (*ps == '$' && !*ss)
+            return TRUE;
+
+        return FALSE;
+    }
+
+    return TRUE;
+}
+
+static bool _string_match(cptr source, cptr pattern)
+{
+    cptr p = pattern;
+    cptr s;
+
+    /* anchor to start of string? */
+    if (*p == '^')
+        return _string_match_aux(source, pattern + 1);
+
+    for (s = source; *s; s++)
+    {
+        if (_string_match_aux(s, pattern))
+            return TRUE;
+    }
+    return FALSE;
+}
+/*  There has been a long standing Hengband bug with autoregistering
+    objects for destruction greedily destroying too much. The classic
+    example is autoregistering a mace only to find this also destroys
+    that uber rare mace of disruption you just found!
+
+    assert(_string_match("wand of light", "wand"));
+    assert(!_string_match("wand of light", "mace"));
+    assert(!_string_match("wand of light", "lightning balls"));
+    assert(_string_match("wand of light", "light"));
+    assert(_string_match("wand of light", "nd of li"));
+    assert(_string_match("wand of light", "^wand of light"));
+    assert(!_string_match("wand of light", "^of light"));
+    assert(_string_match("wand of lightning balls", "^wand of light"));
+    assert(!_string_match("wand of lightning balls", "^wand of light$"));
+    assert(_string_match("wand of light", "^wand of light$"));
+    assert(_string_match("wand of light", "of light$"));
+    assert(!_string_match("wand of lightning balls", "of light$"));
+    assert(!_string_match("wand of light", "^wand of lightning balls$"));
+*/
+
 static bool is_autopick_aux(object_type *o_ptr, autopick_type *entry, cptr o_name)
 {
     int j;
-    cptr ptr = entry->name;
 
     /*** Unaware items ***/
     if (IS_FLG(FLG_UNAWARE) && _is_aware(o_ptr))
@@ -1437,15 +1505,8 @@ static bool is_autopick_aux(object_type *o_ptr, autopick_type *entry, cptr o_nam
     }
 
     /* Keyword don't match */
-    if (*ptr == '^')
-    {
-        ptr++;
-        if (strncmp(o_name, ptr, strlen(ptr))) return FALSE;
-    }
-    else
-    {
-        if (!my_strstr(o_name, ptr)) return FALSE;
-    }
+    if (!_string_match(o_name, entry->name))
+        return FALSE;
 
     /* TRUE when it need not to be 'collecting' */
     if (!IS_FLG(FLG_COLLECTING)) return TRUE;
@@ -1481,7 +1542,7 @@ int is_autopick(object_type *o_ptr)
     if (o_ptr->tval == TV_GOLD) return -1;
 
     /* Prepare object name string first */
-    object_desc(o_name, o_ptr, (OD_NO_FLAVOR | OD_OMIT_PREFIX | OD_NO_PLURAL));
+    object_desc(o_name, o_ptr, (OD_NAME_ONLY | OD_NO_FLAVOR | OD_OMIT_PREFIX | OD_NO_PLURAL));
 
     /* Convert the string to lower case */
     str_tolower(o_name);
@@ -3554,7 +3615,7 @@ static void search_for_object(text_body_type *tb, object_type *o_ptr, bool forwa
     int i = tb->cy;
 
     /* Prepare object name string first */
-    object_desc(o_name, o_ptr, (OD_NO_FLAVOR | OD_OMIT_PREFIX | OD_NO_PLURAL));
+    object_desc(o_name, o_ptr, (OD_NAME_ONLY | OD_NO_FLAVOR | OD_OMIT_PREFIX | OD_NO_PLURAL));
 
     /* Convert the string to lower case */
     str_tolower(o_name);
