@@ -760,6 +760,10 @@ static void _player_action(int energy_use)
     if (possessor_get_toggle() == LEPRECHAUN_TOGGLE_BLINK)
         teleport_player(10, TELEPORT_LINE_OF_SIGHT);
 
+    /* In wilderness travel mode, there is no place for dropped objects to go! */
+    if (p_ptr->wild_mode)
+        return;
+
     /* Maintain current form. 
        Rules: If the source is visible, then we can always maintain the form. 
        Otherwise, memorized forms get a saving throw to maintain, but non-memorized 
