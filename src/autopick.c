@@ -192,6 +192,11 @@ static bool autopick_new_entry(autopick_type *entry, cptr str, bool allow_defaul
             act &= ~DO_DISPLAY;
             str++;
         }
+        else if (*str == '?')
+        {
+            act |= DO_AUTO_ID;
+            str++;
+        }
         else
             break;
     }
@@ -830,6 +835,7 @@ cptr autopick_line_from_entry(autopick_type *entry)
     if (entry->action & DO_QUERY_AUTOPICK) strcat(buf, ";");
     if (entry->action & DO_AUTODESTROY) strcat(buf, "!");
     if (entry->action & DONT_AUTOPICK) strcat(buf, "~");
+    if (entry->action & DO_AUTO_ID) strcat(buf, "?");
 
     ptr = buf;
 
@@ -1821,6 +1827,90 @@ static void _sense_object_floor(object_type *o_ptr)
     o_ptr->feeling = _get_object_feeling(o_ptr);
 }
 
+static int _pack_find(int tval, int sval)
+{
+    int i;
+    for (i = 0; i < INVEN_PACK; i++)
+    {
+        if (!inventory[i].k_idx) continue; /* tval and sval are probably 0 too ... */
+        if (inventory[i].tval == tval && inventory[i].sval == sval) return i;
+    }
+    return -1;
+}
+
+static bool _rod_is_charging(object_type *o_ptr)
+{
+    if (o_ptr->number == 1 && o_ptr->timeout)
+        return TRUE;
+    else if ( o_ptr->number > 1 
+           && o_ptr->timeout > k_info[o_ptr->k_idx].pval * (o_ptr->number - 1) )
+    {
+        return TRUE;
+    }
+    return FALSE;
+}
+
+/* Automatically identify objects, consuming requisite resources.
+   We support scrolls, staves and rods of perception, but nothing else
+   as the source for this convenience. We ignore fail rates and
+   don't even charge the player energy for this boon! This is generous,
+   but it is assumed that the player could (laboriously) locate a quiet
+   safe place and then repeat until successful anyway. */
+bool autopick_auto_id(object_type *o_ptr)
+{
+    if (!object_is_known(o_ptr))
+    {
+        int i = _pack_find(TV_SCROLL, SV_SCROLL_IDENTIFY);
+
+        if (!p_ptr->blind && i >= 0)
+        {
+            identify_item(o_ptr);
+         
+            inven_item_increase(i, -1);
+            inven_item_describe(i);
+            inven_item_optimize(i);
+            return TRUE;
+        }
+
+        i = _pack_find(TV_STAFF, SV_STAFF_IDENTIFY);
+        if (i >= 0 && inventory[i].pval > 0)
+        {
+            identify_item(o_ptr);
+
+            if (inventory[i].number > 1)
+            {
+                object_type copy;
+                object_copy(&copy, &inventory[i]);
+                copy.number = 1;
+                copy.pval--;
+                inventory[i].number--;
+                p_ptr->total_weight -= copy.weight;
+                i = inven_carry(&copy);
+                msg_print("You unstack your staff.");
+            }
+            else
+                inventory[i].pval--;
+
+            inven_item_charges(i);
+            return TRUE;
+        }
+
+        i = _pack_find(TV_ROD, SV_ROD_IDENTIFY);
+        if (i >= 0 && !_rod_is_charging(&inventory[i]))
+        {
+            identify_item(o_ptr);
+            inventory[i].timeout += k_info[inventory[i].k_idx].pval;
+            return TRUE;
+        }
+
+        /* Player spells not supported ... */
+
+        if (disturb_minor)
+            msg_print("Unable to auto-identify. Get some more scrolls of identify!");
+    }
+    return FALSE;
+}
+
 /*
  * Automatically pickup/destroy items in this grid.
  */
@@ -1852,8 +1942,18 @@ void autopick_pickup_items(cave_type *c_ptr)
 
         idx = is_autopick(o_ptr);
 
+        if (idx >= 0 && autopick_list[idx].action & DO_AUTO_ID)
+        {
+            if (autopick_auto_id(o_ptr))
+            {
+                int new_idx = is_autopick(o_ptr); /* requery for destroy/pickup/inscribe once known */
+                if (new_idx >= 0)
+                    idx = new_idx;
+            }
+        }
+
         /* Item index for floor -1,-2,-3,...  */
-        auto_inscribe_item(o_ptr, idx);
+        auto_inscribe_item(o_ptr, idx); /* after auto-id, please! */
 
         if (idx >= 0 &&
             (autopick_list[idx].action & (DO_AUTOPICK | DO_QUERY_AUTOPICK)))
@@ -2512,6 +2612,9 @@ static void describe_autopick(char *buff, autopick_type *entry)
     else
         strcpy(buff, "Pickup ");
 
+    if (act & DO_AUTO_ID)
+        strcat(buff, "and automatically identify ");
+
     /* Auto-insctiption */
     if (insc)
     {
@@ -2924,6 +3027,8 @@ static void toggle_command_letter(text_body_type *tb, byte flg)
         if (entry->action & DONT_AUTOPICK) wid--;
         else if (entry->action & DO_AUTODESTROY) wid--;
         else if (entry->action & DO_QUERY_AUTOPICK) wid--;
+
+        if (entry->action & DO_AUTO_ID) wid--;
         if (!(entry->action & DO_DISPLAY)) wid--;
 
         /* Set/Reset the flag */
@@ -2945,6 +3050,7 @@ static void toggle_command_letter(text_body_type *tb, byte flg)
             if (entry->action & DONT_AUTOPICK) wid++;
             else if (entry->action & DO_AUTODESTROY) wid++;
             else if (entry->action & DO_QUERY_AUTOPICK) wid++;
+            if (entry->action & DO_AUTO_ID) wid++;
             if (!(entry->action & DO_DISPLAY)) wid++;
 
             if (wid > 0) tb->cx++;

@@ -5227,6 +5227,7 @@ extern int PlayerUID;
 #define DONT_AUTOPICK     0x08
 #define ITEM_DISPLAY      0x10
 #define DO_QUERY_AUTOPICK 0x20
+#define DO_AUTO_ID        0x40
 
 
 #define MAGIC_GLOVE_REDUCE_MANA 0x0001
