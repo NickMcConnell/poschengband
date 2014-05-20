@@ -841,6 +841,8 @@ extern bool device_use(object_type *o_ptr);
 extern bool device_known;
 extern bool device_noticed;
 extern int  device_extra_power;
+extern int  device_available_charges;
+extern int  device_used_charges;
 extern cptr do_device(int tval, int sval, int mode);
 
 extern effect_t obj_get_effect(object_type *o_ptr);

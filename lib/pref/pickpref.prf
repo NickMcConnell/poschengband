@@ -184,5 +184,9 @@ Iron Spike#@v0
 !average common armors
 ?:1
 
+?:[LEQ $LEVEL 34]
+#(unidentified armors
+#(unidentified weapons
+?:1
 
 

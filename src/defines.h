@@ -586,6 +586,7 @@
  */
 #define INVEN_FORCE               1111
 #define INVEN_UNLIMITED_QUIVER    1112
+#define INVEN_ALL                 1113
 
 /*
  * Indexes of the various "stats" (hard-coded by savefiles, etc).
@@ -2412,13 +2413,15 @@ enum _mimic_types {
 /*
  * Bit flags for the "get_item" function
  */
-#define USE_EQUIP        0x01    /* Allow equip items */
-#define USE_INVEN        0x02    /* Allow inven items */
-#define USE_FLOOR        0x04    /* Allow floor items */
-#define USE_QUIVER       0x08
-#define SHOW_FAIL_RATES  0x10
-#define SHOW_VALUE       0x20    /* For Reforging */
-
+#define USE_EQUIP               0x001   /* Allow equip items */
+#define USE_INVEN               0x002   /* Allow inven items */
+#define USE_FLOOR               0x004   /* Allow floor items */
+#define USE_QUIVER              0x008
+#define SHOW_FAIL_RATES         0x010
+#define SHOW_VALUE              0x020   /* For Reforging */
+#define OPTION_ALL              0x040   /* Allow user to select all (e.g. identify entire pack) */
+#define OPTION_FORCE            0x080   /* TODO: Remove old hack code ... */
+#define OPTION_UNLIMITED_QUIVER 0x100   /* TODO Remove old hack code ... */
 
 /*
  * Bit flags for the "p_ptr->notice" variable

@@ -2756,7 +2756,7 @@ void do_cmd_debug(void)
 		while (num--)
 		{
 			object_wipe(&forge);
-			if (!make_object(&forge, AM_CURSED)) continue;
+			if (!make_object(&forge, AM_GOOD)) continue;
 			drop_near(&forge, -1, py, px);
 		}
 	}
