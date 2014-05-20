@@ -1616,7 +1616,8 @@ void possessor_set_current_r_idx(int r_idx)
 {
     if (r_idx != p_ptr->current_r_idx)
     {
-        int old_r_idx = p_ptr->current_r_idx;
+        int mana_ratio = p_ptr->csp * 100 / MAX(1, p_ptr->msp);
+
         p_ptr->current_r_idx = r_idx;
         lore_do_probe(r_idx);
 
@@ -1634,17 +1635,16 @@ void possessor_set_current_r_idx(int r_idx)
         /* Apply the new body type to our equipment */
         equip_on_change_race();
 
-        /* Switching from native form to a magical form should not start out with 0sp!
-           Note: p_ptr->msp is often a stale old value, suppressed elsewhere in the code. */
-        if (old_r_idx == MON_MIMIC)
+        /* Mimic's shift alot. Try to preserve the old mana ratio if possible. */
+        if (p_ptr->prace == RACE_MON_MIMIC)
         {
             handle_stuff();
-        
-            p_ptr->csp = p_ptr->msp;
+
+            p_ptr->csp = p_ptr->msp * mana_ratio / 100;
             p_ptr->csp_frac = 0;
             p_ptr->redraw |= PR_MANA;
             p_ptr->window |= PW_PLAYER | PW_SPELL;
-        }
+        }    
     }
 }
 
