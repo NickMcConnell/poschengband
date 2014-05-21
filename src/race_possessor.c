@@ -1128,42 +1128,36 @@ static void _ac_bonus_imp(int slot)
     }
 }
 
-/* Add possessor speed info to r_info? The problem is that many end game
-    humanoid forms are too fast! Possessing Great Eagles should be encouraged,
-    as they have severe equipment limitations to compensate. */
 int possessor_r_speed(int r_idx)
 {
     monster_race *r_ptr = &r_info[r_idx];
-    int           sp = (int)r_ptr->speed - 110;
+    int           sp;
     int           r_lvl = MAX(1, r_ptr->level);
     int           p_lvl = _calc_level(p_ptr->lev);
 
-    if (sp > 0)
+    if (r_ptr->body.speed)
+        sp = r_ptr->body.speed;
+    else
     {
-        int factor = 100;
-        int i;
-        equip_template_ptr body = &b_info[r_ptr->body.body_idx];
-
-        for (i = 0; i < body->count; i++)
+        sp = (int)r_ptr->speed - 110;
+        if (sp > 0)
         {
-            if (body->slots[i].type == EQUIP_SLOT_WEAPON_SHIELD)
-            {
-                factor = 35;
-                break;
-            }
-        }
-        /* TODO: I do think we need speed info in r_info (optional, using monster
-            value as a default). I'm just not up to it at the moment :(
-        if (strchr("AghknOoPpT", r_ptr->d_char))
-            factor = 50;
-        else if (strchr("H", r_ptr->d_char))
-            factor = 75;
-        else if (strchr("UuVWYz", r_ptr->d_char) && !r_ptr->body.body_idx)
-            factor = 50; */
+            int factor = 100;
+            int i;
+            equip_template_ptr body = &b_info[r_ptr->body.body_idx];
 
-        sp = sp * factor / 100;
-        sp = sp * MIN(p_lvl, r_lvl) / r_lvl;
+            for (i = 0; i < body->count; i++)
+            {
+                if (body->slots[i].type == EQUIP_SLOT_WEAPON_SHIELD)
+                {
+                    factor = 35;
+                    break;
+                }
+            }
+            sp = sp * factor / 100;
+        }
     }
+    sp = sp * MIN(p_lvl, r_lvl) / r_lvl;
     return sp;
 }
 
