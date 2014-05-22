@@ -2216,7 +2216,10 @@ static void get_exp_from_mon(int dam, monster_type *m_ptr)
         s32b pexp, mexp;
 
         /* Figure out the max experience to gain from this monster */
-        n_h = r_ptr->level * SPEED_TO_ENERGY(m_ptr->mspeed);
+        if (r_ptr->flags2 & RF2_MULTIPLY)
+            n_h = r_ptr->level * SPEED_TO_ENERGY(r_ptr->speed);
+        else
+            n_h = r_ptr->level * SPEED_TO_ENERGY(m_ptr->mspeed);
         n_l = 0;
         d_h = 0;
         d_l = (p_ptr->max_plv+2) * SPEED_TO_ENERGY(r_ptr->speed);
