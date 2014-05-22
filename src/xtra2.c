@@ -2208,6 +2208,54 @@ static void get_exp_from_mon(int dam, monster_type *m_ptr)
     /* Finally multiply base experience point of the monster */
     s64b_mul(&new_exp, &new_exp_frac, 0, r_ptr->mexp);
 
+    /* Limit the amount of Exp gained from a single monster to remove
+       player exploits that deliberately allow monsters to rest (= infinite exp) */
+    {
+        s32b n_h, d_h;
+        u32b n_l, d_l;
+        s32b pexp, mexp;
+
+        /* Figure out the max experience to gain from this monster */
+        n_h = r_ptr->level * SPEED_TO_ENERGY(m_ptr->mspeed);
+        n_l = 0;
+        d_h = 0;
+        d_l = (p_ptr->max_plv+2) * SPEED_TO_ENERGY(r_ptr->speed);
+
+        s64b_div(&n_h, &n_l, d_h, d_l);
+        s64b_mul(&n_h, &n_l, 0, r_ptr->mexp);
+
+        mexp = n_h * 100;
+        n_h = 0;
+        s64b_mul(&n_h, &n_l, 0, 100);
+        mexp += n_h;
+
+        /* Figure out how much we are gaining */
+        pexp = new_exp * 100;
+        n_h = 0;
+        n_l = new_exp_frac;
+        s64b_mul(&n_h, &n_l, 0, 100);
+        pexp += n_h;
+
+        if (m_ptr->pexp + pexp > mexp)
+        {
+            pexp = MAX(0, mexp - m_ptr->pexp);
+            new_exp = pexp / 100;
+            n_h = pexp % 100;
+            new_exp_frac = 0;
+            s64b_div(&n_h, &new_exp_frac, 0, 100);
+        }
+        m_ptr->pexp += pexp;
+#ifdef _DEBUG        
+        msg_format(
+            "Gain %d.%2.2d XP (Max %d.%2.2d, Mon %d.%2.2d, Actual %d %u)", 
+            pexp/100, pexp%100, 
+            mexp/100, mexp%100, 
+            m_ptr->pexp/100, m_ptr->pexp%100, 
+            new_exp, new_exp_frac
+        );
+#endif
+    }
+
     if (mut_present(MUT_FAST_LEARNER))
     {
         s64b_mul(&new_exp, &new_exp_frac, 0, 6);
@@ -2307,8 +2355,6 @@ bool mon_take_hit(int m_idx, int dam, bool *fear, cptr note)
     monster_type    *m_ptr = &m_list[m_idx];
     monster_race    *r_ptr = &r_info[m_ptr->r_idx];
 
-    monster_type    exp_mon;
-
     /* Innocent until proven otherwise */
     bool        innocent = TRUE, thief = FALSE;
     int         i;
@@ -2335,13 +2381,12 @@ bool mon_take_hit(int m_idx, int dam, bool *fear, cptr note)
         }
     }
 
-    (void)COPY(&exp_mon, m_ptr, monster_type);
     if (!(r_ptr->flags7 & RF7_KILL_EXP))
     {
         expdam = (m_ptr->hp > dam) ? dam : m_ptr->hp;
         if (r_ptr->flags6 & RF6_HEAL) expdam = (expdam+1) * 2 / 3;
 
-        get_exp_from_mon(expdam, &exp_mon);
+        get_exp_from_mon(expdam, m_ptr);
 
         /* Genocided by chaos patron */
         if (!m_ptr->r_idx) m_idx = 0;
@@ -2394,7 +2439,8 @@ bool mon_take_hit(int m_idx, int dam, bool *fear, cptr note)
     /* It is dead now */
     if (m_ptr->hp < 0)
     {
-        char m_name[MAX_NLEN];
+        char         m_name[MAX_NLEN];
+        monster_type exp_mon = *m_ptr; /* Copy since we will delete_monster_idx before granting experience */
 
         monster_desc(m_name, m_ptr, MD_TRUE_NAME);
 

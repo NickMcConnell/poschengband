@@ -760,6 +760,8 @@ struct monster_type
     u32b forgot4;
     u32b forgot5;
     u32b forgot6;
+
+    s32b pexp;    /* player experience gained (x100). kept <= r_ptr->mexp */
 };
 
 enum {
