@@ -1612,6 +1612,7 @@ void possessor_set_current_r_idx(int r_idx)
     {
         int mana_ratio = p_ptr->csp * 100 / MAX(1, p_ptr->msp);
 
+        p_ptr->magic_num1[0] = 0; /* Blinking Death ... */
         p_ptr->current_r_idx = r_idx;
         lore_do_probe(r_idx);
 
