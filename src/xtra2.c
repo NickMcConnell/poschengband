@@ -12,6 +12,8 @@
 
 #include "angband.h"
 
+#include <assert.h>
+
 #define REWARD_CHANCE 10
 
 
@@ -1968,6 +1970,7 @@ void monster_death(int m_idx, bool drop_item)
     {
         if (get_monster_drop(m_idx, &forge))
         {
+            assert(forge.k_idx);
             if (forge.tval == TV_GOLD)
                 dump_gold++;
             else
