@@ -412,7 +412,7 @@ static void _elder_aranea_calc_innate_attacks(void)
     a.weight = 200;
     a.effect[0] = GF_MISSILE;
     a.effect[1] = GF_POIS;
-    a.effect[2] = GF_STASIS;
+    a.effect[2] = GF_PARALYSIS;
     a.effect_chance[2] = 25 + 5*(p_ptr->lev - 40);
     calc_innate_blows(&a, 550);
     a.msg = "You bite %s.";

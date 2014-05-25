@@ -1886,6 +1886,7 @@ static void health_redraw(bool riding)
         byte attr = TERM_RED;
 
         if (MON_INVULNER(m_ptr)) attr = TERM_WHITE;
+        else if (m_ptr->paralyzed) attr = TERM_BLUE;
         else if (MON_CSLEEP(m_ptr)) attr = TERM_BLUE;
         else if (MON_STUNNED(m_ptr)) attr = TERM_L_BLUE;
         else if (MON_CONFUSED(m_ptr)) attr = TERM_UMBER;

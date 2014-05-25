@@ -724,6 +724,7 @@ struct monster_type
     s16b melee_adj;
 
     s16b mtimed[MAX_MTIMED];    /* Timed status counter */
+    s16b paralyzed;
 
     byte mspeed;            /* Monster "speed" */
     s16b energy_need;    /* Monster "energy" */

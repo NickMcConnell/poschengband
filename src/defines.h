@@ -2839,8 +2839,9 @@ enum summon_specific_e {
 #define GF_QUAKE    142
 #define GF_CHARM_RING_BEARER  143
 #define GF_SUBJUGATION 144
+#define GF_PARALYSIS 145
 
-#define MAX_GF                144
+#define MAX_GF                145
 
 /*
  * Some things which induce learning
@@ -5540,6 +5541,7 @@ enum mon_save_fields_e {
     SAVE_MON_DROP_CT,
     SAVE_MON_STOLEN_CT,
     SAVE_MON_PEXP,
+    SAVE_MON_PARALYZED,
 };
 
 /* Sub-alignment flags for neutral monsters */
