@@ -338,7 +338,7 @@ void possessor_calc_innate_attacks(void)
             a.effect[1] = GF_TURN_ALL;
             break;
         case RBE_PARALYZE:
-            a.effect[1] = GF_STASIS;
+            a.effect[1] = GF_PARALYSIS;
             break;
         case RBE_SUPERHURT:
             a.to_d += a.dd * (a.ds + 1) / 4;
