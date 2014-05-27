@@ -2663,6 +2663,7 @@ static void _create_amulet(object_type *o_ptr, int level, int power, int mode)
                 else if (one_in_(2))
                 {
                     add_flag(o_ptr->art_flags, TR_MAGIC_MASTERY);
+                    if (!o_ptr->pval) o_ptr->pval = _jewelry_pval(6, level);
                     break;
                 }
             case 6:
