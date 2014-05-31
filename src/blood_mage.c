@@ -81,11 +81,12 @@ class_t *blood_mage_get_class_t(void)
         me.name = "Blood-Mage";
         me.desc = "A Blood Mage is similar to a normal mage in his selection and "
                     "variety of spells, but differs in that he has no separate "
-                    "Spell Point pool.  Instead, all his spells are powered by "
-                    "his HP.  However, due to the Blood Mage's abnormal constitution, "
-                    "all healing is less effective than normal. The Blood Mage also "
-                    "has great difficulty with healing magic and cannot even choose the "
-                    "Life realm.";
+                    "mana pool.  Instead, all his spells are powered by "
+                    "his health.  Moreover, due to the Blood Mage's abnormal constitution, "
+                    "all healing is much less effective than normal. In fact, the Blood "
+                    "Mage completely eschews all healing magic as this disrupts the flow "
+                    "of blood that is the essence of their power. They completely shun "
+                    "the realm of Life as anathema to all that is sacred.";
 
         me.stats[A_STR] = -4;
         me.stats[A_INT] =  3;
