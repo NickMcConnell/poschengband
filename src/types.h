@@ -1448,6 +1448,7 @@ struct player_type
     s16b old_lite;        /* Old radius of lite (if any) */
 
     bool cumber_armor;    /* Mana draining armor */
+    int  cumber_armor_amt;
     bool cumber_glove;    /* Mana draining gloves */
     bool riding_ryoute;    /* Riding weapon */
     bool monlite;

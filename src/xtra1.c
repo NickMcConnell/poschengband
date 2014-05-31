@@ -2717,7 +2717,7 @@ static int _racial_mana_adjust(int i)
     return result;
 }
 
-static int _calc_encumbrance(void)
+static void _calc_encumbrance(void)
 {
     caster_info *caster_ptr = get_caster_info();
     int          weight = 0;
@@ -2795,9 +2795,8 @@ static int _calc_encumbrance(void)
     if (weight > caster_ptr->weight)
     {
         p_ptr->cumber_armor = TRUE;
-        return weight - caster_ptr->weight;
+        p_ptr->cumber_armor_amt = weight - caster_ptr->weight;
     }
-    return 0;
 }
 
 static void _report_encumbrance(void)
@@ -2825,11 +2824,12 @@ static void _report_encumbrance(void)
 
 static void calc_mana(void)
 {
-    int             msp, lvl, encumbrance;
+    int             msp, lvl;
     caster_info    *caster_ptr = get_caster_info();
 
     p_ptr->cumber_glove = FALSE;
     p_ptr->cumber_armor = FALSE;
+    p_ptr->cumber_armor_amt = 0;
 
     if (!caster_ptr)
     {
@@ -2887,7 +2887,7 @@ static void calc_mana(void)
         if (msp && (p_ptr->pclass == CLASS_SORCERER)) msp += msp*(25+p_ptr->lev)/100;
     }
 
-    encumbrance = _calc_encumbrance();
+    _calc_encumbrance();
     if (p_ptr->cumber_glove)
         msp = (3 * msp) / 4;
 
@@ -2900,7 +2900,7 @@ static void calc_mana(void)
         case CLASS_BLOOD_MAGE:
         case CLASS_HIGH_MAGE:
         case CLASS_BLUE_MAGE:
-            msp -= msp * encumbrance / 600;
+            msp -= msp * p_ptr->cumber_armor_amt / 600;
             break;
 
         case CLASS_PRIEST:
@@ -2912,34 +2912,35 @@ static void calc_mana(void)
         case CLASS_TOURIST:
         case CLASS_MIRROR_MASTER:
         case CLASS_MONSTER:
-            msp -= msp * encumbrance / 800;
+            msp -= msp * p_ptr->cumber_armor_amt / 800;
             break;
 
         case CLASS_SORCERER:
-            msp -= msp * encumbrance / 900;
+            msp -= msp * p_ptr->cumber_armor_amt / 900;
             break;
 
         case CLASS_ROGUE:
         case CLASS_RANGER:
         case CLASS_MONK:
         case CLASS_RED_MAGE:
-            msp -= msp * encumbrance / 1000;
+            msp -= msp * p_ptr->cumber_armor_amt / 1000;
             break;
 
         case CLASS_PALADIN:
         case CLASS_CHAOS_WARRIOR:
         case CLASS_WARRIOR_MAGE:
         case CLASS_RAGE_MAGE:
-            msp -= msp * encumbrance / 1200;
+            msp -= msp * p_ptr->cumber_armor_amt / 1200;
             break;
 
         case CLASS_SAMURAI:
         case CLASS_MYSTIC:
             p_ptr->cumber_armor = FALSE;
+            p_ptr->cumber_armor_amt = 0;
             break;
 
         default:
-            msp -= msp * encumbrance / 800;
+            msp -= msp * p_ptr->cumber_armor_amt / 800;
         }
     }
 

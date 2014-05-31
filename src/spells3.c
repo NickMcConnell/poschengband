@@ -3278,7 +3278,7 @@ int mod_spell_chance_1(int chance, int realm)
     if (p_ptr->pclass == CLASS_BLOOD_MAGE)
     {
         if (p_ptr->cumber_glove) chance += 20;
-        if (p_ptr->cumber_armor) chance += 20;
+        if (p_ptr->cumber_armor) chance += 100 * p_ptr->cumber_armor_amt / 600;
     }
 
     if (dec_mana && p_ptr->easy_spell) chance -= 4;
