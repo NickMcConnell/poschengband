@@ -2238,7 +2238,8 @@ static cptr do_nature_spell(int spell, int mode)
 
             if (cast)
             {
-                hp_player(damroll(dice, sides));
+                if (p_ptr->pclass != CLASS_BLOOD_MAGE)
+                    hp_player(damroll(dice, sides));
                 set_cut(0, TRUE);
                 set_poisoned(0, TRUE);
             }
@@ -6634,7 +6635,8 @@ static cptr do_crusade_spell(int spell, int mode)
             if (cast)
             {
                 dispel_evil(randint1(dam_sides));
-                hp_player(heal);
+                if (p_ptr->pclass != CLASS_BLOOD_MAGE)
+                    hp_player(heal);
                 set_poisoned(0, TRUE);
                 set_stun(0, TRUE);
                 set_cut(0, TRUE);
@@ -6909,7 +6911,8 @@ static cptr do_crusade_spell(int spell, int mode)
                 confuse_monsters(power);
                 turn_monsters(power);
                 stasis_monsters(power/3);
-                hp_player(heal);
+                if (p_ptr->pclass != CLASS_BLOOD_MAGE)
+                    hp_player(heal);
             }
         }
         break;
