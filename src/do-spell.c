@@ -93,7 +93,8 @@ cptr info_range(int range)
  */
 cptr info_heal(int dice, int sides, int base)
 {
-    if (p_ptr->pclass == CLASS_BLOOD_MAGE)
+    if ( p_ptr->pclass == CLASS_BLOOD_MAGE
+      || p_ptr->pclass == CLASS_BLOOD_KNIGHT )
     {
         sides /= 2;
         base /= 2;
