@@ -79,11 +79,13 @@ class_t *blood_mage_get_class_t(void)
     skills_t xs = {  7,  15,  11,   0,   0,   0,   6,   7};
 
         me.name = "Blood-Mage";
-        me.desc = "A blood mage is similar to a normal mage in his selection and "
+        me.desc = "A Blood Mage is similar to a normal mage in his selection and "
                     "variety of spells, but differs in that he has no separate "
                     "Spell Point pool.  Instead, all his spells are powered by "
                     "his HP.  However, due to the Blood Mage's abnormal constitution, "
-                    "all healing (spells, potions) is only half as effective.";
+                    "all healing is less effective than normal. The Blood Mage also "
+                    "has great difficulty with healing magic and cannot even choose the "
+                    "Life realm.";
 
         me.stats[A_STR] = -4;
         me.stats[A_INT] =  3;
@@ -95,7 +97,7 @@ class_t *blood_mage_get_class_t(void)
         me.extra_skills = xs;
         me.life = 108;
         me.base_hp = 10;
-        me.exp = 150;
+        me.exp = 135;
         me.pets = 30;
 
         me.calc_bonuses = _calc_bonuses;

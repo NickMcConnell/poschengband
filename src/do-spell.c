@@ -93,6 +93,12 @@ cptr info_range(int range)
  */
 cptr info_heal(int dice, int sides, int base)
 {
+    if (p_ptr->pclass == CLASS_BLOOD_MAGE)
+    {
+        sides /= 2;
+        base /= 2;
+    }
+
     return info_string_dice("heal ", dice, sides, base);
 }
 
@@ -3615,6 +3621,12 @@ static cptr do_death_spell(int spell, int mode)
 
                 if (drain_life(dir, dam))
                 {
+                    if (p_ptr->pclass == CLASS_BLOOD_MAGE)
+                    {
+                        msg_print("You are unaffected.");
+                        break;
+                    }
+
                     virtue_add(VIRTUE_SACRIFICE, -1);
                     virtue_add(VIRTUE_VITALITY, -1);
 
@@ -3773,7 +3785,7 @@ static cptr do_death_spell(int spell, int mode)
 
                 for (i = 0; i < 3; i++)
                 {
-                    if (drain_life(dir, dam))
+                    if (drain_life(dir, dam) && p_ptr->pclass != CLASS_BLOOD_MAGE)
                         hp_player(dam);
                 }
             }
