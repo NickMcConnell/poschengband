@@ -1482,20 +1482,38 @@ static bool _weapon_accept(int k_idx)
 
     switch (k_info[k_idx].tval)
     {
-    case TV_SHOT:    
-    case TV_ARROW:    
-    case TV_BOLT:
-    case TV_BOW:
     case TV_POLEARM: 
     case TV_SWORD:
     case TV_HISSATSU_BOOK: 
     case TV_RAGE_BOOK:
         return TRUE;
-        break;
     }
     return FALSE;
 }
-
+static bool _weapon_accept_shooter(int k_idx)
+{
+    if (!_town_accept_aux(k_idx)) 
+        return FALSE;
+    switch (k_info[k_idx].tval)
+    {
+    case TV_BOW:
+        return TRUE;
+    }
+    return FALSE;
+}
+static bool _weapon_accept_ammo(int k_idx)
+{
+    if (!_town_accept_aux(k_idx)) 
+        return FALSE;
+    switch (k_info[k_idx].tval)
+    {
+    case TV_SHOT:    
+    case TV_ARROW:    
+    case TV_BOLT:
+        return TRUE;
+    }
+    return FALSE;
+}
 static bool _temple_accept(int k_idx)
 {
     if (!_town_accept_aux(k_idx)) 
@@ -1613,7 +1631,13 @@ static bool _get_store_obj2(object_type *o_ptr)
         get_obj_num_hook = _armoury_accept;
         break;
     case STORE_WEAPON:
-        get_obj_num_hook = _weapon_accept;
+        /* Hack: Try to make sure archery is not swamped by melee weapons ... */
+        if (one_in_(4))
+            get_obj_num_hook = _weapon_accept_shooter;
+        else if (one_in_(4))
+            get_obj_num_hook = _weapon_accept_ammo;
+        else
+            get_obj_num_hook = _weapon_accept;
         break;
     case STORE_TEMPLE:
         get_obj_num_hook = _temple_accept;
