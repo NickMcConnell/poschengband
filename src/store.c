@@ -4116,8 +4116,8 @@ void do_cmd_store(void)
        Let's cut them some slack by giving extra options in the BM.
     */
     if ( which == STORE_BLACK
-        && (p_ptr->pclass == CLASS_BERSERKER || prace_is_(RACE_MON_JELLY))
-        && vanilla_town )
+      && p_ptr->pclass == CLASS_BERSERKER
+      && vanilla_town )
     {
         vanilla_zerker_hack = TRUE;
         --xtra_stock;
