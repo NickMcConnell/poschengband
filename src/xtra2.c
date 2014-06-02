@@ -859,6 +859,155 @@ static bool _mon_is_wanted(int m_idx)
     return FALSE;
 }
 
+static bool _kind_is_basic(int k_idx)
+{
+    object_kind *k_ptr = &k_info[k_idx];
+    switch (k_ptr->tval)
+    {
+    case TV_FOOD:
+        switch (k_ptr->sval)
+        {
+        case SV_FOOD_RATION:
+        case SV_FOOD_WAYBREAD:
+            return TRUE;
+        }
+        break;
+
+    case TV_SCROLL:
+        switch (k_ptr->sval)
+        {
+        case SV_SCROLL_TELEPORT:
+        case SV_SCROLL_WORD_OF_RECALL:
+            return TRUE;
+        }
+        break;
+
+    case TV_FLASK:
+        switch (k_ptr->sval)
+        {
+        case SV_FLASK_OIL:
+            return (dun_level < 15) ? TRUE : FALSE;
+        }
+        break;
+
+    case TV_LITE:
+        switch (k_ptr->sval)
+        {
+        case SV_LITE_TORCH:
+        case SV_LITE_LANTERN:
+            return (dun_level < 15) ? TRUE : FALSE;
+        }
+        break;
+
+    case TV_DIGGING:            
+        switch (k_ptr->sval)
+        {
+        case SV_SHOVEL:
+        case SV_PICK:
+            return (dun_level < 15) ? TRUE : FALSE;
+        }
+        break;
+    }
+    return FALSE;
+}
+
+static bool _kind_is_stat_potion(int k_idx)
+{
+    object_kind *k_ptr = &k_info[k_idx];
+    switch (k_ptr->tval)
+    {
+    case TV_POTION:
+        switch (k_ptr->sval)
+        {
+        case SV_POTION_INC_STR:
+        case SV_POTION_INC_INT:
+        case SV_POTION_INC_WIS:
+        case SV_POTION_INC_DEX:
+        case SV_POTION_INC_CON:
+        case SV_POTION_INC_CHR:
+            return TRUE;
+        }
+        break;
+    }
+    return FALSE;
+}
+
+static bool _kind_is_utility(int k_idx)
+{
+    object_kind *k_ptr = &k_info[k_idx];
+    switch (k_ptr->tval)
+    {
+    case TV_SCROLL:
+        switch (k_ptr->sval)
+        {
+        case SV_SCROLL_TELEPORT:
+        case SV_SCROLL_PHASE_DOOR:
+        case SV_SCROLL_WORD_OF_RECALL:
+        case SV_SCROLL_IDENTIFY:
+        case SV_SCROLL_STAR_IDENTIFY:
+        case SV_SCROLL_REMOVE_CURSE:
+        case SV_SCROLL_STAR_REMOVE_CURSE:
+        case SV_SCROLL_MAPPING:
+        case SV_SCROLL_PROTECTION_FROM_EVIL:
+        case SV_SCROLL_DETECT_MONSTERS:
+            return TRUE;
+        }
+        break;
+
+    case TV_POTION:
+        switch (k_ptr->sval)
+        {
+        case SV_POTION_SPEED:
+        case SV_POTION_RESIST_HEAT:
+        case SV_POTION_RESIST_COLD:
+        case SV_POTION_RESISTANCE:
+        case SV_POTION_HEROISM:
+        case SV_POTION_CURE_SERIOUS:
+        case SV_POTION_CURE_CRITICAL:
+        case SV_POTION_CURING:
+        case SV_POTION_RESTORE_EXP:
+        case SV_POTION_RES_STR:
+        case SV_POTION_RES_INT:
+        case SV_POTION_RES_WIS:
+        case SV_POTION_RES_DEX:
+        case SV_POTION_RES_CON:
+        case SV_POTION_RES_CHR:
+        case SV_POTION_CLARITY:
+            return TRUE;
+        }
+        break;
+
+    case TV_STAFF:
+        switch (k_ptr->sval)
+        {
+        case SV_STAFF_MAPPING:
+        case SV_STAFF_DETECT_EVIL:
+        case SV_STAFF_CURING:
+        case SV_STAFF_CURE_LIGHT:
+        case SV_STAFF_SPEED:
+            return TRUE;
+        }
+        break;
+
+    case TV_ROD:
+        switch (k_ptr->sval)
+        {
+        case SV_ROD_DETECT_TRAP:
+        case SV_ROD_DETECT_DOOR:
+        case SV_ROD_IDENTIFY:
+        case SV_ROD_RECALL:
+        case SV_ROD_ILLUMINATION:
+        case SV_ROD_MAPPING:
+        case SV_ROD_DETECTION:
+        case SV_ROD_TELEPORT_AWAY:
+            return TRUE;
+        }
+        break;
+    }
+    return FALSE;
+}
+
+
 /*
  * Handle the "death" of a monster.
  *
@@ -1400,6 +1549,48 @@ void monster_death(int m_idx, bool drop_item)
             break;
         }
         break;
+    }
+
+    if (drop_chosen_item && (m_ptr->mflag2 & MFLAG2_DROP_MASK))
+    {
+        int k_idx;
+        int mode = 0;
+        object_type forge;
+
+        if (m_ptr->mflag2 & MFLAG2_DROP_PRIZE)
+        {
+            if (dun_level >= 30 && dun_level <= 60  && one_in_(3))
+                get_obj_num_hook = _kind_is_stat_potion;
+            else 
+            {
+                if (dun_level >= 20 && one_in_(3))
+                    mode |= AM_GREAT;
+                else
+                    mode |= AM_GOOD;
+
+                if (one_in_(3))
+                    mode |= AM_TAILORED;
+            }
+        }
+        else if (m_ptr->mflag2 & MFLAG2_DROP_UTILITY)
+        {
+            get_obj_num_hook = _kind_is_utility;
+        }
+        else if (m_ptr->mflag2 & MFLAG2_DROP_BASIC)
+            get_obj_num_hook = _kind_is_basic;
+
+        if (get_obj_num_hook) get_obj_num_prep();
+        k_idx = get_obj_num(object_level);
+        if (get_obj_num_hook)
+        {
+            get_obj_num_hook = NULL;
+            get_obj_num_prep();
+        }
+
+        object_prep(&forge, k_idx);
+        apply_magic(&forge, object_level, mode);
+        mass_produce(&forge);
+        drop_near(&forge, -1, y, x);
     }
 
     /* Mega-Hack -- drop fixed items */

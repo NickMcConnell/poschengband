@@ -2982,17 +2982,21 @@ enum summon_specific_e {
 #define MFLAG_BORN      0x10    /* Monster is still being born */
 #define MFLAG_NICE      0x20    /* Monster is still being nice */
 
-#define MFLAG2_KAGE       0x00000001    /* Monster is kage */
-#define MFLAG2_NOPET      0x00000002    /* Cannot make monster pet */
-#define MFLAG2_NOGENO     0x00000004    /* Cannot genocide */
-#define MFLAG2_CHAMELEON  0x00000008    /* Monster is chameleon */
-#define MFLAG2_NOFLOW     0x00000010    /* Monster is in no_flow_by_smell mode */
-#define MFLAG2_SHOW       0x00000020    /* Monster is recently memorized */
-#define MFLAG2_MARK       0x00000040    /* Monster is currently memorized */
-#define MFLAG2_TRIPPED      0x00000080
-#define MFLAG2_XXXXXXXX   0x00000100
-#define MFLAG2_NODESTRUCT 0x00000200    /* Cannot destruct */
-#define MFLAG2_AWARE      0x00000400
+#define MFLAG2_KAGE             0x00000001    /* Monster is kage */
+#define MFLAG2_NOPET            0x00000002    /* Cannot make monster pet */
+#define MFLAG2_NOGENO           0x00000004    /* Cannot genocide */
+#define MFLAG2_CHAMELEON        0x00000008    /* Monster is chameleon */
+#define MFLAG2_NOFLOW           0x00000010    /* Monster is in no_flow_by_smell mode */
+#define MFLAG2_SHOW             0x00000020    /* Monster is recently memorized */
+#define MFLAG2_MARK             0x00000040    /* Monster is currently memorized */
+#define MFLAG2_TRIPPED          0x00000080
+#define MFLAG2_XXXXXXXX         0x00000100
+#define MFLAG2_NODESTRUCT       0x00000200
+#define MFLAG2_AWARE            0x00000400
+#define MFLAG2_DROP_BASIC       0x00000800
+#define MFLAG2_DROP_UTILITY     0x00001000
+#define MFLAG2_DROP_PRIZE       0X00002000
+#define MFLAG2_DROP_MASK        (MFLAG2_DROP_BASIC | MFLAG2_DROP_UTILITY | MFLAG2_DROP_PRIZE)
 
 
 /*

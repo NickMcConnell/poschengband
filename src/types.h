@@ -733,8 +733,8 @@ struct monster_type
 
     byte cdis;        /* Current dis from player */
 
-    u32b mflag;        /* Extra monster flags */
-    u32b mflag2;        /* Extra monster flags */
+    u32b mflag;        /* Extra monster flags. (Note: Not saved!) */
+    u32b mflag2;        /* Extra monster flags. (This one *is* saved)  */
 
     bool ml;        /* Monster is "visible" */
 
