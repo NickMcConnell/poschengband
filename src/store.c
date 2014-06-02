@@ -4134,11 +4134,13 @@ void do_cmd_store(void)
     }
 
     /* Hack -- Check the "locked doors" */
-    if ((town[p_ptr->town_num].store[which].store_open >= turn) ||
-        (ironman_shops))
+    if (which == STORE_HOME)
+    {
+        /* New: Home is always open! */
+    }
+    else if (town[p_ptr->town_num].store[which].store_open >= turn || ironman_shops)
     {
         msg_print("The doors are locked.");
-
         p_ptr->town_num = old_town_num;
         return;
     }
