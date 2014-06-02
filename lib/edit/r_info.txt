@@ -10470,7 +10470,7 @@ F:EVIL | RES_ACID | RES_FIRE | RES_POIS | NO_CONF | NO_SLEEP
 S:1_IN_2 | 
 S:HOLD | SCARE | CAUSE_3 | BO_FIRE | BO_PLAS | BA_ACID | 
 S:S_HYDRA
-P:Copy:Kobold:Warrior
+P:Copy:Kobold:Chaos-Warrior
 P:Body:Naga
 D:Brand's one-time mistress.  Her face could sink a thousand 
 D:ships, but Brand is not too selective.
