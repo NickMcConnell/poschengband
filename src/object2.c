@@ -4399,7 +4399,7 @@ static void a_m_aux_4(object_type *o_ptr, int level, int power, int mode)
                 count++;
                 if (count > 100) break;
 
-                i = get_mon_num(0);
+                i = get_mon_num(dun_level);
 
                 r_ptr = &r_info[i];
 

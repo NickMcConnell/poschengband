@@ -392,6 +392,12 @@ static void alloc_object(int set, int typ, int num)
             drop_near(&forge, -1, y, x);
             break;
 
+        case ALLOC_TYP_SKELETON:
+            k_idx = lookup_kind(TV_CORPSE, SV_SKELETON);
+            object_prep(&forge, k_idx);
+            apply_magic(&forge, dun_level, 0);
+            drop_near(&forge, -1, y, x);
+            break;
         }
     }
 }
@@ -1117,20 +1123,23 @@ static bool cave_gen(void)
         /* Put some objects/gold in the dungeon */
         alloc_object(ALLOC_SET_BOTH, ALLOC_TYP_OBJECT, randnor(DUN_AMT_ITEM, 3));
         alloc_object(ALLOC_SET_BOTH, ALLOC_TYP_GOLD, randnor(DUN_AMT_GOLD, 3));
+
+        /* Experimental: Guarantee certain objects. Give surprise goodies. */
+        if (one_in_(2))
+            alloc_object(ALLOC_SET_BOTH, ALLOC_TYP_FOOD, 1);
+        if (dun_level <= 15)
+            alloc_object(ALLOC_SET_BOTH, ALLOC_TYP_LIGHT, 1);
+        if (dun_level >= 10 && one_in_(2))
+            alloc_object(ALLOC_SET_BOTH, ALLOC_TYP_RECALL, 1);
+        if (dun_level >= 10 && one_in_(20))
+            alloc_object(ALLOC_SET_BOTH, ALLOC_TYP_SKELETON, damroll(3, 5));
+
+        _mon_give_extra_drop(MFLAG2_DROP_BASIC, 1);
+        _mon_give_extra_drop(MFLAG2_DROP_UTILITY, randint0(4));
+        if (dun_level > max_dlv[dungeon_type])
+            _mon_give_extra_drop(MFLAG2_DROP_PRIZE, 1);
+
     }
-
-    /* Experimental: Guarantee certain objects. Give surprise goodies. */
-    if (one_in_(2))
-        alloc_object(ALLOC_SET_BOTH, ALLOC_TYP_FOOD, 1);
-    if (dun_level <= 15)
-        alloc_object(ALLOC_SET_BOTH, ALLOC_TYP_LIGHT, 1);
-    if (dun_level >= 10 && one_in_(2))
-        alloc_object(ALLOC_SET_BOTH, ALLOC_TYP_RECALL, 1);
-
-    _mon_give_extra_drop(MFLAG2_DROP_BASIC, 1);
-    _mon_give_extra_drop(MFLAG2_DROP_UTILITY, randint0(4));
-    if (dun_level > max_dlv[dungeon_type])
-        _mon_give_extra_drop(MFLAG2_DROP_PRIZE, 1);
 
     /* Set back to default */
     object_level = base_level;

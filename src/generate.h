@@ -80,7 +80,8 @@ extern int dun_tun_jct;
 #define ALLOC_TYP_INVIS         6    /* Invisible wall */
 #define ALLOC_TYP_FOOD          7
 #define ALLOC_TYP_LIGHT         8
-#define ALLOC_TYP_RECALL       10
+#define ALLOC_TYP_RECALL        9
+#define ALLOC_TYP_SKELETON     10
 
 
 
