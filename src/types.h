@@ -143,6 +143,8 @@ struct object_kind
     u32b flags[TR_FLAG_SIZE];    /* Flags */
 
     u32b gen_flags;        /* flags for generate */
+    byte stack_chance;
+    byte stack_dice, stack_sides;
 
     byte locale[4];        /* Allocation level(s) */
     byte chance[4];        /* Allocation chance(s) */

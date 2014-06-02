@@ -5515,8 +5515,7 @@ bool make_object(object_type *j_ptr, u32b mode)
     /* Note: It is important to do this *after* apply_magic rather than in, say, 
        object_prep() since artifacts should never spawn multiple copies. Ego ammo
        should, but other egos (e.g. lights) should not. */
-    if (k_info[j_ptr->k_idx].gen_flags & TRG_STACK)
-        mass_produce(j_ptr);
+    mass_produce(j_ptr);
 
     obj_level = k_info[j_ptr->k_idx].level;
     if (object_is_fixed_artifact(j_ptr)) obj_level = a_info[j_ptr->name1].level;
