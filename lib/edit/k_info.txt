@@ -1995,7 +1995,7 @@ W:20:0:0:4:400
 A:20/1
 P:0:1d1:0:0:0
 F:TOWN
-M:100:3d5
+M:100:2d4
 
 N:261:Resist Heat:Red Speckled
 G:!:r

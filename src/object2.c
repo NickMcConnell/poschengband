@@ -3401,7 +3401,7 @@ static void _create_weapon(object_type *o_ptr, int level, int power, int mode)
                     if (o_ptr->tval == TV_SWORD && o_ptr->sval == SV_KATANA)
                     {
                         o_ptr->dd = 8; /* Aglarang */
-                        o_ptr->ds = 6;
+                        o_ptr->ds = 4;
                         if (one_in_(100))
                         {
                             o_ptr->dd = 10;
@@ -5036,7 +5036,10 @@ static bool kind_is_tailored(int k_idx)
     case TV_MUSIC_BOOK:
     case TV_HISSATSU_BOOK:
     case TV_HEX_BOOK:
-        return check_book_realm(k_ptr->tval, k_ptr->sval);
+    case TV_RAGE_BOOK:
+    case TV_BURGLARY_BOOK:
+        return check_book_realm(k_ptr->tval, k_ptr->sval)
+            && k_ptr->sval >= SV_BOOK_MIN_GOOD;
     }
 
     return FALSE;
@@ -5103,6 +5106,8 @@ static bool kind_is_great(int k_idx)
         case TV_MUSIC_BOOK:
         case TV_HISSATSU_BOOK:
         case TV_HEX_BOOK:
+        case TV_RAGE_BOOK:
+        case TV_BURGLARY_BOOK:
         {
             /*if (k_ptr->sval == SV_BOOK_MIN_GOOD) return one_in_(3);  Third Spellbooks */
             if (k_ptr->sval >= SV_BOOK_MIN_GOOD + 1) return TRUE;   /* Fourth Spellbooks */
@@ -5205,6 +5210,8 @@ static bool kind_is_good(int k_idx)
         case TV_MUSIC_BOOK:
         case TV_HISSATSU_BOOK:
         case TV_HEX_BOOK:
+        case TV_RAGE_BOOK:
+        case TV_BURGLARY_BOOK:
         {
             if (k_ptr->sval == SV_BOOK_MIN_GOOD) return TRUE; /* Third Spellbooks */
             if (k_ptr->sval >= SV_BOOK_MIN_GOOD + 1) return TRUE;   /* Fourth Spellbooks */
