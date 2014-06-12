@@ -1991,7 +1991,7 @@ static void hit_trap(bool break_trap)
                     /* Remove the monster restriction */
                     get_mon_num_prep(NULL, NULL);
                 }
-                (void)set_paralyzed(p_ptr->paralyzed + randint0(10) + 5, FALSE);
+                (void)set_paralyzed(randint1(4), FALSE);
             }
             break;
         }

@@ -948,6 +948,7 @@ bool set_paralyzed(int v, bool do_dec)
     v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
     if (p_ptr->is_dead) return FALSE;
+    if (!do_dec && p_ptr->paralyzed) return FALSE;
 
     /* Open */
     if (v)

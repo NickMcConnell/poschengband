@@ -2019,7 +2019,7 @@ void have_nightmare(int r_idx)
         }
         if (!p_ptr->free_act)
         {
-            (void)set_paralyzed(p_ptr->paralyzed + randint0(4) + 4, FALSE);
+            (void)set_paralyzed(randint1(4), FALSE);
         }
         while (!saving_throw(p_ptr->skills.sav))
         {

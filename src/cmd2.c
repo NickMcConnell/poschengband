@@ -560,7 +560,7 @@ static void chest_trap(int y, int x, s16b o_idx)
 
         if (!p_ptr->free_act)
         {
-            (void)set_paralyzed(p_ptr->paralyzed + 10 + randint1(20), FALSE);
+            (void)set_paralyzed(randint1(4), FALSE);
         }
     }
 
@@ -673,11 +673,9 @@ static void chest_trap(int y, int x, s16b o_idx)
                 else if (one_in_(4))
                 {
                     if (!p_ptr->free_act) 
-                        (void)set_paralyzed(p_ptr->paralyzed + 2 + 
-                        randint0(6), FALSE);
+                        (void)set_paralyzed(randint1(4), FALSE);
                     else 
-                        (void)set_stun(p_ptr->stun + 10 + 
-                        randint0(100), FALSE);
+                        (void)set_stun(p_ptr->stun + 10 + randint0(100), FALSE);
                 }
                 else if (one_in_(3)) apply_disenchant(0);
                 else if (one_in_(2))
@@ -2035,7 +2033,7 @@ static bool do_cmd_bash_aux(int y, int x, int dir)
 
 
         /* Hack -- Lose balance ala paralysis */
-        (void)set_paralyzed(p_ptr->paralyzed + 2 + randint0(2), FALSE);
+        (void)set_paralyzed(randint1(4), FALSE);
     }
 
     /* Result */

@@ -184,7 +184,7 @@ static void do_cmd_eat_food_aux(int item)
             {
                 if (!p_ptr->free_act)
                 {
-                    if (set_paralyzed(p_ptr->paralyzed + randint0(10) + 10, FALSE))
+                    if (set_paralyzed(randint1(4), FALSE))
                     {
                         ident = TRUE;
                     }
