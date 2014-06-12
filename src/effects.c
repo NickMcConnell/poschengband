@@ -4584,7 +4584,7 @@ bool set_stun(int v, bool do_dec)
         new_aux = 0;
     }
 
-    /* Increase cut */
+    /* Increase stun */
     if (new_aux > old_aux)
     {
         /* Describe the state */
@@ -4648,9 +4648,12 @@ bool set_stun(int v, bool do_dec)
         notice = TRUE;
     }
 
-    /* Decrease cut */
+    /* Decrease stun */
     else if (new_aux < old_aux)
     {
+        if (old_aux == 3 && new_aux < 3 && new_aux > 0)
+            msg_print("You are no longer knocked out.");
+
         /* Describe the state */
         switch (new_aux)
         {

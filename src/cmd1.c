@@ -2867,6 +2867,12 @@ static bool py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
             }
         }
 
+        if (p_ptr->stun >= 100) /* Grand Master Mystic retaliation knocked the player out! */
+            break;
+
+        if (p_ptr->paralyzed)
+            break;
+
         /* Weaponmaster Whirlwind turns a normal strike into a sweeping whirlwind strike */
         if (p_ptr->whirlwind && mode == 0)
         {
