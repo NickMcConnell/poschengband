@@ -348,7 +348,11 @@ static void wr_xtra_kind(savefile_ptr file, int k_idx)
     if (k_ptr->tried) tmp8u |= 0x02;
 
     savefile_write_byte(file, tmp8u);
-    savefile_write_s32b(file, k_ptr->count);
+    savefile_write_s32b(file, k_ptr->ct_generated);
+    savefile_write_s32b(file, k_ptr->ct_found);
+    savefile_write_s32b(file, k_ptr->ct_bought);
+    savefile_write_s32b(file, k_ptr->ct_used);
+    savefile_write_s32b(file, k_ptr->ct_destroyed);
 }
 
 static void wr_store(savefile_ptr file, store_type *st_ptr)

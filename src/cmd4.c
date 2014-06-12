@@ -3658,22 +3658,22 @@ static int collect_monsters(int grp_cur, s16b mon_idx[], byte mode)
 
 
 /*
- * Description of each monster group.
+ * Description of each object group.
  */
 static cptr object_group_text[] = 
 {
     "Mushrooms",
     "Potions",
-    "Flasks",
+/*  "Flasks", */
     "Scrolls",
-    "Rings",
+/*  "Rings",
     "Amulets",
     "Whistle",
-    "Lanterns",
+    "Lanterns", */
     "Wands",
     "Staves",
     "Rods",
-    "Cards",
+/*  "Cards",
     "Capture Balls",
     "Parchments",
     "Spikes",
@@ -3683,7 +3683,7 @@ static cptr object_group_text[] =
     "Junks",
     "Bottles",
     "Skeletons",
-    "Corpses",
+    "Corpses", */
     "Swords",
     "Blunt Weapons",
     "Polearms",
@@ -3702,7 +3702,7 @@ static cptr object_group_text[] =
     "Crowns",
     "Boots",
     "Spellbooks",
-    "Treasure",
+/*  "Treasure", */
     "Something",
     NULL
 };
@@ -3715,16 +3715,16 @@ static byte object_group_tval[] =
 {
     TV_FOOD,
     TV_POTION,
-    TV_FLASK,
+/*  TV_FLASK, */
     TV_SCROLL,
-    TV_RING,
+/*  TV_RING, 
     TV_AMULET,
     TV_WHISTLE,
-    TV_LITE,
+    TV_LITE, */
     TV_WAND,
     TV_STAFF,
     TV_ROD,
-    TV_CARD,
+/*  TV_CARD,
     TV_CAPTURE,
     TV_PARCHMENT,
     TV_SPIKE,
@@ -3734,7 +3734,7 @@ static byte object_group_tval[] =
     TV_JUNK,
     TV_BOTTLE,
     TV_SKELETON,
-    TV_CORPSE,
+    TV_CORPSE, */
     TV_SWORD,
     TV_HAFTED,
     TV_POLEARM,
@@ -3753,11 +3753,26 @@ static byte object_group_tval[] =
     TV_CROWN,
     TV_BOOTS,
     TV_LIFE_BOOK, /* Hack -- all spellbooks */
-    TV_GOLD,
+/*  TV_GOLD, */
     0,
     0,
 };
 
+static bool _compare_k_level(vptr u, vptr v, int a, int b)
+{
+    int *indices = (int*)u;
+    int left = indices[a];
+    int right = indices[b];
+    return k_info[left].level <= k_info[right].level;
+}
+
+static void _swap_int(vptr u, vptr v, int a, int b)
+{
+    int *indices = (int*)u;
+    int tmp = indices[a];
+    indices[a] = indices[b];
+    indices[b] = tmp;
+}
 
 /*
  * Build a list of object indexes in the given group. Return the number
@@ -3788,14 +3803,13 @@ static int collect_objects(int grp_cur, int object_idx[], byte mode)
         }
         else
         {
-            if (!p_ptr->wizard)
-            {
-                /* Skip non-flavoured objects */
-                if (!k_ptr->flavor) continue;
+            /* Skip non-flavoured objects 
+            if (!k_ptr->flavor) continue; */
 
-                /* Require objects ever seen */
-                if (!k_ptr->aware) continue;
-            }
+            if (!k_ptr->ct_found && !k_ptr->ct_bought) continue;
+
+            /* Require objects ever seen */
+            if (!k_ptr->aware) continue;
 
             /* Skip items with no distribution (special artifacts) */
             for (j = 0, k = 0; j < 4; j++) k += k_ptr->chance[j];
@@ -3823,6 +3837,11 @@ static int collect_objects(int grp_cur, int object_idx[], byte mode)
         /* XXX Hack -- Just checking for non-empty group */
         if (mode & 0x01) break;
     }
+
+    /* Sort Results */
+    ang_sort_comp = _compare_k_level;
+    ang_sort_swap = _swap_int;
+    ang_sort(object_idx, NULL, object_cnt);
 
     /* Terminate the list */
     object_idx[object_cnt] = -1;
@@ -6209,7 +6228,7 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
         {
             clear_from(0);
 
-            prt(format("%s - monsters", !visual_only ? "Knowledge" : "Visuals"), 2, 0);
+            prt(format("%s - Monsters", !visual_only ? "Knowledge" : "Visuals"), 2, 0);
             if (direct_r_idx < 0) prt("Group", 4, 0);
             prt("Name", 4, max + 3);
             if (p_ptr->wizard || visual_only) prt("Idx", 4, 62);
@@ -6464,10 +6483,7 @@ static void display_object_list(int col, int row, int per_page, int object_idx[]
         }
 
         /* Display the name */
-        if (p_ptr->wizard)
-            sprintf(buf, "%s (%d)", o_name, k_ptr->count);
-        else
-            sprintf(buf, "%s", o_name);
+        sprintf(buf, "%-35.35s %5d %6d %4d %4d", o_name, k_ptr->ct_found, k_ptr->ct_bought, k_ptr->ct_used, k_ptr->ct_destroyed);
         c_prt(attr, buf, row + i, col);
 
         /* Hack -- visual_list mode */
@@ -6475,7 +6491,7 @@ static void display_object_list(int col, int row, int per_page, int object_idx[]
         {
             c_prt(attr, format("%02x/%02x", flavor_k_ptr->x_attr, flavor_k_ptr->x_char), row + i, (p_ptr->wizard || visual_only) ? 64 : 68);
         }
-        if (p_ptr->wizard || visual_only)
+        if (visual_only)
         {
             c_prt(attr, format("%d", k_idx), row + i, 70);
         }
@@ -6639,11 +6655,11 @@ static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int di
         {
             clear_from(0);
 
-            prt(format("%s - objects", !visual_only ? "Knowledge" : "Visuals"), 2, 0);
+            prt(format("%s - Objects", !visual_only ? "Knowledge" : "Visuals"), 2, 0);
             if (direct_k_idx < 0) prt("Group", 4, 0);
             prt("Name", 4, max + 3);
-            if (p_ptr->wizard || visual_only) prt("Idx", 4, 70);
-            prt("Sym", 4, 75);
+            if (visual_only) prt("Idx", 4, 70);
+            prt("Found Bought Used Dest Sym", 4, 52);
 
             for (i = 0; i < 78; i++)
             {

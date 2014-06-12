@@ -171,7 +171,11 @@ struct object_kind
 
     bool aware;            /* The player is "aware" of the item's effects */
     bool tried;            /* The player has "tried" one of the items */
-    s32b count;
+    s32b ct_generated;
+    s32b ct_found;
+    s32b ct_bought;
+    s32b ct_used;
+    s32b ct_destroyed;
 };
 
 

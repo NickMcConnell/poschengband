@@ -1391,6 +1391,7 @@ extern bool dimension_door(int rng);
 extern bool summon_kin_player(int level, int y, int x, u32b mode);
 
 /* store.c */
+extern bool store_hack;
 extern bool combine_and_reorder_home(int store_num);
 extern void do_cmd_store(void);
 extern void store_shuffle(int which);

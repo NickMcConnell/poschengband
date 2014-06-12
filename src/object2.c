@@ -1807,6 +1807,8 @@ void object_prep(object_type *o_ptr, int k_idx)
 
     /* Save the kind index */
     o_ptr->k_idx = k_idx;
+    if (k_ptr->tval != TV_GOLD && !store_hack)
+        k_ptr->ct_generated++;
 
     /* Efficiency -- tval/sval */
     o_ptr->tval = k_ptr->tval;
@@ -5513,7 +5515,6 @@ bool make_object(object_type *j_ptr, u32b mode)
 
         /* Prepare the object */
         object_prep(j_ptr, k_idx);
-        k_info[k_idx].count++;
     }
 
     /* Apply magic (allow artifacts) */
@@ -6638,6 +6639,14 @@ s16b inven_carry(object_type *o_ptr)
         /* Check if the two items can be combined */
         if (object_similar(j_ptr, o_ptr))
         {
+            if (!(o_ptr->marked & OM_TOUCHED))
+            {
+                if (store_hack)
+                    k_info[o_ptr->k_idx].ct_bought += o_ptr->number;
+                else
+                    k_info[o_ptr->k_idx].ct_found += o_ptr->number;
+            }
+
             /* Combine the items */
             object_absorb(j_ptr, o_ptr);
 
@@ -6715,6 +6724,14 @@ s16b inven_carry(object_type *o_ptr)
     j_ptr->iy = j_ptr->ix = 0;
 
     /* Player touches it, and no longer marked */
+    if (!(o_ptr->marked & OM_TOUCHED))
+    {
+        if (store_hack)
+            k_info[o_ptr->k_idx].ct_bought += o_ptr->number;
+        else
+            k_info[o_ptr->k_idx].ct_found += o_ptr->number;
+    }
+
     j_ptr->marked &= OM_WORN;  /* Ah, but remember the "worn" status ... */
     j_ptr->marked |= OM_TOUCHED;
 

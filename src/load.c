@@ -1439,7 +1439,22 @@ static errr rd_savefile_new_aux(savefile_ptr file)
         k_ptr->aware = (tmp8u & 0x01) ? TRUE: FALSE;
         k_ptr->tried = (tmp8u & 0x02) ? TRUE: FALSE;
 
-        k_ptr->count = savefile_read_s32b(file);
+        if (savefile_is_older_than(file, 3, 3, 3, 1))
+        {
+            k_ptr->ct_generated = savefile_read_s32b(file);
+            k_ptr->ct_found = 0;
+            k_ptr->ct_bought = 0;
+            k_ptr->ct_used = 0;
+            k_ptr->ct_destroyed = 0;
+        }
+        else
+        {
+            k_ptr->ct_generated = savefile_read_s32b(file);
+            k_ptr->ct_found = savefile_read_s32b(file);
+            k_ptr->ct_bought = savefile_read_s32b(file);
+            k_ptr->ct_used = savefile_read_s32b(file);
+            k_ptr->ct_destroyed = savefile_read_s32b(file);
+        }        
     }
     if (arg_fiddle) note("Loaded Object Memory");
 

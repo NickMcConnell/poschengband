@@ -3825,7 +3825,7 @@ static void bldg_process_command(building_type *bldg, int i)
         msg_print("You do not have the gold!");
         return;
     }
-
+    store_hack = TRUE;
     switch (bact)
     {
     case BACT_NOTHING:
@@ -4061,6 +4061,8 @@ static void bldg_process_command(building_type *bldg, int i)
         if (prace_is_(RACE_MON_LEPRECHAUN))
             p_ptr->update |= (PU_BONUS | PU_HP | PU_MANA);
     }
+
+    store_hack = FALSE;
 }
 
 

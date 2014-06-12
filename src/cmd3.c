@@ -274,19 +274,15 @@ static bool high_level_book(object_type *o_ptr)
  */
 void do_cmd_destroy(void)
 {
-    int            item, amt = 1;
-    int            old_number;
-
-    bool        force = FALSE;
-
-    object_type        *o_ptr;
-    object_type             forge;
-    object_type             *q_ptr = &forge;
-    bool        is_equipped = FALSE;
-
-    char        o_name[MAX_NLEN];
-
-    char        out_val[MAX_NLEN+40];
+    int          item, amt = 1;
+    int          old_number;
+    bool         force = FALSE;
+    object_type *o_ptr;
+    object_type  forge;
+    object_type *q_ptr = &forge;
+    bool         is_equipped = FALSE;
+    char         o_name[MAX_NLEN];
+    char         out_val[MAX_NLEN+40];
 
     cptr q, s;
     int mode = USE_INVEN | USE_FLOOR;
@@ -421,6 +417,8 @@ void do_cmd_destroy(void)
     }
 
     object_copy(q_ptr, o_ptr);
+
+    k_info[o_ptr->k_idx].ct_destroyed += amt;
 
     if (prace_is_(RACE_MON_JELLY))
         jelly_eat_object(o_ptr);

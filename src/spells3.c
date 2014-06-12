@@ -2268,6 +2268,13 @@ bool identify_item(object_type *o_ptr)
     object_known(o_ptr);
 
     /* Player touches it */
+    if (!(o_ptr->marked & OM_TOUCHED))
+    {
+        if (store_hack)
+            k_info[o_ptr->k_idx].ct_bought += o_ptr->number;
+        else
+            k_info[o_ptr->k_idx].ct_found += o_ptr->number;
+    }
     o_ptr->marked |= OM_TOUCHED;
 
     /* Recalculate bonuses */

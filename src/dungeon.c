@@ -1214,6 +1214,9 @@ bool psychometry(void)
     o_ptr->feeling = feel;
 
     /* Player touches it */
+    if (!(o_ptr->marked & OM_TOUCHED))
+        k_info[o_ptr->k_idx].ct_found += o_ptr->number;
+
     o_ptr->marked |= OM_TOUCHED;
 
     /* Combine / Reorder the pack (later) */

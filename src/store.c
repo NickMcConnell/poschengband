@@ -24,6 +24,8 @@ static store_type *st_ptr = NULL;
 static owner_type *ot_ptr = NULL;
 static s16b old_town_num = 0;
 static s16b inner_town_num = 0;
+bool store_hack = FALSE;
+
 #define RUMOR_CHANCE 8
 
 #define MAX_COMMENT_1    6
@@ -512,6 +514,8 @@ void mass_produce(object_type *o_ptr)
 
     /* Save the total pile size (Call discount() before mass_produce() for shops)*/
     o_ptr->number = size;
+    if (!store_hack)
+        k_ptr->ct_generated += size - 1;
     if (!dun_level)
         o_ptr->number -= (size * o_ptr->discount / 100);
 
@@ -4145,6 +4149,8 @@ void do_cmd_store(void)
         return;
     }
 
+    store_hack = TRUE;
+    
     /* Calculate the number of store maintainances since the last visit */
     maintain_num = (turn - town[p_ptr->town_num].store[which].last_visit) / (TURNS_PER_TICK * STORE_TICKS);
 
@@ -4536,6 +4542,8 @@ void do_cmd_store(void)
 
     /* Window stuff */
     p_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+
+    store_hack = FALSE;
 }
 
 
@@ -4725,7 +4733,8 @@ void move_to_black_market(object_type *o_ptr)
 
 static void _restock(store_type *st_ptr, bool all)
 {
-    int j = _cull(st_ptr, all);
+    int j;
+    j = _cull(st_ptr, all);
     while (st_ptr->stock_num < j) 
         store_create();
 }

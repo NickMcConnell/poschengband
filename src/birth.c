@@ -1973,7 +1973,11 @@ static void k_info_reset(void)
 
         k_ptr->tried = FALSE;
         k_ptr->aware = FALSE;
-        k_ptr->count = 0;
+        k_ptr->ct_generated = 0;
+        k_ptr->ct_found = 0;
+        k_ptr->ct_bought = 0;
+        k_ptr->ct_used = 0;
+        k_ptr->ct_destroyed = 0;
     }
 }
 
