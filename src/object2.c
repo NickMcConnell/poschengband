@@ -6839,6 +6839,7 @@ s16b inven_carry(object_type *o_ptr)
 
 
     /* Copy the item */
+    stats_on_pickup(o_ptr);
     object_copy(&inventory[i], o_ptr);
 
     /* Access new object */
@@ -6852,8 +6853,6 @@ s16b inven_carry(object_type *o_ptr)
 
     /* Forget location */
     j_ptr->iy = j_ptr->ix = 0;
-
-    stats_on_pickup(o_ptr);
 
     /* Player touches it, and no longer marked */
     j_ptr->marked &= (OM_WORN | OM_COUNTED | OM_EGO_COUNTED);  /* Ah, but remember the "worn" status ... */
