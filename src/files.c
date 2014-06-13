@@ -3655,6 +3655,23 @@ static void dump_aux_object_counts_imp(FILE *fff, int tval, int sval)
     }
 }
 
+static void dump_aux_ego_counts_imp(FILE *fff, int idx, cptr text)
+{
+    ego_item_type *e_ptr = &e_info[idx];
+
+    if (e_ptr->counts.found || e_ptr->counts.bought || e_ptr->counts.destroyed)
+    {
+        fprintf(
+            fff, 
+            "  %-15.15s %5d %6d %5d\n", 
+            text,
+            e_ptr->counts.found,
+            e_ptr->counts.bought,
+            e_ptr->counts.destroyed
+        );
+    }
+}
+
 static void dump_aux_object_counts(FILE *fff)
 {
     int i;
@@ -3662,6 +3679,7 @@ static void dump_aux_object_counts(FILE *fff)
 
     fprintf(fff, "\n================================== Statistics =================================\n\n");
 
+    /* Objects */
     for (i = 0; i < max_k_idx; i++)
     {
         totals.generated += k_info[i].counts.generated;
@@ -3671,7 +3689,7 @@ static void dump_aux_object_counts(FILE *fff)
         totals.destroyed += k_info[i].counts.destroyed;
     }
 
-    fprintf(fff, "  Objects Generated: %6d*\n", totals.generated);
+    fprintf(fff, "  Objects Generated: %6d\n", totals.generated);
     fprintf(fff, "  Objects Found    : %6d\n", totals.found);
     fprintf(fff, "  Objects Bought   : %6d\n", totals.bought);
     fprintf(fff, "  Objects Destroyed: %6d\n", totals.destroyed);
@@ -3743,9 +3761,29 @@ static void dump_aux_object_counts(FILE *fff)
     dump_aux_object_counts_imp(fff, TV_ROD, SV_ROD_RESTORATION);
     dump_aux_object_counts_imp(fff, TV_ROD, SV_ROD_SPEED);
 
+    /* Egos */
+    WIPE(&totals, counts_t);
+    for (i = 0; i < max_e_idx; i++)
+    {
+        totals.generated += e_info[i].counts.generated;
+        totals.found += e_info[i].counts.found;
+        totals.bought += e_info[i].counts.bought;
+        totals.destroyed += e_info[i].counts.destroyed;
+    }
 
-    fprintf(fff, "\n  *Note: Objects generated might be a bit misleading since level generation\n"
-                   "         might be restarted. This does not include town objects.\n");
+    fprintf(fff, "\n\n  Egos Generated: %6d\n", totals.generated);
+    fprintf(fff, "  Egos Found    : %6d\n", totals.found);
+    fprintf(fff, "  Egos Bought   : %6d\n", totals.bought);
+    fprintf(fff, "  Egos Destroyed: %6d\n", totals.destroyed);
+
+    fprintf(fff, "\n  Egos            Found Bought  Dest\n");
+    fprintf(fff,   "  ----------------------------------\n");
+    dump_aux_ego_counts_imp(fff, EGO_RING_SPEED, "Ring of Speed");
+    dump_aux_ego_counts_imp(fff, EGO_BOOTS_ELVENKIND, "Boots of Elvenkind");
+    dump_aux_ego_counts_imp(fff, EGO_BOOTS_SPEED, "Boots of Speed");
+    dump_aux_ego_counts_imp(fff, EGO_BOOTS_FEANOR, "Boots of Feanor");
+
+    fprintf(fff, "\n");
 }
 
 static void dump_aux_last_message(FILE *fff)

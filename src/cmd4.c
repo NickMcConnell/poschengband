@@ -6547,6 +6547,222 @@ static void desc_obj_fake(int k_idx)
 }
 
 
+typedef struct {
+    int id;
+    cptr name;
+} _ego_type_t;
+
+static _ego_type_t _ego_types[] = {
+    { EGO_TYPE_WEAPON, "Weapons" },
+    { EGO_TYPE_DIGGER, "Diggers" },
+    { EGO_TYPE_SHIELD, "Shields" },
+    { EGO_TYPE_BOW, "Bows" },
+    { EGO_TYPE_HARP, "Harps" },
+    { EGO_TYPE_RING, "Rings" },
+    { EGO_TYPE_AMULET, "Amulets" },
+    { EGO_TYPE_LITE, "Lights" },
+    { EGO_TYPE_BODY_ARMOR, "Armors" },
+    { EGO_TYPE_ROBE, "Robes" },
+    { EGO_TYPE_CLOAK, "Shields" },
+    { EGO_TYPE_HELMET, "Helmets" },
+    { EGO_TYPE_CROWN, "Crowns" },
+    { EGO_TYPE_GLOVES, "Gloves" },
+    { EGO_TYPE_BOOTS, "Boots" },
+    { EGO_TYPE_AMMO, "Ammo" },
+    { EGO_TYPE_NONE, NULL },
+};
+
+static bool _compare_e_level(vptr u, vptr v, int a, int b)
+{
+    int *indices = (int*)u;
+    int left = indices[a];
+    int right = indices[b];
+    return e_info[left].level <= e_info[right].level;
+}
+
+static int _collect_egos(int grp_cur, int ego_idx[])
+{
+    int i, cnt = 0;
+    int type = _ego_types[grp_cur].id;
+
+    for (i = 0; i < max_e_idx; i++)
+    {
+        ego_item_type *e_ptr = &e_info[i];
+
+        if (!e_ptr->name) continue;
+        /*if (!e_ptr->aware) continue;*/
+        if (!e_ptr->counts.found && !e_ptr->counts.bought) continue;
+        if (e_ptr->type != type) continue;
+
+        ego_idx[cnt++] = i;
+    }
+
+    /* Sort Results */
+    ang_sort_comp = _compare_e_level;
+    ang_sort_swap = _swap_int;
+    ang_sort(ego_idx, NULL, cnt);
+
+    /* Terminate the list */
+    ego_idx[cnt] = -1;
+
+    return cnt;
+}
+
+static void do_cmd_knowledge_egos(bool *need_redraw)
+{
+    int i, len, max;
+    int grp_cur, grp_top, old_grp_cur;
+    int ego_old, ego_cur, ego_top;
+    int grp_cnt, grp_idx[100];
+    int ego_cnt;
+    int *ego_idx;
+
+    int column = 0;
+    bool flag;
+    bool redraw;
+
+    int browser_rows;
+    int wid, hgt;
+
+    /* Get size */
+    Term_get_size(&wid, &hgt);
+
+    browser_rows = hgt - 8;
+
+    C_MAKE(ego_idx, max_e_idx, int);
+
+    max = 0;
+    grp_cnt = 0;
+    for (i = 0; _ego_types[i].id != EGO_TYPE_NONE; i++)
+    {
+        len = strlen(_ego_types[i].name);
+        if (len > max) 
+            max = len;
+
+        if (_collect_egos(i, ego_idx))
+            grp_idx[grp_cnt++] = i;
+    }
+    grp_idx[grp_cnt] = -1;
+
+    ego_old = -1;
+    ego_cnt = 0;
+
+    old_grp_cur = -1;
+    grp_cur = grp_top = 0;
+    ego_cur = ego_top = 0;
+
+    flag = FALSE;
+    redraw = TRUE;
+
+    while (!flag)
+    {
+        char ch;
+        if (redraw)
+        {
+            clear_from(0);
+
+            prt(format("%s - Egos", "Knowledge"), 2, 0);
+            prt("Group", 4, 0);
+            prt("Name", 4, max + 3);
+            prt("Found Bought Dest", 4, 46);
+
+            for (i = 0; i < 63; i++)
+            {
+                Term_putch(i, 5, TERM_WHITE, '=');
+            }
+
+            for (i = 0; i < browser_rows; i++)
+            {
+                Term_putch(max + 1, 6 + i, TERM_WHITE, '|');
+            }
+
+            redraw = FALSE;
+        }
+
+        /* Scroll group list */
+        if (grp_cur < grp_top) grp_top = grp_cur;
+        if (grp_cur >= grp_top + browser_rows) grp_top = grp_cur - browser_rows + 1;
+
+        /* Display a list of object groups */
+        for (i = 0; i < browser_rows && grp_idx[i] >= 0; i++)
+        {
+            int  grp = grp_idx[grp_top + i];
+            byte attr = (grp_top + i == grp_cur) ? TERM_L_BLUE : TERM_WHITE;
+
+            Term_erase(0, 6 + i, max);
+            c_put_str(attr, _ego_types[grp].name, 6 + i, 0);
+        }
+
+        if (old_grp_cur != grp_cur)
+        {
+            old_grp_cur = grp_cur;
+
+            /* Get a list of objects in the current group */
+            ego_cnt = _collect_egos(grp_idx[grp_cur], ego_idx);
+        }
+
+        /* Scroll object list */
+        while (ego_cur < ego_top)
+            ego_top = MAX(0, ego_top - browser_rows/2);
+        while (ego_cur >= ego_top + browser_rows)
+            ego_top = MIN(ego_cnt - browser_rows, ego_top + browser_rows/2);
+
+        /* Display a list of objects in the current group */
+        /* Display lines until done */
+        for (i = 0; i < browser_rows && (ego_idx[ego_top + i] >= 0); i++)
+        {
+            char           buf[255];
+            char           name[255];
+            int            idx = ego_idx[ego_top + i];
+            ego_item_type *e_ptr = &e_info[idx];
+            byte           attr = (i + ego_top == ego_cur) ? TERM_L_BLUE : TERM_WHITE;
+
+            strip_name_aux(name, e_name + e_ptr->name); 
+            sprintf(buf, "%-35.35s %5d %6d %4d", 
+                name, 
+                e_ptr->counts.found, e_ptr->counts.bought, e_ptr->counts.destroyed
+            );
+            c_prt(attr, buf, 6 + i, max + 3);
+        }
+
+        /* Clear remaining lines */
+        for (; i < browser_rows; i++)
+        {
+            Term_erase(max + 3, 6 + i, 255);
+        }
+
+        /* Prompt 
+        prt(format("<dir>%s%s%s, ESC",
+            (!visual_list && !visual_only) ? ", 'r' to recall" : "",
+            visual_list ? ", ENTER to accept" : ", 'v' for visuals",
+            (attr_idx || char_idx) ? ", 'c', 'p' to paste" : ", 'c' to copy"),
+            hgt - 1, 0); */
+
+        if (!column)
+        {
+            Term_gotoxy(0, 6 + (grp_cur - grp_top));
+        }
+        else
+        {
+            Term_gotoxy(max + 3, 6 + (ego_cur - ego_top));
+        }
+
+        ch = inkey();
+
+        switch (ch)
+        {
+        case ESCAPE:
+            flag = TRUE;
+            break;
+
+        default:
+            browser_cursor(ch, &column, &grp_cur, grp_cnt, &ego_cur, ego_cnt);
+        }
+    }
+
+    C_KILL(ego_idx, max_e_idx, int);
+}
+
 
 /*
  * Display known objects
@@ -7980,6 +8196,7 @@ void do_cmd_knowledge(void)
             prt("(f) Display dungeons", row++, 5);
             prt("(g) Display current quests", row++, 5);
             prt("(h) Display auto pick/destroy", row++, 5);
+            prt("(i) Display known egos", row++, 5);
             if (enable_virtues)
                 prt("(v) Display virtues", row++, 5);
             prt("(w) Display weapon effectiveness", row++, 5);
@@ -8009,6 +8226,9 @@ void do_cmd_knowledge(void)
             break;
         case '2':
             do_cmd_knowledge_objects(&need_redraw, FALSE, -1);
+            break;
+        case 'i':
+            do_cmd_knowledge_egos(&need_redraw);
             break;
         case '3':
             do_cmd_knowledge_uniques();

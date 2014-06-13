@@ -1905,6 +1905,7 @@ extern bool change_wild_mode(void);
 /* wizard2.c */
 extern bool spoiler_hack;
 extern void strip_name(char *buf, int k_idx);
+extern void strip_name_aux(char *dest, const char *src);
 extern cptr race_spoiler_page(int i);
 
 /* avatar.c */
