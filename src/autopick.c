@@ -1742,16 +1742,7 @@ static void autopick_delayed_alter_aux(int item)
         char o_name[MAX_NLEN];
         bool msg = FALSE;
 
-        if (!(o_ptr->marked & OM_TOUCHED))
-        {
-            k_info[o_ptr->k_idx].counts.found += o_ptr->number;
-            if (o_ptr->name2)
-                e_info[o_ptr->name2].counts.found += o_ptr->number;
-        }
-                
-        k_info[o_ptr->k_idx].counts.destroyed += o_ptr->number;
-        if (o_ptr->name2)
-            e_info[o_ptr->name2].counts.destroyed += o_ptr->number;
+        stats_on_destroy(o_ptr, o_ptr->number);
 
         if (prace_is_(RACE_MON_JELLY))
             jelly_eat_object(o_ptr);

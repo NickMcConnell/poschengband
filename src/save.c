@@ -84,7 +84,7 @@ static void wr_item(savefile_ptr file, object_type *o_ptr)
     if (o_ptr->marked)
     {
         savefile_write_byte(file, SAVE_ITEM_MARKED);
-        savefile_write_byte(file, o_ptr->marked);
+        savefile_write_u32b(file, o_ptr->marked);
     }
     if (o_ptr->art_flags[0])
     {

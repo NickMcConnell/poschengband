@@ -3068,6 +3068,7 @@ static void store_purchase(void)
                 j_ptr->marked &= ~(OM_RESERVED);
 
                 /* Give it to the player */
+                stats_on_purchase(j_ptr);
                 item_new = inven_carry(j_ptr);
 
                 /* Describe the final result */
@@ -3420,6 +3421,7 @@ static void store_sell(void)
             dummy = object_value(q_ptr) * q_ptr->number;
 
             /* Identify it */
+            stats_on_sell(o_ptr); /* before identify, please! */
             identify_item(o_ptr);
 
             /* Get local object */
@@ -3509,6 +3511,7 @@ static void store_sell(void)
         if (!get_check(format("Really give %s to the Museum? ", o2_name))) return;
 
         /* Identify it */
+        stats_on_sell(o_ptr); /* before identify, please! */
         identify_item(q_ptr);
         q_ptr->ident |= IDENT_MENTAL;
         ego_aware(q_ptr);

@@ -2267,22 +2267,9 @@ bool identify_item(object_type *o_ptr)
     object_aware(o_ptr);
     object_known(o_ptr);
 
+    stats_on_identify(o_ptr);
+
     /* Player touches it */
-    if (!(o_ptr->marked & OM_TOUCHED))
-    {
-        if (store_hack)
-        {
-            k_info[o_ptr->k_idx].counts.bought += o_ptr->number;
-            if (o_ptr->name2)
-                e_info[o_ptr->name2].counts.bought += o_ptr->number;
-        }
-        else
-        {
-            k_info[o_ptr->k_idx].counts.found += o_ptr->number;
-            if (o_ptr->name2)
-                e_info[o_ptr->name2].counts.found += o_ptr->number;
-        }
-    }
     o_ptr->marked |= OM_TOUCHED;
 
     /* Recalculate bonuses */
@@ -3956,9 +3943,7 @@ int inven_damage(inven_func typ, int p1, int which)
                 /* Reduce the charges of rods/wands */
                 reduce_charges(o_ptr, amt);
 
-                k_info[o_ptr->k_idx].counts.destroyed += amt;
-                if (o_ptr->name2)
-                    e_info[o_ptr->name2].counts.destroyed += amt;
+                stats_on_destroy(o_ptr, amt);
 
                 /* Destroy "amt" items */
                 inven_item_increase(i, -amt);

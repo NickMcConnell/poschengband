@@ -339,7 +339,7 @@ struct object_type
 
     byte ident;            /* Special flags  */
 
-    byte marked;        /* Object is marked */
+    u32b marked;        /* Object is marked */
 
     u16b inscription;    /* Inscription index */
     u16b art_name;      /* Artifact name (random artifacts) */

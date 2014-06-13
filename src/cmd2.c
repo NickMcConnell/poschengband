@@ -3959,7 +3959,7 @@ void do_cmd_fire_aux2(int item, object_type *bow, int sx, int sy, int tx, int ty
             o_ptr = &o_list[o_idx];
             object_copy(o_ptr, q_ptr);
 
-            o_ptr->marked &= OM_TOUCHED;
+            o_ptr->marked &= (OM_TOUCHED | OM_COUNTED | OM_EGO_COUNTED);
             o_ptr->iy = o_ptr->ix = 0;
             o_ptr->held_m_idx = m_idx;
             o_ptr->next_o_idx = m_ptr->hold_o_idx;

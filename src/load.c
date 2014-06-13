@@ -96,8 +96,11 @@ static void rd_item(savefile_ptr file, object_type *o_ptr)
         case SAVE_ITEM_IDENT:
             o_ptr->ident = savefile_read_byte(file);
             break;
-        case SAVE_ITEM_MARKED:
+        case SAVE_ITEM_MARKED_BYTE:
             o_ptr->marked = savefile_read_byte(file);
+            break;
+        case SAVE_ITEM_MARKED:
+            o_ptr->marked = savefile_read_u32b(file);
             break;
         case SAVE_ITEM_ART_FLAGS_0:
             o_ptr->art_flags[0] = savefile_read_u32b(file);

@@ -1174,6 +1174,15 @@ extern void display_koff(int k_idx);
 extern object_type *choose_warning_item(void);
 extern bool process_warning(int xx, int yy);
 extern void do_cmd_kaji(bool only_browse);
+extern void stats_on_purchase(object_type *o_ptr);
+extern void stats_on_sell(object_type *o_ptr);
+extern void stats_on_notice(object_type *o_ptr, int num);
+extern void stats_on_combine(object_type *dest, object_type *src);
+extern void stats_on_use(object_type *o_ptr, int num);
+extern void stats_on_destroy(object_type *o_ptr, int num);
+extern void stats_on_pickup(object_type *o_ptr);
+extern void stats_on_equip(object_type *o_ptr);
+extern void stats_on_identify(object_type *o_ptr);
 
 /* object3.c */
 typedef void (*debug_hook)(cptr msg);
