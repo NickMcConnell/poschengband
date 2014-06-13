@@ -704,7 +704,7 @@ static void do_cmd_quaff_potion_aux(int item)
     }
     else
     {
-        k_info[o_ptr->k_idx].ct_used++;
+        k_info[o_ptr->k_idx].counts.used++;
 
         if (item >= 0)
         {
@@ -1020,7 +1020,7 @@ static void do_cmd_read_scroll_aux(int item, bool known)
     }
     else
     {
-        k_info[o_ptr->k_idx].ct_used += number;
+        k_info[o_ptr->k_idx].counts.used += number;
         if (item >= 0)
         {
             inven_item_increase(item, -number);
@@ -1224,7 +1224,7 @@ static void do_cmd_use_staff_aux(int item)
     }
     else
     {
-        k_info[o_ptr->k_idx].ct_used += charges;
+        k_info[o_ptr->k_idx].counts.used += charges;
         if (devicemaster_desperation && randint0(p_ptr->lev*7) < k_info[o_ptr->k_idx].level)
         {
             char o_name[MAX_NLEN];
@@ -1425,7 +1425,7 @@ static void do_cmd_aim_wand_aux(int item)
         }
         else
         {
-            k_info[o_ptr->k_idx].ct_used += charges;
+            k_info[o_ptr->k_idx].counts.used += charges;
             if (devicemaster_desperation && randint0(p_ptr->lev*7) < k_info[o_ptr->k_idx].level)
             {
                 char o_name[MAX_NLEN];
@@ -1593,7 +1593,7 @@ static void do_cmd_zap_rod_aux(int item)
         }
         else
         {
-            k_info[o_ptr->k_idx].ct_used += charges;
+            k_info[o_ptr->k_idx].counts.used += charges;
             o_ptr->timeout += k_ptr->pval * charges;
             if (devicemaster_desperation && randint0(p_ptr->lev*11) < k_info[o_ptr->k_idx].level)
             {

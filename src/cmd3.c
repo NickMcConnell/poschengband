@@ -418,7 +418,9 @@ void do_cmd_destroy(void)
 
     object_copy(q_ptr, o_ptr);
 
-    k_info[o_ptr->k_idx].ct_destroyed += amt;
+    k_info[o_ptr->k_idx].counts.destroyed += amt;
+    if (o_ptr->name2)
+        e_info[o_ptr->name2].counts.destroyed += amt;
 
     if (prace_is_(RACE_MON_JELLY))
         jelly_eat_object(o_ptr);

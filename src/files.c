@@ -3636,6 +3636,117 @@ static void dump_aux_quest(FILE *fff)
     C_KILL(quest_num, max_quests, int);
 }
 
+static void dump_aux_object_counts_imp(FILE *fff, int tval, int sval)
+{
+    int          k_idx = lookup_kind(tval, sval);
+    object_kind *k_ptr = &k_info[k_idx];
+
+    if (k_ptr->counts.found || k_ptr->counts.bought || k_ptr->counts.used || k_ptr->counts.destroyed)
+    {
+        fprintf(
+            fff, 
+            "  %-15.15s %5d %6d %5d %5d\n", 
+            k_name + k_ptr->name,
+            k_ptr->counts.found,
+            k_ptr->counts.bought,
+            k_ptr->counts.used,
+            k_ptr->counts.destroyed
+        );
+    }
+}
+
+static void dump_aux_object_counts(FILE *fff)
+{
+    int i;
+    counts_t totals = {0};
+
+    fprintf(fff, "\n================================== Statistics =================================\n\n");
+
+    for (i = 0; i < max_k_idx; i++)
+    {
+        totals.generated += k_info[i].counts.generated;
+        totals.found += k_info[i].counts.found;
+        totals.bought += k_info[i].counts.bought;
+        totals.used += k_info[i].counts.used;
+        totals.destroyed += k_info[i].counts.destroyed;
+    }
+
+    fprintf(fff, "  Objects Generated: %6d*\n", totals.generated);
+    fprintf(fff, "  Objects Found    : %6d\n", totals.found);
+    fprintf(fff, "  Objects Bought   : %6d\n", totals.bought);
+    fprintf(fff, "  Objects Destroyed: %6d\n", totals.destroyed);
+
+    fprintf(fff, "\n  Potions         Found Bought  Used  Dest\n");
+    fprintf(fff,   "  ----------------------------------------\n");
+    dump_aux_object_counts_imp(fff, TV_POTION, SV_POTION_SPEED);
+    dump_aux_object_counts_imp(fff, TV_POTION, SV_POTION_HEALING);
+    dump_aux_object_counts_imp(fff, TV_POTION, SV_POTION_STAR_HEALING);
+    dump_aux_object_counts_imp(fff, TV_POTION, SV_POTION_LIFE);
+    dump_aux_object_counts_imp(fff, TV_POTION, SV_POTION_RESTORE_MANA);
+    dump_aux_object_counts_imp(fff, TV_POTION, SV_POTION_INC_STR);
+    dump_aux_object_counts_imp(fff, TV_POTION, SV_POTION_INC_INT);
+    dump_aux_object_counts_imp(fff, TV_POTION, SV_POTION_INC_WIS);
+    dump_aux_object_counts_imp(fff, TV_POTION, SV_POTION_INC_DEX);
+    dump_aux_object_counts_imp(fff, TV_POTION, SV_POTION_INC_CON);
+    dump_aux_object_counts_imp(fff, TV_POTION, SV_POTION_INC_CHR);
+    dump_aux_object_counts_imp(fff, TV_POTION, SV_POTION_NEW_LIFE);
+
+    fprintf(fff, "\n  Scrolls         Found Bought  Used  Dest\n");
+    fprintf(fff,   "  ----------------------------------------\n");
+    dump_aux_object_counts_imp(fff, TV_SCROLL, SV_SCROLL_WORD_OF_RECALL);
+    dump_aux_object_counts_imp(fff, TV_SCROLL, SV_SCROLL_IDENTIFY);
+    dump_aux_object_counts_imp(fff, TV_SCROLL, SV_SCROLL_STAR_IDENTIFY);
+    dump_aux_object_counts_imp(fff, TV_SCROLL, SV_SCROLL_REMOVE_CURSE);
+    dump_aux_object_counts_imp(fff, TV_SCROLL, SV_SCROLL_TELEPORT);
+    dump_aux_object_counts_imp(fff, TV_SCROLL, SV_SCROLL_TELEPORT_LEVEL); 
+    dump_aux_object_counts_imp(fff, TV_SCROLL, SV_SCROLL_STAR_DESTRUCTION);
+    dump_aux_object_counts_imp(fff, TV_SCROLL, SV_SCROLL_GENOCIDE);
+    dump_aux_object_counts_imp(fff, TV_SCROLL, SV_SCROLL_MASS_GENOCIDE);
+    dump_aux_object_counts_imp(fff, TV_SCROLL, SV_SCROLL_FOREST_CREATION);
+    dump_aux_object_counts_imp(fff, TV_SCROLL, SV_SCROLL_ACQUIREMENT);
+    dump_aux_object_counts_imp(fff, TV_SCROLL, SV_SCROLL_STAR_ACQUIREMENT);
+    dump_aux_object_counts_imp(fff, TV_SCROLL, SV_SCROLL_ARTIFACT);
+
+    fprintf(fff, "\n  Wands           Found Bought  Used  Dest\n");
+    fprintf(fff,   "  ----------------------------------------\n");
+    dump_aux_object_counts_imp(fff, TV_WAND, SV_WAND_STONE_TO_MUD);
+    dump_aux_object_counts_imp(fff, TV_WAND, SV_WAND_TELEPORT_AWAY);
+    dump_aux_object_counts_imp(fff, TV_WAND, SV_WAND_DRAGON_COLD);
+    dump_aux_object_counts_imp(fff, TV_WAND, SV_WAND_DRAGON_FIRE);
+    dump_aux_object_counts_imp(fff, TV_WAND, SV_WAND_DRAGON_BREATH);
+    dump_aux_object_counts_imp(fff, TV_WAND, SV_WAND_STRIKING);
+    dump_aux_object_counts_imp(fff, TV_WAND, SV_WAND_DISINTEGRATE);
+    dump_aux_object_counts_imp(fff, TV_WAND, SV_WAND_ROCKETS);
+
+    fprintf(fff, "\n  Staves          Found Bought  Used  Dest\n");
+    fprintf(fff,   "  ----------------------------------------\n");
+    dump_aux_object_counts_imp(fff, TV_STAFF, SV_STAFF_IDENTIFY);
+    dump_aux_object_counts_imp(fff, TV_STAFF, SV_STAFF_MAPPING);
+    dump_aux_object_counts_imp(fff, TV_STAFF, SV_STAFF_SPEED);
+    dump_aux_object_counts_imp(fff, TV_STAFF, SV_STAFF_HEALING);
+    dump_aux_object_counts_imp(fff, TV_STAFF, SV_STAFF_DESTRUCTION);
+    dump_aux_object_counts_imp(fff, TV_STAFF, SV_STAFF_GENOCIDE);
+    dump_aux_object_counts_imp(fff, TV_STAFF, SV_STAFF_MSTORM);
+
+    fprintf(fff, "\n  Rods            Found Bought  Used  Dest\n");
+    fprintf(fff,   "  ----------------------------------------\n");
+    dump_aux_object_counts_imp(fff, TV_ROD, SV_ROD_DETECT_TRAP);
+    dump_aux_object_counts_imp(fff, TV_ROD, SV_ROD_DETECT_DOOR);
+    dump_aux_object_counts_imp(fff, TV_ROD, SV_ROD_DETECT_MONSTERS);
+    dump_aux_object_counts_imp(fff, TV_ROD, SV_ROD_ILLUMINATION);
+    dump_aux_object_counts_imp(fff, TV_ROD, SV_ROD_RECALL);
+    dump_aux_object_counts_imp(fff, TV_ROD, SV_ROD_DETECTION);
+    dump_aux_object_counts_imp(fff, TV_ROD, SV_ROD_MAPPING);
+    dump_aux_object_counts_imp(fff, TV_ROD, SV_ROD_IDENTIFY);
+    dump_aux_object_counts_imp(fff, TV_ROD, SV_ROD_TELEPORT_AWAY);
+    dump_aux_object_counts_imp(fff, TV_ROD, SV_ROD_HEALING);
+    dump_aux_object_counts_imp(fff, TV_ROD, SV_ROD_RESTORATION);
+    dump_aux_object_counts_imp(fff, TV_ROD, SV_ROD_SPEED);
+
+
+    fprintf(fff, "\n  *Note: Objects generated might be a bit misleading since level generation\n"
+                   "         might be restarted. This does not include town objects.\n");
+}
 
 static void dump_aux_last_message(FILE *fff)
 {
@@ -4132,6 +4243,7 @@ errr make_character_dump(FILE *fff)
     dump_aux_equipment_inventory(fff);
     dump_aux_home_museum(fff);
 
+    dump_aux_object_counts(fff);
     dump_aux_last_message(fff);
     dump_aux_options(fff);
 

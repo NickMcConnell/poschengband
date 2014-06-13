@@ -348,11 +348,27 @@ static void wr_xtra_kind(savefile_ptr file, int k_idx)
     if (k_ptr->tried) tmp8u |= 0x02;
 
     savefile_write_byte(file, tmp8u);
-    savefile_write_s32b(file, k_ptr->ct_generated);
-    savefile_write_s32b(file, k_ptr->ct_found);
-    savefile_write_s32b(file, k_ptr->ct_bought);
-    savefile_write_s32b(file, k_ptr->ct_used);
-    savefile_write_s32b(file, k_ptr->ct_destroyed);
+    savefile_write_s32b(file, k_ptr->counts.generated);
+    savefile_write_s32b(file, k_ptr->counts.found);
+    savefile_write_s32b(file, k_ptr->counts.bought);
+    savefile_write_s32b(file, k_ptr->counts.used);
+    savefile_write_s32b(file, k_ptr->counts.destroyed);
+}
+
+static void wr_xtra_ego(savefile_ptr file, int e_idx)
+{
+    byte tmp8u = 0;
+
+    ego_item_type *e_ptr = &e_info[e_idx];
+
+    if (e_ptr->aware) tmp8u |= 0x01;
+
+    savefile_write_byte(file, tmp8u);
+    savefile_write_s32b(file, e_ptr->counts.generated);
+    savefile_write_s32b(file, e_ptr->counts.found);
+    savefile_write_s32b(file, e_ptr->counts.bought);
+    /*savefile_write_s32b(file, e_ptr->counts.used);*/
+    savefile_write_s32b(file, e_ptr->counts.destroyed);
 }
 
 static void wr_store(savefile_ptr file, store_type *st_ptr)
@@ -1154,6 +1170,10 @@ static bool wr_savefile_new(savefile_ptr file)
     tmp16u = max_k_idx;
     savefile_write_u16b(file, tmp16u);
     for (i = 0; i < tmp16u; i++) wr_xtra_kind(file, i);
+
+    tmp16u = max_e_idx;
+    savefile_write_u16b(file, tmp16u);
+    for (i = 0; i < tmp16u; i++) wr_xtra_ego(file, i);
 
     tmp16u = max_towns;
     savefile_write_u16b(file, tmp16u);

@@ -1441,20 +1441,59 @@ static errr rd_savefile_new_aux(savefile_ptr file)
 
         if (savefile_is_older_than(file, 3, 3, 3, 1))
         {
-            k_ptr->ct_generated = savefile_read_s32b(file);
-            k_ptr->ct_found = 0;
-            k_ptr->ct_bought = 0;
-            k_ptr->ct_used = 0;
-            k_ptr->ct_destroyed = 0;
+            k_ptr->counts.generated = savefile_read_s32b(file);
+            k_ptr->counts.found = 0;
+            k_ptr->counts.bought = 0;
+            k_ptr->counts.used = 0;
+            k_ptr->counts.destroyed = 0;
         }
         else
         {
-            k_ptr->ct_generated = savefile_read_s32b(file);
-            k_ptr->ct_found = savefile_read_s32b(file);
-            k_ptr->ct_bought = savefile_read_s32b(file);
-            k_ptr->ct_used = savefile_read_s32b(file);
-            k_ptr->ct_destroyed = savefile_read_s32b(file);
+            k_ptr->counts.generated = savefile_read_s32b(file);
+            k_ptr->counts.found = savefile_read_s32b(file);
+            k_ptr->counts.bought = savefile_read_s32b(file);
+            k_ptr->counts.used = savefile_read_s32b(file);
+            k_ptr->counts.destroyed = savefile_read_s32b(file);
         }        
+    }
+
+    if (savefile_is_older_than(file, 3, 3, 3, 2))
+    {
+        /* e_info_reset(); */
+        int i;
+
+        for (i = 1; i < max_e_idx; i++)
+        {
+            ego_item_type *e_ptr = &e_info[i];
+
+            e_ptr->aware = TRUE; /* <== This is the old behavior ... */
+            WIPE(&e_ptr->counts, counts_t);
+        }
+    }
+    else
+    {
+        tmp16u = savefile_read_u16b(file);
+
+        if (tmp16u > max_e_idx)
+        {
+            note(format("Too many (%u) ego kinds!", tmp16u));
+            return (22);
+        }
+        for (i = 0; i < tmp16u; i++)
+        {
+            byte           tmp8u;
+            ego_item_type *e_ptr = &e_info[i];
+
+            tmp8u = savefile_read_byte(file);
+
+            e_ptr->aware = (tmp8u & 0x01) ? TRUE: FALSE;
+
+            e_ptr->counts.generated = savefile_read_s32b(file);
+            e_ptr->counts.found = savefile_read_s32b(file);
+            e_ptr->counts.bought = savefile_read_s32b(file);
+            /*e_ptr->counts.used = savefile_read_s32b(file);*/
+            e_ptr->counts.destroyed = savefile_read_s32b(file);
+        }
     }
     if (arg_fiddle) note("Loaded Object Memory");
 

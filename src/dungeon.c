@@ -1215,8 +1215,11 @@ bool psychometry(void)
 
     /* Player touches it */
     if (!(o_ptr->marked & OM_TOUCHED))
-        k_info[o_ptr->k_idx].ct_found += o_ptr->number;
-
+    {
+        k_info[o_ptr->k_idx].counts.found += o_ptr->number;
+        if (o_ptr->name2)
+            e_info[o_ptr->name2].counts.found += o_ptr->number;
+    }
     o_ptr->marked |= OM_TOUCHED;
 
     /* Combine / Reorder the pack (later) */

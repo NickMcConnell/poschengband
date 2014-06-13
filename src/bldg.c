@@ -2664,6 +2664,7 @@ static bool _gamble_shop_aux(object_type *o_ptr)
     int slot, auto_pick_idx;
 
     identify_item(o_ptr);
+    ego_aware(o_ptr);
     o_ptr->ident |= (IDENT_MENTAL);
     object_desc(buf, o_ptr, 0);
 

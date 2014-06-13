@@ -3806,7 +3806,7 @@ static int collect_objects(int grp_cur, int object_idx[], byte mode)
             /* Skip non-flavoured objects 
             if (!k_ptr->flavor) continue; */
 
-            if (!k_ptr->ct_found && !k_ptr->ct_bought) continue;
+            if (!k_ptr->counts.found && !k_ptr->counts.bought) continue;
 
             /* Require objects ever seen */
             if (!k_ptr->aware) continue;
@@ -6483,7 +6483,7 @@ static void display_object_list(int col, int row, int per_page, int object_idx[]
         }
 
         /* Display the name */
-        sprintf(buf, "%-35.35s %5d %6d %4d %4d", o_name, k_ptr->ct_found, k_ptr->ct_bought, k_ptr->ct_used, k_ptr->ct_destroyed);
+        sprintf(buf, "%-35.35s %5d %6d %4d %4d", o_name, k_ptr->counts.found, k_ptr->counts.bought, k_ptr->counts.used, k_ptr->counts.destroyed);
         c_prt(attr, buf, row + i, col);
 
         /* Hack -- visual_list mode */

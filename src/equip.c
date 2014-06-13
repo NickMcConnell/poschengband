@@ -648,8 +648,11 @@ void equip_wield_aux(object_type *src, int slot)
     
     object_copy(dest, src);
     if (!(dest->marked & OM_TOUCHED))
-        k_info[dest->k_idx].ct_found += dest->number;
-
+    {
+        k_info[dest->k_idx].counts.found += dest->number;
+        if (dest->name2)
+            e_info[dest->name2].counts.found += dest->number;
+    }
     dest->marked |= OM_TOUCHED;
     dest->marked &= ~OM_WORN;
     p_ptr->total_weight += dest->weight;

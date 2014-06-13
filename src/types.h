@@ -108,6 +108,16 @@ struct effect_s
 };
 typedef struct effect_s effect_t;
 
+struct counts_s
+{
+    s32b generated;
+    s32b found;
+    s32b bought;
+    s32b used;
+    s32b destroyed;
+};
+typedef struct counts_s counts_t;
+
 /*
  * Information about object "kinds", including player knowledge.
  *
@@ -171,11 +181,7 @@ struct object_kind
 
     bool aware;            /* The player is "aware" of the item's effects */
     bool tried;            /* The player has "tried" one of the items */
-    s32b ct_generated;
-    s32b ct_found;
-    s32b ct_bought;
-    s32b ct_used;
-    s32b ct_destroyed;
+    counts_t counts;
 };
 
 
@@ -256,6 +262,9 @@ struct ego_item_type
 
     u32b gen_flags;        /* flags for generate */
     effect_t activation;
+
+    bool aware;
+    counts_t counts;
 };
 
 /*

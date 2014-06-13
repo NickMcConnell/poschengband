@@ -2271,9 +2271,17 @@ bool identify_item(object_type *o_ptr)
     if (!(o_ptr->marked & OM_TOUCHED))
     {
         if (store_hack)
-            k_info[o_ptr->k_idx].ct_bought += o_ptr->number;
+        {
+            k_info[o_ptr->k_idx].counts.bought += o_ptr->number;
+            if (o_ptr->name2)
+                e_info[o_ptr->name2].counts.bought += o_ptr->number;
+        }
         else
-            k_info[o_ptr->k_idx].ct_found += o_ptr->number;
+        {
+            k_info[o_ptr->k_idx].counts.found += o_ptr->number;
+            if (o_ptr->name2)
+                e_info[o_ptr->name2].counts.found += o_ptr->number;
+        }
     }
     o_ptr->marked |= OM_TOUCHED;
 
@@ -2473,6 +2481,8 @@ bool identify_fully(object_p p)
 
     old_known = identify_item(o_ptr);
     o_ptr->ident |= (IDENT_MENTAL);
+    ego_aware(o_ptr);
+
     handle_stuff();
     object_desc(o_name, o_ptr, 0);
 
@@ -3945,6 +3955,10 @@ int inven_damage(inven_func typ, int p1, int which)
 
                 /* Reduce the charges of rods/wands */
                 reduce_charges(o_ptr, amt);
+
+                k_info[o_ptr->k_idx].counts.destroyed += amt;
+                if (o_ptr->name2)
+                    e_info[o_ptr->name2].counts.destroyed += amt;
 
                 /* Destroy "amt" items */
                 inven_item_increase(i, -amt);

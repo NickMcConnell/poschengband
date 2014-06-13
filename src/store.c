@@ -515,7 +515,12 @@ void mass_produce(object_type *o_ptr)
     /* Save the total pile size (Call discount() before mass_produce() for shops)*/
     o_ptr->number = size;
     if (!store_hack)
-        k_ptr->ct_generated += size - 1;
+    {
+        k_ptr->counts.generated += size - 1;
+        if (o_ptr->name2)
+            e_info[o_ptr->name2].counts.generated += size - 1;
+    }
+
     if (!dun_level)
         o_ptr->number -= (size * o_ptr->discount / 100);
 
@@ -1223,6 +1228,7 @@ static int store_carry(object_type *o_ptr)
 
     /* All store items are fully *identified* */
     o_ptr->ident |= IDENT_MENTAL;
+    ego_aware(o_ptr);
 
     /* Erase the inscription */
     o_ptr->inscription = 0;
@@ -3505,6 +3511,7 @@ static void store_sell(void)
         /* Identify it */
         identify_item(q_ptr);
         q_ptr->ident |= IDENT_MENTAL;
+        ego_aware(q_ptr);
 
         /* Distribute charges of wands/rods */
         distribute_charges(o_ptr, q_ptr, amt);

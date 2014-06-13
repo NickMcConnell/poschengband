@@ -761,6 +761,11 @@ void object_aware(object_type *o_ptr)
 {
     k_info[o_ptr->k_idx].aware = TRUE;
 }
+void ego_aware(object_type *o_ptr)
+{
+    if (o_ptr->name2)
+        e_info[o_ptr->name2].aware = TRUE;
+}
 
 
 /*
@@ -1808,7 +1813,7 @@ void object_prep(object_type *o_ptr, int k_idx)
     /* Save the kind index */
     o_ptr->k_idx = k_idx;
     if (k_ptr->tval != TV_GOLD && !store_hack)
-        k_ptr->ct_generated++;
+        k_ptr->counts.generated++;
 
     /* Efficiency -- tval/sval */
     o_ptr->tval = k_ptr->tval;
@@ -4824,6 +4829,9 @@ void apply_magic(object_type *o_ptr, int lev, u32b mode)
     {
         ego_item_type *e_ptr = &e_info[o_ptr->name2];
 
+        if (!store_hack)
+            e_ptr->counts.generated++;
+
         /* Hack -- acquire "cursed" flag */
         if (e_ptr->gen_flags & TRG_CURSED) o_ptr->curse_flags |= (TRC_CURSED);
         if (e_ptr->gen_flags & TRG_HEAVY_CURSE) o_ptr->curse_flags |= (TRC_HEAVY_CURSE);
@@ -6642,9 +6650,17 @@ s16b inven_carry(object_type *o_ptr)
             if (!(o_ptr->marked & OM_TOUCHED))
             {
                 if (store_hack)
-                    k_info[o_ptr->k_idx].ct_bought += o_ptr->number;
+                {
+                    k_info[o_ptr->k_idx].counts.bought += o_ptr->number;
+                    if (o_ptr->name2)
+                        e_info[o_ptr->name2].counts.bought += o_ptr->number;
+                }
                 else
-                    k_info[o_ptr->k_idx].ct_found += o_ptr->number;
+                {
+                    k_info[o_ptr->k_idx].counts.found += o_ptr->number;
+                    if (o_ptr->name2)
+                        e_info[o_ptr->name2].counts.found += o_ptr->number;
+                }
             }
 
             /* Combine the items */
@@ -6727,9 +6743,17 @@ s16b inven_carry(object_type *o_ptr)
     if (!(o_ptr->marked & OM_TOUCHED))
     {
         if (store_hack)
-            k_info[o_ptr->k_idx].ct_bought += o_ptr->number;
+        {
+            k_info[o_ptr->k_idx].counts.bought += o_ptr->number;
+            if (o_ptr->name2)
+                e_info[o_ptr->name2].counts.bought += o_ptr->number;
+        }
         else
-            k_info[o_ptr->k_idx].ct_found += o_ptr->number;
+        {
+            k_info[o_ptr->k_idx].counts.found += o_ptr->number;
+            if (o_ptr->name2)
+                e_info[o_ptr->name2].counts.found += o_ptr->number;
+        }
     }
 
     j_ptr->marked &= OM_WORN;  /* Ah, but remember the "worn" status ... */
