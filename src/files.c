@@ -3645,12 +3645,84 @@ static void dump_aux_object_counts_imp(FILE *fff, int tval, int sval)
     {
         fprintf(
             fff, 
-            "  %-15.15s %5d %6d %5d %5d\n", 
+            "  %-20.20s %5d %6d %5d %5d\n", 
             k_name + k_ptr->name,
             k_ptr->counts.found,
             k_ptr->counts.bought,
             k_ptr->counts.used,
             k_ptr->counts.destroyed
+        );
+    }
+}
+
+typedef bool (*_kind_p)(int k_idx);
+bool _kind_is_third_book(int k_idx) { 
+    if (k_info[k_idx].tval == TV_ARCANE_BOOK) return FALSE;
+    if ( TV_LIFE_BOOK <= k_info[k_idx].tval 
+      && k_info[k_idx].tval <= TV_BURGLARY_BOOK
+      && k_info[k_idx].sval == 2 )
+    {
+        return TRUE;
+    }
+    return FALSE;
+}
+bool _kind_is_fourth_book(int k_idx) { 
+    if (k_info[k_idx].tval == TV_ARCANE_BOOK) return FALSE;
+    if ( TV_LIFE_BOOK <= k_info[k_idx].tval 
+      && k_info[k_idx].tval <= TV_BURGLARY_BOOK
+      && k_info[k_idx].sval == 3 )
+    {
+        return TRUE;
+    }
+    return FALSE;
+}
+bool _kind_is_potion(int k_idx) {
+    if (k_info[k_idx].tval == TV_POTION) return TRUE;
+    return FALSE;
+}
+bool _kind_is_scroll(int k_idx) {
+    if (k_info[k_idx].tval == TV_SCROLL) return TRUE;
+    return FALSE;
+}
+bool _kind_is_wand(int k_idx) {
+    if (k_info[k_idx].tval == TV_WAND) return TRUE;
+    return FALSE;
+}
+bool _kind_is_rod(int k_idx) {
+    if (k_info[k_idx].tval == TV_ROD) return TRUE;
+    return FALSE;
+}
+bool _kind_is_staff(int k_idx) {
+    if (k_info[k_idx].tval == TV_STAFF) return TRUE;
+    return FALSE;
+}
+
+static void dump_aux_group_counts_imp(FILE *fff, _kind_p p, cptr text)
+{   
+    int i;
+    counts_t totals = {0};
+    for (i = 0; i < max_k_idx; i++)
+    {
+        if (p(i))
+        {
+            totals.generated += k_info[i].counts.generated;
+            totals.found += k_info[i].counts.found;
+            totals.bought += k_info[i].counts.bought;
+            totals.used += k_info[i].counts.used;
+            totals.destroyed += k_info[i].counts.destroyed;
+        }
+    }
+
+    if (totals.found || totals.bought || totals.used || totals.destroyed)
+    {
+        fprintf(
+            fff, 
+            "  %-20.20s %5d %6d %5d %5d\n", 
+            text,
+            totals.found,
+            totals.bought,
+            totals.used,
+            totals.destroyed
         );
     }
 }
@@ -3663,7 +3735,7 @@ static void dump_aux_ego_counts_imp(FILE *fff, int idx, cptr text)
     {
         fprintf(
             fff, 
-            "  %-15.15s %5d %6d %5d\n", 
+            "  %-20.20s %5d %6d %5d\n", 
             text,
             e_ptr->counts.found,
             e_ptr->counts.bought,
@@ -3694,8 +3766,8 @@ static void dump_aux_object_counts(FILE *fff)
     fprintf(fff, "  Objects Bought   : %6d\n", totals.bought);
     fprintf(fff, "  Objects Destroyed: %6d\n", totals.destroyed);
 
-    fprintf(fff, "\n  Potions         Found Bought  Used  Dest\n");
-    fprintf(fff,   "  ----------------------------------------\n");
+    fprintf(fff, "\n  Potions              Found Bought  Used  Dest\n");
+    fprintf(fff,   "  ---------------------------------------------\n");
     dump_aux_object_counts_imp(fff, TV_POTION, SV_POTION_SPEED);
     dump_aux_object_counts_imp(fff, TV_POTION, SV_POTION_HEALING);
     dump_aux_object_counts_imp(fff, TV_POTION, SV_POTION_STAR_HEALING);
@@ -3708,9 +3780,10 @@ static void dump_aux_object_counts(FILE *fff)
     dump_aux_object_counts_imp(fff, TV_POTION, SV_POTION_INC_CON);
     dump_aux_object_counts_imp(fff, TV_POTION, SV_POTION_INC_CHR);
     dump_aux_object_counts_imp(fff, TV_POTION, SV_POTION_NEW_LIFE);
+    dump_aux_group_counts_imp(fff, _kind_is_potion, "Totals");
 
-    fprintf(fff, "\n  Scrolls         Found Bought  Used  Dest\n");
-    fprintf(fff,   "  ----------------------------------------\n");
+    fprintf(fff, "\n  Scrolls              Found Bought  Used  Dest\n");
+    fprintf(fff,   "  ---------------------------------------------\n");
     dump_aux_object_counts_imp(fff, TV_SCROLL, SV_SCROLL_WORD_OF_RECALL);
     dump_aux_object_counts_imp(fff, TV_SCROLL, SV_SCROLL_IDENTIFY);
     dump_aux_object_counts_imp(fff, TV_SCROLL, SV_SCROLL_STAR_IDENTIFY);
@@ -3724,9 +3797,10 @@ static void dump_aux_object_counts(FILE *fff)
     dump_aux_object_counts_imp(fff, TV_SCROLL, SV_SCROLL_ACQUIREMENT);
     dump_aux_object_counts_imp(fff, TV_SCROLL, SV_SCROLL_STAR_ACQUIREMENT);
     dump_aux_object_counts_imp(fff, TV_SCROLL, SV_SCROLL_ARTIFACT);
+    dump_aux_group_counts_imp(fff, _kind_is_scroll, "Totals");
 
-    fprintf(fff, "\n  Wands           Found Bought  Used  Dest\n");
-    fprintf(fff,   "  ----------------------------------------\n");
+    fprintf(fff, "\n  Wands                Found Bought  Used  Dest\n");
+    fprintf(fff,   "  ---------------------------------------------\n");
     dump_aux_object_counts_imp(fff, TV_WAND, SV_WAND_STONE_TO_MUD);
     dump_aux_object_counts_imp(fff, TV_WAND, SV_WAND_TELEPORT_AWAY);
     dump_aux_object_counts_imp(fff, TV_WAND, SV_WAND_DRAGON_COLD);
@@ -3735,9 +3809,10 @@ static void dump_aux_object_counts(FILE *fff)
     dump_aux_object_counts_imp(fff, TV_WAND, SV_WAND_STRIKING);
     dump_aux_object_counts_imp(fff, TV_WAND, SV_WAND_DISINTEGRATE);
     dump_aux_object_counts_imp(fff, TV_WAND, SV_WAND_ROCKETS);
+    dump_aux_group_counts_imp(fff, _kind_is_wand, "Totals");
 
-    fprintf(fff, "\n  Staves          Found Bought  Used  Dest\n");
-    fprintf(fff,   "  ----------------------------------------\n");
+    fprintf(fff, "\n  Staves               Found Bought  Used  Dest\n");
+    fprintf(fff,   "  ---------------------------------------------\n");
     dump_aux_object_counts_imp(fff, TV_STAFF, SV_STAFF_IDENTIFY);
     dump_aux_object_counts_imp(fff, TV_STAFF, SV_STAFF_MAPPING);
     dump_aux_object_counts_imp(fff, TV_STAFF, SV_STAFF_SPEED);
@@ -3745,9 +3820,10 @@ static void dump_aux_object_counts(FILE *fff)
     dump_aux_object_counts_imp(fff, TV_STAFF, SV_STAFF_DESTRUCTION);
     dump_aux_object_counts_imp(fff, TV_STAFF, SV_STAFF_GENOCIDE);
     dump_aux_object_counts_imp(fff, TV_STAFF, SV_STAFF_MSTORM);
+    dump_aux_group_counts_imp(fff, _kind_is_staff, "Totals");
 
-    fprintf(fff, "\n  Rods            Found Bought  Used  Dest\n");
-    fprintf(fff,   "  ----------------------------------------\n");
+    fprintf(fff, "\n  Rods                 Found Bought  Used  Dest\n");
+    fprintf(fff,   "  ---------------------------------------------\n");
     dump_aux_object_counts_imp(fff, TV_ROD, SV_ROD_DETECT_TRAP);
     dump_aux_object_counts_imp(fff, TV_ROD, SV_ROD_DETECT_DOOR);
     dump_aux_object_counts_imp(fff, TV_ROD, SV_ROD_DETECT_MONSTERS);
@@ -3760,6 +3836,13 @@ static void dump_aux_object_counts(FILE *fff)
     dump_aux_object_counts_imp(fff, TV_ROD, SV_ROD_HEALING);
     dump_aux_object_counts_imp(fff, TV_ROD, SV_ROD_RESTORATION);
     dump_aux_object_counts_imp(fff, TV_ROD, SV_ROD_SPEED);
+    dump_aux_group_counts_imp(fff, _kind_is_rod, "Totals");
+
+    fprintf(fff, "\n  Spellbooks           Found Bought  Used  Dest\n");
+    fprintf(fff,   "  ---------------------------------------------\n");
+    dump_aux_group_counts_imp(fff, _kind_is_third_book, "Third Spellbooks");
+    dump_aux_group_counts_imp(fff, _kind_is_fourth_book, "Fourth Spellbooks");
+    dump_aux_group_counts_imp(fff, kind_is_book, "Totals");
 
     /* Egos */
     WIPE(&totals, counts_t);
@@ -3776,8 +3859,8 @@ static void dump_aux_object_counts(FILE *fff)
     fprintf(fff, "  Egos Bought   : %6d\n", totals.bought);
     fprintf(fff, "  Egos Destroyed: %6d\n", totals.destroyed);
 
-    fprintf(fff, "\n  Egos            Found Bought  Dest\n");
-    fprintf(fff,   "  ----------------------------------\n");
+    fprintf(fff, "\n  Egos                 Found Bought  Dest\n");
+    fprintf(fff,   "  ---------------------------------------\n");
     dump_aux_ego_counts_imp(fff, EGO_RING_SPEED, "Ring of Speed");
     dump_aux_ego_counts_imp(fff, EGO_BOOTS_ELVENKIND, "Boots of Elvenkind");
     dump_aux_ego_counts_imp(fff, EGO_BOOTS_SPEED, "Boots of Speed");
