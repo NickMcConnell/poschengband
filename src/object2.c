@@ -3820,7 +3820,9 @@ static void _create_weapon(object_type *o_ptr, int level, int power, int mode)
           && o_ptr->name2 /* These first two checks are paranoia, pure and simple! */
           && o_ptr->dd == k_info[o_ptr->k_idx].dd
           && o_ptr->ds == k_info[o_ptr->k_idx].ds
-          && o_ptr->name2 != EGO_WEAPON_EXTRA_ATTACKS )
+          && o_ptr->name2 != EGO_WEAPON_EXTRA_ATTACKS
+          && o_ptr->name2 != EGO_WEAPON_WILD
+          && o_ptr->name2 != EGO_WEAPON_ORDER )
         {
             if (o_ptr->dd * o_ptr->ds > 0 && one_in_(5 + 200/MAX(level, 1)))
             {
