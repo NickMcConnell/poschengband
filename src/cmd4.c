@@ -3820,7 +3820,7 @@ static int collect_objects(int grp_cur, int object_idx[], byte mode)
         if (TV_LIFE_BOOK == group_tval)
         {
             /* Hack -- All spell books */
-            if (TV_LIFE_BOOK <= k_ptr->tval && k_ptr->tval <= TV_HEX_BOOK)
+            if (TV_LIFE_BOOK <= k_ptr->tval && k_ptr->tval <= TV_BURGLARY_BOOK)
             {
                 /* Add the object */
                 object_idx[object_cnt++] = i;

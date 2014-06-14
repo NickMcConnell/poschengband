@@ -364,10 +364,13 @@ static void do_cmd_eat_food_aux(int item)
     /* We have tried it */
     if (o_ptr->tval == TV_FOOD) object_tried(o_ptr);
 
+    stats_on_use(o_ptr, 1);
+
     /* The player is now aware of the object */
     if (ident && !object_is_aware(o_ptr))
     {
         object_aware(o_ptr);
+        stats_on_notice(o_ptr, 1);
         gain_exp((lev + (p_ptr->lev >> 1)) / p_ptr->lev);
     }
 

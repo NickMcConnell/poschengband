@@ -2939,7 +2939,8 @@ void do_cmd_debug(void)
             for (i = 0; i < max_o_idx; i++)
             {
                 if (!o_list[i].k_idx) continue;
-                ct++;
+                if (o_list[i].tval == TV_GOLD) continue;
+                ct += o_list[i].number;
                 identify_item(&o_list[i]);
                 o_list[i].ident |= IDENT_MENTAL;
                 if (o_list[i].name1 || o_list[i].name2)
