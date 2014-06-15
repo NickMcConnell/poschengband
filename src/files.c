@@ -3761,7 +3761,6 @@ static void dump_aux_object_counts(FILE *fff)
         totals.destroyed += k_info[i].counts.destroyed;
     }
 
-    fprintf(fff, "  Objects Generated: %6d\n", totals.generated);
     fprintf(fff, "  Objects Found    : %6d\n", totals.found);
     fprintf(fff, "  Objects Bought   : %6d\n", totals.bought);
     fprintf(fff, "  Objects Destroyed: %6d\n", totals.destroyed);
@@ -3854,10 +3853,9 @@ static void dump_aux_object_counts(FILE *fff)
         totals.destroyed += e_info[i].counts.destroyed;
     }
 
-    fprintf(fff, "\n\n  Egos Generated: %6d\n", totals.generated);
-    fprintf(fff, "  Egos Found    : %6d\n", totals.found);
-    fprintf(fff, "  Egos Bought   : %6d\n", totals.bought);
-    fprintf(fff, "  Egos Destroyed: %6d\n", totals.destroyed);
+    fprintf(fff, "\n\n  Egos Found    : %6d\n", totals.found);
+    fprintf(fff,     "  Egos Bought   : %6d\n", totals.bought);
+    fprintf(fff,     "  Egos Destroyed: %6d\n", totals.destroyed);
 
     fprintf(fff, "\n  Egos                 Found Bought  Dest\n");
     fprintf(fff,   "  ---------------------------------------\n");
