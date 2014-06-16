@@ -1230,7 +1230,6 @@ static int store_carry(object_type *o_ptr)
 
     /* All store items are fully *identified* */
     o_ptr->ident |= IDENT_MENTAL;
-    ego_aware(o_ptr);
 
     /* Erase the inscription */
     o_ptr->inscription = 0;
@@ -1909,11 +1908,14 @@ static void display_entry(int pos)
             put_str(out_val, i+6, 68);
 
         }
-        if (p_ptr->wizard)
+        if (cur_store_num == STORE_HOME)
         {
             int score = new_object_cost(o_ptr);
-            (void)sprintf(out_val, "%9d ", score);
-            put_str(out_val, i+6, 76);
+            if (score)
+            {
+                (void)sprintf(out_val, "%9d ", score);
+                put_str(out_val, i+6, 76);
+            }
         }
     }
 
@@ -2079,8 +2081,7 @@ static void display_store(void)
 
         }
 
-        if (p_ptr->wizard)
-            put_str("Score", 5, 80);
+        put_str("Score", 5, 80);
     }
 
     /* The "Home" is special */
@@ -2132,10 +2133,6 @@ static void display_store(void)
 
         /* Label the asking price (in stores) */
         put_str("Price", 5, 72);
-
-        if (p_ptr->wizard)
-            put_str("Score", 5, 82);
-
     }
 
     /* Display the current gold */
@@ -3046,6 +3043,7 @@ static void store_purchase(void)
 
                 /* Hack -- buying an item makes you aware of it */
                 object_aware(j_ptr);
+                ego_aware(j_ptr);
 
                 /* Hack -- clear the "fixed" flag from the item */
                 j_ptr->ident &= ~(IDENT_FIXED);
@@ -3486,6 +3484,7 @@ static void store_sell(void)
 
             /* The store gets that (known) item */
             item_pos = store_carry(q_ptr);
+            ego_aware(q_ptr);
 
             /* Re-display if item is now in store */
             if (item_pos >= 0)

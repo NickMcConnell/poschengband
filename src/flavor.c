@@ -2167,7 +2167,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
     }
 #endif
 
-    if (o_ptr->name3)
+    if (o_ptr->name3 && object_is_known(o_ptr))
     {
         char  buf[255];
         cptr  t = a_name + a_info[o_ptr->name3].name;
@@ -2192,7 +2192,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
         *u++ = ' ';
         while (*t)
         {
-            if (*t == '\'')
+            if (*t == '\'' || *t == '&')
                 t++;
             else
                 *u++ = *t++;
