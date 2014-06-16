@@ -3790,6 +3790,7 @@ static void dump_aux_object_counts(FILE *fff)
     dump_aux_object_counts_imp(fff, TV_SCROLL, SV_SCROLL_IDENTIFY);
     dump_aux_object_counts_imp(fff, TV_SCROLL, SV_SCROLL_STAR_IDENTIFY);
     dump_aux_object_counts_imp(fff, TV_SCROLL, SV_SCROLL_REMOVE_CURSE);
+    dump_aux_object_counts_imp(fff, TV_SCROLL, SV_SCROLL_STAR_REMOVE_CURSE);
     dump_aux_object_counts_imp(fff, TV_SCROLL, SV_SCROLL_TELEPORT);
     dump_aux_object_counts_imp(fff, TV_SCROLL, SV_SCROLL_TELEPORT_LEVEL); 
     dump_aux_object_counts_imp(fff, TV_SCROLL, SV_SCROLL_STAR_DESTRUCTION);

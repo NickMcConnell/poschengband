@@ -833,7 +833,7 @@ void stats_on_use(object_type *o_ptr, int num)
     k_info[o_ptr->k_idx].counts.used += num;
 }
 
-void stats_on_destroy(object_type *o_ptr, int num)
+void stats_on_p_destroy(object_type *o_ptr, int num)
 {
     if (object_is_aware(o_ptr) && !(o_ptr->marked & OM_COUNTED))
     {
@@ -846,6 +846,13 @@ void stats_on_destroy(object_type *o_ptr, int num)
         o_ptr->marked |= OM_EGO_COUNTED;
     }
 
+    k_info[o_ptr->k_idx].counts.destroyed += num;
+    if (o_ptr->name2)
+        e_info[o_ptr->name2].counts.destroyed += num;
+}
+
+void stats_on_m_destroy(object_type *o_ptr, int num)
+{
     k_info[o_ptr->k_idx].counts.destroyed += num;
     if (o_ptr->name2)
         e_info[o_ptr->name2].counts.destroyed += num;
