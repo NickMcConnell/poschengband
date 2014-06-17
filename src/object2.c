@@ -2346,6 +2346,18 @@ static int _jewelry_powers(int num, int level, int power)
     return abs(power) + m_bonus(num, level);
 }
 
+static void _finalize_jewelry(object_type *o_ptr)
+{
+    if (have_flag(o_ptr->art_flags, TR_RES_ACID))
+        add_flag(o_ptr->art_flags, TR_IGNORE_ACID);
+    if (have_flag(o_ptr->art_flags, TR_RES_ELEC))
+        add_flag(o_ptr->art_flags, TR_IGNORE_ELEC);
+    if (have_flag(o_ptr->art_flags, TR_RES_FIRE))
+        add_flag(o_ptr->art_flags, TR_IGNORE_FIRE);
+    if (have_flag(o_ptr->art_flags, TR_RES_COLD))
+        add_flag(o_ptr->art_flags, TR_IGNORE_COLD);
+}
+
 static void _create_ring(object_type *o_ptr, int level, int power, int mode)
 {
     int powers = 0;
@@ -2765,6 +2777,8 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
             effect_add_random(o_ptr, BIAS_MAGE);
         break;
     }
+
+    _finalize_jewelry(o_ptr);
 
     /* Be sure to cursify later! */
     if (power == -1)
@@ -3244,6 +3258,9 @@ static void _create_amulet(object_type *o_ptr, int level, int power, int mode)
             effect_add_random(o_ptr, BIAS_PROTECTION);
         break;
     }
+
+    _finalize_jewelry(o_ptr);
+
     /* Be sure to cursify later! */
     if (power == -1)
         power--;
