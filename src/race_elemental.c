@@ -452,6 +452,7 @@ static void _air_birth(void)
     forge.to_a = 15;
     add_flag(forge.art_flags, TR_RES_ELEC);
     add_flag(forge.art_flags, TR_SH_ELEC);
+    add_flag(forge.art_flags, TR_IGNORE_ELEC);
     add_outfit(&forge);
 
     object_prep(&forge, lookup_kind(TV_SWORD, SV_LONG_SWORD));
