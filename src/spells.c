@@ -977,6 +977,20 @@ int get_spells_aux(spell_info* spells, int max, spell_info* table)
     return ct;
 }
 
+static int _spell_stats_fail(spell_stats_ptr stats)
+{
+    int result = 0;
+    int attempts = stats->ct_cast + stats->ct_fail;
+    if (attempts)
+    {
+        int pct = stats->ct_fail * 1000 / attempts;
+        result = pct / 10;
+        if (pct % 10 >= 5)
+            result++;
+    }
+    return result;
+}
+
 void dump_spells_aux(FILE *fff, spell_info *table, int ct)
 {        
     int i;
@@ -999,11 +1013,12 @@ void dump_spells_aux(FILE *fff, spell_info *table, int ct)
         spell->fn(SPELL_INFO, &vd);
         spell->fn(SPELL_COST_EXTRA, &vc);
 
-        fprintf(fff, "%-20.20s %3d %4d %3d%% %-20.20s %4d %4d\n", 
+        fprintf(fff, "%-20.20s %3d %4d %3d%% %-20.20s %4d %4d %3d%%\n", 
             var_get_string(&vn), 
             spell->level, calculate_cost(spell->cost + var_get_int(&vc)), spell->fail, 
             var_get_string(&vd),
-            stats->ct_cast, stats->ct_fail
+            stats->ct_cast, stats->ct_fail,
+            _spell_stats_fail(stats)
         );
     }
 
@@ -1033,11 +1048,12 @@ void dump_powers_aux(FILE *fff, spell_info *table, int ct)
         spell->fn(SPELL_INFO, &vd);
         spell->fn(SPELL_COST_EXTRA, &vc);
 
-        fprintf(fff, "%-20.20s %3d %4d %3d%% %-20.20s %4d %4d\n", 
+        fprintf(fff, "%-20.20s %3d %4d %3d%% %-20.20s %4d %4d %3d%%\n", 
             var_get_string(&vn), 
             spell->level, calculate_cost(spell->cost + var_get_int(&vc)), spell->fail, 
             var_get_string(&vd),
-            stats->ct_cast, stats->ct_fail
+            stats->ct_cast, stats->ct_fail, 
+            _spell_stats_fail(stats)
         );
     }
 
@@ -1142,11 +1158,21 @@ static void _dump_book(FILE *fff, int realm, int book)
         else
         {
             spell_stats_ptr stats = _spell_stats_old(realm, s_idx);
-            strcat(line, format("%-25s%c%-4s %3d %3d %3d%% %-20.20s %4d %4d",
-                do_spell(realm, s_idx, SPELL_NAME),
-                (max ? '!' : ' '), proficiency,
-                s_ptr->slevel, cost, spell_chance(s_idx, realm), comment,
-                stats->ct_cast, stats->ct_fail)
+            strcat(
+                line, 
+                format(
+                    "%-25s%c%-4s %3d %3d %3d%% %-20.20s %4d %4d %3d%%",
+                    do_spell(realm, s_idx, SPELL_NAME),
+                    (max ? '!' : ' '), 
+                    proficiency,
+                    s_ptr->slevel, 
+                    cost, 
+                    spell_chance(s_idx, realm), 
+                    comment,
+                    stats->ct_cast, 
+                    stats->ct_fail,
+                    _spell_stats_fail(stats)
+                )
             );
         }
 

@@ -1684,6 +1684,8 @@ static bool _get_store_obj2(object_type *o_ptr)
     {
         if (one_in_(3))
             k_idx = lookup_kind(TV_SCROLL, SV_SCROLL_WORD_OF_RECALL);
+        else if (one_in_(10))
+            k_idx = lookup_kind(TV_SCROLL, SV_SCROLL_TELEPORT);
         else if (one_in_(20))
             k_idx = lookup_kind(TV_SCROLL, SV_SCROLL_STAR_IDENTIFY);
     }
@@ -3642,6 +3644,7 @@ static void store_examine(void)
 
 
     /* Describe it fully */
+    ego_aware(o_ptr);
     if (!screen_object(o_ptr, SCROBJ_FORCE_DETAIL))
         msg_print("You see nothing special.");
 
