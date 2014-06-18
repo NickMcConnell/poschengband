@@ -144,6 +144,8 @@ static void _elemental_pack_destroy(object_p p, cptr destroy_fmt, int chance)
         o_ptr->number = old_ct;
 
         msg_format(destroy_fmt, o_name);
+        stats_on_p_destroy(o_ptr, 1);
+
         inven_item_increase(i, -1);
         inven_item_describe(i);
         inven_item_optimize(i);
