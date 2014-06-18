@@ -2233,14 +2233,13 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
     }
 
     /* Note "unidentified" if the item is unidentified */
-    else if ( (o_ptr->tval == TV_LITE || o_ptr->tval == TV_FIGURINE)
+    else if ( (o_ptr->tval == TV_LITE || o_ptr->tval == TV_FIGURINE || o_ptr->tval == TV_RING || o_ptr->tval == TV_AMULET)
            && aware 
            && !known
            && !(o_ptr->ident & IDENT_SENSE) )
     {
         strcpy(fake_insc_buf, "unidentified");
     }
-
     /* Mega-Hack -- note empty wands/staffs */
     else if (!known && (o_ptr->ident & IDENT_EMPTY))
     {
