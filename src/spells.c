@@ -1003,7 +1003,7 @@ void dump_spells_aux(FILE *fff, spell_info *table, int ct)
     var_init(&vc);
 
     fprintf(fff, "=================================== Spells ====================================\n\n");
-    fprintf(fff, "%-20.20s Lvl Cost Fail %-20.20s Cast Fail\n", "", "Desc");
+    fprintf(fff, "%-20.20s Lvl Cost Fail %-15.15s Cast Fail\n", "", "Desc");
     for (i = 0; i < ct; i++)
     {
         spell_info     *spell = &table[i];      
@@ -1013,7 +1013,7 @@ void dump_spells_aux(FILE *fff, spell_info *table, int ct)
         spell->fn(SPELL_INFO, &vd);
         spell->fn(SPELL_COST_EXTRA, &vc);
 
-        fprintf(fff, "%-20.20s %3d %4d %3d%% %-20.20s %4d %4d %3d%%\n", 
+        fprintf(fff, "%-20.20s %3d %4d %3d%% %-15.15s %4d %4d %3d%%\n", 
             var_get_string(&vn), 
             spell->level, calculate_cost(spell->cost + var_get_int(&vc)), spell->fail, 
             var_get_string(&vd),
@@ -1038,7 +1038,7 @@ void dump_powers_aux(FILE *fff, spell_info *table, int ct)
     var_init(&vc);
 
     fprintf(fff, "=================================== Powers ====================================\n\n");
-    fprintf(fff, "%-20.20s Lvl Cost Fail %-20.20s Cast Fail\n", "", "Desc");
+    fprintf(fff, "%-20.20s Lvl Cost Fail %-15.15s Cast Fail\n", "", "Desc");
     for (i = 0; i < ct; i++)
     {
         spell_info     *spell = &table[i];        
@@ -1048,7 +1048,7 @@ void dump_powers_aux(FILE *fff, spell_info *table, int ct)
         spell->fn(SPELL_INFO, &vd);
         spell->fn(SPELL_COST_EXTRA, &vc);
 
-        fprintf(fff, "%-20.20s %3d %4d %3d%% %-20.20s %4d %4d %3d%%\n", 
+        fprintf(fff, "%-20.20s %3d %4d %3d%% %-15.15s %4d %4d %3d%%\n", 
             var_get_string(&vn), 
             spell->level, calculate_cost(spell->cost + var_get_int(&vc)), spell->fail, 
             var_get_string(&vd),
@@ -1077,9 +1077,9 @@ static void _dump_book(FILE *fff, int realm, int book)
     else
     {
         if (caster_ptr && (caster_ptr->options & CASTER_USE_HP))
-            fprintf(fff, "     %-23.23s Profic Lvl  HP Fail %-20.20s Cast Fail\n", k_name + k_info[k_idx].name, "Desc");
+            fprintf(fff, "     %-23.23s Profic Lvl  HP Fail %-15.15s Cast Fail\n", k_name + k_info[k_idx].name, "Desc");
         else
-            fprintf(fff, "     %-23.23s Profic Lvl  SP Fail %-20.20s Cast Fail\n", k_name + k_info[k_idx].name, "Desc");
+            fprintf(fff, "     %-23.23s Profic Lvl  SP Fail %-15.15s Cast Fail\n", k_name + k_info[k_idx].name, "Desc");
     }
 
     for (i = 0; i < 8; i++)
@@ -1161,7 +1161,7 @@ static void _dump_book(FILE *fff, int realm, int book)
             strcat(
                 line, 
                 format(
-                    "%-25s%c%-4s %3d %3d %3d%% %-20.20s %4d %4d %3d%%",
+                    "%-25s%c%-4s %3d %3d %3d%% %-15.15s %4d %4d %3d%%",
                     do_spell(realm, s_idx, SPELL_NAME),
                     (max ? '!' : ' '), 
                     proficiency,
