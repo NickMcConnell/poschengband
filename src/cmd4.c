@@ -6912,7 +6912,7 @@ static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int di
     while (!flag)
     {
         char ch;
-        object_kind *k_ptr, *flavor_k_ptr;
+        object_kind *k_ptr = NULL, *flavor_k_ptr = NULL;
 
         if (redraw)
         {
@@ -6981,17 +6981,25 @@ static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int di
         }
 
         /* Get the current object */
-        k_ptr = &k_info[object_idx[object_cur]];
-
-        if (!visual_only && k_ptr->flavor)
+        if (object_idx[object_cur] >= 0)
         {
-            /* Appearance of this object is shuffled */
-            flavor_k_ptr = &k_info[k_ptr->flavor];
+            k_ptr = &k_info[object_idx[object_cur]];
+
+            if (!visual_only && k_ptr->flavor)
+            {
+                /* Appearance of this object is shuffled */
+                flavor_k_ptr = &k_info[k_ptr->flavor];
+            }
+            else
+            {
+                /* Appearance of this object is very normal */
+                flavor_k_ptr = k_ptr;
+            }
         }
         else
         {
-            /* Appearance of this object is very normal */
-            flavor_k_ptr = k_ptr;
+            k_ptr = NULL;
+            flavor_k_ptr = NULL;
         }
 
         /* Prompt */
@@ -7001,10 +7009,11 @@ static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int di
             (attr_idx || char_idx) ? ", 'c', 'p' to paste" : ", 'c' to copy"),
             hgt - 1, 0);
 
-        if (!visual_only)
+        if (!visual_only && object_idx[object_cur] >= 0)
         {
             /* Mega Hack -- track this object */
-            if (object_cnt) object_kind_track(object_idx[object_cur]);
+            if (object_cnt) 
+                object_kind_track(object_idx[object_cur]);
 
             /* The "current" object changed */
             if (object_old != object_idx[object_cur])
@@ -7017,7 +7026,7 @@ static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int di
             }
         }
 
-        if (visual_list)
+        if (visual_list && flavor_k_ptr)
         {
             place_visual_list_cursor(max + 3, 7, flavor_k_ptr->x_attr, flavor_k_ptr->x_char, attr_top, char_left);
         }
@@ -7033,7 +7042,7 @@ static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int di
         ch = inkey();
 
         /* Do visual mode command if needed */
-        if (visual_mode_command(ch, &visual_list, browser_rows-1, wid - (max + 3), &attr_top, &char_left, &flavor_k_ptr->x_attr, &flavor_k_ptr->x_char, need_redraw))
+        if (flavor_k_ptr && visual_mode_command(ch, &visual_list, browser_rows-1, wid - (max + 3), &attr_top, &char_left, &flavor_k_ptr->x_attr, &flavor_k_ptr->x_char, need_redraw))
         {
             if (direct_k_idx >= 0)
             {
@@ -7061,7 +7070,7 @@ static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int di
             case 'r':
             {
                 /* Recall on screen */
-                if (!visual_list && !visual_only && (grp_cnt > 0))
+                if (!visual_list && !visual_only && (grp_cnt > 0) && object_idx[object_cur] >= 0)
                 {
                     desc_obj_fake(object_idx[object_cur]);
                     redraw = TRUE;
