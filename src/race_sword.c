@@ -378,6 +378,7 @@ static void _calc_bonuses(void)
 
     p_ptr->pspeed += 1;
     
+    p_ptr->levitation = TRUE;
     p_ptr->no_cut = TRUE;
     res_add(RES_BLIND);
     res_add(RES_POIS);
@@ -387,11 +388,7 @@ static void _calc_bonuses(void)
         p_ptr->pspeed += 1;
 
     if (p_ptr->lev >= 25)
-    {
         p_ptr->pspeed += 1;
-        res_add(RES_COLD);
-        res_add(RES_ELEC);
-    }
 
     if (p_ptr->lev >= 35)
         p_ptr->pspeed += 2;
@@ -475,11 +472,9 @@ static void _calc_bonuses(void)
 
     if (_essences[TR_NO_MAGIC] >= 5)
         p_ptr->anti_magic = TRUE;
-    if (_essences[TR_LEVITATION] >= 2)
-        p_ptr->levitation = TRUE;
-    if (_essences[TR_FREE_ACT] >= 1)
+    if (_essences[TR_FREE_ACT] >= 2)
         p_ptr->free_act = TRUE;
-    if (_essences[TR_SEE_INVIS] >= 1)
+    if (_essences[TR_SEE_INVIS] >= 3)
         p_ptr->see_inv = TRUE;
     if (_essences[TR_SLOW_DIGEST] >= 2)
         p_ptr->slow_digest = TRUE;
@@ -517,12 +512,7 @@ static void _get_flags(u32b flgs[TR_FLAG_SIZE])
     add_flag(flgs, TR_RES_BLIND);
     add_flag(flgs, TR_RES_POIS);
     add_flag(flgs, TR_HOLD_LIFE);
-
-    if (p_ptr->lev >= 25)
-    {
-        add_flag(flgs, TR_RES_COLD);
-        add_flag(flgs, TR_RES_ELEC);
-    }
+    add_flag(flgs, TR_LEVITATION);
 
     for (i = 0; i < 6; i++) /* Assume in order */
     {
@@ -563,11 +553,9 @@ static void _get_flags(u32b flgs[TR_FLAG_SIZE])
 
     if (_essences[TR_NO_MAGIC] >= 5)
         add_flag(flgs, TR_NO_MAGIC);
-    if (_essences[TR_LEVITATION] >= 2)
-        add_flag(flgs, TR_LEVITATION);
-    if (_essences[TR_FREE_ACT] >= 1)
+    if (_essences[TR_FREE_ACT] >= 2)
         add_flag(flgs, TR_FREE_ACT);
-    if (_essences[TR_SEE_INVIS] >= 1)
+    if (_essences[TR_SEE_INVIS] >= 3)
         add_flag(flgs, TR_SEE_INVIS);
     if (_essences[TR_SLOW_DIGEST] >= 2)
         add_flag(flgs, TR_SLOW_DIGEST);
@@ -935,9 +923,8 @@ static void _character_dump(FILE* fff)
 
     fprintf(fff, "\n   %-22.22s Total  Need Bonus\n", "Abilities");
     fprintf(fff, "   ---------------------- ----- ----- -----\n");
-    _dump_ability_flag(fff, TR_FREE_ACT, 1, "Free Action");
-    _dump_ability_flag(fff, TR_SEE_INVIS, 1, "See Invisible");
-    _dump_ability_flag(fff, TR_LEVITATION, 2, "Levitation");
+    _dump_ability_flag(fff, TR_FREE_ACT, 2, "Free Action");
+    _dump_ability_flag(fff, TR_SEE_INVIS, 3, "See Invisible");
     _dump_ability_flag(fff, TR_SLOW_DIGEST, 2, "Slow Digestion");
     _dump_ability_flag(fff, TR_REGEN, 7, "Regeneration");
     _dump_ability_flag(fff, TR_NO_MAGIC, 5, "Antimagic");
