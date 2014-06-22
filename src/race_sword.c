@@ -293,6 +293,7 @@ static _flag_info_t _slay_flag_info[] = {
     { TR_CHAOTIC, 32, "Chaotic" },
     { TR_VAMPIRIC, 32, "Vampiric" },
     { TR_VORPAL, 16, "Vorpal" },
+    { TR_VORPAL2, 32, "*Vorpal*" },
 
     /* Alt: These could be achieved from corresponding slay flags with enough essences */
     { TR_KILL_EVIL, 16, "Kill Evil" },
@@ -732,28 +733,6 @@ static void _birth(void)
     add_outfit(&forge);
 }
 
-static bool _drain_essences(int div)
-{
-    bool result = FALSE;
-    int r = _rank();
-    int i;
-
-    for (i = 0; i < _MAX_ESSENCE; i++)
-    {
-        int n = _essences[i];
-        
-        if (!n) continue;
-        if (i == TR_SPEED) continue;
-        
-        _essences[i] -= _essences[i] * randint1(r) / div;
-        if (_essences[i] < n)
-            result = TRUE;
-    }
-    if (result)
-        p_ptr->update |= PU_BONUS;
-    return result;
-}
-
 static object_type *_weapon(void)
 {
     return equip_obj(p_ptr->weapon_info[0].slot);
@@ -774,9 +753,6 @@ static void _upgrade_weapon(int tval, int sval)
 
     p_ptr->update |= PU_BONUS;
     p_ptr->window |= PW_INVEN | PW_EQUIP | PW_PLAYER;
-
-    /*if (_drain_essences(10))
-        msg_print("You feel your magic drain to support your new form.");*/
 }
 
 static void _gain_level(int new_level) 
@@ -1028,13 +1004,29 @@ void sword_absorb_object(object_type *o_ptr)
 bool sword_disenchant(void)
 {
     bool result = FALSE;
-    if (!res_save(RES_DISEN, 70) && _drain_essences(20))
+    int  r = _rank();
+    int  i;
+
+    for (i = 0; i < _MAX_ESSENCE; i++)
     {
+        int n = _essences[i];
+        
+        if (!n) continue;
+        if (i == TR_SPEED) continue;
+        if (res_save(RES_DISEN, 70)) continue;
+        
+        _essences[i] -= MAX(1, _essences[i] * randint1(r) / 20);
+        if (_essences[i] < n)
+            result = TRUE;
+    }
+    if (result)
+    {
+        p_ptr->update |= PU_BONUS;
         msg_print("You feel power draining from your body!");
-        result = TRUE;
     }
     return result;
 }
+
 
 int sword_calc_torch(void)
 {
