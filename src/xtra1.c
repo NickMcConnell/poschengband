@@ -4051,12 +4051,16 @@ void calc_bonuses(void)
             int pct, to_d, w1, w2;
             int w_div = 8;
             int skill = skills_dual_wielding_current();
+            int class_idx = p_ptr->pclass;
+
+            if (class_idx == CLASS_MONSTER)
+                class_idx = race_ptr->pseudo_class_idx;
 
             if (p_ptr->tim_genji && skill < 7000)
                 skill = 7000;
 
-            /* Berserkers don't mind dual wielding with heavy weapons */
-            switch (p_ptr->pclass)
+            /* Some classes (e.g. Berserkers) don't mind dual wielding with heavy weapons */
+            switch (class_idx)
             {
             case CLASS_BERSERKER:
                 w_div = 24;
