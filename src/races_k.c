@@ -344,6 +344,7 @@ race_t *nibelung_get_race_t(void)
 static void _shadow_fairy_calc_bonuses(void)
 {
     p_ptr->levitation = TRUE;
+    p_ptr->fairy_stealth = TRUE;
     res_add_vuln(RES_LITE);
 }
 static void _shadow_fairy_get_flags(u32b flgs[TR_FLAG_SIZE])
