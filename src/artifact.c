@@ -1679,7 +1679,22 @@ static void random_slay(object_type *o_ptr)
 }
 
 static void get_random_name_aux(char *return_name, object_type *o_ptr, int power)
-{    
+{
+    /* Hack: BIAS_* got converted to bits but the artifact name files still use
+       old values. Fortunately, the bit position in the new constants will 
+       recover the old values.
+       TODO: Change the parser (e.g. N:18:BIAS_WARRIOR -> N:BIAS_WARRIOR)
+       so this doesn't happen again. 
+    */
+    int bias_hack = 0;
+    int temp = artifact_bias;
+
+    while (temp)
+    {
+        temp >>= 1;
+        bias_hack++;
+    }
+
     if (o_ptr->tval == TV_LITE)
     {
         cptr filename;
@@ -1697,7 +1712,7 @@ static void get_random_name_aux(char *return_name, object_type *o_ptr, int power
         default:
             filename = "lite_high.txt";
         }
-        get_rnd_line(filename, artifact_bias, return_name);
+        get_rnd_line(filename, bias_hack, return_name);
     }
     else if (o_ptr->tval == TV_RING)
     {
@@ -1716,7 +1731,7 @@ static void get_random_name_aux(char *return_name, object_type *o_ptr, int power
         default:
             filename = "ring_high.txt";
         }
-        get_rnd_line(filename, artifact_bias, return_name);
+        get_rnd_line(filename, bias_hack, return_name);
     }
     else if (o_ptr->tval == TV_AMULET)
     {
@@ -1735,7 +1750,7 @@ static void get_random_name_aux(char *return_name, object_type *o_ptr, int power
         default:
             filename = "amulet_high.txt";
         }
-        get_rnd_line(filename, artifact_bias, return_name);
+        get_rnd_line(filename, bias_hack, return_name);
     }
     else
     {
@@ -1772,7 +1787,7 @@ static void get_random_name_aux(char *return_name, object_type *o_ptr, int power
             }
         }
 
-        get_rnd_line(filename, artifact_bias, return_name);
+        get_rnd_line(filename, bias_hack, return_name);
     }
 }
 
