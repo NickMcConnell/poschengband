@@ -1223,6 +1223,11 @@ static bool is_autopick_aux(object_type *o_ptr, autopick_type *entry, cptr o_nam
                 is_special = TRUE;
             }
         }
+        else if (weaponmaster_is_(WEAPONMASTER_DIGGERS))
+        {
+            if (o_ptr->tval == TV_CORPSE || o_ptr->tval == TV_SKELETON)
+                is_special = TRUE;
+        }
 
         if (!is_special)
             return FALSE;
