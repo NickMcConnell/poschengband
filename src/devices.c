@@ -3069,6 +3069,35 @@ errr effect_parse(char *line, effect_t *effect) /* LITE_AREA:<Lvl>:<Timeout>:<Ex
     return 0;
 }
 
+static int _choose_random_p(effect_p p)
+{
+    int i, n;
+    int tot = 0;
+    
+    for (i = 0; ; i++)
+    {
+        if (!_effect_info[i].type) break;
+        if (!_effect_info[i].rarity) continue;
+        if (p && !p(_effect_info[i].type)) continue;
+
+        tot += MAX(255 / _effect_info[i].rarity, 1);
+    }
+
+    if (!tot) return -1;
+    n = randint1(tot);
+
+    for (i = 0; ; i++)
+    {
+        if (!_effect_info[i].type) break;
+        if (!_effect_info[i].rarity) continue;
+        if (p && !p(_effect_info[i].type)) continue;
+
+        n -= MAX(255 / _effect_info[i].rarity, 1);
+        if (n <= 0) return i;
+    }
+    return -1;
+}
+
 static int _choose_random(int bias)
 {
     int i, n;
@@ -3110,6 +3139,17 @@ static void _add_index(object_type *o_ptr, int index)
         o_ptr->activation.extra = 0;
         o_ptr->timeout = 0;
     }
+}
+
+bool effect_add_random_p(object_type *o_ptr, effect_p p)
+{
+    int i = _choose_random_p(p);
+    if (i >= 0)
+    {
+        _add_index(o_ptr, i);
+        return TRUE;
+    }
+    return FALSE;
 }
 
 bool effect_add_random(object_type *o_ptr, int bias)

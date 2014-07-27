@@ -851,6 +851,10 @@ extern cptr     obj_get_effect_msg(object_type *o_ptr);
 extern bool     obj_has_effect(object_type *o_ptr);
 extern int      effect_calc_fail_rate(effect_t *effect_ptr);
 extern bool     effect_add_random(object_type *o_ptr, int bias);
+
+typedef bool (*effect_p)(int effect);
+extern bool effect_add_random_p(object_type *o_ptr, effect_p p);
+
 extern bool     effect_add(object_type *o_ptr, int type);
 extern bool     effect_try(effect_t *effect_ptr);
 extern bool     effect_use(effect_t *effect_ptr, int boost);
