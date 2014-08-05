@@ -2638,21 +2638,21 @@ static cptr _do_rod(int sval, int mode)
         break;
     case SV_ROD_MANA_BOLT:
         if (desc) return "It fires a bolt of mana when you zap it.";
-        if (info) return info_damage(0, 0, _rod_power(100 + p_ptr->lev));
+        if (info) return info_damage(0, 0, _rod_power(100 + 2*p_ptr->lev));
         if (cast)
         {
             if (device_known && !get_aim_dir(&dir)) return NULL;
-            fire_bolt(GF_MANA, dir, _rod_power(100 + p_ptr->lev));
+            fire_bolt(GF_MANA, dir, _rod_power(100 + 2*p_ptr->lev));
             device_noticed = TRUE;
         }
         break;
     case SV_ROD_MANA_BALL:
         if (desc) return "It fires a ball of mana when you zap it.";
-        if (info) return info_damage(0, 0, _rod_power(200 + p_ptr->lev));
+        if (info) return info_damage(0, 0, _rod_power(200 + 2*p_ptr->lev));
         if (cast)
         {
             if (device_known && !get_aim_dir(&dir)) return NULL;
-            fire_ball(GF_MANA, dir, _rod_power(200 + p_ptr->lev), 2);
+            fire_ball(GF_MANA, dir, _rod_power(200 + 2*p_ptr->lev), 2);
             device_noticed = TRUE;
         }
         break;
@@ -2660,7 +2660,7 @@ static cptr _do_rod(int sval, int mode)
         if (desc) return "It is capable of firing almost anything, at random.";
         if (cast)
         {
-            call_chaos(_rod_power(150));
+            call_chaos(_rod_power(200));
             device_noticed = TRUE;
         }
         break;
