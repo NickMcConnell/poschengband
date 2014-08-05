@@ -617,7 +617,7 @@
 #define RACE_HOBBIT              3
 #define RACE_GNOME               4
 #define RACE_DWARF               5
-#define RACE_SNOTLING            6   /* Deprecated */
+#define RACE_SNOTLING            6
 #define RACE_HALF_TROLL          7
 #define RACE_AMBERITE            8
 #define RACE_HIGH_ELF            9
@@ -625,25 +625,25 @@
 #define RACE_HALF_OGRE          11
 #define RACE_HALF_GIANT         12
 #define RACE_HALF_TITAN         13
-#define RACE_CYCLOPS            14   /* Deprecated */
+#define RACE_CYCLOPS            14
 #define RACE_YEEK               15
 #define RACE_KLACKON            16
-#define RACE_KOBOLD             17   /* Deprecated */
+#define RACE_KOBOLD             17
 #define RACE_NIBELUNG           18
 #define RACE_DARK_ELF           19
 #define RACE_DRACONIAN          20
 #define RACE_MIND_FLAYER        21
 #define RACE_IMP                22
-#define RACE_GOLEM              23   /* Deprecated */
-#define RACE_SKELETON           24   /* Deprecated */
-#define RACE_ZOMBIE             25   /* Deprecated */
-#define RACE_VAMPIRE            26   /* Deprecated */
-#define RACE_SPECTRE            27   /* Deprecated */
+#define RACE_GOLEM              23
+#define RACE_SKELETON           24
+#define RACE_ZOMBIE             25
+#define RACE_VAMPIRE            26
+#define RACE_SPECTRE            27
 #define RACE_SPRITE             28
 #define RACE_BEASTMAN           29
-#define RACE_ENT                30   /* Deprecated */
-#define RACE_ARCHON             31   /* Deprecated */
-#define RACE_BALROG             32   /* Deprecated */
+#define RACE_ENT                30
+#define RACE_ARCHON             31
+#define RACE_BALROG             32
 #define RACE_DUNADAN            33
 #define RACE_SHADOW_FAIRY       34
 #define RACE_KUTAR              35
@@ -671,11 +671,12 @@
 #define RACE_MON_VAMPIRE        57
 #define RACE_MON_RING           58
 #define RACE_MON_MIMIC          59
+#define RACE_WOOD_ELF           60
 /* TODO: New races are in progress! ... */
-    #define RACE_MON_GHOST          60
-    #define RACE_MON_ZOMBIE         61
-    #define RACE_MON_CENTIPEDE      62
-    #define MAX_RACES               60 /* TODO: Bump me!! */
+    #define RACE_MON_GHOST          61
+    #define RACE_MON_ZOMBIE         62
+    #define RACE_MON_CENTIPEDE      63
+    #define MAX_RACES               61 /* TODO: Bump me!! */
 
 #define DEMIGOD_MINOR           0
 #define DEMIGOD_ZEUS            1
@@ -750,7 +751,6 @@
 #define RACE_IS_UNDEAD       0x0004
 #define RACE_IS_MONSTER      0x0008
 #define RACE_IS_ILLITERATE   0x0010
-#define RACE_IS_DEPRECATED   0x0020
 
 /* Mimicry uses races too ... Its just that players
    cannot choose these races during birth. */
