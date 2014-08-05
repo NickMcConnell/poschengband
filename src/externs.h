@@ -2251,6 +2251,8 @@ extern cptr     rune_desc(int which);
 extern void     rune_calc_bonuses(object_type *o_ptr);
 extern class_t *rune_knight_get_class_t(void);
 extern void     samurai_concentration_spell(int cmd, variant *res);
+extern void     samurai_on_rest(void);
+extern bool     samurai_can_concentrate(void);
 extern class_t *samurai_get_class_t(void);
 extern void     samurai_posture_spell(int cmd, variant *res);
 extern class_t *tourist_get_class_t(void);
