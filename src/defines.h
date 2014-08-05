@@ -6189,6 +6189,7 @@ enum effect_e
     EFFECT_BANISH_ALL,
     EFFECT_TELEKINESIS,
     EFFECT_ALCHEMY,
+    EFFECT_SELF_KNOWLEDGE,
 
     /* Timed Buffs */
     EFFECT_STONE_SKIN = 100,

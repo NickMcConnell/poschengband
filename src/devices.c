@@ -2853,7 +2853,7 @@ static _effect_info_t _effect_info[] =
     {"RUNE_EXPLOSIVE",  EFFECT_RUNE_EXPLOSIVE,      30, 100,  2, BIAS_MAGE},
     {"RUNE_PROTECTION", EFFECT_RUNE_PROTECTION,     70, 500,  4, BIAS_PRIESTLY},
 
-    {"SATISFY_HUNGER",  EFFECT_SATISFY_HUNGER,        5, 100,  1, BIAS_RANGER},
+    {"SATISFY_HUNGER",  EFFECT_SATISFY_HUNGER,       5, 100,  1, BIAS_RANGER},
     {"DESTROY_TRAP",    EFFECT_DESTROY_TRAP,        20,  50,  1, 0},
     {"DESTROY_TRAPS",   EFFECT_DESTROY_TRAPS,       25,  50,  1, BIAS_ROGUE},
     {"WHIRLWIND_ATTACK",EFFECT_WHIRLWIND_ATTACK,    50, 500,  4, BIAS_WARRIOR},
@@ -2863,6 +2863,7 @@ static _effect_info_t _effect_info[] =
     {"BANISH_ALL",      EFFECT_BANISH_ALL,          50, 100,  8, BIAS_MAGE},
     {"TELEKINESIS",     EFFECT_TELEKINESIS,         25, 100,  2, BIAS_MAGE},
     {"ALCHEMY",         EFFECT_ALCHEMY,             70, 500,  4, BIAS_MAGE},
+    {"SELF_KNOWLEDGE",  EFFECT_SELF_KNOWLEDGE,      70, 500,  3, BIAS_MAGE},
 
     /* Timed Buffs:                                 Lv    T   R  Bias */
     {"STONE_SKIN",      EFFECT_STONE_SKIN,          25, 150,  2, BIAS_WARRIOR | BIAS_PROTECTION},
@@ -3678,6 +3679,16 @@ cptr do_effect(effect_t *effect, int mode, int boost)
         if (cast)
         {
             if (!alchemy()) return NULL;
+            device_noticed = TRUE;
+        }
+        break;
+    case EFFECT_SELF_KNOWLEDGE:
+        if (name) return "Self Knowledge";
+        if (desc) return "It reveals information about your stats, resistances and life rating.";   
+        if (value) return format("%d", 2500);
+        if (cast)
+        {
+            self_knowledge();
             device_noticed = TRUE;
         }
         break;

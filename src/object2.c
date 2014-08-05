@@ -4308,7 +4308,7 @@ static void _create_armor(object_type *o_ptr, int level, int power, int mode)
                     int choices[] = {
                         EFFECT_IDENTIFY, EFFECT_IDENTIFY_FULL, EFFECT_PROBING, EFFECT_DETECT_TRAPS, 
                         EFFECT_DETECT_MONSTERS, EFFECT_DETECT_OBJECTS, EFFECT_DETECT_ALL, 
-                        EFFECT_ENLIGHTENMENT, EFFECT_CLAIRVOYANCE, -1 
+                        EFFECT_ENLIGHTENMENT, EFFECT_CLAIRVOYANCE, EFFECT_SELF_KNOWLEDGE, -1 
                     };
                     _effect_add_list(o_ptr, choices);
                 }
