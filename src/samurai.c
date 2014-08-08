@@ -1036,7 +1036,6 @@ void samurai_concentration_spell(int cmd, variant *res)
         break;
     case SPELL_CAST:
     {
-        int max_csp = MAX(p_ptr->msp*4, p_ptr->lev*5+5);
         var_set_bool(res, FALSE);
         if (total_friends)
         {

@@ -3125,6 +3125,7 @@ bool create_named_art_aux(int a_idx, object_type *o_ptr)
     o_ptr->ac = a_ptr->ac;
     o_ptr->dd = a_ptr->dd;
     o_ptr->ds = a_ptr->ds;
+    o_ptr->mult = a_ptr->mult;
     o_ptr->to_a = a_ptr->to_a;
     o_ptr->to_h = a_ptr->to_h;
     o_ptr->to_d = a_ptr->to_d;
