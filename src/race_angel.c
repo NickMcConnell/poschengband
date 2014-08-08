@@ -62,14 +62,6 @@ static int _get_spells(spell_info* spells, int max) {
     return get_spells_aux(spells, max, _spells);
 }
 
-static power_info _powers[] = {
-    { A_WIS, {35, 70, 90, bless_weapon_spell} },
-    { -1, {-1, -1, -1, NULL} }
-};
-static int _get_powers(spell_info* spells, int max) {
-    return get_powers_aux(spells, max, _powers);
-}
-
 static void _calc_bonuses(void) {
     /* cf calc_torch in xtra1.c for the 'extra light' */
 
@@ -207,7 +199,6 @@ static race_t *_solar_get_race_t(void)
         me.base_hp = 26;
 
         me.get_spells = _get_spells;
-        me.get_powers = _get_powers;
         me.calc_bonuses = _calc_bonuses;
         me.get_flags = _get_flags;
         me.gain_level = _gain_level;
