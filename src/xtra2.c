@@ -1471,7 +1471,7 @@ void monster_death(int m_idx, bool drop_item)
 
             drop_near(&forge, -1, y, x);
         }
-        else if (one_in_(3))
+        else if (one_in_(6))
         {
             int         k_idx = lookup_kind(TV_CLOAK, SV_CLOAK);
             object_type forge;
