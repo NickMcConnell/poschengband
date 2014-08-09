@@ -2474,7 +2474,7 @@ static void get_exp_from_mon(int dam, monster_type *m_ptr)
             s64b_div(&n_h, &new_exp_frac, 0, 100);
         }
         m_ptr->pexp += pexp;
-#ifdef _DEBUG        
+#if 0
         msg_format(
             "Gain %d.%2.2d XP (Max %d.%2.2d, Mon %d.%2.2d, Actual %d %u)", 
             pexp/100, pexp%100, 

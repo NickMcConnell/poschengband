@@ -1950,8 +1950,6 @@ void object_prep(object_type *o_ptr, int k_idx)
     if (k_ptr->tval != TV_GOLD && !store_hack)
     {
         k_ptr->counts.generated++;
-        if (p_ptr->wizard)
-            msg_format("Generated 1 %s", k_name + k_ptr->name);
     }
 
     /* Efficiency -- tval/sval */
