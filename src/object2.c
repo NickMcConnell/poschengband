@@ -2483,7 +2483,7 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
                 o_ptr->to_d += randint1(5) + m_bonus(5, level);
                 break;
             case 5:
-                if ( (abs(power) >= 2 || one_in_(200 / level))
+                if ( (abs(power) >= 2 || one_in_(200 / MAX(1,level)))
                   && (!have_flag(o_ptr->art_flags, TR_XTRA_MIGHT) || one_in_(7) ) )
                 {
                     add_flag(o_ptr->art_flags, TR_XTRA_SHOTS);
@@ -2491,7 +2491,7 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
                     break;
                 }
             case 6:
-                if ( (abs(power) >= 2  || one_in_(200 / level))
+                if ( (abs(power) >= 2  || one_in_(200 / MAX(1,level)))
                   && (!have_flag(o_ptr->art_flags, TR_XTRA_SHOTS) || one_in_(7) ) )
                 {
                     add_flag(o_ptr->art_flags, TR_XTRA_MIGHT);
