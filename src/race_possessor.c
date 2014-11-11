@@ -552,6 +552,9 @@ void possessor_calc_innate_attacks(void)
             a.effect[2] = GF_STUN;
         }
 
+        if (a.dd * a.ds == 0)
+            a.flags |= INNATE_NO_DAM;
+
         calc_innate_blows(&a, 100 * cts[i]);
         p_ptr->innate_attacks[p_ptr->innate_attack_ct++] = a;
     }
