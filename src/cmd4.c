@@ -3547,8 +3547,8 @@ static bool ang_sort_comp_monster_level(vptr u, vptr v, int a, int b)
     /* Unused */
     (void)v;
 
-    if (r_ptr2->level > r_ptr1->level) return TRUE;
-    if (r_ptr1->level > r_ptr2->level) return FALSE;
+    if (r_ptr2->level > r_ptr1->level) return FALSE;
+    if (r_ptr1->level > r_ptr2->level) return TRUE;
 
     if ((r_ptr2->flags1 & RF1_UNIQUE) && !(r_ptr1->flags1 & RF1_UNIQUE)) return TRUE;
     if ((r_ptr1->flags1 & RF1_UNIQUE) && !(r_ptr2->flags1 & RF1_UNIQUE)) return FALSE;
@@ -3618,6 +3618,11 @@ static int collect_monsters(int grp_cur, s16b mon_idx[], byte mode)
                 o_idx = o_ptr->next_o_idx;
             }
         }
+
+        /* Current Form for Easier Comparisons */
+        if (p_ptr->prace == RACE_MON_POSSESSOR && p_ptr->current_r_idx != MON_POSSESSOR_SOUL)
+            int_map_add(available_corpses, p_ptr->current_r_idx, NULL);
+
     }
 
 
