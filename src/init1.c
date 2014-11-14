@@ -1387,7 +1387,7 @@ static _object_type_t _object_types[] =
 };
 
 /* OBJ(*)         Any object
-   OBJ(*, 7)      Any monster, 7 levels OoD
+   OBJ(*, 7)      Any object, 7 levels OoD
    OBJ(242)       Potion of Healing
    OBJ(POTION)    Any potion                   */
 static errr _parse_room_grid_object(char **args, int arg_ct, room_grid_t *grid_ptr)
@@ -1547,7 +1547,7 @@ static errr _parse_room_grid_feature(char* name, char **args, int arg_ct, room_g
     return 0;
 }
 
-/* D:FLOOR(ROOM|ICKY):MON(DRAGON, 20):EGO(*) 
+/* L:.:FLOOR(ROOM|ICKY):MON(DRAGON, 20):EGO(*) 
    Room Grids are designed to replace old dungeon_grid F: lines
    but I haven't got around to replacing those just yet. */
 errr parse_room_grid(char *buf, room_grid_t *grid_ptr)
