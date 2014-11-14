@@ -2955,7 +2955,8 @@ bool make_attack_spell(int m_idx, bool ticked_off)
             }
             else
             {
-                msg_format("%^s blinks away.", m_name);
+                if (seen)
+                    msg_format("%^s blinks away.", m_name);
                 teleport_away(m_idx, 10, 0L);
                 p_ptr->update |= (PU_MONSTERS);
             }
@@ -2972,7 +2973,8 @@ bool make_attack_spell(int m_idx, bool ticked_off)
             }
             else
             {
-                msg_format("%^s teleports away.", m_name);
+                if (seen)
+                    msg_format("%^s teleports away.", m_name);
                 teleport_away_followable(m_idx);
             }
             break;
