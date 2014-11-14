@@ -1108,6 +1108,11 @@ static bool get_moves(int m_idx, int *mm)
             else if (m_ptr->cdis > 5)
                 will_run = TRUE;
         }
+        else if (pack_ptr->ai == AI_MAINTAIN_DISTANCE)
+        {
+            if (1 < m_ptr->cdis && m_ptr->cdis <= pack_ptr->distance)
+                will_run = TRUE;
+        }
         /* Change Tactics?  This is still pretty lame ...
         else if (m_ptr->cdis < 3 && pack_ptr->ai != AI_SEEK)
         {
@@ -2643,6 +2648,7 @@ static void process_monster(int m_idx)
             {
             case AI_SHOOT:
             case AI_LURE:
+            case AI_MAINTAIN_DISTANCE:
                 freq += 15;
                 break;
             case AI_FEAR:

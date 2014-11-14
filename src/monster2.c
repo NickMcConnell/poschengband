@@ -615,6 +615,34 @@ void pack_info_wipe(void)
     }
 }
 
+bool mon_has_summon_spell(int m_idx)
+{
+    monster_type *m_ptr = &m_list[m_idx];
+    monster_race *r_ptr = &r_info[m_ptr->r_idx];
+
+    if ( (r_ptr->flags4 & RF4_SUMMON_MASK)
+        || (r_ptr->flags5 & RF5_SUMMON_MASK)
+        || (r_ptr->flags6 & RF6_SUMMON_MASK) )
+    {
+        return TRUE;
+    }
+    return FALSE;
+}
+
+bool mon_has_attack_spell(int m_idx)
+{
+    monster_type *m_ptr = &m_list[m_idx];
+    monster_race *r_ptr = &r_info[m_ptr->r_idx];
+
+    if ( (r_ptr->flags4 & RF4_ATTACK_MASK)
+        || (r_ptr->flags5 & RF5_ATTACK_MASK)
+        || (r_ptr->flags6 & RF6_ATTACK_MASK) )
+    {
+        return TRUE;
+    }
+    return FALSE;
+}
+
 void pack_choose_ai(int m_idx)
 {
     monster_type *m_ptr = &m_list[m_idx];
@@ -624,9 +652,38 @@ void pack_choose_ai(int m_idx)
     {
         pack_info_t *pack_ptr = &pack_info_list[m_ptr->pack_idx];
         pack_ptr->ai = AI_SEEK; /* paranoia ... make sure something gets chosen! */
-        if (pack_ptr->count == 1) return; /* not sure why we are getting packs of one?? */
-
-        if (r_ptr->flags3 & RF3_ANIMAL)
+        if (pack_ptr->count == 1) /* Uniques can now come in packs of 1 for variable AI */
+        {
+            switch(randint1(10))
+            {
+            case 1:
+                if (mon_has_attack_spell(m_idx))
+                {
+                    pack_ptr->ai = AI_SHOOT;
+                    break;
+                }
+            case 2: case 3:
+                if (mon_has_summon_spell(m_idx))
+                {
+                    /* Lure the player into an open room in order to surround
+                       with evil summons! */
+                    pack_ptr->ai = AI_LURE;
+                    break;
+                }
+            case 4: case 5:
+                if (mon_has_attack_spell(m_idx))
+                {
+                    /* Hang back and pelt the player from a distance */
+                    pack_ptr->ai = AI_MAINTAIN_DISTANCE;
+                    pack_ptr->distance = 5;
+                    break;
+                }
+            default:
+                pack_ptr->ai = AI_SEEK;
+                break;
+            }
+        }
+        else if (r_ptr->flags3 & RF3_ANIMAL)
         {
             switch(randint1(10))
             {
@@ -1939,6 +1996,9 @@ void monster_desc(char *desc, monster_type *m_ptr, int mode)
             break;
         case AI_GUARD_POS:
             strcat(desc, " [Guard Position]");
+            break;
+        case AI_MAINTAIN_DISTANCE:
+            strcat(desc, " [Keep Distance]");
             break;
         }
     }
@@ -3754,9 +3814,10 @@ static bool place_monster_okay(int r_idx)
  */
 bool place_monster_aux(int who, int y, int x, int r_idx, u32b mode)
 {
-    int             i;
-    int                m_idx = 0;
-    monster_race    *r_ptr = &r_info[r_idx];
+    int           i;
+    int           m_idx = 0;
+    monster_race *r_ptr = &r_info[r_idx];
+    pack_info_t  *pack_ptr = NULL;
 
     if (!(mode & PM_NO_KAGE) && one_in_(333))
         mode |= PM_KAGE;
@@ -3768,68 +3829,83 @@ bool place_monster_aux(int who, int y, int x, int r_idx, u32b mode)
     m_idx = place_monster_one(who, y, x, r_idx, 0, mode);
     if (!m_idx) return (FALSE);
 
-    /* Require the "group" flag */
-    if (!(mode & PM_ALLOW_GROUP)) return (TRUE);
-
-    place_monster_m_idx = hack_m_idx_ii;
-
-    /* Friends for certain monsters */
-    if ((r_ptr->flags1 & RF1_FRIENDS) && dungeon_type != DUNGEON_ARENA)
+    /* Friends and Escorts */
+    if ((mode & PM_ALLOW_GROUP) && dungeon_type != DUNGEON_ARENA)
     {
-        int pack_idx = pack_info_pop();
-        pack_info_t *pack_ptr = &pack_info_list[pack_idx];
-        m_list[m_idx].pack_idx = pack_idx;
-        pack_ptr->count++;
-        (void)place_monster_group(who, y, x, r_idx, pack_idx, mode);
-        pack_choose_ai(m_idx);
+        place_monster_m_idx = hack_m_idx_ii;
+
+        if (r_ptr->flags1 & RF1_FRIENDS)
+        {
+            int pack_idx = pack_info_pop();
+        
+            pack_ptr = &pack_info_list[pack_idx];
+            m_list[m_idx].pack_idx = pack_idx;
+            pack_ptr->count++;
+            (void)place_monster_group(who, y, x, r_idx, pack_idx, mode);
+            pack_choose_ai(m_idx);
+        }
+        else if (r_ptr->flags1 & RF1_ESCORT)
+        {
+            int pack_idx = pack_info_pop();
+            
+            pack_ptr = &pack_info_list[pack_idx];
+            m_list[m_idx].pack_idx = pack_idx;
+            pack_ptr->leader_idx = m_idx;
+            pack_ptr->count++;
+
+            /* Set the escort index */
+            place_monster_idx = r_idx;
+
+            /* Try to place several "escorts" */
+            for (i = 0; i < 32; i++)
+            {
+                int nx, ny, z, d = 3;
+
+                /* Pick a location */
+                scatter(&ny, &nx, y, x, d, 0);
+
+                /* Require empty grids */
+                if (!cave_empty_bold2(ny, nx)) continue;
+
+                /* Prepare allocation table */
+                get_mon_num_prep(place_monster_okay, get_monster_hook2(ny, nx));
+
+                /* Pick a random race */
+                z = get_mon_num(r_ptr->level);
+
+                /* Handle failure */
+                if (!z) break;
+
+                /* Place a single escort */
+                (void)place_monster_one(place_monster_m_idx, ny, nx, z, pack_idx, mode);
+
+                /* Place a "group" of escorts if needed */
+                if ((r_info[z].flags1 & RF1_FRIENDS) ||
+                    (r_ptr->flags1 & RF1_ESCORTS))
+                {
+                    /* Place a group of monsters */
+                    if (dungeon_type != DUNGEON_ARENA)
+                        (void)place_monster_group(place_monster_m_idx, ny, nx, z, pack_idx, mode);
+                }
+            }
+            pack_choose_ai(m_idx);
+        }
     }
 
-    /* Escorts for certain monsters */
-    if ((r_ptr->flags1 & RF1_ESCORT) && !(r_ptr->flags1 & RF1_FRIENDS))
+    /* Give uniques variable AI strategies. We do this as a hack, using the
+       existing pack code, by creating a "pack of 1". 
+                                        v---- Mercy!*/
+    if ((r_ptr->flags1 & RF1_UNIQUE) && !(r_ptr->flags1 & RF1_QUESTOR))
     {
-        int pack_idx = pack_info_pop();
-        pack_info_t *pack_ptr = &pack_info_list[pack_idx];
-
-        m_list[m_idx].pack_idx = pack_idx;
-        pack_ptr->leader_idx = m_idx;
-        pack_ptr->count++;
-
-        /* Set the escort index */
-        place_monster_idx = r_idx;
-
-        /* Try to place several "escorts" */
-        for (i = 0; i < 32; i++)
+        if (!pack_ptr)
         {
-            int nx, ny, z, d = 3;
-
-            /* Pick a location */
-            scatter(&ny, &nx, y, x, d, 0);
-
-            /* Require empty grids */
-            if (!cave_empty_bold2(ny, nx)) continue;
-
-            /* Prepare allocation table */
-            get_mon_num_prep(place_monster_okay, get_monster_hook2(ny, nx));
-
-            /* Pick a random race */
-            z = get_mon_num(r_ptr->level);
-
-            /* Handle failure */
-            if (!z) break;
-
-            /* Place a single escort */
-            (void)place_monster_one(place_monster_m_idx, ny, nx, z, pack_idx, mode);
-
-            /* Place a "group" of escorts if needed */
-            if ((r_info[z].flags1 & RF1_FRIENDS) ||
-                (r_ptr->flags1 & RF1_ESCORTS))
-            {
-                /* Place a group of monsters */
-                if (dungeon_type != DUNGEON_ARENA)
-                    (void)place_monster_group(place_monster_m_idx, ny, nx, z, pack_idx, mode);
-            }
+            int pack_idx = pack_info_pop();
+        
+            pack_ptr = &pack_info_list[pack_idx];
+            m_list[m_idx].pack_idx = pack_idx;
+            pack_ptr->count++;
+            pack_choose_ai(m_idx);
         }
-        pack_choose_ai(m_idx);
     }
 
     /* Success */
