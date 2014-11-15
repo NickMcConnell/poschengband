@@ -543,8 +543,9 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
     return (TRUE);
 }
 
-bool _summon_possible(int candidate_y, int candidate_x)
+int _summon_possible_count(int candidate_y, int candidate_x)
 {
+    int result = 0;
     int y, x;
 
     /* TODO: Target monster will be moving from (m_ptr->fx, m_ptr->fy) to (candidate_x, candidate_y).
@@ -557,11 +558,11 @@ bool _summon_possible(int candidate_y, int candidate_x)
             if (distance(py, px, y, x) > 2) continue;
             if (pattern_tile(y, x)) continue;
             if (y == candidate_y && x == candidate_x) continue;
-            if (cave_empty_bold(y, x) && projectable(py, px, y, x) && projectable(y, x, py, px)) return TRUE;
+            if (cave_empty_bold(y, x) && projectable(py, px, y, x) && projectable(y, x, py, px)) result++;
         }
     }
 
-    return FALSE;
+    return result;
 }
 
 /*
@@ -2886,16 +2887,17 @@ static void process_monster(int m_idx)
         /* Ignore locations off of edge */
         if (!in_bounds2(ny, nx)) continue;
 
-        /* Monsters that may summon won't walk into anti-summoning situations unless they
-           are angered by distance attacks by the player. Note, RF2_SMART is too rare for
-           this behavior so, for now, everybody gets it. */
-        if (!player_bold(ny, nx) && player_has_los_bold(ny, nx) && projectable(py, px, ny, nx))
+        /* Nerf ASC a bit */
+        if (mon_has_summon_spell(m_idx))
         {
-            if ( (r_ptr->flags4 & RF4_SUMMON_MASK)
-              || (r_ptr->flags5 & RF5_SUMMON_MASK)
-              || (r_ptr->flags6 & RF6_SUMMON_MASK) )
-            {
-                if (!_summon_possible(ny, nx))
+            if ( p_ptr->chp > p_ptr->mhp * 4 / 5 /* If @ wounded, pursue! */
+              && !player_bold(ny, nx)            /* Moving from out of LOS into LOS */
+              && player_has_los_bold(ny, nx) 
+              && projectable(py, px, ny, nx)
+              && !projectable(py, px, m_ptr->fy, m_ptr->fx) )
+            {            
+                int ct = _summon_possible_count(ny, nx);
+                if (ct < 1 + randint1(4))
                 {
                     if (!(m_ptr->smart & SM_TICKED_OFF))
                         continue;
