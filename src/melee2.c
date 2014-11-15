@@ -2626,12 +2626,12 @@ static void process_monster(int m_idx)
             switch (pack_ptr->ai)
             {
             case AI_SHOOT:
-            case AI_LURE:
-            case AI_MAINTAIN_DISTANCE:
                 freq += 15;
                 break;
+            case AI_LURE:
             case AI_FEAR:
-                freq += 10;
+            case AI_MAINTAIN_DISTANCE:
+                freq += 5;
                 break;
             }
         }
