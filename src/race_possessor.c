@@ -792,6 +792,7 @@ static void _breathe_spell(int what, int cmd, variant *res)
         case 'D': div = 15; break;
         case 'd': div = 12; break;
         case 'Z': div = 8; break;
+        case 'R': div = 12; break; /* Tarrasque, Godzilla */
         }
         
         var_set_int(res, (_breath_amount(what) + div - 1) / div);
