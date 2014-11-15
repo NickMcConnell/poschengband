@@ -4482,7 +4482,7 @@ static void _create_lite(object_type *o_ptr, int level, int power, int mode)
     if (-1 <= power && power <= 1)
         return;
 
-    if (o_ptr->sval == SV_LITE_FEANOR && (one_in_(35) || power > 2))
+    if (o_ptr->sval == SV_LITE_FEANOR && (one_in_(20) || power > 2))
     {
         _create_artifact(o_ptr, power);
         return;
