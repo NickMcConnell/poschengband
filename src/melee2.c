@@ -543,28 +543,6 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
     return (TRUE);
 }
 
-int _summon_possible_count(int candidate_y, int candidate_x)
-{
-    int result = 0;
-    int y, x;
-
-    /* TODO: Target monster will be moving from (m_ptr->fx, m_ptr->fy) to (candidate_x, candidate_y).
-       We should not insist that (m_ptr->fx, m_ptr->fy) be empty ... */
-    for (y = py - 2; y <= py + 2; y++)
-    {
-        for (x = px - 2; x <= px + 2; x++)
-        {
-            if (!in_bounds(y, x)) continue;
-            if (distance(py, px, y, x) > 2) continue;
-            if (pattern_tile(y, x)) continue;
-            if (y == candidate_y && x == candidate_x) continue;
-            if (cave_empty_bold(y, x) && projectable(py, px, y, x) && projectable(y, x, py, px)) result++;
-        }
-    }
-
-    return result;
-}
-
 /*
  * Choose the "best" direction for "flowing"
  *
@@ -2895,10 +2873,35 @@ static void process_monster(int m_idx)
               && player_has_los_bold(ny, nx) 
               && projectable(py, px, ny, nx)
               && !projectable(py, px, m_ptr->fy, m_ptr->fx) )
-            {            
-                int ct = _summon_possible_count(ny, nx);
-                if (ct < 1 + randint1(4))
+            {
+                int ct_open = 0;
+                int ct_enemy = 0;
+                int y, x;
+
+                /* Inspect @'s surroundings */
+                for (y = py - 2; y <= py + 2; y++)
                 {
+                    for (x = px - 2; x <= px + 2; x++)
+                    {
+                        if (!in_bounds(y, x)) continue;
+                        if (distance(py, px, y, x) > 2) continue;
+                        if (pattern_tile(y, x)) continue;
+                        if (y == ny && x == nx) continue;
+                        if (y == m_ptr->fy && x == m_ptr->fx) continue;
+                        if (cave[y][x].m_idx && is_hostile(&m_list[cave[y][x].m_idx]))
+                            ct_enemy++;
+                        if (cave_empty_bold(y, x) && projectable(py, px, y, x) && projectable(y, x, py, px)) 
+                            ct_open++;
+                    }
+                }
+
+                if (ct_enemy)
+                {
+                    /* If @ is in battle, join the fray! */
+                }
+                else if (ct_open < 1 + randint1(4))
+                {
+                    /* not enough summoning opportunities, so hold off unless angered */
                     if (!(m_ptr->smart & SM_TICKED_OFF))
                         continue;
                     if (!one_in_(3))
