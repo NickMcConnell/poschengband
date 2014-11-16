@@ -4777,6 +4777,10 @@ void apply_magic(object_type *o_ptr, int lev, u32b mode)
     /* Base chance of being "good" */
     f1 = lev + 10;
 
+    /* Temp Hack: It's a bit too hard to find good rings early on */
+    if (o_ptr->tval == TV_RING || o_ptr->tval == TV_AMULET)
+        f1 += 30;
+
     /* Maximal chance of being "good" */
     if (f1 > d_info[dungeon_type].obj_good) f1 = d_info[dungeon_type].obj_good;
 
