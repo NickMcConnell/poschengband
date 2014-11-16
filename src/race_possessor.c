@@ -556,6 +556,8 @@ void possessor_calc_innate_attacks(void)
             a.flags |= INNATE_NO_DAM;
 
         calc_innate_blows(&a, 100 * cts[i]);
+        if (p_ptr->weapon_ct)
+            a.blows /= 2;
         p_ptr->innate_attacks[p_ptr->innate_attack_ct++] = a;
     }
 }

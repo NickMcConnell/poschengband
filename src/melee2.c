@@ -1089,8 +1089,12 @@ static bool get_moves(int m_idx, int *mm)
         }
         else if (pack_ptr->ai == AI_MAINTAIN_DISTANCE)
         {
-            if (1 < m_ptr->cdis && m_ptr->cdis <= pack_ptr->distance)
+            if ( 1 < m_ptr->cdis 
+              && m_ptr->cdis <= pack_ptr->distance
+              && p_ptr->chp >= p_ptr->mhp * 4 / 5 ) /* If @ wounded, pursue! */
+            {
                 will_run = TRUE;
+            }
         }
         /* Change Tactics?  This is still pretty lame ...
         else if (m_ptr->cdis < 3 && pack_ptr->ai != AI_SEEK)
