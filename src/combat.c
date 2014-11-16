@@ -210,7 +210,7 @@ static _blow_info_t _get_blow_info(int hand)
         }
         else if (prace_is_(RACE_MON_POSSESSOR) || prace_is_(RACE_MON_MIMIC)) 
         {
-            /* TODO: result.num = 400; */
+            result.num = 400;
         }
         else if (prace_is_(RACE_MON_TROLL))
         {

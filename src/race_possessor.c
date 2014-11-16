@@ -1042,7 +1042,7 @@ void _healing_spell(int cmd, variant *res)
         var_set_bool(res, TRUE);
         break;
     case SPELL_COST_EXTRA:
-        var_set_int(res, _healing_amt()/10);
+        var_set_int(res, _healing_amt()/8);
         break;
     default:
         default_spell(cmd, res);
@@ -1318,19 +1318,36 @@ int possessor_r_speed(int r_idx)
         sp = (int)r_ptr->speed - 110;
         if (sp > 0)
         {
-            int factor = 100;
             int i;
             equip_template_ptr body = &b_info[r_ptr->body.body_idx];
+            bool humanoid = FALSE;
 
             for (i = 0; i < body->count; i++)
             {
                 if (body->slots[i].type == EQUIP_SLOT_WEAPON_SHIELD)
                 {
-                    factor = 35;
+                    humanoid = TRUE;
                     break;
                 }
             }
-            sp = sp * factor / 100;
+
+            if (humanoid)
+            {
+                int factor = 35;
+                int tsp = sp * 10;
+                sp = 0;
+                while (tsp > 0)
+                {
+                    if (tsp >= 100)
+                        sp += factor;
+                    else
+                        sp += tsp * factor / 100;
+ 
+                    factor /= 2;
+                    tsp -= 100;
+                }
+                sp = sp/10;
+            }
         }
     }
     sp = sp * MIN(p_lvl, r_lvl) / r_lvl;
