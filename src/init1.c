@@ -1241,7 +1241,7 @@ static const char *_summon_specific_types[] = {
 
 /* MON(DRAGON, 20)                Any dragon, 20 levels OoD
    MON(*, 40)                     Any monster, 40 levels OoD
-   MON(ORC | NO_GROUP | HASTED)   A hasted orc loner at current depth
+   MON(ORC | NO_GROUP | HASTE)    A hasted orc loner at current depth
    MON(441 | CLONED)              A Gachapin Clone
    MON(442)                       A Black Knight */
 static errr _parse_room_grid_monster(char **args, int arg_ct, room_grid_t *grid_ptr)

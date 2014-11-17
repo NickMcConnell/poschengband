@@ -208,7 +208,11 @@ static _blow_info_t _get_blow_info(int hand)
             result.num = 400;
             result.mul = 30;
         }
-        else if (prace_is_(RACE_MON_POSSESSOR) || prace_is_(RACE_MON_MIMIC)) 
+        else if (prace_is_(RACE_MON_POSSESSOR))
+        {
+            result.num = 450;
+        }
+        else if (prace_is_(RACE_MON_MIMIC)) 
         {
             result.num = 400;
         }
