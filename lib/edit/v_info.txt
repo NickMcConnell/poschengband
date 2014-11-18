@@ -3550,6 +3550,35 @@ M:   0   8  @  8  0
 M:                 
 M:      6   8   6  
 
+#Nivim
+N:159:Villa
+T:WILD:GRASS
+W:4:30:24
+L:_:FLOOR
+L:.:FLOOR(ROOM)
+L:0:FLOOR(ROOM):MON(p | NO_GROUP, 25)
+L:1:FLOOR(ROOM):MON(p | NO_UNIQUE, 17)
+L:2:FLOOR(ROOM):MON(p | NO_UNIQUE)
+L:`:FLOOR(ROOM):OBJ(STATUE, 10)
+L:*:FLOOR(ROOM):OBJ(GOLD, 15)
+L:&:FLOOR(ROOM):OBJ(CHEST)
+L:%:FLOOR(ROOM):OBJ(FOOD)
+L:x:CLOSED_DOOR(ROOM)
+M:___           
+M:_+############
+M:_#...#...#..%#
+M: #.22+..2x..%#
+M: #2..#..2#2.%#
+M: ##+##########
+M: #...#.&&#`..#
+M: #...#...#*.0$
+M: #.22#...#...#
+M: ##x###+###x##
+M: #2..#1..#...#
+M: #...x...x...#
+M: #...#..1#.%%#
+M: #############
+
 ###################
 # Lava Encounters #
 ###################
