@@ -643,6 +643,20 @@ bool mon_has_attack_spell(int m_idx)
     return FALSE;
 }
 
+bool mon_has_worthy_attack_spell(int m_idx)
+{
+    monster_type *m_ptr = &m_list[m_idx];
+    monster_race *r_ptr = &r_info[m_ptr->r_idx];
+
+    if ( (r_ptr->flags4 & RF4_ATTACK_MASK)
+        || (r_ptr->flags5 & RF5_WORTHY_ATTACK_MASK)
+        || (r_ptr->flags6 & RF6_WORTHY_ATTACK_MASK) )
+    {
+        return TRUE;
+    }
+    return FALSE;
+}
+
 void pack_choose_ai(int m_idx)
 {
     monster_type *m_ptr = &m_list[m_idx];
@@ -654,34 +668,24 @@ void pack_choose_ai(int m_idx)
         pack_ptr->ai = AI_SEEK; /* paranoia ... make sure something gets chosen! */
         if (pack_ptr->count == 1) /* Uniques can now come in packs of 1 for variable AI */
         {
-            switch(randint1(10))
+            int p = randint0(100);
+
+            if (p < 5 && mon_has_worthy_attack_spell(m_idx))
+                pack_ptr->ai = AI_SHOOT;
+            else if (p < 15 && mon_has_summon_spell(m_idx))
             {
-            case 1:
-                if (mon_has_attack_spell(m_idx))
-                {
-                    pack_ptr->ai = AI_SHOOT;
-                    break;
-                }
-            case 2: case 3:
-                if (mon_has_summon_spell(m_idx))
-                {
-                    /* Lure the player into an open room in order to surround
-                       with evil summons! */
-                    pack_ptr->ai = AI_LURE;
-                    break;
-                }
-            case 4: case 5:
-                if (mon_has_attack_spell(m_idx))
-                {
-                    /* Hang back and pelt the player from a distance */
-                    pack_ptr->ai = AI_MAINTAIN_DISTANCE;
-                    pack_ptr->distance = 5;
-                    break;
-                }
-            default:
-                pack_ptr->ai = AI_SEEK;
-                break;
+                /* Lure the player into an open room in order to surround
+                    with evil summons! */
+                pack_ptr->ai = AI_LURE;
             }
+            else if (p < 25 && mon_has_worthy_attack_spell(m_idx))
+            {
+                /* Hang back and pelt the player from a distance */
+                pack_ptr->ai = AI_MAINTAIN_DISTANCE;
+                pack_ptr->distance = 5;
+            }
+            else
+                pack_ptr->ai = AI_SEEK;
         }
         else if (r_ptr->flags3 & RF3_ANIMAL)
         {

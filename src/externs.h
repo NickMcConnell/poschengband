@@ -1059,6 +1059,7 @@ extern void pack_on_damage_monster(int m_idx);
 extern pack_info_t *pack_info_ptr(int m_idx);
 extern void pack_choose_ai(int m_idx);
 extern bool mon_has_attack_spell(int m_idx);
+extern bool mon_has_worthy_attack_spell(int m_idx);
 extern bool mon_has_summon_spell(int m_idx);
 
 extern monster_type *mon_get_parent(monster_type *m_ptr);
