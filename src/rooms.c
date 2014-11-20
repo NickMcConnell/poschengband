@@ -1552,6 +1552,9 @@ static void _apply_room_grid1(int x, int y, const room_grid_t *grid_ptr, u16b ro
 
         if (grid_ptr->flags & ROOM_GRID_SPECIAL)
             c_ptr->special = grid_ptr->extra;
+
+        if (have_flag(f_info[c_ptr->feat].flags, FF_STORE))
+            store_init(NO_TOWN, f_info[c_ptr->feat].subtype);
     }
 
     /* Traps */

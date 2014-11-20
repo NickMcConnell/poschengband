@@ -1098,6 +1098,14 @@ bool mon_is_type(int r_idx, int type)
     case SUMMON_BIRD:
         if (r_ptr->d_char == 'B') return TRUE;
         break;
+    case SUMMON_ARCHER:
+        if (r_ptr->d_char == 'p')
+        {
+            int i;
+            for (i = 0; i < 4; i++)
+                if (r_ptr->blow[i].method == RBM_SHOOT) return TRUE;
+        }
+        break;
     case SUMMON_KAMIKAZE:
     {
         int i;

@@ -125,7 +125,7 @@
 #              - BODY_ARMOR: Includes soft armor, hard armor and even dragon armor.
 #              - OTHER_ARMOR: Any armor not included in BODY_ARMOR (e.g., helms, shields, cloaks)
 #              - WEAPON: Any melee weapon (there are 4 tvals for weapons).
-#              - BOW_AMMO: Any type of ammo.
+#              - BOW_AMMO: Any type of bow or ammo.
 #              - MISC: Junk, statues, etc. Basically, anything not caught by one of the preceding special categories.
 #           Finally, you can specify a k_idx directly (from k_info.txt), such as OBJ(242) for a potion of
 #           healing.
@@ -304,6 +304,90 @@ M:############+###########
 M:#.....p.........p...p..#
 M:#........p.............#
 M:########################
+
+N:Archery Practice
+T:WILD:GRASS:FORMATION
+W:1:*:4
+L:0:MON(ARCHER)
+L:$:OBJ(BOW_AMMO)
+M:8640468
+M:6  $  6
+M:4     4
+M:0$   $0
+M:4     4
+M:6  $  6
+M:8640468
+
+N:Thieve's Prison
+T:WILD:GRASS
+W:1:*:4
+L:M:MON(THIEF)
+L:+:LOCKED_DOOR_7
+M:#########
+M:#M#M#M#M#
+M:#+#+#+#+#
+M:+.......#
+M:#+#+#+#+#
+M:#M#M#M#M#
+M:#########
+
+N:Debtor's Prison
+T:WILD:GRASS
+W:1:*:8
+L:M:MON(p)
+L:+:LOCKED_DOOR_5
+M:#########
+M:#M#M#M#M#
+M:#+#+#+#+#
+M:+.......#
+M:#+#+#+#+#
+M:#M#M#M#M#
+M:#########
+
+N:Menagerie
+T:WILD:GRASS
+W:10:*:32
+L:M:MON(ANIMAL, DEPTH+10)
+L:p:MON(p, NO_GROUP | FRIENDLY)
+L:+:GLASS_WALL
+M:#########
+M:#M#M#M#M#
+M:#+#+#+#+#
+M:    p    
+M:#+#+#+#+#
+M:#M#M#M#M#
+M:#########
+
+N:General Store
+T:WILD:GRASS
+W:1:*:8
+L:1:GENERAL_STORE(GLOW)
+M:XXXXXXXXX
+M:XXXXXXXXX
+M:'.....1XX
+M:XXXXXXXXX
+M:XXXXXXXXX
+
+N:Temple
+T:WILD:GRASS
+W:1:*:16
+L:4:TEMPLE(GLOW)
+M:XXXXXXXXX
+M:XXXXXXXXX
+M:'.....4XX
+M:XXXXXXXXX
+M:XXXXXXXXX
+
+N:Black Market
+T:WILD:GRASS
+W:1:*:32
+L:7:BLACK_MARKET(GLOW)
+M:XXXXXXXXX
+M:XXXXXXXXX
+M:'.....7XX
+M:XXXXXXXXX
+M:XXXXXXXXX
+
 
 #Nivim
 N:Villa
