@@ -1498,7 +1498,7 @@ static errr _parse_room_grid_ego(char **args, int arg_ct, room_grid_t *grid_ptr)
         break;
 
     default:
-        msg_print("Error: Invalid EGO() directive. Syntax: EGO(<which> [,<flags>]).");
+        msg_print("Error: Invalid EGO() directive. Syntax: EGO(<which>).");
         return PARSE_ERROR_TOO_FEW_ARGUMENTS;
     }
     return 0;
@@ -1520,7 +1520,7 @@ static errr _parse_room_grid_artifact(char **args, int arg_ct, room_grid_t *grid
             grid_ptr->object = atoi(args[0]);
             if (!grid_ptr->object)
             {
-                msg_format("Error: Unknown Ego %s.", args[0]);
+                msg_format("Error: Unknown Artifact %s.", args[0]);
                 return PARSE_ERROR_GENERIC;
             }
             grid_ptr->flags |= ROOM_GRID_OBJ_ARTIFACT;
@@ -1528,7 +1528,7 @@ static errr _parse_room_grid_artifact(char **args, int arg_ct, room_grid_t *grid
         break;
 
     default:
-        msg_print("Error: Invalid ART() directive. Syntax: ART(<which> [,<flags>]).");
+        msg_print("Error: Invalid ART() directive. Syntax: ART(<which>).");
         return PARSE_ERROR_TOO_FEW_ARGUMENTS;
     }
     return 0;
