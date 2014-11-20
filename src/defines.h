@@ -4564,7 +4564,7 @@ extern int PlayerUID;
  * Parse errors
  */
 #define PARSE_ERROR_GENERIC                  1
-#define PARSE_ERROR_ABSOLETE_FILE            2
+#define PARSE_ERROR_OBSOLETE_FILE            2
 #define PARSE_ERROR_MISSING_RECORD_HEADER    3
 #define PARSE_ERROR_NON_SEQUENTIAL_RECORDS   4
 #define PARSE_ERROR_INVALID_FLAG             5

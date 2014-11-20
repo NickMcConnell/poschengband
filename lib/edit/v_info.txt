@@ -77,7 +77,7 @@ V:3.0.0
 # possible. Please let me know if I missed anyone, or made any mistakes.
 #
 
-N:0:Lesser vault (round)
+N:Lesser vault (round)
 T:VAULT:LESSER
 W:20:70:1
 M:       %%%%%%       
@@ -94,7 +94,7 @@ M:    %%%..##..%%%
 M:       %%%%%%       
 
 
-N:1:Lesser vault (octagon)
+N:Lesser vault (octagon)
 T:VAULT:LESSER
 W:20:70:1
 M:   %%%%%%%%%%%%%%   
@@ -113,7 +113,7 @@ M:  %%.##########.%%
 M:   %%%%%%%%%%%%%%   
 
 
-N:2:Lesser vault (octagon)
+N:Lesser vault (octagon)
 T:VAULT:LESSER
 W:20:70:1
 M:    %%%%%%%%%%%%    
@@ -130,7 +130,7 @@ M: %%%%..........%%%%
 M:    %%%%%%%%%%%%    
 
 
-N:3:Lesser vault (square)
+N:Lesser vault (square)
 T:VAULT:LESSER
 W:20:50:1
 M:%%%%%%%%%%%%%%%%%%%%
@@ -147,7 +147,7 @@ M:%*........&.......*%
 M:%%%%%%%%%%%%%%%%%%%%
 
 
-N:4:Lesser vault (diagonal)
+N:Lesser vault (diagonal)
 T:VAULT:LESSER
 W:30:*:1
 M:%%%%%%%%%%%%%%%%%   
@@ -164,7 +164,7 @@ M:  %%...##,,,,##,,,,%
 M:   %%%%%%%%%%%%%%%%%
 
 
-N:5:Lesser vault (diagonal)
+N:Lesser vault (diagonal)
 T:VAULT:LESSER
 W:30:*:1
 M:   %%%%%%%%%%%%%%%%%
@@ -181,7 +181,7 @@ M:%,,,,##,,,,##...%%
 M:%%%%%%%%%%%%%%%%%   
 
 
-N:6:Lesser vault (square)
+N:Lesser vault (square)
 T:VAULT:LESSER
 W:20:50:1
 M:%%%%%%%%%%%%%%%%%%%%
@@ -199,7 +199,7 @@ M:%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:7:Lesser vault (spiral)
+N:Lesser vault (spiral)
 T:VAULT:LESSER
 W:30:60:1
 M:%%%%%%%%%%%%%%%%%%%%%
@@ -224,7 +224,7 @@ M:%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:8:Lesser vault (layers)
+N:Lesser vault (layers)
 T:VAULT:LESSER
 W:25:60:1
 M:%%%%%%%%%%%%%%%%%%%%%
@@ -251,7 +251,7 @@ M:%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:9:Lesser vault (bank)
+N:Lesser vault (bank)
 T:VAULT:LESSER
 W:20:50:1
 M:%%%%%%%%%%%%%%%%%%%%%
@@ -266,7 +266,7 @@ M:%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:10:Lesser vault (mine)
+N:Lesser vault (mine)
 T:VAULT:LESSER
 W:20:50:1
 M:%%%%%%%%%%%%%%%%%%%%%
@@ -281,7 +281,7 @@ M:%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:11:Lesser vault (maze)
+N:Lesser vault (maze)
 T:VAULT:LESSER
 W:30:70:1
 M:%%%%%%%%%%%%%%%%%%%%%%
@@ -309,7 +309,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:12:Lesser vault (prison)
+N:Lesser vault (prison)
 T:VAULT:LESSER
 W:30:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -330,7 +330,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:13:Lesser vault (camp)
+N:Lesser vault (camp)
 T:VAULT:LESSER
 W:30:60:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -351,7 +351,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:14:Lesser vault (serpent)
+N:Lesser vault (serpent)
 T:VAULT:LESSER
 W:30:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -374,7 +374,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:15:Lesser vault (zelazny)
+N:Lesser vault (zelazny)
 T:VAULT:LESSER
 W:30:*:1
 M:%%%%%%%%%%%%%%%%%%%
@@ -398,7 +398,7 @@ M:%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:16:Lesser vault (overlap)
+N:Lesser vault (overlap)
 T:VAULT:LESSER
 W:30:*:1
 M:%%%%%%%%%%%%%%%%%%
@@ -416,7 +416,7 @@ M:%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:17:Lesser vault (celtic)
+N:Lesser vault (celtic)
 T:VAULT:LESSER
 W:30:60:1
 M:%%%%%%%%%%%%%%%%%%%%%
@@ -439,7 +439,7 @@ M:%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:18:Lesser vault (mirror)
+N:Lesser vault (mirror)
 T:VAULT:LESSER
 W:40:*:1
 M:%%%%%%%%%%%%%%%%%%%
@@ -463,7 +463,7 @@ M:%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:19:Lesser vault (tower)
+N:Lesser vault (tower)
 T:VAULT:LESSER
 W:30:60:1
 M:%%%%%%%%%%%%%%%
@@ -485,7 +485,7 @@ M:%.##+#####+##.%
 M:%...&.....&...%
 M:%%%%%%%%%%%%%%%
 
-N:20:Greater vault (huge)
+N:Greater vault (huge)
 T:VAULT:GREATER
 W:60:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -507,7 +507,7 @@ M:%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-N:21:Greater vault (large)
+N:Greater vault (large)
 T:VAULT:GREATER
 W:40:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -530,7 +530,7 @@ M:%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-N:22:Greater vault (butterfly)
+N:Greater vault (butterfly)
 T:VAULT:GREATER
 W:40:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -555,7 +555,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:23:Greater vault (castle)
+N:Greater vault (castle)
 T:VAULT:GREATER
 W:40:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -588,7 +588,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:24:Greater vault (chambers)
+N:Greater vault (chambers)
 T:VAULT:GREATER
 W:40:80:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -609,7 +609,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:25:Greater vault (Sierpinski)
+N:Greater vault (Sierpinski)
 T:VAULT:GREATER
 W:50:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -641,7 +641,7 @@ M:%.XXXXXXXX+XXXXXXXXXXXXXXXXX+XXXXXXXX.%
 M:%.........&.................&.........%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:26:Greater vault (swastika)
+N:Greater vault (swastika)
 T:VAULT:GREATER
 W:40:70:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -670,7 +670,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:27:Greater vault (great spiral)
+N:Greater vault (great spiral)
 T:VAULT:GREATER
 W:50:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -715,7 +715,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:28:Greater vault (greater castle)
+N:Greater vault (greater castle)
 T:VAULT:GREATER
 W:40:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -746,7 +746,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:29:Lesser vault (x-factor)
+N:Lesser vault (x-factor)
 T:VAULT:GREATER
 W:40:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -778,7 +778,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:30:Greater vault (university)
+N:Greater vault (university)
 T:VAULT:GREATER
 W:40:80:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -813,7 +813,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:31:Greater vault (nethack castle (almost))
+N:Greater vault (nethack castle (almost))
 T:VAULT:GREATER
 W:40:70:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -838,7 +838,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:32:Greater vault (another nethack-style castle)
+N:Greater vault (another nethack-style castle)
 T:VAULT:GREATER
 W:40:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -862,7 +862,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:33:Lesser vault (nethack-style tower)
+N:Lesser vault (nethack-style tower)
 T:VAULT:LESSER
 W:30:50:1
 M:%%%%%%%%%%%%%%%%%%%
@@ -883,7 +883,7 @@ M:%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:34:Lesser vault (nethack, rooms)
+N:Lesser vault (nethack, rooms)
 T:VAULT:LESSER
 W:30:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -903,7 +903,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:35:Lesser vault (nethack city)
+N:Lesser vault (nethack city)
 T:VAULT:LESSER
 W:30:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -926,7 +926,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:36:Greater vault (nethack, large city)
+N:Greater vault (nethack, large city)
 T:VAULT:GREATER
 W:40:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -953,7 +953,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:37:Lesser vault (nethack, tiny castle)
+N:Lesser vault (nethack, tiny castle)
 T:VAULT:LESSER
 W:30:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -973,7 +973,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:38:Greater vault (nethack mirror)
+N:Greater vault (nethack mirror)
 T:VAULT:GREATER
 W:40:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1001,7 +1001,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:39:Greater vault (nethack tomb)
+N:Greater vault (nethack tomb)
 T:VAULT:GREATER
 W:40:80:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1020,7 +1020,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:40:Greater vault (nethack hell level #1)
+N:Greater vault (nethack hell level #1)
 T:VAULT:GREATER
 W:40:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1043,7 +1043,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:41:Greater vault (nethack hell level #2)
+N:Greater vault (nethack hell level #2)
 T:VAULT:GREATER
 W:40:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1064,7 +1064,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:42:Greater vault (nethack hell level #3)
+N:Greater vault (nethack hell level #3)
 T:VAULT:GREATER
 W:40:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1087,7 +1087,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:43:Lesser vault (easter egg)
+N:Lesser vault (easter egg)
 T:VAULT:LESSER
 W:20:70:1
 M:%%%%%%%%%%%%%%%%%%%
@@ -1107,7 +1107,7 @@ M:%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:44:Greater vault (nethack samurai castle)
+N:Greater vault (nethack samurai castle)
 T:VAULT:GREATER
 W:40:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1133,7 +1133,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:45:Greater vault (nethack samurai castle #2)
+N:Greater vault (nethack samurai castle #2)
 T:VAULT:GREATER
 W:40:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1159,7 +1159,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:46:Greater vault (nethack spiral)
+N:Greater vault (nethack spiral)
 T:VAULT:GREATER
 W:40:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1184,7 +1184,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:47:Greater vault (nethack building)
+N:Greater vault (nethack building)
 T:VAULT:GREATER
 W:40:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1206,7 +1206,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:48:Lesser vault (nethack, spiral rooms)
+N:Lesser vault (nethack, spiral rooms)
 T:VAULT:LESSER
 W:30:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1225,7 +1225,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:49:Greater vault (nethack building)
+N:Greater vault (nethack building)
 T:VAULT:GREATER
 W:40:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1248,7 +1248,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:50:Lesser vault (nethack, head)
+N:Lesser vault (nethack, head)
 T:VAULT:LESSER
 W:30:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1272,7 +1272,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:51:Lesser vault (maze of rooms)
+N:Lesser vault (maze of rooms)
 T:VAULT:LESSER
 W:30:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1294,7 +1294,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:52:Lesser vault (tetris tiles)
+N:Lesser vault (tetris tiles)
 T:VAULT:LESSER
 W:20:60:1
 M:%%%%%%%%%%%%%
@@ -1320,7 +1320,7 @@ M:%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:53:Lesser vault (hospital ward)
+N:Lesser vault (hospital ward)
 T:VAULT:LESSER
 W:20:70:1
 M:%%%%%%%%%%%%%%%%%%%%
@@ -1340,7 +1340,7 @@ M:%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:54:Lesser vault (lesser crypt)
+N:Lesser vault (lesser crypt)
 T:VAULT:LESSER
 W:20:60:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1360,7 +1360,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:55:Lesser vault (arena)
+N:Lesser vault (arena)
 T:VAULT:LESSER
 W:30:*:1
 M:%%%%%%%%%%%%%%%%%
@@ -1381,7 +1381,7 @@ M:%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:56:Lesser vault (monster wc)
+N:Lesser vault (monster wc)
 T:VAULT:LESSER
 W:20:40:1
 M:%%%%%%%%%%%%
@@ -1399,7 +1399,7 @@ M:%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:57:Lesser vault ('not' 'and')
+N:Lesser vault ('not' 'and')
 T:VAULT:LESSER
 W:20:40:1
 M:%%%%%%%%%%%%%%%
@@ -1416,7 +1416,7 @@ M:%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:58:Lesser vault (brain's lair)
+N:Lesser vault (brain's lair)
 T:VAULT:LESSER
 W:30:60:1
 M:%%%%%%%%%%%%%%%%%
@@ -1440,7 +1440,7 @@ M:%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:59:Lesser vault (yin-yang)
+N:Lesser vault (yin-yang)
 T:VAULT:LESSER
 W:30:70:1
 M:%%%%%%%%%%%%%%%%
@@ -1463,7 +1463,7 @@ M:%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:60:Greater vault (der el bahri)
+N:Greater vault (der el bahri)
 T:VAULT:GREATER
 W:40:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1497,7 +1497,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:61:Lesser vault (der el bahri sanctuary)
+N:Lesser vault (der el bahri sanctuary)
 T:VAULT:LESSER
 W:20:50:1
 M:%%%%%%%%%%%%%%%%%%%%%%
@@ -1515,7 +1515,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:62:Greater vault (hypostyle of ramses III)
+N:Greater vault (hypostyle of ramses III)
 T:VAULT:GREATER
 W:40:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1559,7 +1559,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:63:Lesser vault (amada temple)
+N:Lesser vault (amada temple)
 T:VAULT:LESSER
 W:30:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1580,7 +1580,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:64:Lesser vault (amenhotep I)
+N:Lesser vault (amenhotep I)
 T:VAULT:LESSER
 W:30:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1604,7 +1604,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:65:Lesser vault (hathor chapel)
+N:Lesser vault (hathor chapel)
 T:VAULT:LESSER
 W:30:*:1
 M:%%%%%%%%%%%%%%%%%%%
@@ -1632,7 +1632,7 @@ M:%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:66:Lesser vault (osiris halls)
+N:Lesser vault (osiris halls)
 T:VAULT:LESSER
 W:30:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1655,7 +1655,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:67:Lesser vault (temple of sety)
+N:Lesser vault (temple of sety)
 T:VAULT:LESSER
 W:30:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1684,7 +1684,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:68:Lesser vault (temple at abydos)
+N:Lesser vault (temple at abydos)
 T:VAULT:LESSER
 W:30:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%
@@ -1712,7 +1712,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:69:Greater vault (Spiral castle)
+N:Greater vault (Spiral castle)
 T:VAULT:GREATER
 W:40:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1750,7 +1750,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:70:Lesser vault (temple of dendereh)
+N:Lesser vault (temple of dendereh)
 T:VAULT:LESSER
 W:30:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%
@@ -1777,7 +1777,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:71:Greater vault (Karnak, part I)
+N:Greater vault (Karnak, part I)
 T:VAULT:GREATER
 W:40:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1807,7 +1807,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:72:Lesser vault (Karnak, part II)
+N:Lesser vault (Karnak, part II)
 T:VAULT:LESSER
 W:30:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1833,7 +1833,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:73:Greater vault (mortuary temple of sety)
+N:Greater vault (mortuary temple of sety)
 T:VAULT:GREATER
 W:40:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1864,7 +1864,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:74:Lesser vault (edfu)
+N:Lesser vault (edfu)
 T:VAULT:LESSER
 W:20:50:1
 M:%%%%%%%%%%%%%%%
@@ -1885,7 +1885,7 @@ M:%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:75:Greater vault (kom ombo)
+N:Greater vault (kom ombo)
 T:VAULT:GREATER
 W:40:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1927,7 +1927,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:76:Lesser vault (belvoir keep)
+N:Lesser vault (belvoir keep)
 T:VAULT:LESSER
 W:20:70:1
 M:%%%%%%%%%%%%%%%%%%%%%
@@ -1952,7 +1952,7 @@ M:%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:77:Lesser vault (ragged spiral)
+N:Lesser vault (ragged spiral)
 T:VAULT:GREATER
 W:50:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1990,7 +1990,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:78:Greater vault (alternating spiral)
+N:Greater vault (alternating spiral)
 T:VAULT:GREATER
 W:50:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2026,7 +2026,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Topi Ylinen
 #
-N:79:Greater vault (wandering)
+N:Greater vault (wandering)
 T:VAULT:GREATER
 W:50:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2074,7 +2074,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Chris Weisiger
 #
-N:80:Rock-Hard
+N:Rock-Hard
 T:VAULT:LESSER
 W:20:*:1
 M:%%%%%%%%%%%%%%%%%%%%
@@ -2091,7 +2091,7 @@ M:%%%%%%%%%%%%%%%%%%%%
 
 # Chris Weisiger
 #
-N:81:Planet X
+N:Planet X
 T:VAULT:LESSER
 W:30:*:1
 M:%%%%%%%%%%%%%%%
@@ -2111,7 +2111,7 @@ M:%%%%%%%%%%%%%%%
 
 # Chris Weisiger
 #
-N:82:Miniature Cell
+N:Miniature Cell
 T:VAULT:LESSER
 W:50:*:1
 M:%%%%%
@@ -2122,7 +2122,7 @@ M:%%%%%
 
 # Chris Weisiger
 #
-N:83:LV (Turnabout)
+N:LV (Turnabout)
 T:VAULT:LESSER
 W:20:80:1
 M:###############
@@ -2140,7 +2140,7 @@ M:###############
 
 # Chris Weisiger
 #
-N:84:Lesser Vault (Rooms)
+N:Lesser Vault (Rooms)
 T:VAULT:LESSER
 W:20:80:1
 M:%%%%%%%%%%%%%%%%%%%
@@ -2159,7 +2159,7 @@ M:%%%%%%%%%%%%%%%%%%%
 
 # Chris Weisiger
 #
-N:85:Lesser Vault (Cross)
+N:Lesser Vault (Cross)
 T:VAULT:LESSER
 W:20:60:1
 M:%%%%%%%%%%%%%%%%%%%%
@@ -2178,7 +2178,7 @@ M:%%%%%%%%%%%%%%%%%%%%
 
 # Chris Weisiger
 #
-N:86:Lesser Vault (Central)
+N:Lesser Vault (Central)
 T:VAULT:LESSER
 W:30:60:1
 M:############
@@ -2194,7 +2194,7 @@ M:############
 
 # Chris Weisiger
 #
-N:87:Lesser Vault (Camouflaged)
+N:Lesser Vault (Camouflaged)
 T:VAULT:LESSER
 W:20:*:1
 M:%%%%%%%%%%%%
@@ -2209,7 +2209,7 @@ M:%%%%%%%%%%%%
 
 # Chris Weisiger
 #
-N:88:Greater Vault (Twisted Cube)
+N:Greater Vault (Twisted Cube)
 T:VAULT:GREATER
 W:40:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2239,7 +2239,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Chris Weisiger
 #
-N:89:The Reward is Worth It
+N:The Reward is Worth It
 T:VAULT:GREATER
 W:50:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2261,7 +2261,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Chris Weisiger
 #
-N:90:The I in the Storm
+N:The I in the Storm
 T:VAULT:GREATER
 W:40:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2292,7 +2292,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Chris Weisiger
 #
-N:91:The Bank From Hell
+N:The Bank From Hell
 T:VAULT:GREATER
 W:30:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2318,7 +2318,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Chris Weisiger
 #
-N:92:Target Practice
+N:Target Practice
 T:VAULT:GREATER
 W:40:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2344,7 +2344,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Chris Weisiger
 #
-N:93:Snake Maze
+N:Snake Maze
 T:VAULT:GREATER
 W:40:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%
@@ -2371,7 +2371,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%
 
 # Chris Weisiger
 #
-N:94:Roundabouts One
+N:Roundabouts One
 T:VAULT:GREATER
 W:40:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2398,7 +2398,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Chris Weisiger
 #
-N:95:Roundabout Two
+N:Roundabout Two
 T:VAULT:GREATER
 W:40:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2429,7 +2429,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Chris Weisiger
 #
-N:96:Roundabout Three
+N:Roundabout Three
 T:VAULT:GREATER
 W:50:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2455,7 +2455,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Chris Weisiger
 #
-N:97:Modified Greater Vault (Huge)
+N:Modified Greater Vault (Huge)
 T:VAULT:GREATER
 W:60:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2478,7 +2478,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Chris Weisiger
 #
-N:98:Mirrored Quartet
+N:Mirrored Quartet
 T:VAULT:GREATER
 W:50:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2505,7 +2505,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Chris Weisiger
 #
-N:99:Jigsaw
+N:Jigsaw
 T:VAULT:GREATER
 W:40:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2527,7 +2527,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Chris Weisiger
 #
-N:100:Hellpit
+N:Hellpit
 T:VAULT:GREATER
 W:60:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2552,7 +2552,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Chris Weisiger
 #
-N:101:Funnel
+N:Funnel
 T:VAULT:GREATER
 W:40:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%
@@ -2579,7 +2579,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%
 
 # Chris Weisiger
 #
-N:102:False Wall
+N:False Wall
 T:VAULT:GREATER
 W:40:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2600,7 +2600,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Chris Weisiger
 #
-N:103:Greater Vault (Divisi)
+N:Greater Vault (Divisi)
 T:VAULT:GREATER
 W:50:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2637,7 +2637,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Chris Weisiger
 #
-N:104:Darwinism
+N:Darwinism
 T:VAULT:GREATER
 W:40:80:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2659,7 +2659,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Chris Weisiger
 #
-N:105:Cyclone
+N:Cyclone
 T:VAULT:GREATER
 W:50:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2688,7 +2688,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Chris Weisiger
 #
-N:106:Curlicues One
+N:Curlicues One
 T:VAULT:GREATER
 W:40:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2717,7 +2717,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Chris Weisiger
 #
-N:107:Concentricity
+N:Concentricity
 T:VAULT:GREATER
 W:50:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2742,7 +2742,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Chris Weisiger
 #
-N:108:Castle Death
+N:Castle Death
 T:VAULT:GREATER
 W:40:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2768,7 +2768,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Chris Weisiger
 #
-N:109:Bubbles
+N:Bubbles
 T:VAULT:GREATER
 W:60:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2799,7 +2799,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Chris Weisiger
 #
-N:110:*Greater Vault* (Absolutely Huge)
+N:*Greater Vault* (Absolutely Huge)
 T:VAULT:GREATER
 W:60:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2846,7 +2846,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Chris Weisiger
 #
-N:111:*Greater Vault* (Titanic)
+N:*Greater Vault* (Titanic)
 T:VAULT:GREATER
 W:70:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2895,7 +2895,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Chris Weisiger
 #
-N:112:*Greater Vault* (Subdivisions)
+N:*Greater Vault* (Subdivisions)
 T:VAULT:GREATER
 W:60:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2946,7 +2946,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Chris Weisiger
 #
-N:113:*Greater Vault* (Divided)
+N:*Greater Vault* (Divided)
 T:VAULT:GREATER
 W:70:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2997,7 +2997,7 @@ M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Chris Weisiger
 #
-N:114:Lesser Vault (Interlock)
+N:Lesser Vault (Interlock)
 T:VAULT:LESSER
 W:30:70:1
 M:%%%%%%%%%%%%%%%%%
@@ -3013,7 +3013,7 @@ M:%.#+#########+#.%
 M:%.^^^.......^^^.%
 M:%%%%%%%%%%%%%%%%%
 
-N:115:Black market
+N:Black market
 T:VAULT:LESSER
 W:20:*:1
 M:%%%%%%%%%%%%%
@@ -3026,7 +3026,7 @@ M:%.XXXXSXXXX.%
 M:%...........%
 M:%%%%%%%%%%%%%
 
-N:116:Black market2
+N:Black market2
 T:VAULT:LESSER
 W:20:*:1
 M:%%%%%%%%%%%%%
@@ -3039,7 +3039,7 @@ M:%.XXXXXXXXX.%
 M:%...........%
 M:%%%%%%%%%%%%%
 
-N:117:Black market3
+N:Black market3
 T:VAULT:LESSER
 W:20:*:1
 M:%%%%%%%%%%%%%
@@ -3054,7 +3054,7 @@ M:%%%%%%%%%%%%%
 
 # Eric Bock
 #
-N:118:Lesser vault (star)
+N:Lesser vault (star)
 T:VAULT:LESSER
 W:30:80:1
 M:    %%  %%%%%%%  %%    
@@ -3075,7 +3075,7 @@ M:    %%  %%%%%%%  %%
 
 # Eric Bock
 #
-N:119:Pattern vault (grand quartet)
+N:Pattern vault (grand quartet)
 T:VAULT:GREATER
 W:60:*:1
 M: %%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%% 
@@ -3123,7 +3123,7 @@ M: %.XXXXXXXXXXXXXXXXXXXXXXXXXX+XX+XXXXXXXXXXXXXXXXXXXXXXXXXX.%
 M: %.....................&&&&&@@XX@@&&&&&.....................% 
 M: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%XX%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
-N:120:Sphere
+N:Sphere
 T:VAULT:GREATER
 W:50:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3152,7 +3152,7 @@ M:%......XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX......%
 M:%.............................................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:121:Hourglass
+N:Hourglass
 T:VAULT:GREATER
 W:50:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3193,7 +3193,7 @@ M:%.......XXXXX+XXXXX.......%
 M:%.........................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:122:Symmet
+N:Symmet
 T:VAULT:GREATER
 W:40:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3220,7 +3220,7 @@ M:%....XXXXXXXXX+XXXXXXXXX....%
 M:%...........................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:123:Workaround
+N:Workaround
 T:VAULT:LESSER
 W:30:*:1
 M:%%%%%%%%%%%%%%%%%%%%%
@@ -3243,7 +3243,7 @@ M:%.XX..XXXXXXXXX..XX.%
 M:%...................%
 M:%%%%%%%%%%%%%%%%%%%%%
 
-N:124:Crown
+N:Crown
 T:VAULT:LESSER
 W:35:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3266,7 +3266,7 @@ M:%.....XXXXXXXXXXXXXXXX.....%
 M:%..........................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:125:Interstices
+N:Interstices
 T:VAULT:GREATER
 W:50:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3289,7 +3289,7 @@ M:%.......XXXXXXXXXXXX^^^^^XXXXXXXXXXXX.......%
 M:%...........................................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:126:Mazer
+N:Mazer
 T:VAULT:GREATER
 W:50:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3328,7 +3328,7 @@ M:%........XXXXXX+XXXXXX........%
 M:%.............................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:127:Orb
+N:Orb
 T:VAULT:GREATER
 W:50:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3359,7 +3359,7 @@ M:%.........$YYYYY$.........%
 M:%.........................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:128:X^2
+N:X^2
 T:VAULT:LESSER
 W:20:70:1
 M:%%%%%%%%%%%%%%%
@@ -3392,12 +3392,12 @@ M:%%%%%%%%%%%%%%%
 # Grass Encounters #
 ####################
 
-N:150:Hermit's House
+N:Hermit's House
 T:WILD:GRASS
 W:1:*:2
 L:_:GRASS
 L:.:DIRT(ROOM)
-L:p:DIRT(ROOM):MON(HUMAN, 15)
+L:p:DIRT(ROOM):MON(HUMAN, DEPTH+15)
 L:,:DIRT(ROOM):OBJ(FOOD)
 L:!:DIRT(ROOM):OBJ(POTION)
 L:&:DIRT(ROOM):OBJ(CHEST)
@@ -3412,14 +3412,14 @@ M:      #..........#.....#
 M:      #..........+.....#
 M:      ##################
 
-N:151:Ruined Home
+N:Ruined Home
 T:WILD:GRASS
 W:1:*:1
 L:,:GRASS
 L:.:DIRT
 L:T:TREE
 L:%:RUBBLE
-L:*:DIRT(ROOM):MON(*, 10)
+L:*:DIRT(ROOM):MON(*, DEPTH+10)
 L:~:DIRT(ROOM):OBJ(JUNK)
 M:    ,,###%%%######%%TT%#
 M:  ,..,#TT.....~..%TT*.T%
@@ -3432,14 +3432,14 @@ M:     ,,.TT.......#.T,..%
 M:     ,#........~.,TTT..%
 M:      ##   ##%%,,..T#%%,
 
-N:152:Knight's Stronghold
+N:Knight's Stronghold
 T:WILD:GRASS:FORMATION | GOOD
 W:20:*:32
 L:.:DIRT(ROOM)
-L:0:DIRT(ROOM):MON(KNIGHT, 30):OBJ(*, 5):EGO(*)
+L:0:DIRT(ROOM):MON(KNIGHT, DEPTH+30):OBJ(*, DEPTH+5):EGO(*)
 L:1:DIRT(ROOM):OBJ(*)
-L:C:DIRT(ROOM):MON(HOUND, 10)
-L:q:DIRT(ROOM):MON(HORSE, 10)
+L:C:DIRT(ROOM):MON(HOUND, DEPTH+10)
+L:q:DIRT(ROOM):MON(HORSE, DEPTH+10)
 M:####                                         ####
 M:#qq#                                         #qq#
 M:#qq#            #################            #qq#
@@ -3460,11 +3460,11 @@ M:#qq#            #################            #qq#
 M:#qq#                                         #qq#
 M:####                                         ####
 
-N:153:Thieve's Hideout
+N:Thieve's Hideout
 T:WILD:GRASS:FORMATION
 W:1:*:16
 L:.:DIRT(ROOM)
-L:0:DIRT(ROOM):MON(THIEF, 5):OBJ(GOLD)
+L:0:DIRT(ROOM):MON(THIEF, DEPTH+5):OBJ(GOLD)
 L:$:DIRT(ROOM):OBJ(GOLD)
 M:###########################
 M:#$.212...#.......#...212.$#
@@ -3477,7 +3477,7 @@ M:#8.......................8#
 M:#8...777...........777...8#
 M:#############+#############
 
-N:154:Town
+N:Town
 T:WILD:GRASS
 W:1:*:8
 L:p:MON(p)
@@ -3493,10 +3493,10 @@ M:#.....p.........p...p..#
 M:#........p.............#
 M:########################
 
-N:155:Flanked
+N:Flanked
 T:AMBUSH:GRASS:FORMATION
 W:1:*:3
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 M:         0       
 M:      6666666    
 M:      4444444    
@@ -3511,10 +3511,10 @@ M:      4444444
 M:      6666666    
 M:         0       
 
-N:156:Surrounded
+N:Surrounded
 T:AMBUSH:GRASS:FORMATION
 W:1:*:2
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 M:                 
 M:                 
 M:         8       
@@ -3529,38 +3529,41 @@ M:         8
 M:                 
 M:                 
 
-N:157:Marauding Orcs
+N:Marauding Orcs
 T:AMBUSH:GRASS:FORMATION
 W:1:*:1
-L:0:MON(o, 5)
-L:T:MON(T | NO_GROUP, 10)
+L:0:MON(o, DEPTH+5)
+L:T:MON(T, NO_SLEEP | NO_GROUP | DEPTH+10)
 M:T 6 T        T
 M: 636          
 M:63036     @   
 M: 636          
 M:T 6 T        T
 
-N:158:Dread of Night
-T:AMBUSH:GRASS:FORMATION|NIGHT
+N:Dread of Night
+T:AMBUSH:GRASS:FORMATION | NIGHT
 W:1:*:1
-L:0:MON(UNDEAD, 5)
+L:0:MON(UNDEAD, DEPTH+5)
 M:      6   8   6  
 M:                 
 M:   0   8  @  8  0
 M:                 
 M:      6   8   6  
 
+##############################
 #Nivim
-N:159:Villa
+#vvvvv
+
+N:Villa
 T:WILD:GRASS
 W:4:30:24
 L:_:FLOOR
 L:.:FLOOR(ROOM)
-L:0:FLOOR(ROOM):MON(p | NO_GROUP, 25)
-L:1:FLOOR(ROOM):MON(p | NO_UNIQUE, 17)
-L:2:FLOOR(ROOM):MON(p | NO_UNIQUE)
-L:`:FLOOR(ROOM):OBJ(STATUE, 10)
-L:*:FLOOR(ROOM):OBJ(GOLD, 15)
+L:0:FLOOR(ROOM):MON(p, NO_GROUP | DEPTH+25)
+L:1:FLOOR(ROOM):MON(p, NO_UNIQUE | DEPTH+17)
+L:2:FLOOR(ROOM):MON(p, NO_UNIQUE)
+L:`:FLOOR(ROOM):OBJ(STATUE, DEPTH+10)
+L:*:FLOOR(ROOM):OBJ(GOLD, DEPTH+15)
 L:&:FLOOR(ROOM):OBJ(CHEST)
 L:%:FLOOR(ROOM):OBJ(FOOD)
 L:x:CLOSED_DOOR(ROOM)
@@ -3579,11 +3582,15 @@ M: #...x...x...#
 M: #...#..1#.%%#
 M: #############
 
+# ^^^^^
+# Nivim (Huge thanks, btw!!!)
+##############################
+
 ###################
 # Lava Encounters #
 ###################
 
-N:160:Random Volcano Level
+N:Random Volcano Level
 T:WILD:LAVA
 W:40:*:8
 L:>:ENTRANCE(GLOW | MARK, 27)
@@ -3602,13 +3609,13 @@ M:  ^^^^^
 # Mountain Encounters #
 #######################
 
-N:170:Random Mountain Level
+N:Random Mountain Level
 T:WILD:MOUNTAIN
 W:40:*:8
 L:>:ENTRANCE(GLOW | MARK, 28)
 M:>
 
-N:171:Random Volcano Level
+N:Random Volcano Level
 T:WILD:MOUNTAIN
 W:40:*:8
 L:>:ENTRANCE(GLOW | MARK, 27)
@@ -3623,7 +3630,7 @@ M:^^..~..^^
 M: ^^...^^ 
 M:  ^^^^^  
 
-N:172:The Enchantress
+N:The Enchantress
 T:AMBUSH:MOUNTAIN:FORMATION
 W:30:*:8
 L:0:TREE:MON(DRAGON)
@@ -3642,7 +3649,7 @@ M:939..
 # Forest Encounters #
 #####################
 
-N:190:Random Forest Level
+N:Random Forest Level
 T:WILD:TREES
 W:20:*:8
 L:>:ENTRANCE(GLOW | MARK, 26)
@@ -3652,7 +3659,7 @@ M:>
 # Water Encounters #
 ####################
 
-N:200:Random Sea Level
+N:Random Sea Level
 T:WILD:WATER
 W:40:*:8
 L:>:ENTRANCE(GLOW | MARK, 29)
@@ -3675,10 +3682,10 @@ M:_~~___~~_
 # The evil idea of raided/fake vaults is my own :)
 #
 
-N:400:Kennel
+N:Kennel
 T:ROOM:NORMAL
 W:10:*:4
-L:C:MON(HOUND, 5)
+L:C:MON(HOUND, DEPTH+5)
 M:%%%%%%%%%%%%%%%%%%%%%
 M:%...................%
 M:%.#################.%
@@ -3691,7 +3698,7 @@ M:%.#################.%
 M:%...................%
 M:%%%%%%%%%%%%%%%%%%%%%
 
-N:401:Raided Vault (Diagonal)
+N:Raided Vault (Diagonal)
 T:ROOM:NORMAL
 W:1:*:8
 L:M:MON(*)
@@ -3708,7 +3715,7 @@ M:%#....##....##...%%
 M:%.M..##.M..##...%%  
 M:%%%%%%%%%%%%%%%%%   
 
-N:402:Zelazny
+N:Zelazny
 T:ROOM:NORMAL:NO_ROTATE
 W:1:*:8
 L:M:MON(*)
@@ -3727,7 +3734,7 @@ M: %#...##########%
 M: %..M...........%
 M: %%%%%%%%%%%%%%%%
 
-N:403:Spiral
+N:Spiral
 T:ROOM:NORMAL
 W:1:*:4
 L:M:MON(*)
@@ -3747,10 +3754,10 @@ M:%.#####################.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:404:Psyche!
+N:Psyche!
 T:ROOM:NORMAL
 W:20:*:500
-L:8:MON(*, 40):OBJ(*)
+L:8:MON(*, DEPTH+40):OBJ(*)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
 M:%#8#8#8#8#8#8#8#8#8#8#8#8#8#8#8#8#8#8X%
@@ -3769,10 +3776,10 @@ M:%X8#8#8#8#8#8#8#8#8#8#8#8#8#8#8#8#8#8#%
 M:%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:405:Room Stack I
+N:Room Stack I
 T:ROOM:NORMAL
 W:20:*:2
-L:M:MON(*, 5)
+L:M:MON(*, DEPTH+5)
 L:$:OBJ(*)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%.......................%
@@ -3784,10 +3791,10 @@ M:%.#####################.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:406:Room Stack II
+N:Room Stack II
 T:ROOM:NORMAL
 W:20:*:4
-L:M:MON(*, 5)
+L:M:MON(*, DEPTH+5)
 L:$:OBJ(*)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%.......................%
@@ -3801,10 +3808,10 @@ M:%.+###################+.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:407:Room Stack III
+N:Room Stack III
 T:ROOM:NORMAL
 W:20:*:8
-L:M:MON(*, 5)
+L:M:MON(*, DEPTH+5)
 L:$:OBJ(*)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%.......................%
@@ -3822,10 +3829,10 @@ M:%.+###################+.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:408:Room Stack IV
+N:Room Stack IV
 T:ROOM:NORMAL
 W:25:*:16
-L:M:MON(*, 5)
+L:M:MON(*, DEPTH+5)
 L:$:OBJ(*)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%.......................%
@@ -3847,10 +3854,10 @@ M:%.+###################+.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:409:Room Stack V
+N:Room Stack V
 T:ROOM:NORMAL
 W:30:*:32
-L:M:MON(*, 5)
+L:M:MON(*, DEPTH+5)
 L:$:OBJ(*)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%.......................%
@@ -3876,10 +3883,10 @@ M:%.+###################+.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:410:Room Stack VI
+N:Room Stack VI
 T:ROOM:NORMAL
 W:40:*:64
-L:M:MON(*, 5)
+L:M:MON(*, DEPTH+5)
 L:$:OBJ(*)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%.......................%
@@ -3909,7 +3916,7 @@ M:%.+###################+.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:411:Meeting Hall I
+N:Meeting Hall I
 T:ROOM:NORMAL
 W:20:*:1
 L:M:MON(*)
@@ -3925,10 +3932,10 @@ M:%.#####################.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:412:Meeting Hall II
+N:Meeting Hall II
 T:ROOM:NORMAL
 W:20:*:2
-L:M:MON(*, 5)
+L:M:MON(*, DEPTH+5)
 L:$:OBJ(*)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%.......................%
@@ -3942,7 +3949,7 @@ M:%.#####################.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:413:Three Square
+N:Three Square
 T:ROOM:NORMAL
 W:1:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3957,7 +3964,7 @@ M:%.#####################.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:414:Monster Bunks I
+N:Monster Bunks I
 T:ROOM:NORMAL
 W:10:*:2
 L:M:MON(*)
@@ -3973,7 +3980,7 @@ M:%.#####################.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:415:Monster Bunks II
+N:Monster Bunks II
 T:ROOM:NORMAL
 W:10:*:2
 L:M:MON(*)
@@ -3989,11 +3996,11 @@ M:%.#####################.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:416:Deception I
+N:Deception I
 T:ROOM:NORMAL
 W:20:*:64
-L:M:MON(*, 10)
-L:$:OBJ(*, 20):EGO(*)
+L:M:MON(*, DEPTH+10)
+L:$:OBJ(*, DEPTH+20):EGO(*)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%.......................%
 M:%.#####################.%
@@ -4006,10 +4013,10 @@ M:%.#####################.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:417:Deception II
+N:Deception II
 T:ROOM:NORMAL
 W:20:*:128
-L:$:OBJ(*, 20):EGO(*)
+L:$:OBJ(*, DEPTH+20):EGO(*)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%.......................%
 M:%.#####################.%
@@ -4022,7 +4029,7 @@ M:%.#####################.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:418:Prison
+N:Prison
 T:ROOM:NORMAL
 W:20:*:32
 L:M:MON(*)
@@ -4039,11 +4046,11 @@ M:%.#################.%
 M:%...................%
 M:%%%%%%%%%%%%%%%%%%%%%
 
-N:419:Object Vault (Gold)
+N:Object Vault (Gold)
 T:ROOM:NORMAL:FORMATION
 W:10:*:12
 L:$:OBJ(GOLD)
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%8.....................8%
 M:%.#####################.%
@@ -4056,11 +4063,11 @@ M:%.#####################.%
 M:%8.....................8%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:420:Aresenal (Arrows)
+N:Object Vault (Arrows)
 T:ROOM:NORMAL:FORMATION
 W:10:*:16
 L:$:OBJ(ARROW)
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%8.....................8%
 M:%.#####################.%
@@ -4073,11 +4080,11 @@ M:%.#####################.%
 M:%8.....................8%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:421:Aresenal (Bolts)
+N:Object Vault (Bolts)
 T:ROOM:NORMAL:FORMATION
 W:10:*:16
 L:$:OBJ(BOLT)
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%8.....................8%
 M:%.#####################.%
@@ -4090,11 +4097,11 @@ M:%.#####################.%
 M:%8.....................8%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:422:Aresenal (Shots)
+N:Object Vault (Shots)
 T:ROOM:NORMAL:FORMATION
 W:10:*:16
 L:$:OBJ(SHOT)
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%8.....................8%
 M:%.#####################.%
@@ -4107,11 +4114,11 @@ M:%.#####################.%
 M:%8.....................8%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:423:Object Vault (Wand)
+N:Object Vault (Wand)
 T:ROOM:NORMAL:FORMATION
 W:20:*:32
 L:$:OBJ(WAND)
-L:0:MON(*, 15)
+L:0:MON(*, DEPTH+15)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%8.....................8%
 M:%.#####################.%
@@ -4124,11 +4131,11 @@ M:%.#####################.%
 M:%8.....................8%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:424:Object Vault (Jewels)
+N:Object Vault (Jewels)
 T:ROOM:NORMAL:FORMATION
 W:40:*:128
 L:$:OBJ(JEWELRY)
-L:0:MON(*, 30)
+L:0:MON(*, DEPTH+30)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%8.....................8%
 M:%.#####################.%
@@ -4141,11 +4148,11 @@ M:%.#####################.%
 M:%8.....................8%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:425:Object Vault (Potions)
+N:Object Vault (Potions)
 T:ROOM:NORMAL:FORMATION
 W:20:*:8
 L:$:OBJ(POTION)
-L:0:MON(*, 10)
+L:0:MON(*, DEPTH+10)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%8.....................8%
 M:%.#####################.%
@@ -4158,11 +4165,11 @@ M:%.#####################.%
 M:%8.....................8%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:426:Object Vault (Scrolls)
+N:Object Vault (Scrolls)
 T:ROOM:NORMAL:FORMATION
 W:20:*:32
 L:$:OBJ(SCROLL)
-L:0:MON(*, 10)
+L:0:MON(*, DEPTH+10)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%8.....................8%
 M:%.#####################.%
@@ -4175,11 +4182,11 @@ M:%.#####################.%
 M:%8.....................8%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:427:Library
+N:Library
 T:ROOM:NORMAL:FORMATION
 W:20:*:64
 L:$:OBJ(BOOK)
-L:0:MON(*, 20)
+L:0:MON(*, DEPTH+20)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%8.....................8%
 M:%.#####################.%
@@ -4192,7 +4199,7 @@ M:%.#####################.%
 M:%8.....................8%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:428:Pantry
+N:Pantry
 T:ROOM:NORMAL:FORMATION
 W:5:*:8
 L:$:OBJ(FOOD)
@@ -4209,7 +4216,7 @@ M:%.#####################.%
 M:%8.....................8%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:429:Winding
+N:Winding
 T:ROOM:NORMAL
 W:1:*:1
 L:M:MON(*):OBJ(*)
@@ -4225,7 +4232,7 @@ M:%.#####################.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:430:Cross (Empty)
+N:Cross (Empty)
 T:ROOM:NORMAL
 W:1:40:1
 M:        %%%%%        
@@ -4238,7 +4245,7 @@ M:%%%%%%%%%...%%%%%%%%%
 M:        %...%        
 M:        %%%%%        
 
-N:431:Raided Pantry
+N:Raided Pantry
 T:ROOM:NORMAL
 W:1:*:2
 L:M:MON(*):OBJ(*)
@@ -4254,7 +4261,7 @@ M:%.#####################.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:432:Cenotaph
+N:Cenotaph
 T:ROOM:NORMAL
 W:1:*:4
 M:%%%%%%%%%%%%%%%%%%%%%
@@ -4269,11 +4276,11 @@ M:%.#################.%
 M:%...................%
 M:%%%%%%%%%%%%%%%%%%%%%
 
-N:433:Object Vault (Potions?)
+N:Object Vault (Potions?)
 T:ROOM:NORMAL
 W:20:50:32
 L:$:MON(310):OBJ(POTION)
-L:M:MON(*, 10)
+L:M:MON(*, DEPTH+10)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%.......................%
 M:%.#####################.%
@@ -4286,11 +4293,11 @@ M:%.#####################.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:434:Object Vault (Swords?)
+N:Object Vault (Swords?)
 T:ROOM:NORMAL
 W:10:30:32
 L:$:MON(107):OBJ(SWORD)
-L:M:MON(*, 10)
+L:M:MON(*, DEPTH+10)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%.......................%
 M:%.#####################.%
@@ -4303,11 +4310,11 @@ M:%.#####################.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:435:Object Vault (Scrolls?)
+N:Object Vault (Scrolls?)
 T:ROOM:NORMAL
 W:20:50:32
 L:$:MON(352):OBJ(SCROLL)
-L:M:MON(*, 10)
+L:M:MON(*, DEPTH+10)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%.......................%
 M:%.#####################.%
@@ -4320,11 +4327,11 @@ M:%.#####################.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:436:Library?
+N:Library?
 T:ROOM:NORMAL
 W:40:*:64
 L:$:MON(557):OBJ(BOOK)
-L:M:MON(*, 20)
+L:M:MON(*, DEPTH+20)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%.......................%
 M:%.#####################.%
@@ -4337,7 +4344,7 @@ M:%.#####################.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:437:Pantry?
+N:Pantry?
 T:ROOM:NORMAL
 W:10:20:8
 L:$:MON(962):OBJ(24)
@@ -4354,13 +4361,13 @@ M:%.#####################.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:438:Island of Despair
+N:Island of Despair
 T:ROOM:NORMAL
 W:30:*:32
 L:,:DIRT(ROOM)
 L:_:SHALLOW_WATER(ROOM)
 L:~:DEEP_WATER(ROOM)
-L:M:DIRT(ROOM):MON(MAGICAL | NO_GROUP | NO_SLEEP, 20):OBJ(*)
+L:M:DIRT(ROOM):MON(MAGICAL, NO_GROUP | NO_SLEEP | DEPTH+20):OBJ(*)
 M:       %%%%%%%       
 M:     %%%.....%%%     
 M:    %%...._....%%    
@@ -4379,7 +4386,7 @@ M:    %%...._....%%
 M:     %%%.....%%%     
 M:       %%%%%%%       
 
-N:439:A Cruel Lesson
+N:A Cruel Lesson
 T:ROOM:NORMAL
 W:20:60:32
 L:~:DARK_PIT(ROOM)
@@ -4403,10 +4410,10 @@ M:    %%.........%%
 M:     %%%.....%%%     
 M:       %%%%%%%       
 
-N:440:Showcase I
+N:Showcase I
 T:ROOM:NORMAL
 W:20:*:250
-L:M:MON(* | NO_UNIQUE, 10)
+L:M:MON(*, NO_UNIQUE | DEPTH+10)
 L:G:GLASS_WALL
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%.......................%
@@ -4420,10 +4427,10 @@ M:%.#####################.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:441:Monster Pit I
+N:Monster Pit I
 T:ROOM:NORMAL:FORMATION
 W:20:*:100
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%.......................%
 M:%.#####################.%
@@ -4436,10 +4443,10 @@ M:%.#####################.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:442:Monster Wedge
+N:Monster Wedge
 T:ROOM:NORMAL:FORMATION
 W:20:*:100
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%.........................%
 M:%.#.........#+#.........#.%
@@ -4459,10 +4466,10 @@ M:%.........................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-N:443:Military Review
+N:Military Review
 T:ROOM:NORMAL:FORMATION
 W:10:*:16
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%.......................%
 M:%.#####################.%
@@ -4475,10 +4482,10 @@ M:%.#####################.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:444:Death March
+N:Death March
 T:ROOM:NORMAL:FORMATION
 W:20:*:32
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%.......................%
 M:%.#+###################.%
@@ -4491,10 +4498,10 @@ M:%.#####################.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:445:Zelazny II
+N:Zelazny II
 T:ROOM:NORMAL:FORMATION | NO_ROTATE
 W:20:*:50
-L:0:MON(*, 10)
+L:0:MON(*, DEPTH+10)
 M:%%%%%%%%%%%%%%%% 
 M:%99999999999999% 
 M:%###########777% 
@@ -4510,7 +4517,7 @@ M: %#777##########%
 M: %99999999999999%
 M: %%%%%%%%%%%%%%%%
 
-N:446:ASC I
+N:ASC I
 T:ROOM:NORMAL
 W:1:*:25
 M: #%#%#%#%#%#%#%#%#%#%#%#%#%#%#%#%# 
@@ -4518,16 +4525,16 @@ M:%#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#%
 M:%.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.%
 M:#%#%#%#%#%#%#%#%#%#%#%#%#%#%#%#%#%#
 
-N:447:ASC II
+N:ASC II
 T:ROOM:NORMAL:FORMATION
 W:20:*:50
-L:0:MON(*, 3)
+L:0:MON(*, DEPTH+3)
 M: #%#%#%#%#%#%#%#%#%#%#%#%#%#%#%#%# 
 M:%#5#4#4#3#2#2#1#0#0#1#2#2#3#4#4#5#%
 M:%5#5#4#3#3#2#1#1#0#1#1#2#3#3#4#5#5%
 M:#%#%#%#%#%#%#%#%#%#%#%#%#%#%#%#%#%#
 
-N:448:Big H
+N:Big H
 T:ROOM:NORMAL:NO_ROTATE
 W:1:*:8
 L:M:MON(*)
@@ -4547,10 +4554,10 @@ M:%...########.M.%
 M:%...########...%
 M:%%%%%######%%%%%
 
-N:449:Big H II
+N:Big H II
 T:ROOM:NORMAL:FORMATION | NO_ROTATE
 W:1:*:50
-L:0:MON(*, 10)
+L:0:MON(*, DEPTH+10)
 M:%%%%%%#####%%%%%
 M:%888########888%
 M:%888########888%
@@ -4567,10 +4574,10 @@ M:%888########888%
 M:%888########888%
 M:%%%%%######%%%%%
 
-N:450:Oval Crypt I
+N:Oval Crypt I
 T:ROOM:NORMAL
 W:20:*:4
-L:M:MON(UNDEAD, 3):OBJ(*)
+L:M:MON(UNDEAD, DEPTH+3):OBJ(*)
 M:       %%%%%%%       
 M:     %%%.....%%%     
 M:    %%.........%%    
@@ -4589,10 +4596,10 @@ M:    %%.........%%
 M:     %%%.....%%%     
 M:       %%%%%%%       
 
-N:451:Oval Crypt II
+N:Oval Crypt II
 T:ROOM:NORMAL
 W:25:*:8
-L:M:MON(UNDEAD, 5):OBJ(*, 3)
+L:M:MON(UNDEAD, DEPTH+5):OBJ(*, DEPTH+3)
 M:       %%%%%%%       
 M:     %%%.....%%%     
 M:    ###.......###    
@@ -4611,10 +4618,10 @@ M:    ###.......###
 M:     %%%.....%%%     
 M:       %%%%%%%       
 
-N:452:Oval Crypt III
+N:Oval Crypt III
 T:ROOM:NORMAL
 W:30:*:16
-L:M:MON(UNDEAD, 5):OBJ(*, 3)
+L:M:MON(UNDEAD, DEPTH+5):OBJ(*, DEPTH+3)
 M:       %%%%%%%       
 M:     %%%.....%%%     
 M:    ###.......###    
@@ -4633,10 +4640,10 @@ M:    ###.......###
 M:     %%%.....%%%     
 M:       %%%%%%%       
 
-N:453:Oval Crypt IV
+N:Oval Crypt IV
 T:ROOM:NORMAL
 W:35:*:32
-L:M:MON(UNDEAD, 10):OBJ(*, 5)
+L:M:MON(UNDEAD, DEPTH+10):OBJ(*, DEPTH+5)
 M:       %%%%%%%       
 M:     %%%.....%%%     
 M:    ###.......###    
@@ -4655,7 +4662,30 @@ M:    ###.......###
 M:     %%%.....%%%     
 M:       %%%%%%%       
 
-N:454:Statuary
+N:Oval Crypt V
+T:ROOM:NORMAL:FORMATION
+W:35:*:64
+L:0:MON(UNDEAD, DEPTH+15):OBJ(*, DEPTH+20):EGO(*)
+L:1:OBJ(*, DEPTH+5)
+M:       %%%%%%%       
+M:     %%%.....%%%     
+M:    ###.......###    
+M:   ##6#.......#8##   
+M:  ###+#.......#+###  
+M: ##6#....#+#....#8## 
+M:%##+#....#2#....#+##%
+M:%......###1###......%
+M:%......+21012+......%
+M:%......###1###......%
+M:%##+#....#2#....#+##%
+M: ##8#....#+#....#6## 
+M:  ###+#.......#+###  
+M:   ##8#.......#6##   
+M:    ###.......###    
+M:     %%%.....%%%     
+M:       %%%%%%%       
+
+N:Statuary
 T:ROOM:NORMAL
 W:10:*:50
 L:`:OBJ(STATUE)
@@ -4677,10 +4707,10 @@ M:    ###.......###
 M:     ###.....###     
 M:       %%%%%%%       
 
-N:455:Mausoleum I
+N:Mausoleum I
 T:ROOM:NORMAL
 W:20:*:16
-L:M:MON(UNDEAD, 5)
+L:M:MON(UNDEAD, DEPTH+5)
 M:%%%%%%%%%%%%%%%%%%%%%
 M:%...................%
 M:%.#################.%
@@ -4693,10 +4723,10 @@ M:%.#################.%
 M:%...................%
 M:%%%%%%%%%%%%%%%%%%%%%
 
-N:456:Mausoleum II
+N:Mausoleum II
 T:ROOM:NORMAL
 W:25:*:24
-L:M:MON(UNDEAD, 5)
+L:M:MON(UNDEAD, DEPTH+5)
 L:`:OBJ(STATUE)
 M:%%%%%%%%%%%%%%%%%%%%%%%%
 M:%......................%
@@ -4710,10 +4740,10 @@ M:%.###################..%
 M:%......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:457:Dragon's Treasure
+N:Dragon's Treasure
 T:ROOM:NORMAL
 W:40:*:128
-L:M:MON(HI_DRAGON, 20)
+L:M:MON(HI_DRAGON, DEPTH+20)
 L:$:OBJ(GOLD)
 M:       %%%       
 M:     %%%.%%%     
@@ -4731,12 +4761,12 @@ M:    %%.....%%
 M:     %%%.%%%     
 M:       %%%       
 
-N:458:Satanic Ritual
+N:Satanic Ritual
 T:ROOM:NORMAL:EVIL
 W:50:*:128
-L:M:SHALLOW_LAVA(ROOM|GLOW):MON(HI_DEMON|NO_GROUP|NO_SLEEP, 50):OBJ(*, 20):EGO(*)
-L:p:MON(HUMAN|NO_GROUP|NO_SLEEP, 10)
-L:~:DEEP_LAVA(ROOM|GLOW)
+L:M:SHALLOW_LAVA(ROOM | GLOW):MON(HI_DEMON, NO_GROUP | NO_SLEEP | DEPTH+50):OBJ(*, DEPTH+20):EGO(*)
+L:p:MON(HUMAN, NO_GROUP | NO_SLEEP | DEPTH+10)
+L:~:DEEP_LAVA(ROOM | GLOW)
 M:       %%%       
 M:     %%%.%%%     
 M:    %%.....%%    
@@ -4753,11 +4783,11 @@ M:    %%.....%%
 M:     %%%.%%%     
 M:       %%%       
 
-N:459:Sacred Ritual
+N:Sacred Ritual
 T:ROOM:NORMAL:GOOD
 W:50:*:128
-L:M:MON(ANGEL|NO_GROUP|NO_SLEEP, 50):OBJ(*, 20):EGO(*)
-L:p:MON(HUMAN|NO_GROUP|NO_SLEEP, 10)
+L:M:MON(ANGEL, NO_GROUP | NO_SLEEP | DEPTH+50):OBJ(*, DEPTH+20):EGO(*)
+L:p:MON(HUMAN, NO_GROUP | NO_SLEEP | DEPTH+10)
 L:~:FLOOR
 M:       %%%       
 M:     %%%.%%%     
@@ -4775,12 +4805,12 @@ M:    %%.....%%
 M:     %%%.%%%     
 M:       %%%       
 
-N:460:Natural Ritual
+N:Natural Ritual
 T:ROOM:NORMAL:GOOD
 W:50:*:128
 L:.:TREE(ROOM)
-L:M:GRASS(ROOM):MON(ENT|NO_SLEEP):OBJ(*, 20):EGO(*)
-L:p:GRASS(ROOM):MON(HUMAN|NO_GROUP|NO_SLEEP, 10)
+L:M:GRASS(ROOM):MON(ENT, NO_SLEEP):OBJ(*, DEPTH+20):EGO(*)
+L:p:GRASS(ROOM):MON(HUMAN, NO_GROUP | NO_SLEEP | DEPTH+10)
 L:~:GRASS(ROOM)
 M:       %%%       
 M:     %%%.%%%     
@@ -4798,11 +4828,11 @@ M:    %%.....%%
 M:     %%%.%%%     
 M:       %%%       
 
-N:461:Poseidon's Ritual
+N:Poseidon's Ritual
 T:ROOM:NORMAL:EVIL
 W:50:*:128
-L:M:SHALLOW_WATER(ROOM):MON(KRAKEN|NO_SLEEP):OBJ(*, 20):EGO(*)
-L:p:SHALLOW_WATER(ROOM):MON(HUMAN|NO_GROUP|NO_SLEEP, 10)
+L:M:SHALLOW_WATER(ROOM):MON(KRAKEN, NO_SLEEP):OBJ(*, DEPTH+20):EGO(*)
+L:p:SHALLOW_WATER(ROOM):MON(HUMAN, NO_GROUP | NO_SLEEP | DEPTH+10)
 L:~:DEEP_WATER(ROOM)
 M:       %%%       
 M:     %%%.%%%     
@@ -4821,7 +4851,7 @@ M:     %%%.%%%
 M:       %%%       
 
 
-N:462:Oval I
+N:Oval I
 T:ROOM:NORMAL
 W:1:*:1
 L:M:MON(*)
@@ -4843,11 +4873,11 @@ M:    %%.........%%
 M:     %%%.....%%%     
 M:       %%%%%%%       
 
-N:463:Oval II
+N:Oval II
 T:ROOM:NORMAL
 W:10:*:4
 L:m:MON(*)
-L:M:MON(*, 5):OBJ(*)
+L:M:MON(*, DEPTH+5):OBJ(*)
 M:       %%%%%%%       
 M:     %%%.....%%%     
 M:    %%.........%%    
@@ -4866,7 +4896,7 @@ M:    %%.........%%
 M:     %%%.....%%%     
 M:       %%%%%%%       
 
-N:464:Diamond I
+N:Diamond I
 T:ROOM:NORMAL
 W:1:*:1
 L:M:MON(*)
@@ -4886,11 +4916,11 @@ M:    %%...%%
 M:     %%.%%     
 M:      %%%      
 
-N:465:Diamond II
+N:Diamond II
 T:ROOM:NORMAL
 W:10:*:4
 L:m:MON(*)
-L:M:MON(*, 5):OBJ(*)
+L:M:MON(*, DEPTH+5):OBJ(*)
 M:      %%%      
 M:     %%.%%     
 M:    %%...%%    
@@ -4907,7 +4937,7 @@ M:    %%...%%
 M:     %%.%%     
 M:      %%%      
 
-N:466:Pillars I
+N:Pillars I
 T:ROOM:NORMAL
 W:10:*:2
 L:m:MON(*)
@@ -4923,11 +4953,11 @@ M:%.#####################.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:467:Pillars II
+N:Pillars II
 T:ROOM:NORMAL
 W:10:*:4
 L:m:MON(*)
-L:M:MON(*, 5):OBJ(*)
+L:M:MON(*, DEPTH+5):OBJ(*)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%.......................%
 M:%.#####################.%
@@ -4940,7 +4970,7 @@ M:%.#####################.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:468:Pillars III
+N:Pillars III
 T:ROOM:NORMAL
 W:50:*:500
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -4955,10 +4985,10 @@ M:%.#####################.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:469:Cross I
+N:Cross I
 T:ROOM:NORMAL
 W:5:*:2
-L:M:MON(*, 2):OBJ(*)
+L:M:MON(*, DEPTH+2):OBJ(*)
 M:        %%%%%        
 M:        %...%        
 M:%%%%%%%%%...%%%%%%%%%
@@ -4969,10 +4999,10 @@ M:%%%%%%%%%...%%%%%%%%%
 M:        %...%        
 M:        %%%%%        
 
-N:470:Cross II
+N:Cross II
 T:ROOM:NORMAL
 W:10:*:4
-L:M:MON(*, 5):OBJ(*, 2)
+L:M:MON(*, DEPTH+5):OBJ(*, DEPTH+2)
 M:        %%%%%        
 M:        %...%        
 M:%%%%%%%%%...%%%%%%%%%
@@ -4983,7 +5013,7 @@ M:%%%%%%%%%...%%%%%%%%%
 M:        %...%        
 M:        %%%%%        
 
-N:471:Cross III
+N:Cross III
 T:ROOM:NORMAL
 W:40:*:100
 M:        %%%%%        
@@ -4996,7 +5026,7 @@ M:%%%%%%%%%...%%%%%%%%%
 M:        %...%        
 M:        %%%%%        
 
-N:472:Divided I
+N:Divided I
 T:ROOM:NORMAL
 W:1:*:1
 L:M:MON(*)
@@ -5008,7 +5038,7 @@ M:%...................%
 M:%...................%
 M:%%%%%%%%%%%%%%%%%%%%%
 
-N:473:Divided II
+N:Divided II
 T:ROOM:NORMAL
 W:10:*:2
 L:M:MON(*)
@@ -5021,7 +5051,7 @@ M:%...................%
 M:%%%%%%%%%%%%%%%%%%%%%
 
 
-N:474:Divided III
+N:Divided III
 T:ROOM:NORMAL
 W:10:*:4
 L:M:MON(*)
@@ -5033,11 +5063,11 @@ M:%...M.....#.....M...%
 M:%.........#.........%
 M:%%%%%%%%%%%%%%%%%%%%%
 
-N:475:Divided IV
+N:Divided IV
 T:ROOM:NORMAL
 W:30:*:32
-L:M:MON(*, 5):OBJ(*)
-L:N:MON(*, 10):OBJ(*, 5)
+L:M:MON(*, DEPTH+5):OBJ(*)
+L:N:MON(*, DEPTH+10):OBJ(*, DEPTH+5)
 M:%%%%%%%%%%%%%%%%%%%%%
 M:%.........#.........%
 M:%...M....###....M...%
@@ -5047,10 +5077,10 @@ M:%.........#.........%
 M:%%%%%%%%%%%%%%%%%%%%%
 
 
-N:476:Complementarity
+N:Complementarity
 T:ROOM:NORMAL
 W:20:*:4
-L:M:MON(*, 5)
+L:M:MON(*, DEPTH+5)
 L:$:OBJ(*)
 M:%%%%%%%%%%%%%%%%%%%
 M:%.................%
@@ -5066,7 +5096,7 @@ M:%.#+#############.%
 M:%.................%
 M:%%%%%%%%%%%%%%%%%%%
 
-N:477:Spiral Formation
+N:Spiral Formation
 T:ROOM:NORMAL:FORMATION
 W:20:*:50
 L:0:MON(*)
@@ -5086,11 +5116,11 @@ M:%.#####################.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:478:"They have a cave troll!"
+N:"They have a cave troll!"
 T:ROOM:NORMAL:FORMATION
 W:15:25:8
-L:T:MON(496 | NO_GROUP)
-L:0:MON(o, 10)
+L:T:MON(496, NO_GROUP | NO_SLEEP | HASTE)
+L:0:MON(o, DEPTH+10)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%.......................%
 M:%.#####################.%
@@ -5103,7 +5133,7 @@ M:%.#####################.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:479:Monster Bunks III
+N:Monster Bunks III
 T:ROOM:NORMAL
 W:10:*:8
 L:M:MON(*)
@@ -5119,7 +5149,7 @@ M:%.#####################.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:480:Monster Bunks IV
+N:Monster Bunks IV
 T:ROOM:NORMAL
 W:10:*:8
 L:M:MON(*)
@@ -5135,10 +5165,10 @@ M:%.#####################.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:481:Monster Pit II
+N:Monster Pit II
 T:ROOM:NORMAL:FORMATION
 W:20:*:10
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%.......................%
 M:%.#####################.%
@@ -5151,7 +5181,7 @@ M:%.#####################.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:482:Showcase II
+N:Showcase II
 T:ROOM:NORMAL
 W:20:*:500
 L:$:OBJ(JEWELRY)
@@ -5168,7 +5198,7 @@ M:%.#####################.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:483:Showcase III
+N:Showcase III
 T:ROOM:NORMAL
 W:20:*:100
 L:$:OBJ(STATUE)
@@ -5185,7 +5215,7 @@ M:%.#####################.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:484:Monster Bunks V
+N:Monster Bunks V
 T:ROOM:NORMAL
 W:10:*:16
 L:M:MON(*)
@@ -5201,7 +5231,7 @@ M:%.#####################.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:485:Cross IV
+N:Cross IV
 T:ROOM:NORMAL:FORMATION
 W:20:*:32
 L:0:MON(*)
@@ -5215,7 +5245,7 @@ M:%%%%%%%%%848%%%%%%%%%
 M:        %.8.%        
 M:        %%%%%        
 
-N:486:Cross V
+N:Cross V
 T:ROOM:NORMAL:FORMATION
 W:20:*:50
 L:+:MON(311)
@@ -5232,10 +5262,10 @@ M:        %.8.%
 M:        %%%%%        
 
 
-N:487:Troll Bridge
+N:Troll Bridge
 T:ROOM:NORMAL:FORMATION
 W:20:*:100
-L:0:MON(T, 10)
+L:0:MON(T, DEPTH+10)
 L:~:DEEP_WATER
 M:       #######       
 M:     %%%~~~~~%%%     
@@ -5255,10 +5285,10 @@ M:    %%..~~~~~..%%
 M:     %%%~~~~~%%%     
 M:       #######       
 
-N:488:Khazad dum
+N:Khazad dum
 T:ROOM:NORMAL:FORMATION
 W:40:*:100
-L:0:MON(DEMON, 10)
+L:0:MON(DEMON, DEPTH+10)
 L:~:DEEP_LAVA
 M:       #######       
 M:     %%%~~~~~%%%     
@@ -5278,7 +5308,7 @@ M:    %%..~~~~~..%%
 M:     %%%~~~~~%%%     
 M:       #######       
 
-N:489:Inner Circle I
+N:Inner Circle I
 T:ROOM:NORMAL
 W:1:*:2
 L:M:MON(*)
@@ -5300,7 +5330,7 @@ M:#.....##.##.....#
 M:#......+.+......#
 M:%%%%%%%%%%%%%%%%%
 
-N:490:Inner Circle II
+N:Inner Circle II
 T:ROOM:NORMAL
 W:10:*:8
 L:M:MON(*)
@@ -5322,11 +5352,11 @@ M:#.....##.##.....#
 M:#......+.+......#
 M:%%%%%%%%%%%%%%%%%
 
-N:491:Inner Circle III
+N:Inner Circle III
 T:ROOM:NORMAL:FORMATION
 W:20:*:64
-L:0:MON(*, 10):OBJ(*, 5):EGO(*)
-L:1:OBJ(*, 2)
+L:0:MON(*, DEPTH+10):OBJ(*, DEPTH+5):EGO(*)
+L:1:OBJ(*, DEPTH+2)
 M:%%%%%%%%%%%%%%%%%
 M:#......+.+......#
 M:#.....##6##.....#
@@ -5345,7 +5375,7 @@ M:#.....##6##.....#
 M:#......+.+......#
 M:%%%%%%%%%%%%%%%%%
 
-N:492:Fortress I
+N:Fortress I
 T:ROOM:NORMAL:NO_ROTATE
 W:10:*:2
 L:M:MON(*)
@@ -5365,10 +5395,10 @@ M:%......###+###......%
 M:%...................%
 M:%%%%%%%%%%%%%%%%%%%%%
 
-N:493:Fortress II
+N:Fortress II
 T:ROOM:NORMAL:NO_ROTATE
 W:15:*:8
-L:M:MON(*, 5)
+L:M:MON(*, DEPTH+5)
 L:$:OBJ(*)
 M:%%%%%%%%%%%%%%%%%%%%%
 M:%.........M.........%
@@ -5386,11 +5416,11 @@ M:%.....M###+###M.....%
 M:%.........M.........%
 M:%%%%%%%%%%%%%%%%%%%%%
 
-N:494:Fortress III
+N:Fortress III
 T:ROOM:NORMAL:FORMATION | NO_ROTATE
 W:30:*:50
-L:0:MON(*, 10)
-L:$:OBJ(*, 5)
+L:0:MON(*, DEPTH+10)
+L:$:OBJ(*, DEPTH+5)
 M:%%%%%%%%%%%%%%%%%%%%%
 M:%...................%
 M:%......###+###......%
@@ -5407,7 +5437,7 @@ M:%......###+###......%
 M:%...................%
 M:%%%%%%%%%%%%%%%%%%%%%
 
-N:495:Three Rooms
+N:Three Rooms
 T:ROOM:NORMAL
 W:10:*:2
 L:M:MON(*)
@@ -5425,7 +5455,7 @@ M:%.##########.##########.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:496:Pillars IV
+N:Pillars IV
 T:ROOM:NORMAL:FORMATION
 W:20:*:50
 L:0:MON(*)
@@ -5441,7 +5471,7 @@ M:%.#####################.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:497:Pi I
+N:Pi I
 T:ROOM:NORMAL
 W:1:*:1
 L:M:MON(*)
@@ -5455,10 +5485,10 @@ M:%.......#.....#.......%
 M:%.....................%
 M:%%%%%%%%%%%%%%%%%%%%%%%
 
-N:498:Pi II
+N:Pi II
 T:ROOM:NORMAL
 W:10:*:2
-L:M:MON(*, 3)
+L:M:MON(*, DEPTH+3)
 L:$:OBJ(*)
 M:%%%%%%%%%%%%%%%%%%%%%%%
 M:%.....................%
@@ -5470,10 +5500,10 @@ M:%.......#.....#.......%
 M:%.....................%
 M:%%%%%%%%%%%%%%%%%%%%%%%
 
-N:499:Pi III
+N:Pi III
 T:ROOM:NORMAL
 W:20:*:4
-L:M:MON(*, 3)
+L:M:MON(*, DEPTH+3)
 L:$:OBJ(*)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%.................................%
@@ -5485,10 +5515,10 @@ M:%.......#.....#.....#.....#.......%
 M:%.................................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:500:Pi IV
+N:Pi IV
 T:ROOM:NORMAL
 W:15:*:2
-L:M:MON(*, 3)
+L:M:MON(*, DEPTH+3)
 M:%%%%%%%%%%%%%%%%%%%%%%%
 M:%.....................%
 M:%.###################.%
@@ -5499,10 +5529,10 @@ M:%.###################.%
 M:%.....................%
 M:%%%%%%%%%%%%%%%%%%%%%%%
 
-N:501:Pi V
+N:Pi V
 T:ROOM:NORMAL
 W:20:*:4
-L:M:MON(*, 5)
+L:M:MON(*, DEPTH+5)
 L:$:OBJ(*)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%.................................%
@@ -5514,10 +5544,10 @@ M:%.###############################.%
 M:%.................................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:502:Big Cells I
+N:Big Cells I
 T:ROOM:NORMAL
 W:20:*:16
-L:M:MON(*, 5)
+L:M:MON(*, DEPTH+5)
 L:$:OBJ(*)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%.................................%
@@ -5533,11 +5563,11 @@ M:%.###############################.%
 M:%.................................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:503:Big Cells II
+N:Big Cells II
 T:ROOM:NORMAL
 W:30:*:32
-L:M:MON(*, 10)
-L:$:OBJ(*, 3)
+L:M:MON(*, DEPTH+10)
+L:$:OBJ(*, DEPTH+3)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%.................................%
 M:%.###############################.%
@@ -5556,18 +5586,18 @@ M:%.###############################.%
 M:%.................................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:504:Hell Corridor
+N:Hell Corridor
 T:ROOM:NORMAL:FORMATION
 W:20:*:32
-L:0:MON(*, 3)
+L:0:MON(*, DEPTH+3)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%887766554433221101122334455667788%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:505:Dumbbell
+N:Dumbbell
 T:ROOM:NORMAL:FORMATION
 W:30:*:64
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%....9#####################9....%
 M:%...97#####################79...%
@@ -5578,10 +5608,10 @@ M:%...97#####################79...%
 M:%....9#####################9....%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:506:Mass
+N:Mass
 T:ROOM:NORMAL:FORMATION
 W:35:*:32
-L:0:MON(CHAPEL_GOOD, 10):OBJ(*, 10)
+L:0:MON(CHAPEL_GOOD, DEPTH+10):OBJ(*, DEPTH+10)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%.........................%
 M:%.XXXXXXXXXXXXXXXXXXXXX...%
@@ -5596,10 +5626,10 @@ M:%.XXXXXXXXXXXXXXXXXXXXX...%
 M:%.........................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:507:Black Mass
+N:Black Mass
 T:ROOM:NORMAL:FORMATION
 W:35:*:32
-L:0:MON(CHAPEL_EVIL, 10):OBJ(*, 10)
+L:0:MON(CHAPEL_EVIL, DEPTH+10):OBJ(*, DEPTH+10)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%.........................%
 M:%.#####################...%
@@ -5614,10 +5644,10 @@ M:%.#####################...%
 M:%.........................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:508:Black Mass II
+N:Black Mass II
 T:ROOM:NORMAL:FORMATION
 W:35:*:32
-L:0:MON(UNDEAD, 10):OBJ(*, 10)
+L:0:MON(UNDEAD, DEPTH+10):OBJ(*, DEPTH+10)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%.........................%
 M:%.#####################...%
@@ -5632,10 +5662,10 @@ M:%.#####################...%
 M:%.........................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:509:Wall Opening Trap
+N:Wall Opening Trap
 T:ROOM:NORMAL:FORMATION
 W:25:*:32
-L:0:MON(*, 10)
+L:0:MON(*, DEPTH+10)
 L:^:TRAP(TRAP_OPEN, 75)
 L:*:TRAP(TRAP_OPEN, 25)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -5652,7 +5682,7 @@ M:%.######################%
 M:%...........*...........%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:510:Death Star I
+N:Death Star I
 T:ROOM:NORMAL
 W:10:*:4
 L:M:MON(*)
@@ -5674,7 +5704,7 @@ M:#.....##.##.....#
 M:#......+.+......#
 M:%%%%%%%%%%%%%%%%%
 
-N:511:Death Star II
+N:Death Star II
 T:ROOM:NORMAL:FORMATION
 W:20:*:32
 L:0:MON(*)
@@ -5696,11 +5726,11 @@ M:#.....##6##.....#
 M:#......+.+......#
 M:%%%%%%%%%%%%%%%%%
 
-N:512:Death Star III
+N:Death Star III
 T:ROOM:NORMAL:FORMATION
 W:30:*:50
-L:0:MON(*, 20)
-L:$:OBJ(*, 5)
+L:0:MON(*, DEPTH+20)
+L:$:OBJ(*, DEPTH+5)
 M:%%%%%%%%%%%%%%%%%
 M:#......+.+......#
 M:#.....##6##.....#
@@ -5719,7 +5749,7 @@ M:#.....##6##.....#
 M:#......+.+......#
 M:%%%%%%%%%%%%%%%%%
 
-N:513:Bank Vault I
+N:Bank Vault I
 T:ROOM:NORMAL
 W:20:*:50
 L:$:OBJ(GOLD)
@@ -5733,10 +5763,10 @@ M:%.XXXXXXXXX.%
 M:%...........%
 M:%%%%%%%%%%%%%
 
-N:514:Bank Vault II
+N:Bank Vault II
 T:ROOM:NORMAL
 W:20:*:50
-L:$:MON($ | HASTE, 20)
+L:$:MON($, HASTE | DEPTH+20)
 M:%%%%%%%%%%%%%
 M:%...........%
 M:%.XXXX#XXXX.%
@@ -5747,7 +5777,7 @@ M:%.XXXXXXXXX.%
 M:%...........%
 M:%%%%%%%%%%%%%
 
-N:515:Halfsies
+N:Halfsies
 T:ROOM:NORMAL
 W:10:*:1
 L:M:MON(*)
@@ -5763,10 +5793,10 @@ M:%.##########.##########.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:516:Halfsies II
+N:Halfsies II
 T:ROOM:NORMAL:FORMATION
 W:20:*:32
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%.......................%
 M:%.##########3##########.%
@@ -5779,7 +5809,7 @@ M:%.##########3##########.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:517:Squares I
+N:Squares I
 T:ROOM:NORMAL
 W:1:*:1
 M:%%%%%%%%%%%%%%%
@@ -5794,7 +5824,7 @@ M:%.#######.....%
 M:%.............%
 M:%%%%%%%%%%%%%%%
 
-N:518:Squares II
+N:Squares II
 T:ROOM:NORMAL
 W:10:*:1
 L:M:MON(*)
@@ -5810,7 +5840,7 @@ M:%.#######.....%
 M:%.............%
 M:%%%%%%%%%%%%%%%
 
-N:519:Squares III
+N:Squares III
 T:ROOM:NORMAL
 W:10:*:2
 L:M:MON(*)
@@ -5827,7 +5857,7 @@ M:%.#######.....%
 M:%.............%
 M:%%%%%%%%%%%%%%%
 
-N:520:Squares IV
+N:Squares IV
 T:ROOM:NORMAL
 W:10:*:2
 L:M:MON(*)
@@ -5845,7 +5875,7 @@ M:%.#######.........%
 M:%.................%
 M:%%%%%%%%%%%%%%%%%%%
 
-N:521:Squares V
+N:Squares V
 T:ROOM:NORMAL:FORMATION
 W:20:*:32
 L:0:MON(*)
@@ -5863,7 +5893,7 @@ M:%.#######.........%
 M:%.................%
 M:%%%%%%%%%%%%%%%%%%%
 
-N:522:Squares VI
+N:Squares VI
 T:ROOM:NORMAL
 W:10:*:2
 L:M:MON(*)
@@ -5879,7 +5909,7 @@ M:%.#######.#######.%
 M:%.................%
 M:%%%%%%%%%%%%%%%%%%%
 
-N:523:Squares VII
+N:Squares VII
 T:ROOM:NORMAL
 W:15:*:4
 L:M:MON(*)
@@ -5896,7 +5926,7 @@ M:%.#######.#######.%
 M:%.................%
 M:%%%%%%%%%%%%%%%%%%%
 
-N:524:Squares VIII
+N:Squares VIII
 T:ROOM:NORMAL:FORMATION
 W:20:*:32
 L:0:MON(*)
@@ -5912,7 +5942,7 @@ M:%.#######.#######.%
 M:%.................%
 M:%%%%%%%%%%%%%%%%%%%
 
-N:525:Squares IX
+N:Squares IX
 T:ROOM:NORMAL
 W:10:*:2
 L:M:MON(*)
@@ -5930,7 +5960,7 @@ M:%..#######.........#######.%
 M:%..........................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:526:Squares X
+N:Squares X
 T:ROOM:NORMAL
 W:20:*:16
 L:M:MON(*)
@@ -5949,7 +5979,7 @@ M:%..#######.........#######.%
 M:%..........................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:527:Squares XI
+N:Squares XI
 T:ROOM:NORMAL:FORMATION
 W:20:*:32
 L:0:MON(*)
@@ -5967,7 +5997,7 @@ M:%..#######.........#######.%
 M:%..........................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:528:Passages
+N:Passages
 T:ROOM:NORMAL
 W:5:*:2
 L:M:MON(*)
@@ -5983,11 +6013,11 @@ M:%.################.####.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:529:Nooks and Crannies
+N:Nooks and Crannies
 T:ROOM:NORMAL
 W:20:*:8
-L:M:MON(* | NO_GROUP)
-L:N:MON(*, 5):OBJ(*)
+L:M:MON(*, NO_GROUP)
+L:N:MON(*, DEPTH+5):OBJ(*)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%.......................%
 M:%.#.#.#.#.#.#.#.#######.%
@@ -6000,30 +6030,7 @@ M:%.#.#.#.#.#.#.#.#######.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:530:Oval Crypt V
-T:ROOM:NORMAL:FORMATION
-W:35:*:64
-L:0:MON(UNDEAD, 15):OBJ(*, 20):EGO(*)
-L:1:OBJ(*, 5)
-M:       %%%%%%%       
-M:     %%%.....%%%     
-M:    ###.......###    
-M:   ##6#.......#8##   
-M:  ###+#.......#+###  
-M: ##6#....#+#....#8## 
-M:%##+#....#2#....#+##%
-M:%......###1###......%
-M:%......+21012+......%
-M:%......###1###......%
-M:%##+#....#2#....#+##%
-M: ##8#....#+#....#6## 
-M:  ###+#.......#+###  
-M:   ##8#.......#6##   
-M:    ###.......###    
-M:     %%%.....%%%     
-M:       %%%%%%%       
-
-N:531:Pillars I
+N:Pillars I
 T:ROOM:NORMAL
 W:10:*:2
 L:M:MON(*)
@@ -6038,7 +6045,7 @@ M:%.#####+#####+#####.%
 M:%...................%
 M:%%%%%%%%%%%%%%%%%%%%%
 
-N:532:Pillars II
+N:Pillars II
 T:ROOM:NORMAL
 W:20:*:4
 L:M:MON(*)
@@ -6058,7 +6065,7 @@ M:%.#####+#####+#####.%
 M:%...................%
 M:%%%%%%%%%%%%%%%%%%%%%
 
-N:533:Pillars III
+N:Pillars III
 T:ROOM:NORMAL
 W:20:*:8
 L:M:MON(*)
@@ -6079,7 +6086,7 @@ M:%.#####+#####+#####.%
 M:%...................%
 M:%%%%%%%%%%%%%%%%%%%%%
 
-N:534:Pillars IV
+N:Pillars IV
 T:ROOM:NORMAL:FORMATION
 W:20:*:50
 L:0:MON(*)
@@ -6100,10 +6107,10 @@ M:%.#####+#####+#####.%
 M:%...................%
 M:%%%%%%%%%%%%%%%%%%%%%
 
-N:535:Honeycomb
+N:Honeycomb
 T:ROOM:NORMAL
 W:20:*:32
-L:M:MON(*, 10)
+L:M:MON(*, DEPTH+10)
 L:$:OBJ(*)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%.....................................%
@@ -6126,11 +6133,11 @@ M:%.###################################.%
 M:%.....................................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:536:Compactness
+N:Compactness
 T:ROOM:NORMAL
 W:20:*:16
-L:M:MON(*, 10)
-L:$:OBJ(*, 5)
+L:M:MON(*, DEPTH+10)
+L:$:OBJ(*, DEPTH+5)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%.....................................%
 M:%.#########################+#########.%
@@ -6157,7 +6164,7 @@ M:%.....................................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-N:537:Excluded Middle
+N:Excluded Middle
 T:ROOM:NORMAL
 W:10:*:1
 L:M:MON(*)
@@ -6173,10 +6180,10 @@ M:%.#####################.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:538:Excluded Middle II
+N:Excluded Middle II
 T:ROOM:NORMAL
 W:10:*:16
-L:M:MON(*, 5)
+L:M:MON(*, DEPTH+5)
 L:$:OBJ(*)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%.......................%
@@ -6190,11 +6197,11 @@ M:%.#####################.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:539:Excluded Middle III
+N:Excluded Middle III
 T:ROOM:NORMAL:FORMATION
 W:25:*:64
-L:M:MON(*, 5)
-L:0:MON(*, 15)
+L:M:MON(*, DEPTH+5)
+L:0:MON(*, DEPTH+15)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%.......................%
 M:%.#####################.%
@@ -6207,10 +6214,10 @@ M:%.#####################.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:540:Quartet I
+N:Quartet I
 T:ROOM:NORMAL
 W:10:*:8
-L:M:MON(*, 5):OBJ(*)
+L:M:MON(*, DEPTH+5):OBJ(*)
 M:%%%%%%%%%%%%%
 M:%...........%
 M:%....###....%
@@ -6225,10 +6232,10 @@ M:%....###....%
 M:%...........%
 M:%%%%%%%%%%%%%
 
-N:541:Quartet II
+N:Quartet II
 T:ROOM:NORMAL
 W:10:*:8
-L:M:MON(*, 5):OBJ(*)
+L:M:MON(*, DEPTH+5):OBJ(*)
 M:%%%%%%%%%%%%%
 M:%...........%
 M:%.###...###.%
@@ -6243,11 +6250,11 @@ M:%.###...###.%
 M:%...........%
 M:%%%%%%%%%%%%%
 
-N:542:Quartet III
+N:Quartet III
 T:ROOM:NORMAL
 W:30:*:32
-L:M:MON(*, 15):OBJ(*, 5)
-L:$:OBJ(*, 5):EGO(*)
+L:M:MON(*, DEPTH+15):OBJ(*, DEPTH+5)
+L:$:OBJ(*, DEPTH+5):EGO(*)
 M:%%%%%%%%%%%%%
 M:%...........%
 M:%.###...###.%
@@ -6262,11 +6269,11 @@ M:%.###...###.%
 M:%...........%
 M:%%%%%%%%%%%%%
 
-N:543:The Nine
+N:The Nine
 T:ROOM:NORMAL:FORMATION
 W:30:*:32
-L:0:MON(UNDEAD, 15):OBJ(*, 5):EGO(*)
-L:3:OBJ(*, 3)
+L:0:MON(UNDEAD, DEPTH+15):OBJ(*, DEPTH+5):EGO(*)
+L:3:OBJ(*, DEPTH+3)
 M:%%%%%%%%%%%%%%%%%%%
 M:%.................%
 M:%.......###.......%
@@ -6287,11 +6294,11 @@ M:%.......###.......%
 M:%.................%
 M:%%%%%%%%%%%%%%%%%%%
 
-N:544:The Nine
+N:The Nine
 T:ROOM:NORMAL:FORMATION
 W:30:*:32
-L:0:MON(DEMON, 15):OBJ(*, 5):EGO(*)
-L:3:OBJ(*, 3)
+L:0:MON(DEMON, DEPTH+15):OBJ(*, DEPTH+5):EGO(*)
+L:3:OBJ(*, DEPTH+3)
 M:%%%%%%%%%%%%%%%%%%%
 M:%.................%
 M:%.......###.......%
@@ -6312,7 +6319,7 @@ M:%.......###.......%
 M:%.................%
 M:%%%%%%%%%%%%%%%%%%%
 
-N:545:Step Pyramid I
+N:Step Pyramid I
 T:ROOM:NORMAL
 W:1:*:1
 M:%%%%%%%%%%%%%%%%%%%%%%%
@@ -6329,7 +6336,7 @@ M:%.###################.%
 M:%.....................%
 M:%%%%%%%%%%%%%%%%%%%%%%%
 
-N:546:Step Pyramid II
+N:Step Pyramid II
 T:ROOM:NORMAL:FORMATION
 W:20:*:32
 L:0:MON(*)
@@ -6347,10 +6354,10 @@ M:%.#########+#########.%
 M:%.....................%
 M:%%%%%%%%%%%%%%%%%%%%%%%
 
-N:547:Step Pyramid III
+N:Step Pyramid III
 T:ROOM:NORMAL
 W:20:*:8
-L:M:MON(*, 3)
+L:M:MON(*, DEPTH+3)
 L:$:OBJ(*)
 M:%%%%%%%%%%%%%%%%%%%%%%%
 M:%.....................%
@@ -6372,11 +6379,11 @@ M:%.......#######.......%
 M:%.....................%
 M:%%%%%%%%%%%%%%%%%%%%%%%
 
-N:548:Step Pyramid IV
+N:Step Pyramid IV
 T:ROOM:NORMAL
 W:20:*:8
-L:M:MON(*, 5)
-L:N:MON(*, 7):OBJ(*, 3)
+L:M:MON(*, DEPTH+5)
+L:N:MON(*, DEPTH+7):OBJ(*, DEPTH+3)
 L:$:OBJ(*)
 M:###%%%%%%%%%%%%%%%%%###
 M:#N+.................#N#
@@ -6398,10 +6405,10 @@ M:#+#.....#######.....###
 M:#N#.................+N#
 M:###%%%%%%%%%%%%%%%%%###
 
-N:549:Step Pyramid V
+N:Step Pyramid V
 T:ROOM:NORMAL:FORMATION
 W:30:*:100
-L:0:MON(*, 15):OBJ(*, 5)
+L:0:MON(*, DEPTH+15):OBJ(*, DEPTH+5)
 M:###%%%%%%%%%%%%%%%%%###
 M:#0+.................#0#
 M:###.....#######.....#+#
@@ -6422,10 +6429,10 @@ M:#+#.....#######.....###
 M:#0#.................+0#
 M:###%%%%%%%%%%%%%%%%%###
 
-N:550:Death Star IV
+N:Death Star IV
 T:ROOM:NORMAL:FORMATION
 W:30:*:16
-L:0:MON(*, 20)
+L:0:MON(*, DEPTH+20)
 L:^:TRAP(TRAP_OPEN)
 M:%%%%%%%%%%%%%%%%%
 M:#......+.+......#
@@ -6445,7 +6452,7 @@ M:#.....##.##.....#
 M:#......+.+......#
 M:%%%%%%%%%%%%%%%%%
 
-N:551:Cups I
+N:Cups I
 T:ROOM:NORMAL
 W:10:*:2
 L:M:MON(*)
@@ -6460,7 +6467,7 @@ M:%.#########...#########.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:552:Cups II
+N:Cups II
 T:ROOM:NORMAL
 W:20:*:4
 L:M:MON(*)
@@ -6482,7 +6489,7 @@ M:%.......#########.......%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:553:Cups III
+N:Cups III
 T:ROOM:NORMAL:FORMATION
 W:20:*:32
 L:0:MON(*)
@@ -6497,7 +6504,7 @@ M:%.#########333#########.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:554:Cups IV
+N:Cups IV
 T:ROOM:NORMAL
 W:10:*:4
 L:M:MON(*)
@@ -6519,7 +6526,7 @@ M:%.#########...#########.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:555:Cups V
+N:Cups V
 T:ROOM:NORMAL
 W:10:*:4
 L:M:MON(*)
@@ -6541,7 +6548,7 @@ M:%.#########...#########.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:556:Tic Tac Toe
+N:Tic Tac Toe
 T:ROOM:NORMAL
 W:10:*:4
 L:M:MON(*)
@@ -6562,7 +6569,7 @@ M:%...................%
 M:%%%%%%%%%%%%%%%%%%%%%
 
 
-N:557:Four Squares I
+N:Four Squares I
 T:ROOM:NORMAL
 W:10:*:4
 L:M:MON(*)
@@ -6586,10 +6593,10 @@ M:%.......####+####.......%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:558:Four Squares II
+N:Four Squares II
 T:ROOM:NORMAL
 W:10:*:32
-L:M:MON(*, 5)
+L:M:MON(*, DEPTH+5)
 L:$:OBJ(*)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%.......................%
@@ -6611,7 +6618,7 @@ M:%.......####+####.......%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:559:Nine Squares I
+N:Nine Squares I
 T:ROOM:NORMAL
 W:10:*:16
 L:M:MON(*)
@@ -6643,11 +6650,11 @@ M:%.............####+####.............%
 M:%...................................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:560:Nine Squares II
+N:Nine Squares II
 T:ROOM:NORMAL:FORMATION
 W:10:*:500
-L:0:MON(*, 15)
-L:$:OBJ(*, 10):EGO(*)
+L:0:MON(*, DEPTH+15)
+L:$:OBJ(*, DEPTH+10):EGO(*)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%...................................%
 M:%.............####+####.............%
@@ -6676,7 +6683,7 @@ M:%.............####+####.............%
 M:%...................................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:561:Accretion I
+N:Accretion I
 T:ROOM:NORMAL
 W:10:*:2
 L:M:MON(*)
@@ -6695,10 +6702,10 @@ M:%.############.%
 M:%..............%
 M:%%%%%%%%%%%%%%%%
 
-N:562:Accretion II
+N:Accretion II
 T:ROOM:NORMAL:FORMATION
 W:20:*:32
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 M:%%%%%%%%%%%%%%%%
 M:%..............%
 M:%.############.%
@@ -6714,7 +6721,7 @@ M:%.############.%
 M:%..............%
 M:%%%%%%%%%%%%%%%%
 
-N:563:Step Pyramid VI
+N:Step Pyramid VI
 T:ROOM:NORMAL
 W:10:*:2
 L:M:MON(*)
@@ -6740,7 +6747,7 @@ M:%.###################.%
 M:%.....................%
 M:%%%%%%%%%%%%%%%%%%%%%%%
 
-N:564:Central Cross
+N:Central Cross
 T:ROOM:NORMAL
 W:10:*:2
 L:M:MON(*)
@@ -6762,13 +6769,11 @@ M:%.....#########.....%
 M:%...................%
 M:%%%%%%%%%%%%%%%%%%%%%
 
-#sequence gap
-
 ##############################
 # clouded (edited)
 # vvvvvvv
 
-N:570:Small Connected Rooms 1
+N:Small Connected Rooms 1
 T:ROOM:NORMAL
 W:1:*:2
 L:0:MON(*)
@@ -6783,7 +6788,7 @@ M:%.....+.0.%
 M:%0....#...%
 M:%%%%%%#%%%%
 
-N:571:Small Connected Rooms 2
+N:Small Connected Rooms 2
 T:ROOM:NORMAL
 W:1:*:2
 L:0:MON(*)
@@ -6798,7 +6803,7 @@ M:%..#..+.0.%
 M:%0.#..#...%
 M:%%%#%%#%%%%
 
-N:572:Small Connected Rooms 3
+N:Small Connected Rooms 3
 T:ROOM:NORMAL
 W:1:*:2
 L:0:MON(*)
@@ -6813,7 +6818,7 @@ M:%....####.%
 M:%.0..+....%
 M:%%%%%#%%%%%
 
-N:573:Small Connected Rooms 4
+N:Small Connected Rooms 4
 T:ROOM:NORMAL
 W:1:*:2
 L:0:MON(*)
@@ -6829,7 +6834,7 @@ M:%0..#.#...%
 M:%...+.#0..%
 M:%%%%#%#%%%%
 
-N:574:Small Connected Rooms 5
+N:Small Connected Rooms 5
 T:ROOM:NORMAL:FORMATION
 W:20:*:32
 L:0:MON(*)
@@ -6845,7 +6850,7 @@ M:%333#.#222%
 M:%333+.#222%
 M:%%%%#%#%%%%
 
-N:575:Small Connected Rooms 6
+N:Small Connected Rooms 6
 T:ROOM:NORMAL
 W:1:*:2
 L:0:MON(*)
@@ -6860,7 +6865,7 @@ M:   %..%
 M:   %.0%    
 M:   %%%%    
 
-N:576:Small Connected Rooms 7
+N:Small Connected Rooms 7
 T:ROOM:NORMAL
 W:1:*:2
 L:0:MON(*)
@@ -6875,7 +6880,7 @@ M:  %%%%%%..%
 M:       %0.%
 M:       %%%%
 
-N:577:Small Hourglass
+N:Small Hourglass
 T:ROOM:NORMAL
 W:1:*:2
 L:0:MON(*)
@@ -6891,11 +6896,11 @@ M:%%....0..%%
 M: %.......% 
 M: %%%%%%%%% 
 
-N:578:Medium Hourglass 1
+N:Medium Hourglass 1
 T:ROOM:NORMAL
 W:1:*:4
 L:0:MON(*)
-L:1:MON(*, 5)
+L:1:MON(*, DEPTH+5)
 M: %%%%%%%%%%%%%%%% 
 M: %............0.% 
 M:%%...1..........%%
@@ -6910,14 +6915,14 @@ M:%%........0.....%%
 M: %..............% 
 M: %%%%%%%%%%%%%%%% 
 
-N:579:Medium Hourglass 2
+N:Medium Hourglass 2
 T:ROOM:NORMAL
 W:15:*:64
 L:0:MON(*)
-L:1:MON(*, 10)
-L:2:MON(*, 5):OBJ(*, 3)
-L:3:MON(*, 15):OBJ(*, 7)
-L:$:OBJ(*, 3)
+L:1:MON(*, DEPTH+10)
+L:2:MON(*, DEPTH+5):OBJ(*, DEPTH+3)
+L:3:MON(*, DEPTH+15):OBJ(*, DEPTH+7)
+L:$:OBJ(*, DEPTH+3)
 M: %%%%%%%%%%%%%%%% 
 M: %..............% 
 M:%%.....0..0.....%%
@@ -6933,7 +6938,7 @@ M:%#3$...2$$2...$3#%
 M:%################%
 M:%%%%%%%%%%%%%%%%%%
 
-N:580:Large Hourglass 1
+N:Large Hourglass 1
 T:ROOM:NORMAL
 W:1:*:5
 L:0:MON(*)
@@ -6959,14 +6964,14 @@ M:%%###.............###%%
 M: %%%#%%%%%%%%%%%%%#%%% 
 M:   %%%           %%%   
 
-N:581:Large Hourglass 2
+N:Large Hourglass 2
 T:ROOM:NORMAL
 W:20:*:64
 L:0:MON(*)
-L:1:MON(*, 10)
-L:2:MON(*, 5):OBJ(*, 3)
-L:3:MON(*, 15):OBJ(*, 7)
-L:$:OBJ(*, 3)
+L:1:MON(*, DEPTH+10)
+L:2:MON(*, DEPTH+5):OBJ(*, DEPTH+3)
+L:3:MON(*, DEPTH+15):OBJ(*, DEPTH+7)
+L:$:OBJ(*, DEPTH+3)
 M:   %%%           %%%   
 M: %%%#%%%%%%%%%%%%%#%%% 
 M:%%###.............###%%
@@ -6989,15 +6994,15 @@ M:%%###.............###%%
 M: %%%#%%%%%%%%%%%%%#%%% 
 M:   %%%           %%%   
 
-N:582:Large Hourglass 3
+N:Large Hourglass 3
 T:ROOM:NORMAL
 W:30:*:128
 L:0:MON(*)
-L:1:MON(*, 10)
-L:2:MON(*, 5):OBJ(*, 3)
-L:3:MON(*, 15):OBJ(*, 7)
+L:1:MON(*, DEPTH+10)
+L:2:MON(*, DEPTH+5):OBJ(*, DEPTH+3)
+L:3:MON(*, DEPTH+15):OBJ(*, DEPTH+7)
 L:$:OBJ(*)
-L:|:OBJ(*, 15)
+L:|:OBJ(*, DEPTH+15)
 M:   %%%           %%%   
 M: %%%#%%%%%%%%%%%%%#%%% 
 M:%%###.............###%%
@@ -7020,10 +7025,10 @@ M:%%###|||1.3.3.1|||###%%
 M: %%%###############%%% 
 M:   %%%%%%%%%%%%%%%%%   
 
-N:583:Quad Thing 1
+N:Quad Thing 1
 T:ROOM:NORMAL
 W:1:*:8
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 M:%%%%%%%%%%%
 M:%.........%
 M:%.###.###.%
@@ -7036,10 +7041,10 @@ M:%.###.###.%
 M:%.........%
 M:%%%%%%%%%%%
 
-N:584:Quad Thing 2
+N:Quad Thing 2
 T:ROOM:NORMAL
 W:15:*:32
-L:0:MON(*, 15):OBJ(*, 5)
+L:0:MON(*, DEPTH+15):OBJ(*, DEPTH+5)
 M:%%%%%%%%%%%
 M:%.........%
 M:%.###.###.%
@@ -7052,10 +7057,10 @@ M:%.###.###.%
 M:%.........%
 M:%%%%%%%%%%%
 
-N:585:Quad Thing 3
+N:Quad Thing 3
 T:ROOM:NORMAL
 W:40:*:128
-L:0:MON(*, 40):OBJ(*, 40)
+L:0:MON(*, DEPTH+40):OBJ(*, DEPTH+40)
 M:%%%%%%%%%%%
 M:%.........%
 M:%.###.###.%
@@ -7068,7 +7073,7 @@ M:%.###.###.%
 M:%.........%
 M:%%%%%%%%%%%
 
-N:586:Cross Pillars 1
+N:Cross Pillars 1
 T:ROOM:NORMAL
 W:1:*:4
 L:0:MON(*)
@@ -7092,11 +7097,11 @@ M:      %.#.#.%
 M:      %.....%      
 M:      %%%%%%%      
 
-N:587:Cross Pillars 2
+N:Cross Pillars 2
 T:ROOM:NORMAL
 W:15:*:8
 L:0:MON(*)
-L:1:MON(*, 5)
+L:1:MON(*, DEPTH+5)
 M:      %%%%%%%      
 M:      %....0%      
 M:      %.#.#.%      
@@ -7117,7 +7122,7 @@ M:      %.#.#.%
 M:      %....0%      
 M:      %%%%%%%      
 
-N:588:Cross Pillars 3
+N:Cross Pillars 3
 T:ROOM:NORMAL
 W:1:*:10
 L:0:MON(*)
@@ -7141,11 +7146,11 @@ M:      %#.#.#%
 M:      %.#.#0%      
 M:      %%%%%%%      
 
-N:589:Cross Pillars 4
+N:Cross Pillars 4
 T:ROOM:NORMAL
 W:15:*:128
-L:0:MON(*, 5)
-L:1:MON(*, 15)
+L:0:MON(*, DEPTH+5)
+L:1:MON(*, DEPTH+15)
 M:      %%%%%%%      
 M:      %.#.#.%      
 M:      %#.#0#%      
@@ -7166,10 +7171,10 @@ M:      %#.#.#%
 M:      %.#.#0%      
 M:      %%%%%%%      
 
-N:590:Cross Pillars 5
+N:Cross Pillars 5
 T:ROOM:NORMAL
 W:1:*:5
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 M:      %%%%%%%      
 M:      %#.#.#%      
 M:      %.....%      
@@ -7190,11 +7195,11 @@ M:      %.....%
 M:      %#.#.#%      
 M:      %%%%%%%      
 
-N:591:Cross Pillars 6
+N:Cross Pillars 6
 T:ROOM:NORMAL
 W:15:*:128
-L:0:MON(*, 5)
-L:1:MON(*, 15)
+L:0:MON(*, DEPTH+5)
+L:1:MON(*, DEPTH+15)
 M:      %%%%%%%      
 M:      %#.#.#%      
 M:      %...1.%      
@@ -7215,10 +7220,10 @@ M:      %.1...%
 M:      %#.#.#%      
 M:      %%%%%%%      
 
-N:592:Cross Pillars 7
+N:Cross Pillars 7
 T:ROOM:NORMAL:FORMATION
 W:30:*:30
-L:0:MON(*, 10)
+L:0:MON(*, DEPTH+10)
 M:    %%%%%%%    
 M:    %#.#.#%    
 M:   %%.#.#.%%   
@@ -7235,10 +7240,10 @@ M:   %%.#.#.%%
 M:    %#.#.#%    
 M:    %%%%%%%    
 
-N:593:Cross Pillars 8
+N:Cross Pillars 8
 T:ROOM:NORMAL:FORMATION
 W:30:*:30
-L:0:MON(*, 10)
+L:0:MON(*, DEPTH+10)
 M:%%%%%%%% %%%%%%%%
 M:%######%%%######%
 M:%#1111#...#0000#%
@@ -7257,10 +7262,10 @@ M:%#2222#...#3333#%
 M:%######%%%######%
 M:%%%%%%%% %%%%%%%%
 
-N:594:Cross Pillars 9
+N:Cross Pillars 9
 T:ROOM:NORMAL:FORMATION
 W:30:*:64
-L:0:MON(*, 10)
+L:0:MON(*, DEPTH+10)
 M:     %%%%%%%     
 M: %%%%%#####%%%%% 
 M: %....#333#....% 
@@ -7279,10 +7284,10 @@ M: %....#111#....%
 M: %%%%%#####%%%%% 
 M:     %%%%%%%     
 
-N:595:Cross Pillars 10
+N:Cross Pillars 10
 T:ROOM:NORMAL
 W:1:*:2
-L:0:MON(*, 3)
+L:0:MON(*, DEPTH+3)
 M:     %%%%%     
 M:     %...%     
 M:     %...%     
@@ -7299,11 +7304,11 @@ M:     %.0.%
 M:     %...%     
 M:     %%%%%     
 
-N:596:Cross Pillars 11
+N:Cross Pillars 11
 T:ROOM:NORMAL
 W:1:*:4
 L:0:MON(*)
-L:1:MON(*, 5)
+L:1:MON(*, DEPTH+5)
 M:     %%%%%%%     
 M:   %%%#####%%%   
 M:  %%..#.0.#..%%  
@@ -7322,10 +7327,10 @@ M:  %%..#...#.0%%
 M:   %%%#####%%%   
 M:     %%%%%%%     
 
-N:597:Little Moat 1
+N:Little Moat 1
 T:ROOM:NORMAL
 W:1:*:64
-L:0:MON(*, 3)
+L:0:MON(*, DEPTH+3)
 L:w:DEEP_WATER
 M:%%%%%%%%%%%
 M:%.........%
@@ -7339,10 +7344,10 @@ M:%.........%
 M:%0........%
 M:%%%%%%%%%%%
 
-N:598:Little Moat 2
+N:Little Moat 2
 T:ROOM:NORMAL
 W:1:*:64
-L:0:MON(*, 3)
+L:0:MON(*, DEPTH+3)
 L:w:DEEP_WATER
 M:%%%%%%%%%%%
 M:%.........%
@@ -7356,10 +7361,10 @@ M:%.......0.%
 M:%0........%
 M:%%%%%%%%%%%
 
-N:599:Unusual Pond
+N:Unusual Pond
 T:ROOM:NORMAL
 W:1:*:64
-L:0:MON(*, 3)
+L:0:MON(*, DEPTH+3)
 L:w:DEEP_WATER
 L:t:TREE
 M:   %%%%%%%%%   
@@ -7375,10 +7380,10 @@ M:  %%...ww....%
 M:   %.%..0..%%% 
 M:   %%%%%%%%%%  
 
-N:600:Small Fountain
+N:Small Fountain
 T:ROOM:NORMAL
 W:1:*:64
-L:0:MON(*, 3)
+L:0:MON(*, DEPTH+3)
 L:w:DEEP_WATER
 L:t:TREE
 M:   %%%%%%%%%%   
@@ -7391,10 +7396,10 @@ M: %%.tw..0.wt.%%
 M:  %%.t....t.%%  
 M:   %%%%%%%%%%   
 
-N:601:Lava Pool
+N:Lava Pool
 T:ROOM:NORMAL
 W:1:*:64
-L:0:MON(*, 3)
+L:0:MON(*, DEPTH+3)
 L:l:DEEP_LAVA
 L:":RUBBLE
 M:    %%%%%%%%%%    
@@ -7411,10 +7416,10 @@ M: %%.#...0..l...%%
 M:  %%%........%%%  
 M:    %%%%%%%%%%    
 
-N:602:Forest
+N:Forest
 T:ROOM:NORMAL
 W:1:*:64
-L:0:MON(*, 3)
+L:0:MON(*, DEPTH+3)
 L:t:TREE
 M:%%%%%%        
 M:%tttt%%       
@@ -7429,10 +7434,10 @@ M:  %%%tttttttt%
 M:    %%tt%%%tt%
 M:     %%%% %%%%
 
-N:603:Reservoir
+N:Reservoir
 T:ROOM:NORMAL
 W:1:*:64
-L:0:MON(*, 3)
+L:0:MON(*, DEPTH+3)
 L:w:DEEP_WATER
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%.......0...............%
@@ -7446,10 +7451,10 @@ M:%.wwwwwwwwwwwwwwwwwwwww.%
 M:%............0..........%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:604:Orchard
+N:Orchard
 T:ROOM:NORMAL
 W:1:*:64
-L:0:MON(*, 3)
+L:0:MON(*, DEPTH+3)
 L:t:TREE
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%........0..............%
@@ -7463,10 +7468,10 @@ M:%.t...t...t...t...t.0.t.%
 M:%.......................%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:605:Small Circle
+N:Small Circle
 T:ROOM:NORMAL
 W:1:*:1
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 M:    %%%%%%%    
 M:  %%%.....%%%  
 M: %%...#.#...%% 
@@ -7479,10 +7484,10 @@ M: %%...#.#...%%
 M:  %%%.....%%%  
 M:    %%%%%%%    
 
-N:606:Small Diamond
+N:Small Diamond
 T:ROOM:NORMAL
 W:1:*:1
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 M:    %%%    
 M:   %%.%%   
 M:  %%...%%  
@@ -7495,11 +7500,11 @@ M:  %%...%%
 M:   %%.%%   
 M:    %%%    
 
-N:607:Large Circle 1
+N:Large Circle 1
 T:ROOM:NORMAL
 W:1:*:8
-L:0:MON(*, 5)
-L:1:MON(*, 15)
+L:0:MON(*, DEPTH+5)
+L:1:MON(*, DEPTH+15)
 M:         %%%%%%%%%%%         
 M:      %%%%.........%%%%      
 M:    %%%........0......%%%    
@@ -7522,13 +7527,13 @@ M:    %%%...............%%%
 M:      %%%%.........%%%%      
 M:         %%%%%%%%%%%         
 
-N:608:Large Circle 2
+N:Large Circle 2
 T:ROOM:NORMAL
 W:30:*:32
-L:0:MON(*, 5)
-L:1:MON(*, 10)
-L:2:MON(*, 15):OBJ(*, 10)
-L:3:MON(*, 30):OBJ(*, 30)
+L:0:MON(*, DEPTH+5)
+L:1:MON(*, DEPTH+10)
+L:2:MON(*, DEPTH+15):OBJ(*, DEPTH+10)
+L:3:MON(*, DEPTH+30):OBJ(*, DEPTH+30)
 M:         %%%%%%%%%%%         
 M:      %%%%.........%%%%      
 M:    %%%......0........%%%    
@@ -7551,13 +7556,13 @@ M:    %%%......0........%%%
 M:      %%%%.........%%%%      
 M:         %%%%%%%%%%%         
 
-N:609:Large Circle 3
+N:Large Circle 3
 T:ROOM:NORMAL
 W:30:*:128
-L:0:MON(*, 5)
-L:1:MON(*, 10)
-L:2:MON(*, 15)
-L:3:MON(*, 30):OBJ(*, 30)
+L:0:MON(*, DEPTH+5)
+L:1:MON(*, DEPTH+10)
+L:2:MON(*, DEPTH+15)
+L:3:MON(*, DEPTH+30):OBJ(*, DEPTH+30)
 M:         %%%%%%%%%%%         
 M:      %%%%.........%%%%      
 M:    %%%...............%%%    
@@ -7580,7 +7585,7 @@ M:    %%%........0......%%%
 M:      %%%%.........%%%%      
 M:         %%%%%%%%%%%         
 
-N:610:Square
+N:Square
 T:ROOM:NORMAL
 W:1:*:2
 L:0:MON(*)
@@ -7595,7 +7600,7 @@ M:%........0...%
 M:%0...........%
 M:%%%%%%%%%%%%%%
 
-N:611:Square 2
+N:Square 2
 T:ROOM:NORMAL
 W:1:*:2
 L:0:MON(*)
@@ -7610,7 +7615,7 @@ M:%............%
 M:%............%
 M:%%%%%%%%%%%%%%
 
-N:612:Empty Hexagon
+N:Empty Hexagon
 T:ROOM:NORMAL
 W:1:*:1
 L:0:MON(*)
@@ -7624,7 +7629,7 @@ M: %%.......%%
 M:  %%.....%%  
 M:   %%%%%%%   
 
-N:613:Filled Hexagon
+N:Filled Hexagon
 T:ROOM:NORMAL
 W:1:*:2
 L:0:MON(*)
@@ -7638,7 +7643,7 @@ M: %%..###..%%
 M:  %%....0%%  
 M:   %%%%%%%   
 
-N:614:Brackets 1
+N:Brackets 1
 T:ROOM:NORMAL
 W:1:*:1
 L:0:MON(*)
@@ -7652,10 +7657,10 @@ M:%.##.##.%
 M:%.......%
 M:%%%%%%%%%
 
-N:615:Brackets 2
+N:Brackets 2
 T:ROOM:NORMAL
 W:15:*:5
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 M:%%%%%%%%%
 M:%.......%
 M:%.##.##.%
@@ -7666,11 +7671,11 @@ M:%.##.##.%
 M:%.......%
 M:%%%%%%%%%
 
-N:616:Chi 1
+N:Chi 1
 T:ROOM:NORMAL
 W:1:*:4
-L:0:MON(*, 3):OBJ(*)
-L:1:MON(*, 5)
+L:0:MON(*, DEPTH+3):OBJ(*)
+L:1:MON(*, DEPTH+5)
 M:%%%% %%%%
 M:%0.%%%.0%
 M:%.......%
@@ -7681,11 +7686,11 @@ M:%.......%
 M:%0.%%%.0%
 M:%%%% %%%%
 
-N:617:Chi 2
+N:Chi 2
 T:ROOM:NORMAL
 W:1:*:4
-L:0:MON(*, 3):OBJ(*)
-L:1:MON(*, 5)
+L:0:MON(*, DEPTH+3):OBJ(*)
+L:1:MON(*, DEPTH+5)
 M:%%%%% %%%%%
 M:%...% %...%
 M:%.0.%%%.0.%
@@ -7698,10 +7703,10 @@ M:%.0.%%%.0.%
 M:%...% %...%
 M:%%%%% %%%%%
 
-N:618:Chi 3
+N:Chi 3
 T:ROOM:NORMAL:FORMATION
 W:15:*:32
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 M:%%%% %%%%
 M:%76%%%67%
 M:%6543456%
@@ -7712,10 +7717,10 @@ M:%6543456%
 M:%76%%%67%
 M:%%%% %%%%
 
-N:619:Chi 4
+N:Chi 4
 T:ROOM:NORMAL:FORMATION
 W:15:*:32
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 M:%%%%% %%%%%
 M:%876% %678%
 M:%765%%%567%
@@ -7728,11 +7733,11 @@ M:%765%%%567%
 M:%876% %678%
 M:%%%%% %%%%%
 
-N:620:Graveyard
+N:Graveyard
 T:ROOM:NORMAL
 W:1:*:8
 L:0:MON(UNDEAD)
-L:1:MON(UNDEAD, 5)
+L:1:MON(UNDEAD, DEPTH+5)
 L:":RUBBLE
 M:%%%%%%%%%%%%%
 M:%...........%
@@ -7745,11 +7750,11 @@ M:%.#.#.#.#.#.%
 M:%......0....%
 M:%%%%%%%%%%%%%
 
-N:621:Diagonal Cells
+N:Diagonal Cells
 T:ROOM:NORMAL
 W:1:*:32
-L:0:MON(*, 5)
-L:$:OBJ(*, 3)
+L:0:MON(*, DEPTH+5)
+L:$:OBJ(*, DEPTH+3)
 M:#%%#%%#%%#
 M:%..#.0#0.%
 M:%0.#0.#..%
@@ -7761,13 +7766,13 @@ M:%..#0.#..%
 M:%0.#.0#.0%
 M:#%%#%%#%%#
 
-N:622:Circular Hall 1
+N:Circular Hall 1
 T:ROOM:NORMAL
 W:55:*:64
-L:0:MON(*, 5)
-L:1:MON(*, 10)
-L:2:MON(*, 15)
-L:$:OBJ(*, 3)
+L:0:MON(*, DEPTH+5)
+L:1:MON(*, DEPTH+10)
+L:2:MON(*, DEPTH+15)
+L:$:OBJ(*, DEPTH+3)
 M:%%%%         %%%%
 M:%0.%         %.0%
 M:%$0%%       %%1$%
@@ -7784,10 +7789,10 @@ M:%$0%%       %%0$%
 M:%0.%         %0.%
 M:%%%%         %%%%
 
-N:623:Circular Hall 1 (Formation)
+N:Circular Hall 1 (Formation)
 T:ROOM:NORMAL:FORMATION
 W:55:*:64
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 M:%%%%         %%%%
 M:%..%         %..%
 M:%.6%%       %%7.%
@@ -7804,13 +7809,13 @@ M:%.4%%       %%5.%
 M:%..%         %..%
 M:%%%%         %%%%
 
-N:624:Circular Hall 2
+N:Circular Hall 2
 T:ROOM:NORMAL
 W:55:*:32
-L:0:MON(*, 5)
-L:1:MON(*, 10)
-L:2:MON(*, 15)
-L:$:OBJ(*, 3)
+L:0:MON(*, DEPTH+5)
+L:1:MON(*, DEPTH+10)
+L:2:MON(*, DEPTH+15)
+L:$:OBJ(*, DEPTH+3)
 M:    %%%%%%%%%%%%    
 M:  %%%...+..+...%%%  
 M: %%0....#..#....0%% 
@@ -7827,10 +7832,10 @@ M: %%0....#..#....0%%
 M:  %%%...+..+...%%%  
 M:    %%%%%%%%%%%%    
 
-N:625:Circular Hall 2 (Formation)
+N:Circular Hall 2 (Formation)
 T:ROOM:NORMAL:FORMATION
 W:55:*:64
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 M:    %%%%%%%%%%%%    
 M:  %%%.6.+33+.7.%%%  
 M: %%..6..#33#..7..%% 
@@ -7847,11 +7852,11 @@ M: %%..5..#33#..4..%%
 M:  %%%.5.+33+.4.%%%  
 M:    %%%%%%%%%%%%    
 
-N:626:Circular Hall 3
+N:Circular Hall 3
 T:ROOM:NORMAL
 W:15:*:5
-L:0:MON(*, 3)
-L:1:MON(*, 5)
+L:0:MON(*, DEPTH+3)
+L:1:MON(*, DEPTH+5)
 L:$:OBJ(*)
 M:  #%%%#   #%%%#  
 M: ##..0## ##0..## 
@@ -7864,10 +7869,10 @@ M:##.....#%#.....##
 M: ##..0## ##.0.## 
 M:  #%%%#   #%%%#  
 
-N:627:Circular Hall 3 (Formation)
+N:Circular Hall 3 (Formation)
 T:ROOM:NORMAL:FORMATION
 W:15:*:45
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 M:  #%%%#   #%%%#  
 M: ##333## ##033## 
 M:##33222#%#22233##
@@ -7879,13 +7884,13 @@ M:##33222#%#22233##
 M: ##330## ##333## 
 M:  #%%%#   #%%%#  
 
-N:628:Circular Hall 4
+N:Circular Hall 4
 T:ROOM:NORMAL
 W:55:*:32
-L:0:MON(*, 5)
-L:1:MON(*, 10)
-L:2:MON(*, 15)
-L:$:OBJ(*, 10)
+L:0:MON(*, DEPTH+5)
+L:1:MON(*, DEPTH+10)
+L:2:MON(*, DEPTH+15)
+L:$:OBJ(*, DEPTH+10)
 M:      ##%%%%%%%%##      
 M:   ####..........####   
 M:  ##..+.0......0.+..##  
@@ -7904,10 +7909,10 @@ M:  ##..+.0......0.+..##
 M:   ####..........####   
 M:      ##%%%%%%%%##      
 
-N:629:Circular Hall 4 (Formation)
+N:Circular Hall 4 (Formation)
 T:ROOM:NORMAL:FORMATION
 W:55:*:64
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 M:      ##%%%%%%%%##      
 M:   ####..........####   
 M:  ##..+.8..88..8.+..##  
@@ -7926,10 +7931,10 @@ M:  ##..+.8..88..8.+..##
 M:   ####..........####   
 M:      ##%%%%%%%%##      
 
-N:630:Sil Rooms 1
+N:Sil Rooms 1
 T:ROOM:NORMAL
 W:1:*:16
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 L:$:OBJ(*)
 M:%%%%%%%%%%%%%%%%%%%%%%%
 M:%$...#.#$..0..0#$.....%
@@ -7943,10 +7948,10 @@ M:%.0..#...#$....#..#..0%
 M:%$.0.#...#.0.0.#..#0.$%
 M:%%%%%%%%%%%%%%%%%%%%%%%
 
-N:631:Sil Rooms 1 (Formation)
+N:Sil Rooms 1 (Formation)
 T:ROOM:NORMAL:FORMATION
 W:20:*:32
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 M:%%%%%%%%%%%%%%%%%%%%%%%
 M:%0000#.#1111111#333333%
 M:%0000#.#1111111#333333%
@@ -7959,10 +7964,10 @@ M:%2222#...#44444#..#555%
 M:%2222#...#44444#..#555%
 M:%%%%%%%%%%%%%%%%%%%%%%%
 
-N:632:Sil Rooms 2
+N:Sil Rooms 2
 T:ROOM:NORMAL
 W:1:*:16
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 L:$:OBJ(*)
 M:%%%%%%%%%%%%%%%%%%%%%%%
 M:%$...#..#$0.#.#$..#..0%
@@ -7976,10 +7981,10 @@ M:%.0.+.+..#..0.#.#.....%
 M:%$..#.#.0#$...#.#0..0$%
 M:%%%%%%%%%%%%%%%%%%%%%%%
 
-N:633:Sil Rooms 2 (Formation)
+N:Sil Rooms 2 (Formation)
 T:ROOM:NORMAL:FORMATION
 W:20:*:64
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 M:%%%%%%%%%%%%%%%%%%%%%%%
 M:%0000#..#555#.#666#777%
 M:%0000#..#555#.#666+777%
@@ -7992,10 +7997,10 @@ M:%222+.+33#4444#.#88888%
 M:%222#.#33#4444#.#88888%
 M:%%%%%%%%%%%%%%%%%%%%%%%
 
-N:634:Sil Rooms 3
+N:Sil Rooms 3
 T:ROOM:NORMAL
 W:1:*:16
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 L:$:OBJ(*)
 M:%%%%%%%%%%%%%%%%%%%
 M:%$0.#.#$.0.#.0...$%
@@ -8010,10 +8015,10 @@ M:%0....+.0.#..#..0.%
 M:%$..0.#..$#..#0..$%
 M:%%%%%%%%%%%%%%%%%%%
 
-N:635:Sil Rooms 3 (Formation)
+N:Sil Rooms 3 (Formation)
 T:ROOM:NORMAL:FORMATION
 W:20:*:32
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 M:%%%%%%%%%%%%%%%%%%%
 M:%000#.#4444#555555%
 M:%000#.#4444#555555%
@@ -8027,10 +8032,10 @@ M:%11111+222#..#3333%
 M:%11111#222#..#3333%
 M:%%%%%%%%%%%%%%%%%%%
 
-N:636:Sil Rooms 4
+N:Sil Rooms 4
 T:ROOM:NORMAL
 W:1:*:16
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 L:$:OBJ(*)
 M:             %%%%%%%
 M:%%%%%%%%%%%%%%....0%
@@ -8045,10 +8050,10 @@ M: %...+..0#.0.#.#$.0%
 M: %%%%%%%%%$..%%%%%%%
 M:         %%%%%      
 
-N:637:Sil Rooms 4 (Formation)
+N:Sil Rooms 4 (Formation)
 T:ROOM:NORMAL:FORMATION
 W:20:*:32
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 M:             %%%%%%%
 M:%%%%%%%%%%%%%%66666%
 M:%00000#...#55#66666%
@@ -8062,11 +8067,11 @@ M: %111+222#333#.#444%
 M: %%%%%%%%%333%%%%%%%
 M:         %%%%%      
 
-N:638:Swirl
+N:Swirl
 T:ROOM:NORMAL
 W:1:*:8
 L:0:MON(*)
-L:1:MON(*, 5)
+L:1:MON(*, DEPTH+5)
 M:%%%%%%%%%#%%%%%%%
 M:%........#......%
 M:%..0.0...#.0....%
@@ -8079,10 +8084,10 @@ M:%.0....#...0....%
 M:%......#.....0..%
 M:%%%%%%%#%%%%%%%%%
 
-N:639:Swirl (Formation)
+N:Swirl (Formation)
 T:ROOM:NORMAL:FORMATION
 W:20:*:64
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 M:%%%%%%%%%#%%%%%%%
 M:%01010101#232323%
 M:%10101010#323232%
@@ -8095,12 +8100,12 @@ M:%545454#76767676%
 M:%454545#67676767%
 M:%%%%%%%#%%%%%%%%%
 
-N:640:Window
+N:Window
 T:ROOM:NORMAL
 W:1:*:32
-L:0:MON(*, 5)
-L:1:MON(*, 10)
-L:$:OBJ(*, 5)
+L:0:MON(*, DEPTH+5)
+L:1:MON(*, DEPTH+10)
+L:$:OBJ(*, DEPTH+5)
 M:%%%%%%%%#%#%%%%%%%%
 M:%...0...+.#$..0...%
 M:%..0.0..#.#..0.0..%
@@ -8113,10 +8118,10 @@ M:%..1.1..#.#..0.0..%
 M:%...1..$#.+...0...%
 M:%%%%%%%%#%#%%%%%%%%
 
-N:641:Window (Formation)
+N:Window (Formation)
 T:ROOM:NORMAL:FORMATION
 W:20:*:32
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 M:%%%%%%%%#%#%%%%%%%%
 M:%0101010+.#2323232%
 M:%1010101#.#3232323%
@@ -8129,10 +8134,10 @@ M:%5454545#.#7676767%
 M:%4545454#.+6767676%
 M:%%%%%%%%#%#%%%%%%%%
 
-N:642:Quad 1
+N:Quad 1
 T:ROOM:NORMAL
 W:1:*:16
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 L:$:OBJ(*)
 M:%%%%%%%%%%%%%%%%%%
 M:%......#..#......%
@@ -8146,7 +8151,7 @@ M:%..0.0$#..#$0.0..%
 M:%......#..#......%
 M:%%%%%%%%%%%%%%%%%%
 
-N:643:Quad 2
+N:Quad 2
 T:ROOM:NORMAL
 W:1:*:2
 L:0:MON(*)
@@ -8162,7 +8167,7 @@ M:%..0.#.#.0..%
 M:%....#.+...0%
 M:%%%%%%%%%%%%%
 
-N:644:Quad 3
+N:Quad 3
 T:ROOM:NORMAL
 W:1:*:2
 L:0:MON(*)
@@ -8178,7 +8183,7 @@ M:%.....#..0..%
 M:%.....+.....%
 M:%%%%%%%%%%%%%
 
-N:645:Quad 4
+N:Quad 4
 T:ROOM:NORMAL
 W:1:*:2
 L:0:MON(*)
@@ -8194,7 +8199,7 @@ M:%.0.+.+.0.%
 M:%...#%#...%
 M:%%%%%%%%%%%
 
-N:646:Little Cross 1
+N:Little Cross 1
 T:ROOM:NORMAL
 W:1:*:2
 L:0:MON(*)
@@ -8210,7 +8215,7 @@ M:%%%.#.#.%%%
 M:  %.....%  
 M:  %%%%%%%  
 
-N:647:Little Cross 2
+N:Little Cross 2
 T:ROOM:NORMAL
 W:1:*:2
 L:0:MON(*)
@@ -8226,12 +8231,12 @@ M:%%%.###0%%%
 M:  %.....%  
 M:  %%%%%%%  
 
-N:648:Little Cross 3
+N:Little Cross 3
 T:ROOM:NORMAL
 W:15:*:16
-L:0:MON(*, 5)
-L:1:MON(*, 10):OBJ(*)
-L:2:MON(*, 10):OBJ(*, 5)
+L:0:MON(*, DEPTH+5)
+L:1:MON(*, DEPTH+10):OBJ(*)
+L:2:MON(*, DEPTH+10):OBJ(*, DEPTH+5)
 M:  %%%%%%%  
 M:  %....0%  
 M:%%%.###.%%%
@@ -8244,7 +8249,7 @@ M:%%%.###.%%%
 M:  %.....%  
 M:  %%%%%%%  
 
-N:649:Oval Thing 1
+N:Oval Thing 1
 T:ROOM:NORMAL
 W:1:*:2
 L:0:MON(*)
@@ -8260,12 +8265,12 @@ M:%%.0..###....%%
 M: %%....+....%% 
 M:  %%%%%%%%%%%  
 
-N:650:Oval Thing 2
+N:Oval Thing 2
 T:ROOM:NORMAL
 W:10:*:16
-L:0:MON(*, 5)
-L:1:MON(*, 10):OBJ(*)
-L:2:MON(*, 10):OBJ(*, 5)
+L:0:MON(*, DEPTH+5)
+L:1:MON(*, DEPTH+10):OBJ(*)
+L:2:MON(*, DEPTH+10):OBJ(*, DEPTH+5)
 M:  %%%%%%%%%%%  
 M: %%....+....%% 
 M:%%....###....%%
@@ -8278,10 +8283,10 @@ M:%%.0..###....%%
 M: %%....+....%% 
 M:  %%%%%%%%%%%  
 
-N:651:Tight Corridors
+N:Tight Corridors
 T:ROOM:NORMAL
 W:1:*:15
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 M:%%%%%%%%%%%%%
 M:%.....#.....%
 M:%.###.#0###.%
@@ -8296,7 +8301,7 @@ M:%.###.#.###.%
 M:%.....#.....%
 M:%%%%%%%%%%%%%
 
-N:652:2x2 Clusters 1
+N:2x2 Clusters 1
 T:ROOM:NORMAL
 W:1:*:2
 L:0:MON(*)
@@ -8313,10 +8318,10 @@ M:%..% %..+..%
 M:%.0% %%%%..%   
 M:%%%%    %%%%   
 
-N:653:2x2 Clusters 2
+N:2x2 Clusters 2
 T:ROOM:NORMAL
 W:1:*:16
-L:0:MON(*, 5)
+L:0:MON(*, DEPTH+5)
 M:%%%%%%%%%%%%%
 M:%..+..#0.+..%
 M:%..#..+..#..%
@@ -8331,7 +8336,7 @@ M:%.0#..+..#..%
 M:%..+..#..+..%
 M:%%%%%%%%%%%%%
 
-N:654:Barrow 1
+N:Barrow 1
 T:ROOM:NORMAL
 W:1:*:5
 L:0:MON(UNDEAD)
@@ -8346,11 +8351,11 @@ M:%.."""..%
 M:%.......%
 M:%%%%%%%%%
 
-N:655:Barrow 2
+N:Barrow 2
 T:ROOM:NORMAL
 W:1:*:10
-L:0:MON(UNDEAD, 3)
-L:1:MON(UNDEAD, 7)
+L:0:MON(UNDEAD, DEPTH+3)
+L:1:MON(UNDEAD, DEPTH+7)
 L:":RUBBLE
 M:%%%%%%%%%%%%%
 M:%...........%
@@ -8364,7 +8369,7 @@ M:%..."""""...%
 M:%...........%
 M:%%%%%%%%%%%%%
 
-N:656:Small Destructed Zone (Empty)
+N:Small Destructed Zone (Empty)
 T:ROOM:NORMAL
 W:1:*:32
 M:    %%%%%%%%%%%%    
@@ -8383,12 +8388,12 @@ M: %%#.##.#..#.##..%%
 M:  %%%#.##.#.#..%%%  
 M:    %%%%%%%%%%%%    
 
-N:657:Small Destructed Zone (Monsters)
+N:Small Destructed Zone (Monsters)
 T:ROOM:NORMAL
 W:10:*:32
 L:0:MON(*)
-L:1:MON(*, 3)
-L:2:MON(*, 5)
+L:1:MON(*, DEPTH+3)
+L:2:MON(*, DEPTH+5)
 M:    %%%%%%%%%%%%    
 M:  %%%..#.#0.#.#%%%  
 M: %%..##..##.##.#.%% 
@@ -8405,7 +8410,7 @@ M: %%#.##0#..#.##..%%
 M:  %%%#.##.#.#..%%%  
 M:    %%%%%%%%%%%%    
 
-N:658:Large Destructed Zone (Empty)
+N:Large Destructed Zone (Empty)
 T:ROOM:NORMAL
 W:1:*:64
 M:         %%%%%%%%%%%         
@@ -8430,12 +8435,12 @@ M:    %%%.##.#.##...#..#%%%
 M:      %%%%#.#..##..%%%%      
 M:         %%%%%%%%%%%         
 
-N:659:Large Destructed Zone (Monsters)
+N:Large Destructed Zone (Monsters)
 T:ROOM:NORMAL
 W:15:*:64
 L:0:MON(*)
-L:1:MON(*, 3)
-L:2:MON(*, 5)
+L:1:MON(*, DEPTH+3)
+L:2:MON(*, DEPTH+5)
 M:         %%%%%%%%%%%         
 M:      %%%%.#..#..#.%%%%      
 M:    %%%#..##.#.#..#.##%%%    
@@ -8458,13 +8463,13 @@ M:    %%%.##.#.##...#..#%%%
 M:      %%%%#.#..##..%%%%      
 M:         %%%%%%%%%%%         
 
-N:660:Pattern 1
+N:Pattern 1
 T:ROOM:NORMAL:NO_ROTATE
 W:20:*:64
-L:0:MON(*, 5)
-L:1:MON(*, 10)
-L:2:MON(*, 15)
-L:$:OBJ(*, 10)
+L:0:MON(*, DEPTH+5)
+L:1:MON(*, DEPTH+10)
+L:2:MON(*, DEPTH+15)
+L:$:OBJ(*, DEPTH+10)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%.#.#.#.#.#.#.#.#.#.#.#.%
 M:%#.#.#.#.#.#.#.#.#0#.#.#%
@@ -8486,13 +8491,13 @@ M:%.#.#.#.#.#.#0#.#.#.#.#.%
 M:%#.#.#.#.#.#.#.#.#.#.#.#%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:661:Pattern 2
+N:Pattern 2
 T:ROOM:NORMAL:NO_ROTATE
 W:20:*:64
-L:0:MON(*, 5)
-L:1:MON(*, 10)
-L:2:MON(*, 15)
-L:$:OBJ(*, 10)
+L:0:MON(*, DEPTH+5)
+L:1:MON(*, DEPTH+10)
+L:2:MON(*, DEPTH+15)
+L:$:OBJ(*, DEPTH+10)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%#...#.#...#.#...#.#...#%
 M:%.#.#...#.#...#.#...#.#.%
@@ -8513,13 +8518,13 @@ M:%.#.#...#.#...#.#...#.#.%
 M:%#...#.#...#.#...#.#...#%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:662:Pattern 3
+N:Pattern 3
 T:ROOM:NORMAL:NO_ROTATE
 W:20:*:64
-L:0:MON(*, 5)
-L:1:MON(*, 10)
-L:2:MON(*, 15)
-L:$:OBJ(*, 10)
+L:0:MON(*, DEPTH+5)
+L:1:MON(*, DEPTH+10)
+L:2:MON(*, DEPTH+15)
+L:$:OBJ(*, DEPTH+10)
 M:%%%%%%%%%%%%%%%%%%%%%%%%
 M:%##..##..##..##..##..##%
 M:%..##..##..##..##..##..%
@@ -8539,13 +8544,13 @@ M:%##.0##..##..##..##$.##%
 M:%..##..##..##..##..##..%
 M:%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:663:Pattern 4
+N:Pattern 4
 T:ROOM:NORMAL:NO_ROTATE
 W:20:*:64
-L:0:MON(*, 5)
-L:1:MON(*, 10)
-L:2:MON(*, 15)
-L:$:OBJ(*, 10)
+L:0:MON(*, DEPTH+5)
+L:1:MON(*, DEPTH+10)
+L:2:MON(*, DEPTH+15)
+L:$:OBJ(*, DEPTH+10)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%###.#.$.#.###.#.$.#.###%
 M:%.#.0.#.###.#.0.#.###.#.%
@@ -8567,13 +8572,13 @@ M:%#.###.#.0.#.###.#.1.#.#%
 M:%##.#.$.#.###.#.$.#.###.%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:664:Pattern 5
+N:Pattern 5
 T:ROOM:NORMAL:NO_ROTATE
 W:20:*:64
-L:0:MON(*, 5)
-L:1:MON(*, 10)
-L:2:MON(*, 15)
-L:$:OBJ(*, 10)
+L:0:MON(*, DEPTH+5)
+L:1:MON(*, DEPTH+10)
+L:2:MON(*, DEPTH+15)
+L:$:OBJ(*, DEPTH+10)
 M:%%%%%%%%%%%%%%%%%%%%%%%%
 M:%..##..##..##..##..##..%
 M:%..##..##.1##..##1.##0.%
@@ -8593,13 +8598,13 @@ M:%##0.##..##.1##..##..##%
 M:%##..##..##..##..##..##%
 M:%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:665:Pattern 6
+N:Pattern 6
 T:ROOM:NORMAL:NO_ROTATE
 W:20:*:64
-L:0:MON(*, 5)
-L:1:MON(*, 10)
-L:2:MON(*, 15)
-L:$:OBJ(*, 10)
+L:0:MON(*, DEPTH+5)
+L:1:MON(*, DEPTH+10)
+L:2:MON(*, DEPTH+15)
+L:$:OBJ(*, DEPTH+10)
 M:%%%%%%%%%%%%%%%%%%%%%%%
 M:%...#....#....#....#..%
 M:%.#..#.#..#.#..#.#..#.%
@@ -8622,13 +8627,13 @@ M:%.#..#.#..#.#..#.#..#.%
 M:%..#....#....#....#...%
 M:%%%%%%%%%%%%%%%%%%%%%%%
 
-N:666:Pattern 7
+N:Pattern 7
 T:ROOM:NORMAL:NO_ROTATE
 W:20:*:64
-L:0:MON(*, 5)
-L:1:MON(*, 10)
-L:2:MON(*, 15)
-L:$:OBJ(*, 10)
+L:0:MON(*, DEPTH+5)
+L:1:MON(*, DEPTH+10)
+L:2:MON(*, DEPTH+15)
+L:$:OBJ(*, DEPTH+10)
 M:%%%%%%%%%%%%%%%%%%%%%%%
 M:%..#...#...#...#...#..%
 M:%.###0###0###0###0###.%
@@ -8653,13 +8658,13 @@ M:%.###0###0###0###0###.%
 M:%..#...#...#...#...#..%
 M:%%%%%%%%%%%%%%%%%%%%%%%
 
-N:667:Pattern 8
+N:Pattern 8
 T:ROOM:NORMAL:NO_ROTATE
 W:20:*:128
-L:0:MON(*, 5)
-L:1:MON(*, 10)
-L:2:MON(*, 15)
-L:$:OBJ(*, 10)
+L:0:MON(*, DEPTH+5)
+L:1:MON(*, DEPTH+10)
+L:2:MON(*, DEPTH+15)
+L:$:OBJ(*, DEPTH+10)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%#.###.###.###.###.###.#%
 M:%.$.#.$.#.$.#.$.#.$.#.$.%
@@ -8682,13 +8687,13 @@ M:%.$.#.$.#.$.#.$.#.$.#.$.%
 M:%#.###.###.###.###.###.#%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:668:Pattern 9
+N:Pattern 9
 T:ROOM:NORMAL:NO_ROTATE
 W:20:*:64
-L:0:MON(*, 5)
-L:1:MON(*, 10)
-L:2:MON(*, 15)
-L:$:OBJ(*, 10)
+L:0:MON(*, DEPTH+5)
+L:1:MON(*, DEPTH+10)
+L:2:MON(*, DEPTH+15)
+L:$:OBJ(*, DEPTH+10)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%#.....#.....#.....#.....#%
 M:%...#..0..#..1..#..0..#...%
@@ -8712,13 +8717,13 @@ M:%#.....#.....#.....#.....#%
 M:%...#.....#.....#.....#...%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:669:Pattern 10
+N:Pattern 10
 T:ROOM:NORMAL:NO_ROTATE
 W:20:*:64
-L:0:MON(*, 5)
-L:1:MON(*, 10)
-L:2:MON(*, 15)
-L:$:OBJ(*, 10)
+L:0:MON(*, DEPTH+5)
+L:1:MON(*, DEPTH+10)
+L:2:MON(*, DEPTH+15)
+L:$:OBJ(*, DEPTH+10)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%#.#..$#.#.###......###.#.%
 M:%#.#.###......###.#.#0.0#.%
@@ -8743,13 +8748,13 @@ M:%.#.#$.$#.#.###......###.#%
 M:%.#.#.###......###...#$..#%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:670:Pattern 11
+N:Pattern 11
 T:ROOM:NORMAL:NO_ROTATE
 W:20:*:64
-L:0:MON(*, 5)
-L:1:MON(*, 10)
-L:2:MON(*, 15)
-L:$:OBJ(*, 10)
+L:0:MON(*, DEPTH+5)
+L:1:MON(*, DEPTH+10)
+L:2:MON(*, DEPTH+15)
+L:$:OBJ(*, DEPTH+10)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%#..#.0.#..#.0.#..#.0.#..#%
 M:%#..#...#..#...#..#...#..#%
@@ -8774,13 +8779,13 @@ M:%#..#...#..#...#..#...#..#%
 M:%#..#.0.#..#.0.#..#.0.#..#%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:671:Pattern 12
+N:Pattern 12
 T:ROOM:NORMAL:NO_ROTATE
 W:20:*:64
-L:0:MON(*, 5)
-L:1:MON(*, 10)
-L:2:MON(*, 15)
-L:$:OBJ(*, 10)
+L:0:MON(*, DEPTH+5)
+L:1:MON(*, DEPTH+10)
+L:2:MON(*, DEPTH+15)
+L:$:OBJ(*, DEPTH+10)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%###0...#....#....#...0###%
 M:%######.#...1#1...#.######%
@@ -8805,13 +8810,13 @@ M:%######.#...1#1...#.######%
 M:%###0...#....#....#...0###%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:672:Pattern 13
+N:Pattern 13
 T:ROOM:NORMAL:NO_ROTATE
 W:20:*:64
-L:0:MON(*, 5)
-L:1:MON(*, 10)
-L:2:MON(*, 15)
-L:$:OBJ(*, 10)
+L:0:MON(*, DEPTH+5)
+L:1:MON(*, DEPTH+10)
+L:2:MON(*, DEPTH+15)
+L:$:OBJ(*, DEPTH+10)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%...#....1..$#$..1....#...%
 M:%...#...0.0.$#$.0.0...#...%
@@ -8836,13 +8841,13 @@ M:%...#...0.0.$#$.0.0...#...%
 M:%...#....1..$#$..1....#...%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:673:Pattern 14
+N:Pattern 14
 T:ROOM:NORMAL:NO_ROTATE
 W:20:*:128
-L:0:MON(*, 5)
-L:1:MON(*, 10)
-L:2:MON(*, 15)
-L:$:OBJ(*, 10)
+L:0:MON(*, DEPTH+5)
+L:1:MON(*, DEPTH+10)
+L:2:MON(*, DEPTH+15)
+L:$:OBJ(*, DEPTH+10)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%###.1.1..##...##..1.1.###%
 M:%###..0...#.....#...0..###%
@@ -8867,12 +8872,12 @@ M:%###..0...#.....#...0..###%
 M:%###.1.1..##...##..1.1.###%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:674:Pattern 15
+N:Pattern 15
 T:ROOM:NORMAL:NO_ROTATE
 W:20:*:128
-L:0:MON(*, 5)
-L:1:MON(*, 15)
-L:2:MON(*, 30):OBJ(*, 20)
+L:0:MON(*, DEPTH+5)
+L:1:MON(*, DEPTH+15)
+L:2:MON(*, DEPTH+30):OBJ(*, DEPTH+20)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%....#.#....+.+....#.#....%
 M:%..0.#.#.0..#.#..0.#.#.0..%
@@ -8897,14 +8902,14 @@ M:%..0.#.#.0..#.#..0.#.#.0..%
 M:%....#.#....+.+....#.#....%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N:675:Pattern 16
+N:Pattern 16
 T:ROOM:NORMAL:NO_ROTATE
 W:20:*:64
-L:0:MON(*, 5)
-L:1:MON(*, 10)
-L:2:MON(*, 15)
-L:3:MON(*, 10):OBJ(*, 10)
-L:$:OBJ(*, 10)
+L:0:MON(*, DEPTH+5)
+L:1:MON(*, DEPTH+10)
+L:2:MON(*, DEPTH+15)
+L:3:MON(*, DEPTH+10):OBJ(*, DEPTH+10)
+L:$:OBJ(*, DEPTH+10)
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%
 M:%$0....#...........#....0$%
 M:%00....#...........#....00%
@@ -8929,5 +8934,5 @@ M:%$0....#...........#....0$%
 M:%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # ^^^^^^^
-# clouded
-##############################
+# clouded  (Huge thanks, btw!!!)
+################################
