@@ -1448,7 +1448,11 @@ static errr _parse_room_grid_object(char **args, int arg_ct, room_grid_t *grid_p
                 if (!_object_types[i].name)
                 {
                     grid_ptr->object = atoi(args[0]);
-                    if (!grid_ptr->object) return PARSE_ERROR_GENERIC;
+                    if (!grid_ptr->object) 
+                    {
+                        msg_format("Error: Invalid object %s.", args[0]);
+                        return PARSE_ERROR_GENERIC;
+                    }
                     break;
                 }
                 if (streq(args[0], _object_types[i].name))
@@ -1462,6 +1466,7 @@ static errr _parse_room_grid_object(char **args, int arg_ct, room_grid_t *grid_p
         break;
 
     default:
+        msg_print("Error: Invalid OBJ() directive. Syntax: OBJ(<which> [,<flags>]).");
         return PARSE_ERROR_TOO_FEW_ARGUMENTS;
     }
     return 0;
@@ -1483,12 +1488,17 @@ static errr _parse_room_grid_ego(char **args, int arg_ct, room_grid_t *grid_ptr)
         else
         {
             grid_ptr->extra = atoi(args[0]);
-            if (!grid_ptr->extra) return PARSE_ERROR_GENERIC;
+            if (!grid_ptr->extra) 
+            {
+                msg_format("Error: Unknown Ego %s.", args[0]);
+                return PARSE_ERROR_GENERIC;
+            }
             grid_ptr->flags |= ROOM_GRID_OBJ_EGO;
         }
         break;
 
     default:
+        msg_print("Error: Invalid EGO() directive. Syntax: EGO(<which> [,<flags>]).");
         return PARSE_ERROR_TOO_FEW_ARGUMENTS;
     }
     return 0;
@@ -1508,12 +1518,17 @@ static errr _parse_room_grid_artifact(char **args, int arg_ct, room_grid_t *grid
         else
         {
             grid_ptr->object = atoi(args[0]);
-            if (!grid_ptr->object) return PARSE_ERROR_GENERIC;
+            if (!grid_ptr->object)
+            {
+                msg_format("Error: Unknown Ego %s.", args[0]);
+                return PARSE_ERROR_GENERIC;
+            }
             grid_ptr->flags |= ROOM_GRID_OBJ_ARTIFACT;
         }
         break;
 
     default:
+        msg_print("Error: Invalid ART() directive. Syntax: ART(<which> [,<flags>]).");
         return PARSE_ERROR_TOO_FEW_ARGUMENTS;
     }
     return 0;
@@ -1533,12 +1548,17 @@ static errr _parse_room_grid_trap(char **args, int arg_ct, room_grid_t *grid_ptr
         else
         {
             s16b trap = f_tag_to_index(args[0]);
-            if (trap < 0) return PARSE_ERROR_GENERIC;
+            if (trap < 0) 
+            {
+                msg_format("Error: Unknown Trap %s.", args[0]);
+                return PARSE_ERROR_GENERIC;
+            }
             grid_ptr->cave_trap = trap;
         }
         break;
 
     default:
+        msg_print("Error: Invalid TRAP() directive. Syntax: TRAP(<which> [,<pct odds>]).");
         return PARSE_ERROR_TOO_FEW_ARGUMENTS;
     }
     return 0;
@@ -1550,12 +1570,21 @@ static errr _parse_room_grid_feature(char* name, char **args, int arg_ct, room_g
 {
     s16b feat = f_tag_to_index(name);
 
-    if (feat < 0) return PARSE_ERROR_GENERIC;
+    if (feat < 0)
+    {
+        msg_format("Error: Unknown Feature %s.", name);
+        return PARSE_ERROR_GENERIC;
+    }
     grid_ptr->cave_feat = feat;
 
-    if (arg_ct > 2) return PARSE_ERROR_TOO_FEW_ARGUMENTS;
+    if (arg_ct > 2)
+    {
+        msg_print("Error: Invalid feature directive. Syntax: <Name>[(<flags> [,<special info>])].");
+        return PARSE_ERROR_TOO_FEW_ARGUMENTS;
+    }
     if (arg_ct >= 2)
     {
+        /* Extra is the dungeon type for wilderness random dungeon entrances. */
         grid_ptr->flags |= ROOM_GRID_SPECIAL;
         grid_ptr->extra = atoi(args[1]);
     }
@@ -1579,7 +1608,10 @@ static errr _parse_room_grid_feature(char* name, char **args, int arg_ct, room_g
             else if (streq(flag, "MARK"))
                 grid_ptr->cave_info |= CAVE_MARK;
             else
+            {
+                msg_format("Error: Unknown Feature Option %s.", flag);
                 return PARSE_ERROR_INVALID_FLAG;
+            }
         }
     }
     return 0;
@@ -1594,12 +1626,21 @@ errr parse_room_grid(char *buf, room_grid_t *grid_ptr)
     char *commands[10];
     int   command_ct = string_split(buf, commands, 10, ":");
     int   i;
+    bool  found_feature = FALSE;
 
     WIPE(grid_ptr, room_grid_t);
 
     /* First command is the "letter" for this room grid */
-    if (command_ct < 2) return PARSE_ERROR_TOO_FEW_ARGUMENTS;
-    if (strlen(commands[0]) != 1) return PARSE_ERROR_GENERIC;
+    if (command_ct < 2) 
+    {
+        msg_print("Error: Not enough info on the L: line. Syntax: L:<letter>:<option_list>.");
+        return PARSE_ERROR_TOO_FEW_ARGUMENTS;
+    }
+    if (strlen(commands[0]) != 1) 
+    {
+        msg_format("Error: Invalid letter %s on L: line. Should be one character only.", commands[0]);
+        return PARSE_ERROR_GENERIC;
+    }
     grid_ptr->letter = commands[0][0];
     
     /* Remaining commands are name(args) directives in any order */
@@ -1610,7 +1651,11 @@ errr parse_room_grid(char *buf, room_grid_t *grid_ptr)
         char *args[10];
         int   arg_ct = parse_args(command, &name, args, 10);
 
-        if (arg_ct < 0) return PARSE_ERROR_GENERIC;
+        if (arg_ct < 0) 
+        {
+            msg_format("Error: Malformed argument %s. Missing )?", name);
+            return PARSE_ERROR_GENERIC;
+        }
 
         if (streq(name, "MON"))
         {
@@ -1639,8 +1684,15 @@ errr parse_room_grid(char *buf, room_grid_t *grid_ptr)
         }
         else
         {
+            if (found_feature)
+            {
+                msg_format("Error: Unkown %s directive.", name);
+                return PARSE_ERROR_GENERIC;
+            }
+
             result = _parse_room_grid_feature(name, args, arg_ct, grid_ptr);
             if (result) break;
+            found_feature = TRUE;
         }
     }
 
@@ -1706,7 +1758,7 @@ errr parse_v_info(char *buf, header *head)
             return PARSE_ERROR_TOO_FEW_ARGUMENTS;
         }
 
-        /* Auto-gen a sequence id ... these are never stored or referred to in code */
+        /* Auto-gen a sequence id ... these are never stored or referred to in code, so why force numbering? */
         i = MAX(1, error_idx + 1);
         if (i >= head->info_num) 
         {
@@ -1724,7 +1776,11 @@ errr parse_v_info(char *buf, header *head)
     }
 
     /* There better be a current room_ptr */
-    else if (!room_ptr) return PARSE_ERROR_MISSING_RECORD_HEADER;
+    else if (!room_ptr) 
+    {
+        msg_print("Error: Missing N: line for new room template.");
+        return PARSE_ERROR_MISSING_RECORD_HEADER;
+    }
 
     /* T:Type:Subtype[:Flags] */
     else if (buf[0] == 'T')
@@ -1732,7 +1788,11 @@ errr parse_v_info(char *buf, header *head)
         char *zz[10];
         int   num = tokenize(buf + 2, 10, zz, 0);
 
-        if (num < 2 || num > 3) return PARSE_ERROR_TOO_FEW_ARGUMENTS;
+        if (num < 2 || num > 3) 
+        {
+            msg_print("Error: Invalid T: line. Syntax is T:<Type>:<Subtype>[:<Flags>].");
+            return PARSE_ERROR_TOO_FEW_ARGUMENTS;
+        }
 
         if (streq(zz[0], "VAULT"))
         {
@@ -1742,7 +1802,11 @@ errr parse_v_info(char *buf, header *head)
             else if (streq(zz[1], "GREATER"))
                 room_ptr->subtype = VAULT_GREATER;
 
-            if (!room_ptr->subtype) return PARSE_ERROR_GENERIC;
+            if (!room_ptr->subtype) 
+            {
+                msg_format("Error: Unknown vault type %s.", zz[1]);
+                return PARSE_ERROR_GENERIC;
+            }
         }
         else if (streq(zz[0], "ROOM"))
         {   
@@ -1775,10 +1839,18 @@ errr parse_v_info(char *buf, header *head)
                 }
             }
 
-            if (!room_ptr->subtype) return PARSE_ERROR_GENERIC;
+            if (!room_ptr->subtype) 
+            {
+                msg_format("Error: Unknown wilderness type %s.", zz[1]);
+                return PARSE_ERROR_GENERIC;
+            }
         }
 
-        if (!room_ptr->type) return PARSE_ERROR_GENERIC;
+        if (!room_ptr->type) 
+        {
+            msg_format("Error: Unknown room type %s.", zz[0]);
+            return PARSE_ERROR_GENERIC;
+        }
 
         if (num == 3)
         {
@@ -1793,7 +1865,11 @@ errr parse_v_info(char *buf, header *head)
         char *zz[10];
         int   num = tokenize(buf + 2, 10, zz, 0);
 
-        if (num != 3) return PARSE_ERROR_TOO_FEW_ARGUMENTS;
+        if (num != 3) 
+        {
+            msg_print("Error: Invalid W: line. Syntax: W:<Level>:<MaxLevel>:<Rarity>.");
+            return PARSE_ERROR_TOO_FEW_ARGUMENTS;
+        }
         room_ptr->level = atoi(zz[0]);
         if (streq(zz[1], "*"))
             room_ptr->max_level = 0;
@@ -1826,7 +1902,14 @@ errr parse_v_info(char *buf, header *head)
         if (!room_ptr->width)
             room_ptr->width = strlen(s);
         else if (strlen(s) != room_ptr->width) 
+        {
+            msg_format(
+                "Error: Inconsistent map widths. Room width auto-calculated to %d but "
+                "current line is %d. Please make all map lines the same length.",
+                room_ptr->width, strlen(s)
+            );
             return PARSE_ERROR_GENERIC;
+        }
 
         /* Store the text */
         if (!add_text(&room_ptr->text, head, s, FALSE)) return PARSE_ERROR_OUT_OF_MEMORY;
