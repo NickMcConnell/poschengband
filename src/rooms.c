@@ -1624,7 +1624,7 @@ static void _apply_room_grid1(int x, int y, const room_grid_t *grid_ptr, u16b ro
 
         if (grid_ptr->flags & ROOM_GRID_OBJ_TYPE)
         {
-            if (grid_ptr->object == TV_JUNK)
+            if (grid_ptr->object == TV_JUNK || grid_ptr->object == TV_SKELETON)
                 object_level = 1;
 
             _obj_kind_hack = grid_ptr->object;
@@ -1683,6 +1683,12 @@ static bool _room_grid_mon_hook(int r_idx)
             return FALSE;
     }
 
+    if (_room_grid_hack->flags & ROOM_GRID_MON_NO_UNIQUE)
+    {
+        if (r_info[r_idx].flags1 & RF1_UNIQUE)
+            return FALSE;
+    }
+
     if (_room_grid_hack->flags & ROOM_GRID_MON_TYPE)
     {
         if (!mon_is_type(r_idx, _room_grid_hack->monster))
@@ -1715,8 +1721,8 @@ static void _apply_room_grid2(int x, int y, const room_grid_t *grid_ptr, u16b ro
         mode |= PM_ALLOW_GROUP;
     if (!(grid_ptr->flags & ROOM_GRID_MON_NO_SLEEP))
         mode |= PM_ALLOW_SLEEP;
-    if (!(grid_ptr->flags & ROOM_GRID_MON_NO_UNIQUE))
-        mode |= PM_ALLOW_UNIQUE;
+    /*if (!(grid_ptr->flags & ROOM_GRID_MON_NO_UNIQUE))
+        mode |= PM_ALLOW_UNIQUE;  Note: This flag does not work! */
     if (grid_ptr->flags & ROOM_GRID_MON_HASTE)
         mode |= PM_HASTE;
 

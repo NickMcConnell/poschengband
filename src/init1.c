@@ -1238,6 +1238,7 @@ static const char *_summon_specific_types[] = {
     "CHAPEL_EVIL",
     "RING_BEARER",
     "ARCHER",
+    "MONK",
     0,
 };
 
@@ -1350,7 +1351,9 @@ typedef struct _object_type_s _object_type_t;
 static _object_type_t _object_types[] = 
 {
     { "JUNK",               TV_JUNK },
+    { "SKELETON",           TV_SKELETON },
     { "STATUE",             TV_STATUE },
+    { "FIGURINE",           TV_FIGURINE },
     { "CHEST",              TV_CHEST },
     { "SHOT",               TV_SHOT },
     { "ARROW",              TV_ARROW },
@@ -1435,7 +1438,7 @@ static errr _parse_room_grid_object(char **args, int arg_ct, room_grid_t *grid_p
                 return PARSE_ERROR_GENERIC;
             }
         }
-        break;
+        /* vvvvvvvvv Fall Through vvvvvvvvvvvv */
     }
     case 1:
         if (streq(args[0], "*"))
@@ -1542,6 +1545,7 @@ static errr _parse_room_grid_trap(char **args, int arg_ct, room_grid_t *grid_ptr
     {
     case 2:
         grid_ptr->trap_pct = atoi(args[1]);
+        /* vvvvvvvvv Fall Through vvvvvvvvvvvv */
     case 1:
         if (streq(args[0], "*"))
         {

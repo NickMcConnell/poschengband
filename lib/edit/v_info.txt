@@ -185,6 +185,7 @@
 #
 ######################################################################
 
+
 ######################################################################
 # PosChengband Wilderness Encounters
 #
@@ -358,6 +359,19 @@ M:#+#+#+#+#
 M:#M#M#M#M#
 M:#########
 
+N:Dog Trainer
+T:WILD:GRASS:FRIENDLY
+W:1:*:16
+L:.:FLOOR(ROOM)
+L:p:MON(p, NO_UNIQUE | NO_GROUP)
+L:C:MON(C, NO_UNIQUE | NO_GROUP)
+M:#######
+M:#C.C..#
+M:#.C..p+
+M:#C.C..#
+M:#######
+
+
 N:General Store
 T:WILD:GRASS
 W:1:*:8
@@ -502,15 +516,79 @@ M:  ^^^^^
 # Mountain Encounters #
 #######################
 
+N:Empty Cave
+T:WILD:MOUNTAIN
+W:40:*:1
+L:.:DIRT
+L:~:SHALLOW_WATER
+L:,:GRASS
+L:T:TREE
+L:#:MOUNTAIN
+M:     ,##,,         
+M: #####..###,       
+M:#.,TT,,..~~###     
+M: #.,TT,,.,,..#,    
+M:  #.,,T,,,T~,.####,
+M:  #.,T,,.,,T~,....#
+M: #,TTT....,~T,....#
+M:#..,,,T,..,T,...##.
+M:.#####,~~.######.  
+M:      #...#        
+M:      ####.        
+
+N:Giant's Cave
+T:WILD:MOUNTAIN:FORMATION
+W:40:*:8
+L:.:DIRT
+L:~:SHALLOW_WATER
+L:,:GRASS
+L:T:TREE
+L:#:MOUNTAIN
+L:0:DIRT:MON(GIANT, DEPTH+20)
+L:$:DIRT:OBJ(SKELETON)
+M:     ,##,,         
+M: #####.6###,       
+M:#8,TT,,..~~###     
+M: #.,TT,,$,,..#,    
+M:  #.,,T,,,T~,.####,
+M:  #.,T,,0,,T~,.$..#
+M: #,TTT2...,~T,....#
+M:#7.,,,T,..,T,2..##.
+M:.#####,~~.######.  
+M:      #$..#        
+M:      ####.        
+
+
+N:Monastery
+T:WILD:MOUNTAIN:FORMATION
+W:40:*:8
+L:.:GRASS
+L:0:GRASS(ROOM):MON(MONK, DEPTH+20)
+L:?:GRASS(ROOM):OBJ(BOOK, DEPTH+40)
+L:$:GRASS(ROOM):OBJ(FIGURINE)
+L:#:MOUNTAIN
+M:  .....    
+M:###888###  
+M:#6##+##7#  
+M:##+.9.+##  
+M:#5#'''#4#  
+M:##+9.9+##  
+M:#2#'''#3#  
+M:##+.9.+##  
+M:#1#9.9#0#  
+M:####+####  
+M:#?$?$?$?#  
+M:#########  
+
 N:Random Mountain Level
 T:WILD:MOUNTAIN
-W:40:*:8
+W:40:*:16
 L:>:ENTRANCE(GLOW | MARK, 28)
 M:>
 
 N:Random Volcano Level
 T:WILD:MOUNTAIN
-W:40:*:8
+W:40:*:16
 L:>:ENTRANCE(GLOW | MARK, 27)
 L:~:DEEP_LAVA(GLOW)
 L:.:SHALLOW_LAVA(GLOW)

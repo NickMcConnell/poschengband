@@ -2706,6 +2706,7 @@ enum summon_specific_e {
     SUMMON_CHAPEL_EVIL,
     SUMMON_RING_BEARER,
     SUMMON_ARCHER,
+    SUMMON_MONK,
 };
 
 /*

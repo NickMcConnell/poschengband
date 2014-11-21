@@ -1173,6 +1173,14 @@ bool mon_is_type(int r_idx, int type)
         else if (r_idx == 112 || r_idx == 748)
             return TRUE;
         break;
+    case SUMMON_MONK:
+        if ( r_idx == MON_JADE_MONK || r_idx == MON_IVORY_MONK || r_idx == MON_MONASTIC_LICH
+          || r_idx == MON_EBONY_MONK || r_idx == MON_MYSTIC || r_idx == MON_MASTER_MYSTIC
+          || r_idx == MON_GRAND_MASTER_MYSTIC || r_idx == MON_TOPAZ_MONK )
+        {
+            return TRUE;
+        }
+        break;
     }
     return FALSE;
 }
