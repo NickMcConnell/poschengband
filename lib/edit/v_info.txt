@@ -536,7 +536,51 @@ M:.#####,~~.######.
 M:      #...#        
 M:      ####.        
 
-N:Giant's Cave
+N:Ogre Cave
+T:WILD:MOUNTAIN:FORMATION
+W:40:*:2
+L:.:DIRT
+L:~:SHALLOW_WATER
+L:,:GRASS
+L:T:TREE
+L:#:MOUNTAIN
+L:0:DIRT:MON(O, DEPTH+20)
+L:$:DIRT:OBJ(SKELETON)
+M:     ,##,,         
+M: #####.6###,       
+M:#8,TT,,..~~###     
+M: #.,TT,,$,,..#,    
+M:  #.,,T,,,T~,.####,
+M:  #.,T,,0,,T~,.$..#
+M: #,TTT2...,~T,....#
+M:#7.,,,T,..,T,2..##.
+M:.#####,~~.######.  
+M:      #$..#        
+M:      ####.        
+
+N:Troll Cave
+T:WILD:MOUNTAIN:FORMATION
+W:40:*:2
+L:.:DIRT
+L:~:SHALLOW_WATER
+L:,:GRASS
+L:T:TREE
+L:#:MOUNTAIN
+L:0:DIRT:MON(T, DEPTH+20)
+L:$:DIRT:OBJ(SKELETON)
+M:     ,##,,         
+M: #####.6###,       
+M:#8,TT,,..~~###     
+M: #.,TT,,$,,..#,    
+M:  #.,,T,,,T~,.####,
+M:  #.,T,,0,,T~,.$..#
+M: #,TTT2...,~T,....#
+M:#7.,,,T,..,T,2..##.
+M:.#####,~~.######.  
+M:      #$..#        
+M:      ####.        
+
+N:Giant Cave
 T:WILD:MOUNTAIN:FORMATION
 W:40:*:8
 L:.:DIRT
@@ -558,13 +602,22 @@ M:.#####,~~.######.
 M:      #$..#        
 M:      ####.        
 
+N:Eyrie
+T:WILD:MOUNTAIN:FORMATION
+W:40:*:4
+L:0:DIRT:MON(B, DEPTH+10)
+M:    88    
+M:   66466  
+M:    43245 
+M:     40357
+M:    89    
 
 N:Monastery
 T:WILD:MOUNTAIN:FORMATION
 W:40:*:8
 L:.:GRASS
 L:0:GRASS(ROOM):MON(MONK, DEPTH+20)
-L:?:GRASS(ROOM):OBJ(BOOK, DEPTH+40)
+L:?:GRASS(ROOM):OBJ(BOOK, DEPTH+10)
 L:$:GRASS(ROOM):OBJ(FIGURINE)
 L:#:MOUNTAIN
 M:  .....    
@@ -605,20 +658,73 @@ N:The Enchantress
 T:AMBUSH:MOUNTAIN:FORMATION
 W:30:*:8
 L:0:TREE:MON(DRAGON)
-L:p:TREE:MON(636)
+L:p:TREE:MON(636, NO_SLEEP)
 L:.:TREE
-M:939.. 
-M:3p3..@
-M:939.. 
-
+M:741.....
+M:8p0..@..
+M:953.....
 
 ####################
 # Swamp Encounters #
 ####################
 
+N:Bat Attack!
+T:WILD:SWAMP:FORMATION
+W:10:*:3
+L:0:DIRT:MON(b, DEPTH+10)
+M:    88    
+M:   66466  
+M:    43245 
+M:     40357
+M:    89    
+
+N:Ick!
+T:WILD:SWAMP:FORMATION
+W:10:*:1
+L:0:DIRT:MON(i)
+M:    88    
+M:   66466  
+M:  7743245 
+M: 987640357
+M:  988992  
+M:    99329 
+
+N:Ewwwww!
+T:WILD:SWAMP:FORMATION
+W:10:*:2
+L:0:DIRT:MON(j, DEPTH+10)
+M:    88    
+M:   66466  
+M:    43245 
+M:     40357
+M:    89    
+
 #####################
 # Forest Encounters #
 #####################
+
+N:Druidic Circle
+T:WILD:TREES
+W:10:*:32
+L:T:TREE
+L:M:GRASS:MON(329, NO_SLEEP)
+L:p:GRASS:MON(241)
+L:~:GRASS
+M:       TTT       
+M:     TTTTTTT     
+M:    TTTTTTTTT    
+M:   TTTTTpTTTTT   
+M:  TTTTTp~pTTTTT  
+M: TTTTTp~~~pTTTTT 
+M:TTTTTp~~M~~pTTTTT
+M:TTTTp~~MMM~~pTTTT
+M:TTTTTp~~M~~pTTTTT
+M: TTTTTp~~~pTTTTT 
+M:  TTTTTp~pTTTTT  
+M:   TTTTTpTTTTT   
+M:    TTTTTTTTT    
+M:     TTTTTTT     
+M:       TTT       
 
 N:Random Forest Level
 T:WILD:TREES
