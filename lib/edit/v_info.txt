@@ -402,6 +402,73 @@ M:'.....7XX
 M:XXXXXXXXX
 M:XXXXXXXXX
 
+N:Sorcerer's Tower
+T:WILD:GRASS
+W:20:*:16
+L:.:FLOOR(ROOM)
+L:p:FLOOR(ROOM):MON(MAGE, NO_SLEEP | NO_GROUP | DEPTH+20):OBJ(WAND, DEPTH+10)
+M:################
+M:+..............#
+M:##############.#
+M:#............#.#
+M:#.##########.#.#
+M:#.#p.........#.#
+M:#.############.#
+M:#..............#
+M:################
+
+N:Chapel
+T:WILD:GRASS
+W:1:*:16
+L:&:OBJ(STATUE, DEPTH+100)
+M:XXXXXXXXX
+M:XXXXXXXXX
+M:'.....&XX
+M:XXXXXXXXX
+M:XXXXXXXXX
+
+N:Graveyard
+T:WILD:GRASS:DAY
+W:1:*:8
+L:.:DIRT
+L:,:GRASS
+M: ###########
+M: #,,,,,,,,,#
+M: #,#,#,#,#,#
+M:..........,#
+M: #,#,#,#,#,#
+M: #,,,,,,,,,#
+M: ###########
+
+N:Graveyard
+T:WILD:GRASS:NIGHT
+W:1:*:8
+L:G:GRASS:MON(UNDEAD)
+L:z:GRASS:MON(ZOMBIE)
+L:.:DIRT
+L:,:GRASS
+M: ###########
+M: #,z,,,G,,G#
+M: #z#z#,#,#,#
+M:..........G#
+M: #z#z#,#,#,#
+M: #,z,,,G,,G#
+M: ###########
+
+N:Monument
+T:WILD:GRASS
+W:1:*:32
+L:.:DIRT
+L:~:SHALLOW_WATER
+M:    X    
+M:   X.X   
+M:  X...X  
+M: X..X..X 
+M:X..X~X..X
+M: X..X..X 
+M:  X...X  
+M:   X.X   
+M:    X    
 
 #Nivim
 N:Villa
@@ -431,6 +498,42 @@ M: #2..#1..#...#
 M: #...x...x...#
 M: #...#..1#.%%#
 M: #############
+
+#Nivim (Unfinished)
+N:Keep of Four Pillars
+T:WILD:GRASS
+W:8:*:32
+L:.:FLOOR(ROOM)
+L:_:FLOOR
+L:x:CLOSED_DOOR(ROOM)
+L:v:SHALLOW_LAVA
+#To-do; a cold analogue to lava, probably G:#:B
+L:b:GLASS_FLOOR
+L:n:DEEP_WATER
+L:m:MOUNTAIN
+#The following is actually supposed to be more like a
+#line selecting mages with a high summon chance or
+#1/5 chance of silent watchers, and a line selecting
+#warriors (p or not).
+L:*:FLOOR(GLOW):MON(DEMON_SUMMONER, NO_GROUP | DEPTH+25):OBJ(LITE, DEPTH+10):EGO(*)
+L:`:FLOOR(GLOW):MON(397, NO_GROUP):OBJ(LITE, DEPTH+10):EGO(*)
+L:p:FLOOR(ROOM):MON(p, NO_UNIQUE | DEPTH+15)
+M: vvvv      mmmm 
+M:vvv__________mmm
+M:vv#v_##__##_m#mm
+M:v_v__#####+__m_m
+M:v___##..p.##___m
+M: _#+#p....p###_ 
+M: _##..#x##..##_ 
+M: __#p.#*`x..#__ 
+M: __#..x**#.p#__ 
+M: _##..##x#..##_ 
+M: _###p....p#+#_ 
+M:b___##.p..##___n
+M:b_b__+#####__n_n
+M:bb#b_##__##_n#nn
+M:bbb__________nnn
+M: bbbb      nnnn 
 
 ##################
 # Grass Ambushes #
@@ -511,6 +614,10 @@ M:^..~>~..^
 M:^^..~..^^
 M: ^^...^^ 
 M:  ^^^^^  
+
+#Hell Hounds
+#Arch-viles
+#Demonologist and his newly summoned Balrog
 
 #######################
 # Mountain Encounters #
@@ -654,6 +761,14 @@ M:^^..~..^^
 M: ^^...^^ 
 M:  ^^^^^  
 
+#Dragon's Lair
+#Sorcerer's Tower
+#Logrus Master
+
+#####################
+# Mountain Ambushes #
+#####################
+
 N:The Enchantress
 T:AMBUSH:MOUNTAIN:FORMATION
 W:30:*:8
@@ -699,9 +814,72 @@ M:    43245
 M:     40357
 M:    89    
 
+N:Who would live here?
+T:WILD:SWAMP
+W:10:*:4
+L:-:BROKEN_DOOR
+L:~:OBJ(JUNK)
+M:######
+M:#   ~#
+M:# ####
+M:#-#   
+
+N:The Sacred Temple of Ick
+T:WILD:SWAMP
+W:10:*:16
+L:j:MON(j, DEPTH+5)
+M:  ####  
+M:  #jj#  
+M:###jj###
+M:+jjjjjj#
+M:###jj###
+M:  #jj#  
+M:  ####  
+
+#Haunted House
+#Witch's Hut
+
 #####################
 # Forest Encounters #
 #####################
+
+N:Spiders
+T:WILD:TREES:FORMATION
+W:10:*:2
+L:0:MON(S, DEPTH+10)
+L:$:OBJ(SKELETON)
+M:   8$  4  $8   
+M:  8  $232$  8  
+M: 8   2$1$2   8 
+M:8   4310134   8
+M: 8   2$1$2   8 
+M:  8  $232$  8  
+M:   8$  4  $8   
+
+N:Roasting Hobbits
+T:WILD:TREES
+W:15:*:4
+L:T:MON(297, NO_SLEEP)
+L:h:MON(74, FRIENDLY)
+L:~:SHALLOW_LAVA
+L:$:OBJ(*)
+M:            T
+M:   T  $T h   
+M:      T~T h T
+M:   T   T h   
+M:T            
+
+N:Ewok Village
+T:WILD:TREES
+W:10:*:4
+L:h:TREE:MON(92)
+L:T:TREE
+L:~:GRASS
+M:TTh~hTTTh
+M: TTh~hT~ 
+M:  ~TTT~h~
+M:TThTTT~~T
+M:   ThhTT 
 
 N:Druidic Circle
 T:WILD:TREES
@@ -726,6 +904,18 @@ M:    TTTTTTTTT
 M:     TTTTTTT     
 M:       TTT       
 
+N:Treeherder
+T:WILD:TREES
+W:30:*:200
+L:T:MON(708, FRIENDLY | NO_SLEEP)
+M:T
+
+#Fishing Hole
+#Robin Hood and his Merry Men
+#Huorns
+#Hermit's Hut
+#Snake infested ruins
+
 N:Random Forest Level
 T:WILD:TREES
 W:20:*:8
@@ -735,6 +925,16 @@ M:>
 ####################
 # Water Encounters #
 ####################
+
+#Treasure Island
+#Convict's Island
+#Land of the Lost (Dinosaur Island!)
+#Rookery
+#Trading Port
+#Piranhas
+#Shipwrecked
+#Reef of Despair
+#Shark Infested Waters (Complete with bathers!)
 
 N:Random Sea Level
 T:WILD:WATER
@@ -749,6 +949,7 @@ M:_~~~>~~__
 M:~__~~~__~
 M:_~~___~~_
 
+
 ######################################################################
 # PosChengband Rooms
 #
@@ -756,7 +957,6 @@ M:_~~___~~_
 # Subtype: NORMAL
 #
 # The idea of scripted rooms was borrowed from Vanilla Angband.
-# The evil idea of raided/fake vaults is my own :)
 #
 
 N:Kennel

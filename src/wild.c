@@ -483,7 +483,7 @@ void wilderness_move_player(int old_x, int old_y)
        and then repeatedly move the player. */
     if (wilderness_scroll_lock)
     {
-    #if _DEBUG
+    #ifdef _DEBUG
         msg_format("Skip Scroll (%d,%d)", dx, dy);
     #endif
         return;
@@ -704,6 +704,12 @@ static bool _generate_special_encounter(room_template_t *room_ptr, int x, int y,
     return FALSE;
 }
 
+#ifdef _DEBUG
+#   define _WILD_ENCOUNTER_CHANCE 1
+#else
+#   define _WILD_ENCOUNTER_CHANCE 15
+#endif
+
 static void _generate_encounters(int x, int y, const rect_t *r, const rect_t *exclude)
 {
     int    ct, prob, i, x2, y2, r_idx, j;
@@ -732,7 +738,7 @@ static void _generate_encounters(int x, int y, const rect_t *r, const rect_t *ex
       && !lite_town
       && !generate_encounter
       && !no_encounters_hack
-      && one_in_(1/*5*/))
+      && one_in_(_WILD_ENCOUNTER_CHANCE))
     {
         room_template_t *room_ptr = choose_room_template(ROOM_WILDERNESS, _encounter_terrain_type(x, y));
         if (room_ptr)

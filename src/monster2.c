@@ -1181,6 +1181,16 @@ bool mon_is_type(int r_idx, int type)
             return TRUE;
         }
         break;
+    case SUMMON_MAGE:
+        if (r_ptr->d_char == 'p' || r_ptr->d_char == 'h')
+        {
+            if ( r_ptr->body.class_idx == CLASS_MAGE
+              || r_ptr->body.class_idx == CLASS_SORCERER )
+            {
+                return TRUE;
+            }
+        }
+        break;
     }
     return FALSE;
 }

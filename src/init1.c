@@ -1239,6 +1239,7 @@ static const char *_summon_specific_types[] = {
     "RING_BEARER",
     "ARCHER",
     "MONK",
+    "MAGE",
     0,
 };
 

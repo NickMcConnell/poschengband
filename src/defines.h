@@ -2707,6 +2707,7 @@ enum summon_specific_e {
     SUMMON_RING_BEARER,
     SUMMON_ARCHER,
     SUMMON_MONK,
+    SUMMON_MAGE,
 };
 
 /*
