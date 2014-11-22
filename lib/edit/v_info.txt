@@ -185,9 +185,9 @@
 #    [4] L:p:MON(p, NO_GROUP | FRIENDLY)
 #        A friendly human that won't come as part of a monster group.
 #    [5] L:4:TEMPLE(GLOW)
-#        An lit entrance to a temple shop.
+#        A lit entrance to a temple shop.
 #    [6] L:p:DIRT:MON(1026):OBJ(BOOK, DEPTH+50)
-#        An Old Sorcerer staninding on a dirt tile with an out of depth good spellbook underfoot.
+#        An Old Sorcerer standing on a dirt tile with an out of depth good spellbook underfoot.
 #
 # M:<map_row>
 # 'M' lines describe the layout of the room. The size of the room is calculated automatically for
