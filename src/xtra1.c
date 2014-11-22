@@ -4309,6 +4309,9 @@ void calc_bonuses(void)
             }
         }
 
+        if (race_ptr != NULL && race_ptr->calc_shooter_bonuses != NULL)
+            race_ptr->calc_shooter_bonuses(o_ptr, &p_ptr->shooter_info);
+
         if (class_ptr != NULL && class_ptr->calc_shooter_bonuses != NULL)
             class_ptr->calc_shooter_bonuses(o_ptr, &p_ptr->shooter_info);
 

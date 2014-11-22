@@ -1376,6 +1376,26 @@ int possessor_r_ac(int r_idx)
     return MAX(0, ac);
 }
 
+static void _calc_shooter_bonuses(object_type *o_ptr, shooter_info_t *info_ptr)
+{
+    if (p_ptr->current_r_idx && !p_ptr->shooter_info.heavy_shoot)
+    {
+        monster_race *r_ptr = &r_info[p_ptr->current_r_idx];
+
+        if ( r_ptr->body.class_idx == CLASS_ARCHER
+          && p_ptr->shooter_info.tval_ammo <= TV_BOLT
+          && p_ptr->shooter_info.tval_ammo >= TV_SHOT )
+        {
+            p_ptr->shooter_info.num_fire += p_ptr->lev * 200 / 50;
+        }
+        else if ( r_ptr->body.class_idx == CLASS_RANGER
+               && p_ptr->shooter_info.tval_ammo == TV_ARROW )
+        {
+            p_ptr->shooter_info.num_fire += p_ptr->lev * 150 / 50;
+        }
+    }
+}
+
 void possessor_calc_bonuses(void) 
 {
     monster_race *r_ptr = &r_info[p_ptr->current_r_idx];
@@ -1701,7 +1721,6 @@ int           r_idx = p_ptr->current_r_idx, i;
         race_ptr->subname = mon_name(r_idx);
     }
 }
-
 race_t *mon_possessor_get_race_t(void)
 {
     static race_t me = {0};
@@ -1734,6 +1753,7 @@ race_t *mon_possessor_get_race_t(void)
         me.get_powers = _get_powers;
 
         me.calc_bonuses = possessor_calc_bonuses;
+        me.calc_shooter_bonuses = _calc_shooter_bonuses;
         me.get_flags = possessor_get_flags;
         me.get_immunities = possessor_get_immunities;
         me.get_vulnerabilities = possessor_get_vulnerabilities;

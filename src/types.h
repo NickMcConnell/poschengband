@@ -2103,6 +2103,7 @@ typedef struct {
     birth_fn                birth;
     calc_bonuses_fn         calc_bonuses;
     calc_weapon_bonuses_fn  calc_weapon_bonuses;
+    calc_shooter_bonuses_fn calc_shooter_bonuses;
     calc_innate_attacks_fn  calc_innate_attacks;
     caster_info_fn          caster_info;
     get_spells_fn           get_spells;
