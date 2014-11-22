@@ -1871,6 +1871,7 @@ errr parse_v_info(char *buf, header *head)
     {
         char *zz[10];
         int   num = tokenize(buf + 2, 10, zz, 0);
+        int   tmp;
 
         if (num != 3) 
         {
@@ -1882,7 +1883,13 @@ errr parse_v_info(char *buf, header *head)
             room_ptr->max_level = 0;
         else
             room_ptr->max_level = atoi(zz[1]);
-        room_ptr->rarity = atoi(zz[2]);
+        tmp = atoi(zz[2]);
+        if (tmp < 0 || tmp > 255)
+        {
+            msg_format("Error: Invalid rarity %d. Enter a value between 1 and 255.", tmp);
+            return PARSE_ERROR_OUT_OF_BOUNDS;
+        }
+        room_ptr->rarity = tmp;
     }
 
     /* Process custom 'L'etters */

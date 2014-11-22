@@ -1522,9 +1522,13 @@ static const room_grid_t *_find_room_grid(const room_template_t *room_ptr, char 
     return NULL;
 }
 
+static bool _obj_kind_is_good = FALSE;
 static int _obj_kind_hack = 0;
 static bool _obj_kind_hook(int k_idx)
 {
+    if (_obj_kind_is_good && !kind_is_good(k_idx))
+        return FALSE;
+
     switch (_obj_kind_hack)
     {
     case OBJ_TYPE_DEVICE:       return kind_is_device(k_idx);
@@ -1627,6 +1631,9 @@ static void _apply_room_grid1(int x, int y, const room_grid_t *grid_ptr, u16b ro
             if (grid_ptr->object == TV_JUNK || grid_ptr->object == TV_SKELETON)
                 object_level = 1;
 
+            _obj_kind_is_good = FALSE;
+            if (grid_ptr->object_level > 0)
+                _obj_kind_is_good = TRUE;
             _obj_kind_hack = grid_ptr->object;
             get_obj_num_hook = _obj_kind_hook;
             get_obj_num_prep();

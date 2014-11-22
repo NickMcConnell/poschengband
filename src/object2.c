@@ -5303,7 +5303,7 @@ static bool kind_is_tailored(int k_idx)
 
 static bool _drop_tailored = FALSE;
 
-static bool kind_is_great(int k_idx)
+bool kind_is_great(int k_idx)
 {
     object_kind *k_ptr = &k_info[k_idx];
 
@@ -5407,7 +5407,7 @@ static bool kind_is_great(int k_idx)
     return (FALSE);
 }
 
-static bool kind_is_good(int k_idx)
+bool kind_is_good(int k_idx)
 {
     object_kind *k_ptr = &k_info[k_idx];
 
