@@ -291,7 +291,7 @@ M:4     4
 M:6  $  6
 M:8640468
 
-N:Thieve's Prison
+N:Thieves' Prison
 T:WILD:GRASS
 W:1:*:2
 L:M:MON(THIEF)
@@ -304,7 +304,7 @@ M:#+#+#+#+#
 M:#M#M#M#M#
 M:#########
 
-N:Debtor's Prison
+N:Debtors' Prison
 T:WILD:GRASS
 W:1:*:4
 L:M:MON(p)
