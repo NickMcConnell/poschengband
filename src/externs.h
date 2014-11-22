@@ -2070,6 +2070,7 @@ extern int     possessor_get_spells(spell_info* spells, int max);
 extern 
 caster_info   *possessor_caster_info(void);
 extern void    possessor_calc_bonuses(void);
+extern int     possessor_class_idx(void);
 extern int     possessor_r_speed(int r_idx);
 extern int     possessor_r_ac(int r_idx);
 extern void    possessor_get_flags(u32b flgs[TR_FLAG_SIZE]);

@@ -1548,6 +1548,16 @@ void possessor_calc_bonuses(void)
         p_ptr->no_cut = TRUE;
     if (strchr("sg", r_ptr->d_char))
         p_ptr->no_stun = TRUE;
+
+    switch (r_ptr->body.class_idx)
+    {
+    case CLASS_MAGE:
+        p_ptr->spell_cap += 2;
+        break;
+    case CLASS_HIGH_MAGE:
+        p_ptr->spell_cap += 3;
+        break;
+    }
 }
 
 void possessor_get_flags(u32b flgs[TR_FLAG_SIZE]) 
@@ -1969,4 +1979,15 @@ void possessor_on_save(savefile_ptr file)
 void possessor_on_load(savefile_ptr file)
 {
     _history_on_load(file);
+}
+
+int possessor_class_idx(void)
+{
+    int result = p_ptr->pclass;
+    if ( (p_ptr->prace == RACE_MON_POSSESSOR || p_ptr->prace == RACE_MON_MIMIC)
+      && p_ptr->current_r_idx )
+    {
+        result = r_info[p_ptr->current_r_idx].body.class_idx;
+    }
+    return result;
 }

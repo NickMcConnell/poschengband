@@ -1319,19 +1319,9 @@ static object_type *choose_cursed_obj_name(u32b flag)
     return NULL;
 }
 
-static int _get_class_idx(void)
-{
-    int result = p_ptr->pclass;
-    if ( (p_ptr->prace == RACE_MON_POSSESSOR || p_ptr->prace == RACE_MON_MIMIC)
-      && p_ptr->current_r_idx )
-    {
-        result = r_info[p_ptr->current_r_idx].body.class_idx;
-    }
-    return result;
-}
 static bool _fast_mana_regen(void)
 {
-    switch (_get_class_idx())
+    switch (possessor_class_idx())
     {
     case CLASS_MAGE:
     case CLASS_BLOOD_MAGE:
