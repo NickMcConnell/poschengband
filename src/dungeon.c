@@ -1319,6 +1319,29 @@ static object_type *choose_cursed_obj_name(u32b flag)
     return NULL;
 }
 
+static int _get_class_idx(void)
+{
+    int result = p_ptr->pclass;
+    if ( (p_ptr->prace == RACE_MON_POSSESSOR || p_ptr->prace == RACE_MON_MIMIC)
+      && p_ptr->current_r_idx )
+    {
+        result = r_info[p_ptr->current_r_idx].body.class_idx;
+    }
+    return result;
+}
+static bool _fast_mana_regen(void)
+{
+    switch (_get_class_idx())
+    {
+    case CLASS_MAGE:
+    case CLASS_BLOOD_MAGE:
+    case CLASS_NECROMANCER:
+    case CLASS_HIGH_MAGE:
+    case CLASS_SORCERER:
+        return TRUE;
+    }
+    return FALSE;
+}
 
 /*
  * Handle timed damage and regeneration every 10 game turns
@@ -1622,14 +1645,10 @@ static void process_world_aux_hp_and_sp(void)
 
     /* Regenerate the mana */
     upkeep_regen = (100 - upkeep_factor) * regen_amount;
-    if (p_ptr->pclass == CLASS_MAGE ||
-        p_ptr->pclass == CLASS_BLOOD_MAGE ||
-        p_ptr->pclass == CLASS_NECROMANCER ||
-        p_ptr->pclass == CLASS_HIGH_MAGE ||
-        p_ptr->pclass == CLASS_SORCERER)
-    {
+
+    if (_fast_mana_regen())
         upkeep_regen = upkeep_regen * 2;
-    }
+
     regenmana(upkeep_regen);
 
     if (magic_eater_regen(regen_amount))
