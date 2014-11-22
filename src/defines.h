@@ -18,8 +18,8 @@
 
 #define VER_MAJOR 3
 #define VER_MINOR 4
-#define VER_PATCH 0
-#define VER_EXTRA 1
+#define VER_PATCH 1
+#define VER_EXTRA 0
 
 /*
  * Number of grids in each block (vertically)
