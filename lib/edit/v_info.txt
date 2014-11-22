@@ -153,9 +153,41 @@
 #       [1] OBJ(CLOAK, DEPTH+20):ART(*): Rand-art cloak generated 20 levels OoD
 #       [2] ART(6): Necklace of the Dwarves (a_idx = 6). Note you don't need an OBJ directive in this case.
 #
-#  * FEATURE: TODO
+#  * FEATURE: The FEATURE directive determines the terrain type for the floor in question. If omitted, you
+#         get a reasonable default value: In the dungeon, this is the FLOOR feature while in the wilderness,
+#         your tile will be transparent, using whatever feature info was randomly generated for this tile.
+#         The syntax for this directive is <NAME>[(<options>)] where NAME refers to the name field specified
+#         in f_info (e.g. FLOOR, MOUNTAIN, SHALLOW_LAVA) and the optional options list can be one or more
+#         of ROOM, ICKY, GLOW or MARK. Typically, you won't need to specify options. Also, there is additional
+#         syntax for random wilderness dungeon entrances which I've omitted to explain.
+#     Sample FEATURE directives are:
+#       [1] GRANITE for a granite wall tile
+#       [2] FLOOR(ROOM | ICKY | GLOW) for a floor grid that is part of a vault and already lit.
 #
-#  * TRAP: TODO
+#  * TRAP: The TRAP directive allows for placement of a random or specific trap. In addition, the trap
+#          can be given a probability of being generated, which is useful for certain room types where
+#          the player might learn which squares to avoid (See the various wall opening rooms below for
+#          examples. The syntax is TRAP(<name> [,<prob>]) where name is the trap name as given in the
+#          name field of the f_info record and prob is an optional probability for this trap (default 100).
+#     Sample TRAP directives are:
+#       [1] TRAP(TRAP_OPEN, 25) for a wall opening trap that is generated 25% of the time.
+#       [2] TRAP(*) for a random trap that is always generated.
+#       [3] TRAP(TRAP_ARMAGEDDON, 50) for an armageddon trap generated 50% of the time.
+#
+#  Here are some sample L: lines in their entirety:
+#    [1] L:M:SHALLOW_LAVA(ROOM | GLOW):MON(HI_DEMON, NO_GROUP | NO_SLEEP | DEPTH+50):OBJ(*, DEPTH+20):EGO(*)
+#        Generates a tile with shallow lava, with a major demon generated up to 50 levels OoD, and with
+#        a nice random ego object to boot. The demon is awake and won't come with escorts or friends.
+#    [2] L:M:MON(*)
+#        Just a random monster here, using whatever terrain info is appropriate.
+#    [3] L:0:DIRT(ROOM):MON(THIEF, DEPTH+5):OBJ(GOLD)
+#        A thief with some gold underfoot, standing on a dirt floor.
+#    [4] L:p:MON(p, NO_GROUP | FRIENDLY)
+#        A friendly human that won't come as part of a monster group.
+#    [5] L:4:TEMPLE(GLOW)
+#        An lit entrance to a temple shop.
+#    [6] L:p:DIRT:MON(1026):OBJ(BOOK, DEPTH+50)
+#        An Old Sorcerer staninding on a dirt tile with an out of depth good spellbook underfoot.
 #
 # M:<map_row>
 # 'M' lines describe the layout of the room. The size of the room is calculated automatically for
