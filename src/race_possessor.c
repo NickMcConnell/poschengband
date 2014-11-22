@@ -933,7 +933,6 @@ int possessor_get_powers(spell_info* spells, int max)
 {
     monster_race *r_ptr = &r_info[p_ptr->current_r_idx];
     int           ct = 0;
-
     if (ct < max && (r_ptr->flags1 & RF1_TRUMP))
         _add_power(&spells[ct++], 1, 0, 0, blink_toggle_spell, p_ptr->stat_ind[A_DEX]);
     if (ct < max && (r_ptr->flags2 & RF2_MULTIPLY))
@@ -972,7 +971,7 @@ int possessor_get_powers(spell_info* spells, int max)
         _add_power(&spells[ct++], _breath_lvl(20), 15, _breath_fail(70), _breathe_chaos_spell, p_ptr->stat_ind[A_CON]);
     if (ct < max && (r_ptr->flags4 & RF4_BR_DISE))
         _add_power(&spells[ct++], _breath_lvl(20), 5, _breath_fail(70), _breathe_disenchantment_spell, p_ptr->stat_ind[A_CON]);
-    if (ct < max && (r_ptr->body.class_idx == CLASS_MAGE || r_ptr->body.class_idx == CLASS_HIGH_MAGE))
+    if (ct < max && (r_ptr->body.class_idx == CLASS_MAGE || r_ptr->body.class_idx == CLASS_HIGH_MAGE || r_ptr->body.class_idx == CLASS_SORCERER))
         _add_power(&spells[ct++], 25, 1, 90, eat_magic_spell, p_ptr->stat_ind[A_INT]);
     if (ct < max && (r_ptr->flags4 & RF4_BR_NUKE))
         _add_power(&spells[ct++], _breath_lvl(25), 0, _breath_fail(70), _breathe_nuke_spell, p_ptr->stat_ind[A_CON]);
