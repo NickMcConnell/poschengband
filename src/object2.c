@@ -4828,7 +4828,7 @@ void apply_magic(object_type *o_ptr, int lev, u32b mode)
     }
 
     /* Roll for "cursed" */
-    else if (magik(f1))
+    else if (magik((f1+2)/3))
     {
         /* Assume "cursed" */
         power = -1;

@@ -1186,6 +1186,8 @@ void equip_calc_bonuses(void)
                         other_hand = hand - 1;
                     if (p_ptr->weapon_info[other_hand].wield_how == WIELD_TWO_HANDS)
                         p_ptr->weapon_info[other_hand].xtra_blow += amt;
+                    else if (p_ptr->weapon_info[other_hand].wield_how == WIELD_NONE)
+                        p_ptr->innate_attack_info.xtra_blow += amt;
                 }
                 break;
             case EQUIP_SLOT_WEAPON_SHIELD:
