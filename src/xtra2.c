@@ -1125,6 +1125,7 @@ void monster_death(int m_idx, bool drop_item)
             q_ptr = &forge;
             object_prep(q_ptr, lookup_kind(arena_info[p_ptr->arena_number].tval, arena_info[p_ptr->arena_number].sval));
             apply_magic(q_ptr, object_level, AM_NO_FIXED_ART);
+            mass_produce(q_ptr);
             (void)drop_near(q_ptr, -1, y, x);
         }
 
