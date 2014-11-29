@@ -2190,14 +2190,7 @@ static bool make_artifact_special(object_type *o_ptr)
         }
         else
         {
-            /* Assign the template */
-            object_prep(o_ptr, k_idx);
-
-            /* Mega-Hack -- mark the item as an artifact */
-            o_ptr->name1 = i;
-
-            /* Hack: Some artifacts get random extra powers */
-            random_artifact_resistance(o_ptr, a_ptr);
+            create_named_art_aux(i, o_ptr);
         }
         /* Success */
         return (TRUE);
@@ -2257,10 +2250,7 @@ static bool make_artifact(object_type *o_ptr)
         }
         else
         {
-            o_ptr->name1 = i;
-
-            /* Hack: Some artifacts get random extra powers */
-            random_artifact_resistance(o_ptr, a_ptr);
+            create_named_art_aux(i, o_ptr);
         }
         /* Success */
         return (TRUE);
