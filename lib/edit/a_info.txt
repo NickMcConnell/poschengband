@@ -2366,7 +2366,7 @@ D:This is of Robin Hood who live in the deep forest.
 N:222:of Hellfire
 I:19:23:4
 W:30:15:110:60000
-P:0:x4.00:10:12:0
+P:0:x5.00:10:12:0
 F:STR | INFRA | RES_FIRE | SH_FIRE |
 F:HIDE_TYPE | SHOW_MODS
 F:BRAND_FIRE
