@@ -568,6 +568,7 @@
 #define SPELL_SPOIL_DESC     17
 #define SPELL_HELP_DESC      18
 #define SPELL_VALUE          19      /* For valuing object activations */
+#define SPELL_ON_BROWSE      20      /* Custom Handler for browsing the spell */
 
 /*
  * Maximum number of "normal" pack slots, and the index of the "overflow"

@@ -783,6 +783,7 @@ extern void do_cmd_list_objects(void);
 extern cptr get_ordinal_number_suffix(int num);
 extern void do_cmd_redraw(void);
 extern void do_cmd_change_name(void);
+extern void do_cmd_knowledge_weapon(void);
 extern void do_cmd_message_one(void);
 extern void do_cmd_messages(int num_now);
 extern void do_cmd_options_aux(int page, cptr info);
