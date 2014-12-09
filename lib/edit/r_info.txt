@@ -9775,7 +9775,7 @@ D:and try to resist all desires to obey it.
 N:606:Loge, Spirit of Fire
 G:E:R
 I:120:15d100:12:50:50:300
-W:38:3:999:3000:0:0
+W:38:2:999:3000:0:0
 B:HIT:FIRE:6d6
 B:HIT:FIRE:6d6
 B:HIT:FIRE:6d6
@@ -11225,7 +11225,7 @@ D:colour left the well it seemed to flow directly into the sky."
 N:679:Quaker, Master of Earth
 G:E:u
 I:110:18d100:10:97:90:800
-W:43:4:999:6000:0:0
+W:43:2:999:6000:0:0
 B:HIT:SUPERHURT:6d6
 B:HIT:SUPERHURT:6d6
 B:HIT:SUPERHURT:6d6
@@ -11403,7 +11403,7 @@ D:The most powerful Dark Judge, whose touch means death.
 N:687:Ariel, Queen of Air
 G:E:B
 I:130:27d100:12:50:50:250
-W:44:4:999:8000:0:0
+W:44:2:999:8000:0:0
 B:HIT:HURT:4d6
 B:HIT:CONFUSE:1d4
 B:HIT:HURT:4d6
@@ -12358,6 +12358,7 @@ S:1_IN_6 |
 S:TRAPS | S_KIN
 D:He may not code worth a dime, but he certainly knows how to make money.
 P:Copy:Gnome:Rogue
+P:Speed:+15
 
 N:733:Santa Claus
 G:h:r
