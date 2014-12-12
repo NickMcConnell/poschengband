@@ -4750,7 +4750,7 @@ void calc_bonuses(void)
     p_ptr->skills.stl += 1;
 
     if (IS_TIM_STEALTH()) p_ptr->skills.stl += 99;
-    if (p_ptr->action == ACTION_STALK) p_ptr->skills.stl += 99;
+    if (p_ptr->action == ACTION_STALK) p_ptr->skills.stl += (p_ptr->lev+2)/3;
 
     if (p_ptr->tim_dark_stalker)
         p_ptr->skills.stl += 3 + p_ptr->lev/5;
