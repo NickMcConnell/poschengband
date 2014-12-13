@@ -1454,6 +1454,27 @@ void monster_death(int m_idx, bool drop_item)
         }
         break;
 
+    case MON_ALBERICH:
+    case MON_NAR:
+    case MON_FUNDIN:
+    {
+        int odds = 150;
+        if (r_ptr->level)
+            odds /= r_ptr->level;
+        if (one_in_(odds))
+        {
+            int         k_idx = lookup_kind(TV_RING, 0);
+            object_type forge;
+
+            object_prep(&forge, k_idx);
+
+            apply_magic_ego = EGO_RING_DWARVES;
+            apply_magic(&forge, object_level, AM_GOOD | AM_GREAT | AM_FORCE_EGO);
+
+            drop_near(&forge, -1, y, x);
+        }
+        break;
+    }
     case MON_NAZGUL:
     case MON_ANGMAR:
     case MON_KHAMUL:

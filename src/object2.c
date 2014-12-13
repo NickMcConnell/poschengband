@@ -2371,7 +2371,6 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
           || ((mode & AM_GOOD) && randint0(200) < level) )
         {
             if ( o_ptr->name2 != EGO_RING_SPEED
-              && o_ptr->name2 != EGO_RING_NAZGUL
               && o_ptr->name2 != EGO_RING_DEFENDER )
             {
                 done = FALSE;
@@ -2380,6 +2379,21 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
     }
     switch (o_ptr->name2)
     {
+    case EGO_RING_DWARVES:
+        o_ptr->to_d += 5;
+        if (one_in_(6))
+            o_ptr->curse_flags |= TRC_PERMA_CURSE;
+        if (one_in_(6))
+            add_flag(o_ptr->art_flags, TR_AGGRAVATE);
+        if (one_in_(2))
+            add_flag(o_ptr->art_flags, TR_RES_DARK);
+        if (one_in_(3))
+            add_flag(o_ptr->art_flags, TR_RES_DISEN);
+        if (one_in_(6))
+            one_high_resistance(o_ptr);
+        if (one_in_(ACTIVATION_CHANCE))
+            effect_add_random(o_ptr, BIAS_PRIESTLY);
+        break;
     case EGO_RING_NAZGUL:
         o_ptr->to_d += 6;
         o_ptr->to_h += 6;
@@ -3630,15 +3644,29 @@ static void _create_weapon(object_type *o_ptr, int level, int power, int mode)
                 if (one_in_(ACTIVATION_CHANCE))
                     effect_add_random(o_ptr, BIAS_PRIESTLY);
                 break;
+            case EGO_WEAPON_DAEMON:
+                if (one_in_(3))
+                    add_flag(o_ptr->art_flags, TR_SLAY_GOOD);
+                if (one_in_(5))
+                    add_flag(o_ptr->art_flags, TR_AGGRAVATE);
+                else
+                    add_flag(o_ptr->art_flags, TR_DEC_STEALTH);
+                break;
             case EGO_WEAPON_DEATH:
+                if (one_in_(6))
+                    add_flag(o_ptr->art_flags, TR_VULN_LITE);
+                if (one_in_(3))
+                    add_flag(o_ptr->art_flags, TR_SLAY_GOOD);
+                if (one_in_(3))
+                    add_flag(o_ptr->art_flags, TR_RES_NETHER);
                 if (one_in_(5))
                     add_flag(o_ptr->art_flags, TR_SLAY_HUMAN);
                 else if (one_in_(13))
                 {
-                    /* add_flag(o_ptr->art_flags, TR_SLAY_LIVING);
+                    add_flag(o_ptr->art_flags, TR_SLAY_LIVING);
                     o_ptr->dd++; 
                     o_ptr->curse_flags |= TRC_CURSED;
-                    o_ptr->curse_flags |= get_curse(2, o_ptr); */
+                    o_ptr->curse_flags |= get_curse(2, o_ptr);
                 }
                 if (one_in_(ACTIVATION_CHANCE))
                     effect_add_random(o_ptr, BIAS_NECROMANTIC);
@@ -3675,12 +3703,7 @@ static void _create_weapon(object_type *o_ptr, int level, int power, int mode)
                 if (o_ptr->tval != TV_HAFTED)
                     done = FALSE;
                 else
-                {
-                    if (one_in_(3) && level > 60)
-                        add_flag(o_ptr->art_flags, TR_BLOWS);
-                    else
-                        o_ptr->pval = m_bonus(3, level);
-                }
+                    o_ptr->pval = m_bonus(3, level);
                 break;
             case EGO_WEAPON_KILL_DEMON:
                 if (one_in_(3))
@@ -4304,6 +4327,8 @@ static void _create_armor(object_type *o_ptr, int level, int power, int mode)
                 break;
 
             case EGO_HELMET_SUNLIGHT:
+                if (one_in_(3))
+                    add_flag(o_ptr->art_flags, TR_VULN_DARK);
                 if (one_in_(ACTIVATION_CHANCE))
                 {
                     int choices[] = {
@@ -4370,9 +4395,20 @@ static void _create_armor(object_type *o_ptr, int level, int power, int mode)
                 effect_add_random(o_ptr, BIAS_ELEMENTAL);
             break;
         case EGO_CLOAK_BAT:
+            o_ptr->to_d -= 6;
+            o_ptr->to_h -= 6;
+            if (one_in_(3))
+                add_flag(o_ptr->art_flags, TR_VULN_LITE);
+            if (one_in_(3))
+                add_flag(o_ptr->art_flags, TR_DEC_STR);
+            break;
         case EGO_CLOAK_FAIRY:
             o_ptr->to_d -= 6;
             o_ptr->to_h -= 6;
+            if (one_in_(3))
+                add_flag(o_ptr->art_flags, TR_VULN_DARK);
+            if (one_in_(3))
+                add_flag(o_ptr->art_flags, TR_DEC_STR);
             break;
         case EGO_CLOAK_NAZGUL:
             o_ptr->to_d += 6;

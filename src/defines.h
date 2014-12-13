@@ -4866,6 +4866,7 @@ extern int PlayerUID;
 #define MON_TROLL_PRIEST        403
 #define MON_GWAIHIR             410
 #define MON_ANGEL               417
+#define MON_ALBERICH            419
 #define MON_HELLBLADE           420
 #define MON_ADAMANT_COINS       423
 #define MON_ALGROTH             424
@@ -5157,6 +5158,7 @@ extern int PlayerUID;
 #define MON_SHUTEN              979
 #define MON_FENGHUANG           988
 #define MON_KIRIN               989
+#define MON_NAR                 996
 #define MON_BAHAMUT             1000
 #define MON_SUKE                1001
 #define MON_KAKU                1002
@@ -6132,6 +6134,7 @@ enum ego_ring_e {
     EGO_RING_WIZARDRY,
     EGO_RING_SPEED,
     EGO_RING_NAZGUL,
+    EGO_RING_DWARVES,
 };
 
 enum ego_amulet_e {
