@@ -633,13 +633,13 @@ F:@:FLOOR:3:0:0:0:174
 
 ##########################################################################
 # Mauler
-# Nyoi-bou
-?:[AND [EQU $QUEST27 3] [EQU $CLASS Mauler] [EQU [MOD $RANDOM27 9] 0] ]
+# Impaler
+?:[AND [EQU $QUEST27 3] [EQU $CLASS Mauler] [EQU [MOD $RANDOM27 5] 0] ]
 F:a:BUILDING_0:3
-F:@:FLOOR:3:0:0:0:157
+F:@:FLOOR:3:0:0:0:324
 
 # Benkei
-?:[AND [EQU $QUEST27 3] [EQU $CLASS Mauler] [GEQ [MOD $RANDOM27 9] 1] ]
+?:[AND [EQU $QUEST27 3] [EQU $CLASS Mauler] [GEQ [MOD $RANDOM27 5] 1] ]
 F:a:BUILDING_0:3
 F:@:FLOOR:3:0:0:0:152
 
