@@ -907,6 +907,7 @@ static void _water_process_world(void)
         if (o_ptr->ac + o_ptr->to_a <= 0) continue;
 
         object_flags(o_ptr, flgs);
+        if (have_flag(flgs, TR_IM_ACID)) continue;
         if (have_flag(flgs, TR_RES_ACID)) continue;
         if (have_flag(flgs, TR_IGNORE_ACID) && !one_in_(10)) continue;
         if (object_is_artifact(o_ptr) && !one_in_(50)) continue;

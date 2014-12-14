@@ -4340,6 +4340,8 @@ static void _create_armor(object_type *o_ptr, int level, int power, int mode)
                 break;
 
             case EGO_HELMET_KNOWLEDGE:
+                if (one_in_(15))
+                    add_flag(o_ptr->art_flags, TR_MAGIC_MASTERY);
                 if (one_in_(ACTIVATION_CHANCE))
                 {
                     int choices[] = {
