@@ -272,7 +272,7 @@ static bool _is_rune_sword(object_type *o_ptr)
 
 static bool _is_foo(object_type *o_ptr)
 {
-    if (o_ptr->tval == TV_CRAFT_BOOK && o_ptr->sval == 2)
+    if (o_ptr->tval == TV_POTION && o_ptr->sval == SV_POTION_NEW_LIFE)
         return TRUE;
     return FALSE;
 }
@@ -325,8 +325,8 @@ static void do_cmd_wiz_hack_chris2(void)
 {
     _test_frequencies(_is_foo);
     /* 
-    _test_frequencies(_is_rune_sword);
     _test_frequencies(_is_stat_potion);
+    _test_frequencies(_is_rune_sword);
     _test_specific_k_idx(); 
     */
 }

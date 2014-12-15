@@ -824,7 +824,7 @@ bool get_monster_drop(int m_idx, object_type *o_ptr)
     object_level = (MAX(base_level, dun_level) + r_ptr->level) / 2;
     object_wipe(o_ptr);
 
-    if (do_gold && (!do_item || (randint0(100) < 50)))
+    if (do_gold && (!do_item || (randint0(100) < 20)))
     {
         if (!make_gold(o_ptr))
             return FALSE;

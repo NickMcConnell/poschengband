@@ -5244,13 +5244,17 @@ void apply_magic(object_type *o_ptr, int lev, u32b mode)
     }
 }
 
-static bool _is_favorite(int tval, int sval)
+static bool _is_favorite_weapon(int tval, int sval)
 {
-    object_type forge;
-    int         k_idx = lookup_kind(tval, sval);
+    if (p_ptr->pclass != CLASS_ARCHER)
+    {
+        object_type forge;
+        int         k_idx = lookup_kind(tval, sval);
 
-    object_prep(&forge, k_idx);
-    return object_is_favorite(&forge);
+        object_prep(&forge, k_idx);
+        return object_is_favorite(&forge);
+    }
+    return FALSE;
 }
 
 static bool kind_is_tailored(int k_idx)
@@ -5292,7 +5296,7 @@ static bool kind_is_tailored(int k_idx)
     case TV_POLEARM:
     case TV_DIGGING:
         return equip_can_wield_kind(k_ptr->tval, k_ptr->sval)
-            && _is_favorite(k_ptr->tval, k_ptr->sval);
+            && _is_favorite_weapon(k_ptr->tval, k_ptr->sval);
 
     case TV_SHOT:
         /*return equip_can_wield_kind(TV_BOW, SV_SLING);*/
@@ -5590,6 +5594,33 @@ bool kind_is_device(int k_idx) {
     }
     return FALSE;
 }
+static bool _kind_is_potion(int k_idx) { 
+    switch (k_info[k_idx].tval)
+    {
+    case TV_POTION:
+        return TRUE;
+    }
+    return FALSE;
+}
+/*static bool _kind_is_potion_scroll(int k_idx) { 
+    switch (k_info[k_idx].tval)
+    {
+    case TV_POTION:
+    case TV_SCROLL:
+        return TRUE;
+    }
+    return FALSE;
+}
+static bool _kind_is_wand_rod_staff(int k_idx) { 
+    switch (k_info[k_idx].tval)
+    {
+    case TV_WAND:
+    case TV_ROD:
+    case TV_STAFF:
+        return TRUE;
+    }
+    return FALSE;
+}*/
 bool kind_is_jewelry(int k_idx) { 
     switch (k_info[k_idx].tval)
     {
@@ -5655,14 +5686,15 @@ typedef struct {
     int     great;
 } _kind_alloc_entry;
 static _kind_alloc_entry _kind_alloc_table[] = {
-    { kind_is_weapon,       180,    0,    0 },  
-    { kind_is_body_armor,   165,    0,    0 },
-    { kind_is_other_armor,  200,    0,    0 },
-    { kind_is_device,       250, -200, -200 },
-    { kind_is_bow_ammo,      70,    0,    0 },
-    { kind_is_book,          50,    0,    0 },
-    { kind_is_jewelry,       35,    0,    0 },
-    { kind_is_misc,          50,  -50,  -50 },
+    { kind_is_weapon,          180,    0,    0 },  
+    { kind_is_body_armor,      165,    0,    0 },
+    { kind_is_other_armor,     200,    0,    0 },
+    { kind_is_device,          200, -150, -150 },
+    { _kind_is_potion,          50,    0,  -50 },
+    { kind_is_bow_ammo,         70,    0,    0 },
+    { kind_is_book,             50,    0,    0 },
+    { kind_is_jewelry,          35,    0,    0 },
+    { kind_is_misc,             50,  -50,  -50 },
     { NULL, 0}
 };
 static int _kind_alloc_weight(_kind_alloc_entry *entry, u32b mode)
