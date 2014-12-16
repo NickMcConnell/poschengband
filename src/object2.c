@@ -2370,7 +2370,8 @@ static void _create_ring(object_type *o_ptr, int level, int power, int mode)
         if ( ((mode & AM_GREAT) && randint0(50) < level)
           || ((mode & AM_GOOD) && randint0(200) < level) )
         {
-            if ( o_ptr->name2 != EGO_RING_SPEED
+            if ( !apply_magic_ego
+              && o_ptr->name2 != EGO_RING_SPEED
               && o_ptr->name2 != EGO_RING_DEFENDER )
             {
                 done = FALSE;
@@ -5690,7 +5691,7 @@ static _kind_alloc_entry _kind_alloc_table[] = {
     { kind_is_body_armor,      165,    0,    0 },
     { kind_is_other_armor,     200,    0,    0 },
     { kind_is_device,          200, -150, -150 },
-    { _kind_is_potion,          50,    0,  -50 },
+    { _kind_is_potion,          50,  -25,  -50 },
     { kind_is_bow_ammo,         70,    0,    0 },
     { kind_is_book,             50,    0,    0 },
     { kind_is_jewelry,          35,    0,    0 },
