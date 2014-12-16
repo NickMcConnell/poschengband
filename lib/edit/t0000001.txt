@@ -62,6 +62,11 @@ F:!:FLOOR:3:0:42
 F:b:BUILDING_1:3:0:0:0:0:NONE:14
 F:!:FLOOR:3:0:132:300
 
+# Boots
+?:[AND [EQU $QUEST1 3] [EQU $RACE Centipede] ]
+F:b:BUILDING_1:3:0:0:0:0:NONE:14
+F:!:FLOOR:3:0:92
+
 # Cloak
 ?:[AND [EQU $QUEST1 3] [EQU $RACE Dragon] ]
 F:b:BUILDING_1:3:0:0:0:0:NONE:14
@@ -545,6 +550,18 @@ F:@:FLOOR:3:0:0:0:9
 ?:[AND [EQU $QUEST27 3] [EQU $RACE Beholder Quylthulg Ring] [GEQ [MOD $RANDOM27 5] 1] ]
 F:a:BUILDING_0:3
 F:@:FLOOR:3:0:0:0:9
+
+##########################################################################
+# Centipede
+# Shiva's Avatar
+?:[AND [EQU $QUEST27 3] [EQU $RACE Centipede] [EQU [MOD $RANDOM27 5] 0] ]
+F:a:BUILDING_0:3
+F:@:FLOOR:3:0:0:0:63
+
+# Stone of War
+?:[AND [EQU $QUEST27 3] [EQU $RACE Centipede] [GEQ [MOD $RANDOM27 5] 1] ]
+F:a:BUILDING_0:3
+F:@:FLOOR:3:0:0:0:291
 
 ##########################################################################
 # Dragon

@@ -3331,6 +3331,15 @@ D:cuts and stuns its foes. With this axe, Tuor slew
 D:five balrogs in the battle of Gondolin. It was 
 D:believed lost in the drowning of Numenor.
 
+N:327:of The Multi-hued Centipede
+I:30:2:1
+W:30:20:20:10000
+P:2:1d1:2:3:10
+F:QUESTITEM
+F:STR | DEX | CON | SPEED | STEALTH
+F:FREE_ACT
+F:RES_ACID | RES_ELEC | RES_FIRE | RES_COLD | RES_POIS
+
 # N: serial number : item name
 # I: tval : sval : pval
 # W: depth : rarity : weight : cost

@@ -472,7 +472,7 @@ F:ANIMAL
 F:POS_GAIN_AC
 P:Copy:Yeek:Tourist
 P:Life:60
-P:Body:Small Centipede
+P:Body:Centipede2
 D:It is about four feet long and carnivorous.
 
 N:25:White icky thing
@@ -719,7 +719,7 @@ F:ANIMAL
 F:POS_GAIN_AC
 P:Copy:Yeek:Tourist
 P:Life:80
-P:Body:Small Centipede
+P:Body:Centipede3
 D:It is about four feet long and carnivorous.
 
 N:43:Novice warrior
@@ -1078,7 +1078,7 @@ F:ANIMAL
 F:POS_GAIN_AC
 P:Copy:Yeek:Tourist
 P:Life:80
-P:Body:Small Centipede
+P:Body:Centipede3
 D:It is about four feet long and carnivorous.
 
 N:68:Raven
@@ -1213,8 +1213,9 @@ F:ANIMAL
 F:POS_GAIN_AC
 P:Copy:Yeek:Tourist
 P:Life:90
-P:Body:Small Centipede
+P:Body:Centipede3
 D:It is about four feet long and carnivorous.
+
 
 N:78:Yellow worm mass
 G:w:y
@@ -3467,7 +3468,7 @@ F:WEIRD_MIND | BASH_DOOR |
 F:ANIMAL | DROP_SKELETON
 F:POS_GAIN_AC
 P:Copy:Human:Warrior
-P:Body:Giant Centipede
+P:Body:Centipede4
 D:It is a vast armoured centipede with massive mandibles and a spiked tail.
 
 N:233:Spotted jelly
@@ -4132,7 +4133,7 @@ F:INVISIBLE | WEIRD_MIND | BASH_DOOR | WILD_ALL |
 F:ANIMAL | DROP_SKELETON
 F:POS_GAIN_AC
 P:Copy:Human:Warrior
-P:Body:Small Centipede
+P:Body:Centipede4
 D:It is about four feet long and carnivorous.
 
 N:277:Mirkwood spider
@@ -6045,7 +6046,7 @@ F:WEIRD_MIND | BASH_DOOR | DROP_SKELETON
 F:ANIMAL | RES_POIS
 F:POS_GAIN_AC
 P:Copy:Human:Warrior
-P:Body:Centipede
+P:Body:Centipede4
 D:A hideous centipede covered in slime and with glowing tentacles around its 
 D:head.
 
@@ -8118,7 +8119,7 @@ F:WEIRD_MIND | BASH_DOOR |
 F:ANIMAL | RES_POIS
 F:POS_GAIN_AC
 P:Copy:Human:Warrior
-P:Body:Centipede
+P:Body:Centipede4
 D:A hideous centipede covered in slime and with glowing tentacles around its 
 D:head.
 
@@ -20282,6 +20283,24 @@ W:50:0:0:0:10:14
 F:CAN_SWIM
 P:Copy:Human:Imitator
 P:SpellStat:Dex
+
+N:1132:The Multi-hued Centipede
+G:c:v
+I:130:10d100:30:100:10:50
+W:30:2:999:750:0:0
+B:BITE:HURT:1d10
+B:STING:HURT:1d15
+B:CRAWL:HURT:1d10
+B:CRAWL:HURT:1d10
+F:RAND_25 | WEIRD_MIND | OPEN_DOOR | BASH_DOOR | 
+F:ATTR_MULTI | FORCE_SLEEP | FORCE_MAXHP | 
+F:UNIQUE | ESCORT | ESCORTS | 
+F:ANIMAL | NO_CONF | NO_SLEEP
+F:ONLY_ITEM | DROP_2D2 | DROP_GOOD | 
+F:DROP_CORPSE | POS_GAIN_AC
+P:Copy:Human:Mauler
+P:Body:Centipede6
+D:Oh my god, it's changing colors! Run!!
 
 # N: serial number : monster name
 # G: symbol : color

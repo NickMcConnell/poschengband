@@ -2066,11 +2066,16 @@ void monster_death(int m_idx, bool drop_item)
             a_idx = ART_POWER;
             chance = 5;
             break;
+        case MON_MULTIHUED_CENTIPEDE:
+            a_idx = ART_MULTIHUED_CENTIPEDE;
+            chance = 5;
+            break;
         }
 
         /* I think the bug is Kill Amberite, get Blood Curse, entomb said Amberite,
            zeroing out the m_ptr while processing monster death, and continuing to call 
            this routine after m_list[m_idx] has been corrupted. */
+
         if (race_ptr->boss_r_idx && race_ptr->boss_r_idx == m_ptr->r_idx)
         {
             msg_print("Congratulations! You have killed the boss of your race!");
@@ -2078,6 +2083,10 @@ void monster_death(int m_idx, bool drop_item)
             chance = 100;
             p_ptr->update |= PU_BONUS; /* Player is now a "Hero" (cf IS_HERO()) */
             p_ptr->redraw |= PR_STATUS;
+
+            /* Centipedes can only take the final evolutionary step if the boss is dead */
+            if (p_ptr->prace == RACE_MON_CENTIPEDE && p_ptr->lev >= 35)
+                race_ptr->gain_level(p_ptr->lev);
         }
 
         if ((a_idx > 0) && ((randint0(100) < chance) || p_ptr->wizard))

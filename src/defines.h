@@ -673,11 +673,11 @@
 #define RACE_MON_RING           58
 #define RACE_MON_MIMIC          59
 #define RACE_WOOD_ELF           60
+#define RACE_MON_CENTIPEDE      61
 /* TODO: New races are in progress! ... */
-    #define RACE_MON_GHOST          61
-    #define RACE_MON_ZOMBIE         62
-    #define RACE_MON_CENTIPEDE      63
-    #define MAX_RACES               61 /* TODO: Bump me!! */
+    #define RACE_MON_GHOST          62
+    #define RACE_MON_ZOMBIE         63
+    #define MAX_RACES               62 /* TODO: Bump me!! */
 
 #define DEMIGOD_MINOR           0
 #define DEMIGOD_ZEUS            1
@@ -1584,6 +1584,7 @@ enum _mimic_types {
 #define ART_EMPEROR_QUYLTHULG 319
 #define ART_DESTROYER       320
 #define ART_ATLAS           321
+#define ART_MULTIHUED_CENTIPEDE 327
 
 /*** Object "tval" and "sval" codes ***/
 
@@ -5223,6 +5224,7 @@ extern int PlayerUID;
 #define MON_POSSESSOR_SOUL      1129
 #define MON_MARILITH            1130
 #define MON_MIMIC               1131
+#define MON_MULTIHUED_CENTIPEDE 1132
 
 /* The Metal Babble guards the Arena dungeon, but this requires the guardian to be a unique
    monster or the dungeon never gets flagged as completed. Note, this messes up the needle 
