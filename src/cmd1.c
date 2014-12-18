@@ -502,7 +502,7 @@ critical_t critical_norm(int weight, int plus, s16b meichuu, int mode, int hand)
     /* Extract "blow" power */
     i = (weight + (meichuu * 3 + plus * 5) + (p_ptr->lev * 3));
 
-    /* Mauler: Destroyer now scales with level, and grants better quality */
+    /* Mauler: Destroyer now scales with level
     if ( p_ptr->pclass == CLASS_MAULER
       && equip_is_valid_hand(hand)
       && p_ptr->weapon_info[hand].wield_how == WIELD_TWO_HANDS )
@@ -512,7 +512,7 @@ critical_t critical_norm(int weight, int plus, s16b meichuu, int mode, int hand)
             pct = pct * p_ptr->lev / 50;
         i += roll * pct / 100;
         quality += quality * pct / 100;
-    }
+    }*/
 
     /* Chance */
     if ( mode == HISSATSU_MAJIN 
@@ -3123,7 +3123,7 @@ static bool py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
 
                 if (mode == MAULER_CRUSHING_BLOW)
                 {   /* 2x to 5x */
-                    k = k * (5 + randint1(p_ptr->lev/5)) / 3;                    
+                    k = k * (5 + randint1(p_ptr->lev/5)) / 3;
                 }
 
                 if ( (have_flag(flgs, TR_IMPACT) && (k > 50 || one_in_(7))) 
@@ -3174,6 +3174,8 @@ static bool py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
                         msg_print(crit.desc);
                     }
                 }
+
+                k += k * p_ptr->weapon_info[hand].to_mult / 100;
 
                 drain_result = k;
                 k2 = k;
