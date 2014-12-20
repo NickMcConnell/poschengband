@@ -502,17 +502,17 @@ critical_t critical_norm(int weight, int plus, s16b meichuu, int mode, int hand)
     /* Extract "blow" power */
     i = (weight + (meichuu * 3 + plus * 5) + (p_ptr->lev * 3));
 
-    /* Mauler: Destroyer now scales with level
+    /* Mauler: Destroyer now scales with level */
     if ( p_ptr->pclass == CLASS_MAULER
       && equip_is_valid_hand(hand)
       && p_ptr->weapon_info[hand].wield_how == WIELD_TWO_HANDS )
     {
-        int pct = MIN((weight - 200)/10, 40);
+        int pct = MIN((weight - 200)/20, 20);
         if (pct > 0)
             pct = pct * p_ptr->lev / 50;
         i += roll * pct / 100;
         quality += quality * pct / 100;
-    }*/
+    }
 
     /* Chance */
     if ( mode == HISSATSU_MAJIN 
@@ -530,9 +530,7 @@ critical_t critical_norm(int weight, int plus, s16b meichuu, int mode, int hand)
         }
         if (mode == MAULER_CRITICAL_BLOW)
         {
-            k += randint1(650*p_ptr->lev/50);
-            if (k < 400)
-                k = 400;
+            k += randint1(250*p_ptr->lev/50);
         }
 
         if (k < 400)

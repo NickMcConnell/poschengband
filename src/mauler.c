@@ -524,7 +524,7 @@ static spell_info _spells[] =
     { 32, 30, 50, _killing_spree_spell},
     { 35, 30, 50, _scatter_spell},
     { 37,  0,  0, _tunnel_spell},
-    { 40, 80,  0, _crushing_blow_spell},
+    { 40, 50,  0, _crushing_blow_spell},
     { 42,  0,  0, _drain_spell},
     { 45,  0,  0, _maul_spell},
     { -1, -1, -1, NULL}

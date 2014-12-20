@@ -460,6 +460,7 @@ int display_weapon_info(int hand, int row, int col)
     int to_h = 0;
     int mult;
     critical_t crit = {0};
+    int crit_pct = 0;
     int num_blow = NUM_BLOWS(hand);
     int r,c;
     bool force = FALSE;
@@ -506,22 +507,25 @@ int display_weapon_info(int hand, int row, int col)
 
     if (!have_flag(flgs, TR_ORDER))
     {
-        const int ct = 10 * 1000;
+        const int attempts = 10 * 1000;
         int i;
+        int crits = 0;
         /* Compute Average Effects of Criticals by sampling */
-        for (i = 0; i < ct; i++)
+        for (i = 0; i < attempts; i++)
         {
             critical_t tmp = critical_norm(o_ptr->weight, to_h, p_ptr->weapon_info[hand].to_h, 0, hand);
             if (tmp.desc)
             {
                 crit.mul += tmp.mul;
                 crit.to_d += tmp.to_d;
+                crits++;
             }
             else
                 crit.mul += 100;
         }
-        crit.mul = crit.mul / ct;
-        crit.to_d = crit.to_d * 100 / ct;
+        crit.mul = crit.mul / attempts;
+        crit.to_d = crit.to_d * 100 / attempts;
+        crit_pct = crits * 1000 / attempts;
     }
     else
         crit.mul = 100;
@@ -570,8 +574,8 @@ int display_weapon_info(int hand, int row, int col)
         }
         else
         {
-            sprintf(buf, " %-7.7s: %d.%02dx", "Crits",
-                            crit.mul/100, crit.mul%100);
+            sprintf(buf, " %-7.7s: %d.%02dx (%d.%d%%)", "Crits",
+                            crit.mul/100, crit.mul%100, crit_pct / 10, crit_pct % 10);
         }
         put_str(buf, r++, c);
     }
