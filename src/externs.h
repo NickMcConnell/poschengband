@@ -1975,7 +1975,7 @@ extern race_t *get_true_race_t(void); /* True Race */
 extern race_t *get_race_t_aux(int prace, int psubrace);
 
 /* Player Races */
-extern void mimic_race(int new_race);
+extern void mimic_race(int new_race, const char *msg);
 extern void mimic_upkeep(void);
 extern bool mimic_no_regen(void);
 
