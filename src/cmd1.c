@@ -2672,7 +2672,7 @@ static void do_monster_knockback(int x, int y, int dist)
 
 static bool py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
 {
-    int             num = 0, k, k2, bonus, chance;
+    int             num = 0, k, k2, dam_tot = 0, bonus, chance;
     int             to_h = 0, to_d = 0;
     int             touch_ct = 0;
     critical_t      crit;
@@ -2831,6 +2831,7 @@ static bool py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
     bonus = p_ptr->weapon_info[hand].to_h + to_h;
     if (mode == WEAPONMASTER_KNOCK_BACK) bonus -= 20;
     if (mode == WEAPONMASTER_REAPING) bonus -= 40;
+    if (mode == MAULER_KNOCKOUT_BLOW) bonus -= 50;
     if (mode == WEAPONMASTER_CUNNING_STRIKE) bonus += 20;
     if (mode == WEAPONMASTER_SMITE_EVIL && hand == 0 && (r_ptr->flags3 & RF3_EVIL)) bonus += 200;
 
@@ -3506,6 +3507,8 @@ static bool py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
             if (mode == WEAPONMASTER_CRUSADERS_STRIKE)
                 k = k * 3 / 2;
 
+            dam_tot += k;
+
             if (mode == WEAPONMASTER_REAPING)
             {
                 int              start_dir, x2, y2;
@@ -3649,7 +3652,7 @@ static bool py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
                     else
                     {
                         msg_format("%^s is knocked out.", m_name);
-                        knock_out++;        
+                        set_monster_paralyzed(c_ptr->m_idx, randint1(3));
                         /* No more retaliation this round! */                    
                         retaliation_count = 100; /* Any number >= 4 will do ... */
                     }
@@ -4132,6 +4135,13 @@ static bool py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
 
     if (do_quake)
         earthquake(py, px, 10);
+
+
+#if 1
+    if (p_ptr->pclass == CLASS_MAULER)
+        c_put_str(TERM_WHITE, format("Maul:%5d", dam_tot), 24, 0);    
+#endif
+
 
     return success_hit;
 }

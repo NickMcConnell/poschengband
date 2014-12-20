@@ -577,8 +577,9 @@ int display_weapon_info(int hand, int row, int col)
     }
     if (p_ptr->weapon_info[hand].to_mult)
     {
-        sprintf(buf, " %-7.7s: +%d.%02dx", "Mauler", 
-            p_ptr->weapon_info[hand].to_mult / 100, p_ptr->weapon_info[hand].to_mult % 100);
+        int m = 100 + p_ptr->weapon_info[hand].to_mult;
+        sprintf(buf, " %-7.7s: %d.%02dx", "Mauler", 
+            m / 100, m % 100);
         put_str(buf, r++, c);
     }
 

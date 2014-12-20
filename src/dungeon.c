@@ -5018,7 +5018,7 @@ static void process_player(void)
             else
             {
                 int amt = (s16b)((s32b)energy_use * ENERGY_NEED() / 100L);
-                #ifdef _DEBUG
+                #if 0
                 c_put_str(TERM_WHITE, format("E:%3d/%3d", amt, energy_use), 24, 0);
                 #endif
                 p_ptr->energy_need += amt;
