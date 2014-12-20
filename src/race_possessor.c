@@ -331,7 +331,7 @@ void possessor_calc_innate_attacks(void)
         a.dd = blow_ptr->d_dice;
         a.ds = blow_ptr->d_side;
         a.to_h += mbe_info[blow_ptr->effect].power / 3;
-        a.to_h += r_ptr->level / 3;
+        a.to_h += r_ptr->level / 2;
 
         switch (blow_ptr->method)
         {
@@ -511,8 +511,10 @@ void possessor_calc_innate_attacks(void)
             a.to_d += a.dd * (a.ds + 1) / 4;
             break;
         case RBE_UN_BONUS:
-        case RBE_UN_POWER:
             a.effect[0] = GF_DISENCHANT;
+            break;
+        case RBE_UN_POWER:
+            a.effect[1] = GF_DRAIN_MANA;
             break;
         case RBE_EAT_GOLD:
         case RBE_EAT_ITEM:
@@ -794,6 +796,8 @@ static void _breathe_spell(int what, int cmd, variant *res)
         case 'D': div = 15; break;
         case 'd': div = 12; break;
         case 'Z': div = 8; break;
+        case 'C': div = 10; break; /* Cerberus */
+        case 'B': div = 12; break; /* Fenghuang, Petshop */
         case 'R': div = 12; break; /* Tarrasque, Godzilla */
         }
         
