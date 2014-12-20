@@ -5266,7 +5266,8 @@ static bool kind_is_tailored(int k_idx)
     {
     case TV_SHIELD:
         return equip_can_wield_kind(k_ptr->tval, k_ptr->sval) 
-            && p_ptr->pclass != CLASS_NINJA;
+            && p_ptr->pclass != CLASS_NINJA
+            && p_ptr->pclass != CLASS_MAULER;
 
     case TV_HARD_ARMOR:
     case TV_SOFT_ARMOR:
@@ -5724,6 +5725,8 @@ static _kind_p _choose_obj_kind(u32b mode)
         _kind_hook2 = kind_is_great;
     else if (mode & AM_GOOD)
         _kind_hook2 = kind_is_good;
+    else if (_drop_tailored)
+        _kind_hook2 = kind_is_tailored;
 
     for (i = 0; ; i++)
     {
@@ -5801,7 +5804,7 @@ bool make_object(object_type *j_ptr, u32b mode)
             get_obj_num_hook = kind_is_good;
         }*/
 
-        if (_drop_tailored && !get_obj_num_hook)
+        if (_drop_tailored && !get_obj_num_hook && p_ptr->pclass != CLASS_MAULER)
             get_obj_num_hook = kind_is_tailored;
 
         /* Experimental: Restrict object allocation by type. */
