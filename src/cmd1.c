@@ -2454,24 +2454,11 @@ static void innate_attacks(s16b m_idx, bool *fear, bool *mdeath, int mode)
                     {
                     case GF_MISSILE:
                         *mdeath = mon_take_hit(m_idx, dam, fear, NULL);
-                        if (!(*mdeath) && (p_ptr->special_attack & ATTACK_CONFUSE))
-                        {
-                            p_ptr->special_attack &= ~(ATTACK_CONFUSE);
-                            msg_format("Your %s stops glowing.", a->name);
-                            p_ptr->redraw |= (PR_STATUS);
-                            if (r_ptr->flags3 & RF3_NO_CONF)
-                            {
-                                if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= RF3_NO_CONF;
-                                msg_format("%^s is unaffected.", m_name);
-                            }
-                            else if (randint0(100) < r_ptr->level)
-                                msg_format("%^s is unaffected.", m_name);
-                            else
-                            {
-                                msg_format("%^s appears confused.", m_name);
-                                (void)set_monster_confused(m_idx, MON_CONFUSED(m_ptr) + 10 + randint0(p_ptr->lev) / 5);
-                            }
-                        }
+                        break;
+                    case GF_DISENCHANT:
+                        *mdeath = mon_take_hit(m_idx, dam, fear, NULL);
+                        if (!(*mdeath) && one_in_(7))
+                            dispel_monster_status(m_idx);
                         break;
                     case GF_OLD_SLEEP:
                         delay_sleep += effect_pow;
@@ -2539,6 +2526,8 @@ static void innate_attacks(s16b m_idx, bool *fear, bool *mdeath, int mode)
                 }
 
                 if (*mdeath) return;
+
+                on_p_hit_m(m_idx);
 
                 if (mode == DRAGON_SNATCH)
                 {
@@ -2798,6 +2787,14 @@ static bool py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
 
     case CLASS_SCOUT:
         if (p_ptr->ambush && o_ptr && !p_ptr->weapon_info[hand].icky_wield)
+        {
+            if (MON_CSLEEP(m_ptr) && m_ptr->ml)
+                backstab = TRUE;
+        }
+        break;
+
+    case CLASS_MONSTER:
+        if (p_ptr->ambush && o_ptr)
         {
             if (MON_CSLEEP(m_ptr) && m_ptr->ml)
                 backstab = TRUE;

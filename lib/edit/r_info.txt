@@ -8997,7 +8997,7 @@ F:MALE |
 F:DROP_1D2 | FRIENDS | INVISIBLE |
 F:OPEN_DOOR | BASH_DOOR | HURT_LITE |
 F:EVIL | RES_DARK | NO_CONF | NO_SLEEP
-F:DROP_SKELETON | DROP_CORPSE | POS_SEE_INVIS
+F:DROP_SKELETON | DROP_CORPSE | POS_SEE_INVIS | POS_BACKSTAB
 P:Copy:Dark-Elf:Ninja
 P:Speed:+7
 D:A dark elven assassin, so stealthy that he is almost impossible to see.

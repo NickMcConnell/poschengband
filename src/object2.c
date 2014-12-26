@@ -5804,7 +5804,7 @@ bool make_object(object_type *j_ptr, u32b mode)
             get_obj_num_hook = kind_is_good;
         }*/
 
-        if (_drop_tailored && !get_obj_num_hook && p_ptr->pclass != CLASS_MAULER)
+        if (_drop_tailored && !get_obj_num_hook && p_ptr->pclass == CLASS_MONSTER)
             get_obj_num_hook = kind_is_tailored;
 
         /* Experimental: Restrict object allocation by type. */

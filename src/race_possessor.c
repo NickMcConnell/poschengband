@@ -1444,6 +1444,8 @@ void possessor_calc_bonuses(void)
         p_ptr->see_inv = TRUE;
     if (r_ptr->flags2 & RF2_INVISIBLE)
         p_ptr->see_inv = TRUE;
+    if (r_ptr->flags9 & RF9_POS_BACKSTAB)
+        p_ptr->ambush = TRUE;
 
     if (r_ptr->flags9 & RF9_POS_SUST_STR)
         p_ptr->sustain_str = TRUE;

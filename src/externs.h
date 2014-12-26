@@ -2284,6 +2284,7 @@ extern cptr do_hissatsu_spell(int spell, int mode);
 extern bool     repose_of_the_dead;
 extern cptr     do_necromancy_spell(int spell, int mode);
 extern class_t *necromancer_get_class_t(void);
+extern void     on_p_hit_m(int m_idx);
 
 /* skills.c */
 extern skill_table *s_info; /* deprecated ... in process of removing naked table reads*/

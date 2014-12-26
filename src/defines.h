@@ -3641,7 +3641,7 @@ enum summon_specific_e {
 #define RF9_POS_BLESSING        0x00200000
 #define RF9_POS_BERSERK         0x00400000
 #define RF9_POS_CLAIRVOYANCE    0x00800000
-#define RF9_XXX25               0x01000000
+#define RF9_POS_BACKSTAB        0x01000000
 #define RF9_XXX26               0x02000000
 #define RF9_XXX27               0x04000000
 #define RF9_XXX28               0x08000000
