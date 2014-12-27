@@ -5691,8 +5691,8 @@ static _kind_alloc_entry _kind_alloc_table[] = {
     { kind_is_weapon,          180,    0,    0 },  
     { kind_is_body_armor,      165,    0,    0 },
     { kind_is_other_armor,     200,    0,    0 },
-    { kind_is_device,          200, -150, -150 },
-    { _kind_is_potion,          50,  -25,  -50 },
+    { kind_is_device,          210, -160, -160 },
+    { _kind_is_potion,          40,  -25,  -40 },
     { kind_is_bow_ammo,         70,    0,    0 },
     { kind_is_book,             50,    0,    0 },
     { kind_is_jewelry,          35,    0,    0 },
@@ -5807,9 +5807,9 @@ bool make_object(object_type *j_ptr, u32b mode)
         if (_drop_tailored && !get_obj_num_hook && p_ptr->pclass == CLASS_MONSTER)
             get_obj_num_hook = kind_is_tailored;
 
-        /* Experimental: Restrict object allocation by type. */
+        /* Experimental: Restrict object allocation by type. 
         if (!get_obj_num_hook)
-            get_obj_num_hook = _choose_obj_kind(mode);
+            get_obj_num_hook = _choose_obj_kind(mode); */
 
         /* Restricted objects - prepare allocation table */
         if (get_obj_num_hook) get_obj_num_prep();
