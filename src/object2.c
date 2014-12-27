@@ -4051,6 +4051,8 @@ static void _create_armor(object_type *o_ptr, int level, int power, int mode)
                 }
             }
             if (one_in_(2))
+                add_flag(o_ptr->art_flags, TR_DEC_STR);
+            if (one_in_(3))
                 add_flag(o_ptr->art_flags, TR_DEC_CON);
             if (one_in_(30))
                 add_flag(o_ptr->art_flags, TR_DEVICE_POWER);
@@ -4264,7 +4266,9 @@ static void _create_armor(object_type *o_ptr, int level, int power, int mode)
         case EGO_CROWN_MAGI:
             if (one_in_(7))
                 add_flag(o_ptr->art_flags, TR_EASY_SPELL);
-            if (one_in_(66))
+            if (one_in_(5))
+                add_flag(o_ptr->art_flags, TR_MAGIC_MASTERY);
+            else if (one_in_(66))
             {
                 add_flag(o_ptr->art_flags, TR_SPELL_POWER);
                 add_flag(o_ptr->art_flags, TR_DEC_CON);
@@ -4341,7 +4345,7 @@ static void _create_armor(object_type *o_ptr, int level, int power, int mode)
                 break;
 
             case EGO_HELMET_KNOWLEDGE:
-                if (one_in_(15))
+                if (one_in_(7))
                     add_flag(o_ptr->art_flags, TR_MAGIC_MASTERY);
                 if (one_in_(ACTIVATION_CHANCE))
                 {
