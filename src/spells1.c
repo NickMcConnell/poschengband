@@ -4360,6 +4360,12 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
 
         case GF_STUN:
         {
+            int ml = r_ptr->level;
+            int pl = dam;
+
+            if (r_ptr->flags1 & RF1_UNIQUE) ml += 3;
+            if (r_ptr->flags2 & RF2_POWERFUL) ml += 7;
+
             if (seen) obvious = TRUE;
 
             if (r_ptr->flagsr & RFR_RES_ALL)
@@ -4372,15 +4378,16 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
             do_stun = damroll((caster_lev / 20) + 3 , (dam)) + 1;
 
             /* Attempt a saving throw */
-            if ((r_ptr->flags1 & (RF1_UNIQUE)) ||
-                (r_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+            if (r_ptr->flags3 & RF3_NO_STUN)
             {
-                /* Resist */
                 do_stun = 0;
-
-                /* No obvious effect */
                 note = " is unaffected!";
-
+                obvious = FALSE;
+            }
+            else if (randint1(ml) >= randint1(pl))
+            {
+                do_stun = 0;
+                note = " resists!";
                 obvious = FALSE;
             }
 

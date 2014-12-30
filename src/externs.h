@@ -900,7 +900,7 @@ extern void enter_level(int level);
 extern s32b turn_real(s32b hoge);
 extern void prevent_turn_overflow(void);
 extern void process_world_aux_movement(void);  /* yuk!  refactor the recall code instead */
-
+extern void fame_on_failure(void);
 
 /* files.c */
 extern void safe_setuid_drop(void);
