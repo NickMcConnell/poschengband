@@ -4321,6 +4321,12 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
         /* Confusion (Use "dam" as "power") */
         case GF_OLD_CONF:
         {
+            int ml = r_ptr->level;
+            int pl = dam;
+
+            if (r_ptr->flags1 & RF1_UNIQUE) ml += 3;
+            if (r_ptr->flags2 & RF2_POWERFUL) ml += 7;
+
             if (seen) obvious = TRUE;
 
             if (r_ptr->flagsr & RFR_RES_ALL)
@@ -4334,22 +4340,23 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
             do_conf = damroll(3, (dam / 2)) + 1;
 
             /* Attempt a saving throw */
-            if ((r_ptr->flags1 & (RF1_UNIQUE)) ||
-                (r_ptr->flags3 & (RF3_NO_CONF)) ||
-                (r_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+            if (r_ptr->flags3 & RF3_NO_CONF)
             {
-                /* Memorize a flag */
-                if (r_ptr->flags3 & (RF3_NO_CONF))
-                {
-                    if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
-                }
-
-                /* Resist */
                 do_conf = 0;
-
-                /* No obvious effect */
-                note = " is unaffected!";
-
+                note = " is immune!";
+                if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= RF3_NO_CONF;
+                obvious = FALSE;
+            }
+            else if (r_ptr->flags1 & RF1_UNIQUE) /* Historical ... I'd like to remove this. */
+            {
+                do_conf = 0;
+                note = " is immune!";
+                obvious = FALSE;
+            }
+            else if (randint1(ml) >= randint1(pl))
+            {
+                do_conf = 0;
+                note = " resists!";
                 obvious = FALSE;
             }
 
@@ -4382,6 +4389,7 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
             {
                 do_stun = 0;
                 note = " is unaffected!";
+                if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= RF3_NO_STUN;
                 obvious = FALSE;
             }
             else if (randint1(ml) >= randint1(pl))
