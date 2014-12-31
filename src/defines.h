@@ -5104,6 +5104,7 @@ extern int PlayerUID;
 #define MON_CULVERIN            867
 #define MON_EBONY_MONK          870
 #define MON_HAGURE              871
+#define MON_METAL_BABBLE        871
 #define MON_OROCHI              872
 #define MON_ECHIZEN             873
 #define MON_SPECT_WYRM          874
@@ -5215,6 +5216,7 @@ extern int PlayerUID;
 #define MON_HERA                1105
 #define MON_DEMETER             1106
 #define MON_APHRODITE           1107
+#define MON_THE_METAL_BABBLE    1110
 #define MON_GREATER_DEMONIC_QUYLTHULG   1123
 #define MON_ROCK_GIANT          1124
 #define MON_ICE_GIANT           1125
