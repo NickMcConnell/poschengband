@@ -4388,7 +4388,8 @@ bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see
                 if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
                 break;
             }
-            do_stun = damroll((caster_lev / 20) + 3 , (dam)) + 1;
+            /* Why so much?? do_stun = damroll((caster_lev / 20) + 3 , (dam)) + 1;*/
+            do_stun = 3 + randint0(5);
 
             /* Attempt a saving throw */
             if (r_ptr->flags3 & RF3_NO_STUN)

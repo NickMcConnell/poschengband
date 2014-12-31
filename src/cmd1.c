@@ -2461,7 +2461,7 @@ static void innate_attacks(s16b m_idx, bool *fear, bool *mdeath, int mode)
                             dispel_monster_status(m_idx);
                         break;
                     case GF_OLD_SLEEP:
-                        delay_sleep += effect_pow;
+                        delay_sleep += effect_pow/2;
                         break;
                     case GF_STASIS:
                         delay_stasis += effect_pow;
