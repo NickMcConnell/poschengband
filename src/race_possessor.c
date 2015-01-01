@@ -621,7 +621,7 @@ static void _possess_spell(int cmd, variant *res)
         msg_format("You possess %s.", o_name);
         if (p_ptr->current_r_idx != MON_POSSESSOR_SOUL)
         {
-            if (one_in_(3))
+            if (p_ptr->lev <= 10 || one_in_(3))
             {
                 object_type forge;
                 object_prep(&forge, lookup_kind(TV_CORPSE, SV_CORPSE));
@@ -680,7 +680,7 @@ static void _unpossess_spell(int cmd, variant *res)
             monster_race *old_r_ptr = &r_info[old_r_idx];
 
             msg_print("You leave your current body!");
-            if (one_in_(3))
+            if (p_ptr->lev <= 10 || one_in_(3))
             {
                 object_type forge;
                 object_prep(&forge, lookup_kind(TV_CORPSE, SV_CORPSE));
@@ -1396,6 +1396,8 @@ static void _calc_shooter_bonuses(object_type *o_ptr, shooter_info_t *info_ptr)
         {
             p_ptr->shooter_info.num_fire += p_ptr->lev * 150 / 50;
         }
+        /* Note: I would do rogues as well, but many rogue forms probably shouldn't get
+           this bonus (e.g. Hounds).*/
     }
 }
 
