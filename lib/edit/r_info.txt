@@ -20254,9 +20254,11 @@ D: to seek and dominate the bodies of others.  It looks like a small
 D: cloud of glowing white mist.  In this form it is harmless, but
 D: upon possessing the dead body of another creature it will be able
 D: to use all its powers.
-P:Copy:Snotling:Tourist
+F:POS_TELEPATHY
+P:Copy:Yeek:Tourist
 P:Life:70
 P:Infra:5
+P:Skills:0:0:0:7:0:0:0:0
 P:Body:Possessor Soul
 
 N:1130:Marilith
