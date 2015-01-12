@@ -1413,7 +1413,7 @@ bool make_attack_spell(int m_idx, bool ticked_off)
     int             dam = 0;
     u32b mode = 0L;
     int s_num_6 = (easy_band ? 2 : 6);
-    int s_num_4 = (easy_band ? 1 : 4);
+    int s_num_4 = (easy_band ? 1 : 3);
 
     /* Target location */
     int x = px;
@@ -3966,7 +3966,7 @@ msg_format("They say 'The %d meets! We are the Ring-Ranger!'.", count);
 
                 else msg_format("%^s magically summons greater undead!", m_name);
 
-                for (k = 0; k < s_num_6; k++)
+                for (k = 0; k < s_num_4; k++)
                 {
                     count += summon_specific(m_idx, y, x, rlev, SUMMON_HI_UNDEAD, PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | mode);
                 }
