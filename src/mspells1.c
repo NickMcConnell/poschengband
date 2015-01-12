@@ -3091,7 +3091,7 @@ bool make_attack_spell(int m_idx, bool ticked_off)
             }
             case MON_HADES:
             {
-                int num = randint1(4);
+                int num = randint1(2);
                 fire_ball_hide(GF_LAVA_FLOW, 0, 3, 8);
                 msg_format("%^s summons Death!", m_name);
                 for (k = 0; k < num; k++)
