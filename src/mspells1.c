@@ -1609,7 +1609,7 @@ bool make_attack_spell(int m_idx, bool ticked_off)
             /* Hack: Is player hiding in walls? Note MONSTER_FLOW_DEPTH is cranked up
                to 100 but is still might be possible that there exists a viable path
                to the player that is longer. */
-            if ( current_flow_depth < MONSTER_FLOW_DEPTH
+            if ( current_flow_depth < 30 /*MONSTER_FLOW_DEPTH*/
               && !(r_ptr->flags2 & RF2_PASS_WALL)
               && !(r_ptr->flags2 & RF2_KILL_WALL)
               && !(r_ptr->flags1 & RF1_NEVER_MOVE)
@@ -1622,7 +1622,7 @@ bool make_attack_spell(int m_idx, bool ticked_off)
                 y = m_ptr->fy;
                 x = m_ptr->fx;
 
-                if (one_in_(10))
+                if (one_in_(20))
                 {
                     f4 &= RF4_NO_FLOW_MASK_HARD;
                     f5 &= RF5_NO_FLOW_MASK_HARD;
