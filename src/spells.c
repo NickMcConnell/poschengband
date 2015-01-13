@@ -683,6 +683,20 @@ static void _add_extra_costs(spell_info* spells, int max)
     }
 }
 
+static void _add_extra_costs_powers(spell_info* spells, int max)
+{
+    int i;
+    /* Some spells give extra abilities depending on player level ...
+       Ideally, these spells should scale the costs as well! */
+    for (i = 0; i < max; i++)
+    {
+        spell_info* current = &spells[i];
+        current->cost += get_spell_cost_extra(current->fn);
+        current->fail = MAX(current->fail, get_spell_fail_min(current->fn));
+        /*Oops: Powers should not benefit from DEC_MANA or CASTER_NO_SPELL_COST!!!
+        current->cost = calculate_cost(current->cost);*/
+    }
+}
 
 static int _get_spell_table(spell_info* spells, int max)
 {
@@ -867,7 +881,7 @@ void do_cmd_power(void)
         return;
     }
 
-    _add_extra_costs(spells, ct);
+    _add_extra_costs_powers(spells, ct);
 
     choice = choose_spell(spells, ct, "power", p_ptr->csp + p_ptr->chp);
 
