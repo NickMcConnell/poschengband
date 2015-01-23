@@ -1850,58 +1850,58 @@ static caster_info * _caster_info(void)
     return &me;
 }
 
-/*
 static void _character_dump(FILE* file)
 {
-    int i, j;
-    const int max = 1;
+    int     i, j;
+    int     stat = _spell_stat_idx();
+    int     num_learned = _num_spells_learned();
+    variant name, info;
 
-    for (j = 1; j <= max; j++)
+    var_init(&name);
+    var_init(&info);
+
+    fprintf(file, "=================================== Spells ====================================\n");
+
+    for (i = 0; i < num_learned; i++)
     {
-        spell_info spells[MAX_SPELLS];
-        int ct;
+        _spell_t *power = &_spells[p_ptr->spell_order[i]];
 
-        _power = j;
-        ct = _get_spells(spells, MAX_SPELLS);
-
-        if (ct > 0)
+        fprintf(file, "\n%-23.23s Lv Cost Fail Info\n", power->name);
+        for (j = 0; j < _MAX_POWER; j++)
         {
-            variant name, info;
+            _spell_info_t *spell = &power->info[j];
+            int            fail = spell->fail;
+            int            cost = spell->cost;
 
-            var_init(&name);
-            var_init(&info);
 
-            for (i = 0; i < ct; i++)
+            if (p_ptr->magic_num1[_CLARITY])
             {
-                spell_info* current = &spells[i];
-                current->cost += get_spell_cost_extra(current->fn);
-                current->cost = calculate_cost(current->cost);
-                current->fail = MAX(current->fail, get_spell_fail_min(current->fn));
+                cost = cost * (95 - 7 * p_ptr->magic_num2[_CLARITY]) / 100;
+                if (cost < 1)
+                    cost = 1;
             }
 
-            fprintf(file, "\n  [Psionic Powers %d]\n", _power);
-            fprintf(file, "%-23.23s Lv Cost Fail Info\n", "");
-            for (i = 0; i < ct; ++i)
+            if (p_ptr->magic_num1[_COMBAT] || p_ptr->magic_num1[_ARCHERY])
             {
-                spell_info *spell = &spells[i];
-
-                (spell->fn)(SPELL_NAME, &name);
-                (spell->fn)(SPELL_INFO, &info);
-
-                fprintf(file, "%-23.23s %2d %4d %3d%% %s\n", 
-                                var_get_string(&name),
-                                spell->level,
-                                spell->cost,
-                                spell->fail,
-                                var_get_string(&info));
+                cost = cost * 3 / 2;
             }
 
-            var_clear(&name);
-            var_clear(&info);
+            fail = calculate_fail_rate(power->level, fail, stat);
+
+            (spell->fn)(SPELL_NAME, &name);
+            (spell->fn)(SPELL_INFO, &info);
+            fprintf(file, "%-23.23s %2d %4d %3d%% %s\n", 
+                            var_get_string(&name),
+                            power->level,
+                            cost,
+                            fail,
+                            var_get_string(&info));
         }
     }
+
+    var_clear(&name);
+    var_clear(&info);
 }
-*/
 
 static void _player_action(int energy_use)
 {
@@ -1950,7 +1950,7 @@ class_t *psion_get_class_t(void)
         me.caster_info = _caster_info;
         me.get_spells = _get_spells;
         me.get_powers = _get_powers;
-    /*    me.character_dump = _character_dump; */
+        me.character_dump = _character_dump;
         me.gain_level = _gain_level;
         me.player_action = _player_action;
         init = TRUE;
