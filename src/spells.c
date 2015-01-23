@@ -14,7 +14,7 @@ static str_map_ptr _spell_stats_map(void)
     return _map;
 }
 
-static spell_stats_ptr _spell_stats_aux(cptr name)
+spell_stats_ptr spell_stats_aux(cptr name)
 {
     str_map_ptr     map = _spell_stats_map();
     spell_stats_ptr result = str_map_find(map, name);
@@ -31,7 +31,7 @@ static spell_stats_ptr _spell_stats_aux(cptr name)
 static spell_stats_ptr _spell_stats(spell_info *spell)
 {
     cptr name = get_spell_name(spell->fn);
-    return _spell_stats_aux(name);
+    return spell_stats_aux(name);
 }
 
 void spell_stats_on_birth(void)
@@ -161,7 +161,7 @@ void spell_stats_on_fail(spell_info *spell)
 static spell_stats_ptr _spell_stats_old(int realm, int spell)
 {
     cptr name = do_spell(realm, spell, SPELL_NAME);
-    return _spell_stats_aux(name);
+    return spell_stats_aux(name);
 }
 
 
@@ -1003,7 +1003,7 @@ int get_spells_aux(spell_info* spells, int max, spell_info* table)
     return ct;
 }
 
-static int _spell_stats_fail(spell_stats_ptr stats)
+int spell_stats_fail(spell_stats_ptr stats)
 {
     int result = 0;
     int attempts = stats->ct_cast + stats->ct_fail;
@@ -1044,7 +1044,7 @@ void dump_spells_aux(FILE *fff, spell_info *table, int ct)
             spell->level, calculate_cost(spell->cost + var_get_int(&vc)), spell->fail, 
             var_get_string(&vd),
             stats->ct_cast, stats->ct_fail,
-            _spell_stats_fail(stats)
+            spell_stats_fail(stats)
         );
     }
 
@@ -1079,7 +1079,7 @@ void dump_powers_aux(FILE *fff, spell_info *table, int ct)
             spell->level, calculate_cost(spell->cost + var_get_int(&vc)), spell->fail, 
             var_get_string(&vd),
             stats->ct_cast, stats->ct_fail, 
-            _spell_stats_fail(stats)
+            spell_stats_fail(stats)
         );
     }
 
@@ -1206,7 +1206,7 @@ static void _dump_book(FILE *fff, int realm, int book)
                     comment,
                     stats->ct_cast, 
                     stats->ct_fail,
-                    _spell_stats_fail(stats)
+                    spell_stats_fail(stats)
                 )
             );
         }

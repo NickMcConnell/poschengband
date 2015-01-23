@@ -726,7 +726,7 @@ static void _psionic_clarity_spell(int power, int cmd, variant *res)
         var_set_string(res, "For the duration of this power, you gain increased mental focus.  Your psionic powers become cheaper to cast.");
         break;
     case SPELL_INFO:
-        var_set_string(res, format("Spell Costs: %d%%", 95-7*power));
+        var_set_string(res, format("Costs: %d%%", 95-7*power));
         break;
     case SPELL_CAST:
         var_set_bool(res, FALSE);
@@ -1860,19 +1860,19 @@ static void _character_dump(FILE* file)
     var_init(&name);
     var_init(&info);
 
-    fprintf(file, "=================================== Spells ====================================\n");
+    fprintf(file, "\n=================================== Spells ====================================\n");
 
     for (i = 0; i < num_learned; i++)
     {
         _spell_t *power = &_spells[p_ptr->spell_order[i]];
 
-        fprintf(file, "\n%-23.23s Lv Cost Fail Info\n", power->name);
+        fprintf(file, "\n%-23.23s Cost Fail %-15.15s Cast Fail\n", power->name, "Info");
         for (j = 0; j < _MAX_POWER; j++)
         {
-            _spell_info_t *spell = &power->info[j];
-            int            fail = spell->fail;
-            int            cost = spell->cost;
-
+            _spell_info_t  *spell = &power->info[j];
+            int             fail = spell->fail;
+            int             cost = spell->cost;
+            spell_stats_ptr stats = NULL;
 
             if (p_ptr->magic_num1[_CLARITY])
             {
@@ -1889,13 +1889,18 @@ static void _character_dump(FILE* file)
             fail = calculate_fail_rate(power->level, fail, stat);
 
             (spell->fn)(SPELL_NAME, &name);
+            stats = spell_stats_aux(var_get_string(&name));
+
             (spell->fn)(SPELL_INFO, &info);
-            fprintf(file, "%-23.23s %2d %4d %3d%% %s\n", 
+            fprintf(file, "%-23.23s %4d %3d%% %-15.15s %4d %4d %3d%%\n", 
                             var_get_string(&name),
-                            power->level,
                             cost,
                             fail,
-                            var_get_string(&info));
+                            var_get_string(&info),
+                            stats->ct_cast, stats->ct_fail,
+                            spell_stats_fail(stats)
+            );
+
         }
     }
 
