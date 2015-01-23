@@ -252,7 +252,7 @@ static void _archery_transformation_spell(int power, int cmd, variant *res)
         }
         _clear_counter(_COMBAT, "Your combat transformation expires.");    
         msg_print("You transform into a shooting machine!");
-        p_ptr->magic_num1[_ARCHERY] = spell_power(power * 20);
+        p_ptr->magic_num1[_ARCHERY] = spell_power(power*20 + 15);
         p_ptr->magic_num2[_ARCHERY] = power;
         p_ptr->update |= PU_BONUS;
         p_ptr->redraw |= PR_STATUS;
@@ -333,7 +333,7 @@ static void _combat_transformation_spell(int power, int cmd, variant *res)
         }
         _clear_counter(_ARCHERY, "Your archery transformation expires.");    
         msg_print("You transform into a fighting machine!");
-        p_ptr->magic_num1[_COMBAT] = spell_power(power * 20);
+        p_ptr->magic_num1[_COMBAT] = spell_power(power*20 + 15);
         p_ptr->magic_num2[_COMBAT] = power;
         p_ptr->update |= PU_BONUS;
         p_ptr->redraw |= PR_STATUS;
@@ -506,7 +506,7 @@ static void _graft_weapon_spell(int power, int cmd, variant *res)
             return;
         }
         msg_print("Your weapon fuses to your arm!");
-        p_ptr->magic_num1[_WEAPON_GRAFT] = spell_power(12*(power+1));
+        p_ptr->magic_num1[_WEAPON_GRAFT] = spell_power(12*power + 20);
         p_ptr->magic_num2[_WEAPON_GRAFT] = power;
         p_ptr->update |= PU_BONUS;
         p_ptr->redraw |= PR_STATUS;
@@ -580,7 +580,7 @@ static void _mental_fortress_spell(int power, int cmd, variant *res)
             return;
         }
         msg_print("You erect a mental fortress.");
-        p_ptr->magic_num1[_FORTRESS] = spell_power(power);
+        p_ptr->magic_num1[_FORTRESS] = spell_power(power + 3);
         p_ptr->magic_num2[_FORTRESS] = power;
         p_ptr->update |= PU_BONUS;
         p_ptr->redraw |= PR_STATUS;
@@ -619,7 +619,7 @@ static void _mindspring_spell(int power, int cmd, variant *res)
             return;
         }
         msg_print("Your mindspring flows.");
-        p_ptr->magic_num1[_MINDSPRING] = spell_power(power * 2);
+        p_ptr->magic_num1[_MINDSPRING] = spell_power(power*2 + 3);
         p_ptr->magic_num2[_MINDSPRING] = power;
         p_ptr->update |= PU_BONUS;
         p_ptr->redraw |= PR_STATUS;
@@ -658,7 +658,7 @@ static void _psionic_backlash_spell(int power, int cmd, variant *res)
             return;
         }
         msg_print("You contemplate revenge!");
-        p_ptr->magic_num1[_BACKLASH] = spell_power(power * 5);
+        p_ptr->magic_num1[_BACKLASH] = spell_power(power*5 + 5);
         p_ptr->magic_num2[_BACKLASH] = power;
         p_ptr->update |= PU_BONUS;
         p_ptr->redraw |= PR_STATUS;
@@ -697,7 +697,7 @@ static void _psionic_blending_spell(int power, int cmd, variant *res)
             return;
         }
         msg_print("You blending into your surroundings.");
-        p_ptr->magic_num1[_BLENDING] = spell_power(power * 20);
+        p_ptr->magic_num1[_BLENDING] = spell_power(power*20 + 25);
         p_ptr->magic_num2[_BLENDING] = power;
         p_ptr->update |= PU_BONUS;
         p_ptr->redraw |= PR_STATUS;
@@ -736,7 +736,7 @@ static void _psionic_clarity_spell(int power, int cmd, variant *res)
             return;
         }
         msg_print("You focus your mind.");
-        p_ptr->magic_num1[_CLARITY] = spell_power(2*power + 3);
+        p_ptr->magic_num1[_CLARITY] = spell_power(2*power + 5);
         p_ptr->magic_num2[_CLARITY] = power;
         p_ptr->update |= PU_BONUS;
         p_ptr->redraw |= PR_STATUS;
@@ -867,7 +867,7 @@ static void _psionic_foresight_spell(int power, int cmd, variant *res)
             return;
         }
         msg_print("You see the future!");
-        p_ptr->magic_num1[_FORESIGHT] = spell_power(power * 2);
+        p_ptr->magic_num1[_FORESIGHT] = spell_power(power*2 + 3);
         p_ptr->magic_num2[_FORESIGHT] = power;
         p_ptr->update |= PU_BONUS;
         p_ptr->redraw |= PR_STATUS;
@@ -959,7 +959,7 @@ static void _psionic_protection_spell(int power, int cmd, variant *res)
     }
     case SPELL_CAST:
     {
-        int dur = spell_power(10 * power);
+        int dur = spell_power(10*power + 25);
         set_oppose_fire(dur, FALSE);
         if (power >= 2) set_oppose_cold(dur, FALSE);
         if (power >= 3) set_oppose_elec(dur, FALSE);
@@ -1057,7 +1057,7 @@ static void _psionic_shielding_spell(int power, int cmd, variant *res)
             return;
         }
         msg_print("You create a psionic shield.");
-        p_ptr->magic_num1[_SHIELDING] = spell_power(power * 8);
+        p_ptr->magic_num1[_SHIELDING] = spell_power(power*8 + 20);
         p_ptr->magic_num2[_SHIELDING] = power;
         p_ptr->update |= PU_BONUS;
         p_ptr->redraw |= PR_STATUS;
@@ -1096,7 +1096,7 @@ static void _psionic_speed_spell(int power, int cmd, variant *res)
             return;
         }
         msg_print("You gain psionic speed.");
-        p_ptr->magic_num1[_SPEED] = spell_power(power * 10);
+        p_ptr->magic_num1[_SPEED] = spell_power(power*10 + 20);
         p_ptr->magic_num2[_SPEED] = power;
         p_ptr->update |= PU_BONUS;
         p_ptr->redraw |= PR_STATUS;
@@ -1682,6 +1682,8 @@ static int _get_spells(spell_info* spells, int max)
             if (p_ptr->magic_num1[_CLARITY])
             {
                 cost = cost * (95 - 7 * p_ptr->magic_num2[_CLARITY]) / 100;
+                if (cost < 1)
+                    cost = 1;
             }
 
             if (p_ptr->magic_num1[_COMBAT] || p_ptr->magic_num1[_ARCHERY])
