@@ -835,7 +835,7 @@ void _psionic_crafting_spell(int power, int cmd, variant *res)
         _enchant_power = power; /* Hack for enchant(), which I'm too lazy to rewrite ... */
         if (power == 5 && object_is_nameless(o_ptr))
         {
-            if (object_is_melee_weapon(o_ptr))
+            if (object_is_weapon(o_ptr))
             {
                 brand_weapon_aux(item);
                 okay = TRUE;
