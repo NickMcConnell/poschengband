@@ -1868,8 +1868,14 @@ bool make_attack_spell(int m_idx, bool ticked_off)
     /* Hex: Anti Magic Barrier */
     if (!spell_is_inate(thrown_spell) && magic_barrier(m_idx))
     {
-        msg_format("Anti magic barrier cancels the spell which %^s casts.", m_name);
+        msg_format("Your anti-magic barrier blocks the spell which %^s casts.", m_name);
         return (TRUE);
+    }
+
+    if (!spell_is_inate(thrown_spell) && psion_check_disruption(m_idx))
+    {
+        msg_format("Your psionic disruption blocks the spell which %^s casts.", m_name);
+        return TRUE;
     }
 
     /* Projectable? */
