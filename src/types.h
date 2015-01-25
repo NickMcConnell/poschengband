@@ -1307,6 +1307,7 @@ struct player_type
     s16b elaborate_defense;
     s16b cloak_of_shadows;
     bool lightning_reflexes;
+    bool clear_mind;
     
     bool ambush;
     bool peerless_stealth;

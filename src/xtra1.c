@@ -3362,6 +3362,7 @@ void calc_bonuses(void)
     p_ptr->whirlwind = FALSE;
     p_ptr->entrenched = FALSE;
     p_ptr->lightning_reflexes = FALSE;
+    p_ptr->clear_mind = FALSE;
     p_ptr->inven_prot = FALSE;
     p_ptr->ambush = FALSE;
     p_ptr->peerless_stealth = FALSE;

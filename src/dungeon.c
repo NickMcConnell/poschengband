@@ -4928,6 +4928,9 @@ static void process_player(void)
 
             if (p_ptr->pclass == CLASS_SAMURAI)
                 samurai_on_rest();
+
+            if (p_ptr->clear_mind && p_ptr->csp < p_ptr->msp)
+                cast_clear_mind();
         }
 
         else if (p_ptr->action == ACTION_FISH)

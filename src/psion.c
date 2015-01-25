@@ -1938,6 +1938,9 @@ static int _get_spells(spell_info* spells, int max)
 
 static void _calc_bonuses(void)
 {
+    if (p_ptr->lev >= 15)
+        p_ptr->clear_mind = TRUE;
+
     if (p_ptr->magic_num1[_BLENDING])
     {
         p_ptr->skills.stl += 5 * p_ptr->magic_num2[_BLENDING];

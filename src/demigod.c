@@ -369,6 +369,8 @@ static power_info _hera_powers[] =
 static void _hera_calc_bonuses(void)
 {
     p_ptr->spell_cap += 2;
+    if (p_ptr->lev >= 15)
+        p_ptr->clear_mind = TRUE;
 }
 static int _hera_get_powers(spell_info* spells, int max)
 {
