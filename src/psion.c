@@ -485,12 +485,8 @@ static void _energy_blast_spell(int power, int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-    {
-        const cptr _names[_MAX_POWER] = {
-            "Ball of Fire", "or Cold", "or Poison", "or Acid", "or Lightning"};
-        var_set_string(res, _names[power-1]);
+        var_set_string(res, format("Energy Blast %s", _roman_numeral[power]));
         break;
-    }
     case SPELL_DESC:
         var_set_string(res, "Fires an elemental ball.");
         break;
