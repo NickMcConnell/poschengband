@@ -485,7 +485,7 @@ static void _energy_blast_spell(int power, int cmd, variant *res)
     switch (cmd)
     {
     case SPELL_NAME:
-        var_set_string(res, format("Energy Blast %s", _roman_numeral[power]));
+        var_set_string(res, format("Blast %s", _roman_numeral[power]));
         break;
     case SPELL_DESC:
         var_set_string(res, "Fires an elemental ball.");
@@ -737,7 +737,7 @@ static void _psionic_blending_spell(int power, int cmd, variant *res)
             msg_print("You are already blending into your surroundings.");
             return;
         }
-        msg_print("You blending into your surroundings.");
+        msg_print("You blend into your surroundings.");
         p_ptr->magic_num1[_BLENDING] = spell_power(power*25 + 50);
         p_ptr->magic_num2[_BLENDING] = power;
         p_ptr->update |= PU_BONUS;
