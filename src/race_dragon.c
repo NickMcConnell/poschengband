@@ -2049,7 +2049,7 @@ static void _reach_spell(int cmd, variant *res)
             project_length = 2 + p_ptr->lev/40;
             if (!get_aim_dir(&dir)) return;
             p_ptr->innate_attacks[0].flags |= INNATE_SKIP;
-            project_hook(GF_ATTACK, dir, HISSATSU_2, PROJECT_STOP | PROJECT_KILL);
+            project_hook(GF_ATTACK, dir, 0, PROJECT_STOP | PROJECT_KILL);
             p_ptr->innate_attacks[0].flags &= ~INNATE_SKIP;
             var_set_bool(res, TRUE);
             break;

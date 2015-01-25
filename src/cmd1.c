@@ -4517,6 +4517,7 @@ bool py_attack(int y, int x, int mode)
         case MAULER_CRUSHING_BLOW:
         case MAULER_CRITICAL_BLOW:
         case MAULER_SCATTER:
+        case HISSATSU_2:
         case HISSATSU_KYUSHO:
         case HISSATSU_MINEUCHI:
         case HISSATSU_3DAN:
