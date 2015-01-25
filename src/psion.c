@@ -1623,8 +1623,7 @@ static _spell_t __spells[] =
         { 65,  80, _psionic_storm3_spell }, /* 350hp */
         {100,  95, _psionic_storm4_spell }, /* 475hp */
         {135, 110, _psionic_storm5_spell }},/* 600hp */
-        "Psionic Storm unleashes your mental focus in a large, powerful blast of mana. All monsters "
-          "hit by the blast will take full damage."
+        "Psionic Storm unleashes your mental focus in a large, powerful ball of mana."
     },
     { "Psionic Backlash", _PSION_BACKLASH, 40, {  
         { 24,  50, _psionic_backlash1_spell },
@@ -1642,7 +1641,7 @@ static _spell_t __spells[] =
         { 60,  80, _psionic_drain3_spell },
         { 90,  95, _psionic_drain4_spell },
         {130, 110, _psionic_drain5_spell }},
-        "Psychic drain allows you to draw mental energy and focus from the magic around you. "
+        "Psychic Drain allows you to draw mental energy and focus from the magic around you. "
         "Whenever you are hit by a magic spell you will convert some of the damage into mana. This "
         "power has no effect on non-magical damage like breaths, rockets or melee."
     },
