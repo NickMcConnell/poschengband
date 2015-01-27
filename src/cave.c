@@ -3388,6 +3388,9 @@ static bool update_view_aux(int y, int x, int y1, int x1, int y2, int x2)
     cave_type *g1_c_ptr;
     cave_type *g2_c_ptr;
 
+    assert(in_bounds2(y1, x1));
+    assert(in_bounds2(y2, x2));
+
     /* Access the grids */
     g1_c_ptr = &cave[y1][x1];
     g2_c_ptr = &cave[y2][x2];
@@ -3651,7 +3654,7 @@ void update_view(void)
     /* Scan south-east */
     for (d = 1; d <= z; d++)
     {
-        if (!in_bounds(y+d, x+d)) break;
+        if (!in_bounds2(y+d, x+d)) break;
         c_ptr = &cave[y+d][x+d];
         c_ptr->info |= (CAVE_XTRA);
         cave_view_hack(c_ptr, y+d, x+d);
@@ -3661,7 +3664,7 @@ void update_view(void)
     /* Scan south-west */
     for (d = 1; d <= z; d++)
     {
-        if (!in_bounds(y+d, x-d)) break;
+        if (!in_bounds2(y+d, x-d)) break;
         c_ptr = &cave[y+d][x-d];
         c_ptr->info |= (CAVE_XTRA);
         cave_view_hack(c_ptr, y+d, x-d);
@@ -3671,7 +3674,7 @@ void update_view(void)
     /* Scan north-east */
     for (d = 1; d <= z; d++)
     {
-        if (!in_bounds(y-d, x+d)) break;
+        if (!in_bounds2(y-d, x+d)) break;
         c_ptr = &cave[y-d][x+d];
         c_ptr->info |= (CAVE_XTRA);
         cave_view_hack(c_ptr, y-d, x+d);
@@ -3681,7 +3684,7 @@ void update_view(void)
     /* Scan north-west */
     for (d = 1; d <= z; d++)
     {
-        if (!in_bounds(y-d, x-d)) break;
+        if (!in_bounds2(y-d, x-d)) break;
         c_ptr = &cave[y-d][x-d];
         c_ptr->info |= (CAVE_XTRA);
         cave_view_hack(c_ptr, y-d, x-d);
@@ -3694,7 +3697,7 @@ void update_view(void)
     /* Scan south */
     for (d = 1; d <= full; d++)
     {
-        if (!in_bounds(y+d, x)) break;
+        if (!in_bounds2(y+d, x)) break;
         c_ptr = &cave[y+d][x];
         c_ptr->info |= (CAVE_XTRA);
         cave_view_hack(c_ptr, y+d, x);
@@ -3707,7 +3710,7 @@ void update_view(void)
     /* Scan north */
     for (d = 1; d <= full; d++)
     {
-        if (!in_bounds(y-d, x)) break;
+        if (!in_bounds2(y-d, x)) break;
         c_ptr = &cave[y-d][x];
         c_ptr->info |= (CAVE_XTRA);
         cave_view_hack(c_ptr, y-d, x);
@@ -3720,7 +3723,7 @@ void update_view(void)
     /* Scan east */
     for (d = 1; d <= full; d++)
     {
-        if (!in_bounds(y, x+d)) break;
+        if (!in_bounds2(y, x+d)) break;
         c_ptr = &cave[y][x+d];
         c_ptr->info |= (CAVE_XTRA);
         cave_view_hack(c_ptr, y, x+d);
@@ -3733,7 +3736,7 @@ void update_view(void)
     /* Scan west */
     for (d = 1; d <= full; d++)
     {
-        if (!in_bounds(y, x-d)) break;
+        if (!in_bounds2(y, x-d)) break;
         c_ptr = &cave[y][x-d];
         c_ptr->info |= (CAVE_XTRA);
         cave_view_hack(c_ptr, y, x-d);
