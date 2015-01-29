@@ -297,7 +297,7 @@ static void _archery_transformation_spell(int power, int cmd, variant *res)
         }
         _clear_counter(_COMBAT, "Your combat transformation expires.");    
         msg_print("You transform into a shooting machine!");
-        p_ptr->magic_num1[_ARCHERY] = spell_power(power*20 + 15);
+        p_ptr->magic_num1[_ARCHERY] = spell_power(power*8 + 20);
         p_ptr->magic_num2[_ARCHERY] = power;
         p_ptr->update |= PU_BONUS;
         p_ptr->redraw |= PR_STATUS;
@@ -378,7 +378,7 @@ static void _combat_transformation_spell(int power, int cmd, variant *res)
         }
         _clear_counter(_ARCHERY, "Your archery transformation expires.");    
         msg_print("You transform into a fighting machine!");
-        p_ptr->magic_num1[_COMBAT] = spell_power(power*20 + 15);
+        p_ptr->magic_num1[_COMBAT] = spell_power(power*8 + 20);
         p_ptr->magic_num2[_COMBAT] = power;
         p_ptr->update |= PU_BONUS;
         p_ptr->redraw |= PR_STATUS;
@@ -547,7 +547,7 @@ static void _graft_weapon_spell(int power, int cmd, variant *res)
             return;
         }
         msg_print("Your weapon fuses to your arm!");
-        p_ptr->magic_num1[_WEAPON_GRAFT] = spell_power(12*power + 20);
+        p_ptr->magic_num1[_WEAPON_GRAFT] = spell_power(8*power + 20);
         p_ptr->magic_num2[_WEAPON_GRAFT] = power;
         p_ptr->update |= PU_BONUS;
         p_ptr->redraw |= PR_STATUS;
@@ -829,16 +829,18 @@ void _psionic_crafting_spell(int power, int cmd, variant *res)
         object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
         _enchant_power = power; /* Hack for enchant(), which I'm too lazy to rewrite ... */
-        if (power == 5 && object_is_nameless(o_ptr))
+        if (power == 5 && object_is_nameless(o_ptr) && o_ptr->number == 1)
         {
             if (object_is_weapon(o_ptr))
             {
                 brand_weapon_aux(item);
+                o_ptr->discount = 99;
                 okay = TRUE;
             }
             else if (object_is_armour(o_ptr))
             {
                 brand_armour_aux(item);
+                o_ptr->discount = 99;
                 okay = TRUE;
             }
         }
@@ -1485,7 +1487,7 @@ static _spell_t __spells[] =
         { 18,  70, _psionic_clarity2_spell },
         { 36, 120, _psionic_clarity3_spell },
         { 60, 160, _psionic_clarity4_spell },
-        { 90, 212, _psionic_clarity5_spell }},
+        { 90, 200, _psionic_clarity5_spell }},
         "Psionic Clarity focuses the mind of the psion. While only active for "
         "a short while, this power lowers the casting costs of all other psionic "
         "powers and can be quite useful. However, the utility of Psionic Clarity "

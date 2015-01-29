@@ -5030,7 +5030,7 @@ void apply_magic(object_type *o_ptr, int lev, u32b mode)
 
         case TV_SWORD:
         {
-            if (object_is_(o_ptr, TV_SWORD, SV_DRAGON_FANG))
+            if (object_is_(o_ptr, TV_SWORD, SV_DRAGON_FANG) && !(mode & AM_CRAFTING))
             {
                 if (cheat_peek) object_mention(o_ptr);
                 dragon_resist(o_ptr);
@@ -5066,7 +5066,7 @@ void apply_magic(object_type *o_ptr, int lev, u32b mode)
                 o_ptr->pval = randint1(4);
             }
 
-            if (object_is_dragon_armor(o_ptr))
+            if (object_is_dragon_armor(o_ptr) && !(mode & AM_CRAFTING))
             {
                 if (cheat_peek) object_mention(o_ptr);
                 dragon_resist(o_ptr);
