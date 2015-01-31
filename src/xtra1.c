@@ -4425,6 +4425,7 @@ void calc_bonuses(void)
 
         /* Two Handed wielding bonus */
         if ( p_ptr->weapon_info[i].wield_how == WIELD_TWO_HANDS 
+          && p_ptr->pclass != CLASS_DUELIST 
           && !p_ptr->weapon_info[i].omoi )
         {
             int bonus_to_h=0, bonus_to_d=0;

@@ -494,6 +494,7 @@ critical_t critical_norm(int weight, int plus, s16b meichuu, int mode, int hand)
 
     if ( equip_is_valid_hand(hand)
       && p_ptr->weapon_info[hand].wield_how == WIELD_TWO_HANDS
+      && p_ptr->pclass != CLASS_DUELIST 
       && !p_ptr->weapon_info[hand].omoi )
     {
         roll = roll * 2 / 3;
@@ -2830,7 +2831,7 @@ static bool py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
     if (mode == MAULER_KNOCKOUT_BLOW) bonus -= 50;
     if (mode == WEAPONMASTER_CUNNING_STRIKE) bonus += 20;
     if (mode == WEAPONMASTER_SMITE_EVIL && hand == 0 && (r_ptr->flags3 & RF3_EVIL)) bonus += 200;
-    if (duelist_attack) bonus += 100;
+    if (duelist_attack) bonus += p_ptr->lev;
 
     chance = (p_ptr->skills.thn + (bonus * BTH_PLUS_ADJ));
     if (chance > 0)
