@@ -30,25 +30,62 @@ static cptr wd_his[3] =
 #define plural(c,s,p) \
     (((c) == 1) ? (s) : (p))
 
+/* 
+Monster saving throws versus player attacks.
 
-/* Monster saving throws versus player attacks */
+I changed this to competing dice rolls. Evaluating this
+change is best done in a spread sheet, but here is a sample
+assuming end game max player power (CL50 + 18/*** save stat):
+
+ML MSave	Old MSave
+10	6.1%	0%
+20	11.7%	0%
+30	17.2%	0%
+40	22.8%	0%
+50	28.3%	10%
+60	33.9%	20%
+70	39.4%	30%
+80	45.0%	40%
+90	50.6%	50%
+100	55.5%	60%
+110	59.5%	70%
+120	62.9%	80%
+130	65.8%	90%
+140	68.2%	100%
+150	70.3%	100%
+
+The player is now slightly less overwhelming vs. weaker monsters
+while end game uniques keep their nearly 60% fail (Serpent goes from
+power 100 to 127 with this change so his save goes from 60% to 65%).
+ */
+
+static int _r_level(int r_idx)
+{
+    monster_race *r_ptr = &r_info[r_idx];
+    int           ml = r_ptr->level;
+
+    if (r_ptr->flags1 & RF1_UNIQUE)
+        ml += ml/5;
+    
+    if (r_ptr->flags2 & RF2_POWERFUL)
+        ml += 7;
+
+    return ml;
+}
+
 bool mon_save_p(int r_idx, int stat)
 {
-    int pl = p_ptr->lev * 2;
-    int ml = r_info[r_idx].save_level;
-    int s = 0;
+    int  pl = p_ptr->lev;
+    int  ml = _r_level(r_idx);
+    bool result = FALSE;
 
-    if (!ml)
-        ml = r_info[r_idx].level;
+    if (stat >= 0 && stat < 6) 
+        pl += p_ptr->stat_ind[stat] + 3;
 
-    /* Use linearized player stat for the power */
-    if (stat >= 0 && stat < 6) s = p_ptr->stat_ind[stat] + 3;
+    if (randint1(pl) <= randint1(ml)) 
+        result = TRUE;
 
-    /*if (p_ptr->wizard)
-        msg_format("MonSave: %d +d100 > %d + %d?", ml, pl, s);*/
-
-    if (ml + randint1(100) > pl + s) return TRUE;
-    return FALSE;
+    return result;
 }
 
 /*
