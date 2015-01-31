@@ -84,7 +84,7 @@ bool mon_save_p(int r_idx, int stat)
 
     if (randint1(pl) <= randint1(ml)) 
         result = TRUE;
-
+    
     return result;
 }
 
