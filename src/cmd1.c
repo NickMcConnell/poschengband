@@ -2755,7 +2755,7 @@ static bool py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
     switch (p_ptr->pclass)
     {
     case CLASS_DUELIST:
-        if (p_ptr->pclass == CLASS_DUELIST && c_ptr->m_idx == p_ptr->duelist_target_idx)
+        if (c_ptr->m_idx == p_ptr->duelist_target_idx)
             duelist_attack = TRUE;
         break;
 
@@ -3306,8 +3306,7 @@ static bool py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
                     && !mon_save_p(m_ptr->r_idx, A_DEX) )
                 {
                     msg_format("%^s is dealt a wounding strike.", m_name);
-                    k += randint1(3) * d;
-                    /*k += MIN(m_ptr->hp / 5, p_ptr->lev * 7);*/
+                    k += MIN(m_ptr->hp / 5, randint1(3) * d);
                     drain_result = k;
                 }
                 if ( p_ptr->lev >= 25    /* Stunning Blow */
@@ -3321,8 +3320,7 @@ static bool py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
                     && !mon_save_p(m_ptr->r_idx, A_DEX) )
                 {
                     msg_format("%^s is dealt a *WOUNDING* strike.", m_name);
-                    k += rand_range(2, 10) * d;
-                    /*k += MIN(m_ptr->hp * 2 / 5, (p_ptr->lev - 20) * 33);*/
+                    k += MIN(m_ptr->hp * 2 / 5, rand_range(2, 10) * d);
                     drain_result = k;
                 }
             }
@@ -4145,6 +4143,8 @@ static bool py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
 #if 1
     if (p_ptr->pclass == CLASS_MAULER)
         c_put_str(TERM_WHITE, format("Maul:%5d", dam_tot), 24, 0);    
+    if (p_ptr->pclass == CLASS_DUELIST)
+        c_put_str(TERM_WHITE, format("Duel:%5d", dam_tot), 24, 0);    
 #endif
 
 

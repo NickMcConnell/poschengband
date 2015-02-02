@@ -1739,7 +1739,7 @@ static int _plev(void)
 
 int subjugation_power(void)
 {
-    return _plev() + adj_stat_save[p_ptr->stat_ind[A_CHR]];
+    return MAX(1, _plev() + adj_stat_save[p_ptr->stat_ind[A_CHR]]);
 }
 
 static void _breathe_subjugation_spell(int cmd, variant *res)

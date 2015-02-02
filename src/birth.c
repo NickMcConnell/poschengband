@@ -2628,9 +2628,9 @@ static byte player_init[MAX_CLASS][3][2] =
     },
     {
         /* Duelist */
-        { TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR},
+        { TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
         { TV_SWORD, SV_RAPIER },
-        { TV_GLOVES, SV_SET_OF_GAUNTLETS },
+        { TV_POTION, SV_POTION_SPEED },
     },
     {
         /* Wild-Talent */

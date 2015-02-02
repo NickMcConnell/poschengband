@@ -146,6 +146,7 @@ bool object_is_favorite(object_type *o_ptr)
     case CLASS_MONK:
     case CLASS_FORCETRAINER:
     case CLASS_NINJA:
+    case CLASS_DUELIST:
         if (skills_weapon_is_icky(o_ptr->tval, o_ptr->sval))
             return FALSE;
         break;

@@ -70,6 +70,9 @@ static int _r_level(int r_idx)
     if (r_ptr->flags2 & RF2_POWERFUL)
         ml += 7;
 
+    if (ml < 1)
+        ml = 1;
+
     return ml;
 }
 
@@ -78,9 +81,12 @@ bool mon_save_p(int r_idx, int stat)
     int  pl = p_ptr->lev;
     int  ml = _r_level(r_idx);
     bool result = FALSE;
-
+    
     if (stat >= 0 && stat < 6) 
-        pl += p_ptr->stat_ind[stat] + 3;
+        pl += adj_stat_save[p_ptr->stat_ind[stat]];
+
+    if (pl < 1)
+        pl = 1;
 
     if (randint1(pl) <= randint1(ml)) 
         result = TRUE;

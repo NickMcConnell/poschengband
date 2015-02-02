@@ -5271,14 +5271,18 @@ static bool kind_is_tailored(int k_idx)
     case TV_SHIELD:
         return equip_can_wield_kind(k_ptr->tval, k_ptr->sval) 
             && p_ptr->pclass != CLASS_NINJA
-            && p_ptr->pclass != CLASS_MAULER;
+            && p_ptr->pclass != CLASS_MAULER
+            && p_ptr->pclass != CLASS_DUELIST;
 
     case TV_HARD_ARMOR:
     case TV_SOFT_ARMOR:
     case TV_DRAG_ARMOR:
         if ( p_ptr->pclass == CLASS_MONK
           || p_ptr->pclass == CLASS_FORCETRAINER
-          || p_ptr->pclass == CLASS_MYSTIC )
+          || p_ptr->pclass == CLASS_MYSTIC 
+          || p_ptr->pclass == CLASS_DUELIST
+          || p_ptr->pclass == CLASS_SCOUT
+          || p_ptr->pclass == CLASS_NINJA )
         {
             return k_ptr->weight <= 200;
         }

@@ -61,6 +61,7 @@ extern byte adj_gold[];
 extern byte adj_pseudo_id[];
 extern byte adj_exp_gain[];
 extern s16b adj_fear_m[];
+extern s16b adj_stat_save_fear[];
 extern s16b adj_stat_save[];
 extern byte warlock_damage_sides[];
 extern byte adj_int_dev[];
