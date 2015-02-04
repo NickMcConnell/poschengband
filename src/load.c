@@ -311,6 +311,9 @@ static void rd_monster(savefile_ptr file, monster_type *m_ptr)
         case SAVE_MON_PARALYZED:
             m_ptr->paralyzed = savefile_read_s16b(file);
             break;
+        case SAVE_MON_ANGER_CT:
+            m_ptr->anger_ct = savefile_read_byte(file);
+            break;
         /* default:
             TODO: Report an error back to the load routine!!*/
         }

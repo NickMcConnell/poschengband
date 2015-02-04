@@ -8768,7 +8768,7 @@ static cptr _rogue_pick_pocket(void)
               && ((r_ptr->flags1 & RF1_UNIQUE) || mon_save_p(m_ptr->r_idx, A_DEX)) )
             {
                 msg_format("%^s wakes up and looks very mad!", m_name);
-                m_ptr->smart |= SM_TICKED_OFF;
+                m_ptr->anger_ct++;
             }
             else
                 msg_format("%^s wakes up.", m_name);
@@ -8791,7 +8791,7 @@ static cptr _rogue_pick_pocket(void)
         if (allow_ticked_off(r_ptr))
         {
             msg_format("Failed! %^s wakes up and looks very mad!", m_name);
-            m_ptr->smart |= SM_TICKED_OFF;
+            m_ptr->anger_ct++;
         }
         else
             msg_format("Failed! %^s wakes up.", m_name);
@@ -8799,7 +8799,7 @@ static cptr _rogue_pick_pocket(void)
     else if (allow_ticked_off(r_ptr))
     {
         msg_format("Failed! %^s looks very mad!", m_name);
-        m_ptr->smart |= SM_TICKED_OFF;
+        m_ptr->anger_ct++;
     }
     else
     {
@@ -8883,7 +8883,7 @@ static cptr _rogue_negotiate(void)
                 if (mon_save_p(m_ptr->r_idx, A_CHR))
                 {
                     msg_format("%^s says 'Fool! Never trust a thief!'", m_name);
-                    m_ptr->smart |= SM_TICKED_OFF;
+                    m_ptr->anger_ct++;
                 }
                 else
                 {
@@ -8897,7 +8897,7 @@ static cptr _rogue_negotiate(void)
             else
             {
                 msg_format("%^s says 'Scoundrel!'", m_name);
-                m_ptr->smart |= SM_TICKED_OFF;
+                m_ptr->anger_ct++;
             }
         }
         else
@@ -8908,7 +8908,7 @@ static cptr _rogue_negotiate(void)
     else
     {
         msg_format("%^s is insulted you would ask such a question!", m_name);
-        m_ptr->smart |= SM_TICKED_OFF;
+        m_ptr->anger_ct++;
     }
     return "";
 }

@@ -55,8 +55,7 @@ static void _kiss_spell(int cmd, variant *res)
 
                     if (allow_ticked_off(r_ptr))
                     {
-                        msg_format("%^s is ticked off!", desc);
-                        m_ptr->smart |= SM_TICKED_OFF;
+                        m_ptr->anger_ct++;
                     }
 
                 }

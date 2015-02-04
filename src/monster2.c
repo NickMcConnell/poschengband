@@ -2031,13 +2031,23 @@ void monster_desc(char *desc, monster_type *m_ptr, int mode)
             strcat(desc, " [Guard Position]");
             break;
         case AI_MAINTAIN_DISTANCE:
-            strcat(desc, " [Keep Distance]");
+        {
+            char buf[100];
+            sprintf(buf, " [Keep Distance of %d]", pack_info_list[m_ptr->pack_idx].distance);
+            strcat(desc, buf);
             break;
         }
+        }
+    }
+    if (p_ptr->wizard && m_ptr->anger_ct)
+    {
+        char buf[100];
+        sprintf(buf, " (Anger = %d)", m_ptr->anger_ct);
+        strcat(desc, buf);
     }
     if (p_ptr->wizard && m_ptr->summon_ct)
     {
-        strcat(desc, format("(%d summons)", m_ptr->summon_ct));
+        strcat(desc, format(" (%d summons)", m_ptr->summon_ct));
     }
 }
 

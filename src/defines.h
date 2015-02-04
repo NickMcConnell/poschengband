@@ -2399,7 +2399,7 @@ enum _mimic_types {
 #define SM_OPP_FIRE             0x00040000
 #define SM_OPP_COLD             0x00080000
 #define SM_OPP_POIS             0x00100000
-#define SM_TICKED_OFF           0x00200000
+#define SM_TICKED_OFF_XXX       0x00200000  /* I replaced this with m_ptr->anger_ct */
 #define SM_CLONED               0x00400000
 #define SM_PET                  0x00800000
 #define SM_IMM_ACID             0x01000000
@@ -5562,6 +5562,7 @@ enum mon_save_fields_e {
     SAVE_MON_STOLEN_CT,
     SAVE_MON_PEXP,
     SAVE_MON_PARALYZED,
+    SAVE_MON_ANGER_CT,
 };
 
 /* Sub-alignment flags for neutral monsters */

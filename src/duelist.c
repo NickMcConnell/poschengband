@@ -323,11 +323,7 @@ static void _darting_duel_spell(int cmd, variant *res)
                 if (r == _rush_succeeded && tmp == p_ptr->duelist_target_idx)
                 {
                     monster_type *m_ptr = &m_list[p_ptr->duelist_target_idx];
-                    if (!(m_ptr->smart & SM_TICKED_OFF))
-                    {
-                        msg_format("%^s is ticked off!", duelist_current_challenge());
-                        m_ptr->smart |= SM_TICKED_OFF;
-                    }
+                    m_ptr->anger_ct++;
                     teleport_player(10, TELEPORT_LINE_OF_SIGHT);
                 }
             }
