@@ -1667,7 +1667,7 @@ static void prt_speed(void)
             else if (MON_SLOW(m_ptr) && !MON_FAST(m_ptr)) attr = TERM_VIOLET;
             else attr = TERM_GREEN;
         }
-        else if ((is_fast && !p_ptr->slow) || IS_LIGHT_SPEED()) attr = TERM_YELLOW;
+        else if ((is_fast && !p_ptr->slow) || IS_LIGHT_SPEED() || psion_speed()) attr = TERM_YELLOW;
         else if (p_ptr->slow && !is_fast) attr = TERM_VIOLET;
         else attr = TERM_L_GREEN;
         sprintf(buf, "Fast(+%d)", (i - 110));

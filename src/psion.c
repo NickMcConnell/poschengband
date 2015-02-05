@@ -238,6 +238,7 @@ bool psion_process_monster(int m_idx)
         char m_name[255];
 
         monster_desc(m_name, m_ptr, 0);
+        anger_monster(m_ptr);
 
         if (psion_mon_save_p(m_ptr->r_idx, m_ptr->ego_whip_pow))
         {
@@ -251,6 +252,8 @@ bool psion_process_monster(int m_idx)
             msg_format("Your ego whip lashes %s!", m_name);
             result = mon_take_hit(m_idx, spell_power(40*m_ptr->ego_whip_pow), &fear, NULL);
             m_ptr->ego_whip_ct--;
+            if (!projectable(py, px, m_ptr->fy, m_ptr->fx))
+                m_ptr->anger_ct++;
             if (!m_ptr->ego_whip_ct)
             {
                 msg_format("Your ego whip on %s disappears.", m_name);
