@@ -3114,11 +3114,7 @@ static void calc_torch(void)
     if (p_ptr->cur_lite < 0) p_ptr->cur_lite = 0;
 
     if (p_ptr->tim_superstealth)
-    {
-        p_ptr->cur_lite -= 3;
-        if (p_ptr->cur_lite < 0)
-            p_ptr->cur_lite = 0;
-    }
+        p_ptr->cur_lite = 0;
 
     /* Notice changes in the "lite radius" */
     if (p_ptr->old_lite != p_ptr->cur_lite)
