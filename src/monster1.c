@@ -35,7 +35,7 @@ Monster saving throws versus player attacks.
 
 I changed this to competing dice rolls. Evaluating this
 change is best done in a spread sheet, but here is a sample
-assuming end game max player power (CL50 + 18/*** save stat):
+assuming end game max player power (CL50 + max save stat):
 
 ML MSave	Old MSave
 10	6.1%	0%

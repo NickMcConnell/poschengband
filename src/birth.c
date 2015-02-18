@@ -2141,7 +2141,7 @@ static void player_wipe(void)
     p_ptr->visit = 1;
     p_ptr->wild_mode = FALSE;
 
-    for (i = 0; i < 108; i++)
+    for (i = 0; i < MAX_MAGIC_NUM; i++)
     {
         p_ptr->magic_num1[i] = 0;
         p_ptr->magic_num2[i] = 0;

@@ -1388,8 +1388,8 @@ struct player_type
     s16b weapon_exp[5][64];   /* Proficiency of weapons */
     s16b skill_exp[10];       /* Proficiency of misc. skill */
 
-    s32b magic_num1[108];     /* Array for non-spellbook type magic */
-    byte magic_num2[108];     /* Flags for non-spellbook type magics */
+    s32b magic_num1[MAX_MAGIC_NUM];     /* Array for non-spellbook type magic */
+    byte magic_num2[MAX_MAGIC_NUM];     /* Flags for non-spellbook type magics */
 
     s16b mane_spell[MAX_MANE];
     s16b mane_dam[MAX_MANE];

@@ -2080,7 +2080,6 @@ static void do_name_pet(void)
     monster_type *m_ptr;
     char out_val[20];
     char m_name[80];
-    bool old_name = FALSE;
     bool old_target_pet = target_pet;
 
     target_pet = TRUE;
@@ -2121,7 +2120,6 @@ static void do_name_pet(void)
         {
             /* Start with the old inscription */
             strcpy(out_val, quark_str(m_ptr->nickname));
-            old_name = TRUE;
         }
 
         /* Get a new inscription (possibly empty) */

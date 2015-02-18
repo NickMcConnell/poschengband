@@ -2,6 +2,8 @@
 
 #include "angband.h"
 
+#include <assert.h>
+
 bool is_pval_flag(int which)
 {
     switch (which)
@@ -71,8 +73,9 @@ bool have_pval_flags(u32b flgs[TR_FLAG_SIZE])
 bool object_is_mushroom(object_type *o_ptr)
 {
     bool result = FALSE;
+    assert(SV_FOOD_MIN_MUSHROOM == 0);
     if ( o_ptr->tval == TV_FOOD
-      && SV_FOOD_MIN_MUSHROOM <= o_ptr->sval
+      /*&& SV_FOOD_MIN_MUSHROOM <= o_ptr->sval gcc warning on 0 <= unsigned char always true */
       && o_ptr->sval <= SV_FOOD_MAX_MUSHROOM )
     {
         result = TRUE;

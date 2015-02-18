@@ -8122,7 +8122,7 @@ static void display_essence(void)
 
 static void drain_essence(void)
 {
-    int drain_value[sizeof(p_ptr->magic_num1) / sizeof(s32b)];
+    int drain_value[MAX_MAGIC_NUM];
     int i, item;
     int dec = 4;
     bool observe = FALSE;
@@ -8133,7 +8133,7 @@ static void drain_essence(void)
     byte iy, ix, marked, number;
     s16b next_o_idx, weight;
 
-    for (i = 0; i < sizeof(drain_value) / sizeof(int); i++)
+    for (i = 0; i < MAX_MAGIC_NUM; i++)
         drain_value[i] = 0;
 
     item_tester_hook = object_is_weapon_armour_ammo;
@@ -8292,7 +8292,7 @@ static void drain_essence(void)
     if (old_ac > o_ptr->ac) drain_value[TR_ES_AC] += (old_ac-o_ptr->ac)*10;
     if (old_to_a > o_ptr->to_a) drain_value[TR_ES_AC] += (old_to_a-o_ptr->to_a)*10;
 
-    for (i = 0; i < sizeof(drain_value) / sizeof(int); i++)
+    for (i = 0; i < MAX_MAGIC_NUM; i++)
     {
         drain_value[i] *= number;
         drain_value[i] = drain_value[i] * dec / 4;

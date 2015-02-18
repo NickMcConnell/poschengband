@@ -1507,7 +1507,7 @@ void display_equip(void)
                 attr = TERM_L_DARK;
         }
         else
-            sprintf(o_name, "");
+            sprintf(o_name, "%s", "");
 
         n = strlen(o_name);
         Term_putstr(3, r, n, attr, o_name);
@@ -2040,7 +2040,7 @@ int show_equip(int target_item, int mode)
                 out_color[k] = tval_to_attr[o_ptr->tval % 128];
         }
         else
-            sprintf(out_desc[k], "");
+            sprintf(out_desc[k], "%s", "");
 
         out_index[k] = i;
 
@@ -4626,7 +4626,7 @@ void py_pickup_floor(bool pickup)
     char o_name[MAX_NLEN];
     object_type *o_ptr;
 
-    int floor_num = 0, floor_list[23], floor_o_idx = 0;
+    int floor_num = 0, floor_o_idx = 0;
 
     int can_pickup = 0;
 
@@ -4685,10 +4685,6 @@ void py_pickup_floor(bool pickup)
         {
             can_pickup++;
         }
-
-        /* Remember this object index */
-        if (floor_num < 23)
-            floor_list[floor_num] = this_o_idx;
 
         /* Count non-gold objects */
         floor_num++;

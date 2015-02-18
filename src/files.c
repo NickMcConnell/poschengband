@@ -3599,7 +3599,7 @@ static void dump_aux_class_special(FILE *fff)
 
         for (i=0;i<=col;i++)
         {
-            fprintf(fff, p[i]);
+            fprintf(fff, "%s", p[i]);
         }
     }
 }
@@ -6441,7 +6441,6 @@ errr counts_write(int where, u32b count)
 
 
 #ifdef HANDLE_SIGNALS
-
 
 #include <signal.h>
 
