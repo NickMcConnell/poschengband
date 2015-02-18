@@ -770,10 +770,11 @@ enum _mimic_types {
     /* Vampires only, please :) */
     MIMIC_BAT,
     MIMIC_MIST,
-    MIMIC_WOLF
+    MIMIC_WOLF,
+    MIMIC_MAX
 };
 
-#define prace_is_(A) (p_ptr->mimic_form == (A) || (p_ptr->mimic_form == MIMIC_NONE && p_ptr->prace == (A)))
+/*#define prace_is_(A) (p_ptr->mimic_form == (A) || (p_ptr->mimic_form == MIMIC_NONE && (A) < MAX_RACES && p_ptr->prace == (A)))*/
 #define psubclass_is_(A, B) (p_ptr->pclass == (A) && p_ptr->psubclass == (B))
 #define weaponmaster_is_(B) (p_ptr->pclass == CLASS_WEAPONMASTER && p_ptr->psubclass == (B))
 #define devicemaster_is_(B) (p_ptr->pclass == CLASS_DEVICEMASTER && p_ptr->psubclass == (B))

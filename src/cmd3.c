@@ -1473,7 +1473,7 @@ void do_cmd_list_monsters(void)
         int               cx, cy, row = 1, col;
 
         /* Sort */
-        order = C_MAKE(order, ct_types, int);
+        C_MAKE(order, ct_types, int);
 
         i = 0;
         for (iter = int_map_iter_alloc(info); 

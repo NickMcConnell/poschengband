@@ -1970,6 +1970,7 @@ extern bool multiply_barrier(int m_idx);
 
 /* races.c */
 extern int get_race_idx(cptr name);
+extern bool prace_is_(int which);
 extern race_t *get_race_t(void);      /* Actual Race (cf Mimics) */
 extern race_t *get_true_race_t(void); /* True Race */
 extern race_t *get_race_t_aux(int prace, int psubrace);
