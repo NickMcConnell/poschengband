@@ -5679,7 +5679,7 @@ static void print_tomb(void)
         char   dummy[80];
         char   *t;
         FILE   *fp;
-        time_t ct = time((time_t)0);
+        time_t ct = time(0);
 
         /* Clear screen */
         Term_clear();

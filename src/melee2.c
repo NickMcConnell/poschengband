@@ -2433,7 +2433,7 @@ static void process_monster(int m_idx)
         ((((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->flags7 & RF7_NAZGUL)) &&
           monster_has_hostile_align(NULL, 10, -10, r_ptr))))
     {
-        if (!p_ptr->prace == RACE_MON_RING)
+        if (p_ptr->prace != RACE_MON_RING)
             gets_angry = TRUE;
     }
 

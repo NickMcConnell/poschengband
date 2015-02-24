@@ -1769,8 +1769,8 @@ void prt_path(int y, int x)
             byte a = default_color;
             char c;
 
-            byte ta;
-            char tc;
+            byte ta = 0;
+            char tc = 0;
 
             if (c_ptr->m_idx && m_list[c_ptr->m_idx].ml)
             {
@@ -5128,9 +5128,6 @@ void scatter(int *yp, int *xp, int y, int x, int d, int m)
 {
     int nx, ny;
 
-    /* Unused */
-    m = m;
-
     /* Pick a location */
     while (TRUE)
     {
@@ -5212,9 +5209,6 @@ void object_kind_track(int k_idx)
  */
 void disturb(int stop_search, int unused_flag)
 {
-    /* Unused */
-    unused_flag = unused_flag;
-
     /* Cancel auto-commands */
     /* command_new = 0; */
 

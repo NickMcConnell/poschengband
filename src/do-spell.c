@@ -7989,7 +7989,7 @@ static cptr do_hex_spell(int spell, int mode)
             object_desc(o_name, o_ptr, OD_NAME_ONLY);
             object_flags(o_ptr, f);
 
-            if (!get_check(format("Do you curse %s, really¡©", o_name))) return FALSE;
+            if (!get_check(format("Do you curse %s, really?", o_name))) return FALSE;
 
             if (!one_in_(3) &&
                 (object_is_artifact(o_ptr) || have_flag(f, TR_BLESSED)))
@@ -8281,7 +8281,7 @@ static cptr do_hex_spell(int spell, int mode)
             object_desc(o_name, o_ptr, OD_NAME_ONLY);
             object_flags(o_ptr, f);
 
-            if (!get_check(format("Do you curse %s, really¡©", o_name))) return FALSE;
+            if (!get_check(format("Do you curse %s, really?", o_name))) return FALSE;
 
             if (!one_in_(3) &&
                 (object_is_artifact(o_ptr) || have_flag(f, TR_BLESSED)))

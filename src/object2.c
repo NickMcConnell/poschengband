@@ -7083,7 +7083,7 @@ s16b inven_takeoff(int item, int amt)
 
     object_type *o_ptr;
 
-    cptr act;
+    cptr act = "";
 
     char o_name[MAX_NLEN];
 
