@@ -1205,8 +1205,7 @@ errr init_gcu(int argc, char *argv[])
    /* Unused */
    (void)argc;
    (void)argv;
-
-
+   
 #ifdef USE_SOUND
 
    /* Build the "sound" path */
@@ -1219,6 +1218,9 @@ errr init_gcu(int argc, char *argv[])
 
    /* Extract the normal keymap */
    keymap_norm_prepare();
+
+   if (!getenv("ESCDELAY"))
+       putenv("ESCDELAY=20");
 
 #if defined(USG)
    /* Initialize for USG Unix */

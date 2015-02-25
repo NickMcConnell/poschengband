@@ -1501,6 +1501,7 @@ extern bool get_check_strict(cptr prompt, int mode);
 extern bool get_com(cptr prompt, char *command, bool z_escape);
 extern s16b get_quantity(cptr prompt, int max);
 extern void pause_line(int row);
+extern void pause_line_aux(cptr prompt, int row, int col);
 extern void request_command(int shopping);
 extern bool is_a_vowel(int ch);
 extern int get_keymap_dir(char ch);

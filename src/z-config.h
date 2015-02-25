@@ -96,7 +96,6 @@
 # define USE_GETCH
 #endif
 
-
 /*
  * OPTION: Use the "curs_set()" call in "main-gcu.c".
  * Hack -- This option will not work on most BSD machines
