@@ -1926,13 +1926,24 @@ bool mon_hook_dungeon(int r_idx)
     }
 }
 
+static bool _mon_hook_wild_daytime_check(int r_idx)
+{
+    bool result = TRUE;
+    if (is_daytime())
+    {
+        monster_race *r_ptr = &r_info[r_idx];
+        if (r_ptr->flags3 & RF3_HURT_LITE)
+            return FALSE;
+    }
+    return result;
+}
 
 static bool mon_hook_ocean(int r_idx)
 {
     monster_race *r_ptr = &r_info[r_idx];
 
     if (r_ptr->flags8 & RF8_WILD_OCEAN)
-        return TRUE;
+        return _mon_hook_wild_daytime_check(r_idx);
     else
         return FALSE;
 }
@@ -1943,7 +1954,7 @@ static bool mon_hook_shore(int r_idx)
     monster_race *r_ptr = &r_info[r_idx];
 
     if (r_ptr->flags8 & RF8_WILD_SHORE)
-        return TRUE;
+        return _mon_hook_wild_daytime_check(r_idx);
     else
         return FALSE;
 }
@@ -1954,7 +1965,7 @@ static bool mon_hook_waste(int r_idx)
     monster_race *r_ptr = &r_info[r_idx];
 
     if (r_ptr->flags8 & (RF8_WILD_WASTE | RF8_WILD_ALL))
-        return TRUE;
+        return _mon_hook_wild_daytime_check(r_idx);
     else
         return FALSE;
 }
@@ -1965,7 +1976,7 @@ static bool mon_hook_town(int r_idx)
     monster_race *r_ptr = &r_info[r_idx];
 
     if (r_ptr->flags8 & (RF8_WILD_TOWN | RF8_WILD_ALL))
-        return TRUE;
+        return _mon_hook_wild_daytime_check(r_idx);
     else
         return FALSE;
 }
@@ -1976,7 +1987,7 @@ static bool mon_hook_wood(int r_idx)
     monster_race *r_ptr = &r_info[r_idx];
 
     if (r_ptr->flags8 & (RF8_WILD_WOOD | RF8_WILD_ALL))
-        return TRUE;
+        return _mon_hook_wild_daytime_check(r_idx);
     else
         return FALSE;
 }
@@ -1987,7 +1998,7 @@ static bool mon_hook_volcano(int r_idx)
     monster_race *r_ptr = &r_info[r_idx];
 
     if (r_ptr->flags8 & RF8_WILD_VOLCANO)
-        return TRUE;
+        return _mon_hook_wild_daytime_check(r_idx);
     else
         return FALSE;
 }
@@ -1998,7 +2009,7 @@ static bool mon_hook_mountain(int r_idx)
     monster_race *r_ptr = &r_info[r_idx];
 
     if (r_ptr->flags8 & RF8_WILD_MOUNTAIN)
-        return TRUE;
+        return _mon_hook_wild_daytime_check(r_idx);
     else
         return FALSE;
 }
@@ -2009,7 +2020,7 @@ static bool mon_hook_grass(int r_idx)
     monster_race *r_ptr = &r_info[r_idx];
 
     if (r_ptr->flags8 & (RF8_WILD_GRASS | RF8_WILD_ALL))
-        return TRUE;
+        return _mon_hook_wild_daytime_check(r_idx);
     else
         return FALSE;
 }
@@ -2022,7 +2033,7 @@ static bool mon_hook_deep_water(int r_idx)
     if (!mon_hook_dungeon(r_idx)) return FALSE;
 
     if (r_ptr->flags7 & RF7_AQUATIC)
-        return TRUE;
+        return _mon_hook_wild_daytime_check(r_idx);
     else
         return FALSE;
 }
@@ -2037,7 +2048,7 @@ static bool mon_hook_shallow_water(int r_idx)
     if (r_ptr->flags2 & RF2_AURA_FIRE)
         return FALSE;
     else
-        return TRUE;
+        return _mon_hook_wild_daytime_check(r_idx);
 }
 
 
@@ -2050,7 +2061,7 @@ static bool mon_hook_lava(int r_idx)
     if (((r_ptr->flagsr & RFR_EFF_IM_FIRE_MASK) ||
          (r_ptr->flags7 & RF7_CAN_FLY)) &&
         !(r_ptr->flags3 & RF3_AURA_COLD))
-        return TRUE;
+        return _mon_hook_wild_daytime_check(r_idx);
     else
         return FALSE;
 }
