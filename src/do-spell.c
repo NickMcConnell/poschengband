@@ -7281,10 +7281,6 @@ static cptr do_music_spell(int spell, int mode)
 
             if (info) return info_radius(rad);
 
-            /*
-             * 歌の開始時にも効果発動：
-             * MP不足で鑑定が発動される前に歌が中断してしまうのを防止。
-             */
             if (cont || cast)
             {
                 project(0, rad, py, px, 0, GF_IDENTIFY, PROJECT_ITEM, -1);
@@ -7427,10 +7423,6 @@ static cptr do_music_spell(int spell, int mode)
         }
 
         {
-            /*
-             * 歌の開始時にも効果発動：
-             * MP不足で効果が発動される前に歌が中断してしまうのを防止。
-             */
             if (cont || cast)
             {
                 project(0, 0, py, px,

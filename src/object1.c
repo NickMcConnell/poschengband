@@ -2622,9 +2622,6 @@ bool get_item(int *cp, cptr pmt, cptr str, int mode)
     }
 
 
-    /*
-     * 追加オプション(always_show_list)が設定されている場合は常に一覧を表示する
-     */
     if ((always_show_list == TRUE) || use_menu) command_see = TRUE;
 
     /* Hack -- start out in "display" mode */
@@ -3653,9 +3650,6 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
         }
     }
 
-    /*
-     * 追加オプション(always_show_list)が設定されている場合は常に一覧を表示する
-     */
     if ((always_show_list == TRUE) || use_menu) command_see = TRUE;
 
     /* Hack -- start out in "display" mode */

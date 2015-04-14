@@ -45,8 +45,8 @@ bool allow_ticked_off(monster_race *r_ptr)
  */
 static void next_mirror( int* next_y , int* next_x , int cury, int curx)
 {
-    int mirror_x[10],mirror_y[10]; /* 鏡はもっと少ない */
-    int mirror_num=0;              /* 鏡の数 */
+    int mirror_x[10],mirror_y[10];
+    int mirror_num=0;
     int x,y;
     int num;
 
@@ -8947,15 +8947,14 @@ bool project(int who, int rad, int y, int x, int dam, int typ, int flg, int mons
 
 bool binding_field( int dam )
 {
-    int mirror_x[10],mirror_y[10]; /* 鏡はもっと少ない */
-    int mirror_num=0;              /* 鏡の数 */
+    int mirror_x[10],mirror_y[10];
+    int mirror_num=0;
     int x,y;
     int centersign;
     int x1,x2,y1,y2;
     u16b p;
     int msec= delay_factor*delay_factor*delay_factor;
 
-    /* 三角形の頂点 */
     int point_x[3];
     int point_y[3];
 

@@ -2432,8 +2432,8 @@ static bool eval_ac(int iAC)
     for (col = 17 + 1, lvl = 0; lvl <= 100; lvl += 10, col += 5)
     {
         int quality = 60 + lvl * 3; /* attack quality with power 60 */
-        int dodge;   /* 回避率(%) */
-        int average; /* ダメージ期待値 */
+        int dodge;
+        int average;
 
         put_str(format("%3d", lvl), row + 0, col);
 
@@ -3645,7 +3645,6 @@ static bool research_mon(void)
         /* Require unique monsters if needed */
         if (uniq && !(r_ptr->flags1 & (RF1_UNIQUE))) continue;
 
-        /* 名前検索 */
         if (temp[0])
         {
             int xx;

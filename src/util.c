@@ -1819,7 +1819,6 @@ static char inkey_aux(void)
 
     char *buf = inkey_macro_trigger_string;
 
-    /* Hack : キー入力待ちで止まっているので、流れた行の記憶は不要。 */
     num_more = 0;
 
     if (parse_macro)
@@ -2562,7 +2561,7 @@ void message_add(cptr str)
         }
         else
         {
-            num_more++;/*流れた行の数を数えておく */
+            num_more++;
             now_message++;
         }
 
@@ -2760,13 +2759,13 @@ static void msg_flush(int x)
         {
             int cmd = inkey();
             if (cmd == ESCAPE) {
-                num_more = -9999; /*auto_moreのとき、全て流す。 */
+                num_more = -9999;
                 break;
             } else if (cmd == ' ') {
-                num_more = 0; /*１画面だけ流す。 */
+                num_more = 0;
                 break;
             } else if ((cmd == '\n') || (cmd == '\r')) {
-                num_more--; /*１行だけ流す。 */
+                num_more--;
                 break;
             }
             if (quick_messages) break;

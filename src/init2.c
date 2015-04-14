@@ -1505,11 +1505,6 @@ static errr init_towns(void)
 
             /* Assume full stock */
 
-        /*
-         * 我が家が 20 ページまで使える隠し機能のための準備。
-         * オプションが有効でもそうでなくても一応スペース
-         * を作っておく。
-         */
         if (j == STORE_HOME)
         {
             st_ptr->stock_size = (STORE_INVEN_MAX * 10);

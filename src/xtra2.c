@@ -289,7 +289,6 @@ void check_experience(void)
         /* Window stuff */
         p_ptr->window |= (PW_PLAYER | PW_SPELL | PW_INVEN);
 
-        /* HPとMPの上昇量を表示 */
         level_up = 1;
 
         /* Handle stuff */
@@ -3621,7 +3620,7 @@ static bool ang_sort_comp_importance(vptr u, vptr v, int a, int b)
         if ((ap_ra_ptr->flags1 & RF1_UNIQUE) && !(ap_rb_ptr->flags1 & RF1_UNIQUE)) return TRUE;
         if (!(ap_ra_ptr->flags1 & RF1_UNIQUE) && (ap_rb_ptr->flags1 & RF1_UNIQUE)) return FALSE;
 
-        /* Shadowers first (あやしい影) */
+        /* Shadowers first */
         if ((ma_ptr->mflag2 & MFLAG2_KAGE) && !(mb_ptr->mflag2 & MFLAG2_KAGE)) return TRUE;
         if (!(ma_ptr->mflag2 & MFLAG2_KAGE) && (mb_ptr->mflag2 & MFLAG2_KAGE)) return FALSE;
 
@@ -5733,9 +5732,6 @@ bool get_hack_dir(int *dp)
 }
 
 
-/*
- * エネルギーの増加量10d5を速く計算するための関数
- */
 
 #define Go_no_JuuJou 5*5*5*5*5*5*5*5*5*5
 

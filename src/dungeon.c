@@ -6233,10 +6233,6 @@ s32b turn_real(s32b hoge)
     }
 }
 
-/*
- * ターンのオーバーフローに対する対処
- * ターン及びターンを記録する変数をターンの限界の1日前まで巻き戻す.
- */
 void prevent_turn_overflow(void)
 {
     int rollback_days, i, j;

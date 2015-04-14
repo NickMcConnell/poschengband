@@ -1245,17 +1245,13 @@ static void prt_ac(void)
  */
 static void prt_hp(void)
 {
-/* ヒットポイントの表示方法を変更 */
     char tmp[32];
   
     byte color;
   
-    /* タイトル */
-/*    put_str(" ＨＰ・ＭＰ", ROW_HPMP, COL_HPMP); */
 
     put_str("HP", ROW_CURHP, COL_CURHP);
 
-    /* 現在のヒットポイント */
     sprintf(tmp, "%4d", p_ptr->chp);
 
     if (p_ptr->chp >= p_ptr->mhp)
@@ -1273,10 +1269,8 @@ static void prt_hp(void)
 
     c_put_str(color, tmp, ROW_CURHP, COL_CURHP+3);
 
-    /* 区切り */
     put_str( "/", ROW_CURHP, COL_CURHP + 7 );
 
-    /* 最大ヒットポイント */
     sprintf(tmp, "%4d", p_ptr->mhp);
     color = TERM_L_GREEN;
 

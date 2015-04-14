@@ -6017,8 +6017,6 @@ void close_game(void)
     char buf[1024];
     bool do_send = TRUE;
 
-/*    cptr p = "[i:キャラクタの情報, f:ファイル書き出し, t:スコア, x:*鑑定*, ESC:ゲーム終了]"; */
-
     /* Handle stuff */
     handle_stuff();
 

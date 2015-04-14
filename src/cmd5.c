@@ -1817,8 +1817,6 @@ bool rakuba(int dam, bool force)
             int cur = skills_riding_current();
             int max = skills_riding_max();
             int ridinglevel = r_ptr->level;
-
-            /* 落馬のしやすさ */
             int rakubalevel = r_ptr->level;
             if (p_ptr->riding_ryoute) rakubalevel += 20;
 
@@ -1835,7 +1833,6 @@ bool rakuba(int dam, bool force)
                 p_ptr->skill_exp[SKILL_RIDING] = MIN(max, cur + inc);
             }
 
-            /* レベルの低い乗馬からは落馬しにくい */
             if (randint0(dam / 2 + rakubalevel * 2) < cur / 30 + 10)
             {
                 if ((((p_ptr->pclass == CLASS_BEASTMASTER) || (p_ptr->pclass == CLASS_CAVALRY)) && !p_ptr->riding_ryoute) || !one_in_(p_ptr->lev*(p_ptr->riding_ryoute ? 2 : 3) + 30))
