@@ -2943,7 +2943,7 @@ static bool py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
             }
 
             if (backstab) msg_format("You cruelly stab %s!", m_name);
-            else if (fuiuchi) msg_format("You make surprise attack, and hit %s with a powerful blow!", m_name);
+            else if (fuiuchi) msg_format("You make a surprise attack, and hit %s with a powerful blow!", m_name);
             else if (stab_fleeing) msg_format("You backstab %s!",  m_name);
             else if (perfect_strike) msg_format("You land a perfect strike against %s.", m_name);
             else if (!monk_attack) msg_format("You hit %s.", m_name);

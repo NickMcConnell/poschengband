@@ -3277,11 +3277,11 @@ void update_mon_lite(void)
         {
             if (p_ptr->monlite)
             {
-                msg_print("Your mantle of shadow become thin.");
+                msg_print("Your mantle of shadow becomes thin.");
             }
             else
             {
-                msg_print("Your mantle of shadow restored its original darkness.");
+                msg_print("Your mantle of shadow is restored to its original darkness.");
             }
         }
     }
