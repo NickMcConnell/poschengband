@@ -2154,8 +2154,8 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
         }
     }
 
-#ifdef _DEBUG
-    if ( object_is_known(o_ptr)
+    if ( (abbrev_extra || abbrev_all)
+      && (o_ptr->ident & IDENT_MENTAL)
       && obj_has_effect(o_ptr) )
     {
         char     buf[255];
@@ -2164,7 +2164,6 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
         sprintf(buf, " !! %s", do_effect(&e, SPELL_NAME, 0));
         strcat(tmp_val2, buf);
     }
-#endif
 
     if (o_ptr->name3 && object_is_known(o_ptr))
     {
