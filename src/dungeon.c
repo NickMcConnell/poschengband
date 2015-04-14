@@ -3955,9 +3955,9 @@ static void process_command(void)
                 msg_print("You are too scared!");
                 energy_use = 100;
             }
-            else if (dun_level && (d_info[dungeon_type].flags1 & DF1_NO_MAGIC) 
-                && p_ptr->pclass != CLASS_BERSERKER 
-                && p_ptr->pclass != CLASS_WEAPONSMITH 
+            else if (dun_level && (d_info[dungeon_type].flags1 & DF1_NO_MAGIC)
+                && p_ptr->pclass != CLASS_BERSERKER
+                && p_ptr->pclass != CLASS_WEAPONSMITH
                 && p_ptr->pclass != CLASS_BLOOD_KNIGHT
                 && p_ptr->pclass != CLASS_WEAPONMASTER
                 && p_ptr->pclass != CLASS_MAULER )
@@ -3965,11 +3965,11 @@ static void process_command(void)
                 msg_print("The dungeon absorbs all attempted magic!");
                 msg_print(NULL);
             }
-            else if (p_ptr->anti_magic 
-                    && p_ptr->pclass != CLASS_BERSERKER 
-                    && p_ptr->pclass != CLASS_WEAPONSMITH 
+            else if (p_ptr->anti_magic
+                    && p_ptr->pclass != CLASS_BERSERKER
+                    && p_ptr->pclass != CLASS_WEAPONSMITH
                     && p_ptr->pclass != CLASS_BLOOD_KNIGHT
-                    && p_ptr->pclass != CLASS_WEAPONMASTER 
+                    && p_ptr->pclass != CLASS_WEAPONMASTER
                     && p_ptr->pclass != CLASS_MAULER )
             {
                 cptr which_power = "magic";
@@ -3993,7 +3993,7 @@ static void process_command(void)
             }
             else if (IS_SHERO() && p_ptr->pclass != CLASS_BERSERKER && p_ptr->pclass != CLASS_BLOOD_KNIGHT && p_ptr->pclass != CLASS_RAGE_MAGE)
             {
-                msg_format("You cannot think directly!");
+                msg_format("You cannot think clearly!");
                 energy_use = 0;
             }
             else
