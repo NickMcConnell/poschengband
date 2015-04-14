@@ -1021,7 +1021,7 @@ struct player_seikaku
 
     s16b life;
 
-    byte XXX;            /* ¤Î */
+    byte XXX;            
     byte sex;            /* seibetu seigen */
 
     s16b a_exp;
