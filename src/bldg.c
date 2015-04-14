@@ -1702,7 +1702,7 @@ static bool kankin(void)
     object_type *o_ptr;
 
     /* Loop for inventory and right/left arm */
-    for (i = 0; i <= INVEN_TOTAL; i++)
+    for (i = 0; i < INVEN_TOTAL; i++)
     {
         o_ptr = &inventory[i];
 
