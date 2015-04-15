@@ -2161,7 +2161,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
         char     buf[255];
         effect_t e = obj_get_effect(o_ptr);
         
-        sprintf(buf, " !! %s", do_effect(&e, SPELL_NAME, 0));
+        sprintf(buf, " A:%s", do_effect(&e, SPELL_NAME, 0));
         strcat(tmp_val2, buf);
     }
 
