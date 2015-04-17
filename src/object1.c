@@ -438,7 +438,7 @@ bool screen_object(object_type *o_ptr, u32b mode)
     else
     {
         cptr text;
-        if (o_ptr->name1)
+        if (o_ptr->name1 && object_is_known(o_ptr))
             text = a_text + a_info[o_ptr->name1].text;
         else
             text = k_text + k_info[o_ptr->k_idx].text;
@@ -450,7 +450,7 @@ bool screen_object(object_type *o_ptr, u32b mode)
             info[i++] = "";
         }
     }
-    if (obj_has_effect(o_ptr))
+    if (obj_has_effect(o_ptr) && object_is_known(o_ptr))
     {
         char     scratch[70 * 20];
         effect_t e = obj_get_effect(o_ptr);
