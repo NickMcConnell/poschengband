@@ -195,8 +195,9 @@
 
 /* Debug options: To enable wizard commands in a custom build,
    simply remove the following #ifdef _DEBUG and #endif guards. */
-#ifdef _DEBUG
 #define ALLOW_WIZARD
+
+#ifdef _DEBUG
 #define ALLOW_SPOILERS
 #endif
 
