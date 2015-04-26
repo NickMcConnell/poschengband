@@ -754,6 +754,39 @@ static void Term_nuke_gcu(term *t)
 
 #ifdef USE_GETCH
 
+static int _getstr(char *buf, int cb)
+{
+    int   ct = 0, j;
+
+    buf[ct] = '\0';
+    nodelay(stdscr, TRUE);
+    for (;;)
+    {
+        if (ct >= cb - 1)
+            break;
+
+        j = getch();
+        if (j == ERR)
+            break;
+
+        buf[ct++] = (char)j;
+    }
+    buf[ct] = '\0';
+    nodelay(stdscr, FALSE);
+
+    return ct;
+}
+
+static void _ungetstr(const char *buf, int cb)
+{
+    int pos;
+    for (pos = cb - 1; pos >= 0; pos--)
+    {
+        char ch = buf[pos];
+        ungetch(ch);
+    }
+}
+
 /*
  * Process events, with optional wait
  */
@@ -794,6 +827,50 @@ static errr Term_xtra_gcu_event(int v)
       if (i == ERR) return (1);
       if (i == EOF) return (1);
    }
+
+   /* Issue: Currently, we map curses escape sequences via the macro processing system (see pref-gcu.prf).
+    * If you don't already know, this is required for things like arrow keys and the numpad and what not.
+    * The advantage of this approach is that users can (theoretically) edit the pref file themselves in
+    * the event that their terminal is sending a different escape sequence for some reason. All good, right?
+    * Well, except for those places in the code that *disable* macro processing! This includes all user prompts,
+    * the store UI (TODO) and the autopicker. Now, it's rather disconcerting if arrow keys aren't available in
+    * a text editor or if the user can't correct typos with backspace!
+    *
+    * The idea of translating here is from current Vanilla
+    * TODO */
+
+   /* Backspace */
+   if (i == 0x7F)
+      i = '\b';
+
+    if (i == 27) /* \e is not ansi c */
+    {
+        /*
+        char  buf[255];
+        int   cb = _getstr(buf, 255);
+        if (cb > 0)
+        {
+            if (strcmp(buf, "[3~") == 0)
+                i = '.';
+            else if (strcmp(buf, "[2~") == 0)
+                i = '0';
+            else if (strcmp(buf, "[4~") == 0)
+                i = '1';
+            else if (strcmp(buf, "[F") == 0)
+                i = '1';
+            else if (strcmp(buf, "[B") == 0)
+                i = '2';
+            ...
+            else
+                _ungetstr(buf, cb);
+        }
+        CTK: Actually, I'm not so sure this is going to work. Arrow keys need
+        to be known as such by the game engine not translated to numbers. And
+        looking at what main-win.c and main-x11.c do to get this working is ...
+        uh, a bit overwhelming. So this is on hold for now ...
+        */
+    }
+
 
    /* Enqueue the keypress */
    Term_keypress(i);
