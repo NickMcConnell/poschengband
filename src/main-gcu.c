@@ -1430,6 +1430,11 @@ errr init_gcu(int argc, char *argv[])
    /* Store */
    term_screen = &data[0].t;
 
+#ifdef USE_GETCH
+   /* Title screen (news.txt) won't draw otherwise for some reason ... */
+   wrefresh(stdscr);
+#endif
+
    /* Success */
    return (0);
 }
